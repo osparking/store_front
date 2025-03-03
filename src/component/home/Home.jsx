@@ -1,11 +1,15 @@
-import React from 'react'
+import React from "react";
+import { Col, Container, Row } from "react-bootstrap";
 
 const Home = () => {
   return (
-    <div>
-      제주 비자나무 향긋함을 품은 범이비누
-    </div>
-  )
-}
+    <Container>
+      <Row>
+        <Col> </Col>
+        <Col> </Col>
+      </Row>
+    </Container>
+  );
+};
 
-export default Home
+export default Home;
