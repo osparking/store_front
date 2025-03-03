@@ -3,7 +3,7 @@ import "./App.css";
 
 function App() {
   return (
-    <div>범이비누가 환영합니다.</div>
+    <div className="text-primary">범이비누가 환영합니다.</div>
   );
 }
 
