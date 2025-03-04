@@ -326,7 +326,6 @@ input[type="radio"] {
 
 /* End review styling */
 
-
 /* appointment Pie chart cell coloration */
 :root {
   --color-on-going: #78b517;
@@ -346,9 +345,6 @@ input[type="radio"] {
   --user-dashboard-background: #f5f5f5e0;
   /* Default color */
 }
-
-
-
 
 /* For home page */
 .card {
