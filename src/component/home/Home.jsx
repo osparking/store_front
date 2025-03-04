@@ -48,9 +48,8 @@ const Home = () => {
                 <ListGroup.Item>비누 재료</ListGroup.Item>
                 <ListGroup.Item>비누 제조 절차</ListGroup.Item>
                 <ListGroup.Item>비누 영상</ListGroup.Item>
-                <ListGroup.Item>고객 리뷰</ListGroup.Item>
                 <ListGroup.Item>질의 및 응답</ListGroup.Item>
-                <ListGroup.Item>의견 청취</ListGroup.Item>
+                <ListGroup.Item>고객님 의견</ListGroup.Item>
               </ListGroup>
               <Card.Text className='mt-3'>
                 고객님들의 성원과 참여도에 따라 재료 대량 구매, 생산 작업의 부분 자동화 
@@ -62,6 +61,12 @@ const Home = () => {
           </Card>
         </Col>
       </Row>
+      <div className='card'>
+        <p className="text-center">여기를 범이비누를 직접 구매ᐧ사용한 고객님들의 목소리가 있습니다.</p>
+        <h5>
+          <span className='text-info'> 고객님 리뷰</span>
+        </h5>
+      </div>
     </Container>
   );
 };
