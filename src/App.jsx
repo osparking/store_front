@@ -16,12 +16,7 @@ function App() {
 
   return (
     <main className="">
-      <BackgroundImageSlider>
-        <h4 className="text-primary text-center mt-5">
-          범이비누가 환영합니다.
-        </h4>
-        <Home />
-      </BackgroundImageSlider>
+      <RouterProvider router={router} />
     </main>
   );
 }
