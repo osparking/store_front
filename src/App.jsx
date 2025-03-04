@@ -1,8 +1,12 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
 import "./App.css";
 import Home from "./component/home/Home";
-import BackgroundImageSlider from "./component/common/BackgroundImageSlider";
-import { Route } from "react-router-dom";
 import RootLayout from "./component/layout/RootLayout";
 
 function App() {
