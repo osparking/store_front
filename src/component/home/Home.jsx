@@ -1,6 +1,7 @@
 import React from "react";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, ListGroup, Row } from "react-bootstrap";
 import olive_label from "../../assets/images/olive_label.jpg";
+import soap_rack from "../../assets/images/soap_rack.jpg";
 
 const Home = () => {
   return (
@@ -51,6 +52,12 @@ const Home = () => {
                 <ListGroup.Item>질의 및 응답</ListGroup.Item>
                 <ListGroup.Item>의견 청취</ListGroup.Item>
               </ListGroup>
+              <Card.Text className='mt-3'>
+                고객님들의 성원과 참여도에 따라 재료 대량 구매, 생산 작업의 부분 자동화 
+                등을 통하여 비누 가격이 내려갈 수 있으며, 에센셜 향오일을 사용하는 등의
+                품질 고급화 및 다양화가 가능할 수 있습니다.
+              </Card.Text>
+              <Button variant='outline-info'>범이비누 종류 보기</Button>
             </Card.Body>
           </Card>
         </Col>
