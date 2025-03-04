@@ -1,5 +1,6 @@
 import React from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import olive_label from "../../assets/images/olive_label.jpg";
 
 const Home = () => {
   return (
