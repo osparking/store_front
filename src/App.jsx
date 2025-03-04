@@ -5,8 +5,8 @@ import Home from "./component/home/Home";
 function App() {
   return (
     <main className="">
-      <div className="text-primary">범이비누가 환영합니다.</div>
-      <Home/>
+      <h4 className="text-primary text-center mt-5">범이비누가 환영합니다.</h4>
+      <Home />
     </main>
   );
 }

@@ -5,14 +5,15 @@ import soap_rack from "../../assets/images/soap_rack.jpg";
 
 const Home = () => {
   return (
-    <Container className="home-container mt-5">
+    <Container className="home-container mt-3">
       <Row>
-        <Col md={6} className="mb-5">
+        <Col md={6}>
           <Card>
             <Card.Img
               variant="top"
               src={olive_label}
               alt="엑스트라 버진 올리브 오일"
+              className="hero-image"
             />
             <Card.Body>
               <Card.Title>소중한 피부의 친구~</Card.Title>
@@ -38,33 +39,40 @@ const Home = () => {
             </Card.Body>
           </Card>
         </Col>
-        <Col md={6} className="mb-5">
+        <Col md={6}>
           <Card>
-            <Card.Img variant="top" src={soap_rack} alt="범이비누 정보" />
+            <Card.Img
+              variant="top"
+              src={soap_rack}
+              alt="범이비누 정보"
+              className="hero-image"
+            />
+            <h6 className="text-danger mb-3 ms-5">숙성 중인 범이비누</h6>
             <Card.Body>
-              <h2 className="text-info">손수 만든 범이비누</h2>
               <Card.Title>관련 정보 목록</Card.Title>
-              <ListGroup variant="flush" className="services-list">
+              <ListGroup className="services-list">
                 <ListGroup.Item>비누 재료</ListGroup.Item>
                 <ListGroup.Item>비누 제조 절차</ListGroup.Item>
                 <ListGroup.Item>비누 영상</ListGroup.Item>
                 <ListGroup.Item>질의 및 응답</ListGroup.Item>
                 <ListGroup.Item>고객님 의견</ListGroup.Item>
               </ListGroup>
-              <Card.Text className='mt-3'>
-                고객님들의 성원과 참여도에 따라 재료 대량 구매, 생산 작업의 부분 자동화 
-                등을 통하여 비누 가격이 내려갈 수 있으며, 에센셜 향오일을 사용하는 등의
-                품질 고급화 및 다양화가 가능할 수 있습니다.
+              <Card.Text className="mt-3">
+                고객님들의 성원과 참여도에 따라 재료 대량 구매, 생산 작업의 부분
+                자동화 등을 통하여 비누 가격이 내려갈 수 있으며, 에센셜 향오일을
+                사용하는 등의 품질 고급화 및 다양화가 가능할 수 있습니다.
               </Card.Text>
-              <Button variant='outline-info'>범이비누 종류 보기</Button>
+              <Button variant="outline-info">범이비누 종류 보기</Button>
             </Card.Body>
           </Card>
         </Col>
       </Row>
-      <div className='card'>
-        <p className="text-center">여기를 범이비누를 직접 구매ᐧ사용한 고객님들의 목소리가 있습니다.</p>
-        <h5>
-          <span className='text-info'> 고객님 리뷰</span>
+      <div className="card mb-5">
+        <p className="text-center">
+          여기를 범이비누를 직접 구매ᐧ사용한 고객님들의 목소리가 있습니다.
+        </p>
+        <h5 className="text-center">
+          <span className="text-info"> 고객님 리뷰</span>
         </h5>
       </div>
     </Container>
