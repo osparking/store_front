@@ -5,9 +5,9 @@ import soap_rack from "../../assets/images/soap_rack.jpg";
 
 const Home = () => {
   return (
-    <Container>
+    <Container className="home-container mt-5">
       <Row>
-        <Col>
+        <Col md={6} className="mb-5">
           <Card>
             <Card.Img
               variant="top"
@@ -38,13 +38,13 @@ const Home = () => {
             </Card.Body>
           </Card>
         </Col>
-        <Col>
+        <Col md={6} className="mb-5">
           <Card>
             <Card.Img variant="top" src={soap_rack} alt="범이비누 정보" />
             <Card.Body>
               <h2 className="text-info">손수 만든 범이비누</h2>
               <Card.Title>관련 정보 목록</Card.Title>
-              <ListGroup variant="flush">
+              <ListGroup variant="flush" className="services-list">
                 <ListGroup.Item>비누 재료</ListGroup.Item>
                 <ListGroup.Item>비누 제조 절차</ListGroup.Item>
                 <ListGroup.Item>비누 영상</ListGroup.Item>
