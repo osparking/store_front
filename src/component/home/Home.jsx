@@ -33,11 +33,27 @@ const Home = () => {
                 수제비누와 마찬가지로 제 허벅지 피부 가려움증을 거의 해소시켜
                 주었습니다.
               </Card.Text>
-              <Button variant="outline-info">범이비누를 만나보세요</Button>
+              <Button variant="outline-info">범이비누로 들어오세요</Button>
             </Card.Body>
           </Card>
         </Col>
-        <Col> </Col>
+        <Col>
+          <Card>
+            <Card.Img variant="top" src={soap_rack} alt="범이비누 정보" />
+            <Card.Body>
+              <h2 className="text-info">손수 만든 범이비누</h2>
+              <Card.Title>관련 정보 목록</Card.Title>
+              <ListGroup variant="flush">
+                <ListGroup.Item>비누 재료</ListGroup.Item>
+                <ListGroup.Item>비누 제조 절차</ListGroup.Item>
+                <ListGroup.Item>비누 영상</ListGroup.Item>
+                <ListGroup.Item>고객 리뷰</ListGroup.Item>
+                <ListGroup.Item>질의 및 응답</ListGroup.Item>
+                <ListGroup.Item>의견 청취</ListGroup.Item>
+              </ListGroup>
+            </Card.Body>
+          </Card>
+        </Col>
       </Row>
     </Container>
   );
