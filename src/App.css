@@ -379,7 +379,11 @@ input[type="radio"] {
   padding: 10px;
 }
 
-.label-color {
+.bumsoap-color-dark {
+  color: #6b4f0a;
+}
+
+.bumsoap-color {
   color: #b28c2b;
 }
 

@@ -47,7 +47,7 @@ const Home = () => {
               alt="범이비누 정보"
               className="hero-image"
             />
-            <h6 className="text-center mb-3 label-color">숙성 중인 범이비누</h6>
+            <h6 className="text-center mb-3 bumsoap-color">숙성 중인 범이비누</h6>
             <Card.Body>
               <Card.Title>관련 정보 목록</Card.Title>
               <ListGroup className="services-list">
