@@ -27,6 +27,20 @@ const RegisterUser = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await RegisterUser(user);
+      console.log("response: ", response);
+      setSuccessMsg(response.message);
+      setAlertSuccess(true);
+    } catch (error) {
+      console.log("error.response: ", error.response);
+      setErrorMsg(error.response.data.message);
+      setAlertError(true);
+    }
+  }
+
   return <div>유저 등록 정보 입력 폼</div>;
 };
 
