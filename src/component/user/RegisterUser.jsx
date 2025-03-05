@@ -139,6 +139,22 @@ const RegisterUser = () => {
                     </Row>
                   </Form.Group>
                 )}
+
+                <div className="d-flex justify-content-center mb-3 mt-3">
+                  <Button
+                    type="submit"
+                    variant="outline-primary"
+                    size="sm"
+                    className="me-2"
+                    disabled={isProcessing}
+                  >
+                    {isProcessing ? (
+                      <ProcessSpinner message="유저 등록" />
+                    ) : (
+                      "등록"
+                    )}
+                  </Button>
+                </div>
               </Card.Body>
             </Card>
           </Form>
