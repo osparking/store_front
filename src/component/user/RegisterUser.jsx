@@ -59,10 +59,22 @@ const RegisterUser = () => {
         <Col xs={12} md={8} lg={6}>
           <Form onSubmit={handleSubmit}>
             <Card className="shadow mb-5">
-              <Card.Header className="text-center">
-                사용자 등록
-              </Card.Header>
-              <Card.Body></Card.Body>
+              <Card.Header className="text-center">사용자 등록</Card.Header>
+              <Card.Body>
+                <Form.Group as={Row} controlId="full-name" className="mb-3">
+                  <Col xs={6} className="mb-2 mb-sm-0">
+                    <Form.Label>성명</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="fullName"
+                      placeholder="(성명)"
+                      value={user.lastName}
+                      onChange={handleChange}
+                      required
+                    />
+                  </Col>
+                </Form.Group>
+              </Card.Body>
             </Card>
           </Form>
         </Col>
