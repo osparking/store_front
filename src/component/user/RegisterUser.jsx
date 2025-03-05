@@ -74,6 +74,22 @@ const RegisterUser = () => {
                     />
                   </Col>
                 </Form.Group>
+
+                <fieldset>
+                  <legend>연락처</legend>
+                  <Row>
+                    <Col xs={6} className="mb-2 mb-sm-0">
+                      <Form.Control
+                        type="email"
+                        name="email"
+                        placeholder="(이메일)"
+                        value={user.email}
+                        onChange={handleChange}
+                        required
+                      />
+                    </Col>
+                  </Row>
+                </fieldset>
               </Card.Body>
             </Card>
           </Form>
