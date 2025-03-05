@@ -379,4 +379,8 @@ input[type="radio"] {
   padding: 10px;
 }
 
+.label-color {
+  color: #b28c2b;
+}
+
 /* End home page*/
