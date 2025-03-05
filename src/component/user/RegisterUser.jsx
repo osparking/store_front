@@ -100,6 +100,20 @@ const RegisterUser = () => {
                     </Col>
                   </Row>
                 </fieldset>
+
+                <Form.Group as={Row} controlId="password" className="mb-3">
+                  <Col>
+                    <Form.Label>패스워드</Form.Label>
+                    <Form.Control
+                      type="password"
+                      name="password"
+                      required
+                      placeholder="(비밀번호)"
+                      value={user.password}
+                      onChange={handleChange}
+                    />
+                  </Col>
+                </Form.Group>
               </Card.Body>
             </Card>
           </Form>
