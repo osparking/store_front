@@ -53,7 +53,20 @@ const RegisterUser = () => {
     });
   }
 
-  return <div>유저 등록 정보 입력 폼</div>;
+  return (
+    <Container className="mt-5">
+      <Row className="justify-content-center">
+        <Col xs={12} md={8} lg={6}>
+          <Form>
+            <Card>
+              <Card.Header></Card.Header>
+              <Card.Body></Card.Body>
+            </Card>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
+  );
 };
 
 export default RegisterUser
