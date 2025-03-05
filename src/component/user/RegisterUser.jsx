@@ -88,6 +88,16 @@ const RegisterUser = () => {
                         required
                       />
                     </Col>
+                    <Col xs={6}>
+                      <Form.Control
+                        type="text"
+                        name="mobile"
+                        placeholder="(휴대폰 번호)"
+                        value={user.mbPhone}
+                        onChange={handleInputChange}
+                        required
+                      />
+                    </Col>
                   </Row>
                 </fieldset>
               </Card.Body>
