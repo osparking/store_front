@@ -114,6 +114,23 @@ const RegisterUser = () => {
                     />
                   </Col>
                 </Form.Group>
+
+                <Form.Group as={Row} controlId="user-type" className="mb-3">
+                  <Col>
+                    <Form.Label>계정 유형</Form.Label>
+                    <Form.Control
+                      as="select"
+                      name="userType"
+                      required
+                      value={user.userType}
+                      onChange={handleChange}
+                    >
+                      <option value="">(계정 타입)</option>
+                      <option value="고객">고객</option>
+                      <option value="직원">직원</option>
+                    </Form.Control>
+                  </Col>
+                </Form.Group>                
               </Card.Body>
             </Card>
           </Form>
