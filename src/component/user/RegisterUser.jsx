@@ -23,6 +23,10 @@ const RegisterUser = () => {
     setAlertError,
   } = BsAlertHook();
 
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+
   return <div>유저 등록 정보 입력 폼</div>;
 };
 
