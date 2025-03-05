@@ -130,7 +130,15 @@ const RegisterUser = () => {
                       <option value="직원">직원</option>
                     </Form.Control>
                   </Col>
-                </Form.Group>                
+                </Form.Group>
+
+                {user.userType === "직원" && (
+                  <Form.Group>
+                    <Row>
+                      <Col>{/* 직원 소속 선택자 */}</Col>
+                    </Row>
+                  </Form.Group>
+                )}
               </Card.Body>
             </Card>
           </Form>
