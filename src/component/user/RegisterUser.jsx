@@ -103,7 +103,7 @@ const RegisterUser = () => {
                         name="mobile"
                         placeholder="(휴대폰 번호)"
                         value={user.mbPhone}
-                        onChange={handleInputChange}
+                        onChange={handleChange}
                         required
                       />
                     </Col>
