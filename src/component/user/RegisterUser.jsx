@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import BsAlertHook from '../hook/BsAlertHook';
-import { registerUser } from './UserService';
-import AlertMessage from '../common/AlertMessage';
+import React, { useState } from "react";
+import BsAlertHook from "../hook/BsAlertHook";
+import { registerUser } from "./UserService";
+import AlertMessage from "../common/AlertMessage";
 
 const RegisterUser = () => {
   const [user, setUser] = useState({
@@ -45,7 +45,7 @@ const RegisterUser = () => {
     } finally {
       setIsProcessing(false);
     }
-  }
+  };
 
   const handleReset = () => {
     setUser({
@@ -57,7 +57,7 @@ const RegisterUser = () => {
       userType: "",
       dept: "",
     });
-  }
+  };
 
   return (
     <Container className="mt-5">
@@ -183,4 +183,4 @@ const RegisterUser = () => {
   );
 };
 
-export default RegisterUser
+export default RegisterUser;
