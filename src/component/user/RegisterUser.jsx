@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import BsAlertHook from '../hook/BsAlertHook';
+import { registerUser } from './UserService';
 
 const RegisterUser = () => {
   const [user, setUser] = useState({
