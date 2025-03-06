@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import BsAlertHook from '../hook/BsAlertHook';
 import { registerUser } from './UserService';
+import AlertMessage from '../common/AlertMessage';
 
 const RegisterUser = () => {
   const [user, setUser] = useState({
@@ -167,6 +168,12 @@ const RegisterUser = () => {
                     리셋
                   </Button>
                 </div>
+                {alertSuccess && (
+                  <AlertMessage type="success" message={successMsg} />
+                )}
+                {alertError && (
+                  <AlertMessage type="danger" message={errorMsg} />
+                )}
               </Card.Body>
             </Card>
           </Form>
