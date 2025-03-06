@@ -4,6 +4,7 @@ import AlertMessage from "../common/AlertMessage";
 import ProcessSpinner from "../common/ProcessSpinner";
 import BsAlertHook from "../hook/BsAlertHook";
 import { registerUser } from "./UserService";
+import { Link } from "react-router-dom";
 
 const RegisterUser = () => {
   const [user, setUser] = useState({
@@ -176,6 +177,12 @@ const RegisterUser = () => {
                 {alertError && (
                   <AlertMessage type="danger" message={errorMsg} />
                 )}
+                <div className="text-center">
+                  이미 등록한 경우:{" "}
+                  <Link to={"/login"} style={{ textDecoration: "none" }}>
+                    로그인
+                  </Link>
+                </div>
               </Card.Body>
             </Card>
           </Form>
