@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import { registerUser } from "./UserService";
-import AlertMessage from "../common/AlertMessage";
 
 const RegisterUser = () => {
   const [user, setUser] = useState({
