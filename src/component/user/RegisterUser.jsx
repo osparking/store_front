@@ -27,10 +27,12 @@ const RegisterUser = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
+  const [isProcessing, setIsProcessing] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await RegisterUser(user);
+      setIsProcessing(true);
+      const response = await registerUser(user);
       console.log("response: ", response);
       setSuccessMsg(response.message);
       setAlertSuccess(true);
@@ -38,6 +40,8 @@ const RegisterUser = () => {
       console.log("error.response: ", error.response);
       setErrorMsg(error.response.data.message);
       setAlertError(true);
+    } finally {
+      setIsProcessing(false);
     }
   }
 
