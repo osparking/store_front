@@ -68,9 +68,11 @@ const RegisterUser = () => {
         <Col xs={12} md={8} lg={6}>
           <Form onSubmit={handleSubmit}>
             <Card className="shadow mb-5">
-              <Card.Header className="text-center">사용자 등록</Card.Header>
+              <Card.Header className="text-center">
+                <legend>사용자 등록</legend>
+              </Card.Header>
               <Card.Body>
-                <Form.Group as={Row} controlId="full-name" className="mb-3">
+                <Form.Group as={Row} controlId="full-name" className="mb-4">
                   <Col xs={6} className="mb-2 mb-sm-0">
                     <Form.Label>성명</Form.Label>
                     <Form.Control
@@ -84,10 +86,10 @@ const RegisterUser = () => {
                   </Col>
                 </Form.Group>
 
-                <fieldset>
-                  <legend>연락처</legend>
+                <fieldset className="mb-4">
+                  <Form.Label>연락처</Form.Label>
                   <Row>
-                    <Col xs={6} className="mb-2 mb-sm-0">
+                    <Col xs={6} className="mb-3 mb-sm-0">
                       <Form.Control
                         type="email"
                         name="email"
@@ -110,7 +112,7 @@ const RegisterUser = () => {
                   </Row>
                 </fieldset>
 
-                <Form.Group as={Row} controlId="password" className="mb-3">
+                <Form.Group as={Row} controlId="password" className="mb-4">
                   <Col>
                     <Form.Label>패스워드</Form.Label>
                     <Form.Control
@@ -124,7 +126,7 @@ const RegisterUser = () => {
                   </Col>
                 </Form.Group>
 
-                <Form.Group as={Row} controlId="user-type" className="mb-3">
+                <Form.Group as={Row} controlId="user-type" className="mb-4">
                   <Col>
                     <Form.Label>계정 유형</Form.Label>
                     <Form.Control
