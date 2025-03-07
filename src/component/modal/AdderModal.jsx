@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { Form, Modal } from "react-bootstrap";
 
-const AdderModal = ({ show, closer, label }) => {
+const AdderModal = ({ show, closer, label, saver }) => {
   const [itemValue, setItemValue] = useState("");
   const contentChanged = (e) => {
     setItemValue(e.target.value);
+  };
+  const handle추가 = () => {
+    saver(itemValue);
+    setItemValue("");
+    closer();
   };
 
   return (
