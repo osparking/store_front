@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import AdderModal from "../modal/AdderModal";
 import { getAllDept } from "./WorkerService";
 
-const WorkerDeptSelector = ({ workerDept }) => {
+const WorkerDeptSelector = ({ workerDept, onChange }) => {
   const [chosenDept, setChosenDept] = useState(workerDept);
   const [workerDepts, setWorkerDepts] = useState([]);
   const [showDeptAdder, setShowDeptAdder] = useState(false);
@@ -25,6 +25,13 @@ const WorkerDeptSelector = ({ workerDept }) => {
       setShowDeptAdder(true);
     } else {
       onChange(event);
+    }
+  };
+
+  const handleNewDept = (newDept) => {
+    if (newDept && !workerDepts.includes(newDept)) {
+      setWorkerDepts([...workerDepts, newDept]);
+      onChange({ target: { name: "dept", value: newDept } });
     }
   };
 
@@ -54,6 +61,7 @@ const WorkerDeptSelector = ({ workerDept }) => {
           setChosenDept("");
         }}
         label={"부서"}
+        saver={handleNewDept}
       />
     </React.Fragment>
   );
