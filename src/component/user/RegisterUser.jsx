@@ -147,13 +147,13 @@ const RegisterUser = () => {
                       onChange={handleChange}
                     >
                       <option value="">(계정 타입)</option>
-                      <option value="고객">고객</option>
-                      <option value="직원">직원</option>
+                      <option value="CUSTOMER">고객</option>
+                      <option value="WORKER">직원</option>
                     </Form.Control>
                   </Col>
                 </Form.Group>
 
-                {user.userType === "직원" && (
+                {user.userType === "WORKER" && (
                   <Form.Group>
                     <Row>
                       <Col>
