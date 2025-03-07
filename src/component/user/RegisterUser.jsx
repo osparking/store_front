@@ -92,7 +92,7 @@ const RegisterUser = () => {
                       type="text"
                       name="fullName"
                       placeholder="(성명)"
-                      value={user.lastName}
+                      value={user.fullName}
                       onChange={handleChange}
                       required
                     />
@@ -115,7 +115,7 @@ const RegisterUser = () => {
                     <Col xs={6}>
                       <Form.Control
                         type="text"
-                        name="mobile"
+                        name="mbPhone"
                         placeholder="(휴대폰 번호)"
                         value={user.mbPhone}
                         onChange={handleChange}
