@@ -148,7 +148,10 @@ const RegisterUser = () => {
                   <Form.Group>
                     <Row>
                       <Col>
-                        <WorkerDeptSelector />
+                        <WorkerDeptSelector
+                          workerDept={user.dept}
+                          onChange={handleChange}
+                        />
                       </Col>
                     </Row>
                   </Form.Group>
