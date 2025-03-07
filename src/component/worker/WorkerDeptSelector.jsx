@@ -4,6 +4,7 @@ import { getAllDept } from "./WorkerService";
 
 const WorkerDeptSelector = ({ workerDept }) => {
   const [workerDepts, setWorkerDepts] = useState([]);
+  const [showDeptAdder, setShowDeptAdder] = useState(false);
 
   useEffect(() => {
     const readDepts = async () => {
@@ -17,10 +18,24 @@ const WorkerDeptSelector = ({ workerDept }) => {
     readDepts();
   }, []);
 
+  const handleDept = (event) => {
+    if (event.target.value === "add_dept") {
+      setShowDeptAdder(true);
+    } else {
+      onChange(event);
+    }
+  };
+
   return (
     <React.Fragment>
       <Form.Group>
-        <Form.Control as="select" name="department" value={workerDept} required>
+        <Form.Control
+          as="select"
+          name="department"
+          value={workerDept}
+          required
+          onChange={handleDept}
+        >
           <option value="">- 소속 부서 -</option>
           {workerDepts.map((dept, index) => (
             <option value={dept} key={index}>
