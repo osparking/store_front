@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
-import { getAllDept } from "./WorkerService";
 import AdderModal from "../modal/AdderModal";
+import { getAllDept } from "./WorkerService";
 
 const WorkerDeptSelector = ({ workerDept }) => {
+  const [chosenDept, setChosenDept] = useState(workerDept);
   const [workerDepts, setWorkerDepts] = useState([]);
   const [showDeptAdder, setShowDeptAdder] = useState(false);
 
@@ -33,7 +34,7 @@ const WorkerDeptSelector = ({ workerDept }) => {
         <Form.Control
           as="select"
           name="department"
-          value={workerDept}
+          value={chosenDept}
           required
           onChange={handleDept}
         >
@@ -48,7 +49,10 @@ const WorkerDeptSelector = ({ workerDept }) => {
       </Form.Group>
       <AdderModal
         show={showDeptAdder}
-        closer={() => setShowDeptAdder(false)}
+        closer={() => {
+          setShowDeptAdder(false);
+          setChosenDept("");
+        }}
         label={"소속 부서"}
       />
     </React.Fragment>
