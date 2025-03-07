@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import ProcessSpinner from "../common/ProcessSpinner";
 import BsAlertHook from "../hook/BsAlertHook";
+import WorkerDeptSelector from "../worker/WorkerDeptSelector";
 import { registerUser } from "./UserService";
-import { Link } from "react-router-dom";
 
 const RegisterUser = () => {
   const [user, setUser] = useState({
@@ -146,7 +147,9 @@ const RegisterUser = () => {
                 {user.userType === "직원" && (
                   <Form.Group>
                     <Row>
-                      <Col>{/* 직원 소속 선택자 */}</Col>
+                      <Col>
+                        <WorkerDeptSelector />
+                      </Col>
                     </Row>
                   </Form.Group>
                 )}
