@@ -5,7 +5,7 @@ const WorkerDeptSelector = () => {
   const [workerDepts, setWorkerDepts] = useState([]);
 
   useEffect(() => {
-    readDepts = async () => {
+    const readDepts = async () => {
       try {
         const response = await getAllDept();
         setWorkerDepts(response.data);
