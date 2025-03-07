@@ -19,12 +19,20 @@ const AdderModal = ({ show, closer, label }) => {
             <Form.Control
               type="text"
               value={itemValue}
-              placeholder={`(새 ${label.toLowerCase()} 입력)`}
+              placeholder={`(새 ${label} 입력)`}
               onChange={contentChanged}
             />
           </Form.Group>
         </Form>
       </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handle추가}>
+          추가
+        </Button>
+        <Button variant="danger" onClick={closer}>
+          닫기
+        </Button>
+      </Modal.Footer>
     </Modal>
   );
 };

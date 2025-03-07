@@ -44,7 +44,7 @@ const WorkerDeptSelector = ({ workerDept }) => {
               {dept}
             </option>
           ))}
-          <option value="add_dept">(부서 추가)</option>
+          <option value="add_dept">(새 부서)</option>
         </Form.Control>
       </Form.Group>
       <AdderModal
@@ -53,7 +53,7 @@ const WorkerDeptSelector = ({ workerDept }) => {
           setShowDeptAdder(false);
           setChosenDept("");
         }}
-        label={"소속 부서"}
+        label={"부서"}
       />
     </React.Fragment>
   );
