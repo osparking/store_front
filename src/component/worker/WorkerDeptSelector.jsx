@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { getAllDept } from "./WorkerService";
+import AdderModal from "../modal/AdderModal";
 
 const WorkerDeptSelector = ({ workerDept }) => {
   const [workerDepts, setWorkerDepts] = useState([]);
@@ -45,6 +46,11 @@ const WorkerDeptSelector = ({ workerDept }) => {
           <option value="add_dept">(부서 추가)</option>
         </Form.Control>
       </Form.Group>
+      <AdderModal
+        show={showDeptAdder}
+        closer={() => setShowDeptAdder(false)}
+        label={"소속 부서"}
+      />
     </React.Fragment>
   );
 };
