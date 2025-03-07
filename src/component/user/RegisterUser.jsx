@@ -63,6 +63,18 @@ const RegisterUser = () => {
     });
   };
 
+  const easyData = () => {
+    setUser({
+      fullName: "김성훈",
+      mbPhone: "010-1234-1223",
+      email: "jbpark03@email.com",
+      usable: "true",
+      password: "1234",
+      userType: "직원",
+      dept: "생산부",
+    });
+  };
+
   return (
     <Container className="mt-5">
       <Row className="justify-content-center">
@@ -177,6 +189,16 @@ const RegisterUser = () => {
                     onClick={handleReset}
                   >
                     리셋
+                  </Button>
+                </div>
+
+                <div className="d-flex justify-content-center mb-3 mt-3">
+                  <Button
+                    variant="outline-warning"
+                    size="sm"
+                    onClick={easyData}
+                  >
+                    입력 편의
                   </Button>
                 </div>
                 {alertSuccess && (
