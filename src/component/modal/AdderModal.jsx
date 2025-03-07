@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Modal } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 
 const AdderModal = ({ show, closer, label, saver }) => {
   const [itemValue, setItemValue] = useState("");
