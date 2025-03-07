@@ -4,7 +4,6 @@ import AdderModal from "../modal/AdderModal";
 import { getAllDept } from "./WorkerService";
 
 const WorkerDeptSelector = ({ workerDept, onChange }) => {
-  const [chosenDept, setChosenDept] = useState(workerDept);
   const [workerDepts, setWorkerDepts] = useState([]);
   const [showDeptAdder, setShowDeptAdder] = useState(false);
 
@@ -40,8 +39,8 @@ const WorkerDeptSelector = ({ workerDept, onChange }) => {
       <Form.Group>
         <Form.Control
           as="select"
-          name="department"
-          value={chosenDept}
+          name="dept"
+          value={workerDept}
           required
           onChange={handleDept}
         >
@@ -56,10 +55,7 @@ const WorkerDeptSelector = ({ workerDept, onChange }) => {
       </Form.Group>
       <AdderModal
         show={showDeptAdder}
-        closer={() => {
-          setShowDeptAdder(false);
-          setChosenDept("");
-        }}
+        closer={() => setShowDeptAdder(false)}
         label={"부서"}
         saver={handleNewDept}
       />
