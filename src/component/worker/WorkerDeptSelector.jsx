@@ -9,9 +9,8 @@ const WorkerDeptSelector = () => {
       try {
         const response = await getAllDept();
         setWorkerDepts(response.data);
-        console.log("소속 목록: ", response.data);
       } catch (error) {
-        console.error("소속 목록 채취 오류: ", error);
+        console.error(error.response.data.message);
       }
     };
     readDepts();
