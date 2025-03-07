@@ -43,8 +43,8 @@ const RegisterUser = () => {
       setSuccessMsg(response.message);
       setAlertSuccess(true);
     } catch (error) {
-      console.log("error.response: ", error.response);
-      setErrorMsg(error.response.data.message);
+      console.error("error : ", error);
+      setErrorMsg(error);
       setAlertError(true);
     } finally {
       setIsProcessing(false);
