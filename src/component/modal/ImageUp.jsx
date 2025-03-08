@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import BsAlertHook from "../hook/BsAlertHook";
 import { Button, Form, InputGroup, Modal } from "react-bootstrap";
 import AlertMessage from "../common/AlertMessage";
+import { updateEmpPhoto, uploadEmpPhoto } from "./ImageService";
 
 const ImageUp = ({ user, show, handleClose }) => {
   console.log("유저: ", user);
