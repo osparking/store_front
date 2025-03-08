@@ -17,3 +17,12 @@ export async function getUserById(userId) {
     throw err;
   }
 }
+
+export async function getUserDtoById(userId) {
+  try {
+    const result = await api.get(`/user/${userId}/get_dto`);
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
