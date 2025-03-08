@@ -52,11 +52,12 @@ const ImageUp = ({ user, show, handleClose }) => {
 
   return (
     <Modal show={show} onHide={handleClose}>
-      <Modal.Header></Modal.Header>
+      <Modal.Title>프로필 사진</Modal.Title>
       <Modal.Body>
         {alertSuccess && <AlertMessage type="success" message={successMsg} />}
         {alertError && <AlertMessage type="danger" message={errorMsg} />}
         <Form>
+          <h6>프로필 사진을 선택하세요:</h6>
           <InputGroup>
             <Form.Control type="file">
               <Button variant="secondary" onClick={handleImageUp}>
