@@ -9,6 +9,7 @@ import {
     Row,
 } from "react-bootstrap";
 import { BsLockFill, BsPersonFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -59,6 +60,12 @@ const Login = () => {
                   로그인
                 </Button>
               </Form>
+              <div className="text-center mt-2">
+                혹은,&nbsp;
+                <Link to={"/register_user"} style={{ textDecoration: "none" }}>
+                  계정 등록
+                </Link>
+              </div>
             </Card.Body>
           </Card>
         </Col>
