@@ -25,7 +25,11 @@ const ImageUp = ({ user }) => {
       <Modal.Body>
         <Form>
           <InputGroup>
-            <Form.Control></Form.Control>
+            <Form.Control type="file">
+              <Button variant="secondary" onClick={handleImageUp}>
+                올리기
+              </Button>
+            </Form.Control>
           </InputGroup>
         </Form>
       </Modal.Body>
