@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { getUserById } from "../user/UserService";
 
 const ImageUp = () => {
   // 1. 직원 읽기
@@ -19,6 +20,16 @@ const ImageUp = () => {
     setAlertError,
   } = BsAlertHook();
 
+  useEffect(async () => {
+    try {
+      const result = await getUserById(userId);
+      console.log("result.data : ", result.data);
+      setEmp(result.data);
+    } catch (e) {
+      setErrorMsg(e.response.data.message);
+      setAlertError(true);
+    }
+  }, [userId]);
 
   return <div>영상 올리기</div>;
 };
