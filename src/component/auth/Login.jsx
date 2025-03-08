@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Card, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Form,
+  InputGroup,
+  Row,
+} from "react-bootstrap";
 import { BsLockFill, BsPersonFill } from "react-icons/bs";
 
 const Login = () => {
@@ -43,6 +51,13 @@ const Login = () => {
                       />
                     </InputGroup>
                   </Form.Group>
+                  <Button
+                    variant="outline-primary"
+                    type="submit"
+                    className="w-100"
+                  >
+                    로그인
+                  </Button>
                 </Form>
               </Card.Title>
             </Card.Body>
