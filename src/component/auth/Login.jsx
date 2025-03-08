@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Card, Col, Container, Form, Row } from "react-bootstrap";
+import { BsPersonFill } from "react-icons/bs";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -15,6 +16,11 @@ const Login = () => {
               <Card.Title className="text-center mb-4">
                 <Form>
                   <Form.Label>이메일</Form.Label>
+                  <InputGroup>
+                    <InputGroup.Text>
+                      <BsPersonFill />
+                    </InputGroup.Text>
+                  </InputGroup>
                 </Form>
               </Card.Title>
             </Card.Body>
