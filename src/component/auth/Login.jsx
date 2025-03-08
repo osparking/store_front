@@ -7,13 +7,15 @@ const Login = () => {
     setCreden({ ...credentials, [e.target.name]: e.target.value });
   };
   return (
-    <Container>
-      <Row>
-        <Col>
+    <Container className="mt-5">
+      <Row className="justify-content-center">
+        <Col sm={6}>
           <Card>
             <Card.Body>
-              <Card.Title>
-                <Form></Form>
+              <Card.Title className="text-center mb-4">
+                <Form>
+                  <Form.Label>이메일</Form.Label>
+                </Form>
               </Card.Title>
             </Card.Body>
           </Card>
