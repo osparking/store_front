@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import BsAlertHook from "../hook/BsAlertHook";
+import { Button, Form, InputGroup, Modal } from "react-bootstrap";
 
 const ImageUp = ({ user }) => {
   console.log("유저: ", user);
@@ -19,6 +20,9 @@ const ImageUp = ({ user }) => {
     setAlertError,
   } = BsAlertHook();
 
+  const handleImageUp = async (e) => {
+  }
+  
   return (
     <Modal>
       <Modal.Header></Modal.Header>
