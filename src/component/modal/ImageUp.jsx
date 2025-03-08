@@ -25,18 +25,28 @@ const ImageUp = ({ user, show, handleClose }) => {
     try {
       const formData = new FormData();
       formData.append("file", file);
+      const fileBytes = new Unit8Array(e.target.result);
+      
       if (user.photo) {
         const reader = new FileReader();
         reader.readAsArrayBuffer(file);
         reader.onloadend = async (e) => {
-          const fileBytes = new Unit8Array(e.target.result);
           const result = await updateEmpPhoto(user.photoId, fileBytes);
-          setSuccessMsg(result.data);
           window.location.reload();
+          setSuccessMsg(result.data);
           setAlertSuccess(true);
         };
+      } else {
+        const response = await uploadEmpPhoto(user.id, fileBytes);
+        window.location.reload();
+        setSuccessMsg(response.data);
+        setAlertSuccess(true);
       }
-    } catch (error) {}
+    } catch (error) {
+      setErrorMsg(error.response.data.message);
+      setAlertError(true);
+      console.error(error.message);
+    }
   }
 
   return (
