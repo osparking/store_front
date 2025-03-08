@@ -10,6 +10,7 @@ import Home from "./component/home/Home";
 import RootLayout from "./component/layout/RootLayout";
 import RegisterUser from "./component/user/RegisterUser";
 import Login from "./component/auth/Login";
+import UserDashboard from "./component/user/UserDashboard";
 
 function App() {
   const router = createBrowserRouter(
