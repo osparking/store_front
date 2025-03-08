@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import BsAlertHook from "../hook/BsAlertHook";
 
 const ImageUp = ({ user }) => {
   console.log("유저: ", user);

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 import UserProfile from "./UserProfile";
 
 const UserDashboard = () => {
@@ -18,7 +19,7 @@ const UserDashboard = () => {
     };
     getUser();
   }, []);
-  
+
   return (
     <Container>
       <Tabs>

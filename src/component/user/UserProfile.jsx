@@ -1,5 +1,5 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Card, Col, Container, Row } from "react-bootstrap";
 import ImageUp from "../modal/ImageUp";
 
 const UserProfile = ({ user }) => {
