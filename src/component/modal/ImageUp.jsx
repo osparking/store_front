@@ -8,6 +8,17 @@ const ImageUp = () => {
 
   const [emp, setEmp] = useState(null);
   const [file, setFile] = useState(null);
+  const {
+    successMsg,
+    setSuccessMsg,
+    alertSuccess,
+    setAlertSuccess,
+    errorMsg,
+    setErrorMsg,
+    alertError,
+    setAlertError,
+  } = BsAlertHook();
+
 
   return <div>영상 올리기</div>;
 };
