@@ -3,7 +3,7 @@ import { Container, Tab, Tabs } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import BsAlertHook from "../hook/BsAlertHook";
 import UserProfile from "./UserProfile";
-import { getUserById } from "./UserService";
+import { getUserDtoById } from "./UserService";
 
 const UserDashboard = () => {
   const [user, setUser] = useState(null);
@@ -23,7 +23,7 @@ const UserDashboard = () => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const result = await getUserById(userId);
+        const result = await getUserDtoById(userId);
         setUser(result.data);
       } catch (error) {
         setErrorMsg(error.response.data.message);
