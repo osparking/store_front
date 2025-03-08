@@ -18,6 +18,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/register_user" element={<RegisterUser />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/dashboard/:userId/user" element={<UserDashboard />} />
       </Route>
     )
   );
