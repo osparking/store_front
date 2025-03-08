@@ -21,6 +21,22 @@ const ImageUp = ({ user, show, handleClose }) => {
   } = BsAlertHook();
 
   const handleImageUp = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      if (user.photo) {
+        const reader = new FileReader();
+        reader.readAsArrayBuffer(file);
+        reader.onloadend = async (e) => {
+          const fileBytes = new Unit8Array(e.target.result);
+          const result = await updateEmpPhoto(user.photoId, fileBytes);
+          setSuccessMsg(result.data);
+          window.location.reload();
+          setAlertSuccess(true);
+        };
+      }
+    } catch (error) {}
   }
 
   return (
