@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import BsAlertHook from "../hook/BsAlertHook";
 import { Button, Form, InputGroup, Modal } from "react-bootstrap";
 
-const ImageUp = ({ user }) => {
+const ImageUp = ({ user, show, handleClose }) => {
   console.log("유저: ", user);
   // * 원래 영상 소지 여부 검사
   //   - 여: 기존 영상 갱신
@@ -22,9 +22,9 @@ const ImageUp = ({ user }) => {
 
   const handleImageUp = async (e) => {
   }
-  
+
   return (
-    <Modal>
+    <Modal show={show} onHide={handleClose}>
       <Modal.Header></Modal.Header>
       <Modal.Body>
         <Form>
