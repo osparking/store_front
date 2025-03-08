@@ -19,7 +19,18 @@ const ImageUp = ({ user }) => {
     setAlertError,
   } = BsAlertHook();
 
-  return <div>영상 올리기</div>;
+  return (
+    <Modal>
+      <Modal.Header></Modal.Header>
+      <Modal.Body>
+        <Form>
+          <InputGroup>
+            <Form.Control></Form.Control>
+          </InputGroup>
+        </Form>
+      </Modal.Body>
+    </Modal>
+  );
 };
 
 export default ImageUp;
