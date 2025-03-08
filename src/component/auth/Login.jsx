@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
-import { BsPersonFill } from "react-icons/bs";
+import { BsLockFill, BsPersonFill } from "react-icons/bs";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -28,6 +28,21 @@ const Login = () => {
                       onChange={handleChange}
                     />
                   </InputGroup>
+                  <Form.Group className="mb-3" controlId="password">
+                    <Form.Label>비밀번호</Form.Label>
+                    <InputGroup>
+                      <InputGroup.Text>
+                        <BsLockFill />
+                      </InputGroup.Text>
+                      <Form.Control
+                        type="password"
+                        name="password"
+                        placeholder="(비밀번호)"
+                        value={credentials.password}
+                        onChange={handleChange}
+                      />
+                    </InputGroup>
+                  </Form.Group>
                 </Form>
               </Card.Title>
             </Card.Body>
