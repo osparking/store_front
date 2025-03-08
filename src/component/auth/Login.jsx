@@ -20,6 +20,13 @@ const Login = () => {
                     <InputGroup.Text>
                       <BsPersonFill />
                     </InputGroup.Text>
+                    <Form.Control
+                      type="email"
+                      name="email"
+                      placeholder="(이메일)"
+                      value={credentials.email}
+                      onChange={handleChange}
+                    />
                   </InputGroup>
                 </Form>
               </Card.Title>
