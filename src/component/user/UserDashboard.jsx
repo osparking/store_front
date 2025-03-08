@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import UserProfile from "./UserProfile";
 import BsAlertHook from "../hook/BsAlertHook";
+import UserProfile from "./UserProfile";
+import { getUserById } from "./UserService";
 
 const UserDashboard = () => {
   const [user, setUser] = useState(null);
