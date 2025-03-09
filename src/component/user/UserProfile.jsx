@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import ImageUp from "../modal/ImageUp";
+import EmpImage from "../common/EmpImage";
 
 const UserProfile = ({ user }) => {
   const [showImageUp, setShowImageUp] = useState(false);
@@ -14,6 +15,9 @@ const UserProfile = ({ user }) => {
         <Row>
           <Col>
             <Card>
+              <Card.Body>
+                <EmpImage empPhoto={user.photoBytes} />
+              </Card.Body>
               <div>
                 <ImageUp user={user} />
               </div>
