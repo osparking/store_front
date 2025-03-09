@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import BsAlertHook from "../hook/BsAlertHook";
 import UserProfile from "./UserProfile";
 import { getUserDtoById } from "./UserService";
+import AlertMessage from "../common/AlertMessage";
 
 const UserDashboard = () => {
   const [user, setUser] = useState(null);
@@ -37,6 +38,12 @@ const UserDashboard = () => {
     <Container>
       <Tabs>
         <Tab eventKey="profile" title={<h3>프로필</h3>}>
+          {alertError && (
+            <AlertMessage type={"danger"} message={errorMsg} />
+          )}
+          {alertSuccess && (
+            <AlertMessage type={"success"} message={successMsg} />
+          )}
           {user && <UserProfile user={user} />}
         </Tab>
         <Tab eventKey="purchase_stat" title={<h3>구매 통계</h3>}>
