@@ -27,7 +27,7 @@ const UserDashboard = () => {
         setUser(result.data);
       } catch (error) {
         setErrorMsg(error.response.data.message);
-        setShowErrorAlert(true);
+        setAlertError(true);
       }
     };
     getUser();
@@ -36,8 +36,20 @@ const UserDashboard = () => {
   return (
     <Container>
       <Tabs>
-        <Tab>
-          <UserProfile user={user} />
+        <Tab eventKey="profile" title={<h3>프로필</h3>}>
+          {user && <UserProfile user={user} />}
+        </Tab>
+        <Tab eventKey="purchase_stat" title={<h3>구매 통계</h3>}>
+          {user && <UserProfile user={user} />}
+        </Tab>
+        <Tab eventKey="purchase_list" title={<h3>구매 목록</h3>}>
+          {user && <UserProfile user={user} />}
+        </Tab>
+        <Tab eventKey="my_question" title={<h3>나의 질문</h3>}>
+          {user && <UserProfile user={user} />}
+        </Tab>
+        <Tab eventKey="my_review" title={<h3>나의 리뷰</h3>}>
+          {user && <UserProfile user={user} />}
         </Tab>
       </Tabs>
     </Container>
