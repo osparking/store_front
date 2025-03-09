@@ -29,3 +29,12 @@ export async function updateEmpPhoto(photoId, newFile) {
     throw error;
   }
 }
+
+export async function deleteUserPhoto(userId) {
+  try {
+    const response = await api.delete(`/photo/${userId}/del_emp_id`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
