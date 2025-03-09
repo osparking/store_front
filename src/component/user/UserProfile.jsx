@@ -13,7 +13,7 @@ const UserProfile = ({ user }) => {
     <Container>
       <React.Fragment>
         <Row>
-          <Col>
+          <Col md={3} xs={6}>
             <Card>
               <Card.Body>
                 <EmpImage empPhoto={user.photoBytes} />
