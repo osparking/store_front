@@ -27,7 +27,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                     to={"#"}
                     {...(user.photoId
                       ? { onClick: handleRemovePhoto }
-                      : { style: { cursor: "default", color: "grey" }})}
+                      : { style: { cursor: "default", color: "grey" } })}
                   >
                     사진 제거
                   </Link>
@@ -48,6 +48,50 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                   <Card.Text>{user.fullName}</Card.Text>
                 </Col>
               </Card.Body>
+
+              <Card.Body className="d-flex align-items-center">
+                <Col md={4}>휴대폰 : </Col>
+                <Col md={4}>
+                  <Card.Text>{user.mbPhone}</Card.Text>
+                </Col>
+              </Card.Body>
+
+              <Card.Body className="d-flex align-items-center">
+                <Col md={4}>이메일 : </Col>
+                <Col md={4}>
+                  <Card.Text>{user.email}</Card.Text>
+                </Col>
+              </Card.Body>
+
+              <Card.Body className="d-flex align-items-center">
+                <Col md={4}>로그인 가능성 : </Col>
+                <Col md={4}>
+                  <Card.Text>{user.usable ? "가능" : "불가능"}</Card.Text>
+                </Col>
+              </Card.Body>
+
+              <Card.Body className="d-flex align-items-center">
+                <Col md={4}>등록 일시 : </Col>
+                <Col md={4}>
+                  <Card.Text>{user.addDate}</Card.Text>
+                </Col>
+              </Card.Body>
+
+              <Card.Body className="d-flex align-items-center">
+                <Col md={4}>유저 구분 : </Col>
+                <Col md={4}>
+                  <Card.Text>{user.userType}</Card.Text>
+                </Col>
+              </Card.Body>
+
+              {user.userType === "노동자" && (
+                <Card.Body className="d-flex align-items-center">
+                  <Col md={4}>소속 부서 : </Col>
+                  <Col md={4}>
+                    <Card.Text>{user.dept}</Card.Text>
+                  </Col>
+                </Card.Body>
+              )}
             </Card>
           </Col>
         </Row>
