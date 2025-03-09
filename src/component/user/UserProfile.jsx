@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import EmpImage from "../common/EmpImage";
 import ImageUp from "../modal/ImageUp";
-import { Link } from "react-router-dom";
 
 const UserProfile = ({ user, handleRemovePhoto }) => {
   const [showImageUp, setShowImageUp] = useState(false);
@@ -38,6 +38,16 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                   handleClose={() => setShowImageUp(false)}
                 />
               </div>
+            </Card>
+          </Col>
+          <Col md={8}>
+            <Card>
+              <Card.Body className="d-flex align-items-center">
+                <Col md={4}>성명 : </Col>
+                <Col md={4}>
+                  <Card.Text>{user.fullName}</Card.Text>
+                </Col>
+              </Card.Body>
             </Card>
           </Col>
         </Row>
