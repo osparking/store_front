@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import BsAlertHook from "../hook/BsAlertHook";
 import { Button, Form, InputGroup, Modal } from "react-bootstrap";
 import AlertMessage from "../common/AlertMessage";
+import BsAlertHook from "../hook/BsAlertHook";
 import { updateEmpPhoto, uploadEmpPhoto } from "./ImageService";
 
 const ImageUp = ({ user, show, handleClose }) => {
@@ -29,7 +29,7 @@ const ImageUp = ({ user, show, handleClose }) => {
       formData.append("file", file);
       const fileBytes = new Unit8Array(e.target.result);
       
-      if (user.photo) {
+      if (user.photoBytes) {
         const reader = new FileReader();
         reader.readAsArrayBuffer(file);
         reader.onloadend = async (e) => {
@@ -53,18 +53,19 @@ const ImageUp = ({ user, show, handleClose }) => {
 
   return (
     <Modal show={show} onHide={handleClose}>
-      <Modal.Title>프로필 사진</Modal.Title>
+      <Modal.Header>
+        <Modal.Title>프로필 사진</Modal.Title>
+      </Modal.Header>
       <Modal.Body>
         {alertSuccess && <AlertMessage type="success" message={successMsg} />}
         {alertError && <AlertMessage type="danger" message={errorMsg} />}
         <Form>
           <h6>프로필 사진을 선택하세요:</h6>
           <InputGroup>
-            <Form.Control type="file">
-              <Button variant="secondary" onClick={handleImageUp}>
-                올리기
-              </Button>
-            </Form.Control>
+            <Form.Control type="file" />
+            <Button variant="secondary" onClick={handleImageUp}>
+              올리기
+            </Button>
           </InputGroup>
         </Form>
       </Modal.Body>
