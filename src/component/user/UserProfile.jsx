@@ -72,8 +72,8 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
 
               <Card.Body className="d-flex align-items-center">
                 <Col md={4}>등록 일시 : </Col>
-                <Col md={4}>
-                  <Card.Text>{user.addDate}</Card.Text>
+                <Col md={7}>
+                  <Card.Text>{user.regDateTime}</Card.Text>
                 </Col>
               </Card.Body>
 
