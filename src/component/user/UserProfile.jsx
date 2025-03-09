@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
-import ImageUp from "../modal/ImageUp";
 import EmpImage from "../common/EmpImage";
+import ImageUp from "../modal/ImageUp";
 
 const UserProfile = ({ user }) => {
   const [showImageUp, setShowImageUp] = useState(false);
