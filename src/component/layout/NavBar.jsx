@@ -3,7 +3,7 @@ import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const NavBar = () => {
-  const userId = 1;
+  const userId = localStorage.getItem("userId");
   return (
     <Navbar expand="lg" sticky="top" className="nav-bg">
       <Container>
