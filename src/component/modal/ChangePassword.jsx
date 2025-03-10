@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { eyeOff } from "react-icons-kit/feather";
 import BsAlertHook from "../hook/BsAlertHook";
+import { FiEyeOff, FiEye } from "react-icons/fi";
 
 const ChangePassword = ({ userId }) => {
   const [type, setType] = useState("password");
-  const { icon, setIcon } = useState(eyeOff);
+  const { icon, setIcon } = useState(FiEyeOff);
   const [pwds, setPwds] = useState({
     curPwd: "",
     newPwd: "",
@@ -43,6 +43,11 @@ const ChangePassword = ({ userId }) => {
       setErrorMsg(error.response.data.message);
       setAlertError(true);
     }
+  };
+
+  const togglePasswordStarize = () => {
+    type === "password" ? setType("text") : setType("password");
+    icon === FiEyeOff ? setIcon(FiEye) : setIcon(FiEyeOff);
   };
 
   return <div>ChangePassword</div>;
