@@ -50,6 +50,10 @@ const ImageUp = ({ user, show, handleClose }) => {
       console.error(error.message);
     }
   }
+  
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
 
   return (
     <Modal show={show} onHide={handleClose}>
@@ -62,7 +66,7 @@ const ImageUp = ({ user, show, handleClose }) => {
         <Form>
           <h6>프로필 사진을 선택하세요:</h6>
           <InputGroup>
-            <Form.Control type="file" />
+            <Form.Control type="file" onChange={handleFileChange}/>
             <Button variant="secondary" onClick={handleImageUp}>
               올리기
             </Button>
