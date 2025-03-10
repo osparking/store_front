@@ -21,6 +21,10 @@ const ChangePassword = () => {
     setAlertError,
   } = BsAlertHook();
 
+  const handleChange = (e) => {
+    setPwds({ ...pwds, [e.target.name]: e.target.value });
+  };
+
   return <div>ChangePassword</div>;
 };
 
