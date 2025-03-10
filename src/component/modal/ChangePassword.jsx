@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button, Form, InputGroup, Modal } from "react-bootstrap";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
@@ -106,7 +107,19 @@ const ChangePassword = ({ userId, show, handleClose }) => {
                 {icon}
               </InputGroup.Text>
             </InputGroup>
-          </Form.Group>          
+          </Form.Group>
+          <div className="d-flex justify-content-center mt-4">
+            <div className="mx-2">
+              <Button variant="primary" size="sm" type="submit">
+                비밀번호 변경
+              </Button>
+            </div>
+            <div className="mx-2 mb-4">
+              <Button variant="secondary" size="sm" onClick={handleReset}>
+                리셋
+              </Button>
+            </div>
+          </div>
         </Form>
       </Modal.Body>
     </Modal>
