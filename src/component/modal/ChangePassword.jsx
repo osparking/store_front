@@ -25,6 +25,12 @@ const ChangePassword = () => {
     setPwds({ ...pwds, [e.target.name]: e.target.value });
   };
 
+  const handleReset = () => {
+    setPwds({ curPwd: "", newPwd: "", cnfPwd: "" });
+    setAlertError(false);
+    setAlertSuccess(false);
+  };
+
   return <div>ChangePassword</div>;
 };
 
