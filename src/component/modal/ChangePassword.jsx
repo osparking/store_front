@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, InputGroup, Modal } from "react-bootstrap";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import AlertMessage from "../common/AlertMessage";
@@ -23,6 +23,10 @@ const ChangePassword = ({ userId, show, handleClose }) => {
     alertError,
     setAlertError,
   } = BsAlertHook();
+
+  useEffect(() => {
+    setIcon(FiEyeOff);
+  }, [show]);
 
   const handleChange = (e) => {
     setPwds({ ...pwds, [e.target.name]: e.target.value });
