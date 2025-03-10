@@ -92,6 +92,21 @@ const ChangePassword = ({ userId, show, handleClose }) => {
               </InputGroup.Text>
             </InputGroup>
           </Form.Group>
+          <Form.Group controlId="cnfPwd" className="mb-2">
+            <Form.Label>비밀번호 확인: </Form.Label>
+            <InputGroup>
+              <Form.Control
+                type={type}
+                value={pwds.cnfPwd}
+                placeholder="(비밀번호 확인)"
+                name="cnfPwd"
+                onChange={handleChange}
+              />
+              <InputGroup.Text onClick={togglePasswordStarize}>
+                {icon}
+              </InputGroup.Text>
+            </InputGroup>
+          </Form.Group>          
         </Form>
       </Modal.Body>
     </Modal>
