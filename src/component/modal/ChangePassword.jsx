@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import BsAlertHook from "../hook/BsAlertHook";
 import { FiEyeOff, FiEye } from "react-icons/fi";
+import AlertMessage from "../common/AlertMessage";
 
-const ChangePassword = ({ userId }) => {
+const ChangePassword = ({ userId, show, handleClose }) => {
   const [type, setType] = useState("password");
   const { icon, setIcon } = useState(FiEyeOff);
   const [pwds, setPwds] = useState({
@@ -50,7 +51,21 @@ const ChangePassword = ({ userId }) => {
     icon === FiEyeOff ? setIcon(FiEye) : setIcon(FiEyeOff);
   };
 
-  return <div>ChangePassword</div>;
+  return (
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Header closeButton={true}>
+        <Modal.Title>비밀번호 변경</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        {showErrorAlert && <AlertMessage type={"danger"} message={errorMsg} />}
+        {showSuccessAlert && (
+          <AlertMessage type={"success"} message={successMsg} />
+        )}
+        <Form onSubmit={handleSubmit}>
+        </Form>
+      </Modal.Body>
+    </Modal>
+  );
 };
 
 export default ChangePassword;
