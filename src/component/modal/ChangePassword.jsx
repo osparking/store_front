@@ -3,6 +3,7 @@ import { Button, Form, InputGroup, Modal } from "react-bootstrap";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
+import { changePwd } from "../user/UserService";
 
 const ChangePassword = ({ userId, show, handleClose }) => {
   const [type, setType] = useState("password");
