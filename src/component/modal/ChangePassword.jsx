@@ -49,8 +49,8 @@ const ChangePassword = ({ userId, show, handleClose }) => {
   };
 
   const togglePasswordStarize = () => {
-    type === "password" ? setType("text") : setType("password");
-    icon === FiEyeOff ? setIcon(FiEye) : setIcon(FiEyeOff);
+    setType(type === "password" ? "text" : "password");
+    setIcon(type === "password" ? FiEye : FiEyeOff);
   };
 
   return (
