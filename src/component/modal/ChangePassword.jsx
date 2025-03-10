@@ -7,7 +7,7 @@ import { changePwd } from "../user/UserService";
 
 const ChangePassword = ({ userId, show, handleClose }) => {
   const [type, setType] = useState("password");
-  const { icon, setIcon } = useState(FiEyeOff);
+  const [icon, setIcon] = useState(FiEyeOff);
   const [pwds, setPwds] = useState({
     curPwd: "",
     newPwd: "",
