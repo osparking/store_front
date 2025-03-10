@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import UserProfile from "./UserProfile";
 import { getUserDtoById } from "./UserService";
-import AlertMessage from "../common/AlertMessage";
 
 const UserDashboard = () => {
   const [user, setUser] = useState(null);
-  const { userId } = useParams();
+  const userId = localStorage.getItem("userId");
   const [file, setFile] = useState(null);
   const {
     successMsg,
@@ -47,16 +46,12 @@ const UserDashboard = () => {
           {user && <UserProfile user={user} />}
         </Tab>
         <Tab eventKey="purchase_stat" title={<h3>구매 통계</h3>}>
-          {user && <UserProfile user={user} />}
         </Tab>
         <Tab eventKey="purchase_list" title={<h3>구매 목록</h3>}>
-          {user && <UserProfile user={user} />}
         </Tab>
         <Tab eventKey="my_question" title={<h3>나의 질문</h3>}>
-          {user && <UserProfile user={user} />}
         </Tab>
         <Tab eventKey="my_review" title={<h3>나의 리뷰</h3>}>
-          {user && <UserProfile user={user} />}
         </Tab>
       </Tabs>
     </Container>
