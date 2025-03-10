@@ -58,8 +58,8 @@ const ChangePassword = ({ userId, show, handleClose }) => {
         <Modal.Title>비밀번호 변경</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {showErrorAlert && <AlertMessage type={"danger"} message={errorMsg} />}
-        {showSuccessAlert && (
+        {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
+        {alertSuccess && (
           <AlertMessage type={"success"} message={successMsg} />
         )}
         <Form onSubmit={handleSubmit}>
