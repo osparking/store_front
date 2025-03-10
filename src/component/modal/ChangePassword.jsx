@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import BsAlertHook from "../hook/BsAlertHook";
-import { FiEyeOff, FiEye } from "react-icons/fi";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import AlertMessage from "../common/AlertMessage";
+import BsAlertHook from "../hook/BsAlertHook";
 
 const ChangePassword = ({ userId, show, handleClose }) => {
   const [type, setType] = useState("password");
@@ -62,6 +62,21 @@ const ChangePassword = ({ userId, show, handleClose }) => {
           <AlertMessage type={"success"} message={successMsg} />
         )}
         <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="curPwd">
+            <Form.Label>현재 비밀번호: </Form.Label>
+            <InputGroup>
+              <Form.Control
+                type={type}
+                value={pwds.curPwd}
+                placeholder="(현재 비밀번호)"
+                name="curPwd"
+                onChange={handleChange}
+              />
+              <InputGroup.Text onClick={togglePasswordStarize}>
+                {icon}
+              </InputGroup.Text>
+            </InputGroup>
+          </Form.Group>
         </Form>
       </Modal.Body>
     </Modal>
