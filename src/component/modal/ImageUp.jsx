@@ -27,7 +27,7 @@ const ImageUp = ({ user, show, handleClose }) => {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      const fileBytes = new Unit8Array(e.target.result);
+      const fileBytes = new Uint8Array(e.target.result);
       
       if (user.photoBytes) {
         const reader = new FileReader();
