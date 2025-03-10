@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { eyeOff } from "react-icons-kit/feather";
 import BsAlertHook from "../hook/BsAlertHook";
 
-const ChangePassword = () => {
+const ChangePassword = ({ userId }) => {
   const [type, setType] = useState("password");
   const { icon, setIcon } = useState(eyeOff);
   const [pwds, setPwds] = useState({
@@ -29,6 +29,20 @@ const ChangePassword = () => {
     setPwds({ curPwd: "", newPwd: "", cnfPwd: "" });
     setAlertError(false);
     setAlertSuccess(false);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { curPwd, newPwd, cnfPwd } = pwds;
+    try {
+      const response = await changePwd(userId, curPwd, newPwd, cnfPwd);
+      handleReset();
+      setSuccessMsg(response.message);
+      setAlertSuccess(true);
+    } catch (error) {
+      setErrorMsg(error.response.data.message);
+      setAlertError(true);
+    }
   };
 
   return <div>ChangePassword</div>;
