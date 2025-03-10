@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import EmpImage from "../common/EmpImage";
+import ChangePassword from "../modal/ChangePassword";
 import ImageUp from "../modal/ImageUp";
 
 const UserProfile = ({ user, handleRemovePhoto }) => {
   const [showImageUp, setShowImageUp] = useState(false);
+  const [showChangePassword, setShowChangePassword] = useState(false);
 
   return (
     <Container>
@@ -36,6 +38,14 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                   user={user}
                   show={showImageUp}
                   handleClose={() => setShowImageUp(false)}
+                />
+                <Link to={"#"} onClick={() => setShowChangePassword(true)}>
+                  비밀번호 변경
+                </Link>
+                <ChangePassword
+                  userId={user.id}
+                  show={showChangePassword}
+                  handleClose={() => setShowChangePassword(false)}
                 />
               </div>
             </Card>
