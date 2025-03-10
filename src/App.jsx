@@ -6,13 +6,14 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import "./App.css";
+import Login from "./component/auth/Login";
 import Home from "./component/home/Home";
 import RootLayout from "./component/layout/RootLayout";
 import RegisterUser from "./component/user/RegisterUser";
-import Login from "./component/auth/Login";
 import UserDashboard from "./component/user/UserDashboard";
 
 function App() {
+  localStorage.setItem("userId", 1);
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
