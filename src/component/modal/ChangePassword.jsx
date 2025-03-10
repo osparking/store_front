@@ -77,6 +77,21 @@ const ChangePassword = ({ userId, show, handleClose }) => {
               </InputGroup.Text>
             </InputGroup>
           </Form.Group>
+          <Form.Group controlId="newPwd" className="mb-2">
+            <Form.Label>신규 비밀번호: </Form.Label>
+            <InputGroup>
+              <Form.Control
+                type={type}
+                value={pwds.newPwd}
+                placeholder="(신규 비밀번호)"
+                name="newPwd"
+                onChange={handleChange}
+              />
+              <InputGroup.Text onClick={togglePasswordStarize}>
+                {icon}
+              </InputGroup.Text>
+            </InputGroup>
+          </Form.Group>
         </Form>
       </Modal.Body>
     </Modal>
