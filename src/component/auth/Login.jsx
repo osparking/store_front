@@ -42,11 +42,10 @@ const Login = () => {
       return;
     }
     try {
-      const userId = await loginUser(credentials.email, credentials.password);
-      console.log("유저ID: ", userId);
-      localStorage.setItem("userId", userId);
+      const apiResp = await loginUser(credentials.email, credentials.password);
+      localStorage.setItem("userId", apiResp.data);
       clearLoginForm();
-      navigation.navigate("/")
+      navigation.navigate("/");
     } catch (error) {
       console.log("에러: ", error);
       setErrorMsg(error.response.data.message);
