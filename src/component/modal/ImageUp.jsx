@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Form, InputGroup, Modal } from "react-bootstrap";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
-import { updateEmpPhoto, uploadEmpPhoto } from "./ImageService";
+import { updatePhoto, uploadEmpPhoto } from "./ImageService";
 
 const ImageUp = ({ user, show, handleClose }) => {
   console.log("유저: ", user);
@@ -25,33 +25,24 @@ const ImageUp = ({ user, show, handleClose }) => {
   const handleImageUp = async (e) => {
     e.preventDefault();
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-      const fileBytes = new Uint8Array(e.target.result);
-      
-      if (user.photoBytes) {
-        const reader = new FileReader();
-        reader.readAsArrayBuffer(file);
-        reader.onloadend = async (e) => {
-          const result = await updateEmpPhoto(user.photoId, fileBytes);
-          window.location.reload();
-          setSuccessMsg(result.data);
-          setAlertSuccess(true);
-        };
+      let response = null;
+      if (user.photoId) {
+        response = await updatePhoto(user.photoId, file);
       } else {
-        const response = await uploadEmpPhoto(user.id, fileBytes);
-        window.location.reload();
-        setSuccessMsg(response.data);
-        setAlertSuccess(true);
+        response = await uploadEmpPhoto(user.id, file);
       }
+      window.location.reload();
+      setSuccessMsg(response.data);
+      setAlertSuccess(true);
     } catch (error) {
+      console.error("error: ", error);
       setErrorMsg(error.response.data.message);
       setAlertError(true);
-      console.error(error.message);
     }
   }
   
   const handleFileChange = (e) => {
+    console.log("file changed: ");
     setFile(e.target.files[0]);
   };
 
