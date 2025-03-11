@@ -14,7 +14,10 @@ import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 
 const Login = () => {
-  const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const [credentials, setCredentials] = useState({
+    email: "jbpark03@email.com",
+    password: "1234",
+  });
   const {
     successMsg,
     setSuccessMsg,
@@ -39,10 +42,12 @@ const Login = () => {
     }
     try {
       const userId = await loginUser(credentials.email, credentials.password);
+      console.log("유저ID: ", userId);
       localStorage.setItem("userId", userId);
       clearLoginForm();
       navigation.navigate("/")
     } catch (error) {
+      console.log("에러: ", error);
       setErrorMsg(error.response.data.message);
       setAlertError(true);
     }
