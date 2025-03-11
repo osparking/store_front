@@ -32,7 +32,7 @@ const UserDashboard = () => {
       }
     };
     getUser();
-  }, []);
+  }, [userId]);
 
   const removePhoto = async () => {
     try {

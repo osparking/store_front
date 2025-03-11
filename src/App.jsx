@@ -13,7 +13,6 @@ import RegisterUser from "./component/user/RegisterUser";
 import UserDashboard from "./component/user/UserDashboard";
 
 function App() {
-  localStorage.setItem("userId", 1);
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
