@@ -9,7 +9,7 @@ import {
   Row,
 } from "react-bootstrap";
 import { BsLockFill, BsPersonFill } from "react-icons/bs";
-import { Link, useNavigation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import { loginUser } from "./AuthService";
@@ -33,7 +33,8 @@ const Login = () => {
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
-  const navigation = useNavigation();
+
+  const navigate = useNavigate();
   const actLogin = async (e) => {
     e.preventDefault();
     if (!credentials.email || !credentials.password) {
@@ -45,7 +46,7 @@ const Login = () => {
       const apiResp = await loginUser(credentials.email, credentials.password);
       localStorage.setItem("userId", apiResp.data);
       clearLoginForm();
-      navigation.navigate("/");
+      navigate(`/dashboard/${apiResp.data}/user`);
     } catch (error) {
       console.log("에러: ", error);
       setErrorMsg(error.response.data.message);
