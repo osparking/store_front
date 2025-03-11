@@ -1,12 +1,11 @@
 import React from "react";
 import { api } from "../util/api";
 
-export async function uploadEmpPhoto(userId, newFile) {
+export async function uploadEmpPhoto(userId, file) {
   try {
-    console.log("user Id: " + userId);
     const formData = new FormData();
     formData.append("empId", userId);
-    formData.append("file", newFile);
+    formData.append("file", file);
 
     const response = await api.post("/photo/upload", formData);
     return response.data;
@@ -15,15 +14,12 @@ export async function uploadEmpPhoto(userId, newFile) {
   }
 }
 
-export async function updateEmpPhoto(photoId, newFile) {
+export async function updatePhoto(photoId, newFile) {
   try {
-    console.log("photo Id: " + photoId);
     const formData = new FormData();
     formData.append("file", newFile);
 
-    const response = await api.put(`/photo/${photoId}/update`, formData, {
-      headers: { "Content-Type": "application/octet-stream" },
-    });
+    const response = await api.put(`/photo/${photoId}/update`, formData);
     return response.data;
   } catch (error) {
     throw error;
