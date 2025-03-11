@@ -1,9 +1,11 @@
 import React from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { logoutUser } from "../auth/AuthService";
 
 const NavBar = () => {
   const userId = localStorage.getItem("userId");
+
   return (
     <Navbar expand="lg" sticky="top" className="nav-bg">
       <Container>
@@ -42,7 +44,7 @@ const NavBar = () => {
                 관리자 대시보드
               </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item to={"/logout"} as={Link}>
+              <NavDropdown.Item to={"#"} as={Link} onClick={logoutUser}>
                 로그아웃
               </NavDropdown.Item>
             </NavDropdown>
