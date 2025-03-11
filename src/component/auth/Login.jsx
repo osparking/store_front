@@ -9,7 +9,7 @@ import {
   Row,
 } from "react-bootstrap";
 import { BsLockFill, BsPersonFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigation } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 
@@ -27,9 +27,9 @@ const Login = () => {
   } = BsAlertHook();
 
   const handleChange = (e) => {
-    setCreden({ ...credentials, [e.target.name]: e.target.value });
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
-
+  const navigation = useNavigation();
   const actLogin = async (e) => {
     e.preventDefault();
     if (!credentials.email || !credentials.password) {
@@ -38,11 +38,19 @@ const Login = () => {
       return;
     }
     try {
-      const data = await loginUser(credentials.email, credentials.password);
+      const userId = await loginUser(credentials.email, credentials.password);
+      localStorage.setItem("userId", userId);
+      clearLoginForm();
+      navigation.navigate("/")
     } catch (error) {
       setErrorMsg(error.response.data.message);
       setAlertError(true);
     }
+  };
+
+  const clearLoginForm = () => {
+    setCredentials({ email: "", password: "" });
+    setAlertError(false);
   };
 
   return (
@@ -50,6 +58,9 @@ const Login = () => {
       <Row className="justify-content-center">
         <Col sm={6}>
           <Card>
+            {alertError && (
+              <AlertMessage type={"danger"} message={errM} />
+            )}
             <Card.Body>
               <Card.Title className="text-center mb-4">로그인</Card.Title>
               <Form onSubmit={actLogin}>
