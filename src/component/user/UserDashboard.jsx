@@ -4,6 +4,7 @@ import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import UserProfile from "./UserProfile";
 import { getUserDtoById } from "./UserService";
+import { deleteUserPhoto } from "../modal/ImageService";
 
 const UserDashboard = () => {
   const [user, setUser] = useState(null);
@@ -33,6 +34,16 @@ const UserDashboard = () => {
     getUser();
   }, []);
 
+  const removePhoto = async () => {
+    try {
+      const result = await deleteUserPhoto(userId);
+      window.location.reload();
+    } catch (error) {
+      setErrorMsg(error.response.data.message);
+      setShowErrorAlert(true);
+    }
+  };
+
   return (
     <Container>
       <Tabs>
@@ -43,7 +54,7 @@ const UserDashboard = () => {
           {alertSuccess && (
             <AlertMessage type={"success"} message={successMsg} />
           )}
-          {user && <UserProfile user={user} />}
+          {user && <UserProfile user={user} handleRemovePhoto={removePhoto} />}
         </Tab>
         <Tab eventKey="purchase_stat" title={<h3>구매 통계</h3>}>
         </Tab>
