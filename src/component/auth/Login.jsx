@@ -12,6 +12,7 @@ import { BsLockFill, BsPersonFill } from "react-icons/bs";
 import { Link, useNavigation } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
+import { loginUser } from "./AuthService";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
