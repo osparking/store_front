@@ -8,3 +8,8 @@ export const loginUser = async (email, password) => {
     throw error;
   }
 };
+
+export const logoutUser = () => {
+  localStorage.removeItem("userId");
+  window.location.href = "/";
+}
