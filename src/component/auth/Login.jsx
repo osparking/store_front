@@ -45,6 +45,7 @@ const Login = () => {
     try {
       const apiResp = await loginUser(credentials.email, credentials.password);
       localStorage.setItem("userId", apiResp.data);
+      window.dispatchEvent(new Event("loginEvt"));
       clearLoginForm();
       navigate(`/dashboard/${apiResp.data}/user`);
     } catch (error) {
