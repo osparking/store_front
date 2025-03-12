@@ -8,6 +8,7 @@ import WorkerDeptSelector from "../worker/WorkerDeptSelector";
 import { registerUser } from "./UserService";
 
 const RegisterUser = () => {
+  const userId = localStorage.getItem("userId");
   const [user, setUser] = useState({
     fullName: "",
     mbPhone: "",
@@ -34,6 +35,15 @@ const RegisterUser = () => {
 
   const [isProcessing, setIsProcessing] = useState(false);
   const handleSubmit = async (e) => {
+    if (userId) {
+      const confirmBox = window.confirm(
+        "로그아웃하고 계정을 등록할까요?"
+      );
+      if (confirmBox === false) {
+        return;
+      }
+    }
+    
     e.preventDefault();
     try {
       setIsProcessing(true);
@@ -66,7 +76,7 @@ const RegisterUser = () => {
       mbPhone: "010-1234-1223",
       email: "jbpark03@email.com",
       password: "1234",
-      userType: "직원",
+      userType: "CUSTOMER",
       dept: "생산부",
     });
   };
