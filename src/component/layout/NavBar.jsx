@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
 
 const NavBar = () => {
-  const userId = localStorage.getItem("userId");
+  const [userId, setUserId] = useState(localStorage.getItem("userId"));
+
+  const handleLogin = () => {
+    setUserId(localStorage.getItem("userId"));
+  };
+
+  window.addEventListener("loginEvt", handleLogin);
 
   return (
     <Navbar expand="lg" sticky="top" className="nav-bg">
