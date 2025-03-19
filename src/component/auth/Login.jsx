@@ -49,7 +49,6 @@ const Login = () => {
       clearLoginForm();
       navigate(`/dashboard/${apiResp.data}/user`);
     } catch (error) {
-      console.log("에러: ", error);
       setErrorMsg(error.response.data.message);
       setAlertError(true);
     }
@@ -66,7 +65,7 @@ const Login = () => {
         <Col sm={6}>
           <Card>
             {alertError && (
-              <AlertMessage type={"danger"} message={errM} />
+              <AlertMessage type={"danger"} message={errorMsg} />
             )}
             <Card.Body>
               <Card.Title className="text-center mb-4">로그인</Card.Title>
