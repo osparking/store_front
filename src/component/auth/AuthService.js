@@ -11,5 +11,5 @@ export const loginUser = async (email, password) => {
 
 export const logoutUser = () => {
   localStorage.removeItem("userId");
-  window.location.href = "/";
+  window.dispatchEvent(new Event("logoutEvt"));
 }
