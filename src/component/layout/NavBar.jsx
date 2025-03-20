@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
 
 const NavBar = () => {
@@ -10,8 +10,10 @@ const NavBar = () => {
     setUserId(localStorage.getItem("userId"));
   };
 
+  const navigate = useNavigate();
   const handleLogout = () => {
     setUserId(null);
+    navigate("/");
   };
 
   window.addEventListener("logoutEvt", handleLogout);
