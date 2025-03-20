@@ -30,7 +30,7 @@ export async function getUserDtoById(userId) {
 export async function changePwd(userId,  curPwd, newPwd, cnfPwd) {
   try {
     const request = { curPwd, newPwd, cnfPwd };
-    const result = await api.put(`/user/${userId}/change_pwd`, request);
+    const result = await api.put(`/user/change_pwd/${userId}`, request);
     return result.data;
   } catch (err) {
     throw err;
