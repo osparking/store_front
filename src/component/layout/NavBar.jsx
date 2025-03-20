@@ -10,6 +10,11 @@ const NavBar = () => {
     setUserId(localStorage.getItem("userId"));
   };
 
+  const handleLogout = () => {
+    setUserId(null);
+  };
+
+  window.addEventListener("logoutEvt", handleLogout);
   window.addEventListener("loginEvt", handleLogin);
 
   return (
