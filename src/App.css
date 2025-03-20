@@ -300,6 +300,7 @@
 
 .card {
   padding: 2em;
+  height: 95%;
 }
 
 input[type="radio"] {
