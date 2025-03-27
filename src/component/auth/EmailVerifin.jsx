@@ -48,12 +48,16 @@ const EmailVerifin = () => {
     }
   };
 
+  const emailVerifinRequested = React.useRef(false);
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
     const token = queryParams.get("token");
 
     if (token) {
-      callVerifyEmail(token);
+      if (!emailVerifinRequested.current) {
+        emailVerifinRequested.current = true;
+        callVerifyEmail(token);
+      }
     } else if (!token) {
       setVerifyMsg("토큰이 제출되지 않았습니다.");
       setAlertType("alert-danger");
