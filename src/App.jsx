@@ -11,6 +11,7 @@ import Home from "./component/home/Home";
 import RootLayout from "./component/layout/RootLayout";
 import RegisterUser from "./component/user/RegisterUser";
 import UserDashboard from "./component/user/UserDashboard";
+import EmailVerifin from "./component/auth/EmailVerifin";
 
 function App() {
   const router = createBrowserRouter(
@@ -18,6 +19,7 @@ function App() {
       <Route path="/" element={<RootLayout />}>
         <Route index element={<Home />} />
         <Route path="/register_user" element={<RegisterUser />} />
+        <Route path="/email_verifin" element={<EmailVerifin />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard/:userId/user" element={<UserDashboard />} />
       </Route>
