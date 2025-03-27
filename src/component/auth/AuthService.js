@@ -15,10 +15,10 @@ export const logoutUser = () => {
 }
 
 export const verifyEmail = async (token) => {
-    try {
-        const response = await api.get(`/authro/email_address?token=${token}`);
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
+  try {
+    const response = await api.get(`/autho/email_address?token=${token}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
