@@ -13,3 +13,12 @@ export const logoutUser = () => {
   localStorage.removeItem("userId");
   window.dispatchEvent(new Event("logoutEvt"));
 }
+
+export const verifyEmail = async (token) => {
+    try {
+        const response = await api.get(`/authro/email_address?token=${token}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
