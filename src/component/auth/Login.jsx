@@ -47,7 +47,7 @@ const Login = () => {
       localStorage.setItem("userId", apiResp.data);
       window.dispatchEvent(new Event("loginEvt"));
       clearLoginForm();
-      navigate(`/dashboard/${apiResp.data}/user`);
+      navigate(`/dashboard/${apiResp.data.id}/user`);
     } catch (error) {
       setErrorMsg(error.response.data.message);
       setAlertError(true);
