@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { verifyEmail } from './AuthService';
 import ProcessSpinner from '../common/ProcessSpinner';
 
@@ -47,6 +47,18 @@ const EmailVerifin = () => {
       setIsProcessing(false);
     }
   };
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const token = queryParams.get("token");
+
+    if (token) {
+      verifyEmail(token);
+    } else if (!token) {
+      setVerifyMsg("토큰이 제출되지 않았습니다.");
+      setAlertType("alert-danger");
+    }
+  }, []);
 
   return (
     <div className="d-flex justify-content-center mt-lg-5">
