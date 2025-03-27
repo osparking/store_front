@@ -13,7 +13,7 @@ const EmailVerifin = () => {
     setIsProcessing(true);
     try {
       const response = await verifyEmail(token);
-
+      console.log("response.message", response.message);
       switch (response.message) {
         case "계정 활성화":
           setVerifyMsg("이메일 검증이 성공하여 로그인이 가능합니다.");
@@ -53,7 +53,7 @@ const EmailVerifin = () => {
     const token = queryParams.get("token");
 
     if (token) {
-      verifyEmail(token);
+      callVerifyEmail(token);
     } else if (!token) {
       setVerifyMsg("토큰이 제출되지 않았습니다.");
       setAlertType("alert-danger");
