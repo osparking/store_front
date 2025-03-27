@@ -208,7 +208,10 @@ const RegisterUser = () => {
                   </Button>
                 </div>
                 {alertSuccess && (
-                  <AlertMessage type="success" message={successMsg} />
+                  <>
+                    <AlertMessage type="success" message={successMsg} />
+                    <p className="text-danger">*등록한 이메일에 로그인하여 메일 주소를 검증하십시오</p>
+                  </>                  
                 )}
                 {alertError && (
                   <AlertMessage type="danger" message={errorMsg} />
