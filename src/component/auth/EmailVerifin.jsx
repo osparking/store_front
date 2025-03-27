@@ -1,5 +1,6 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { verifyEmail } from './AuthService';
+import ProcessSpinner from '../common/ProcessSpinner';
 
 const EmailVerifin = () => {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -27,28 +28,39 @@ const EmailVerifin = () => {
           setAlertType("alert-danger");
           break;
       }
-  } catch (error) {
-    if (error.response) {
-      const message = error.response.data.message;
-      setEmail(error.response.data.data);
-      setAlertType("alert-danger");
-      if (message === "만료된 토큰") {
-        setVerifyMsg("계정 등록 때 발급된 토큰이 만료되었습니다.");
-        setAlertType("alert-warning");
-        setTokenExpired(true);
+    } catch (error) {
+      if (error.response) {
+        const message = error.response.data.message;
+        setEmail(error.response.data.data);
+        setAlertType("alert-danger");
+        if (message === "만료된 토큰") {
+          setVerifyMsg("계정 등록 때 발급된 토큰이 만료되었습니다.");
+          setAlertType("alert-warning");
+          setTokenExpired(true);
+        } else {
+          setVerifyMsg(message);
+        }
       } else {
-        setVerifyMsg(message);
+        setVerifyMsg("서버 연결 오류가 발생하였습니다.");
       }
-    } else {
-      setVerifyMsg("서버 연결 오류가 발생하였습니다.");
+    } finally {
+      setIsProcessing(false);
     }
-  } finally {
-    setIsProcessing(false);
-  }
   };
+
   return (
-    <div>EmailVerifin</div>
-  )
+    <div className="d-flex justify-content-center mt-lg-5">
+      {isProcessing ? (
+        <ProcessSpinner message="이메일 검증 처리" />
+      ) : (
+        <div className="col-12 col-md-6">
+          <div className={`alert ${alertType}`} role="alert">
+            {verifyMsg}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default EmailVerifin
