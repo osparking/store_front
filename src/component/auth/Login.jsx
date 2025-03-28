@@ -45,6 +45,7 @@ const Login = () => {
     try {
       const apiResp = await loginUser(credentials.email, credentials.password);
       localStorage.setItem("userId", apiResp.data.id);
+      localStorage.setItem("token", apiResp.data.token);
       window.dispatchEvent(new Event("loginEvt"));
       clearLoginForm();
       navigate(`/dashboard/user`);
