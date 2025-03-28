@@ -27,8 +27,8 @@ const UserDashboard = () => {
         const result = await getUserDtoById(userId);
         setUser(result.data);
       } catch (error) {
-        console.error("Error: ", error);
-        setErrorMsg(error.response.data.message);
+        const errMsg = error.response.data.error;
+        setErrorMsg(errMsg === "Bad Request" ? "잘못된 요청" : errMsg);
         setAlertError(true);
       }
     };
@@ -41,7 +41,7 @@ const UserDashboard = () => {
       window.location.reload();
     } catch (error) {
       setErrorMsg(error.response.data.message);
-      setShowErrorAlert(true);
+      setAlertError(true);
     }
   };
 
