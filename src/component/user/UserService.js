@@ -1,3 +1,4 @@
+import axios from "axios";
 import { api } from "../util/api";
 
 export async function registerUser(user) {
