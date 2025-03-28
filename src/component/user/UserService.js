@@ -20,7 +20,15 @@ export async function getUserById(userId) {
 
 export async function getUserDtoById(userId) {
   try {
-    const result = await api.get(`/user/${userId}/get_dto`);
+    const token = localStorage.getItem("token");
+    const prefix = "http://localhost:9193/api/s1";
+    const result = await axios({
+      method: "get",
+      url: `${prefix}/user/${userId}/get_dto`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });    
     return result.data;
   } catch (err) {
     throw err;
