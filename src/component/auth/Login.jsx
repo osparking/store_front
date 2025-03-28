@@ -44,10 +44,10 @@ const Login = () => {
     }
     try {
       const apiResp = await loginUser(credentials.email, credentials.password);
-      localStorage.setItem("userId", apiResp.data);
+      localStorage.setItem("userId", apiResp.data.id);
       window.dispatchEvent(new Event("loginEvt"));
       clearLoginForm();
-      navigate(`/dashboard/${apiResp.data.id}/user`);
+      navigate(`/dashboard/user`);
     } catch (error) {
       setErrorMsg(error.response.data.message);
       setAlertError(true);
