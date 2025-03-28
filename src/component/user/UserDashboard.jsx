@@ -27,6 +27,7 @@ const UserDashboard = () => {
         const result = await getUserDtoById(userId);
         setUser(result.data);
       } catch (error) {
+        console.error("Error: ", error);
         setErrorMsg(error.response.data.message);
         setAlertError(true);
       }
