@@ -47,7 +47,7 @@ const NavBar = () => {
               <NavDropdown.Divider />
               {userId ? (
                 <>
-                  <NavDropdown.Item to={`/dashboard/${userId}/user`} as={Link}>
+                  <NavDropdown.Item to={`/dashboard/user`} as={Link}>
                     나의 대시보드
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
