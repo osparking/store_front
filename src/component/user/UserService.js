@@ -22,15 +22,19 @@ export async function getUserById(userId) {
 export async function getUserDtoById(userId) {
   try {
     const token = localStorage.getItem("token");
-    const prefix = "http://localhost:9193/api/s1";
-    const result = await axios({
-      method: "get",
-      url: `${prefix}/user/${userId}/get_dto`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });    
-    return result.data;
+    if (token) {
+      const prefix = "http://localhost:9193/api/s1";
+      const result = await axios({
+        method: "get",
+        url: `${prefix}/user/${userId}/get_dto`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return result.data;
+    } else {
+      return null;
+    }
   } catch (err) {
     throw err;
   }
