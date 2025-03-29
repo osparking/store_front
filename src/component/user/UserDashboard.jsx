@@ -5,11 +5,13 @@ import BsAlertHook from "../hook/BsAlertHook";
 import UserProfile from "./UserProfile";
 import { getUserDtoById } from "./UserService";
 import { deleteUserPhoto } from "../modal/ImageService";
+import { useNavigate } from "react-router-dom";
 
 const UserDashboard = () => {
   const [user, setUser] = useState(null);
   const userId = localStorage.getItem("userId");
   const [file, setFile] = useState(null);
+  const navigate = useNavigate();
   const {
     successMsg,
     setSuccessMsg,
@@ -25,7 +27,11 @@ const UserDashboard = () => {
     const getUser = async () => {
       try {
         const result = await getUserDtoById(userId);
-        setUser(result.data);
+        if (result) {
+          setUser(result.data);
+        } else {
+          navigate("/login");
+        }
       } catch (error) {
         const errMsg = error.response.data.error;
         setErrorMsg(errMsg === "Bad Request" ? "잘못된 요청" : errMsg);
