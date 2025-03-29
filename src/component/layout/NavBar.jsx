@@ -5,6 +5,8 @@ import { logoutUser } from "../auth/AuthService";
 
 const NavBar = () => {
   const [userId, setUserId] = useState(localStorage.getItem("userId"));
+  const beforeLogin = localStorage.getItem("token") === null;
+  const userRoles = localStorage.getItem("userRoles") || [];
 
   const handleLogin = () => {
     setUserId(localStorage.getItem("userId"));
