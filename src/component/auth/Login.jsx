@@ -13,6 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import { loginUser } from "./AuthService";
+import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -46,6 +47,8 @@ const Login = () => {
       const apiResp = await loginUser(credentials.email, credentials.password);
       localStorage.setItem("userId", apiResp.data.id);
       localStorage.setItem("token", apiResp.data.token);
+      const tokenDecoded = jwtDecode(apiResp.data.token);
+      localStorage.setItem("userRoles", JSON.stringify(tokenDecoded.roles));
       window.dispatchEvent(new Event("loginEvt"));
       clearLoginForm();
       navigate(`/dashboard/user`);
