@@ -43,28 +43,33 @@ const NavBar = () => {
           </Nav>
           <Nav>
             <NavDropdown title="계정" id="basic-nav-dropdown">
-              <NavDropdown.Item to={"/register_user"} as={Link}>
-                등록
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              {userId ? (
+              {beforeLogin ? (
+                <>
+                  <NavDropdown.Item to={"/register_user"} as={Link}>
+                    등록
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item to={"/login"} as={Link}>
+                    로그인
+                  </NavDropdown.Item>
+                </>) : (
                 <>
                   <NavDropdown.Item to={`/dashboard/user`} as={Link}>
                     나의 대시보드
                   </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item to={"/admin-dashboard"} as={Link}>
-                    관리자 대시보드
-                  </NavDropdown.Item>
+                  {userRoles.includes("ROLE_ADMIN") && (
+                    <>
+                      <NavDropdown.Divider />
+                      <NavDropdown.Item to={"/admin-dashboard"} as={Link}>
+                        관리자 대시보드
+                      </NavDropdown.Item>
+                    </>
+                  )}
                   <NavDropdown.Divider />
                   <NavDropdown.Item to={"#"} as={Link} onClick={logoutUser}>
                     로그아웃
                   </NavDropdown.Item>
                 </>
-              ) : (
-                <NavDropdown.Item to={"/login"} as={Link}>
-                  로그인
-                </NavDropdown.Item>
               )}
             </NavDropdown>
           </Nav>
