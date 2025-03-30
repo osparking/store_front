@@ -19,6 +19,7 @@ const Login = () => {
   const [credentials, setCredentials] = useState({
     email: "jbpark03@email.com",
     password: "1234",
+    save_login: true
   });
   const {
     successMsg,
@@ -33,6 +34,10 @@ const Login = () => {
 
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
+
+  const handleCheckChange = (e) => {
+    // setCredentials({ ...credentials, [e.target.name]: e.target.checked });
   };
 
   const navigate = useNavigate();
@@ -102,6 +107,15 @@ const Login = () => {
                     />
                   </InputGroup>
                 </Form.Group>
+                <div className="ms-5">
+                  <Form.Check
+                    type="switch"
+                    name="save_login"
+                    checked={credentials.save_login}
+                    onChange={handleCheckChange}
+                    label="로그인 유지"
+                  />
+                </div>
                 <Button
                   variant="outline-primary"
                   type="submit"
