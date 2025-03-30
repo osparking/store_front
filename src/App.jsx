@@ -12,6 +12,7 @@ import RootLayout from "./component/layout/RootLayout";
 import RegisterUser from "./component/user/RegisterUser";
 import UserDashboard from "./component/user/UserDashboard";
 import EmailVerifin from "./component/auth/EmailVerifin";
+import AdminDashboard from "./component/admin/AdminDashboard";
 
 function App() {
   const router = createBrowserRouter(
@@ -22,6 +23,7 @@ function App() {
         <Route path="/email_verifin" element={<EmailVerifin />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard/user" element={<UserDashboard />} />
+        <Route path="/dashboard/admin" element={<AdminDashboard/>} />
       </Route>
     )
   );
