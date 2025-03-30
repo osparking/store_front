@@ -38,7 +38,7 @@ const NavBar = () => {
               비누 종류
             </Nav.Link>
             {userRoles.includes("ROLE_ADMIN") && (
-              <Nav.Link to={"/admin-dashboard"} as={Link}>
+              <Nav.Link to={"/dashboard/admin"} as={Link}>
                 관리자
               </Nav.Link>
             )}
@@ -62,7 +62,7 @@ const NavBar = () => {
                   {userRoles.includes("ROLE_ADMIN") && (
                     <>
                       <NavDropdown.Divider />
-                      <NavDropdown.Item to={"/admin-dashboard"} as={Link}>
+                      <NavDropdown.Item to={"/dashboard/admin"} as={Link}>
                         관리자 대시보드
                       </NavDropdown.Item>
                     </>
