@@ -4,22 +4,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
 
 const NavBar = () => {
-  const [userId, setUserId] = useState(localStorage.getItem("userId"));
   const beforeLogin = localStorage.getItem("token") === null;
   const userRoles = localStorage.getItem("userRoles") || [];
 
-  const handleLogin = () => {
-    setUserId(localStorage.getItem("userId"));
-  };
-
   const navigate = useNavigate();
   const handleLogout = () => {
-    setUserId(null);
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userRoles");
+    localStorage.removeItem("token");    
     navigate("/");
   };
 
   window.addEventListener("logoutEvt", handleLogout);
-  window.addEventListener("loginEvt", handleLogin);
 
   return (
     <Navbar expand="lg" sticky="top" className="nav-bg">
