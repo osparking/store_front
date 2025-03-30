@@ -37,9 +37,11 @@ const NavBar = () => {
             <Nav.Link to={"/doctors"} as={Link}>
               비누 종류
             </Nav.Link>
-            <Nav.Link to={"/admin-dashboard"} as={Link}>
-              관리자
-            </Nav.Link>
+            {userRoles.includes("ROLE_ADMIN") && (
+              <Nav.Link to={"/admin-dashboard"} as={Link}>
+                관리자
+              </Nav.Link>
+            )}
           </Nav>
           <Nav>
             <NavDropdown title="계정" id="basic-nav-dropdown">
