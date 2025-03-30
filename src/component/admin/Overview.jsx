@@ -6,6 +6,7 @@ import SalesChart from '../chart/SalesChart';
 import SoapChart from '../chart/SoapChart';
 import { getUserCount } from '../user/UserService';
 import { useNavigate } from 'react-router-dom';
+import { BsPeopleFill } from 'react-icons/bs';
 
 const Overview = () => {
     const [userCount, setUserCount] = useState(0);
@@ -31,10 +32,14 @@ const Overview = () => {
         <main>
             <h5 className="chart-title">요약 정보</h5>
             <div className="main-cards">
-                <CardCompo label={"유저 통계"} count={userCount}/>
-                <CardCompo label={"생산 실적"}/>
-                <CardCompo label={"판매 실적"}/>
-                <CardCompo label={"직원 현황"}/>
+                <CardCompo label={"유저 통계"} count={userCount}
+                    IconCompo={BsPeopleFill} />
+                <CardCompo label={"생산 실적"} count={0}
+                    IconCompo={BsPeopleFill} />
+                <CardCompo label={"판매 실적"} count={0}
+                    IconCompo={BsPeopleFill} />
+                <CardCompo label={"직원 현황"} count={0}
+                    IconCompo={BsPeopleFill} />
             </div>
             <div className="charts">
                 <div className="chart-container">
