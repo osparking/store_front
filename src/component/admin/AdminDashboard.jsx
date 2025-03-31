@@ -1,12 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Overview from './Overview';
 import AdminSideBar from './AdminSideBar';
+import Employee from './Employee';
+import Customer from './Customer';
 
 const AdminDashboard = () => {
-  const [adminTab, setAdminTab] = useState("Overview");
+  const [adminTab, setAdminTab] = useState("");
   const tabClicked = (tab) => {
     setAdminTab(tab);
   };
+
+  useEffect(() => {
+    setAdminTab("Overview");
+  }, []);
 
   return (
     <main className="admin-body">
@@ -16,6 +22,8 @@ const AdminDashboard = () => {
 
         <div className="main-container" >
           {adminTab === "Overview" && <Overview />}
+          {adminTab === "Employee" && <Employee />}
+          {adminTab === "Customer" && <Customer />}
         </div>
       </div>
     </main>
