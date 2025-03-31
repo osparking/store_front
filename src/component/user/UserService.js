@@ -1,5 +1,31 @@
-import axios from "axios";
+import axios, { HttpStatusCode } from "axios";
 import { api } from "../util/api";
+
+const prefix = "http://localhost:9193/api/s1";
+
+export async function getUserByMonthType() {
+  try {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const result = await axios({
+        method: "get",
+        url: `${prefix}/admin/user/count_stat`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return result.data;
+    } else {
+      return null;
+    }
+  } catch (err) {
+    if (err.response.status === HttpStatusCode.Forbidden) {
+      return null;
+    } else {
+      throw err;
+    }
+  }
+}
 
 export async function registerUser(user) {
   try {
@@ -36,7 +62,11 @@ export async function getUserCount() {
       return null;
     }
   } catch (err) {
-    throw err;
+    if (err.response.status === HttpStatusCode.Forbidden) {
+      return null;
+    } else {
+      throw err;
+    }
   }
 }
 
