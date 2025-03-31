@@ -22,7 +22,6 @@ const UserChart = () => {
         const userRegister = await getUserByMonthType();
         const userStat = await userRegister.data;
         if (userRegister) {
-          setUserStat(userStat);
           const chartData = Object.entries(userStat).map(
             ([month, userCount]) => {
               return {
@@ -32,6 +31,7 @@ const UserChart = () => {
               };
             }
           );
+          setUserStat(chartData);
           console.log("chartData:", chartData);
         } else {
           navigate("/login");
@@ -44,19 +44,19 @@ const UserChart = () => {
   }, []);
 
   return (
-    <section>
+    <section className='mb-5'>
       {userStat && userStat.length > 0 ? (
         <React.Fragment>
-          <ResponsiveContainer width={"60%"} height={400}>
+          <ResponsiveContainer width={"75%"} height={300}>
             <h5 className="chart-title mb-5">등록 유저 통계</h5>
-            <BarChart data={userStat}>
+            <BarChart data={userStat} >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" angle={-50} textAnchor="end" height={70} />
               <YAxis />
               <Tooltip />
               <Legend />
-              <Bar dataKey={"수의사"} fill="#8884d8" />
-              <Bar dataKey={"팻주인"} fill="#82ca9d" />
+              <Bar dataKey={"노동자"} fill="#8884d8" />
+              <Bar dataKey={"고객"} fill="#82ca9d" />
             </BarChart>
           </ResponsiveContainer>
         </React.Fragment>
