@@ -1,6 +1,8 @@
 import React from 'react'
 import { FaChartPie } from "react-icons/fa";
 import { GiOlive } from 'react-icons/gi';
+import { BsPeopleFill } from "react-icons/bs";
+import { MdOutlineFamilyRestroom } from "react-icons/md";  
 
 const AdminSideBar = ({ tabClicked  }) => {
     return (
@@ -20,8 +22,22 @@ const AdminSideBar = ({ tabClicked  }) => {
                         통계 및 차트
                     </a>
                 </li>
-                <li className="sidebar-list-item">직원 관리</li>
-                <li className="sidebar-list-item">고객 관리</li>
+                <li className="sidebar-list-item"
+                    onClick={() => tabClicked("Employee")}
+                >
+                    <a href="#">
+                        <BsPeopleFill className="icon" />
+                        직원 관리
+                    </a>
+                </li>
+                <li className="sidebar-list-item"
+                    onClick={() => tabClicked("Customer")}
+                >
+                    <a href="#">
+                        <MdOutlineFamilyRestroom className="icon" />
+                        고객 관리
+                    </a>
+                </li>  
 
             </ul>
         </aside>
