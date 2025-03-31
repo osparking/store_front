@@ -49,7 +49,6 @@ export async function getUserCount() {
   try {
     const token = localStorage.getItem("token");
     if (token) {
-      const prefix = "http://localhost:9193/api/s1";
       const result = await axios({
         method: "get",
         url: `${prefix}/admin/user/count`,
@@ -74,7 +73,6 @@ export async function getUserDtoById(userId) {
   try {
     const token = localStorage.getItem("token");
     if (token) {
-      const prefix = "http://localhost:9193/api/s1";
       const result = await axios({
         method: "get",
         url: `${prefix}/user/${userId}/get_dto`,
