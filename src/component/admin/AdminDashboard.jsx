@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { LuPanelLeftOpen } from "react-icons/lu";
 import Overview from './Overview';
 import AdminSideBar from './AdminSideBar';
 import Employee from './Employee';
@@ -9,6 +10,10 @@ const AdminDashboard = () => {
   const tabClicked = (tab) => {
     setAdminTab(tab);
   };
+  const [openSidebar, setOpenSidebar] = useState(true);
+  const toggleSidebar = () => {
+    setOpenSidebar(!openSidebar);
+  };
 
   useEffect(() => {
     setAdminTab("Overview");
@@ -17,8 +22,15 @@ const AdminDashboard = () => {
   return (
     <main className="admin-body">
       <div className="grid-container">
-        <AdminSideBar
-          tabClicked={tabClicked} />
+        {openSidebar
+          ? <AdminSideBar
+            openSidebar={openSidebar}
+            toggleSidebar={toggleSidebar}
+            tabClicked={tabClicked} />
+          : <span className="icon-header" onClick={toggleSidebar}>
+            <LuPanelLeftOpen />
+          </span>
+        }  
 
         <div className="main-container" >
           {adminTab === "Overview" && <Overview />}
