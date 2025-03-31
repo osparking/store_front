@@ -10,7 +10,7 @@ const AdminDashboard = () => {
   const tabClicked = (tab) => {
     setAdminTab(tab);
   };
-  const [openSidebar, setOpenSidebar] = useState(true);
+  const [openSidebar, setOpenSidebar] = useState(false);
   const toggleSidebar = () => {
     setOpenSidebar(!openSidebar);
   };

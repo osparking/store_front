@@ -1,17 +1,20 @@
 import React from 'react'
 import { FaChartPie } from "react-icons/fa";
 import { GiOlive } from 'react-icons/gi';
-import { BsPeopleFill } from "react-icons/bs";
-import { MdOutlineFamilyRestroom } from "react-icons/md";  
+import { BsPeopleFill, BsX } from "react-icons/bs";
+import { MdOutlineFamilyRestroom } from "react-icons/md";
 
-const AdminSideBar = ({ tabClicked  }) => {
+const AdminSideBar = ({ openSidebar, toggleSidebar, tabClicked }) => {
     return (
-        <aside id="sidebar" className="sidebar-responsive">
+        <aside id="sidebar" className={openSidebar ? "sidebar-responsive" : ""}>
             <div className="sidebar-title">
                 <div className='sidebar-brand'>
                     <GiOlive className="icon-header" />
                     범이비누 관리
                 </div>
+                <span className="icon close-icon" onClick={toggleSidebar}>
+                    <BsX />
+                </span>
             </div>
             <ul className="sidebar-list">
                 <li className="sidebar-list-item"
@@ -37,7 +40,7 @@ const AdminSideBar = ({ tabClicked  }) => {
                         <MdOutlineFamilyRestroom className="icon" />
                         고객 관리
                     </a>
-                </li>  
+                </li>
 
             </ul>
         </aside>
