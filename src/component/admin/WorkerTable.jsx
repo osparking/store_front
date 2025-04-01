@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import BsAlertHook from '../hook/BsAlertHook';
 import { BsPlusSquareFill } from 'react-icons/bs';
 import AlertMessage from '../common/AlertMessage';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Table } from 'react-bootstrap';
 
 const WorkerTable = () => {
   const [workerList, setWorkerList] = useState([]);
@@ -63,6 +63,34 @@ const WorkerTable = () => {
            </div>
          </Col>
       </Row>
+      <Table bordered hover striped>
+        <thead>
+          <tr>
+            <th>성명</th>
+            <th>이메일</th>
+            <th>휴대폰</th>
+            <th>소속</th>
+            <th>계정상태</th>
+            <th>등록일</th>
+            <th>사진</th>
+            <th colSpan={4}>작업</th>
+          </tr>
+        </thead>
+        <tbody>
+          {workerList.map((worker, index) => (
+            <tr key={index}>
+              <td>{worker.fullName}</td>
+              <td>{worker.email}</td>
+              <td>{worker.mbPhone}</td>
+              <td>{worker.dept}</td>
+              <td>{worker.enabled ? "활성" : "비활성"}</td>
+              <td>{worker.addDate}</td>
+              <td>{worker.photoId ? "유" : "무"}</td>
+              <td></td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>      
     </main>
   )
 }
