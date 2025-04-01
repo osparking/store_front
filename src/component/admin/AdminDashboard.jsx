@@ -9,14 +9,16 @@ const AdminDashboard = () => {
   const [adminTab, setAdminTab] = useState("");
   const tabClicked = (tab) => {
     setAdminTab(tab);
+    localStorage.setItem("adminTab", tab);
   };
-  const [openSidebar, setOpenSidebar] = useState(false);
+  const [openSidebar, setOpenSidebar] = useState(true);
   const toggleSidebar = () => {
     setOpenSidebar(!openSidebar);
   };
 
   useEffect(() => {
-    setAdminTab("Overview");
+    const adminTab = localStorage.getItem("adminTab");
+    setAdminTab(adminTab ? adminTab : "Overview");
   }, []);
 
   return (
