@@ -1,4 +1,7 @@
+import axios, { HttpStatusCode } from "axios";
 import { api } from "../util/api";
+
+const prefix = "http://localhost:9193/api/s1";
 
 export async function getWorkerList() {
   try {
@@ -16,6 +19,7 @@ export async function getWorkerList() {
       return null;
     }
   } catch (err) {
+    console.error("err: ", err);
     if (err.response.status === HttpStatusCode.Forbidden) {
       return null;
     } else {

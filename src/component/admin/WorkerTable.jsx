@@ -19,20 +19,20 @@ const WorkerTable = () => {
   } = BsAlertHook();
   const navigate = useNavigate();
 
-  const readWorkerList = () => {
-    getWorkerList()
-      .then((data) => {
-        if (data) {
-          console.log("일꾼 목록: ", data.data);
-          setWorkerList(data.data);
-        } else {
-          navigate("/login");
-        }
-      })
-      .catch((err) => {
-        setErrorMsg(err.message);
-        setAlertError(true);
-      });
+  const readWorkerList = async () => {
+    try {
+      const data = await getWorkerList();
+      
+      if (data) {
+        console.log("일꾼 목록: ", data.data);
+        setWorkerList(data.data);
+      } else {
+        navigate("/login");
+      }
+    } catch (err) {
+      setErrorMsg(err.message);
+      setAlertError(true);
+    };
   };
 
   useEffect(() => {
