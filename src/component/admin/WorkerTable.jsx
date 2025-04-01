@@ -40,7 +40,19 @@ const WorkerTable = () => {
   }, []);
 
   return (
-    <div>일꾼 테이블</div>
+    <main>
+      <Row>
+        <Col>
+          {alertSuccess && (
+            <AlertMessage type={"success"} message={successMsg} />
+          )}
+          {alertError && (
+            <AlertMessage type={"danger"} message={errorMsg} />
+          )}
+        </Col>
+        <Col></Col>
+      </Row>
+    </main>
   )
 }
 
