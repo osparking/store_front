@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { getWorkerList } from '../worker/WorkerService';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import BsAlertHook from '../hook/BsAlertHook';
+import { BsPlusSquareFill } from 'react-icons/bs';
+import AlertMessage from '../common/AlertMessage';
+import { Col, Row } from 'react-bootstrap';
 
 const WorkerTable = () => {
   const [workerList, setWorkerList] = useState([]);
@@ -50,7 +53,15 @@ const WorkerTable = () => {
             <AlertMessage type={"danger"} message={errorMsg} />
           )}
         </Col>
-        <Col></Col>
+        <Col>
+           {" "}
+           <div className="d-flex justify-content-end">
+             <Link to={"/register-user"}>
+               {" "}
+               <BsPlusSquareFill />
+             </Link>
+           </div>
+         </Col>
       </Row>
     </main>
   )
