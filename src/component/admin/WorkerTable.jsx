@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getWorkerList } from '../worker/WorkerService';
 import { Link, useNavigate } from 'react-router-dom';
 import BsAlertHook from '../hook/BsAlertHook';
-import { BsEyeFill, BsLockFill, BsPencilFill, BsPlusSquareFill, BsUnlockFill } from 'react-icons/bs';
+import { BsEyeFill, BsLockFill, BsPencilFill, BsPlusSquareFill, BsTrashFill, BsUnlockFill } from 'react-icons/bs';
 import AlertMessage from '../common/AlertMessage';
 import { Col, OverlayTrigger, Row, Table, Tooltip } from 'react-bootstrap';
 import { toggleEnabledColumn } from "../user/UserService";
@@ -10,7 +10,7 @@ import { toggleEnabledColumn } from "../user/UserService";
 const WorkerTable = () => {
   const [workerList, setWorkerList] = useState([]);
   const [showDelModal, setShowDelModal] = useState(false);
-  const [workerToDel, setWorkerToDel] = useState(null);
+  const [delTargetId, setDelTargetId] = useState(null);
   const {
     successMsg,
     setSuccessMsg,
@@ -63,6 +63,9 @@ const WorkerTable = () => {
   useEffect(() => {
     readWorkerList();
   }, []);
+
+const processDeletion = async (id, name) => {
+}
 
   return (
     <main>
@@ -146,6 +149,21 @@ const WorkerTable = () => {
                   </span>
                 </OverlayTrigger>
               </td>
+<td>
+  <OverlayTrigger
+    overlay={
+      <Tooltip id={`tooltip-view-${index}`}>삭제</Tooltip>
+    }
+  >
+    <Link
+      to={"#"}
+      className="text-danger"
+      onClick={() => processDeletion(worker.id, worker.fullName)}
+    >
+      <BsTrashFill />
+    </Link>
+  </OverlayTrigger>
+</td>              
             </tr>
           ))}
         </tbody>
