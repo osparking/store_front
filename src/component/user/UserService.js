@@ -3,6 +3,30 @@ import { api } from "../util/api";
 
 const prefix = "http://localhost:9193/api/s1";
 
+export async function deleteUserAccount(userId) {
+  try {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const result = await axios({
+        method: "delete",
+        url: `${prefix}/user/${userId}/delete`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return result.data;
+    } else {
+      return null;
+    }
+  } catch (err) {
+    if (err.response.status === HttpStatusCode.Forbidden) {
+      return null;
+    } else {
+      throw err;
+    }
+  }  
+}
+
 export const toggleEnabledColumn = async (userId) => {
   try {
     const token = localStorage.getItem("token");
