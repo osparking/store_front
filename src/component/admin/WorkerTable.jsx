@@ -5,7 +5,7 @@ import BsAlertHook from '../hook/BsAlertHook';
 import { BsEyeFill, BsLockFill, BsPencilFill, BsPlusSquareFill, BsTrashFill, BsUnlockFill } from 'react-icons/bs';
 import AlertMessage from '../common/AlertMessage';
 import { Col, OverlayTrigger, Row, Table, Tooltip } from 'react-bootstrap';
-import { toggleEnabledColumn } from "../user/UserService";
+import { deleteUserAccount, toggleEnabledColumn } from "../user/UserService";
 
 const WorkerTable = () => {
   const [workerList, setWorkerList] = useState([]);
@@ -61,6 +61,22 @@ const WorkerTable = () => {
       setAlertError(true);
     }
   };  
+
+  const handleDeletion = async () => {
+    if (delTargetId) {
+      try {
+        const result = await deleteUserAccount(delTargetId);
+        setSuccessMsg(result.message);
+        setAlertSuccess(true);
+        setShowDelModal(false);
+        readWorkerList();
+      } catch (err) {
+        console.error("err:", err);
+        setErrorMsg(err.message);
+        setAlertError(true);
+      }
+    }
+  };
 
   useEffect(() => {
     readWorkerList();
