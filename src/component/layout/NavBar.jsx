@@ -35,7 +35,7 @@ const NavBar = () => {
               비누 종류
             </Nav.Link>
             {userRoles.includes("ROLE_ADMIN") && (
-              <Nav.Link to={"/dashboard/${userId}/admin"} as={Link}>
+              <Nav.Link to={`/dashboard/admin`} as={Link}>
                 관리자
               </Nav.Link>
             )}
