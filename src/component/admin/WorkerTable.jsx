@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { getWorkerList } from '../worker/WorkerService';
 import { Link, useNavigate } from 'react-router-dom';
 import BsAlertHook from '../hook/BsAlertHook';
-import { BsPlusSquareFill } from 'react-icons/bs';
+import { BsEyeFill, BsPlusSquareFill } from 'react-icons/bs';
 import AlertMessage from '../common/AlertMessage';
-import { Col, Row, Table } from 'react-bootstrap';
+import { Col, OverlayTrigger, Row, Table, Tooltip } from 'react-bootstrap';
 
 const WorkerTable = () => {
   const [workerList, setWorkerList] = useState([]);
@@ -86,7 +86,17 @@ const WorkerTable = () => {
               <td>{worker.enabled ? "활성" : "비활성"}</td>
               <td>{worker.addDate}</td>
               <td>{worker.photoId ? "유" : "무"}</td>
-              <td></td>
+              <td>
+               <OverlayTrigger
+                 overlay={
+                   <Tooltip id={`tooltip-view-${index}`}>상세 보기</Tooltip>
+                 }
+               >
+                 <Link to={"/dashboard/${worker.id}/user"} className="text-info">
+                   <BsEyeFill />
+                 </Link>
+               </OverlayTrigger>
+             </td>
             </tr>
           ))}
         </tbody>
