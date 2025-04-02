@@ -22,7 +22,7 @@ function App() {
         <Route path="/register_user" element={<RegisterUser />} />
         <Route path="/email_verifin" element={<EmailVerifin />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard/user" element={<UserDashboard />} />
+        <Route path="/dashboard/:userId/user" element={<UserDashboard />} />
         <Route path="/dashboard/admin" element={<AdminDashboard/>} />
       </Route>
     )

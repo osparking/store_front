@@ -5,11 +5,11 @@ import BsAlertHook from "../hook/BsAlertHook";
 import UserProfile from "./UserProfile";
 import { getUserDtoById } from "./UserService";
 import { deleteUserPhoto } from "../modal/ImageService";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const UserDashboard = () => {
   const [user, setUser] = useState(null);
-  const userId = localStorage.getItem("userId");
+  const { userId } = useParams();
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
   const {

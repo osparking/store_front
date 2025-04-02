@@ -56,7 +56,7 @@ const Login = () => {
       localStorage.setItem("userRoles", JSON.stringify(tokenDecoded.roles));
       window.dispatchEvent(new Event("loginEvt"));
       clearLoginForm();
-      navigate(`/dashboard/user`);
+      navigate(`/dashboard/${apiResp.data.id}/user`);
     } catch (error) {
       setErrorMsg(error.response.data.message);
       setAlertError(true);
