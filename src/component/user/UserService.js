@@ -9,7 +9,7 @@ export const toggleEnabledColumn = async (userId) => {
     if (token) {
       const result = await axios({
         method: "put",
-        url: `${prefix}/admin/worker/${userId}toggle`,
+        url: `${prefix}/admin/worker/${userId}/toggle`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
