@@ -42,7 +42,7 @@ const WorkerTable = () => {
   const handleLockToggle = async (worker) => {
     try {
       let result = await toggleEnabledColumn(worker.id);
-      workerList(
+      setWorkerList(
         workerList.map((worker) =>
           worker.id === worker.id
             ? { ...worker, enabled: !worker.enabled }
@@ -53,6 +53,7 @@ const WorkerTable = () => {
       setSuccessMsg(result.message + ", 활성값: " + !worker.enabled);
       setAlertSuccess(true);
     } catch (e) {
+      console.error("e:", e);
       setErrorMsg(e.response.data.message);
       setAlertSuccess(false);
       setAlertError(true);
