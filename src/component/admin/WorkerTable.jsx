@@ -5,6 +5,7 @@ import BsAlertHook from '../hook/BsAlertHook';
 import { BsEyeFill, BsLockFill, BsPencilFill, BsPlusSquareFill, BsUnlockFill } from 'react-icons/bs';
 import AlertMessage from '../common/AlertMessage';
 import { Col, OverlayTrigger, Row, Table, Tooltip } from 'react-bootstrap';
+import { toggleEnabledColumn } from "../user/UserService";
 
 const WorkerTable = () => {
   const [workerList, setWorkerList] = useState([]);
@@ -38,7 +39,24 @@ const WorkerTable = () => {
     };
   };
 
-  const handleLockToggle = async (vet) => {
+  const handleLockToggle = async (worker) => {
+    try {
+      let result = await toggleEnabledColumn(worker.id);
+      workerList(
+        workerList.map((worker) =>
+          worker.id === worker.id
+            ? { ...worker, enabled: !worker.enabled }
+            : worker
+        )
+      );
+      setAlertError(false);
+      setSuccessMsg(result.message + ", 활성값: " + !worker.enabled);
+      setAlertSuccess(true);
+    } catch (e) {
+      setErrorMsg(e.response.data.message);
+      setAlertSuccess(false);
+      setAlertError(true);
+    }
   };  
 
   useEffect(() => {
