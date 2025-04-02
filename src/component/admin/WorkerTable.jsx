@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getWorkerList } from '../worker/WorkerService';
 import { Link, useNavigate } from 'react-router-dom';
 import BsAlertHook from '../hook/BsAlertHook';
-import { BsEyeFill, BsPencilFill, BsPlusSquareFill } from 'react-icons/bs';
+import { BsEyeFill, BsLockFill, BsPencilFill, BsPlusSquareFill, BsUnlockFill } from 'react-icons/bs';
 import AlertMessage from '../common/AlertMessage';
 import { Col, OverlayTrigger, Row, Table, Tooltip } from 'react-bootstrap';
 
@@ -37,6 +37,9 @@ const WorkerTable = () => {
       setAlertError(true);
     };
   };
+
+  const handleLockToggle = async (vet) => {
+  };  
 
   useEffect(() => {
     readWorkerList();
@@ -108,6 +111,22 @@ const WorkerTable = () => {
                  </Link>
                </OverlayTrigger>
              </td>
+             <td>
+                <OverlayTrigger
+                  overlay={
+                    <Tooltip id={`tooltip-view-${index}`}>
+                      {worker.enabled ? "계정 잠금" : "잠금 해제"}
+                    </Tooltip>
+                  }
+                >
+                  <span
+                    onClick={() => handleLockToggle(worker)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {worker.enabled ? <BsUnlockFill /> : <BsLockFill />}
+                  </span>
+                </OverlayTrigger>
+              </td>
             </tr>
           ))}
         </tbody>
