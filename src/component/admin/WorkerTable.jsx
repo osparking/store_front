@@ -11,6 +11,8 @@ const WorkerTable = () => {
   const [workerList, setWorkerList] = useState([]);
   const [showDelModal, setShowDelModal] = useState(false);
   const [delTargetId, setDelTargetId] = useState(null);
+  const [delTargetName, setDelTargetName] = useState(null);
+
   const {
     successMsg,
     setSuccessMsg,
@@ -64,8 +66,11 @@ const WorkerTable = () => {
     readWorkerList();
   }, []);
 
-const processDeletion = async (id, name) => {
-}
+  const processDeletion = async (id, name) => {
+    setDelTargetId(id);
+    setDelTargetName(name);
+    setShowDelModal(true);
+  }
 
   return (
     <main>
@@ -149,21 +154,21 @@ const processDeletion = async (id, name) => {
                   </span>
                 </OverlayTrigger>
               </td>
-<td>
-  <OverlayTrigger
-    overlay={
-      <Tooltip id={`tooltip-view-${index}`}>삭제</Tooltip>
-    }
-  >
-    <Link
-      to={"#"}
-      className="text-danger"
-      onClick={() => processDeletion(worker.id, worker.fullName)}
-    >
-      <BsTrashFill />
-    </Link>
-  </OverlayTrigger>
-</td>              
+              <td>
+                <OverlayTrigger
+                  overlay={
+                    <Tooltip id={`tooltip-view-${index}`}>삭제</Tooltip>
+                  }
+                >
+                  <Link
+                    to={"#"}
+                    className="text-danger"
+                    onClick={() => processDeletion(worker.id, worker.fullName)}
+                  >
+                    <BsTrashFill />
+                  </Link>
+                </OverlayTrigger>
+              </td>              
             </tr>
           ))}
         </tbody>
