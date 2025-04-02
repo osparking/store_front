@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getWorkerList } from '../worker/WorkerService';
 import { Link, useNavigate } from 'react-router-dom';
 import BsAlertHook from '../hook/BsAlertHook';
-import { BsEyeFill, BsPlusSquareFill } from 'react-icons/bs';
+import { BsEyeFill, BsPencilFill, BsPlusSquareFill } from 'react-icons/bs';
 import AlertMessage from '../common/AlertMessage';
 import { Col, OverlayTrigger, Row, Table, Tooltip } from 'react-bootstrap';
 
@@ -94,6 +94,17 @@ const WorkerTable = () => {
                >
                  <Link to={`/dashboard/${worker.id}/user`} className="text-info">
                    <BsEyeFill />
+                 </Link>
+               </OverlayTrigger>
+             </td>
+             <td>
+               <OverlayTrigger
+                 overlay={
+                   <Tooltip id={`tooltip-view-${index}`}>정보 편집</Tooltip>
+                 }
+               >
+                 <Link to={`/user/${worker.id}/update`} className="text-warning">
+                   <BsPencilFill />
                  </Link>
                </OverlayTrigger>
              </td>
