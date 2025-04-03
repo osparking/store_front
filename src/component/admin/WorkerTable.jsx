@@ -81,6 +81,12 @@ const WorkerTable = () => {
     setShowDelModal(true);
   }
 
+  const [filteredWorkers, setSelectedWorkers] = useState([]);
+
+  useEffect(() => {
+    setSelectedWorkers(workerList);
+  }, [workerList])
+
   return (
     <main>
       <DeleteConfirmModal
@@ -122,7 +128,7 @@ const WorkerTable = () => {
           </tr>
         </thead>
         <tbody>
-          {workerList.map((worker, index) => (
+          {filteredWorkers.map((worker, index) => (
             <tr key={index}>
               <td>{worker.fullName}</td>
               <td>{worker.email}</td>
