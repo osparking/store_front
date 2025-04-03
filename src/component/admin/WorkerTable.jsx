@@ -84,16 +84,35 @@ const WorkerTable = () => {
   }
 
   const [filteredWorkers, setFilteredWorkers] = useState([]);
-  const [selectedDept, setSelectedDept] = useState("");
+  const [selectedDept, setSelectedDept] = useState(
+    localStorage.getItem("selectedDept") | "");
 
   useEffect(() => {
-    localStorage.setItem("selectedSpecial", selectedDept);
-    if (selectedDept) {
-      setFilteredWorkers(
-        workerList.filter((worker) => worker.dept === selectedDept)
-      );
+    const savedDept = localStorage.getItem("selectedDept");
+    let searchKey = undefined;
+
+    /**
+     * selectedDept 는 재방문 때 0 이되고, 
+     * 초기화 혹은 목록 중 '-소속 선택-' 클릭 때 ""(빈문자열)이 된다.
+     * 재방문 후에는 저장된 부서 검색 기준인 savedDept 가 우선이다.
+     */
+    // 일꾼 필터링 기준 부서명칭 식별하여 searchKey 에 저장.
+    if (selectedDept === 0 && savedDept !== "") {
+      setSelectedDept(savedDept);
+      searchKey = savedDept;
+    } else if (selectedDept !== 0 && selectedDept !== "") {
+      searchKey = selectedDept;
+    }
+    // 검색키에 의미있는 값이 들어있으면, 이로써 일꾼을 걸러낸다.
+    if (searchKey) {
+      setFilteredWorkers(workerList.filter(
+        (worker) => worker.dept === searchKey));
     } else {
       setFilteredWorkers(workerList);
+    }
+    // 유저가 의도적으로 택한 검색키를 저장소에 보관한다. 
+    if (selectedDept !== 0) {
+      localStorage.setItem("selectedDept", selectedDept);
     }
   }, [workerList, selectedDept])
 
@@ -101,8 +120,8 @@ const WorkerTable = () => {
     new Set(workerList.map((worker) => worker.dept))
   );
 
-
   const handleClearFilter = () => {
+    localStorage.setItem("selectedDept", "");
     setSelectedDept("");
   }
 
