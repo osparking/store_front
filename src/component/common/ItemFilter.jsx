@@ -1,21 +1,21 @@
 import React from 'react'
-import { InputGroup } from 'react-bootstrap';
-import { Form } from 'react-router-dom';
+import { Button, InputGroup, Form } from 'react-bootstrap';
 
 const ItemFilter = ({
   itemType,
   options = [],
   onClearFilter,
-  selectedType,
-  onTypeSelection,
+  onOptionSelection,
+  selectedOption,
 }) => {
+  console.log("options: ", options);
   return (
     <InputGroup className='mb-2'>
       <InputGroup.Text>{itemType} 검색</InputGroup.Text>
       <Form.Select
         className="form-control"
-        value={selectedType}
-        onChange={(e) => onTypeSelection(e.target.value)}
+        value={selectedOption}
+        onChange={(e) => onOptionSelection(e.target.value)}
       >
         <option value="">- {itemType} 선택 -</option>
         {options.map((option, idx) => (
