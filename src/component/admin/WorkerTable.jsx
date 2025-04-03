@@ -6,6 +6,7 @@ import { BsEyeFill, BsLockFill, BsPencilFill, BsPlusSquareFill, BsTrashFill, BsU
 import AlertMessage from '../common/AlertMessage';
 import { Col, OverlayTrigger, Row, Table, Tooltip } from 'react-bootstrap';
 import { deleteUserAccount, toggleEnabledColumn } from "../user/UserService";
+import DeleteConfirmModal from '../modal/DeleteConfirmModal';
 
 const WorkerTable = () => {
   const [workerList, setWorkerList] = useState([]);
@@ -90,6 +91,12 @@ const WorkerTable = () => {
 
   return (
     <main>
+      <DeleteConfirmModal
+        show={showDelModal}
+        onHide={() => setShowDelModal(false)}
+        handleDeletion={handleDeletion}
+        target={`${delTargetName}`}
+      />
       <Row>
         <Col>
           {alertSuccess && (
