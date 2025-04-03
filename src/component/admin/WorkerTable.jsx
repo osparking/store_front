@@ -7,6 +7,7 @@ import AlertMessage from '../common/AlertMessage';
 import { Col, OverlayTrigger, Row, Table, Tooltip } from 'react-bootstrap';
 import { deleteUserAccount, toggleEnabledColumn } from "../user/UserService";
 import DeleteConfirmModal from '../modal/DeleteConfirmModal';
+import ItemFilter from '../common/ItemFilter';
 
 const WorkerTable = () => {
   const [workerList, setWorkerList] = useState([]);
@@ -124,6 +125,17 @@ const WorkerTable = () => {
            </div>
          </Col>
       </Row>
+      <Row className="mb-2">
+        <Col md={6}>
+          <ItemFilter
+            itemType={"소속"}
+            options={departments}
+            onClearFilter={handleClearFilter}
+            onOptionSelection={setSelectedDept}
+            selectedOption={selectedDept}
+          />
+        </Col>
+      </Row>      
       <Table bordered hover striped>
         <thead>
           <tr>
