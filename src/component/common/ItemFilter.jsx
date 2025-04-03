@@ -4,6 +4,8 @@ import { Form } from 'react-router-dom';
 
 const ItemFilter = ({
   itemType,
+  options = [],
+  onClearFilter,
   selectedType,
   onTypeSelection,
 }) => {
@@ -14,7 +16,17 @@ const ItemFilter = ({
         className="form-control"
         value={selectedType}
         onChange={(e) => onTypeSelection(e.target.value)}
-      ></Form.Select>
+      >
+        <option value="">- {itemType} 선택 -</option>
+        {options.map((option, idx) => (
+          <option value={option} key={idx}>
+            {option}
+          </option>
+        ))}
+      </Form.Select>
+      <Button variant="secondary" onClick={onClearFilter}>
+        초기화
+      </Button>        
     </InputGroup>
   );
 }
