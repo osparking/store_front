@@ -11,8 +11,7 @@ import DeleteConfirmModal from '../modal/DeleteConfirmModal';
 const WorkerTable = () => {
   const [workerList, setWorkerList] = useState([]);
   const [showDelModal, setShowDelModal] = useState(false);
-  const [delTargetId, setDelTargetId] = useState(null);
-  const [delTargetName, setDelTargetName] = useState(null);
+  const [delTarget, setDelTarget] = useState({});
   const [reloadFlag, setReloadFlag] = useState(false);
 
   const {
@@ -58,9 +57,9 @@ const WorkerTable = () => {
   };  
 
   const handleDeletion = async () => {
-    if (delTargetId) {
+    if (delTarget) {
       try {
-        const result = await deleteUserAccount(delTargetId);
+        const result = await deleteUserAccount(delTarget.id);
         setSuccessMsg(result.message);
         setAlertSuccess(true);
         setShowDelModal(false);
@@ -78,8 +77,7 @@ const WorkerTable = () => {
   }, [reloadFlag]);
 
   const processDeletion = async (id, name) => {
-    setDelTargetId(id);
-    setDelTargetName(name);
+    setDelTarget({id, name});
     setShowDelModal(true);
   }
 
@@ -89,7 +87,7 @@ const WorkerTable = () => {
         show={showDelModal}
         onHide={() => setShowDelModal(false)}
         handleDeletion={handleDeletion}
-        target={`${delTargetName}`}
+        target={`${delTarget.name}`}
       />
       <Row>
         <Col>
