@@ -46,10 +46,10 @@ const WorkerTable = () => {
     try {
       let result = await toggleEnabledColumn(worker.id);
       setWorkerList(
-        workerList.map((worker) =>
-          worker.id === worker.id
-            ? { ...worker, enabled: !worker.enabled }
-            : worker
+        workerList.map((w) =>
+          w.id === worker.id
+            ? { ...w, enabled: !w.enabled }
+            : w
         )
       );
       setAlertError(false);
