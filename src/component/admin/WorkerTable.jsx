@@ -13,6 +13,7 @@ const WorkerTable = () => {
   const [showDelModal, setShowDelModal] = useState(false);
   const [delTargetId, setDelTargetId] = useState(null);
   const [delTargetName, setDelTargetName] = useState(null);
+  const [reloadFlag, setReloadFlag] = useState(false);
 
   const {
     successMsg,
@@ -41,17 +42,10 @@ const WorkerTable = () => {
       setAlertError(true);
     };
   };
-
   const handleLockToggle = async (worker) => {
     try {
       let result = await toggleEnabledColumn(worker.id);
-      setWorkerList(
-        workerList.map((w) =>
-          w.id === worker.id
-            ? { ...w, enabled: !w.enabled }
-            : w
-        )
-      );
+      setReloadFlag(!reloadFlag);
       setAlertError(false);
       setSuccessMsg(result.message + ", 활성값: " + !worker.enabled);
       setAlertSuccess(true);
@@ -81,7 +75,7 @@ const WorkerTable = () => {
 
   useEffect(() => {
     readWorkerList();
-  }, []);
+  }, [reloadFlag]);
 
   const processDeletion = async (id, name) => {
     setDelTargetId(id);
