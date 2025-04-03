@@ -83,17 +83,25 @@ const WorkerTable = () => {
     setShowDelModal(true);
   }
 
-  const [filteredWorkers, setSelectedWorkers] = useState([]);
+  const [filteredWorkers, setFilteredWorkers] = useState([]);
+  const [selectedDept, setSelectedDept] = useState("");
 
   useEffect(() => {
-    setSelectedWorkers(workerList);
-  }, [workerList])
+    localStorage.setItem("selectedSpecial", selectedDept);
+    if (selectedDept) {
+      setFilteredWorkers(
+        workerList.filter((worker) => worker.dept === selectedDept)
+      );
+    } else {
+      setFilteredWorkers(workerList);
+    }
+  }, [workerList, selectedDept])
 
   const departments = Array.from(
     new Set(workerList.map((worker) => worker.dept))
   );
 
-  const [selectedDept, setSelectedDept] = useState("");
+
   const handleClearFilter = () => {
     setSelectedDept("");
   }
