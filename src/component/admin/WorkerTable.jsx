@@ -41,6 +41,7 @@ const WorkerTable = () => {
       setAlertError(true);
     };
   };
+
   const handleLockToggle = async (worker) => {
     try {
       let result = await toggleEnabledColumn(worker.id);
@@ -86,6 +87,15 @@ const WorkerTable = () => {
   useEffect(() => {
     setSelectedWorkers(workerList);
   }, [workerList])
+
+  const departments = Array.from(
+    new Set(workerList.map((worker) => worker.dept))
+  );
+
+  const [selectedDept, setSelectedDept] = useState("");
+  const handleClearFilter = () => {
+    setSelectedDept("");
+  }
 
   return (
     <main>
