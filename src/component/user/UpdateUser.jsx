@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import BsAlertHook from '../hook/BsAlertHook';
 import { useParams } from 'react-router-dom';
-import { Card, Col, Container, Form } from 'react-bootstrap';
+import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 
 const UserUpdate = () => {
   const [user, setUser] = useState({
@@ -49,8 +49,20 @@ const UserUpdate = () => {
       <Col md={6}>
         <Form className="mb-5">
           <Card className="shadow">
-            <Card.Header></Card.Header>
+            <Card.Header className="text-center mb-2">
+              유저 정보 갱신
+            </Card.Header>
             <Card.Body className="mb-3">
+              <Form.Group as={Row} controlId="fullName" className="mb-3">
+                <Form.Label>성명</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="fullName"
+                  placeholder="(성명)"
+                  value={user.fullName}
+                  onChange={handleInputChange}
+                />
+              </Form.Group>
             </Card.Body>
           </Card>
         </Form>
