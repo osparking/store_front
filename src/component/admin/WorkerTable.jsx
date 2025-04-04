@@ -248,7 +248,13 @@ const WorkerTable = () => {
             </tr>
           ))}
         </tbody>
-      </Table>      
+      </Table> 
+      <Paginator
+        pageSize={pageSize}
+        totalItems={filteredWorkers.length}
+        currPage={currPage}
+        setCurrPage={setCurrPage}
+      />           
     </main>
   )
 }
