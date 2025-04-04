@@ -59,7 +59,7 @@ const NavBar = () => {
                   {userRoles.includes("ROLE_ADMIN") && (
                     <>
                       <NavDropdown.Divider />
-                      <NavDropdown.Item to={`/dashboard/${userId}/admin`} as={Link}>
+                      <NavDropdown.Item to={`/dashboard/admin`} as={Link}>
                         관리자 대시보드
                       </NavDropdown.Item>
                     </>
