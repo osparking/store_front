@@ -22,6 +22,21 @@ const UserUpdate = () => {
     setAlertError,
   } = BsAlertHook();
 
+  const { userId } = useParams();
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const result = await getUserById(userId);
+        setUser(result.data);
+      } catch (error) {
+        setErrorMsg(error.response.data.message);
+        setShowErrorAlert(true);
+      }
+    };
+    getUser();
+  }, [userId]);
+
   return (
     <div>UserUpdate</div>
   )
