@@ -27,12 +27,6 @@ const WorkerTable = () => {
   } = BsAlertHook();
   const navigate = useNavigate();
 
-  const [currPage, setCurrPage] = useState(1);
-  const [pageSize] = useState(10);
-  const idxLastPlus1 = currPage * pageSize;
-  const indexOfFirst = idxLastPlus1 - pageSize;
-  const displayWorkers = filteredWorkers.slice(indexOfFirst, idxLastPlus1);
-
   const readWorkerList = async () => {
     try {
       const data = await getWorkerList();
@@ -130,6 +124,12 @@ const WorkerTable = () => {
     localStorage.setItem("selectedDept", "");
     setSelectedDept("");
   }
+
+  const [currPage, setCurrPage] = useState(1);
+  const [pageSize] = useState(10);
+  const idxLastPlus1 = currPage * pageSize;
+  const indexOfFirst = idxLastPlus1 - pageSize;
+  const displayWorkers = filteredWorkers.slice(indexOfFirst, idxLastPlus1);
 
   return (
     <main>
