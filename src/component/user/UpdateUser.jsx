@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import BsAlertHook from '../hook/BsAlertHook';
+import { useParams } from 'react-router-dom';
+import { Card, Col, Container, Form } from 'react-bootstrap';
 
 const UserUpdate = () => {
   const [user, setUser] = useState({
@@ -38,8 +40,18 @@ const UserUpdate = () => {
   }, [userId]);
 
   return (
-    <div>UserUpdate</div>
-  )
+    <Container md={6} className="d-flex justify-content-center mt-5">
+      <Col md={6}>
+        <Form className="mb-5">
+          <Card className="shadow">
+            <Card.Header></Card.Header>
+            <Card.Body className="mb-3">
+            </Card.Body>
+          </Card>
+        </Form>
+      </Col>
+    </Container>
+  );
 }
 
 export default UserUpdate

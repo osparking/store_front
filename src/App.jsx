@@ -13,7 +13,7 @@ import RegisterUser from "./component/user/RegisterUser";
 import UserDashboard from "./component/user/UserDashboard";
 import EmailVerifin from "./component/auth/EmailVerifin";
 import AdminDashboard from "./component/admin/AdminDashboard";
-import UserUpdate from "./component/user/UserUpdate";
+import UserUpdate from "./component/user/UpdateUser";
 
 function App() {
   const router = createBrowserRouter(
