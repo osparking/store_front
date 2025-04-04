@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useId, useState } from 'react'
 import BsAlertHook from '../hook/BsAlertHook';
 import { useParams } from 'react-router-dom';
 import { Card, Col, Container, Form, Row } from 'react-bootstrap';
+import WorkerDeptSelector from '../worker/WorkerDeptSelector';
+import { getUserById } from './UserService';
 
 const UserUpdate = () => {
   const [user, setUser] = useState({
@@ -91,7 +93,7 @@ const UserUpdate = () => {
 
               {/* 계정 유형 - 비활성 */}
               <Form.Group as={Col} controlId="user-type" className="mb-2">
-                <Form.Label className="legend">계정 유형</Form.Label>
+                <Form.Label>계정 유형</Form.Label>
                 <Form.Control
                   type="text"
                   name="userType"
@@ -99,6 +101,29 @@ const UserUpdate = () => {
                   disabled
                 />
               </Form.Group>              
+              
+              {user.userType === "노동자" && (
+
+              <fieldset className="field-set mb-2 mt-2">
+                <Form.Label className="legend">소속 부서</Form.Label>
+                <Form.Group
+                  as={Col}
+                  controlId="deptAndPhoto"
+                  className="mb-2 d-flex"
+                >
+                  <WorkerDeptSelector
+                    workerDept={user.dept}
+                    onChange={handleChange}
+                  />
+                  <Form.Label>사진</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="photoYN"
+                    value={user.photoId ? "유" : "무"}
+                    onChange={handleInputChange}
+                  />
+                </Form.Group>
+              </fieldset>)}
             </Card.Body>
           </Card>
         </Form>
