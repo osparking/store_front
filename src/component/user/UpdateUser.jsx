@@ -39,6 +39,11 @@ const UserUpdate = () => {
     getUser();
   }, [userId]);
 
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUser((prevState) => ({ ...prevState, [name]: value }));
+  };
+
   return (
     <Container md={6} className="d-flex justify-content-center mt-5">
       <Col md={6}>
