@@ -8,6 +8,7 @@ import { Col, OverlayTrigger, Row, Table, Tooltip } from 'react-bootstrap';
 import { deleteUserAccount, toggleEnabledColumn } from "../user/UserService";
 import DeleteConfirmModal from '../modal/DeleteConfirmModal';
 import ItemFilter from '../common/ItemFilter';
+import Paginator from '../common/Paginator';
 
 const WorkerTable = () => {
   const [workerList, setWorkerList] = useState([]);
