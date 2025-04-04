@@ -8,7 +8,6 @@ const ItemFilter = ({
   onOptionSelection,
   selectedOption,
 }) => {
-  console.log("options: ", options);
   return (
     <InputGroup className='mb-2'>
       <InputGroup.Text>{itemType} 검색</InputGroup.Text>

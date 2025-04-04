@@ -33,7 +33,6 @@ const WorkerTable = () => {
       const data = await getWorkerList();
       
       if (data) {
-        console.log("일꾼 목록: ", data.data);
         setWorkerList(data.data);
       } else {
         navigate("/login");
