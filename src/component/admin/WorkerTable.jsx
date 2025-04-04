@@ -27,6 +27,12 @@ const WorkerTable = () => {
   } = BsAlertHook();
   const navigate = useNavigate();
 
+  const [currPage, setCurrPage] = useState(1);
+  const [pageSize] = useState(10);
+  const idxLastPlus1 = currPage * pageSize;
+  const indexOfFirst = idxLastPlus1 - pageSize;
+  const displayWorkers = filteredWorkers.slice(indexOfFirst, idxLastPlus1);
+
   const readWorkerList = async () => {
     try {
       const data = await getWorkerList();
@@ -177,7 +183,7 @@ const WorkerTable = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredWorkers.map((worker, index) => (
+          {displayWorkers.map((worker, index) => (
             <tr key={index}>
               <td>{worker.fullName}</td>
               <td>{worker.email}</td>
