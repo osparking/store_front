@@ -3,6 +3,31 @@ import { api } from "../util/api";
 
 const prefix = "http://localhost:9193/api/s1";
 
+async function callWithToken(method, urlSuffix) {
+  try {
+    const token = localStorage.getItem("token");
+    if (token) {
+      console.log("url: ", `${prefix}${urlSuffix}`);
+      const result = await axios({
+        method: method,
+        url: `${prefix}${urlSuffix}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return result;
+    } else {
+      return null;
+    }
+  } catch (err) {
+    if (err.response.status === HttpStatusCode.Forbidden) {
+      return null;
+    } else {
+      throw err;
+    }
+  }
+}
+
 export async function deleteUserAccount(userId) {
   try {
     const token = localStorage.getItem("token");
