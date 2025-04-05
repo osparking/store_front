@@ -206,7 +206,7 @@ const WorkerTable = () => {
              <td>
                <OverlayTrigger
                  overlay={
-                   <Tooltip id={`tooltip-view-${index}`}>정보 편집</Tooltip>
+                   <Tooltip id={`tooltip-view-${index}`}>정보 수정</Tooltip>
                  }
                >
                  <Link to={`/user/${worker.id}/update`} className="text-warning">

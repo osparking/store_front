@@ -56,6 +56,10 @@ const NavBar = () => {
                   <NavDropdown.Item to={`/dashboard/${userId}/user`} as={Link}>
                     나의 대시보드
                   </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item to={`/user/${userId}/update`} as={Link}>
+                    내 정보 수정
+                  </NavDropdown.Item>
                   {userRoles.includes("ROLE_ADMIN") && (
                     <>
                       <NavDropdown.Divider />
