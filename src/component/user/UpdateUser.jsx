@@ -57,6 +57,10 @@ const UserUpdate = () => {
     console.log(user);
   };
 
+  const cancelUpdate = () => {
+    navigate(`/dashboard/${userId}/user`);
+  };
+
   return (
     <Container md={6} className="d-flex justify-content-center mt-5">
       <Col md={6}>
@@ -171,6 +175,15 @@ const UserUpdate = () => {
                     ) : (
                       "갱신"
                     )}
+                  </Button>
+                </div>
+                <div className="mx-2">
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={cancelUpdate}
+                  >
+                    취소
                   </Button>
                 </div>
               </div>
