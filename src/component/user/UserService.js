@@ -39,6 +39,16 @@ async function callWithToken(method, urlSuffix, data = null) {
   }
 }
 
+export async function updateUser(userId, user) {
+  try {
+    const url = `/user/${userId}/update`;
+    const result = await callWithToken("put", url, user);
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function deleteUserAccount(userId) {
   try {
     const token = localStorage.getItem("token");
