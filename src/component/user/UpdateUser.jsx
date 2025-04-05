@@ -5,6 +5,7 @@ import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import WorkerDeptSelector from '../worker/WorkerDeptSelector';
 import { getUserById, getUserDtoById, updateUser } from './UserService';
 import ProcessSpinner from '../common/ProcessSpinner';
+import AlertMessage from '../common/AlertMessage';
 
 const UserUpdate = () => {
   const [user, setUser] = useState({
@@ -185,6 +186,13 @@ const UserUpdate = () => {
                   disabled
                 />
               </Form.Group>
+
+              {alertError && (
+                <AlertMessage type={"danger"} message={errorMsg} />
+              )}
+              {alertSuccess && (
+                <AlertMessage type={"success"} message={successMsg} />
+              )}
 
               <div className="d-flex justify-content-center">
                 <div className="mx-2">
