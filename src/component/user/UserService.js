@@ -3,18 +3,29 @@ import { api } from "../util/api";
 
 const prefix = "http://localhost:9193/api/s1";
 
-async function callWithToken(method, urlSuffix) {
+async function callWithToken(method, urlSuffix, data = null) {
   try {
     const token = localStorage.getItem("token");
     if (token) {
       console.log("url: ", `${prefix}${urlSuffix}`);
-      const result = await axios({
+      let config = {
         method: method,
         url: `${prefix}${urlSuffix}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      });
+      }
+      if (data) {
+        config = {
+          method: method,
+          url: `${prefix}${urlSuffix}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data: data,
+        }
+      } 
+      const result = await axios(config);
       return result;
     } else {
       return null;
