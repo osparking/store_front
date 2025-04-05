@@ -1,6 +1,6 @@
 import React, { useEffect, useId, useState } from 'react'
 import BsAlertHook from '../hook/BsAlertHook';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import WorkerDeptSelector from '../worker/WorkerDeptSelector';
 import { getUserById, getUserDtoById } from './UserService';
@@ -57,8 +57,14 @@ const UserUpdate = () => {
     console.log(user);
   };
 
+  const navigate = useNavigate();
   const cancelUpdate = () => {
-    navigate(`/dashboard/${userId}/user`);
+    const loginId = localStorage.getItem("userId");
+    if (userId === loginId) {
+      navigate(`/dashboard/${loginId}/user`);
+    } else {
+      navigate(`/dashboard/admin`);
+    }
   };
 
   return (
@@ -67,7 +73,7 @@ const UserUpdate = () => {
         <Form className="mb-5" onSubmit={handleUpdate}>
           <Card className="shadow">
             <Card.Header className="text-center mb-2 h3">
-              유저 정보 갱신
+              정보 수정
             </Card.Header>
             <Card.Body className="mb-3">
               <Row>
