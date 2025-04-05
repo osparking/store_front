@@ -113,7 +113,7 @@ const UserUpdate = () => {
                 >
                   <WorkerDeptSelector
                     workerDept={user.dept}
-                    onChange={handleChange}
+                    onChange={handleInputChange}
                   />
                   <Form.Label>사진</Form.Label>
                   <Form.Control
