@@ -144,19 +144,8 @@ export async function getUserCount() {
 
 export async function getUserDtoById(userId) {
   try {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const result = await axios({
-        method: "get",
-        url: `${prefix}/user/${userId}/get_dto`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return result.data;
-    } else {
-      return null;
-    }
+    const result = await callWithToken("get", `/user/${userId}/get_dto`);
+    return result.data;
   } catch (err) {
     throw err;
   }
