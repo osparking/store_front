@@ -3,16 +3,15 @@ import BsAlertHook from '../hook/BsAlertHook';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import WorkerDeptSelector from '../worker/WorkerDeptSelector';
-import { getUserById, getUserDtoById } from './UserService';
+import { getUserById, getUserDtoById, updateUser } from './UserService';
 import ProcessSpinner from '../common/ProcessSpinner';
 
 const UserUpdate = () => {
   const [user, setUser] = useState({
+    userType: "",
     fullName: "",
     mbPhone: "",
     email: "",
-    password: "",
-    userType: "",
     dept: "",
   });
 
@@ -55,6 +54,26 @@ const UserUpdate = () => {
   const handleUpdate = async (event) => {
     event.preventDefault();
     console.log(user);
+    const updatedUser = {
+      userType: user.userType,
+      fullName: user.fullName,
+      mbPhone: user.mbPhone,
+      dept: user.dept,
+      enabled: user.enabled
+    };
+
+    try {
+      console.log("updated user: ", updateUser);
+      setIsProcessing(true);
+      const response = await updateUser(userId, updatedUser);
+      setSuccessMsg(response.message);
+      setAlertSuccess(true);
+    } catch (error) {
+      setErrorMsg(error.response.data.message);
+      setAlertError(true);
+    } finally {
+      setIsProcessing(false);
+    }    
   };
 
   const navigate = useNavigate();
