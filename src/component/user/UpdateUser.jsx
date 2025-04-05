@@ -46,7 +46,11 @@ const UserUpdate = () => {
     setUser((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  return (
+  const handleCheckChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.checked });
+  };
+
+  return (    
     <Container md={6} className="d-flex justify-content-center mt-5">
       <Col md={6}>
         <Form className="mb-5">
@@ -126,6 +130,15 @@ const UserUpdate = () => {
                     </Form.Group>
                   </Form.Group>
                 </fieldset>)}
+              <Form.Group as={Col} controlId="user-type" className="mb-2">
+                <Form.Label>계정 활성화 상태 </Form.Label>
+                <Form.Check
+                  type="switch"
+                  name="enabled"
+                  checked={user.enabled}
+                  onChange={handleCheckChange}
+                />
+              </Form.Group> 
             </Card.Body>
           </Card>
         </Form>
