@@ -140,6 +140,12 @@ const UserUpdate = () => {
                   </Row>
                 </fieldset>)}
               <Form.Group as={Col} controlId="user-type" className="mb-2">
+                <Form.Label>등록 일시</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="addDate"
+                  value={user.addDate}
+                  disabled
                 />
               </Form.Group>
             </Card.Body>
