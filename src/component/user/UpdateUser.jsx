@@ -50,49 +50,38 @@ const UserUpdate = () => {
     setUser({ ...user, [e.target.name]: e.target.checked });
   };
 
-  return (    
+  return (
     <Container md={6} className="d-flex justify-content-center mt-5">
       <Col md={6}>
         <Form className="mb-5">
           <Card className="shadow">
-            <Card.Header className="text-center mb-2">
+            <Card.Header className="text-center mb-2 h3">
               유저 정보 갱신
             </Card.Header>
             <Card.Body className="mb-3">
-              <Form.Group as={Row} controlId="fullName" className="mb-3">
-                <Form.Label>성명</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="fullName"
-                  placeholder="(성명)"
-                  value={user.fullName}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
-
-              {/* 연락처 두 가지 */}
-              <fieldset className="field-set mb-2 mt-2">
-                <legend>연락처</legend>
-                <Form.Group
-                  as={Col}
-                  controlId="emailMobileFields"
-                  className="mb-2 d-flex"
-                >
-                  <Form.Control
-                    type="email"
-                    name="email"
-                    placeholder="(이메일)"
-                    value={user.email}
-                    disabled
-                  />
+              <Row>
+                <Col>
+                  <Form.Label className="legend">성명</Form.Label>
                   <Form.Control
                     type="text"
-                    name="mbPhone"
-                    placeholder="(휴대폰 번호)"
-                    value={user.mbPhone}
+                    name="fullName"
+                    placeholder="(성명)"
+                    value={user.fullName}
                     onChange={handleInputChange}
                   />
-                </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Label className="legend">계정 상태</Form.Label>
+                  <Form.Check
+                    type="switch"
+                    name="enabled"
+                    checked={user.enabled}
+                    onChange={handleCheckChange}
+                    label="활성화"
+                  />
+                </Col>
+              </Row>
+
               </fieldset>
 
               {/* 계정 유형 - 비활성 */}
