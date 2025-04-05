@@ -82,6 +82,30 @@ const UserUpdate = () => {
                 </Col>
               </Row>
 
+              {/* 연락처 두 가지 */}
+              <fieldset className="field-set mb-2 mt-2">
+                <Row>
+                  <Col>
+                    <Form.Label className="legend">이메일</Form.Label>
+                    <Form.Control
+                      type="email"
+                      name="email"
+                      placeholder="(이메일)"
+                      value={user.email}
+                      disabled
+                    />
+                  </Col>
+                  <Col>
+                    <Form.Label className="legend">휴대폰</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="mbPhone"
+                      placeholder="(휴대폰 번호)"
+                      value={user.mbPhone}
+                      onChange={handleInputChange}
+                    />
+                  </Col>
+                </Row>
               </fieldset>
 
               {/* 계정 유형 - 비활성 */}
