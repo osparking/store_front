@@ -103,27 +103,29 @@ const UserUpdate = () => {
               </Form.Group>              
               
               {user.userType === "노동자" && (
-
-              <fieldset className="field-set mb-2 mt-2">
-                <Form.Label className="legend">소속 부서</Form.Label>
-                <Form.Group
-                  as={Col}
-                  controlId="deptAndPhoto"
-                  className="mb-2 d-flex"
-                >
-                  <WorkerDeptSelector
-                    workerDept={user.dept}
-                    onChange={handleInputChange}
-                  />
-                  <Form.Label>사진</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="photoYN"
-                    value={user.photoId ? "유" : "무"}
-                    onChange={handleInputChange}
-                  />
-                </Form.Group>
-              </fieldset>)}
+                <fieldset className="field-set mb-2 mt-2">
+                  <Form.Label className="legend">소속 부서</Form.Label>
+                  <Form.Group
+                    as={Col}
+                    controlId="deptAndPhoto"
+                    className="mb-2 d-flex"
+                  >
+                    <WorkerDeptSelector
+                      workerDept={user.dept}
+                      onChange={handleInputChange}
+                    />
+                    <Form.Group as={Row} className='ms-3'>
+                      <Form.Label column style={{"textAlign": "right"}} >사진 유무: </Form.Label>
+                      <Col >
+                      <Form.Control
+                        className='ms-0'
+                        type="text"
+                        name="photoYN"
+                        value={`${user.photoId ? "유" : "무"}`}
+                      /></Col>
+                    </Form.Group>
+                  </Form.Group>
+                </fieldset>)}
             </Card.Body>
           </Card>
         </Form>
