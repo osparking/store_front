@@ -1,9 +1,10 @@
 import React, { useEffect, useId, useState } from 'react'
 import BsAlertHook from '../hook/BsAlertHook';
 import { useParams } from 'react-router-dom';
-import { Card, Col, Container, Form, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import WorkerDeptSelector from '../worker/WorkerDeptSelector';
 import { getUserById, getUserDtoById } from './UserService';
+import ProcessSpinner from '../common/ProcessSpinner';
 
 const UserUpdate = () => {
   const [user, setUser] = useState({
@@ -27,6 +28,7 @@ const UserUpdate = () => {
   } = BsAlertHook();
 
   const { userId } = useParams();
+  const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
     const getUser = async () => {
@@ -50,10 +52,15 @@ const UserUpdate = () => {
     setUser({ ...user, [e.target.name]: e.target.checked });
   };
 
+  const handleUpdate = async (event) => {
+    event.preventDefault();
+    console.log(user);
+  };
+
   return (
     <Container md={6} className="d-flex justify-content-center mt-5">
       <Col md={6}>
-        <Form className="mb-5">
+        <Form className="mb-5" onSubmit={handleUpdate}>
           <Card className="shadow">
             <Card.Header className="text-center mb-2 h3">
               유저 정보 갱신
@@ -136,6 +143,7 @@ const UserUpdate = () => {
                         type="text"
                         name="photoYN"
                         value={`${user.photoId ? "유" : "무"}`}
+                        disabled
                       /></Col>
                   </Row>
                 </fieldset>)}
@@ -148,6 +156,24 @@ const UserUpdate = () => {
                   disabled
                 />
               </Form.Group>
+
+              <div className="d-flex justify-content-center">
+                <div className="mx-2">
+                  <Button
+                    type="submit"
+                    variant="outline-primary"
+                    size="sm"
+                    className="me-2"
+                    disabled={isProcessing}
+                  >
+                    {isProcessing ? (
+                      <ProcessSpinner message="갱신 처리 중..." />
+                    ) : (
+                      "갱신"
+                    )}
+                  </Button>
+                </div>
+              </div>
             </Card.Body>
           </Card>
         </Form>
