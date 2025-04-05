@@ -3,7 +3,7 @@ import BsAlertHook from '../hook/BsAlertHook';
 import { useParams } from 'react-router-dom';
 import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import WorkerDeptSelector from '../worker/WorkerDeptSelector';
-import { getUserById } from './UserService';
+import { getUserById, getUserDtoById } from './UserService';
 
 const UserUpdate = () => {
   const [user, setUser] = useState({
@@ -31,7 +31,7 @@ const UserUpdate = () => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const result = await getUserById(userId);
+        const result = await getUserDtoById(userId);
         setUser(result.data);
       } catch (error) {
         setErrorMsg(error.response.data.message);
