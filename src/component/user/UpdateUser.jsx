@@ -1,6 +1,6 @@
 import React, { useEffect, useId, useState } from 'react'
 import BsAlertHook from '../hook/BsAlertHook';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import WorkerDeptSelector from '../worker/WorkerDeptSelector';
 import { getUserById, getUserDtoById, updateUser } from './UserService';
@@ -8,6 +8,9 @@ import ProcessSpinner from '../common/ProcessSpinner';
 import AlertMessage from '../common/AlertMessage';
 
 const UserUpdate = () => {
+  const location = useLocation();
+  const { worker } = location.state;
+
   const [user, setUser] = useState({
     userType: "",
     fullName: "",
@@ -31,15 +34,9 @@ const UserUpdate = () => {
   const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
-    const getUser = async () => {
-      try {
-        const result = await getUserDtoById(userId);
-        setUser(result.data);
-      } catch (error) {
-        setErrorMsg(error.response.data.message);
-        setShowErrorAlert(true);
-      }
-    };
+  const getUser = () => {
+    setUser(worker);
+  };
     getUser();
   }, [userId]);
 
@@ -216,7 +213,7 @@ const UserUpdate = () => {
                     size="sm"
                     onClick={cancelUpdate}
                   >
-                    취소
+                    닫기
                   </Button>
                 </div>
               </div>
