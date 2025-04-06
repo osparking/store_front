@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { getCustomerList } from '../customer/CustomerService';
 import BsAlertHook from '../hook/BsAlertHook';
-import { Table } from 'react-bootstrap';
+import { OverlayTrigger, Table, Tooltip } from 'react-bootstrap';
+import { BsEyeFill } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
 const CustomerTable = () => {
   const [customers, setCustomers] = useState([]);
@@ -57,6 +59,20 @@ const CustomerTable = () => {
               <td>{customer.enabled ? "예" : "아니오"}</td>
               <td>{customer.addDate}</td>
               <td>{customer.userType}</td>
+              <td>
+                <OverlayTrigger
+                  overlay={
+                    <Tooltip id={`tooltip-view-${idx}`}>상세 보기</Tooltip>
+                  }
+                >
+                  <Link
+                    to={`/dashboard/${customer.id}/user`}
+                    className="text-info"
+                  >
+                    <BsEyeFill />
+                  </Link>
+                </OverlayTrigger>
+              </td>
             </tr>
           ))}
         </tbody>
