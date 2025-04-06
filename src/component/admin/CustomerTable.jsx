@@ -35,7 +35,7 @@ const CustomerTable = () => {
   return (
     <main>
       <Table bordered hover striped>
-        <thread>
+        <thead>
           <tr>
             <th>아이디</th>
             <th>성명</th>
@@ -46,7 +46,7 @@ const CustomerTable = () => {
             <th>유저유형</th>
             <th colSpan={2}>작업</th>
           </tr>
-        </thread>
+        </thead>
         <tbody>
           {customers.map((customer, idx) => (
             <tr key={idx}>
