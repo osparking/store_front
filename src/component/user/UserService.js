@@ -3,7 +3,7 @@ import { api } from "../util/api";
 
 const prefix = "http://localhost:9193/api/s1";
 
-async function callWithToken(method, urlSuffix, data = null) {
+export async function callWithToken(method, urlSuffix, data = null) {
   try {
     const token = localStorage.getItem("token");
     if (token) {
