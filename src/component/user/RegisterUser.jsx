@@ -6,6 +6,7 @@ import ProcessSpinner from "../common/ProcessSpinner";
 import BsAlertHook from "../hook/BsAlertHook";
 import WorkerDeptSelector from "../worker/WorkerDeptSelector";
 import { registerUser } from "./UserService";
+import { logoutUser } from "../auth/AuthService";
 
 const RegisterUser = () => {
   const userId = localStorage.getItem("userId");
@@ -35,16 +36,18 @@ const RegisterUser = () => {
 
   const [isProcessing, setIsProcessing] = useState(false);
   const handleSubmit = async (e) => {
+    e.preventDefault();
+
     if (userId) {
-      const confirmBox = window.confirm(
+      const confirmed = window.confirm(
         "로그아웃하고 계정을 등록할까요?"
       );
-      if (confirmBox === false) {
+      if (confirmed) {
+        logoutUser();
+      } else {
         return;
       }
     }
-    
-    e.preventDefault();
     try {
       setIsProcessing(true);
       const response = await registerUser(user);
