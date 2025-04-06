@@ -3,7 +3,7 @@ import { LuPanelLeftOpen } from "react-icons/lu";
 import Overview from './Overview';
 import AdminSideBar from './AdminSideBar';
 import WorkerTable from './WorkerTable';
-import Customer from './Customer';
+import Customer from './CustomerTable';
 
 const AdminDashboard = () => {
   const [adminTab, setAdminTab] = useState("");
