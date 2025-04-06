@@ -10,6 +10,7 @@ import { logoutUser } from "../auth/AuthService";
 
 const RegisterUser = () => {
   const userId = localStorage.getItem("userId");
+  const userRoles = localStorage.getItem("userRoles") || [];
   const [user, setUser] = useState({
     fullName: "",
     mbPhone: "",
@@ -38,7 +39,7 @@ const RegisterUser = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (userId) {
+    if (userId && !userRoles.includes("ROLE_ADMIN")) {
       const confirmed = window.confirm(
         "로그아웃하고 계정을 등록할까요?"
       );
