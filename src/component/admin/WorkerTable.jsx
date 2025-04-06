@@ -31,7 +31,7 @@ const WorkerTable = () => {
   const readWorkerList = async () => {
     try {
       const data = await getWorkerList();
-      
+
       if (data) {
         setWorkerList(data.data);
       } else {
@@ -56,7 +56,7 @@ const WorkerTable = () => {
       setAlertSuccess(false);
       setAlertError(true);
     }
-  };  
+  };
 
   const handleDeletion = async () => {
     if (delTarget) {
@@ -79,7 +79,7 @@ const WorkerTable = () => {
   }, [reloadFlag]);
 
   const processDeletion = async (id, name) => {
-    setDelTarget({id, name});
+    setDelTarget({ id, name });
     setShowDelModal(true);
   }
 
@@ -149,14 +149,14 @@ const WorkerTable = () => {
           )}
         </Col>
         <Col>
-           {" "}
-           <div className="d-flex justify-content-end">
-             <Link to={"/register-user"}>
-               {" "}
-               <BsPlusSquareFill />
-             </Link>
-           </div>
-         </Col>
+          {" "}
+          <div className="d-flex justify-content-end">
+            <Link to={"/register-user"}>
+              {" "}
+              <BsPlusSquareFill />
+            </Link>
+          </div>
+        </Col>
       </Row>
       <Row className="mb-2">
         <Col md={6}>
@@ -168,7 +168,7 @@ const WorkerTable = () => {
             selectedOption={selectedDept}
           />
         </Col>
-      </Row>      
+      </Row>
       <Table bordered hover striped>
         <thead>
           <tr>
@@ -193,28 +193,30 @@ const WorkerTable = () => {
               <td>{worker.addDate}</td>
               <td>{worker.photoId ? "유" : "무"}</td>
               <td>
-               <OverlayTrigger
-                 overlay={
-                   <Tooltip id={`tooltip-view-${index}`}>상세 보기</Tooltip>
-                 }
-               >
-                 <Link to={`/dashboard/${worker.id}/user`} className="text-info">
-                   <BsEyeFill />
-                 </Link>
-               </OverlayTrigger>
-             </td>
-             <td>
-               <OverlayTrigger
-                 overlay={
-                   <Tooltip id={`tooltip-view-${index}`}>정보 수정</Tooltip>
-                 }
-               >
-                 <Link to={`/user/${worker.id}/update`} className="text-warning">
-                   <BsPencilFill />
-                 </Link>
-               </OverlayTrigger>
-             </td>
-             <td>
+                <OverlayTrigger
+                  overlay={
+                    <Tooltip id={`tooltip-view-${index}`}>상세 보기</Tooltip>
+                  }
+                >
+                  <Link to={`/dashboard/${worker.id}/user`} className="text-info">
+                    <BsEyeFill />
+                  </Link>
+                </OverlayTrigger>
+              </td>
+              <td>
+                <OverlayTrigger
+                  overlay={
+                    <Tooltip id={`tooltip-view-${index}`}>정보 수정</Tooltip>
+                  }
+                >
+                  <Link to={`/user/${worker.id}/update`}
+                    className="text-warning"
+                    state={{ worker: worker }}>
+                    <BsPencilFill />
+                  </Link>
+                </OverlayTrigger>
+              </td>
+              <td>
                 <OverlayTrigger
                   overlay={
                     <Tooltip id={`tooltip-view-${index}`}>
@@ -244,17 +246,17 @@ const WorkerTable = () => {
                     <BsTrashFill />
                   </Link>
                 </OverlayTrigger>
-              </td>              
+              </td>
             </tr>
           ))}
         </tbody>
-      </Table> 
+      </Table>
       <Paginator
         pageSize={pageSize}
         totalItems={filteredWorkers.length}
         currPage={currPage}
         setCurrPage={setCurrPage}
-      />           
+      />
     </main>
   )
 }
