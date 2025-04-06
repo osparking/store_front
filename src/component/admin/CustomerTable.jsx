@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getCustomerList } from '../customer/CustomerService';
 import BsAlertHook from '../hook/BsAlertHook';
+import { Table } from 'react-bootstrap';
 
 const CustomerTable = () => {
   const [customers, setCustomers] = useState([]);
@@ -32,8 +33,23 @@ const CustomerTable = () => {
   }, []);
 
   return (
-    <div>Customer Table</div>
-  )
+    <main>
+      <Table bordered hover striped>
+        <thread>
+          <tr>
+            <th>아이디</th>
+            <th>성명</th>
+            <th>휴대폰</th>
+            <th>이메일</th>
+            <th>인증</th>
+            <th>등록일시</th>
+            <th>유저유형</th>
+            <th colSpan={2}>작업</th>
+          </tr>
+        </thread>
+      </Table>
+    </main>
+  );
 }
 
 export default CustomerTable
