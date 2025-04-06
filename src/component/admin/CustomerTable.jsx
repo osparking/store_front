@@ -47,6 +47,19 @@ const CustomerTable = () => {
             <th colSpan={2}>작업</th>
           </tr>
         </thread>
+        <tbody>
+          {customers.map((customer, idx) => (
+            <tr key={idx}>
+              <td>{customer.id}</td>
+              <td>{customer.fullName}</td>
+              <td>{customer.mbPhone}</td>
+              <td>{customer.email}</td>
+              <td>{customer.enabled ? "예" : "아니오"}</td>
+              <td>{customer.addDate}</td>
+              <td>{customer.userType}</td>
+            </tr>
+          ))}
+        </tbody>
       </Table>
     </main>
   );
