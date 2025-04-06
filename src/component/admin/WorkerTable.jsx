@@ -151,9 +151,9 @@ const WorkerTable = () => {
         <Col>
           {" "}
           <div className="d-flex justify-content-end">
-            <Link to={"/register-user"}>
+            <Link to={"/register_user"}>
               {" "}
-              <BsPlusSquareFill />
+              <BsPlusSquareFill style={{ color: "lime" }} />
             </Link>
           </div>
         </Col>
