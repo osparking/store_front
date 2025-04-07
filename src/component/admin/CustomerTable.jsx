@@ -6,6 +6,7 @@ import { BsEyeFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import AlertMessage from '../common/AlertMessage';
 import ItemFilter from '../common/ItemFilter';
+import Paginator from '../common/Paginator';
 
 const CustomerTable = () => {
   const [customers, setCustomers] = useState([]);
@@ -75,6 +76,12 @@ const CustomerTable = () => {
   useEffect(() => {
     readCustomerList();
   }, []);
+
+  const [currPage, setCurrPage] = useState(1);
+  const [pageSize] = useState(10);
+  const idxLastPlus1 = currPage * pageSize;
+  const indexOfFirst = idxLastPlus1 - pageSize;
+  const displayCustomers = filteredOnes.slice(indexOfFirst, idxLastPlus1);
 
   return (
     <main>
@@ -152,6 +159,7 @@ const CustomerTable = () => {
           ))}
         </tbody>
       </Table>
+      <Paginator />
     </main>
   );
 }
