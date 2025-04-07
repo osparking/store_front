@@ -9,8 +9,6 @@ import AlertMessage from '../common/AlertMessage';
 
 const UserUpdate = () => {
   const location = useLocation();
-  const { worker } = location.state;
-
   const [user, setUser] = useState({
     userType: "",
     fullName: "",
@@ -31,12 +29,27 @@ const UserUpdate = () => {
   } = BsAlertHook();
 
   const { userId } = useParams();
+  const loginId = localStorage.getItem("userId");
   const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
-  const getUser = () => {
-    setUser(worker);
-  };
+    const getUser = async () => {
+      try {
+        if (userId === loginId) {
+          console.log("나의 정보 갱신");
+          const result = await getUserDtoById(userId);
+          setUser(result.data);
+        } else if (location.state) {
+          console.log("남 정보 갱신");
+          const { userState } = location.state;
+          setUser(userState);
+        }
+      } catch (error) {
+        const errMsg = error.response.data.error;
+        setErrorMsg(errMsg === "Bad Request" ? "잘못된 요청" : errMsg);
+        setAlertError(true);
+      }
+    };
     getUser();
   }, [userId]);
 
@@ -174,7 +187,7 @@ const UserUpdate = () => {
                       /></Col>
                   </Row>
                 </fieldset>)}
-              <Form.Group as={Col} controlId="user-type" className="mb-2">
+              <Form.Group as={Col} controlId="addDate" className="mb-2">
                 <Form.Label>등록 일시</Form.Label>
                 <Form.Control
                   type="text"
