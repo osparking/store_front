@@ -9,8 +9,6 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const UserDashboard = () => {
   const location = useLocation();
-  const { userState } = location.state;
-
   const [user, setUser] = useState(null);
   const { userId } = useParams();
   const [file, setFile] = useState(null);
