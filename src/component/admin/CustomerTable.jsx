@@ -62,6 +62,7 @@ const CustomerTable = () => {
       setEmailSubstr("");
     }
     setSelectedEmail(value);
+    localStorage.setItem("selectedEmail", value);
   }
 
   const handleEmailSubChg = (e) => {
