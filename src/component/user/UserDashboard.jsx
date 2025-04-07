@@ -5,9 +5,12 @@ import BsAlertHook from "../hook/BsAlertHook";
 import UserProfile from "./UserProfile";
 import { getUserDtoById } from "./UserService";
 import { deleteUserPhoto } from "../modal/ImageService";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const UserDashboard = () => {
+  const location = useLocation();
+  const { userState } = location.state;
+
   const [user, setUser] = useState(null);
   const { userId } = useParams();
   const [file, setFile] = useState(null);
@@ -38,7 +41,12 @@ const UserDashboard = () => {
         setAlertError(true);
       }
     };
-    getUser();
+    if (location.state) {
+      const { userState } = location.state;
+      setUser(userState);
+    } else {
+      getUser();
+    }
   }, [userId]);
 
   const removePhoto = async () => {
