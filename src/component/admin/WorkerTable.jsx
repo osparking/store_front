@@ -198,7 +198,9 @@ const WorkerTable = () => {
                     <Tooltip id={`tooltip-view-${index}`}>상세 보기</Tooltip>
                   }
                 >
-                  <Link to={`/dashboard/${worker.id}/user`} className="text-info">
+                  <Link to={`/dashboard/${worker.id}/user`} 
+                    className="text-info"
+                    state={{ userState: worker }}>
                     <BsEyeFill />
                   </Link>
                 </OverlayTrigger>
