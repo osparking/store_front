@@ -159,7 +159,11 @@ const CustomerTable = () => {
           ))}
         </tbody>
       </Table>
-      <Paginator />
+      <Paginator 
+        pageSize={pageSize}
+        totalItems={filteredOnes.length}
+        currPage={currPage}
+        setCurrPage={setCurrPage}/>
     </main>
   );
 }
