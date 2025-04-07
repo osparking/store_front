@@ -31,6 +31,15 @@ const CustomerTable = () => {
     }
   };
 
+  const emails = Array.from(new Set(customers.map(
+    (customer) => customer.email)));
+  const [selectedEmail, setSelectedEmail] = useState(
+    localStorage.getItem("selectedEmail") || ""
+  );
+  const clearFilter = () => {
+    setSelectedEmail("");
+  };
+
   useEffect(() => {
     readCustomerList();
   }, []);
