@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getCustomerList } from '../customer/CustomerService';
 import BsAlertHook from '../hook/BsAlertHook';
-import { Col, OverlayTrigger, Row, Table, Tooltip } from 'react-bootstrap';
+import { Col, Form, InputGroup, OverlayTrigger, Row, Table, Tooltip } from 'react-bootstrap';
 import { BsEyeFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import AlertMessage from '../common/AlertMessage';
@@ -37,6 +37,7 @@ const CustomerTable = () => {
   const [selectedEmail, setSelectedEmail] = useState(
     localStorage.getItem("selectedEmail") || ""
   );
+  const [emailSubstr, setEmailSubstr] = useState("");
   const clearFilter = () => {
     setSelectedEmail("");
   };
@@ -49,6 +50,9 @@ const CustomerTable = () => {
       setFilteredOnes(customers);
     }
   }, [customers, selectedEmail]);
+
+  const handleEmailSubChg = (e) => {
+  };
 
   useEffect(() => {
     readCustomerList();
@@ -77,7 +81,18 @@ const CustomerTable = () => {
             selectedOption={selectedEmail}
           />
         </Col>
-      </Row>      
+        <Col md={3}>
+          <InputGroup>
+            <Form.Control
+              type="text"
+              value={emailSubstr}
+              placeholder="(이메일 일부)"
+              name="emailPart"
+              onChange={handleEmailSubChg}
+            />
+          </InputGroup>
+        </Col>
+      </Row>
       <Table bordered hover striped>
         <thead>
           <tr>
