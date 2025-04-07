@@ -68,7 +68,7 @@ const CustomerTable = () => {
                   <Link
                     to={`/dashboard/${customer.id}/user`}
                     className="text-info"
-                  >
+                    state={{ userState: customer }}>
                     <BsEyeFill />
                   </Link>
                 </OverlayTrigger>
