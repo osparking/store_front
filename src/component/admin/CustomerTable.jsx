@@ -33,7 +33,7 @@ const CustomerTable = () => {
   };
 
   const emails = Array.from(new Set(customers.map(
-    (customer) => customer.email)));
+    (customer) => customer.email))).sort();
   const [selectedEmail, setSelectedEmail] = useState(
     localStorage.getItem("selectedEmail") || ""
   );
