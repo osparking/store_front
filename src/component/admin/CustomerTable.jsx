@@ -46,12 +46,17 @@ const CustomerTable = () => {
   useEffect(() => {
     if (selectedEmail) {
       setFilteredOnes(customers.filter((customer) => customer.email === selectedEmail))
+    } else if (emailSubstr) {
+      setFilteredOnes(customers.filter(
+        (customer) => customer.email.includes(emailSubstr)));
     } else {
       setFilteredOnes(customers);
     }
-  }, [customers, selectedEmail]);
+  }, [customers, selectedEmail, emailSubstr]);
 
   const handleEmailSubChg = (e) => {
+    clearFilter();
+    setEmailSubstr(e.target.value);
   };
 
   useEffect(() => {
