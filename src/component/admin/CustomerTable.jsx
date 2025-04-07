@@ -5,6 +5,7 @@ import { Col, OverlayTrigger, Row, Table, Tooltip } from 'react-bootstrap';
 import { BsEyeFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import AlertMessage from '../common/AlertMessage';
+import ItemFilter from '../common/ItemFilter';
 
 const CustomerTable = () => {
   const [customers, setCustomers] = useState([]);
@@ -57,6 +58,17 @@ const CustomerTable = () => {
           )}
         </Col>
       </Row>
+      <Row className="mb-2">
+        <Col md={6}>
+          <ItemFilter
+            itemType={"이메일"}
+            options={emails}
+            onClearFilter={clearFilter}
+            onOptionSelection={setSelectedEmail}
+            selectedOption={selectedEmail}
+          />
+        </Col>
+      </Row>      
       <Table bordered hover striped>
         <thead>
           <tr>
