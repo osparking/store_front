@@ -42,6 +42,7 @@ const CustomerTable = () => {
   );
   const clearFilter = () => {
     setSelectedEmail("");
+    localStorage.setItem("selectedEmail", "");
   };
 
   const [filteredOnes, setFilteredOnes] = useState([]);
