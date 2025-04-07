@@ -214,7 +214,7 @@ const WorkerTable = () => {
                 >
                   <Link to={`/user/${worker.id}/update`}
                     className="text-warning"
-                    state={{ worker: worker }}>
+                    state={{ userState: worker }}>
                     <BsPencilFill />
                   </Link>
                 </OverlayTrigger>
