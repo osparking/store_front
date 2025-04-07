@@ -132,7 +132,7 @@ const CustomerTable = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredOnes.map((customer, idx) => (
+          {displayCustomers.map((customer, idx) => (
             <tr key={idx}>
               <td>{customer.id}</td>
               <td>{customer.fullName}</td>
