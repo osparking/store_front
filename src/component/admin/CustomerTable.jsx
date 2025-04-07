@@ -37,7 +37,9 @@ const CustomerTable = () => {
   const [selectedEmail, setSelectedEmail] = useState(
     localStorage.getItem("selectedEmail") || ""
   );
-  const [emailSubstr, setEmailSubstr] = useState("");
+  const [emailSubstr, setEmailSubstr] = useState(
+    localStorage.getItem("emailSubstr") || ""
+  );
   const clearFilter = () => {
     setSelectedEmail("");
   };
@@ -54,9 +56,18 @@ const CustomerTable = () => {
     }
   }, [customers, selectedEmail, emailSubstr]);
 
+  const handleEmailSelect = (value) => {
+    console.log("value", value);
+    if (value) {
+      setEmailSubstr("");
+    }
+    setSelectedEmail(value);
+  }
+
   const handleEmailSubChg = (e) => {
     clearFilter();
     setEmailSubstr(e.target.value);
+    localStorage.setItem("emailSubstr", e.target.value);
   };
 
   useEffect(() => {
@@ -82,7 +93,7 @@ const CustomerTable = () => {
             itemType={"이메일"}
             options={emails}
             onClearFilter={clearFilter}
-            onOptionSelection={setSelectedEmail}
+            onOptionSelection={handleEmailSelect}
             selectedOption={selectedEmail}
           />
         </Col>
