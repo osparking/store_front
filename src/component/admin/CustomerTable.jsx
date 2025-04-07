@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { getCustomerList } from '../customer/CustomerService';
 import BsAlertHook from '../hook/BsAlertHook';
-import { OverlayTrigger, Table, Tooltip } from 'react-bootstrap';
+import { Col, OverlayTrigger, Row, Table, Tooltip } from 'react-bootstrap';
 import { BsEyeFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import AlertMessage from '../common/AlertMessage';
 
 const CustomerTable = () => {
   const [customers, setCustomers] = useState([]);
@@ -36,6 +37,17 @@ const CustomerTable = () => {
 
   return (
     <main>
+      <Row>
+        <Col></Col>
+        <Col>
+          {alertSuccess && (
+            <AlertMessage type={"success"} message={successMsg} />
+          )}
+          {alertError && (
+            <AlertMessage type={"danger"} message={errorMsg} />
+          )}
+        </Col>
+      </Row>
       <Table bordered hover striped>
         <thead>
           <tr>
