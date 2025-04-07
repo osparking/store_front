@@ -43,8 +43,12 @@ const CustomerTable = () => {
 
   const [filteredOnes, setFilteredOnes] = useState([]);
   useEffect(() => {
-    setFilteredOnes(customers);
-  }, [customers]);
+    if (selectedEmail) {
+      setFilteredOnes(customers.filter((customer) => customer.email === selectedEmail))
+    } else {
+      setFilteredOnes(customers);
+    }
+  }, [customers, selectedEmail]);
 
   useEffect(() => {
     readCustomerList();
