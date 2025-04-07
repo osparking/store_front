@@ -41,6 +41,11 @@ const CustomerTable = () => {
     setSelectedEmail("");
   };
 
+  const [filteredOnes, setFilteredOnes] = useState([]);
+  useEffect(() => {
+    setFilteredOnes(customers);
+  }, [customers]);
+
   useEffect(() => {
     readCustomerList();
   }, []);
@@ -83,7 +88,7 @@ const CustomerTable = () => {
           </tr>
         </thead>
         <tbody>
-          {customers.map((customer, idx) => (
+          {filteredOnes.map((customer, idx) => (
             <tr key={idx}>
               <td>{customer.id}</td>
               <td>{customer.fullName}</td>
