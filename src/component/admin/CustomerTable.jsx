@@ -77,8 +77,8 @@ const CustomerTable = () => {
 
   return (
     <main>
+      <h5 className='mb-3'>고객 목록</h5>
       <Row>
-        <Col></Col>
         <Col>
           {alertSuccess && (
             <AlertMessage type={"success"} message={successMsg} />

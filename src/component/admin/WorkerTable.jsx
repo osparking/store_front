@@ -139,6 +139,7 @@ const WorkerTable = () => {
         handleDeletion={handleDeletion}
         target={`${delTarget.name}`}
       />
+      <h5 className='mb-3'>직원 관리</h5>
       <Row>
         <Col>
           {alertSuccess && (
@@ -147,15 +148,6 @@ const WorkerTable = () => {
           {alertError && (
             <AlertMessage type={"danger"} message={errorMsg} />
           )}
-        </Col>
-        <Col>
-          {" "}
-          <div className="d-flex justify-content-end">
-            <Link to={"/register_user"}>
-              {" "}
-              <BsPlusSquareFill style={{ color: "lime" }} />
-            </Link>
-          </div>
         </Col>
       </Row>
       <Row className="mb-2">
@@ -167,6 +159,15 @@ const WorkerTable = () => {
             onOptionSelection={setSelectedDept}
             selectedOption={selectedDept}
           />
+        </Col>
+        <Col>
+          {" "}
+          <div className="d-flex justify-content-end">
+            <Link to={"/register_user"}>
+              {" "}
+              <BsPlusSquareFill style={{ color: "lime" }} />
+            </Link>
+          </div>
         </Col>
       </Row>
       <Table bordered hover striped>
