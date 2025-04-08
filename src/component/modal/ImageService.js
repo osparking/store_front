@@ -1,6 +1,7 @@
 import React from "react";
 import { api } from "../util/api";
 import axios, { HttpStatusCode } from "axios";
+import { callWithToken } from "../user/UserService";
 
 const prefix = "http://localhost:9193/api/s1";
 
@@ -35,7 +36,8 @@ export async function updatePhoto(photoId, newFile) {
     const formData = new FormData();
     formData.append("file", newFile);
 
-    const response = await api.put(`/photo/${photoId}/update`, formData);
+    const urlSuffix = `/photo/${photoId}/update`;
+    const response = await callWithToken("put", urlSuffix, formData);
     return response.data;
   } catch (error) {
     throw error;
