@@ -1,7 +1,5 @@
-import React from "react";
-import { api } from "../util/api";
-import axios, { HttpStatusCode } from "axios";
 import { callWithToken } from "../user/UserService";
+import { api } from "../util/api";
 
 const prefix = "http://localhost:9193/api/s1";
 
@@ -10,24 +8,11 @@ export async function uploadEmpPhoto(userId, file) {
     const formData = new FormData();
     formData.append("empId", userId);
     formData.append("file", file);
-  const token = localStorage.getItem("token");
-  if (token) {
-    const response = await axios({
-      method: "post",
-      url: `${prefix}/photo/upload`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      data: formData
-    });
-    return response.data;
-  }
-} catch (err) {
-  if (err.response.status === HttpStatusCode.Forbidden) {
-    return null;
-  } else {
+
+    const result = await callWithToken("post", "/photo/upload", formData);
+    return result.data;
+  } catch (err) {
     throw err;
-  }
   }
 }
 
