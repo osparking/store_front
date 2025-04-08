@@ -1,5 +1,4 @@
 import { callWithToken } from "../user/UserService";
-import { api } from "../util/api";
 
 const prefix = "http://localhost:9193/api/s1";
 
@@ -31,7 +30,8 @@ export async function updatePhoto(photoId, newFile) {
 
 export async function deleteUserPhoto(userId) {
   try {
-    const response = await api.delete(`/photo/${userId}/del_emp_id`);
+    const urlSuffix = `/photo/${userId}/del_emp_id`;
+    const response = await callWithToken("delete", urlSuffix);
     return response.data;
   } catch (error) {
     throw error;
