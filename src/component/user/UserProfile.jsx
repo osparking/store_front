@@ -8,6 +8,7 @@ import ImageUp from "../modal/ImageUp";
 const UserProfile = ({ user, handleRemovePhoto }) => {
   const [showImageUp, setShowImageUp] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
+  const userRoles = localStorage.getItem("userRoles") || [];
 
   return (
     <Container>
@@ -16,38 +17,42 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
           <Col md={3} xs={6}>
             <Card className="text-center mb-3 shadow">
               <Card.Body>
-                <EmpImage empPhoto={user.photoBytes} />
+                <div>
+                  {!userRoles.includes("ROLE_CUSTOMER") && (
+                    <>
+                      <EmpImage empPhoto={user.photoBytes} />
+                      <p className="mt-5">
+                        <Link to={"#"} onClick={() => setShowImageUp(true)}>
+                          사진 변경
+                        </Link>
+                      </p>
+                      <p>
+                        <Link
+                          to={"#"}
+                          {...(user.photoId
+                            ? { onClick: handleRemovePhoto }
+                            : { style: { cursor: "default", color: "grey" } })}
+                        >
+                          사진 제거
+                        </Link>
+                      </p>
+                      <ImageUp
+                        user={user}
+                        show={showImageUp}
+                        handleClose={() => setShowImageUp(false)}
+                      />
+                    </>)
+                  }
+                  <Link to={"#"} onClick={() => setShowChangePassword(true)}>
+                    비밀번호 변경
+                  </Link>
+                  <ChangePassword
+                    userId={user.id}
+                    show={showChangePassword}
+                    handleClose={() => setShowChangePassword(false)}
+                  />
+                </div>
               </Card.Body>
-              <div>
-                <p>
-                  <Link to={"#"} onClick={() => setShowImageUp(true)}>
-                    사진 변경
-                  </Link>
-                </p>
-                <p>
-                  <Link
-                    to={"#"}
-                    {...(user.photoId
-                      ? { onClick: handleRemovePhoto }
-                      : { style: { cursor: "default", color: "grey" } })}
-                  >
-                    사진 제거
-                  </Link>
-                </p>
-                <ImageUp
-                  user={user}
-                  show={showImageUp}
-                  handleClose={() => setShowImageUp(false)}
-                />
-                <Link to={"#"} onClick={() => setShowChangePassword(true)}>
-                  비밀번호 변경
-                </Link>
-                <ChangePassword
-                  userId={user.id}
-                  show={showChangePassword}
-                  handleClose={() => setShowChangePassword(false)}
-                />
-              </div>
             </Card>
           </Col>
           <Col md={8}>
