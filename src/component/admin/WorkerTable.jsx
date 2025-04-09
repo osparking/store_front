@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { getWorkerList } from '../worker/WorkerService';
-import { Link, useNavigate } from 'react-router-dom';
-import BsAlertHook from '../hook/BsAlertHook';
-import { BsEyeFill, BsLockFill, BsPencilFill, BsPlusSquareFill, BsTrashFill, BsUnlockFill } from 'react-icons/bs';
-import AlertMessage from '../common/AlertMessage';
+import React, { useEffect, useState } from 'react';
 import { Col, OverlayTrigger, Row, Table, Tooltip } from 'react-bootstrap';
-import { deleteUserAccount, toggleEnabledColumn } from "../user/UserService";
-import DeleteConfirmModal from '../modal/DeleteConfirmModal';
+import { BsEyeFill, BsLockFill, BsPencilFill, BsPlusSquareFill, BsTrashFill, BsUnlockFill } from 'react-icons/bs';
+import { Link, useNavigate } from 'react-router-dom';
+import AlertMessage from '../common/AlertMessage';
 import ItemFilter from '../common/ItemFilter';
 import Paginator from '../common/Paginator';
+import BsAlertHook from '../hook/BsAlertHook';
+import DeleteConfirmModal from '../modal/DeleteConfirmModal';
+import { deleteUserAccount, toggleEnabledColumn } from "../user/UserService";
+import { getWorkerList } from '../worker/WorkerService';
 
 const WorkerTable = () => {
   const [workerList, setWorkerList] = useState([]);
@@ -124,12 +124,19 @@ const WorkerTable = () => {
     localStorage.setItem("selectedDept", "");
     setSelectedDept("");
   }
+  
+  const [currWorkerPage, setCurrWorkerPage] = useState(
+    localStorage.getItem("currWorkerPage") || 1);
 
-  const [currPage, setCurrPage] = useState(1);
   const [pageSize] = useState(10);
-  const idxLastPlus1 = currPage * pageSize;
+  const idxLastPlus1 = currWorkerPage * pageSize;
   const indexOfFirst = idxLastPlus1 - pageSize;
   const displayWorkers = filteredWorkers.slice(indexOfFirst, idxLastPlus1);
+
+  const setAndSavePageNo = (pageNo) => {
+    setCurrWorkerPage(pageNo);
+    localStorage.setItem("currWorkerPage", pageNo);
+  }
 
   return (
     <main>
@@ -257,8 +264,8 @@ const WorkerTable = () => {
       <Paginator
         pageSize={pageSize}
         totalItems={filteredWorkers.length}
-        currPage={currPage}
-        setCurrPage={setCurrPage}
+        currPage={currWorkerPage}
+        setCurrPage={setAndSavePageNo}
       />
     </main>
   )
