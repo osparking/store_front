@@ -9,7 +9,7 @@ import { registerUser } from "./UserService";
 import { logoutUser } from "../auth/AuthService";
 
 const RegisterUser = () => {
-  const userId = localStorage.getItem("userId");
+  const userId = localStorage.getItem("loginId");
   const userRoles = localStorage.getItem("userRoles") || [];
   const [user, setUser] = useState({
     fullName: "",
@@ -56,6 +56,7 @@ const RegisterUser = () => {
       setSuccessMsg(response.message);
       setAlertSuccess(true);
     } catch (error) {
+      console.error("에러:", error);
       setErrorMsg(error.response.data.message);
       setAlertError(true);
     } finally {

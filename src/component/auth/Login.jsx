@@ -50,7 +50,7 @@ const Login = () => {
     }
     try {
       const apiResp = await loginUser(credentials.email, credentials.password);
-      localStorage.setItem("userId", apiResp.data.id);
+      localStorage.setItem("loginId", apiResp.data.id);
       localStorage.setItem("token", apiResp.data.token);
       const tokenDecoded = jwtDecode(apiResp.data.token);
       localStorage.setItem("userRoles", JSON.stringify(tokenDecoded.roles));

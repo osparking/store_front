@@ -9,12 +9,12 @@ const NavBar = () => {
 
   const navigate = useNavigate();
   const handleLogout = () => {
-    localStorage.removeItem("userId");
+    localStorage.removeItem("loginId");
     localStorage.removeItem("userRoles");
     localStorage.removeItem("token");
     navigate("/");
   };
-  const userId = localStorage.getItem("userId");
+  const userId = localStorage.getItem("loginId");
 
   window.addEventListener("logoutEvt", handleLogout);
 

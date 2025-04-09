@@ -29,7 +29,7 @@ const UserUpdate = () => {
   } = BsAlertHook();
 
   const { userId } = useParams();
-  const loginId = localStorage.getItem("userId");
+  const loginId = localStorage.getItem("loginId");
   const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
@@ -89,7 +89,7 @@ const UserUpdate = () => {
 
   const navigate = useNavigate();
   const cancelUpdate = () => {
-    const loginId = localStorage.getItem("userId");
+    // const loginId = localStorage.getItem("loginId");
     if (userId === loginId) {
       navigate(`/dashboard/${loginId}/user`);
     } else {
