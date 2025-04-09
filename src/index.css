@@ -155,3 +155,12 @@ h6 {
   background-position: center;
   margin: 10px;
 }
+
+.returnLink {
+  font-size: 1.2em;
+  font-weight: bolder;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}

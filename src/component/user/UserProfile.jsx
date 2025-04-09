@@ -9,6 +9,8 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
   const [showImageUp, setShowImageUp] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
   const userRoles = localStorage.getItem("userRoles") || [];
+  const loginId = localStorage.getItem("loginId");
+  const fromList = (loginId !== user.id);
 
   return (
     <Container>
@@ -110,6 +112,12 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
             </Card>
           </Col>
         </Row>
+        {fromList && (
+          <Row>
+            <div className="returnLink">
+              <Link to="/dashboard/admin">목록</Link>
+            </div>
+          </Row>)}
       </React.Fragment>
     </Container>
   );
