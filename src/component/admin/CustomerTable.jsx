@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { getCustomerList } from '../customer/CustomerService';
-import BsAlertHook from '../hook/BsAlertHook';
+import React, { useEffect, useState } from 'react';
 import { Col, Form, InputGroup, OverlayTrigger, Row, Table, Tooltip } from 'react-bootstrap';
 import { BsEyeFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import AlertMessage from '../common/AlertMessage';
 import ItemFilter from '../common/ItemFilter';
 import Paginator from '../common/Paginator';
+import { getCustomerList } from '../customer/CustomerService';
+import BsAlertHook from '../hook/BsAlertHook';
 
 const CustomerTable = () => {
   const [customers, setCustomers] = useState([]);
@@ -77,11 +77,18 @@ const CustomerTable = () => {
     readCustomerList();
   }, []);
 
-  const [currPage, setCurrPage] = useState(1);
+  const [currCustomerPage, setCurrCustomerPage] = useState(
+    localStorage.getItem("currCustomerPage") || 1);
+
   const [pageSize] = useState(10);
-  const idxLastPlus1 = currPage * pageSize;
+  const idxLastPlus1 = currCustomerPage * pageSize;
   const indexOfFirst = idxLastPlus1 - pageSize;
   const displayCustomers = filteredOnes.slice(indexOfFirst, idxLastPlus1);
+
+  const setAndSavePageNo = (pageNo) => {
+    setCurrCustomerPage(pageNo);
+    localStorage.setItem("currCustomerPage", pageNo);
+  }
 
   return (
     <main>
@@ -162,8 +169,8 @@ const CustomerTable = () => {
       <Paginator 
         pageSize={pageSize}
         totalItems={filteredOnes.length}
-        currPage={currPage}
-        setCurrPage={setCurrPage}/>
+        currPage={currCustomerPage}
+        setCurrPage={setAndSavePageNo}/>
     </main>
   );
 }
