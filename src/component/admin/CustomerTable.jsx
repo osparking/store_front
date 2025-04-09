@@ -59,7 +59,8 @@ const CustomerTable = () => {
   }, [customers, selectedEmail, emailSubstr]);
 
   const handleEmailSelect = (value) => {
-    console.log("value", value);
+    localStorage.removeItem("currCustomerPage");
+    setCurrCustomerPage(1);
     if (value) {
       setEmailSubstr("");
     }
@@ -69,6 +70,8 @@ const CustomerTable = () => {
 
   const handleEmailSubChg = (e) => {
     clearFilter();
+    localStorage.removeItem("currCustomerPage");
+    setCurrCustomerPage(1);
     setEmailSubstr(e.target.value);
     localStorage.setItem("emailSubstr", e.target.value);
   };

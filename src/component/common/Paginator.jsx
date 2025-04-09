@@ -5,7 +5,6 @@ const Paginator = ({ pageSize, totalItems, currPage, setCurrPage }) => {
   let active = currPage;
   let items = [];
   for (let i = 1; i <= Math.ceil(totalItems / pageSize); i++) {
-    console.log("type of i: ", typeof(i));
     items.push(
       <Pagination.Item
         key={i}
