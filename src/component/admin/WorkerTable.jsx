@@ -58,9 +58,11 @@ const WorkerTable = () => {
     }
   };
 
+  const [delBtnDisabled, setDelBtnDisabled] = useState(false);
   const handleDeletion = async () => {
     if (delTarget) {
       try {
+        setDelBtnDisabled(true);
         const result = await deleteUserAccount(delTarget.id);
         setSuccessMsg(result.message);
         setAlertSuccess(true);
@@ -70,6 +72,8 @@ const WorkerTable = () => {
         console.error("err:", err);
         setErrorMsg(err.message);
         setAlertError(true);
+      } finally {
+        setDelBtnDisabled(false);
       }
     }
   };
@@ -145,6 +149,7 @@ const WorkerTable = () => {
         onHide={() => setShowDelModal(false)}
         handleDeletion={handleDeletion}
         target={`${delTarget.name}`}
+        disabled={delBtnDisabled}
       />
       <h5 className='mb-3'>직원 관리</h5>
       <Row>
