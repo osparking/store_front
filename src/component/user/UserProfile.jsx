@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import EmpImage from "../common/EmpImage";
 import ChangePassword from "../modal/ChangePassword";
 import ImageUp from "../modal/ImageUp";
-// import DeleteConfirmModal from "../modal/DeleteConfirmModal";
+import DeleteConfirmModal from "../modal/DeleteConfirmModal";
+import { deleteUserAccount } from "./UserService";
 
 const UserProfile = ({ user, handleRemovePhoto }) => {
   const [showImageUp, setShowImageUp] = useState(false);
@@ -15,8 +16,22 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
   const handleCloseAccountButtonCLick = () => {    
   }  
 
-  return (
-    <Container>
+const [showDelModal, setShowDelModal] = useState(false);
+const handleModalXButtonClick = () => {
+};
+
+const handleDeleteOrder =  () => {
+};
+
+return (
+  <Container>
+    <DeleteConfirmModal
+      show={showDelModal}
+      onHide={handleModalXButtonClick}
+      handleDelete={handleDeleteOrder}
+      target={`${user.fullName}`}
+      deleting={false}
+    />      
       <React.Fragment>
         <Row>
           <Col md={3} xs={6}>

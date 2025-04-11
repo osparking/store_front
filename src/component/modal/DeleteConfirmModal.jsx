@@ -14,7 +14,7 @@ const DeleteConfirmModal = ({
         <Modal.Title>삭제 후 복구 불가</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        '{target}' 계정 삭제는 복구 불가합니다!
+        삭제되면, '{target}' 계정은 복구 불가합니다!
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onHide}>
