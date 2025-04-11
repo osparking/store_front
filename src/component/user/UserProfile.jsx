@@ -6,6 +6,7 @@ import ChangePassword from "../modal/ChangePassword";
 import ImageUp from "../modal/ImageUp";
 import DeleteConfirmModal from "../modal/DeleteConfirmModal";
 import { deleteUserAccount } from "./UserService";
+import { logoutUser } from "../auth/AuthService";
 
 const UserProfile = ({ user, handleRemovePhoto }) => {
   const [showImageUp, setShowImageUp] = useState(false);
@@ -28,6 +29,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
     try {
       await deleteUserAccount(user.id);
       setShowDelModal(false);
+      logoutUser();
     } catch (error) {
       console.error(error.message);
     }
