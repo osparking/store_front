@@ -13,25 +13,35 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
   const userRoles = localStorage.getItem("userRoles") || [];
   const loginId = localStorage.getItem("loginId");
   const fromList = (loginId !== user.id);
+
   const handleCloseAccountButtonCLick = () => {    
+    setShowDelModal(true);
   }  
 
-const [showDelModal, setShowDelModal] = useState(false);
-const handleModalXButtonClick = () => {
-};
+  const [showDelModal, setShowDelModal] = useState(false);
+  const handleModalXButtonClick = () => {
+    setShowDelModal(false);
+    setUserToDel(null);
+  };
 
-const handleDeleteOrder =  () => {
-};
+  const handleDeleteOrder = async () => {
+    try {
+      await deleteUserAccount(user.id);
+      setShowDelModal(false);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
-return (
-  <Container>
-    <DeleteConfirmModal
-      show={showDelModal}
-      onHide={handleModalXButtonClick}
-      handleDelete={handleDeleteOrder}
-      target={`${user.fullName}`}
-      deleting={false}
-    />      
+  return (
+    <Container>
+      <DeleteConfirmModal
+        show={showDelModal}
+        onHide={handleModalXButtonClick}
+        handleDelete={handleDeleteOrder}
+        target={`${user.fullName}`}
+        deleting={false}
+      />      
       <React.Fragment>
         <Row>
           <Col md={3} xs={6}>
