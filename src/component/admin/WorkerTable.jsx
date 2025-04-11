@@ -125,8 +125,15 @@ const WorkerTable = () => {
   );
 
   const handleClearFilter = () => {
-    localStorage.setItem("selectedDept", "");
+    localStorage.removeItem("selectedDept");
+    localStorage.removeItem("currWorkerPage");
     setSelectedDept("");
+  }
+
+  const handleDeptSelection = (e) => {
+    setSelectedDept(e);
+    localStorage.removeItem("currWorkerPage");
+    setCurrWorkerPage(1);
   }
   
   const [currWorkerPage, setCurrWorkerPage] = useState(
@@ -168,7 +175,7 @@ const WorkerTable = () => {
             itemType={"소속"}
             options={departments}
             onClearFilter={handleClearFilter}
-            onOptionSelection={setSelectedDept}
+            onOptionSelection={handleDeptSelection}
             selectedOption={selectedDept}
           />
         </Col>
