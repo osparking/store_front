@@ -38,7 +38,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
       <DeleteConfirmModal
         show={showDelModal}
         onHide={handleModalXButtonClick}
-        handleDelete={handleDeleteOrder}
+        handleDeletion={handleDeleteOrder}
         target={`${user.fullName}`}
         deleting={false}
       />      
