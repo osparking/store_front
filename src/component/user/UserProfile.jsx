@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import EmpImage from "../common/EmpImage";
 import ChangePassword from "../modal/ChangePassword";
 import ImageUp from "../modal/ImageUp";
+// import DeleteConfirmModal from "../modal/DeleteConfirmModal";
 
 const UserProfile = ({ user, handleRemovePhoto }) => {
   const [showImageUp, setShowImageUp] = useState(false);
@@ -11,6 +12,8 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
   const userRoles = localStorage.getItem("userRoles") || [];
   const loginId = localStorage.getItem("loginId");
   const fromList = (loginId !== user.id);
+  const handleCloseAccountButtonCLick = () => {    
+  }  
 
   return (
     <Container>
@@ -53,6 +56,27 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                     show={showChangePassword}
                     handleClose={() => setShowChangePassword(false)}
                   />
+                </div>
+              </Card.Body>
+              <Card.Body>
+                <div className="d-flex justify-content-center mt-2 mb-2">
+                  <div className="mx-2">
+                    <Link
+                      to={`/update-user/${user.id}`}
+                      className="btn btn-warning btn-sm"
+                    >
+                      프로필 수정
+                    </Link>
+                  </div>
+                  <div className="mx-2">
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={handleCloseAccountButtonCLick}
+                    >
+                      계정 폐쇄
+                    </Button>
+                  </div>
                 </div>
               </Card.Body>
             </Card>
