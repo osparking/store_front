@@ -89,7 +89,6 @@ const UserUpdate = () => {
 
   const navigate = useNavigate();
   const cancelUpdate = () => {
-    // const loginId = localStorage.getItem("loginId");
     if (userId === loginId) {
       navigate(`/dashboard/${loginId}/user`);
     } else {

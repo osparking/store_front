@@ -14,7 +14,7 @@ const NavBar = () => {
     localStorage.removeItem("token");
     navigate("/");
   };
-  const userId = localStorage.getItem("loginId");
+  const loginId = localStorage.getItem("loginId");
 
   window.addEventListener("logoutEvt", handleLogout);
 
@@ -53,7 +53,7 @@ const NavBar = () => {
                     로그아웃
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item to={`/dashboard/${userId}/user`} as={Link}>
+                  <NavDropdown.Item to={`/dashboard/${loginId}/user`} as={Link}>
                     대시보드
                   </NavDropdown.Item>
                   {userRoles.includes("ROLE_ADMIN") && (
@@ -65,7 +65,7 @@ const NavBar = () => {
                     </>
                   )}
                   <NavDropdown.Divider />
-                  <NavDropdown.Item to={`/user/${userId}/update`} as={Link}>
+                  <NavDropdown.Item to={`/user/${loginId}/update`} as={Link}>
                     내 정보 수정
                   </NavDropdown.Item>
                 </>
