@@ -10,8 +10,7 @@ export const loginUser = async (email, password) => {
 };
 
 export const logoutUser = () => {
-  localStorage.removeItem("userId");
-  localStorage.removeItem("token");
+  localStorage.clear();
   window.dispatchEvent(new Event("logoutEvt"));
 }
 

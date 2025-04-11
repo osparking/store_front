@@ -8,15 +8,12 @@ const NavBar = () => {
   const userRoles = localStorage.getItem("userRoles") || [];
 
   const navigate = useNavigate();
-  const handleLogout = () => {
-    localStorage.removeItem("loginId");
-    localStorage.removeItem("userRoles");
-    localStorage.removeItem("token");
+  const navigateHome = () => {
     navigate("/");
   };
   const loginId = localStorage.getItem("loginId");
 
-  window.addEventListener("logoutEvt", handleLogout);
+  window.addEventListener("logoutEvt", navigateHome);
 
   return (
     <Navbar expand="lg" sticky="top" className="nav-bg">
