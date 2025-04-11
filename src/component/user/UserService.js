@@ -51,26 +51,12 @@ export async function updateUser(userId, user) {
 
 export async function deleteUserAccount(userId) {
   try {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const result = await axios({
-        method: "delete",
-        url: `${prefix}/user/${userId}/delete`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return result.data;
-    } else {
-      return null;
-    }
+    const urlSuffix = `/user/${userId}/delete`;
+    const result = await callWithToken("delete", urlSuffix);
+    return result.data;
   } catch (err) {
-    if (err.response.status === HttpStatusCode.Forbidden) {
-      return null;
-    } else {
-      throw err;
-    }
-  }  
+    throw err;
+  }
 }
 
 export const toggleEnabledColumn = async (userId) => {
