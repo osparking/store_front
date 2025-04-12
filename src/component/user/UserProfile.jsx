@@ -89,7 +89,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                 <div className="d-flex justify-content-center mt-2 mb-2">
                   <div className="mx-2">
                     <Link
-                      to={`/update-user/${user.id}`}
+                      to={`/user/${user.id}/update`}
                       className="btn btn-warning btn-sm"
                     >
                       프로필 수정
