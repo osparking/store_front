@@ -1,11 +1,11 @@
-import React, { useEffect, useId, useState } from 'react'
-import BsAlertHook from '../hook/BsAlertHook';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
-import WorkerDeptSelector from '../worker/WorkerDeptSelector';
-import { getUserById, getUserDtoById, updateUser } from './UserService';
-import ProcessSpinner from '../common/ProcessSpinner';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import AlertMessage from '../common/AlertMessage';
+import ProcessSpinner from '../common/ProcessSpinner';
+import BsAlertHook from '../hook/BsAlertHook';
+import WorkerDeptSelector from '../worker/WorkerDeptSelector';
+import { getUserDtoById, updateUser } from './UserService';
 
 const UserUpdate = () => {
   const location = useLocation();
@@ -38,7 +38,11 @@ const UserUpdate = () => {
         if (userId === loginId) {
           console.log("나의 정보 갱신");
           const result = await getUserDtoById(userId);
-          setUser(result.data);
+          if (result) {
+            setUser(result.data);
+          } else {
+            navigate("/login");
+          }
         } else if (location.state) {
           console.log("남 정보 갱신");
           const { userState } = location.state;
