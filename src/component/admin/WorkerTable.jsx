@@ -115,7 +115,7 @@ const WorkerTable = () => {
       setFilteredWorkers(workerList);
     }
     // 유저가 의도적으로 택한 검색키를 저장소에 보관한다. 
-    if (selectedDept !== 0) {
+    if (selectedDept && selectedDept !== 0) {
       localStorage.setItem("selectedDept", selectedDept);
     }
   }, [workerList, selectedDept])
