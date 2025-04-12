@@ -31,7 +31,9 @@ export async function callWithToken(method, urlSuffix, data = null) {
       return null;
     }
   } catch (err) {
-    if (err.response.status === HttpStatusCode.Forbidden) {
+    if (err.response.status === HttpStatusCode.Forbidden ||
+      err.response.status === HttpStatusCode.Unauthorized
+    ) {
       return null;
     } else {
       throw err;
@@ -152,7 +154,7 @@ export async function getUserCount() {
 export async function getUserDtoById(userId) {
   try {
     const result = await callWithToken("get", `/user/${userId}/get_dto`);
-    return result.data;
+    return result ? result.data : result;
   } catch (err) {
     throw err;
   }

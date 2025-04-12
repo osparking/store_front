@@ -17,7 +17,7 @@ import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
-    email: "jbpark03@email.com",
+    email: "jbpark1@email.com",
     password: "1234",
     save_login: true
   });
