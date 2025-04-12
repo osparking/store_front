@@ -163,8 +163,9 @@ export async function getUserDtoById(userId) {
 export async function changePwd(userId,  curPwd, newPwd, cnfPwd) {
   try {
     const request = { curPwd, newPwd, cnfPwd };
-    const result = await api.put(`/user/change_pwd/${userId}`, request);
-    return result.data;
+    const result = await callWithToken(
+      "put", `/user/change_pwd/${userId}`, request);
+    return result ? result.data : result;
   } catch (err) {
     throw err;
   }
