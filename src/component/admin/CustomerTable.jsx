@@ -43,7 +43,8 @@ const CustomerTable = () => {
   );
   const clearFilter = () => {
     setSelectedEmail("");
-    localStorage.setItem("selectedEmail", "");
+    localStorage.removeItem("selectedEmail");
+    localStorage.removeItem("currCustomerPage");
   };
 
   const [filteredOnes, setFilteredOnes] = useState([]);
@@ -70,7 +71,6 @@ const CustomerTable = () => {
 
   const handleEmailSubChg = (e) => {
     clearFilter();
-    localStorage.removeItem("currCustomerPage");
     setCurrCustomerPage(1);
     setEmailSubstr(e.target.value);
     localStorage.setItem("emailSubstr", e.target.value);
