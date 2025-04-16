@@ -1,9 +1,22 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Container, ListGroup, Row } from "react-bootstrap";
 import olive_label from "../../assets/images/olive_label.jpg";
 import soap_rack from "../../assets/images/soap_rack.jpg";
 
 const Home = () => {
+
+  useEffect(() => {
+    axios.get('http://localhost:9193/api/s1/autho/combine',
+      { withCredentials: true })
+      .then(response => {
+        console.log("response.data: ", response.data);
+      })
+      .catch(error => {
+        console.error("오류: ", error);
+      });
+  }, []);
+
   return (
     <Container className="home-container mt-3">
       <Row>
