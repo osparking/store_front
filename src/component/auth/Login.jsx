@@ -14,6 +14,8 @@ import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import { loginUser } from "./AuthService";
 import { jwtDecode } from "jwt-decode";
+import { FcGoogle } from "react-icons/fc";
+import naverIcon from "../../assets/images/btnD_icon_square.png";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -67,6 +69,12 @@ const Login = () => {
     setCredentials({ email: "", password: "" });
     setAlertError(false);
   };
+
+  const googleLogin = () => {
+    localStorage.setItem("social", "google");
+    window.location.href =
+      "http://localhost:9193/oauth2/authorization/google";
+  }
 
   return (
     <Container className="mt-5">
