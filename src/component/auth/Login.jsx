@@ -76,6 +76,9 @@ const Login = () => {
       "http://localhost:9193/oauth2/authorization/google";
   }
 
+  const naverLogin = () => {
+  }
+
   return (
     <Container className="mt-5">
       <Row className="justify-content-center">
@@ -132,8 +135,15 @@ const Login = () => {
                   로그인
                 </Button>
               </Form>
+              <div className="text-center mt-3 mb-3">
+                <button class="button button-solid" onClick={naverLogin}
+                  style={{ margin: '10px' }}>
+                  <img height="18" src={naverIcon} />네이버 로그인</button>
+                <button class="button button-solid" onClick={googleLogin}
+                  style={{ margin: '10px' }}>
+                  <FcGoogle />Google 로그인</button>
+              </div>
               <div className="text-center mt-2">
-                혹은,&nbsp;
                 <Link to={"/register_user"} style={{ textDecoration: "none" }}>
                   계정 등록
                 </Link>
