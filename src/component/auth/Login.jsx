@@ -136,10 +136,10 @@ const Login = () => {
                 </Button>
               </Form>
               <div className="text-center mt-3 mb-3">
-                <button class="button button-solid" onClick={naverLogin}
+                <button className="button button-solid" onClick={naverLogin}
                   style={{ margin: '10px' }}>
                   <img height="18" src={naverIcon} />네이버 로그인</button>
-                <button class="button button-solid" onClick={googleLogin}
+                <button className="button button-solid" onClick={googleLogin}
                   style={{ margin: '10px' }}>
                   <FcGoogle />구글 로그인</button>
               </div>
