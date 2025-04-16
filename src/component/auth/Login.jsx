@@ -141,7 +141,7 @@ const Login = () => {
                   <img height="18" src={naverIcon} />네이버 로그인</button>
                 <button class="button button-solid" onClick={googleLogin}
                   style={{ margin: '10px' }}>
-                  <FcGoogle />Google 로그인</button>
+                  <FcGoogle />구글 로그인</button>
               </div>
               <div className="text-center mt-2">
                 <Link to={"/register_user"} style={{ textDecoration: "none" }}>
