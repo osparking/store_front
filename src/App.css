@@ -389,7 +389,12 @@ input[type="radio"] {
 }
 
 .button-solid {
+    padding: 7px;
+  text-align: center;
+  min-width: 145px;
+  width: 40%;
   border: none;
+  font-size: 16px;
 }
 
 /* End home page*/
