@@ -6,14 +6,15 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import "./App.css";
+import AdminDashboard from "./component/admin/AdminDashboard";
+import EmailVerifin from "./component/auth/EmailVerifin";
 import Login from "./component/auth/Login";
+import OAuth2RedirectHandler from "./component/auth/OAuth2RedirectHandler";
 import Home from "./component/home/Home";
 import RootLayout from "./component/layout/RootLayout";
 import RegisterUser from "./component/user/RegisterUser";
-import UserDashboard from "./component/user/UserDashboard";
-import EmailVerifin from "./component/auth/EmailVerifin";
-import AdminDashboard from "./component/admin/AdminDashboard";
 import UserUpdate from "./component/user/UpdateUser";
+import UserDashboard from "./component/user/UserDashboard";
 
 function App() {
   const router = createBrowserRouter(
@@ -26,6 +27,7 @@ function App() {
         <Route path="/dashboard/:userId/user" element={<UserDashboard />} />
         <Route path="/dashboard/admin" element={<AdminDashboard/>} />
         <Route path="/user/:userId/update" element={<UserUpdate />} />
+        <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
       </Route>
     )
   );
