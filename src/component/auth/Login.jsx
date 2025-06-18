@@ -19,7 +19,7 @@ import naverIcon from "../../assets/images/btnD_icon_square.png";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
-    email: "jbpark1@email.com",
+    email: "customer1@email.com",
     password: "1234",
     save_login: true
   });
