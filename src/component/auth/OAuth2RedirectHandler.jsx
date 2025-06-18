@@ -13,6 +13,17 @@ const OAuth2RedirectHandler = () => {
       try {
         const decodedToken = jwtDecode(token);
         console.log("Decoded Token:", decodedToken);
+
+        localStorage.setItem('token', token);
+        let isAdmin = decodedToken.roles.includes('ROLE_ADMIN');
+
+        const user = {
+          id: decodedToken.id,
+          email: decodedToken.sub,
+          roles: decodedToken.roles,
+          isAdmin: isAdmin
+        }
+        console.log("user:", user);        
       } catch (error) {
         console.error('토큰 해독 오류:', error);
         navigate('/login');
