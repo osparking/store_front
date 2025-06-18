@@ -1,9 +1,10 @@
 import { jwtDecode } from "jwt-decode";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const OAuth2RedirectHandler = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -14,30 +15,30 @@ const OAuth2RedirectHandler = () => {
         const decodedToken = jwtDecode(token);
         console.log("Decoded Token:", decodedToken);
 
-        localStorage.setItem('token', token);
-        let isAdmin = decodedToken.roles.includes('ROLE_ADMIN');
+        localStorage.setItem("token", token);
+        let isAdmin = decodedToken.roles.includes("ROLE_ADMIN");
 
         const user = {
           id: decodedToken.id,
           email: decodedToken.sub,
           roles: decodedToken.roles,
-          isAdmin: isAdmin
-        }
+          isAdmin: isAdmin,
+        };
         console.log("user:", user);
-        
-        localStorage.setItem('USER', JSON.stringify(user));
+
+        localStorage.setItem("USER", JSON.stringify(user));
         if (isAdmin) {
-          navigate('/dashboard/admin');
+          navigate("/dashboard/admin");
         } else {
           navigate(`/dashboard/${user.id}/user`);
-        }        
+        }
       } catch (error) {
-        console.error('토큰 해독 오류:', error);
-        navigate('/login');
+        console.error("토큰 해독 오류:", error);
+        navigate("/login");
       }
     } else {
       console.log("오류: URL 중 토큰 부재");
-      navigate('/login');
+      navigate("/login");
     }
   }, []);
   return <div>소셜 로그인 재방향...</div>;
