@@ -23,7 +23,14 @@ const OAuth2RedirectHandler = () => {
           roles: decodedToken.roles,
           isAdmin: isAdmin
         }
-        console.log("user:", user);        
+        console.log("user:", user);
+        
+        localStorage.setItem('USER', JSON.stringify(user));
+        if (isAdmin) {
+          navigate('/dashboard/admin');
+        } else {
+          navigate(`/dashboard/${user.id}/user`);
+        }        
       } catch (error) {
         console.error('토큰 해독 오류:', error);
         navigate('/login');
