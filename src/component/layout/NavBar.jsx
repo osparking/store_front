@@ -11,7 +11,7 @@ const NavBar = () => {
   const navigateHome = () => {
     navigate("/");
   };
-  const loginId = localStorage.getItem("loginId");
+  const loginId = localStorage.getItem("LOGIN_ID");
 
   window.addEventListener("logoutEvt", navigateHome);
 

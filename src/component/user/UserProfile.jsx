@@ -12,7 +12,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
   const [showImageUp, setShowImageUp] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
   const userRoles = localStorage.getItem("userRoles") || [];
-  const loginId = localStorage.getItem("loginId");
+  const loginId = localStorage.getItem("LOGIN_ID");
   const fromList = (loginId !== user.id);
 
   const handleCloseAccountButtonCLick = () => {    

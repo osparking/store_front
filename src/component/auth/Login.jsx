@@ -53,10 +53,11 @@ const Login = () => {
     }
     try {
       const apiResp = await loginUser(credentials.email, credentials.password);
-      localStorage.setItem("loginId", apiResp.data.id);
+      localStorage.setItem("LOGIN_ID", apiResp.data.id);
       localStorage.setItem("token", apiResp.data.token);
 
       const user = jwtToUser(apiResp.data.token);
+      localStorage.setItem("USER", JSON.stringify(user));
 
       localStorage.setItem("userRoles", JSON.stringify(user.roles));
       window.dispatchEvent(new Event("loginEvt"));

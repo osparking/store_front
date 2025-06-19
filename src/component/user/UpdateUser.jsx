@@ -29,7 +29,7 @@ const UserUpdate = () => {
   } = BsAlertHook();
 
   const { id } = useParams();
-  const loginId = localStorage.getItem("loginId");
+  const loginId = localStorage.getItem("LOGIN_ID");
   const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
