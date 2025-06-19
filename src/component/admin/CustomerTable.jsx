@@ -36,15 +36,15 @@ const CustomerTable = () => {
   const emails = Array.from(new Set(customers.map(
     (customer) => customer.email))).sort();
   const [selectedEmail, setSelectedEmail] = useState(
-    localStorage.getItem("selectedEmail") || ""
+    localStorage.getItem("SELECTED_EMAIL") || ""
   );
   const [emailSubstr, setEmailSubstr] = useState(
-    localStorage.getItem("emailSubstr") || ""
+    localStorage.getItem("EMAIL_SUBSTR") || ""
   );
   const clearFilter = () => {
     setSelectedEmail("");
-    localStorage.removeItem("selectedEmail");
-    localStorage.removeItem("currCustomerPage");
+    localStorage.removeItem("SELECTED_EMAIL");
+    localStorage.removeItem("CURR_CUST_PAGE");
   };
 
   const [filteredOnes, setFilteredOnes] = useState([]);
@@ -60,20 +60,20 @@ const CustomerTable = () => {
   }, [customers, selectedEmail, emailSubstr]);
 
   const handleEmailSelect = (value) => {
-    localStorage.removeItem("currCustomerPage");
+    localStorage.removeItem("CURR_CUST_PAGE");
     setCurrCustomerPage(1);
     if (value) {
       setEmailSubstr("");
     }
     setSelectedEmail(value);
-    localStorage.setItem("selectedEmail", value);
+    localStorage.setItem("SELECTED_EMAIL", value);
   }
 
   const handleEmailSubChg = (e) => {
     clearFilter();
     setCurrCustomerPage(1);
     setEmailSubstr(e.target.value);
-    localStorage.setItem("emailSubstr", e.target.value);
+    localStorage.setItem("EMAIL_SUBSTR", e.target.value);
   };
 
   useEffect(() => {
@@ -81,7 +81,7 @@ const CustomerTable = () => {
   }, []);
 
   const [currCustomerPage, setCurrCustomerPage] = useState(
-    localStorage.getItem("currCustomerPage") || 1);
+    localStorage.getItem("CURR_CUST_PAGE") || 1);
 
   const [pageSize] = useState(10);
   const idxLastPlus1 = currCustomerPage * pageSize;
@@ -90,7 +90,7 @@ const CustomerTable = () => {
 
   const setAndSavePageNo = (pageNo) => {
     setCurrCustomerPage(pageNo);
-    localStorage.setItem("currCustomerPage", pageNo);
+    localStorage.setItem("CURR_CUST_PAGE", pageNo);
   }
 
   return (
