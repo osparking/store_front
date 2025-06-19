@@ -5,7 +5,8 @@ import { logoutUser } from "../auth/AuthService";
 
 const NavBar = () => {
   const beforeLogin = localStorage.getItem("TOKEN") === null;
-  const userRoles = localStorage.getItem("userRoles") || [];
+  const isAdminJson = localStorage.getItem("IS_ADMIN");
+  const isAdmin = isAdminJson ? JSON.parse(isAdminJson) : false;
 
   const navigate = useNavigate();
   const navigateHome = () => {
@@ -31,7 +32,7 @@ const NavBar = () => {
             <Nav.Link to={"/doctors"} as={Link}>
               비누 종류
             </Nav.Link>
-            {userRoles.includes("ROLE_ADMIN") && (
+            {isAdmin && (
               <Nav.Link to={`/dashboard/admin`} as={Link}>
                 관리자
               </Nav.Link>
@@ -53,7 +54,7 @@ const NavBar = () => {
                   <NavDropdown.Item to={`/dashboard/${loginId}/user`} as={Link}>
                     대시보드
                   </NavDropdown.Item>
-                  {userRoles.includes("ROLE_ADMIN") && (
+                  {isAdmin && (
                     <>
                       <NavDropdown.Divider />
                       <NavDropdown.Item to={`/dashboard/admin`} as={Link}>

@@ -20,7 +20,7 @@ import { jwtToUser } from "../common/JwtUtils";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
-    email: "customer1@email.com",
+    email: "jbpark03@gmail.com",
     password: "1234",
     save_login: true,
   });
@@ -59,7 +59,7 @@ const Login = () => {
       const user = jwtToUser(apiResp.data.token);
       localStorage.setItem("USER", JSON.stringify(user));
 
-      localStorage.setItem("userRoles", JSON.stringify(user.roles));
+      localStorage.setItem("IS_ADMIN", user.isAdmin);
       window.dispatchEvent(new Event("loginEvt"));
       clearLoginForm();
       navigate(`/dashboard/${user.id}/user`);

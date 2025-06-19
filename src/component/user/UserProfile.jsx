@@ -11,7 +11,6 @@ import { logoutUser } from "../auth/AuthService";
 const UserProfile = ({ user, handleRemovePhoto }) => {
   const [showImageUp, setShowImageUp] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
-  const userRoles = localStorage.getItem("userRoles") || [];
   const loginId = localStorage.getItem("LOGIN_ID");
   const fromList = (loginId !== user.id);
 
@@ -50,7 +49,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
             <Card className="text-center mb-3 shadow">
               <Card.Body>
                 <div>
-                  {!userRoles.includes("ROLE_CUSTOMER") && (
+                  {!(user.userType === "고객") && (
                     <>
                       <EmpImage empPhoto={user.photoBytes} />
                       <p className="mt-5">
