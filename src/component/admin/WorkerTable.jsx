@@ -89,10 +89,10 @@ const WorkerTable = () => {
 
   const [filteredWorkers, setFilteredWorkers] = useState([]);
   const [selectedDept, setSelectedDept] = useState(
-    localStorage.getItem("selectedDept") | "");
+    localStorage.getItem("SELECTED_DEPT") | "");
 
   useEffect(() => {
-    const savedDept = localStorage.getItem("selectedDept");
+    const savedDept = localStorage.getItem("SELECTED_DEPT");
     let searchKey = undefined;
 
     /**
@@ -116,7 +116,7 @@ const WorkerTable = () => {
     }
     // 유저가 의도적으로 택한 검색키를 저장소에 보관한다. 
     if (selectedDept && selectedDept !== 0) {
-      localStorage.setItem("selectedDept", selectedDept);
+      localStorage.setItem("SELECTED_DEPT", selectedDept);
     }
   }, [workerList, selectedDept])
 
@@ -125,19 +125,19 @@ const WorkerTable = () => {
   );
 
   const handleClearFilter = () => {
-    localStorage.removeItem("selectedDept");
-    localStorage.removeItem("currWorkerPage");
+    localStorage.removeItem("SELECTED_DEPT");
+    localStorage.removeItem("CURR_WORKER_PAGE");
     setSelectedDept("");
   }
 
   const handleDeptSelection = (e) => {
     setSelectedDept(e);
-    localStorage.removeItem("currWorkerPage");
+    localStorage.removeItem("CURR_WORKER_PAGE");
     setCurrWorkerPage(1);
   }
   
   const [currWorkerPage, setCurrWorkerPage] = useState(
-    localStorage.getItem("currWorkerPage") || 1);
+    localStorage.getItem("CURR_WORKER_PAGE") || 1);
 
   const [pageSize] = useState(10);
   const idxLastPlus1 = currWorkerPage * pageSize;
@@ -146,7 +146,7 @@ const WorkerTable = () => {
 
   const setAndSavePageNo = (pageNo) => {
     setCurrWorkerPage(pageNo);
-    localStorage.setItem("currWorkerPage", pageNo);
+    localStorage.setItem("CURR_WORKER_PAGE", pageNo);
   }
 
   return (
