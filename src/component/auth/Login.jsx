@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { jwtDecode } from "jwt-decode";
+import { useState } from "react";
 import {
   Button,
   Card,
@@ -9,19 +10,18 @@ import {
   Row,
 } from "react-bootstrap";
 import { BsLockFill, BsPersonFill } from "react-icons/bs";
+import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
+import naverIcon from "../../assets/images/btnD_icon_square.png";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import { loginUser } from "./AuthService";
-import { jwtDecode } from "jwt-decode";
-import { FcGoogle } from "react-icons/fc";
-import naverIcon from "../../assets/images/btnD_icon_square.png";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
     email: "customer1@email.com",
     password: "1234",
-    save_login: true
+    save_login: true,
   });
   const {
     successMsg,
@@ -54,7 +54,24 @@ const Login = () => {
       const apiResp = await loginUser(credentials.email, credentials.password);
       localStorage.setItem("loginId", apiResp.data.id);
       localStorage.setItem("token", apiResp.data.token);
+
+      const decodedToken = jwtDecode(apiResp.data.token);
+      console.log("Decoded Token:", decodedToken);
+      
+      let isAdmin = decodedToken.roles.includes("ROLE_ADMIN");
+
+      const user = {
+        id: decodedToken.id,
+        email: decodedToken.sub,
+        roles: decodedToken.roles,
+        isAdmin: isAdmin,
+        loginMethod: decodedToken.loginMethod,
+        signUpMethod: decodedToken.signUpMethod,
+      };
+      console.log("user:", user);
+
       const tokenDecoded = jwtDecode(apiResp.data.token);
+      console.log("Decoded Token:", tokenDecoded);
       localStorage.setItem("userRoles", JSON.stringify(tokenDecoded.roles));
       window.dispatchEvent(new Event("loginEvt"));
       clearLoginForm();
@@ -71,22 +88,17 @@ const Login = () => {
   };
 
   const googleLogin = () => {
-    localStorage.setItem("social", "google");
-    window.location.href =
-      "http://localhost:9193/oauth2/authorization/google";
-  }
+    window.location.href = "http://localhost:9193/oauth2/authorization/google";
+  };
 
-  const naverLogin = () => {
-  }
+  const naverLogin = () => {};
 
   return (
     <Container className="mt-5">
       <Row className="justify-content-center">
         <Col sm={6}>
           <Card>
-            {alertError && (
-              <AlertMessage type={"danger"} message={errorMsg} />
-            )}
+            {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
             <Card.Body>
               <Card.Title className="text-center mb-4">로그인</Card.Title>
               <Form onSubmit={actLogin}>
@@ -136,12 +148,22 @@ const Login = () => {
                 </Button>
               </Form>
               <div className="text-center mt-3 mb-3">
-                <button class="button button-solid" onClick={naverLogin}
-                  style={{ margin: '10px' }}>
-                  <img height="18" src={naverIcon} />네이버 로그인</button>
-                <button class="button button-solid" onClick={googleLogin}
-                  style={{ margin: '10px' }}>
-                  <FcGoogle />Google 로그인</button>
+                <button
+                  className="button button-solid"
+                  onClick={naverLogin}
+                  style={{ margin: "10px" }}
+                >
+                  <img height="18" src={naverIcon} />
+                  네이버 로그인
+                </button>
+                <button
+                  className="button button-solid"
+                  onClick={googleLogin}
+                  style={{ margin: "10px" }}
+                >
+                  <FcGoogle />
+                  Google 로그인
+                </button>
               </div>
               <div className="text-center mt-2">
                 <Link to={"/register_user"} style={{ textDecoration: "none" }}>
