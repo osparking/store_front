@@ -13,7 +13,7 @@ const OAuth2RedirectHandler = () => {
 
     if (token) {
       try {
-        localStorage.setItem("token", token);
+        localStorage.setItem("TOKEN", token);
         const user = jwtToUser(token);
 
         localStorage.setItem("USER", JSON.stringify(user));

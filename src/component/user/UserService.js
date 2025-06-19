@@ -5,7 +5,7 @@ const prefix = "http://localhost:9193/api/s1";
 
 export async function callWithToken(method, urlSuffix, data = null) {
   try {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("TOKEN");
     if (token) {
       console.log("url: ", `${prefix}${urlSuffix}`);
       let config = {
@@ -63,7 +63,7 @@ export async function deleteUserAccount(userId) {
 
 export const toggleEnabledColumn = async (userId) => {
   try {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("TOKEN");
     if (token) {
       const result = await axios({
         method: "put",
@@ -87,7 +87,7 @@ export const toggleEnabledColumn = async (userId) => {
 
 export async function getUserByMonthType() {
   try {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("TOKEN");
     if (token) {
       const result = await axios({
         method: "get",
@@ -129,7 +129,7 @@ export async function getUserById(userId) {
 
 export async function getUserCount() {
   try {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("TOKEN");
     if (token) {
       const result = await axios({
         method: "get",

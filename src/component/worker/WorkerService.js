@@ -5,7 +5,7 @@ const prefix = "http://localhost:9193/api/s1";
 
 export async function getWorkerList() {
   try {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("TOKEN");
     if (token) {
       const result = await axios({
         method: "get",

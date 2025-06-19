@@ -54,7 +54,7 @@ const Login = () => {
     try {
       const apiResp = await loginUser(credentials.email, credentials.password);
       localStorage.setItem("LOGIN_ID", apiResp.data.id);
-      localStorage.setItem("token", apiResp.data.token);
+      localStorage.setItem("TOKEN", apiResp.data.token);
 
       const user = jwtToUser(apiResp.data.token);
       localStorage.setItem("USER", JSON.stringify(user));

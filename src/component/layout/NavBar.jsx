@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
 
 const NavBar = () => {
-  const beforeLogin = localStorage.getItem("token") === null;
+  const beforeLogin = localStorage.getItem("TOKEN") === null;
   const userRoles = localStorage.getItem("userRoles") || [];
 
   const navigate = useNavigate();
