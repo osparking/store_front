@@ -1,6 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { jwtToUser } from "../common/JwtUtils";
 
 const OAuth2RedirectHandler = () => {
   const location = useLocation();
@@ -12,24 +13,11 @@ const OAuth2RedirectHandler = () => {
 
     if (token) {
       try {
-        const decodedToken = jwtDecode(token);
-        console.log("Decoded Token:", decodedToken);
-
         localStorage.setItem("token", token);
-        let isAdmin = decodedToken.roles.includes("ROLE_ADMIN");
-
-        const user = {
-          id: decodedToken.id,
-          email: decodedToken.sub,
-          roles: decodedToken.roles,
-          isAdmin: isAdmin,
-          loginMethod: decodedToken.loginMethod,
-          signUpMethod: decodedToken.signUpMethod
-        };
-        console.log("user:", user);
+        const user = jwtToUser(token);
 
         localStorage.setItem("USER", JSON.stringify(user));
-        if (isAdmin) {
+        if (user.isAdmin) {
           navigate("/dashboard/admin");
         } else {
           navigate(`/dashboard/${user.id}/user`);
