@@ -1,4 +1,3 @@
-import { jwtDecode } from "jwt-decode";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { jwtToUser } from "../common/JwtUtils";
@@ -16,7 +15,9 @@ const OAuth2RedirectHandler = () => {
         localStorage.setItem("TOKEN", token);
         const user = jwtToUser(token);
 
+        localStorage.setItem("LOGIN_ID", user.id);
         localStorage.setItem("USER", JSON.stringify(user));
+        localStorage.setItem("IS_ADMIN", user.isAdmin);
         if (user.isAdmin) {
           navigate("/dashboard/admin");
         } else {
