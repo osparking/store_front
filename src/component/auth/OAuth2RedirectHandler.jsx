@@ -23,6 +23,8 @@ const OAuth2RedirectHandler = () => {
           email: decodedToken.sub,
           roles: decodedToken.roles,
           isAdmin: isAdmin,
+          loginMethod: decodedToken.loginMethod,
+          signUpMethod: decodedToken.signUpMethod
         };
         console.log("user:", user);
 
