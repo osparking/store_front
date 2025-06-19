@@ -10,7 +10,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 const UserDashboard = () => {
   const location = useLocation();
   const [user, setUser] = useState(null);
-  const { userId } = useParams();
+  const { id } = useParams();
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
   const {
@@ -27,7 +27,7 @@ const UserDashboard = () => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const result = await getUserDtoById(userId);
+        const result = await getUserDtoById(id);
         if (result) {
           setUser(result.data);
         } else {
@@ -45,11 +45,11 @@ const UserDashboard = () => {
     } else {
       getUser();
     }
-  }, [userId]);
+  }, [id]);
 
   const removePhoto = async () => {
     try {
-      const result = await deleteUserPhoto(userId);
+      const result = await deleteUserPhoto(id);
       window.location.reload();
     } catch (error) {
       setErrorMsg(error.response.data.message);

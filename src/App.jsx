@@ -24,9 +24,9 @@ function App() {
         <Route path="/register_user" element={<RegisterUser />} />
         <Route path="/email_verifin" element={<EmailVerifin />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard/:userId/user" element={<UserDashboard />} />
+        <Route path="/dashboard/:id/user" element={<UserDashboard />} />
         <Route path="/dashboard/admin" element={<AdminDashboard/>} />
-        <Route path="/user/:userId/update" element={<UserUpdate />} />
+        <Route path="/user/:id/update" element={<UserUpdate />} />
         <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
       </Route>
     )

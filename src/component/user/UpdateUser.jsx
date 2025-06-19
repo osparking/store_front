@@ -28,16 +28,16 @@ const UserUpdate = () => {
     setAlertError,
   } = BsAlertHook();
 
-  const { userId } = useParams();
+  const { id } = useParams();
   const loginId = localStorage.getItem("loginId");
   const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
     const getUser = async () => {
       try {
-        if (userId === loginId) {
+        if (id === loginId) {
           console.log("나의 정보 갱신");
-          const result = await getUserDtoById(userId);
+          const result = await getUserDtoById(id);
           if (result) {
             setUser(result.data);
           } else {
@@ -55,7 +55,7 @@ const UserUpdate = () => {
       }
     };
     getUser();
-  }, [userId]);
+  }, [id]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -80,7 +80,7 @@ const UserUpdate = () => {
     try {
       console.log("updated user: ", updateUser);
       setIsProcessing(true);
-      const response = await updateUser(userId, updatedUser);
+      const response = await updateUser(id, updatedUser);
       setSuccessMsg(response.message);
       setAlertSuccess(true);
     } catch (error) {
@@ -93,7 +93,7 @@ const UserUpdate = () => {
 
   const navigate = useNavigate();
   const cancelUpdate = () => {
-    if (userId === loginId) {
+    if (id === loginId) {
       navigate(`/dashboard/${loginId}/user`);
     } else {
       navigate(`/dashboard/admin`);
