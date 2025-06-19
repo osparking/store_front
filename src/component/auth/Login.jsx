@@ -16,6 +16,7 @@ import naverIcon from "../../assets/images/btnD_icon_square.png";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import { loginUser } from "./AuthService";
+import { jwtToUser } from "../common/JwtUtils";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -55,27 +56,12 @@ const Login = () => {
       localStorage.setItem("loginId", apiResp.data.id);
       localStorage.setItem("token", apiResp.data.token);
 
-      const decodedToken = jwtDecode(apiResp.data.token);
-      console.log("Decoded Token:", decodedToken);
-      
-      let isAdmin = decodedToken.roles.includes("ROLE_ADMIN");
+      const user = jwtToUser(apiResp.data.token);
 
-      const user = {
-        id: decodedToken.id,
-        email: decodedToken.sub,
-        roles: decodedToken.roles,
-        isAdmin: isAdmin,
-        loginMethod: decodedToken.loginMethod,
-        signUpMethod: decodedToken.signUpMethod,
-      };
-      console.log("user:", user);
-
-      const tokenDecoded = jwtDecode(apiResp.data.token);
-      console.log("Decoded Token:", tokenDecoded);
-      localStorage.setItem("userRoles", JSON.stringify(tokenDecoded.roles));
+      localStorage.setItem("userRoles", JSON.stringify(user.roles));
       window.dispatchEvent(new Event("loginEvt"));
       clearLoginForm();
-      navigate(`/dashboard/${apiResp.data.id}/user`);
+      navigate(`/dashboard/${user.id}/user`);
     } catch (error) {
       setErrorMsg(error.response.data.message);
       setAlertError(true);
