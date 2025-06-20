@@ -1,19 +1,24 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
 
 const NavBar = () => {
   const beforeLogin = localStorage.getItem("TOKEN") === null;
+  
+const [isAdmin, setIsAdmin] = useState(false);
+const checkIfAdmin = () => {
   const isAdminJson = localStorage.getItem("IS_ADMIN");
-  const isAdmin = isAdminJson ? JSON.parse(isAdminJson) : false;
-
+  setIsAdmin(isAdminJson ? JSON.parse(isAdminJson) : false);
+}
   const navigate = useNavigate();
   const navigateHome = () => {
+    setIsAdmin(false);
     navigate("/");
   };
   const loginId = localStorage.getItem("LOGIN_ID");
 
+  window.addEventListener("loginEvt", checkIfAdmin);
   window.addEventListener("logoutEvt", navigateHome);
 
   return (
@@ -58,7 +63,7 @@ const NavBar = () => {
                     <>
                       <NavDropdown.Divider />
                       <NavDropdown.Item to={`/dashboard/admin`} as={Link}>
-                        대시보드 관리자
+                        관리자
                       </NavDropdown.Item>
                     </>
                   )}
