@@ -5,12 +5,22 @@ import { logoutUser } from "../auth/AuthService";
 
 const NavBar = () => {
   const beforeLogin = localStorage.getItem("TOKEN") === null;
-  
-const [isAdmin, setIsAdmin] = useState(false);
-const checkIfAdmin = () => {
-  const isAdminJson = localStorage.getItem("IS_ADMIN");
-  setIsAdmin(isAdminJson ? JSON.parse(isAdminJson) : false);
-}
+
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [identity, setIdentity] = useState();
+  const checkIfAdmin = () => {
+    const isAdminJson = localStorage.getItem("IS_ADMIN");
+    setIsAdmin(isAdminJson ? JSON.parse(isAdminJson) : false);
+
+    const userJson = localStorage.getItem("USER");
+    const user = JSON.parse(userJson);
+    console.log("유저Json - " + userJson);
+    if (user.loginMethod === "이메일") {
+      setIdentity(user.fullName);
+    } else {
+      setIdentity("(" + user.loginMethod + ")");
+    }
+  };
   const navigate = useNavigate();
   const navigateHome = () => {
     setIsAdmin(false);
@@ -43,6 +53,9 @@ const checkIfAdmin = () => {
               </Nav.Link>
             )}
           </Nav>
+          <Nav className="me-2 identity">
+            {beforeLogin ? "(로그인 전)" : `${identity}`}
+          </Nav>
           <Nav>
             <NavDropdown title="계정" id="basic-nav-dropdown">
               {beforeLogin ? (
@@ -50,7 +63,8 @@ const checkIfAdmin = () => {
                   <NavDropdown.Item to={"/login"} as={Link}>
                     로그인
                   </NavDropdown.Item>
-                </>) : (
+                </>
+              ) : (
                 <>
                   <NavDropdown.Item to={"#"} as={Link} onClick={logoutUser}>
                     로그아웃
