@@ -18,6 +18,7 @@ const OAuth2RedirectHandler = () => {
         localStorage.setItem("LOGIN_ID", user.id);
         localStorage.setItem("USER", JSON.stringify(user));
         localStorage.setItem("IS_ADMIN", user.isAdmin);
+        window.dispatchEvent(new Event("loginEvt"));
         if (user.isAdmin) {
           navigate("/dashboard/admin");
         } else {
