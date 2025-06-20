@@ -9,6 +9,7 @@ export const jwtToUser = (jwt) => {
   const user = {
     id: decodedToken.id,
     email: decodedToken.sub,
+    fullName: decodedToken.fullName,
     roles: decodedToken.roles,
     isAdmin: isAdmin,
     loginMethod: decodedToken.loginMethod,
