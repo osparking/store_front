@@ -138,6 +138,13 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
               </Card.Body>
 
               <Card.Body className="d-flex align-items-center">
+                <Col md={4}>등록 형태 : </Col>
+                <Col md={7}>
+                  <Card.Text>{user.signUpMethod}</Card.Text>
+                </Col>
+              </Card.Body>
+
+              <Card.Body className="d-flex align-items-center">
                 <Col md={4}>등록 일시 : </Col>
                 <Col md={7}>
                   <Card.Text>{user.addDate}</Card.Text>
