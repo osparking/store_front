@@ -13,6 +13,8 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
   const [showImageUp, setShowImageUp] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [switchDisabled, setSwitchDisabled] = useState(false);
+  const [qrCodeUrl, setQrCodeUrl] = useState("");
+  const [showQrCode, setShowQrCode] = useState(false); 
 
   const loginId = localStorage.getItem("LOGIN_ID");
   const fromList = loginId !== user.id;
@@ -43,7 +45,9 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
     setSwitchDisabled(true);
     try {
       const result = await callWithToken("post", "/autho/enable-2fa", user);
-      console.log("enable request sent:");
+      console.log("QR :" + result.data);      
+      setQrCodeUrl(result.data);
+      setShowQrCode(true);
     } catch (error) {
       console.error("오류 - 2FA 활성화 실패");
     } finally {
@@ -159,22 +163,25 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
               <Card.Body className="d-flex align-items-center">
                 <Col md={4}>구글 이중 인증(2FA) : </Col>
                 <Col md={4}>
-                  <Switch
-                    disabled={switchDisabled}
-                    checked={twoFaEnabled}
-                    onChange={twoFaEnabled ? disable2FA : enable2FA}
-                    slotProps={{
-                      input: { "aria-label": "이중 인증 활성화 상태 토글" },
-                    }}
-                  />
-                  <span
-                    style={{
-                      fontWeight: "bolder",
-                      color: `${twoFaEnabled ? "green" : "slategrey"}`,
-                    }}
-                  >
-                    {twoFaEnabled ? "활성화됨" : "비활성됨"}
-                  </span>
+                  <div>
+                    <Switch
+                      disabled={switchDisabled}
+                      checked={twoFaEnabled}
+                      onChange={twoFaEnabled ? disable2FA : enable2FA}
+                      slotProps={{
+                        input: { "aria-label": "이중 인증 활성화 상태 토글" },
+                      }}
+                    />
+                    <span
+                      style={{
+                        fontWeight: "bolder",
+                        color: `${twoFaEnabled ? "green" : "slategrey"}`,
+                      }}
+                    >
+                      {twoFaEnabled ? "활성화됨" : "비활성됨"}
+                    </span>
+                  </div>
+                  {showQrCode && <div>QR 코드 표시 영역</div>}
                 </Col>
               </Card.Body>
 
