@@ -1,6 +1,8 @@
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { AccordionDetails, AccordionSummary } from "@mui/material";
 import Switch from "@mui/material/Switch";
 import React, { useState } from "react";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { Accordion, Button, Card, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
 import EmpImage from "../common/EmpImage";
@@ -14,7 +16,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [switchDisabled, setSwitchDisabled] = useState(false);
   const [qrCodeUrl, setQrCodeUrl] = useState("");
-  const [showQrCode, setShowQrCode] = useState(false); 
+  const [showQrCode, setShowQrCode] = useState(false);
 
   const loginId = localStorage.getItem("LOGIN_ID");
   const fromList = loginId !== user.id;
@@ -45,7 +47,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
     setSwitchDisabled(true);
     try {
       const result = await callWithToken("post", "/autho/enable-2fa", user);
-      console.log("QR :" + result.data);      
+      console.log("QR :" + result.data);
       setQrCodeUrl(result.data);
       setShowQrCode(true);
     } catch (error) {
@@ -162,7 +164,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
 
               <Card.Body className="d-flex align-items-center">
                 <Col md={4}>구글 이중 인증(2FA) : </Col>
-                <Col md={4}>
+                <Col md={6}>
                   <div>
                     <Switch
                       disabled={switchDisabled}
@@ -181,7 +183,23 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                       {twoFaEnabled ? "활성화됨" : "비활성됨"}
                     </span>
                   </div>
-                  {showQrCode && <div>QR 코드 표시 영역</div>}
+                  {showQrCode && (
+                    <div className="py-3">
+                      <Accordion>
+                        <AccordionSummary
+                          expandIcon={<ArrowDropDownIcon />}
+                          aria-controls="panel1-content"
+                          id="panel1-header"
+                        >
+                          <h5 className="font-bold text-slate-700">
+                            QR 코드 - 스캔할 것
+                          </h5>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                        </AccordionDetails>
+                      </Accordion>
+                    </div>
+                  )}
                 </Col>
               </Card.Body>
 
