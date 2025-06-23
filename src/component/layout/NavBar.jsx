@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
@@ -31,6 +31,10 @@ const NavBar = () => {
   window.addEventListener("loginEvt", checkIfAdmin);
   window.addEventListener("logoutEvt", navigateHome);
 
+  useEffect(() => {
+    checkIfAdmin();
+  }, []);
+  
   return (
     <Navbar expand="lg" sticky="top" className="nav-bg">
       <Container>
