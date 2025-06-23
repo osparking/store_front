@@ -7,17 +7,19 @@ import EmpImage from "../common/EmpImage";
 import ChangePassword from "../modal/ChangePassword";
 import DeleteConfirmModal from "../modal/DeleteConfirmModal";
 import ImageUp from "../modal/ImageUp";
-import { deleteUserAccount } from "./UserService";
+import { callWithToken, deleteUserAccount } from "./UserService";
 
 const UserProfile = ({ user, handleRemovePhoto }) => {
   const [showImageUp, setShowImageUp] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
-  const loginId = localStorage.getItem("LOGIN_ID");
-  const fromList = (loginId !== user.id);
+  const [switchDisabled, setSwitchDisabled] = useState(false);
 
-  const handleCloseAccountButtonCLick = () => {    
+  const loginId = localStorage.getItem("LOGIN_ID");
+  const fromList = loginId !== user.id;
+
+  const handleCloseAccountButtonCLick = () => {
     setShowDelModal(true);
-  }  
+  };
 
   const [showDelModal, setShowDelModal] = useState(false);
   const handleModalXButtonClick = () => {
@@ -37,9 +39,19 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
 
   const [twoFaEnabled, setTwoFaEnabled] = useState(false);
 
-  const change2FaEnabled = () => {
-    setTwoFaEnabled(!twoFaEnabled);
-  }
+  const enable2FA = async () => {
+    setSwitchDisabled(true);
+    try {
+      const result = await callWithToken("post", "/autho/enable-2fa", user);
+      console.log("enable request sent:");
+    } catch (error) {
+      console.error("오류 - 2FA 활성화 실패");
+    } finally {
+      setSwitchDisabled(false);
+    }
+  };
+
+  const disable2FA = async () => {};
 
   return (
     <Container>
@@ -148,9 +160,12 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                 <Col md={4}>구글 이중 인증(2FA) : </Col>
                 <Col md={4}>
                   <Switch
+                    disabled={switchDisabled}
                     checked={twoFaEnabled}
-                    onChange={change2FaEnabled}
-                    // inputProps={{ "aria-label": "controlled" }}
+                    onChange={twoFaEnabled ? disable2FA : enable2FA}
+                    slotProps={{
+                      input: { "aria-label": "이중 인증 활성화 상태 토글" },
+                    }}
                   />
                   <span
                     style={{
