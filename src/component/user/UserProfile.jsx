@@ -1,12 +1,13 @@
+import Switch from "@mui/material/Switch";
 import React, { useState } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { logoutUser } from "../auth/AuthService";
 import EmpImage from "../common/EmpImage";
 import ChangePassword from "../modal/ChangePassword";
-import ImageUp from "../modal/ImageUp";
 import DeleteConfirmModal from "../modal/DeleteConfirmModal";
+import ImageUp from "../modal/ImageUp";
 import { deleteUserAccount } from "./UserService";
-import { logoutUser } from "../auth/AuthService";
 
 const UserProfile = ({ user, handleRemovePhoto }) => {
   const [showImageUp, setShowImageUp] = useState(false);
@@ -34,6 +35,12 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
     }
   };
 
+  const [twoFaEnabled, setTwoFaEnabled] = useState(false);
+
+  const change2FaEnabled = () => {
+    setTwoFaEnabled(!twoFaEnabled);
+  }
+
   return (
     <Container>
       <DeleteConfirmModal
@@ -42,7 +49,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
         handleDeletion={handleDeleteOrder}
         target={`${user.fullName}`}
         deleting={false}
-      />      
+      />
       <React.Fragment>
         <Row>
           <Col md={3} xs={6}>
@@ -72,8 +79,8 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                         show={showImageUp}
                         handleClose={() => setShowImageUp(false)}
                       />
-                    </>)
-                  }
+                    </>
+                  )}
                   <Link to={"#"} onClick={() => setShowChangePassword(true)}>
                     비밀번호 변경
                   </Link>
@@ -138,6 +145,25 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
               </Card.Body>
 
               <Card.Body className="d-flex align-items-center">
+                <Col md={4}>구글 이중 인증(2FA) : </Col>
+                <Col md={4}>
+                  <Switch
+                    checked={twoFaEnabled}
+                    onChange={change2FaEnabled}
+                    // inputProps={{ "aria-label": "controlled" }}
+                  />
+                  <span
+                    style={{
+                      fontWeight: "bolder",
+                      color: `${twoFaEnabled ? "green" : "slategrey"}`,
+                    }}
+                  >
+                    {twoFaEnabled ? "활성화됨" : "비활성됨"}
+                  </span>
+                </Col>
+              </Card.Body>
+
+              <Card.Body className="d-flex align-items-center">
                 <Col md={4}>등록 형태 : </Col>
                 <Col md={7}>
                   <Card.Text>{user.signUpMethod}</Card.Text>
@@ -174,7 +200,8 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
             <div className="returnLink">
               <Link to="/dashboard/admin">목록</Link>
             </div>
-          </Row>)}
+          </Row>
+        )}
       </React.Fragment>
     </Container>
   );
