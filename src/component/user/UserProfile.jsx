@@ -57,7 +57,18 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
     }
   };
 
-  const disable2FA = async () => {};
+  const disable2FA = async () => {
+    setSwitchDisabled(true);
+    try {
+      const result = await callWithToken("post", "/autho/disable-2fa");
+      setTwoFaEnabled(false);
+      setQrCodeUrl("");
+    } catch (error) {
+      toast.error("오류 - 2FA 비활성화 실패");
+    } finally {
+      setSwitchDisabled(false);
+    }
+  };
 
   return (
     <Container>
