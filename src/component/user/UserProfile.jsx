@@ -1,8 +1,7 @@
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import { AccordionDetails, AccordionSummary } from "@mui/material";
+
 import Switch from "@mui/material/Switch";
 import React, { useState } from "react";
-import { Accordion, Button, Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
 import EmpImage from "../common/EmpImage";
@@ -10,6 +9,7 @@ import ChangePassword from "../modal/ChangePassword";
 import DeleteConfirmModal from "../modal/DeleteConfirmModal";
 import ImageUp from "../modal/ImageUp";
 import { callWithToken, deleteUserAccount } from "./UserService";
+import QRcodeBox from "../auth/QRcodeBox";
 
 const UserProfile = ({ user, handleRemovePhoto }) => {
   const [showImageUp, setShowImageUp] = useState(false);
@@ -41,7 +41,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
     }
   };
 
-  const [twoFaEnabled, setTwoFaEnabled] = useState(false);
+  const [twoFaEnabled, setTwoFaEnabled] = useState(user.twoFaEnabled);
 
   const enable2FA = async () => {
     setSwitchDisabled(true);
@@ -184,21 +184,11 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                     </span>
                   </div>
                   {showQrCode && (
-                    <div className="py-3">
-                      <Accordion>
-                        <AccordionSummary
-                          expandIcon={<ArrowDropDownIcon />}
-                          aria-controls="panel1-content"
-                          id="panel1-header"
-                        >
-                          <h5 className="font-bold text-slate-700">
-                            QR 코드 - 스캔할 것
-                          </h5>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                        </AccordionDetails>
-                      </Accordion>
-                    </div>
+                    <QRcodeBox
+                      qrCodeUrl={qrCodeUrl}
+                      setTwoFaEnabled={setTwoFaEnabled}
+                      setShowQrCode={setShowQrCode}
+                    />
                   )}
                 </Col>
               </Card.Body>
