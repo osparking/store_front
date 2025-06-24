@@ -1,5 +1,7 @@
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { callWithToken } from "../user/UserService";
 
 const QRcodeBox = ({ qrCodeUrl, setTwoFaEnabled, setShowQrCode }) => {
   const [qrRevealed, setQrRevealed] = useState(false);
@@ -10,7 +12,28 @@ const QRcodeBox = ({ qrCodeUrl, setTwoFaEnabled, setShowQrCode }) => {
     setQrRevealed(true);
   };
 
-  const verify2FA = async () => {};
+  const verify2FA = async () => {
+    if (!code || code.trim().length === 0)
+      return toast.error("구글 인증기 제공 코드를 입력하세요.");
+
+    setBeingVerified(true);
+
+    try {
+      const formData = new URLSearchParams();
+      formData.append("code", code);
+      const result = await callWithToken("post", "/autho/verify-2fa", formData);
+
+      toast.success(result?.message);
+      setQrRevealed(false);
+      setShowQrCode(false);
+      setTwoFaEnabled(true);
+    } catch (error) {
+      console.log("error " + error);
+      toast.error(error?.response?.data);
+    } finally {
+      setBeingVerified(false);
+    }
+  };
 
   return (
     <div className="py-3">
