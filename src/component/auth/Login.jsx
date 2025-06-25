@@ -55,11 +55,11 @@ const Login = () => {
     // setCredentials({ ...credentials, [e.target.name]: e.target.checked });
   };
 
-  const loginAfterProcessing = (user, apiResp) => {
+  const loginAfterProcessing = (user, token) => {
     localStorage.setItem("USER", JSON.stringify(user));
 
-    localStorage.setItem("LOGIN_ID", apiResp.data.id);
-    localStorage.setItem("TOKEN", apiResp.data.token);
+    localStorage.setItem("LOGIN_ID", user.id);
+    localStorage.setItem("TOKEN", token);
 
     localStorage.setItem("IS_ADMIN", user.isAdmin);
     window.dispatchEvent(new Event("loginEvt"));
@@ -77,13 +77,13 @@ const Login = () => {
     }
     try {
       const response = await loginUser(credentials.email, credentials.password);
-      const apiResp = response.data;
+      const data = response.data.data;
       if (response.status === 200) {
-        const user = jwtToUser(apiResp.data.token);
+        let user = jwtToUser(data.token);
         if (user.twoFaEnabled) {
           setCodeNeeded(true);
         } else {
-          loginAfterProcessing(user, apiResp);
+          loginAfterProcessing(user, data.token);
         }
       }
     } catch (error) {
