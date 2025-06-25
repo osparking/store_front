@@ -15,10 +15,12 @@ const NavBar = () => {
     const userJson = localStorage.getItem("USER");
     const user = JSON.parse(userJson);
     console.log("유저Json - " + userJson);
-    if (user.loginMethod === "이메일") {
-      setIdentity(user.fullName);
-    } else {
-      setIdentity("(" + user.loginMethod + ")");
+    if (user) {
+      if (user.loginMethod === "이메일") {
+        setIdentity(user.fullName);
+      } else {
+        setIdentity("(" + user.loginMethod + ")");
+      }
     }
   };
   const navigate = useNavigate();
@@ -32,7 +34,6 @@ const NavBar = () => {
   window.addEventListener("logoutEvt", navigateHome);
 
   useEffect(() => {
-    checkIfAdmin();
   }, []);
   
   return (
