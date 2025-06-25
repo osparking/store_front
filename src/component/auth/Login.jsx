@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Button,
   Card,
@@ -23,6 +23,9 @@ const Login = () => {
     password: "1234",
     save_login: true,
   });
+  const [code, setCode] = useState("");
+  const [codeNeeded, setCodeNeeded] = useState(false);
+  const [verifying, setVerifying] = useState(false);
   const {
     successMsg,
     setSuccessMsg,
@@ -36,6 +39,16 @@ const Login = () => {
 
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
+
+  const submitCode = () => {
+    setVerifying(true);
+    alert("검증 진행 중...");
+    setVerifying(false);
+  };
+
+  const changeCode = (e) => {
+    setCode(e.target.value);
   };
 
   const handleCheckChange = (e) => {
@@ -68,11 +81,11 @@ const Login = () => {
       if (response.status === 200) {
         const user = jwtToUser(apiResp.data.token);
         if (user.twoFaEnabled) {
-          console.log("구글 인증기 코드를 입력하세요");
+          setCodeNeeded(true);
         } else {
           loginAfterProcessing(user, apiResp);
         }
-      } 
+      }
     } catch (error) {
       setErrorMsg(error.response.data.message);
       setAlertError(true);
@@ -88,86 +101,120 @@ const Login = () => {
     window.location.href = "http://localhost:9193/oauth2/authorization/google";
   };
 
+  const loginEntryCard = () => {
+    return (
+      <Card>
+        {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
+        <Card.Body>
+          <Card.Title className="text-center mb-4">로그인</Card.Title>
+          <Form onSubmit={actLogin}>
+            <Form.Label>이메일</Form.Label>
+            <InputGroup>
+              <InputGroup.Text>
+                <BsPersonFill />
+              </InputGroup.Text>
+              <Form.Control
+                type="email"
+                name="email"
+                placeholder="(이메일)"
+                value={credentials.email}
+                onChange={handleChange}
+              />
+            </InputGroup>
+            <Form.Group className="mb-3" controlId="password">
+              <Form.Label>비밀번호</Form.Label>
+              <InputGroup>
+                <InputGroup.Text>
+                  <BsLockFill />
+                </InputGroup.Text>
+                <Form.Control
+                  type="password"
+                  name="password"
+                  placeholder="(비밀번호)"
+                  value={credentials.password}
+                  onChange={handleChange}
+                />
+              </InputGroup>
+            </Form.Group>
+            <div className="ms-5">
+              <Form.Check
+                type="switch"
+                name="save_login"
+                checked={credentials.save_login}
+                onChange={handleCheckChange}
+                label="로그인 유지"
+              />
+            </div>
+            <Button variant="outline-primary" type="submit" className="w-100">
+              로그인
+            </Button>
+          </Form>
+          <div className="text-center mt-3 mb-3">
+            <button
+              className="button button-solid"
+              onClick={naverLogin}
+              style={{ margin: "10px" }}
+            >
+              <img height="18" src={naverIcon} />
+              네이버 로그인
+            </button>
+            <button
+              className="button button-solid"
+              onClick={googleLogin}
+              style={{ margin: "10px" }}
+            >
+              <FcGoogle />
+              Google 로그인
+            </button>
+          </div>
+          <div className="text-center mt-2">
+            <Link to={"/register_user"} style={{ textDecoration: "none" }}>
+              계정 등록
+            </Link>
+          </div>
+        </Card.Body>
+      </Card>
+    );
+  };
+
+  const codeEntryCard = () => {
+    return (
+      <Card>
+        {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
+        <Card.Body>
+          <Card.Title className="text-center mb-4">구글 인증기 코드</Card.Title>
+          <Form onSubmit={submitCode}>
+            <Form.Label>휴대폰 앱에 표시된 코드를 입력하세요</Form.Label>
+            <InputGroup>
+              <InputGroup.Text>인증 코드</InputGroup.Text>
+              <Form.Control
+                type="text"
+                name="code"
+                placeholder="123456"
+                value={code}
+                required
+                onChange={changeCode}
+              />
+            </InputGroup>
+            <Button
+              variant="outline-primary"
+              type="submit"
+              className="w-100 mt-3"
+            >
+              {verifying ? <span>검증 중...</span> : "인증 코드 제출"}
+            </Button>
+          </Form>
+        </Card.Body>
+      </Card>
+    );
+  };
+
   const naverLogin = () => {};
   return (
     <Container className="mt-5">
       <Row className="justify-content-center">
-        <Col sm={6}>
-          <Card>
-            {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
-            <Card.Body>
-              <Card.Title className="text-center mb-4">로그인</Card.Title>
-              <Form onSubmit={actLogin}>
-                <Form.Label>이메일</Form.Label>
-                <InputGroup>
-                  <InputGroup.Text>
-                    <BsPersonFill />
-                  </InputGroup.Text>
-                  <Form.Control
-                    type="email"
-                    name="email"
-                    placeholder="(이메일)"
-                    value={credentials.email}
-                    onChange={handleChange}
-                  />
-                </InputGroup>
-                <Form.Group className="mb-3" controlId="password">
-                  <Form.Label>비밀번호</Form.Label>
-                  <InputGroup>
-                    <InputGroup.Text>
-                      <BsLockFill />
-                    </InputGroup.Text>
-                    <Form.Control
-                      type="password"
-                      name="password"
-                      placeholder="(비밀번호)"
-                      value={credentials.password}
-                      onChange={handleChange}
-                    />
-                  </InputGroup>
-                </Form.Group>
-                <div className="ms-5">
-                  <Form.Check
-                    type="switch"
-                    name="save_login"
-                    checked={credentials.save_login}
-                    onChange={handleCheckChange}
-                    label="로그인 유지"
-                  />
-                </div>
-                <Button
-                  variant="outline-primary"
-                  type="submit"
-                  className="w-100"
-                >
-                  로그인
-                </Button>
-              </Form>
-              <div className="text-center mt-3 mb-3">
-                <button
-                  className="button button-solid"
-                  onClick={naverLogin}
-                  style={{ margin: "10px" }}
-                >
-                  <img height="18" src={naverIcon} />
-                  네이버 로그인
-                </button>
-                <button
-                  className="button button-solid"
-                  onClick={googleLogin}
-                  style={{ margin: "10px" }}
-                >
-                  <FcGoogle />
-                  Google 로그인
-                </button>
-              </div>
-              <div className="text-center mt-2">
-                <Link to={"/register_user"} style={{ textDecoration: "none" }}>
-                  계정 등록
-                </Link>
-              </div>
-            </Card.Body>
-          </Card>
+        <Col sm={codeNeeded ? 4 : 6}>
+          {codeNeeded ? codeEntryCard() : loginEntryCard()}
         </Col>
       </Row>
     </Container>
