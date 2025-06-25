@@ -8,6 +8,7 @@ import {
   InputGroup,
   Row,
 } from "react-bootstrap";
+import toast from "react-hot-toast";
 import { BsLockFill, BsPersonFill } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,6 +16,7 @@ import naverIcon from "../../assets/images/btnD_icon_square.png";
 import AlertMessage from "../common/AlertMessage";
 import { jwtToUser } from "../common/JwtUtils";
 import BsAlertHook from "../hook/BsAlertHook";
+import { api } from "../util/api";
 import { loginUser } from "./AuthService";
 
 const Login = () => {
@@ -26,6 +28,8 @@ const Login = () => {
   const [code, setCode] = useState("");
   const [codeNeeded, setCodeNeeded] = useState(false);
   const [verifying, setVerifying] = useState(false);
+  const [jwtToken, setJwtToken] = useState("");
+  const [user, setUser] = useState();
   const {
     successMsg,
     setSuccessMsg,
@@ -41,10 +45,31 @@ const Login = () => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
-  const submitCode = () => {
+  // 구글 인증기 코드 제출 함수
+  const submitCode = async (e) => {
+    e.preventDefault();
     setVerifying(true);
-    alert("검증 진행 중...");
-    setVerifying(false);
+
+    try {
+      const formData = new URLSearchParams();
+      formData.append("code", code);
+      formData.append("jwtToken", jwtToken);
+
+      const result = await api.post(
+        "/autho/public/verify-2fa-login",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+      loginAfterProcessing(user, jwtToken);
+    } catch (error) {
+      toast.error("구글 코드 검증 오류!");
+    } finally {
+      setVerifying(false);
+    }
   };
 
   const changeCode = (e) => {
@@ -81,6 +106,8 @@ const Login = () => {
       if (response.status === 200) {
         let user = jwtToUser(data.token);
         if (user.twoFaEnabled) {
+          setUser(user);
+          setJwtToken(data.token);
           setCodeNeeded(true);
         } else {
           loginAfterProcessing(user, data.token);
