@@ -1,5 +1,4 @@
-import { jwtDecode } from "jwt-decode";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -14,13 +13,13 @@ import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import naverIcon from "../../assets/images/btnD_icon_square.png";
 import AlertMessage from "../common/AlertMessage";
+import { jwtToUser } from "../common/JwtUtils";
 import BsAlertHook from "../hook/BsAlertHook";
 import { loginUser } from "./AuthService";
-import { jwtToUser } from "../common/JwtUtils";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
-    email: "jbpark03@gmail.com",
+    email: "customer1@email.com",
     password: "1234",
     save_login: true,
   });
@@ -52,17 +51,24 @@ const Login = () => {
       return;
     }
     try {
-      const apiResp = await loginUser(credentials.email, credentials.password);
-      localStorage.setItem("LOGIN_ID", apiResp.data.id);
-      localStorage.setItem("TOKEN", apiResp.data.token);
+      const response = await loginUser(credentials.email, credentials.password);
+      const apiResp = response.data;
+      if (response.status === 200) {
+        const user = jwtToUser(apiResp.data.token);
+        if (user.twoFaEnabled) {
+          console.log("구글 인증기 코드를 입력하세요");
+        } else {
+          localStorage.setItem("USER", JSON.stringify(user));
 
-      const user = jwtToUser(apiResp.data.token);
-      localStorage.setItem("USER", JSON.stringify(user));
+          localStorage.setItem("LOGIN_ID", apiResp.data.id);
+          localStorage.setItem("TOKEN", apiResp.data.token);
 
-      localStorage.setItem("IS_ADMIN", user.isAdmin);
-      window.dispatchEvent(new Event("loginEvt"));
-      clearLoginForm();
-      navigate(`/dashboard/${user.id}/user`);
+          localStorage.setItem("IS_ADMIN", user.isAdmin);
+          window.dispatchEvent(new Event("loginEvt"));
+          clearLoginForm();
+          navigate(`/dashboard/${user.id}/user`);
+        }
+      } 
     } catch (error) {
       setErrorMsg(error.response.data.message);
       setAlertError(true);
@@ -79,7 +85,6 @@ const Login = () => {
   };
 
   const naverLogin = () => {};
-
   return (
     <Container className="mt-5">
       <Row className="justify-content-center">
