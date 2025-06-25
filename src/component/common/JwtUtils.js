@@ -14,6 +14,7 @@ export const jwtToUser = (jwt) => {
     isAdmin: isAdmin,
     loginMethod: decodedToken.loginMethod,
     signUpMethod: decodedToken.signUpMethod,
+    twoFaEnabled: decodedToken.twoFaEnabled,
   };
   console.log("user:", user);
 
