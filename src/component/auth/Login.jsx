@@ -42,6 +42,18 @@ const Login = () => {
     // setCredentials({ ...credentials, [e.target.name]: e.target.checked });
   };
 
+  const loginAfterProcessing = (user, apiResp) => {
+    localStorage.setItem("USER", JSON.stringify(user));
+
+    localStorage.setItem("LOGIN_ID", apiResp.data.id);
+    localStorage.setItem("TOKEN", apiResp.data.token);
+
+    localStorage.setItem("IS_ADMIN", user.isAdmin);
+    window.dispatchEvent(new Event("loginEvt"));
+    clearLoginForm();
+    navigate(`/dashboard/${user.id}/user`);
+  };
+
   const navigate = useNavigate();
   const actLogin = async (e) => {
     e.preventDefault();
@@ -58,15 +70,7 @@ const Login = () => {
         if (user.twoFaEnabled) {
           console.log("구글 인증기 코드를 입력하세요");
         } else {
-          localStorage.setItem("USER", JSON.stringify(user));
-
-          localStorage.setItem("LOGIN_ID", apiResp.data.id);
-          localStorage.setItem("TOKEN", apiResp.data.token);
-
-          localStorage.setItem("IS_ADMIN", user.isAdmin);
-          window.dispatchEvent(new Event("loginEvt"));
-          clearLoginForm();
-          navigate(`/dashboard/${user.id}/user`);
+          loginAfterProcessing(user, apiResp);
         }
       } 
     } catch (error) {
