@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { jwtToUser } from "../common/JwtUtils";
 
@@ -18,6 +19,8 @@ const OAuth2RedirectHandler = () => {
     navigate(`/dashboard/${user.id}/user`);
   };
 
+  const codeEntryCard = () => {
+  };
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -28,14 +31,9 @@ const OAuth2RedirectHandler = () => {
         localStorage.setItem("TOKEN", token);
         const user = jwtToUser(token);
 
-        localStorage.setItem("LOGIN_ID", user.id);
-        localStorage.setItem("USER", JSON.stringify(user));
-        localStorage.setItem("IS_ADMIN", user.isAdmin);
-        window.dispatchEvent(new Event("loginEvt"));
-        if (user.isAdmin) {
-          navigate("/dashboard/admin");
+        if (user.twoFaEnabled) {
         } else {
-          navigate(`/dashboard/${user.id}/user`);
+          loginAfterProcessing(user, token);
         }
       } catch (error) {
         console.error("토큰 해독 오류:", error);
@@ -46,7 +44,15 @@ const OAuth2RedirectHandler = () => {
       navigate("/login");
     }
   }, []);
-  return <div>소셜 로그인 재방향...</div>;
+  return (
+    <Container className="mt-5">
+      <Row className="justify-content-center">
+        <Col sm="5">
+          {codeNeeded ? codeEntryCard() : <div>소셜 로그인 재방향...</div>}
+        </Col>
+      </Row>
+    </Container>
+  );
 };
 
 export default OAuth2RedirectHandler;
