@@ -1,10 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { jwtToUser } from "../common/JwtUtils";
 
 const OAuth2RedirectHandler = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [codeNeeded, setCodeNeeded] = useState(false);
+
+  const loginAfterProcessing = (user, token) => {
+    localStorage.setItem("USER", JSON.stringify(user));
+
+    localStorage.setItem("LOGIN_ID", user.id);
+    localStorage.setItem("TOKEN", token);
+
+    localStorage.setItem("IS_ADMIN", user.isAdmin);
+    window.dispatchEvent(new Event("loginEvt"));
+    navigate(`/dashboard/${user.id}/user`);
+  };
+
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
