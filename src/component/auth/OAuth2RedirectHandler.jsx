@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { jwtToUser } from "../common/JwtUtils";
+import toast from "react-hot-toast";
+import { api } from "../util/api";
 
 const OAuth2RedirectHandler = () => {
   const location = useLocation();
@@ -10,6 +12,7 @@ const OAuth2RedirectHandler = () => {
   const [user, setUser] = useState();
   const [jwtToken, setJwtToken] = useState("");
   const [code, setCode] = useState("");  
+  const [verifying, setVerifying] = useState(false);
 
   const loginAfterProcessing = (user, token) => {
     localStorage.setItem("USER", JSON.stringify(user));
@@ -23,7 +26,30 @@ const OAuth2RedirectHandler = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log("code submitted:" + code);
+    e.preventDefault();
+    setVerifying(true);
+
+    try {
+      const formData = new URLSearchParams();
+      formData.append("code", code);
+      formData.append("jwtToken", jwtToken);
+
+      console.log("submitted data: " + JSON.stringify(formData));
+      const result = await api.post(
+        "/autho/public/verify-2fa-login",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+      loginAfterProcessing(user, jwtToken);
+    } catch (error) {
+      toast.error("구글 코드 검증 오류!");
+    } finally {
+      setVerifying(false);
+    }
   };   
 
   const handleChange = (e) => {
@@ -48,7 +74,7 @@ const OAuth2RedirectHandler = () => {
             onChange={handleChange}
           />
         </div>
-        <button type="submit">제출</button>
+        <button disabled={verifying} type="submit">제출</button>
       </form>
     );    
   }; 
