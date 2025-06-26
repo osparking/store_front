@@ -230,6 +230,23 @@ const Login = () => {
             >
               {verifying ? <span>검증 중...</span> : "인증 코드 제출"}
             </Button>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Button
+                variant="outline-primary"
+                className="w-60 mt-5"
+                onClick={() => {
+                  setCodeNeeded(false);
+                }}
+              >
+                로그인 페이지로...
+              </Button>
+            </div>
           </Form>
         </Card.Body>
       </Card>
