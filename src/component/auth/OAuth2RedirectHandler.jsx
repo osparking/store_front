@@ -19,8 +19,32 @@ const OAuth2RedirectHandler = () => {
     navigate(`/dashboard/${user.id}/user`);
   };
 
-  const codeEntryCard = () => {
+  const handleSubmit = async (e) => {
+  };   
+
+  const handleChange = (e) => {
   };
+
+  const codeEntryCard = () => {
+    return (
+      <form onSubmit={handleSubmit} style={{ backgroundColor: "ivory" }}>
+        <h3>구글 인증기 코드</h3>
+        <div className="justify-content-center">
+          <label htmlFor="code">코드:</label>
+          <input
+            type="number"
+            id="code"
+            name="code"
+            value={code}
+            placeholder="(123456)"
+            required
+            onChange={handleChange}
+          />
+        </div>
+        <button type="submit">제출</button>
+      </form>
+    );    
+  }; 
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
