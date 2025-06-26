@@ -21,7 +21,7 @@ import { loginUser } from "./AuthService";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
-    email: "customer1@email.com",
+    email: "worker1@email.com",
     password: "1234",
     save_login: true,
   });

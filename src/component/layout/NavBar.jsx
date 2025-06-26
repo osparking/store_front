@@ -34,6 +34,7 @@ const NavBar = () => {
   window.addEventListener("logoutEvt", navigateHome);
 
   useEffect(() => {
+    checkIfAdmin();
   }, []);
   
   return (

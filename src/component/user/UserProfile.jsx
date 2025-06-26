@@ -20,6 +20,8 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
 
   const loginId = localStorage.getItem("LOGIN_ID");
   const fromList = loginId !== user.id;
+  const isAdmin = JSON.parse(localStorage.getItem("IS_ADMIN"));
+  console.log("is admin: " + isAdmin);
 
   const handleCloseAccountButtonCLick = () => {
     setShowDelModal(true);
@@ -236,7 +238,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
             </Card>
           </Col>
         </Row>
-        {fromList && (
+        {(fromList && isAdmin) && (
           <Row>
             <div className="returnLink">
               <Link to="/dashboard/admin">목록</Link>
