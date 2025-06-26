@@ -7,6 +7,9 @@ const OAuth2RedirectHandler = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [codeNeeded, setCodeNeeded] = useState(false);
+  const [user, setUser] = useState();
+  const [jwtToken, setJwtToken] = useState("");
+  const [code, setCode] = useState("");  
 
   const loginAfterProcessing = (user, token) => {
     localStorage.setItem("USER", JSON.stringify(user));
@@ -20,9 +23,13 @@ const OAuth2RedirectHandler = () => {
   };
 
   const handleSubmit = async (e) => {
+    console.log("code submitted:" + code);
   };   
 
   const handleChange = (e) => {
+    // 숫자가 아닌 문자는 제거
+    const intValue = e.target.value.replace(/[^0-9]/g, '');    
+    setCode(intValue);    
   };
 
   const codeEntryCard = () => {
@@ -56,6 +63,9 @@ const OAuth2RedirectHandler = () => {
         const user = jwtToUser(token);
 
         if (user.twoFaEnabled) {
+          setUser(user);
+          setJwtToken(token);
+          setCodeNeeded(true);          
         } else {
           loginAfterProcessing(user, token);
         }
@@ -68,6 +78,7 @@ const OAuth2RedirectHandler = () => {
       navigate("/login");
     }
   }, []);
+
   return (
     <Container className="mt-5">
       <Row className="justify-content-center">
