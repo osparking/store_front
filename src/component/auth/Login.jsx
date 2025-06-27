@@ -21,7 +21,7 @@ import CodeEntryCard from "./CodeEntryCard";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
-    email: "customer1@email.com",
+    email: "jbpark03@gmail.com",
     password: "1234",
     save_login: true,
   });
@@ -77,11 +77,6 @@ const Login = () => {
       setErrorMsg(error.response.data.message);
       setAlertError(true);
     }
-  };
-
-  const clearLoginForm = () => {
-    setCredentials({ email: "", password: "" });
-    setAlertError(false);
   };
 
   const googleLogin = () => {
@@ -151,7 +146,7 @@ const Login = () => {
               style={{ margin: "10px" }}
             >
               <FcGoogle />
-              Google 로그인
+              구글 로그인
             </button>
           </div>
           <div className="text-center mt-2">
@@ -164,7 +159,10 @@ const Login = () => {
     );
   };
 
-  const naverLogin = () => {};
+  const naverLogin = () => {
+    window.location.href = "http://localhost:9193/oauth2/authorization/naver";
+  };
+
   return (
     <Container className="mt-5">
       <Row className="justify-content-center">
