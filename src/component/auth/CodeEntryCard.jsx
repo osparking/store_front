@@ -55,6 +55,12 @@ const CodeEntryCard = ({ setCodeNeeded, jwtToken, user }) => {
     setCode(intValue);
   };
 
+  const gotoLoginPage = () => {
+    return user.loginMethod === "이메일"
+      ? setCodeNeeded(false)
+      : navigate("/login");
+  };
+
   return (
     <Card>
       {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
@@ -91,11 +97,9 @@ const CodeEntryCard = ({ setCodeNeeded, jwtToken, user }) => {
             <Button
               variant="outline-primary"
               className="w-60 mt-5"
-              onClick={() => {
-                setCodeNeeded(false);
-              }}
+              onClick={gotoLoginPage}
             >
-              로그인 페이지로...
+              로그인 페이지로 복귀
             </Button>
           </div>
         </Form>
