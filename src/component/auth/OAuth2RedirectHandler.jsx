@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import { jwtToUser } from "../common/JwtUtils";
-import toast from "react-hot-toast";
 import { api } from "../util/api";
+import CodeEntryCard from "./CodeEntryCard";
 
 const OAuth2RedirectHandler = () => {
   const location = useLocation();
@@ -58,40 +59,18 @@ const OAuth2RedirectHandler = () => {
     setCode(intValue);    
   };
 
-  const codeEntryCard = () => {
-    return (
-      <form onSubmit={handleSubmit} style={{ backgroundColor: "ivory" }}>
-        <h3>구글 인증기 코드</h3>
-        <div className="justify-content-center">
-          <label htmlFor="code">코드:</label>
-          <input
-            type="number"
-            id="code"
-            name="code"
-            value={code}
-            placeholder="(123456)"
-            required
-            onChange={handleChange}
-          />
-        </div>
-        <button disabled={verifying} type="submit">제출</button>
-      </form>
-    );    
-  }; 
-
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const token = params.get("token");
 
     if (token) {
       try {
-        localStorage.setItem("TOKEN", token);
         const user = jwtToUser(token);
 
         if (user.twoFaEnabled) {
-          setUser(user);
-          setJwtToken(token);
           setCodeNeeded(true);          
+          setJwtToken(token);
+          setUser(user);
         } else {
           loginAfterProcessing(user, token);
         }
@@ -109,7 +88,15 @@ const OAuth2RedirectHandler = () => {
     <Container className="mt-5">
       <Row className="justify-content-center">
         <Col sm="5">
-          {codeNeeded ? codeEntryCard() : <div>소셜 로그인 재방향...</div>}
+          {codeNeeded ? (
+            <CodeEntryCard
+              setCodeNeeded={setCodeNeeded}
+              jwtToken={jwtToken}
+              user={user}
+            />
+          ) : (
+            <div>소셜 로그인 재방향...</div>
+          )}
         </Col>
       </Row>
     </Container>
