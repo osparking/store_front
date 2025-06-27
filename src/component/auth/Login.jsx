@@ -15,6 +15,7 @@ import naverIcon from "../../assets/images/btnD_icon_square.png";
 import AlertMessage from "../common/AlertMessage";
 import { jwtToUser } from "../common/JwtUtils";
 import BsAlertHook from "../hook/BsAlertHook";
+import { storeLoginInfo } from "../util/utilities";
 import { loginUser } from "./AuthService";
 import CodeEntryCard from "./CodeEntryCard";
 
@@ -66,10 +67,13 @@ const Login = () => {
           setJwtToken(data.token);
           setCodeNeeded(true);
         } else {
-          loginAfterProcessing(user, data.token);
+          storeLoginInfo(user, data.token);
+          window.dispatchEvent(new Event("loginEvt"));
+          navigate(`/dashboard/${user.id}/user`);
         }
       }
     } catch (error) {
+      console.log("error " + error);
       setErrorMsg(error.response.data.message);
       setAlertError(true);
     }
@@ -170,7 +174,6 @@ const Login = () => {
               setCodeNeeded={setCodeNeeded}
               jwtToken={jwtToken}
               user={user}
-              clearLoginForm={clearLoginForm}
             />
           ) : (
             loginEntryCard()

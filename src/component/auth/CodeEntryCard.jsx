@@ -7,7 +7,7 @@ import BsAlertHook from "../hook/BsAlertHook";
 import { api } from "../util/api";
 import { storeLoginInfo } from "../util/utilities";
 
-const CodeEntryCard = ({ setCodeNeeded, jwtToken, user, clearLoginForm }) => {
+const CodeEntryCard = ({ setCodeNeeded, jwtToken, user }) => {
   const {
     successMsg,
     setSuccessMsg,
@@ -18,9 +18,9 @@ const CodeEntryCard = ({ setCodeNeeded, jwtToken, user, clearLoginForm }) => {
     alertError,
     setAlertError,
   } = BsAlertHook();
-  
+
   const [code, setCode] = useState("");
-  const [verifying, setVerifying] = useState(false);  
+  const [verifying, setVerifying] = useState(false);
   const navigate = useNavigate();
 
   // 구글 인증기 코드 제출 함수
@@ -41,8 +41,7 @@ const CodeEntryCard = ({ setCodeNeeded, jwtToken, user, clearLoginForm }) => {
       });
       storeLoginInfo(user, jwtToken);
       window.dispatchEvent(new Event("loginEvt"));
-      clearLoginForm();
-      navigate(`/dashboard/${user.id}/user`);      
+      navigate(`/dashboard/${user.id}/user`);
     } catch (error) {
       console.error(error);
       toast.error("구글 코드 검증 오류!");
@@ -52,57 +51,57 @@ const CodeEntryCard = ({ setCodeNeeded, jwtToken, user, clearLoginForm }) => {
   };
 
   const changeCode = (e) => {
-    const intValue = e.target.value.replace(/[^0-9]/g, '');    
-    setCode(intValue);  
+    const intValue = e.target.value.replace(/[^0-9]/g, "");
+    setCode(intValue);
   };
 
-return (
-  <Card>
-    {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
-    <Card.Body>
-      <Card.Title className="text-center mb-4">구글 인증기 코드</Card.Title>
-      <Form onSubmit={submitCode}>
-        <Form.Label>휴대폰 앱에 표시된 코드를 입력하세요</Form.Label>
-        <InputGroup>
-          <InputGroup.Text>인증 코드</InputGroup.Text>
-          <Form.Control
-            type="number"
-            name="code"
-            placeholder="123456"
-            value={code}
-            required
-            onChange={changeCode}
-          />
-        </InputGroup>
-        <Button
-          disabled={verifying}
-          variant="outline-primary"
-          type="submit"
-          className="w-100 mt-3"
-        >
-          {verifying ? <span>검증 중...</span> : "인증 코드 제출"}
-        </Button>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+  return (
+    <Card>
+      {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
+      <Card.Body>
+        <Card.Title className="text-center mb-4">구글 인증기 코드</Card.Title>
+        <Form onSubmit={submitCode}>
+          <Form.Label>휴대폰 앱에 표시된 코드를 입력하세요</Form.Label>
+          <InputGroup>
+            <InputGroup.Text>인증 코드</InputGroup.Text>
+            <Form.Control
+              type="number"
+              name="code"
+              placeholder="123456"
+              value={code}
+              required
+              onChange={changeCode}
+            />
+          </InputGroup>
           <Button
+            disabled={verifying}
             variant="outline-primary"
-            className="w-60 mt-5"
-            onClick={() => {
-              setCodeNeeded(false);
+            type="submit"
+            className="w-100 mt-3"
+          >
+            {verifying ? <span>검증 중...</span> : "인증 코드 제출"}
+          </Button>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            로그인 페이지로...
-          </Button>
-        </div>
-      </Form>
-    </Card.Body>
-  </Card>
-);
+            <Button
+              variant="outline-primary"
+              className="w-60 mt-5"
+              onClick={() => {
+                setCodeNeeded(false);
+              }}
+            >
+              로그인 페이지로...
+            </Button>
+          </div>
+        </Form>
+      </Card.Body>
+    </Card>
+  );
 };
 
 export default CodeEntryCard;
