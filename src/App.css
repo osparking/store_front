@@ -178,6 +178,12 @@
   background-color: #d26161;
 }
 
+.button-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .card-inner {
   display: flex;
   align-items: center;
@@ -364,7 +370,7 @@ input[type="radio"] {
 .services-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;  
+  gap: 20px;
 }
 
 .service-card {
@@ -389,7 +395,7 @@ input[type="radio"] {
 }
 
 .button-solid {
-    padding: 7px;
+  padding: 7px;
   text-align: center;
   min-width: 145px;
   width: 40%;
@@ -397,4 +403,8 @@ input[type="radio"] {
   font-size: 16px;
 }
 
+.img-logo {
+  height: 22px;
+  width: 22px;
+}
 /* End home page*/
