@@ -17,11 +17,12 @@ import { jwtToUser } from "../common/JwtUtils";
 import BsAlertHook from "../hook/BsAlertHook";
 import { storeLoginInfo } from "../util/utilities";
 import { loginUser } from "./AuthService";
-import CodeEntryCard from "./CodeEntryCard";
+import CodeEntryModal from "./CodeEntryModal";
 
 const Login = () => {
+  const [showCodeModal, setShowCodeModal] = useState(false);
   const [credentials, setCredentials] = useState({
-    email: "jbpark03@gmail.com",
+    email: "customer1@email.com",
     password: "1234",
     save_login: true,
   });
@@ -65,7 +66,7 @@ const Login = () => {
         if (user.twoFaEnabled) {
           setUser(user);
           setJwtToken(data.token);
-          setCodeNeeded(true);
+          setShowCodeModal(true);
         } else {
           storeLoginInfo(user, data.token);
           window.dispatchEvent(new Event("loginEvt"));
@@ -163,20 +164,22 @@ const Login = () => {
     window.location.href = "http://localhost:9193/oauth2/authorization/naver";
   };
 
+  const hideCodeModal = () => {
+    setShowCodeModal(false);
+  };
+
   return (
     <Container className="mt-5">
+      {showCodeModal && (
+        <CodeEntryModal
+          show={showCodeModal}
+          handleHide={hideCodeModal}
+          jwtToken={jwtToken}
+          user={user}
+        />
+      )}
       <Row className="justify-content-center">
-        <Col sm={codeNeeded ? 4 : 6}>
-          {codeNeeded ? (
-            <CodeEntryCard
-              setCodeNeeded={setCodeNeeded}
-              jwtToken={jwtToken}
-              user={user}
-            />
-          ) : (
-            loginEntryCard()
-          )}
-        </Col>
+        <Col sm={6}>{loginEntryCard()}</Col>
       </Row>
     </Container>
   );
