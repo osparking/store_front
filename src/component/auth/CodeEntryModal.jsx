@@ -1,27 +1,16 @@
 import { useState } from "react";
 import { Button, Form, InputGroup, Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
+import { SiGoogleauthenticator } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
-import BsAlertHook from "../hook/BsAlertHook";
+import google_authen from "../../assets/images/google_authen.svg";
 import { api } from "../util/api";
 import { storeLoginInfo } from "../util/utilities";
-import { SiGoogleauthenticator } from "react-icons/si";
-import google_authen from "../../assets/images/google_authen.svg";
 
 import "../../App.css";
 
 const CodeEntryModal = ({ show, handleHide, jwtToken, user }) => {
-  const {
-    successMsg,
-    setSuccessMsg,
-    alertSuccess,
-    setAlertSuccess,
-    errorMsg,
-    setErrorMsg,
-    alertError,
-    setAlertError,
-  } = BsAlertHook();
-
+  
   const [code, setCode] = useState("");
   const [verifying, setVerifying] = useState(false);
   const navigate = useNavigate();
