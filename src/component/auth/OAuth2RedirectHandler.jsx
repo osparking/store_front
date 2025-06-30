@@ -24,6 +24,7 @@ const OAuth2RedirectHandler = () => {
 
   const hideCodeModal = () => {
     setShowCodeModal(false);
+    navigate("/login");
   };
 
   useEffect(() => {
