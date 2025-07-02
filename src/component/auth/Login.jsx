@@ -128,9 +128,11 @@ const Login = () => {
                 label="로그인 유지"
               />
             </div>
-            <Button variant="outline-primary" type="submit" className="w-100">
-              로그인
-            </Button>
+            <div className="d-flex justify-content-center">
+              <Button variant="outline-primary" type="submit" className="w-75">
+                로그인
+              </Button>
+            </div>
           </Form>
           <div className="text-center mt-3 mb-3">
             <button
@@ -179,7 +181,9 @@ const Login = () => {
         />
       )}
       <Row className="justify-content-center">
-        <Col sm={6}>{loginEntryCard()}</Col>
+        <Col style={{ minWidth: "500px", maxWidth: "500px" }}>
+          {loginEntryCard()}
+        </Col>
       </Row>
     </Container>
   );
