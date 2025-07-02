@@ -6,6 +6,7 @@ import UserProfile from "./UserProfile";
 import { getUserDtoById } from "./UserService";
 import { deleteUserPhoto } from "../modal/ImageService";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import "./UserDashboard.css";
 
 const UserDashboard = () => {
   const location = useLocation();
@@ -59,8 +60,8 @@ const UserDashboard = () => {
 
   return (
     <Container>
-      <Tabs>
-        <Tab eventKey="profile" title={<h3>프로필</h3>}>
+      <Tabs className="tabBackground">
+        <Tab eventKey="profile" title={<h5>프로필</h5>}>
           {alertError && (
             <AlertMessage type={"danger"} message={errorMsg} />
           )}
@@ -69,13 +70,13 @@ const UserDashboard = () => {
           )}
           {user && <UserProfile user={user} handleRemovePhoto={removePhoto} />}
         </Tab>
-        <Tab eventKey="purchase_stat" title={<h3>구매 통계</h3>}>
+        <Tab eventKey="purchase_stat" title={<h5>구매 통계</h5>}>
         </Tab>
-        <Tab eventKey="purchase_list" title={<h3>구매 목록</h3>}>
+        <Tab eventKey="purchase_list" title={<h5>구매 목록</h5>}>
         </Tab>
-        <Tab eventKey="my_question" title={<h3>나의 질문</h3>}>
+        <Tab eventKey="my_question" title={<h5>나의 질문</h5>}>
         </Tab>
-        <Tab eventKey="my_review" title={<h3>나의 리뷰</h3>}>
+        <Tab eventKey="my_review" title={<h5>나의 리뷰</h5>}>
         </Tab>
       </Tabs>
     </Container>
