@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
+import "./navBar.css";
 
 const NavBar = () => {
   const beforeLogin = localStorage.getItem("TOKEN") === null;
@@ -36,7 +37,7 @@ const NavBar = () => {
   useEffect(() => {
     checkIfAdmin();
   }, []);
-  
+
   return (
     <Navbar expand="lg" sticky="top" className="nav-bg">
       <Container>
@@ -50,8 +51,8 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link to={"/doctors"} as={Link}>
-              비누 종류
+            <Nav.Link to={"/soap_intro"} as={Link} className="bold">
+              비누 소개
             </Nav.Link>
             {isAdmin && (
               <Nav.Link to={`/dashboard/admin`} as={Link}>
