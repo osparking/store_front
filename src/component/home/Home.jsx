@@ -1,11 +1,10 @@
-import React from "react";
 import { Button, Card, Col, Container, ListGroup, Row } from "react-bootstrap";
 import olive_label from "../../assets/images/olive_label.jpg";
 import soap_rack from "../../assets/images/soap_rack.jpg";
 
 const Home = () => {
   return (
-    <Container className="home-container mt-3">
+    <Container fluid className="home-container mt-3">
       <Row>
         <Col md={6}>
           <Card>
@@ -47,7 +46,9 @@ const Home = () => {
               alt="범이비누 정보"
               className="hero-image"
             />
-            <h6 className="text-center mb-3 bumsoap-color">숙성 중인 범이비누</h6>
+            <h6 className="text-center mb-3 bumsoap-color">
+              숙성 중인 범이비누
+            </h6>
             <Card.Body>
               <Card.Title>관련 정보 목록</Card.Title>
               <ListGroup className="services-list">
@@ -67,14 +68,20 @@ const Home = () => {
           </Card>
         </Col>
       </Row>
-      <div className="card mb-5">
-        <p className="text-center">
-          여기를 범이비누를 직접 구매ᐧ사용한 고객님들의 목소리가 있습니다.
-        </p>
-        <h5 className="text-center">
-          <span className="text-info"> 고객님 리뷰</span>
-        </h5>
-      </div>
+      <Row>
+        <Col>
+          <Card>
+            <Card.Body>
+              <p className="text-center">
+                여기를 범이비누를 직접 구매ᐧ사용한 고객님들의 목소리가 있습니다.
+              </p>
+              <h5 className="text-center">
+                <span className="text-info"> 고객님 리뷰</span>
+              </h5>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
     </Container>
   );
 };
