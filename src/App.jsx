@@ -15,6 +15,7 @@ import RootLayout from "./component/layout/RootLayout";
 import RegisterUser from "./component/user/RegisterUser";
 import UserUpdate from "./component/user/UpdateUser";
 import UserDashboard from "./component/user/UserDashboard";
+import SoapIntro from "./component/soaps/SoapIntro";
 
 function App() {
   const router = createBrowserRouter(
@@ -28,6 +29,7 @@ function App() {
         <Route path="/dashboard/admin" element={<AdminDashboard/>} />
         <Route path="/user/:id/update" element={<UserUpdate />} />
         <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
+        <Route path="/soap_intro" element={<SoapIntro />} />
       </Route>
     )
   );
