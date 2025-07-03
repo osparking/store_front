@@ -73,7 +73,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
   };
 
   return (
-    <Container>
+    <Container fluid className="home-container mt-3">
       <DeleteConfirmModal
         show={showDelModal}
         onHide={handleModalXButtonClick}
@@ -82,7 +82,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
         deleting={false}
       />
       <React.Fragment>
-        <Row>
+        <Row className="justify-content-center">
           <Col md={3} xs={6}>
             <Card className="text-center mb-3 shadow">
               <Card.Body>

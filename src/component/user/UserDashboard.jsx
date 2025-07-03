@@ -59,7 +59,7 @@ const UserDashboard = () => {
   };
 
   return (
-    <Container>
+    <Container fluid className="home-container mt-3">
       <Tabs className="tabBackground">
         <Tab eventKey="profile" title={<h5>프로필</h5>}>
           {alertError && (
