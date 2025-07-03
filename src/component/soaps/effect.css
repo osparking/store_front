@@ -1,0 +1,68 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.image {
+  margin-right: 15px;
+}
+
+.element {
+  background-color: transparent;
+  opacity: 1.0;
+}
+
+.noBullet {
+  list-style-type: none;
+}
+
+h2 small {
+  vertical-align: top;
+}
+
+li {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+
+li p {
+  margin-left: 20px;
+  display: inline-block;
+  text-align: left;
+}
+
+ul img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 1px dashed black;
+}
+
+.allIngred {
+  background-color: rgb(236, 233, 233, 0.9); 
+}
+
+h2 {
+  padding-left: 1em;
+}
+
+p,
+h2 {
+  font-family: "Noto Serif KR", "Noto Sans Korean", Cambria, Cochin, Georgia, Times;
+  margin-top: 1em;
+  margin-right: 2em;
+}
+
+.ingredEffect {
+  margin-top: 10px;
+}
+
+h2 small {
+  font-size: 0.67em;
+}
+
+span.toTop {
+  vertical-align: top;
+  top: -10px;
+}
