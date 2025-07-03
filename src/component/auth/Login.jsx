@@ -171,7 +171,7 @@ const Login = () => {
   };
 
   return (
-    <Container className="mt-5">
+    <Container fluid className="mt-5">
       {showCodeModal && (
         <CodeEntryModal
           show={showCodeModal}
