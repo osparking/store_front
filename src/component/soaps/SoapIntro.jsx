@@ -1,6 +1,7 @@
 import { Container, Tab, Tabs } from "react-bootstrap";
-import Effect from "./Effect";
 import "../../index.css";
+import Effect from "./Effect";
+import Ingredient from "./Ingredient";
 import "./soapIntro.css";
 
 const SoapIntro = () => {
@@ -16,7 +17,9 @@ const SoapIntro = () => {
         <Tab
           eventKey="soap_ingredient"
           title={<h5 className="tabLabel">비누 재료</h5>}
-        ></Tab>
+        >
+          <Ingredient />
+        </Tab>
         <Tab
           eventKey="soap_produce_steps"
           title={<h5 className="tabLabel">제조 절차</h5>}
