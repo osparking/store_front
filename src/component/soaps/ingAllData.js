@@ -1,0 +1,51 @@
+export const ingAllData = [
+  {
+    id: 1,
+    name: "올리브 오일 엑스트라 버진",
+    weight: 85.0,
+    incRate: 67.3,
+    etcEffect: "산도 0.8% 이하 최고급 올리브유",
+  },
+  {
+    id: 2,
+    name: "정제수",
+    weight: 25.5,
+    incRate: 20.2,
+    etcEffect: "",
+  },
+  {
+    id: 3,
+    name: "가성소다(소듐하이드록사이드)",
+    weight: 11.3,
+    incRate: 8.9,
+    etcEffect: "",
+  },
+  {
+    id: 4,
+    name: "제주 비자나무 향오일",
+    weight: 3.4,
+    incRate: 2.7,
+    etcEffect: "(레몬, 감귤 등에 있는)시트랄, 리모넨 함유",
+  },
+  {
+    id: 5,
+    name: "어성초 분말(약모밀 가루)",
+    weight: 0.55,
+    incRate: 0.45,
+    etcEffect: "피부 개선 - 동의보감 참조",
+  },
+  {
+    id: 6,
+    name: "율무 분말",
+    weight: 0.55,
+    incRate: 0.45,
+    etcEffect: "피부 대사 증진 - 동의보감 참조",
+  },
+  {
+    id: "",
+    name: "합",
+    weight: 126.3,
+    incRate: 100,
+    etcEffect: "",
+  },
+];
