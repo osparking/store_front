@@ -1,3 +1,8 @@
 .tabLabel {
   font-weight: bold;
 }
+
+.tabFix {
+  position: fixed;
+  z-index: 10;
+}
