@@ -33,9 +33,12 @@ const IngredTable = () => {
 
 const Ingredient = () => {
   return (
-    <Container fluid className="home-container ">
-      <Row className="justify-content-center ">
+    <Container fluid className="home-container mt-5">
+      <Row className="justify-content-center">
         <Col>
+          <div className="d-flex justify-content-center mt-3">
+            <h2 className="details w-75">재료 함량 - 비누 1 개 기준</h2>
+          </div>
           <div className="d-flex justify-content-center">
             <IngredTable />
           </div>
@@ -43,6 +46,9 @@ const Ingredient = () => {
       </Row>
       <Row className="justify-content-center">
         <Col>
+          <div className="d-flex justify-content-center mt-2">
+            <h2 className="details w-75">재료별 상세 정보</h2>
+          </div>
           <div className="d-flex justify-content-center">
             <IngredAccordion items={ingAllData} keepOthersOpen={true} />
           </div>

@@ -65,11 +65,11 @@ export default function Effect() {
   ));
 
 return (
-  <Container fluid className="home-container ">
-    <Row className="justify-content-center allIngred">
+  <Container fluid className="home-container mt-5">
+    <Row className="justify-content-center allIngred mt-3">
       <Col md={8}>
-        <div>
-          <h2 className="mt-3 mb-1">
+        <div className="mt-3 ">
+          <h2 className="mb-1">
             <small>재료에서 유래하는...</small>
             <strong> 비누 효능</strong>
           </h2>
