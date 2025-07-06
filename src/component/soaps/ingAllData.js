@@ -5,6 +5,14 @@ export const ingAllData = [
     weight: 85.0,
     incRate: 67.3,
     etcEffect: "산도 0.8% 이하 최고급 올리브유",
+    store: "네이버 쇼핑 스토어",
+    buyUnit: "5 리터(캔/플라그틱 용기)",
+    price: "3 만원 내외(3 천원)",
+    desc: "올리브 오일은 산도가 낮을 수록 고품질로 여겨지는데, "
+    + "산도 0.8% 이하이면, 최고 등급인 엑스트라 버진으로 분류된다. "
+    + "올리브 오일은 영상 8℃ 이하에서 하얗게 굳는 성질이 있고, " 
+    + "용기 하부에 올리브 열매 침전물이 생길 수 있다.",
+    image: "olive-oil.jpg"
   },
   {
     id: 2,
@@ -12,6 +20,10 @@ export const ingAllData = [
     weight: 25.5,
     incRate: 20.2,
     etcEffect: "",
+    store: "",
+    buyUnit: "",
+    price: "",
+    desc: "",
   },
   {
     id: 3,
@@ -19,6 +31,10 @@ export const ingAllData = [
     weight: 11.3,
     incRate: 8.9,
     etcEffect: "",
+    store: "",
+    buyUnit: "",
+    price: "",
+    desc: "",
   },
   {
     id: 4,
@@ -26,6 +42,10 @@ export const ingAllData = [
     weight: 3.4,
     incRate: 2.7,
     etcEffect: "(레몬, 감귤 등에 있는)시트랄, 리모넨 함유",
+    store: "",
+    buyUnit: "",
+    price: "",
+    desc: "",
   },
   {
     id: 5,
@@ -33,6 +53,10 @@ export const ingAllData = [
     weight: 0.55,
     incRate: 0.45,
     etcEffect: "피부 개선 - 동의보감 참조",
+    store: "",
+    buyUnit: "",
+    price: "",
+    desc: "",
   },
   {
     id: 6,
@@ -40,6 +64,10 @@ export const ingAllData = [
     weight: 0.55,
     incRate: 0.45,
     etcEffect: "피부 대사 증진 - 동의보감 참조",
+    store: "",
+    buyUnit: "",
+    price: "",
+    desc: "",
   },
   {
     id: "",
