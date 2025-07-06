@@ -2,8 +2,8 @@
   font-weight: bold;
 }
 
-table {
+thead, tbody {
   opacity: 0.9;
-  font-family: "Noto Sans KR", Cambria, Cochin, Georgia, Times,
+  font-family: "Noto Serif KR", Cambria, Cochin, Georgia, Times,
     "Times New Roman", serif;
 }
