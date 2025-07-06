@@ -7,7 +7,7 @@ export const ingAllData = [
     etcEffect: "산도 0.8% 이하 최고급 올리브유",
     store: "네이버 쇼핑 스토어",
     buyUnit: "5 리터(캔/플라그틱 용기)",
-    price: "3 만원 내외(3 천원)",
+    price: "3 만원 내외/3 천원",
     desc: "올리브 오일은 산도가 낮을 수록 고품질로 여겨지는데, "
     + "산도 0.8% 이하이면, 최고 등급인 엑스트라 버진으로 분류된다. "
     + "올리브 오일은 영상 8℃ 이하에서 하얗게 굳는 성질이 있고, " 
@@ -19,11 +19,13 @@ export const ingAllData = [
     name: "정제수",
     weight: 25.5,
     incRate: 20.2,
-    etcEffect: "",
-    store: "",
-    buyUnit: "",
-    price: "",
-    desc: "",
+    etcEffect: "비누 및 화장품 제조, 연구 및 실험용",
+    store: "네이버 쇼핑 스토어",
+    buyUnit: "10리터",
+    price: "4 천원 내외/3.5 천원",
+    desc: "역삼투압 방식으로 제조되었고, 충전, 제조, " 
+    + "연구 등 다양한 곳에 사용 가능한 증류수아다.",
+    image: "water.jpg"
   },
   {
     id: 3,
@@ -31,10 +33,13 @@ export const ingAllData = [
     weight: 11.3,
     incRate: 8.9,
     etcEffect: "",
-    store: "",
-    buyUnit: "",
-    price: "",
-    desc: "",
+    store: "네이버 쇼핑 스토어",
+    buyUnit: "1kg",
+    price: "7 천원 내외/3 천원",
+    desc: "물에 쉽게 녹는 구슬형, 밀폐된 공간에서 " 
+    + "사용하지 말아야 된다. 가열 시 용기가 폭발할 수 있다. 취급 시, "
+    + "유해화학물질 취급기준을 준수해야 한다.",
+    image: "sodium.png"
   },
   {
     id: 4,
@@ -42,10 +47,14 @@ export const ingAllData = [
     weight: 3.4,
     incRate: 2.7,
     etcEffect: "(레몬, 감귤 등에 있는)시트랄, 리모넨 함유",
-    store: "",
-    buyUnit: "",
-    price: "",
-    desc: "",
+    store: "드그라쎄",
+    storeUrl: "https://degrasse.kr/index.html",
+    buyUnit: "1리터",
+    price: "6 만원 내외/3 천원",
+    desc: "비자나무 솔잎 향기를 내며, 향수, 캔들 등 제조용으로 쓰이는 " 
+    + "인공 향오일이다. 이 오일을 범이비누가 처음 구매할 때, "
+    + "범이는 이를 천연 향오일로 착각하고 구매하였다.",
+    image: "visa_tree.jpg",
   },
   {
     id: 5,
@@ -53,10 +62,14 @@ export const ingAllData = [
     weight: 0.55,
     incRate: 0.45,
     etcEffect: "피부 개선 - 동의보감 참조",
-    store: "",
-    buyUnit: "",
-    price: "",
-    desc: "",
+    store: "수제나라",
+    storeUrl: "https://sujaenara.com/",
+    buyUnit: "1kg",
+    price: "3.8 만원 내외/무료",
+    desc: "습진, 무좀, 완선, 버짐 등 갖가지 피부병에 효과가 "
+    + "있으며, 벌레 물린 곳이나 화상에도 증세 완화에 도움이 된다고 "
+    + "한다. 이 제품은 수제비누 재료용으로 가공된 것이다.",
+    image: "eosung-plant-root-powder.jpg",
   },
   {
     id: 6,
@@ -64,10 +77,14 @@ export const ingAllData = [
     weight: 0.55,
     incRate: 0.45,
     etcEffect: "피부 대사 증진 - 동의보감 참조",
-    store: "",
-    buyUnit: "",
-    price: "",
-    desc: "",
+    store: "수제나라",
+    storeUrl: "https://sujaenara.com/",
+    buyUnit: "1kg",
+    price: "3.8 만원 내외/무료",
+    desc: "원산지가 한국인 율무씨를 소재로한 아이보리색 분말이다. "
+    + "비누 1kg 제작 시 10~20g 정도 사용이 추천된다. 식품으로의 사용은 "
+    + "불가하고, 수제비누 재료용으로 가공된 것이다.",
+    image: "yulmoo.jpg",
   },
   {
     id: "",
