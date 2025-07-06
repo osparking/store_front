@@ -69,7 +69,7 @@ export const ingAllData = [
     desc: "습진, 무좀, 완선, 버짐 등 갖가지 피부병에 효과가 "
     + "있으며, 벌레 물린 곳이나 화상에도 증세 완화에 도움이 된다고 "
     + "한다. 이 제품은 수제비누 재료용으로 가공된 것이다.",
-    image: "eosung-plant-root-powder.jpg",
+    image: "eo-sung.jpg",
   },
   {
     id: 6,
@@ -84,7 +84,7 @@ export const ingAllData = [
     desc: "원산지가 한국인 율무씨를 소재로한 아이보리색 분말이다. "
     + "비누 1kg 제작 시 10~20g 정도 사용이 추천된다. 식품으로의 사용은 "
     + "불가하고, 수제비누 재료용으로 가공된 것이다.",
-    image: "yulmoo.jpg",
+    image: "yulmoo-powder.jpg",
   },
   {
     id: "",
