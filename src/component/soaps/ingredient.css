@@ -7,3 +7,9 @@ thead, tbody {
   font-family: "Noto Serif KR", Cambria, Cochin, Georgia, Times,
     "Times New Roman", serif;
 }
+
+h2.details {
+  text-align: left;
+  font-size: 1.3em;
+  background-color: ivory;
+}
