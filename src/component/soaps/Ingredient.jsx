@@ -1,8 +1,8 @@
 import { Col, Container, Row, Table } from "react-bootstrap";
 import "../../index.css";
 import { ingAllData } from "./ingAllData";
-import IngredAccordion from "./IngredAccordion";
 import "./ingredient.css";
+import IngredTabAccord from "./IngredTabAccord";
 
 const ingAllRows = ingAllData.map((ingred, idx) => (
   <tr className={ingred.id === "" ? "table-row" : ""} key={idx}>
@@ -37,20 +37,10 @@ const Ingredient = () => {
       <Row className="justify-content-center">
         <Col>
           <div className="d-flex justify-content-center mt-3">
-            <h2 className="details w-75">재료 함량 - 비누 1 개 기준</h2>
+            <h2 className="details w-75 pt-2 pb-2">재료 함량 / 비누 1 개</h2>
           </div>
           <div className="d-flex justify-content-center">
-            <IngredTable />
-          </div>
-        </Col>
-      </Row>
-      <Row className="justify-content-center">
-        <Col>
-          <div className="d-flex justify-content-center mt-2">
-            <h2 className="details w-75">재료별 상세 정보</h2>
-          </div>
-          <div className="d-flex justify-content-center">
-            <IngredAccordion items={ingAllData} keepOthersOpen={true} />
+            <IngredTabAccord ingAllData={ingAllData} keepOthersOpen={true} />
           </div>
         </Col>
       </Row>
