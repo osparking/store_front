@@ -6,7 +6,10 @@ import "./soapIntro.css";
 
 const SoapIntro = () => {
   return (
-    <Container fluid className="home-container mt-3">
+    <Container
+      fluid
+      className="home-container mt-3 justify-content-center d-flex"
+    >
       <Tabs className="tabBackground tabHead tabFix">
         <Tab
           eventKey="soap_effect"
