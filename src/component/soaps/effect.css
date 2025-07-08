@@ -1,7 +1,7 @@
-.container {
+/* .container {
   display: flex;
-  align-items: flex-start;
-}
+  /* align-items: flex-start; */
+ */
 
 .image {
   margin-right: 15px;
@@ -22,7 +22,7 @@ h2 small {
 
 li {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   align-items: center;
 }
 
