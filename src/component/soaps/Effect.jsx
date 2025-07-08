@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "../../index.css";
 import { ingredients } from "./data.js";
 import "./effect.css";
+import { Fragment } from "react";
 
 export default function Effect() {
   const imageRoot = "/src/assets/images/ingred";
@@ -28,56 +29,58 @@ export default function Effect() {
   }
 
   const listItems = ingredients.map((ingred, idx) => (
-    <li key={idx}>
-      <Container>
-        <Row className="align-items-center">
-          {" "}
-          {/* Use align-items-center for vertical alignment */}
-          <Col xs={12} md={6}>
+    <Fragment key={idx}>
+      <li>
+        <div style={{ width: "100%" }}>
+          <Row className="align-items-center">
             {" "}
-            {/* Column for the image */}
-            <Image
-              src={`${imageRoot}/${ingred.imageFile}`}
-              fluid
-              alt={ingred.name}
-            />
-          </Col>
-          <Col xs={12} md={6}>
-            {" "}
-            {/* Column for the paragraph */}
-            <p className="inline">
-              <b>{ingred.name}:</b>
-              <span style={ingredColor(ingred.name)}>
-                {" " + ingred.effect}
-              </span>
-              <br />
-              <small>
-                출처 -{" "}
-                {ingred.source === "수제나라" ? Sujenara() : ingred.source},
-                검색키 - {ingred.searchKey}, 검색일 - {ingred.searchDate}
-              </small>
-            </p>
-          </Col>
-        </Row>
-      </Container>
+            {/* Use align-items-center for vertical alignment */}
+            <Col xs={12} md={6}>
+              {" "}
+              {/* Column for the image */}
+              <Image
+                src={`${imageRoot}/${ingred.imageFile}`}
+                fluid
+                alt={ingred.name}
+              />
+            </Col>
+            <Col xs={12} md={6}>
+              {" "}
+              {/* Column for the paragraph */}
+              <p className="inline">
+                <b>{ingred.name}:</b>
+                <span style={ingredColor(ingred.name)}>
+                  {" " + ingred.effect}
+                </span>
+                <br />
+                <small>
+                  출처 -{" "}
+                  {ingred.source === "수제나라" ? Sujenara() : ingred.source},
+                  검색키 - {ingred.searchKey}, 검색일 - {ingred.searchDate}
+                </small>
+              </p>
+            </Col>
+          </Row>
+        </div>
+      </li>
       <hr />
-    </li>
+    </Fragment>
   ));
 
-return (
-  <Container fluid className="home-container mt-5">
-    <Row className="justify-content-center allIngred mt-3">
-      <Col md={8}>
-        <div className="mt-3 ">
-          <h2 className="mb-1">
-            <small>재료에서 유래하는...</small>
-            <strong> 비누 효능</strong>
-          </h2>
-          <hr />
-          <ul className="noBullet">{listItems}</ul>
-        </div>
-      </Col>
-    </Row>
-  </Container>
-);
+  return (
+    <Container fluid className="home-container mt-5">
+      <Row className="justify-content-center allIngred mt-3">
+        <Col md={8}>
+          <div className="mt-3 ">
+            <h2 className="mb-1">
+              <small>재료에서 유래하는...</small>
+              <strong> 비누 효능</strong>
+            </h2>
+            <hr />
+            <ul className="noBullet">{listItems}</ul>
+          </div>
+        </Col>
+      </Row>
+    </Container>
+  );
 }
