@@ -16,7 +16,7 @@ const ingAllRows = ingAllData.map((ingred, idx) => (
 
 const IngredTable = () => {
   return (
-    <Table striped bordered hover className="mt-0 w-75">
+    <Table striped bordered hover className="mt-0 w-100">
       <thead>
         <tr>
           <th>#</th>
@@ -34,12 +34,15 @@ const IngredTable = () => {
 const Ingredient = () => {
   return (
     <Container fluid className="home-container mt-5">
-      <Row className="justify-content-center">
-        <Col>
-          <div className="d-flex justify-content-center mt-3">
-            <h2 className="details w-75 pt-2 pb-2">재료 함량 / 비누 1 개</h2>
-          </div>
-          <div className="d-flex justify-content-center">
+      <Row className="justify-content-center allIngred mt-3 ">
+        <Col md={8} className="mt">
+          <div className="mt-3">
+            <h2 className="mb-1" style={{ paddingLeft: 0 }}>
+              <strong>재료 함량</strong>
+              <br />
+              <small> 비누 1 개 원액 기준</small>
+            </h2>
+            <hr />
             <IngredTabAccord ingAllData={ingAllData} keepOthersOpen={true} />
           </div>
         </Col>

@@ -6,32 +6,31 @@ import "./soapIntro.css";
 
 const SoapIntro = () => {
   return (
-    <Container
-      fluid
-      className="home-container mt-3 justify-content-center d-flex"
-    >
-      <Tabs className="tabBackground tabHead tabFix">
-        <Tab
-          eventKey="soap_effect"
-          title={<h5 className="tabLabel">효능 소개</h5>}
-        >
-          <Effect />
-        </Tab>
-        <Tab
-          eventKey="soap_ingredient"
-          title={<h5 className="tabLabel">비누 재료</h5>}
-        >
-          <Ingredient />
-        </Tab>
-        <Tab
-          eventKey="soap_produce_steps"
-          title={<h5 className="tabLabel">제조 절차</h5>}
-        ></Tab>
-        <Tab
-          eventKey="soap_shapes"
-          title={<h5 className="tabLabel">외형 종류</h5>}
-        ></Tab>
-      </Tabs>
+    <Container>
+      <div>
+        <Tabs className="tabBackground tabHead tabFix">
+          <Tab
+            eventKey="soap_effect"
+            title={<h5 className="tabLabel">효능 소개</h5>}
+          >
+            <Effect />
+          </Tab>
+          <Tab
+            eventKey="soap_ingredient"
+            title={<h5 className="tabLabel">비누 재료</h5>}
+          >
+            <Ingredient />
+          </Tab>
+          <Tab
+            eventKey="soap_produce_steps"
+            title={<h5 className="tabLabel">제조 절차</h5>}
+          ></Tab>
+          <Tab
+            eventKey="soap_shapes"
+            title={<h5 className="tabLabel">외형 종류</h5>}
+          ></Tab>
+        </Tabs>
+      </div>
     </Container>
   );
 };

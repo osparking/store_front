@@ -103,7 +103,7 @@ const IngredTabAccord = ({ ingAllData, keepOthersOpen }) => {
                   />
                 </div>
               </Col>
-              <Col className="frame-10">
+              <Col xs={7} className="frame-10">
                 <AttrList ingred={ingredient} />
               </Col>
             </Row>
@@ -114,7 +114,7 @@ const IngredTabAccord = ({ ingAllData, keepOthersOpen }) => {
   ));
 
   return (
-    <Table striped hover className="mt-0 w-75">
+    <Table striped hover className="mt-0">
       <thead>
         <tr>
           <th className="text-center">#</th>

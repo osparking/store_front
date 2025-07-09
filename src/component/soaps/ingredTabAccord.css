@@ -6,9 +6,9 @@
   font-weight: 600;
 }
 
-.accordion {
+/* .accordion {
   width: 500px;
-}
+} */
 
 .accordion .toggle {
   display: flex;
@@ -40,7 +40,7 @@
 }
 
 .accordion {
-  display: none;
+  display:none;
 }
 
 .accordion.expanded {
@@ -83,7 +83,7 @@ span.simple {
 }
 
 .sumRow td, thead th.text-center {  
-  background-color: rgb(251, 251, 226);
+  /* background-color: rgb(251, 251, 226); */
 }
 
 thead, tbody {
@@ -111,3 +111,7 @@ h2.details {
 li.disc {
   list-style-type:disc;
 }
+
+/* .container {
+  width: 100%;
+} */
