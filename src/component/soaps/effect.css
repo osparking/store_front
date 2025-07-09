@@ -21,7 +21,7 @@ h2 small {
 }
 
 li {
-  display: grid;
+  display: disc;
   grid-template-columns: 1fr;
   align-items: center;
 }
