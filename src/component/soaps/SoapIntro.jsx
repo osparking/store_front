@@ -7,7 +7,7 @@ import "./soapIntro.css";
 const SoapIntro = () => {
   return (
     <Container fluid className="home-container mt-3">
-      <Tabs className="tabBackground tabHead tabFix">
+      <Tabs className="tabBackground tabHead tabFix contentHolyCentered">
         <Tab
           eventKey="soap_effect"
           title={<h5 className="tabLabel">효능 소개</h5>}

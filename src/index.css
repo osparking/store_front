@@ -177,3 +177,15 @@ h6 {
 .tabBackground {
   background-color: rgba(160, 205, 212, 0.8);
 }
+
+.tabFix {
+  position: sticky;
+  z-index: 100;
+  top: 58px;
+  width: 100%;
+}
+
+.contentHolyCentered {  
+  align-items: center;
+  justify-content: center;  
+}
