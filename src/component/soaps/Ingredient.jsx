@@ -34,7 +34,7 @@ const IngredTable = () => {
 const Ingredient = () => {
   return (
     <Container fluid className="home-container mt-5">
-      <Row className="justify-content-center">
+      <Row className="justify-content-center allIngred mt-3">
         <Col>
           <div className="d-flex justify-content-center mt-3">
             <h2 className="details w-75">재료 함량 - 비누 1 개 기준</h2>
