@@ -23,7 +23,7 @@ const Ingredient = () => {
             <h2 className="mb-1" style={{ paddingLeft: 0 }}>
               <strong>재료 함량</strong>
               <br />
-              <small> 비누 1 개 원액 기준</small>
+              <small>(비누 1 개용 원액 126g 기준)</small>
             </h2>
             <hr />
             <IngredTabAccord ingAllData={ingAllData} keepOthersOpen={true} />

@@ -73,8 +73,8 @@ export default function Effect() {
         <Col md={8}>
           <div className="mt-3 ">
             <h2 className="mb-1">
-              <small>재료에서 유래하는...</small>
-              <strong> 비누 효능</strong>
+              <strong> 비누 효능</strong><br />
+              <small>(재료로부터 유래)</small>
             </h2>
             <hr />
             <ul className="noBullet">{listItems}</ul>
