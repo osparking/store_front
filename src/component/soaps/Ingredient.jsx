@@ -35,7 +35,7 @@ const Ingredient = () => {
   return (
     <Container fluid className="home-container mt-5">
       <Row className="justify-content-center allIngred mt-3 ">
-        <Col md={8} className="mt">
+        <Col md={9} className="mt">
           <div className="mt-3">
             <h2 className="mb-1" style={{ paddingLeft: 0 }}>
               <strong>재료 함량</strong>

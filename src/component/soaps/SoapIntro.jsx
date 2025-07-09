@@ -11,7 +11,7 @@ const SoapIntro = () => {
         <Tabs className="tabBackground tabHead tabFix contentHolyCentered">
           <Tab
             eventKey="soap_effect"
-            title={<h5 className="tabLabel">효능 소개</h5>}
+            title={<h5 className="tabLabel">비누 효능</h5>}
           >
             <Effect />
           </Tab>
@@ -27,7 +27,7 @@ const SoapIntro = () => {
           ></Tab>
           <Tab
             eventKey="soap_shapes"
-            title={<h5 className="tabLabel">외형 종류</h5>}
+            title={<h5 className="tabLabel">범이 외형</h5>}
           ></Tab>
         </Tabs>
       {/* </div> */}

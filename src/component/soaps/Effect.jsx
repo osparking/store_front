@@ -70,7 +70,7 @@ export default function Effect() {
   return (
     <Container fluid className="home-container mt-5">
       <Row className="justify-content-center allIngred mt-3">
-        <Col md={8}>
+        <Col md={9}>
           <div className="mt-3 ">
             <h2 className="mb-1" style={{paddingLeft: 0}}>
               <small>재료에서 유래하는...</small><br />
