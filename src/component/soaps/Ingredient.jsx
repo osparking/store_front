@@ -1,8 +1,8 @@
-import { Col, Container, Row, Table } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import "../../index.css";
 import { ingAllData } from "./ingAllData";
-import IngredAccordion from "./IngredAccordion";
 import "./ingredient.css";
+import IngredTabAccord from "./IngredTabAccord";
 
 const ingAllRows = ingAllData.map((ingred, idx) => (
   <tr className={ingred.id === "" ? "table-row" : ""} key={idx}>
@@ -14,43 +14,19 @@ const ingAllRows = ingAllData.map((ingred, idx) => (
   </tr>
 ));
 
-const IngredTable = () => {
-  return (
-    <Table striped bordered hover className="mt-0 w-75">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>재료명</th>
-          <th className="text-center">중량(g)</th>
-          <th className="text-center">함유비(%)</th>
-          <th className="text-center">비고/효능</th>
-        </tr>
-      </thead>
-      <tbody>{ingAllRows}</tbody>
-    </Table>
-  );
-};
-
 const Ingredient = () => {
   return (
     <Container fluid className="home-container mt-5">
       <Row className="justify-content-center allIngred mt-3">
-        <Col>
-          <div className="d-flex justify-content-center mt-3">
-            <h2 className="details w-75">재료 함량 - 비누 1 개 기준</h2>
-          </div>
-          <div className="d-flex justify-content-center">
-            <IngredTable />
-          </div>
-        </Col>
-      </Row>
-      <Row className="justify-content-center">
-        <Col>
-          <div className="d-flex justify-content-center mt-2">
-            <h2 className="details w-75">재료별 상세 정보</h2>
-          </div>
-          <div className="d-flex justify-content-center">
-            <IngredAccordion items={ingAllData} keepOthersOpen={true} />
+        <Col md={9} className="mt">
+          <div className="mt-3">
+            <h2 className="mb-1" style={{ paddingLeft: 0 }}>
+              <strong>재료 함량</strong>
+              <br />
+              <small> 비누 1 개 원액 기준</small>
+            </h2>
+            <hr />
+            <IngredTabAccord ingAllData={ingAllData} keepOthersOpen={true} />
           </div>
         </Col>
       </Row>
