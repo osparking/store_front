@@ -177,3 +177,18 @@ h6 {
 .tabBackground {
   background-color: rgba(160, 205, 212, 0.8);
 }
+
+.tabFix {
+  position: fixed;
+  z-index: 100;
+  margin-left: auto;
+  margin-right: 50px;
+  top: 58px;
+  width: 100%;
+}
+
+.contentHolyCentered {  
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;  
+}

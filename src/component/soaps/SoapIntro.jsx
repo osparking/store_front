@@ -7,8 +7,8 @@ import "./soapIntro.css";
 const SoapIntro = () => {
   return (
     <Container>
-      <div>
-        <Tabs className="tabBackground tabHead tabFix">
+      {/* <div className=""> */}
+        <Tabs className="tabBackground tabHead tabFix contentHolyCentered">
           <Tab
             eventKey="soap_effect"
             title={<h5 className="tabLabel">효능 소개</h5>}
@@ -30,7 +30,7 @@ const SoapIntro = () => {
             title={<h5 className="tabLabel">외형 종류</h5>}
           ></Tab>
         </Tabs>
-      </div>
+      {/* </div> */}
     </Container>
   );
 };
