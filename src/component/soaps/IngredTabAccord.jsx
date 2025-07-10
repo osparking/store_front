@@ -1,15 +1,12 @@
 import { Fragment, useEffect, useState } from "react";
 import { Col, Container, Row, Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "../../index.css";
 import "./ingredient.css";
 import "./ingredTabAccord.css";
-import { Link } from "react-router-dom";
 
 const IngredTabAccord = ({ ingAllData, keepOthersOpen }) => {
   const [accordionItems, setAccordionItems] = useState(null);
-
-  const allData = JSON.stringify(ingAllData);
-  console.log("all data1: " + allData);
 
   useEffect(() => {
     if (ingAllData) {

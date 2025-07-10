@@ -3,29 +3,38 @@ import "../../index.css";
 import Effect from "./Effect";
 import Ingredient from "./Ingredient";
 import "./soapIntro.css";
+import ProduceSteps from "./ProduceSteps";
+import { useState } from "react";
 
 const SoapIntro = () => {
+  const handleSoapIntroTabSelect = (key) => {
+    localStorage.setItem("SOAP_INTRO_TAB", key);
+  }
+
+  const [currTabKey, setCurrTabKey] = useState(
+    localStorage.getItem("SOAP_INTRO_TAB") || "effect");  
+
   return (
     <Container fluid className="home-container">
-      <Tabs className="tabBackground tabHead tabFix contentHolyCentered">
-        <Tab
-          eventKey="soap_effect"
-          title={<h5 className="tabLabel">효능 소개</h5>}
-        >
+      <Tabs
+        defaultActiveKey={currTabKey}
+        className="tabBackground tabHead tabFix contentHolyCentered"
+        onSelect={handleSoapIntroTabSelect}
+      >
+        <Tab eventKey="effect" title={<h5 className="tabLabel">효능 소개</h5>}>
           <Effect />
         </Tab>
         <Tab
-          eventKey="soap_ingredient"
+          eventKey="ingredient"
           title={<h5 className="tabLabel">비누 재료</h5>}
         >
           <Ingredient />
         </Tab>
+        <Tab eventKey="steps" title={<h5 className="tabLabel">제조 절차</h5>}>
+          <ProduceSteps />
+        </Tab>
         <Tab
-          eventKey="soap_produce_steps"
-          title={<h5 className="tabLabel">제조 절차</h5>}
-        ></Tab>
-        <Tab
-          eventKey="soap_shapes"
+          eventKey="shapes"
           title={<h5 className="tabLabel">외형 종류</h5>}
         ></Tab>
       </Tabs>

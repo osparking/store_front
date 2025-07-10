@@ -1,6 +1,10 @@
-body {
-    font-family: "Noto Sans KR", Cambria, Cochin, Georgia, Times,
-    "Times New Roman", serif;
+body li {
+    font-family: "Noto Serif KR", Cambria, Cochin, Georgia, Times,
+    "Times New Roman", sans-serif;
+}
+
+li {
+  font-weight: 500;
 }
 
 h3 {
