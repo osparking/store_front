@@ -1,0 +1,210 @@
+import { Col, Container, Row } from "react-bootstrap";
+import "./produceSteps.css";
+import "../../index.css";
+import { useState } from "react";
+
+const ProduceSteps = () => {
+  const [showDeviceList, setShowDeviceList] = useState(false);
+  const toggleDeviceList = () => {
+    setShowDeviceList(!showDeviceList);
+  };
+  const [showSodaWater, setShowSodaWater] = useState(false);
+  const toggleSodaWater = () => {
+    setShowSodaWater(!showSodaWater);
+  };
+  const imageRoot = "/src/assets/images/ingred";
+
+  return (
+    <Container fluid className="home-container mt-5">
+      <Row className="justify-content-center allIngred mt-3">
+        <Col md={8}>
+          <table className="stepInfo mt-5">
+            <thead>
+              <tr>
+                <td className="WARNING h4">경고</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  작업자는 비누 생산 절차 중{" "}
+                  <span className="WARNING">가성소다수</span>
+                  (별칭 <span className="WARNING">양잿물</span>)를 만들어
+                  사용하므로, 작업 중 심한 화상 등 부작용 방지를 위하여, 지정된
+                  장비를 착용하고, 작업 지침을 준수해야 된다.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </Col>
+      </Row>
+      <Row className="justify-content-center allIngred">
+        <Col md={8}>
+          <table className="stepInfo mt-5">
+            <thead>
+              <tr>
+                <td className="INFO h4">적용 범위</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="INFO">
+                  여기서 설명하는 것은 범이비누 104 개를 48 시간 주기로 제조하는
+                  절차이다.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </Col>
+      </Row>
+      <Row className="justify-content-center allIngred pt-3">
+        <Col md={8}>
+          <div>
+            <h2 className="ps-0 m-4">제조 절차</h2>
+            <ol>
+              <li>
+                작업자는 다음 의복류를 착용한다.
+                <ul>
+                  <li>피부 노출을 막는 상ᐧ하의</li>
+                  <li>작업용 내화학(비닐류) 앞치마</li>
+                  <li>상의 소매 보호용 양팔용 토시</li>
+                  <li>안면 보호 마스크</li>
+                  <li>내화학 장갑</li>
+                </ul>
+              </li>
+              <li>
+                다음 비누 제조 도구를 확인한다.
+                {showDeviceList ? (
+                  <div id="deviceList">
+                    <ul>
+                      <li>핸드 믹서 - 회전부 분리 가능</li>
+                      <li>몰드 13 개 - 규격 1kg</li>
+                      <li>비누 커터기</li>
+                      <li>마른 수건 2 개</li>
+                      <li>
+                        온도계 2 개
+                        <ul>
+                          <li>알람 탐침 디지털 온도계 - 온수용</li>
+                          <li>비접촉 디지털 온도계 - 가성소다수용</li>
+                        </ul>
+                      </li>
+                      <li>저울 2 개 - 10kg, 1kg</li>
+                      <li>실리콘 주걱 3 개 - 대 1, 소 2</li>
+                      <li>플라스틱 컵 5 개 - 어성초, 율무, 향오일 계량용</li>
+                      <li>
+                        용기
+                        <ul>
+                          <li>플라스틱 통 - 1L, 2L(2 개), 5L(2 개)</li>
+                          <li>스텐 비이커 - 5L</li>
+                          <li>스텐 다라이 - 5L, 10L, 30L</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+                ) : (
+                  <br />
+                )}
+                <button
+                  className="toggleButton sans"
+                  onClick={toggleDeviceList}
+                >
+                  [비누 제조 도구 목록 {showDeviceList ? "숨김" : "열기"}]
+                </button>
+              </li>
+              <li>
+                올리브유 증탕용 물을 가열하기 시작한다
+                <ul>
+                  <li>30L 스탠 다라이, 물 15kg, 알람 온도계 사용</li>
+                </ul>
+              </li>
+              <li>
+                다음 네 가지 재료를 계량한다.
+                <ul id="ingTable">
+                  <li>올리브 오일 - 4,420g (10L 스탠 다라이)</li>
+                  <li>어성초 분말 - 59g</li>
+                  <li>율무씨 분말 - 59g</li>
+                  <li>비자나무 향오일 - 177g</li>
+                  <li>
+                    근거 테이블 - <br />
+                    <img
+                      className="mt-3"
+                      src={`${imageRoot}/six-ingred-ratio.png`}
+                      alt="재료 중량 표"
+                    />
+                  </li>
+                </ul>
+              </li>
+              <li>
+                올리브유를 증탕 방식으로 가열하기 시작한다
+                <ul>
+                  <li>가열 목표: 45℃ - 약 10분 소요</li>
+                </ul>
+              </li>
+              <li>
+                다음 두 가지 재료를 계량한다.
+                <ul>
+                  <li>정제수 - 526g</li>
+                  <li>
+                    가성소다 - 588g
+                    <br />
+                    * 올리브유 대 가성소다: 0.133
+                    <br />
+                    <a href="#ingTable">근거 테이블</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                다음 절차로 가성소다수를 만든다.
+                {showSodaWater ? (
+                  <div>
+                    <ul>
+                      <li>2L 비이커에 정제수 얼음물 제조 - 총량 1,326g</li>
+                      <li>발생 가스의 실외 배출을 위해 선풍기 가동</li>
+                      <li>
+                        비이커에 가성소다를 조금씩 추가하며 스텐 거품기로 혼합
+                        <br />
+                        (가성소다 증기의{" "}
+                        <span className="WARNING">독성은 구토를 유발</span>할 수
+                        있으니 주의할 것)
+                      </li>
+                      <li>
+                        가성소다수 온도가 45℃도 이상일 것이므로, 45℃ 로 식고,
+                        투명해질 때까지 대기 - 약 10분 소요
+                        <br />(
+                        <span className="WARNING">가성소다수는 독극물</span>
+                        이므로 취급에 주의할 것.)
+                      </li>
+                    </ul>
+                  </div>
+                ) : (
+                  <br />
+                )}
+                <button className="toggleButton sans" onClick={toggleSodaWater}>
+                  [가성소다수 제조 절차 {showSodaWater ? "숨김" : "보기"}]
+                </button>
+              </li>
+              <li>비누 원액을 만든다</li>
+              <li>원액을 반 고체화한다</li>
+              <li>원액에 천연가루를 넣고 섞는다</li>
+              <li>반 고체 원액을 두 층으로 몰드에 담는다</li>
+              <li>몰드를 보온고에 보관한다</li>
+              <li>사용했던 수건 등의 천류를 세탁한다</li>
+              <li>사용했던 수건 등의 천류를 세탁한다</li>
+              <li>2일 후, 비누 덩어리를 잘라 낱개 비누로 만든다</li>
+              <li>
+                비누 제조에 사용했던 찬물에 식힌 몰드와 수건 등을 세척한다.
+              </li>
+              <li>얼음 800g 제조를 개시한다.</li>
+              <li>낱개 비누를 건조 선반에서 5주간 건조시킨다</li>
+              <li>건조된 비누를 1차 포장한다</li>
+              <li>제품 제조일을 부여한다</li>
+              <li></li>
+            </ol>
+          </div>
+        </Col>
+      </Row>
+    </Container>
+  );
+};
+
+export default ProduceSteps;
