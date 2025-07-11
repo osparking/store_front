@@ -148,8 +148,8 @@ const ProduceSteps = () => {
                   <li className="noBullet stress">
                     ※근거 테이블: <br />
                     <img
-                      className="ms-3 mb-3"
-                      src={`${imageRoot}/six-ingred-ratio.png`}
+                      className="ms-3 mb-3 ingredTabImg"
+                      src={`${imageRoot}/soap-ingred-weight.png`}
                       alt="재료 중량 표"
                     />
                   </li>

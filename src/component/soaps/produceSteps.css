@@ -64,3 +64,9 @@ ol > li {
 li img {
   border-radius: 10px;
 }
+
+img.ingredTabImg {
+  width: 376;
+  height: 185;
+  border-radius: 0;
+}
