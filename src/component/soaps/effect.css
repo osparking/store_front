@@ -1,8 +1,3 @@
-/* .container {
-  display: flex;
-  /* align-items: flex-start; */
- */
-
 .image {
   margin-right: 15px;
 }
@@ -54,6 +49,7 @@ h2 {
 
 p {
   font-family: "Noto Serif KR", "Noto Sans Korean", Cambria, Cochin, Georgia, Times;  
+  font-size: 18px;
 }
 .ingredEffect {
   margin-top: 10px;
