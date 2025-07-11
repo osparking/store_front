@@ -94,7 +94,7 @@ const IngredTabAccord = ({ ingAllData, keepOthersOpen }) => {
               <Col xs={5} className="justify-content-center">
                 <div className="justify-content-center d-flex align-items-center">
                   <img
-                    className="circleImg"
+                    className={ingredient.id === 2 ? 'squareImg' : 'circleImg'}
                     src={`${imageRoot}/${ingredient.image}`}
                     alt={ingredient.name}
                   />

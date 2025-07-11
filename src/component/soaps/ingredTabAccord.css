@@ -99,6 +99,12 @@ h2.details {
   border-radius: 50%;
 }
 
+.squareImg {
+  width: 200px;
+  height: 200px;
+  border-radius: 10%;
+}
+
 li.disc {
   list-style-type:disc;
 }
