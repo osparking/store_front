@@ -1,5 +1,5 @@
 ol > li, .endItem {
-  font-size: 18pt;
+  font-size: 16pt;
 }
 
 .stepInfo, tr, td {  
@@ -50,13 +50,15 @@ tbody td.INFO {
 }
 
 ul {
-  font-size: 0.8em;
+  font-size: 0.9em;
   color: darkgreen;
 }
 
 ol > li {
   margin-top: 1em;
   margin-bottom: .7em;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 li img {
