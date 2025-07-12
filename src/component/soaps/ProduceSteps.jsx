@@ -22,6 +22,11 @@ const ProduceSteps = () => {
     setShowHalfSolid(!showHalfSolid);
   };
 
+  const [showCutSteps, setShowCutSteps] = useState(false);
+  const toggleCutSteps = () => {
+    setShowCutSteps(!showCutSteps);
+  };  
+
   const imageRoot = "/src/assets/images/ingred";
 
   return (
@@ -307,6 +312,24 @@ const ProduceSteps = () => {
                   <li>사용했던 수건 등의 천류를 세탁한다</li>
                   <li>충분한 분량(800g 이상)의 얼음 제조를 시작한다.</li>
                 </ul>
+              </li>
+              <li>
+                약 2일 후, 낱개 비누를 잘라낸다
+                {showCutSteps ? (
+                  <div>
+                    <button
+                      className="toggleButton sans"
+                      onClick={toggleCutSteps}
+                    >
+                      [비누 낱개화 절차 {showCutSteps ? "숨김" : ""}]
+                    </button>
+                  </div>
+                ) : (
+                  <br />
+                )}
+                <button className="toggleButton sans" onClick={toggleCutSteps}>
+                  [비누 낱개화 절차 {showCutSteps ? "숨김" : ""}]
+                </button>
               </li>              
             </ol>
           </div>
