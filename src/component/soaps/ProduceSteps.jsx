@@ -73,6 +73,30 @@ const ProduceSteps = () => {
                   <li>내화학 장갑</li>
                 </ul>
               </li>
+              <li>
+                다음 비누 제조 도구를 확인한다.
+                {showDeviceList ? (
+                  <div id="deviceList">
+                    <button
+                      className="toggleButton sans"
+                      onClick={toggleDeviceList}
+                    >
+                      [비누 제조 도구 목록 {showDeviceList ? "숨김" : ""}]
+                    </button>
+                    <ul>
+                      <li>핸드 믹서 - 회전부 분리 가능</li>
+                    </ul>
+                  </div>
+                ) : (
+                  <br />
+                )}
+                <button
+                  className="toggleButton sans"
+                  onClick={toggleDeviceList}
+                >
+                  [비누 제조 도구 목록 {showDeviceList ? "숨김" : ""}]
+                </button>
+              </li>
             </ol>
           </div>
         </Col>
