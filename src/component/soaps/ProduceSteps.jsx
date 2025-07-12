@@ -164,7 +164,26 @@ const ProduceSteps = () => {
                 >
                   [네 가지 재료 목록 {showFourIngred ? "숨김" : ""}]
                 </button>
-              </li>              
+              </li>
+              <li>
+                올리브유를 증탕 방식으로 가열하기 시작한다
+                <ul>
+                  <li>가열 목표: 45℃ - 약 10분 소요</li>
+                </ul>
+              </li>
+              <li>
+                다음 두 가지 재료를 계량한다.
+                <ul>
+                  <li>정제수 - 526g</li>
+                  <li>
+                    가성소다 - 588g
+                    <br />
+                    * 올리브유 대 가성소다: 0.133
+                    <br />
+                    <a href="#ingTable">근거 테이블</a>
+                  </li>
+                </ul>
+              </li>                            
             </ol>
           </div>
         </Col>
