@@ -31,3 +31,44 @@ img.ingredTabImg {
   border: none;
   box-shadow: 3px 3px;
 }
+
+thead > th {
+  width: 100%;
+}
+
+td.WARNING, span.WARNING {
+  color: red;
+}
+
+tbody td.INFO {
+  color: black;
+}
+
+.toggleButton {
+  font-size: 0.8em;
+  background-color: rgb(137, 197, 47, 0.1);
+}
+
+.sans {
+  font-family: "Noto sans KR", Cambria, Cochin, Georgia, Times;   
+}
+
+ol ul {
+  font-size: 0.9em;
+  color: darkgreen;
+}
+
+ol > li {
+  margin-top: 1em;
+  margin-bottom: .7em;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+li img {
+  border-radius: 10px;
+}
+
+.stepInfo, tr {  
+  width: 100%;
+}
