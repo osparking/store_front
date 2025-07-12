@@ -33,7 +33,12 @@ const ProduceSteps = () => {
     <Container fluid className="home-container mt-5">
       <Row className="justify-content-center allIngred mt-3">
         <Col md={8}>
-          <table className="stepInfo mt-5">
+          <h2 className="ps-0 m-4"><strong>제조 절차</strong></h2>
+        </Col>
+      </Row>
+      <Row className="justify-content-center allIngred ">
+        <Col md={8}>
+          <table className="stepInfo mt-3">
             <thead>
               <tr>
                 <td className="WARNING h4">경고</td>
@@ -81,7 +86,6 @@ const ProduceSteps = () => {
       <Row className="justify-content-center allIngred pt-3 mb-5">
         <Col md={8}>
           <div>
-            <h2 className="ps-0 m-4">제조 절차</h2>
             <ol>
               <li>
                 작업자는 다음 의복류를 착용한다.
@@ -338,7 +342,7 @@ const ProduceSteps = () => {
                         두 번째 비누의 무게가 122~128g 인지 확인하고 두께를
                         조절하여 자른다.
                       </li>
-                    </ul>                    
+                    </ul>
                   </div>
                 ) : (
                   <br />
@@ -346,10 +350,10 @@ const ProduceSteps = () => {
                 <button className="toggleButton sans" onClick={toggleCutSteps}>
                   [비누 낱개화 절차 {showCutSteps ? "숨김" : ""}]
                 </button>
-              </li>              
+              </li>
             </ol>
             <hr className="mt-3" />
-            <p className="endItem mb-5">끝</p>            
+            <p className="endItem mb-5">끝</p>
           </div>
         </Col>
       </Row>
