@@ -23,3 +23,11 @@ td {
   padding: 0.5em;
   text-align: center;
 }
+
+img.ingredTabImg {
+  width: 399px;
+  height: 232px;
+  border-radius: 3px;
+  border: none;
+  box-shadow: 3px 3px;
+}

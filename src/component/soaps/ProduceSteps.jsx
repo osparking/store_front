@@ -9,6 +9,8 @@ const ProduceSteps = () => {
     setShowDeviceList(!showDeviceList);
   };
 
+  const imageRoot = "/src/assets/images/ingred";
+
   return (
     <Container fluid className="home-container mt-5">
       <Row className="justify-content-center allIngred mt-3">
@@ -122,6 +124,19 @@ const ProduceSteps = () => {
                 올리브유 증탕용 물을 가열하기 시작한다
                 <ul>
                   <li>30L 스탠 다라이, 물 15kg, 알람 온도계 사용</li>
+                </ul>
+              </li>
+              <li>
+                다음 네 가지 재료를 계량한다.
+                <ul>
+                  <li className="noBullet stress">
+                    ※근거 테이블: <br />
+                    <img
+                      className="ms-3 mt-2 mb-3 ingredTabImg"
+                      src={`${imageRoot}/soap-6-ingred.png`}
+                      alt="재료 중량 표"
+                    />
+                  </li>
                 </ul>
               </li>              
             </ol>
