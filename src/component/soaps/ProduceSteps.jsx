@@ -118,6 +118,12 @@ const ProduceSteps = () => {
                   [비누 제조 도구 목록 {showDeviceList ? "숨김" : ""}]
                 </button>
               </li>
+              <li id="ingTable">
+                올리브유 증탕용 물을 가열하기 시작한다
+                <ul>
+                  <li>30L 스탠 다라이, 물 15kg, 알람 온도계 사용</li>
+                </ul>
+              </li>              
             </ol>
           </div>
         </Col>
