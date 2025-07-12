@@ -351,6 +351,13 @@ const ProduceSteps = () => {
                   [비누 낱개화 절차 {showCutSteps ? "숨김" : ""}]
                 </button>
               </li>
+              <li>
+                낱개 비누를 건조대에 펼쳐놓고 5 주간 건조시킨다.
+                <ul>
+                  <li>건조된 비누를 1차 비닐 포장한다</li>
+                  <li>건조 종료일을 제품 제조일로 부여한다</li>
+                </ul>
+              </li>
             </ol>
             <hr className="mt-3" />
             <p className="endItem mb-5">끝</p>
