@@ -13,6 +13,11 @@ const ProduceSteps = () => {
     setShowFourIngred(!showFourIngred);
   };
 
+  const [showSodaWater, setShowSodaWater] = useState(false);
+  const toggleSodaWater = () => {
+    setShowSodaWater(!showSodaWater);
+  };  
+
   const imageRoot = "/src/assets/images/ingred";
 
   return (
@@ -183,7 +188,25 @@ const ProduceSteps = () => {
                     <a href="#ingTable">근거 테이블</a>
                   </li>
                 </ul>
-              </li>                            
+              </li>
+              <li>
+                다음 절차로 가성소다수를 만든다.
+                {showSodaWater ? (
+                  <div>
+                    <button
+                      className="toggleButton sans"
+                      onClick={toggleSodaWater}
+                    >
+                      [가성소다수 제조 절차 {showSodaWater ? "숨김" : ""}]
+                    </button>
+                  </div>
+                ) : (
+                  <br />
+                )}
+                <button className="toggleButton sans" onClick={toggleSodaWater}>
+                  [가성소다수 제조 절차 {showSodaWater ? "숨김" : ""}]
+                </button>
+              </li>              
             </ol>
           </div>
         </Col>
