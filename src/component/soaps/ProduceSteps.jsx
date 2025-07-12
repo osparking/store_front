@@ -29,6 +29,29 @@ const ProduceSteps = () => {
           </table>
         </Col>
       </Row>
+      <Row className="justify-content-center allIngred">
+        <Col md={8}>
+          <table className="stepInfo mt-5">
+            <thead>
+              <tr>
+                <td className="INFO h4">적용 범위</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="INFO">
+                  <div className="ms-2 me-2">
+                    여기서 설명하는 것은 범이비누 104 개를 48 시간 주기로
+                    제조하는 절차이다. <span className="WARNING">주의,</span> 3
+                    ~ 11 단계는 비누의 어성초 및 율무씨 분말 층에 대하여 반복
+                    수행한다.
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </Col>
+      </Row>
     </Container>
   );
 };
