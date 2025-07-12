@@ -16,7 +16,7 @@ const ProduceSteps = () => {
   const [showSodaWater, setShowSodaWater] = useState(false);
   const toggleSodaWater = () => {
     setShowSodaWater(!showSodaWater);
-  };  
+  };
 
   const imageRoot = "/src/assets/images/ingred";
 
@@ -199,6 +199,24 @@ const ProduceSteps = () => {
                     >
                       [가성소다수 제조 절차 {showSodaWater ? "숨김" : ""}]
                     </button>
+                    <ul>
+                      <li>2L 비이커에 정제수 얼음물 제조 - 총량 1,326g</li>
+                      <li>발생 가스의 실외 배출을 위해 선풍기 가동</li>
+                      <li>
+                        비이커에 가성소다를 조금씩 추가하며 스텐 거품기로 혼합
+                        <br />
+                        (가성소다 증기의{" "}
+                        <span className="WARNING">독성은 구토를 유발</span>할 수
+                        있으니 주의할 것)
+                      </li>
+                      <li>
+                        가성소다수 온도가 45℃ 이상일 것이므로, 45℃ 로 식고,
+                        투명해질 때까지 대기 - 약 10분 소요
+                        <br />(
+                        <span className="WARNING">가성소다수는 독극물</span>
+                        이므로 취급에 주의할 것.)
+                      </li>
+                    </ul>
                   </div>
                 ) : (
                   <br />
@@ -206,7 +224,7 @@ const ProduceSteps = () => {
                 <button className="toggleButton sans" onClick={toggleSodaWater}>
                   [가성소다수 제조 절차 {showSodaWater ? "숨김" : ""}]
                 </button>
-              </li>              
+              </li>
             </ol>
           </div>
         </Col>
