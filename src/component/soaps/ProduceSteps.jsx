@@ -1,8 +1,14 @@
 import { Col, Container, Row } from "react-bootstrap";
 import "../../index.css";
 import "./produceSteps.css";
+import { useState } from "react";
 
 const ProduceSteps = () => {
+  const [showDeviceList, setShowDeviceList] = useState(false);
+  const toggleDeviceList = () => {
+    setShowDeviceList(!showDeviceList);
+  };
+
   return (
     <Container fluid className="home-container mt-5">
       <Row className="justify-content-center allIngred mt-3">
