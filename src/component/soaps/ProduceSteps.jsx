@@ -17,6 +17,10 @@ const ProduceSteps = () => {
   const toggleSodaWater = () => {
     setShowSodaWater(!showSodaWater);
   };
+  const [showHalfSolid, setShowHalfSolid] = useState(false);
+  const toggleHalfSolid = () => {
+    setShowHalfSolid(!showHalfSolid);
+  };
 
   const imageRoot = "/src/assets/images/ingred";
 
@@ -234,6 +238,24 @@ const ProduceSteps = () => {
                     거름망을 통하여 가성소다수를 아주 천천히 흘려 보낸다.
                   </li>
                 </ul>
+              </li>
+              <li>
+                혼합액을 다음 방법으로 반 고체화한다
+                {showHalfSolid ? (
+                  <div>
+                    <button
+                      className="toggleButton sans"
+                      onClick={toggleHalfSolid}
+                    >
+                      [혼합액 반 고체화 절차 {showHalfSolid ? "숨김" : ""}]
+                    </button>
+                  </div>
+                ) : (
+                  <br />
+                )}
+                <button className="toggleButton sans" onClick={toggleHalfSolid}>
+                  [혼합액 반 고체화 절차 {showHalfSolid ? "숨김" : ""}]
+                </button>
               </li>              
             </ol>
           </div>
