@@ -52,6 +52,25 @@ const ProduceSteps = () => {
           </table>
         </Col>
       </Row>
+      <Row className="justify-content-center allIngred pt-3 mb-5">
+        <Col md={8}>
+          <div>
+            <h2 className="ps-0 m-4">제조 절차</h2>
+            <ol>
+              <li>
+                작업자는 다음 의복류를 착용한다.
+                <ul>
+                  <li>피부 노출을 막는 상ᐧ하의</li>
+                  <li>작업용 내화학(비닐류) 앞치마</li>
+                  <li>상의 소매 보호용 양팔용 토시</li>
+                  <li>안면 보호 마스크</li>
+                  <li>내화학 장갑</li>
+                </ul>
+              </li>
+            </ol>
+          </div>
+        </Col>
+      </Row>
     </Container>
   );
 };
