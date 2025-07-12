@@ -103,3 +103,9 @@ h2.details {
 li.disc {
   list-style-type:disc;
 }
+
+.squareImg {
+  width: 200px;
+  height: 200px;
+  border-radius: 10%;
+}
