@@ -94,7 +94,7 @@ const IngredTabAccord = ({ ingAllData, keepOthersOpen }) => {
               <Col xs={5} className="justify-content-center">
                 <div className="justify-content-center d-flex align-items-center">
                   <img
-                    className="circleImg"
+                    className={ingredient.id === 2 ? "squareImg" : "circleImg"}
                     src={`${imageRoot}/${ingredient.image}`}
                     alt={ingredient.name}
                   />
@@ -113,12 +113,12 @@ const IngredTabAccord = ({ ingAllData, keepOthersOpen }) => {
   return (
     <Table striped hover className="mt-0">
       <thead>
-        <tr>
-          <th className="text-center">#</th>
-          <th className="text-center">재료명</th>
-          <th className="text-center">중량(g)</th>
-          <th className="text-center">함유비(%)</th>
-          <th className="text-center">비고/효능</th>
+        <tr className="text-center">
+          <th>#</th>
+          <th>재료명</th>
+          <th>중량(g)</th>
+          <th>함유비(%)</th>
+          <th>비고/효능</th>
         </tr>
       </thead>
       <tbody className="accordion-parent">{ingAllRows}</tbody>
