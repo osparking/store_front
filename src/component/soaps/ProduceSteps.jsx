@@ -276,7 +276,18 @@ const ProduceSteps = () => {
                 <button className="toggleButton sans" onClick={toggleHalfSolid}>
                   [혼합액 반 고체화 절차 {showHalfSolid ? "숨김" : ""}]
                 </button>
-              </li>              
+              </li>
+              <li>
+                천연 분말을 비누 원액에 섞는다
+                <ul>
+                  <li>
+                    혼합액을 조금(어성초 층 - 150g, 율무씨 층 - 130g)
+                    작은(0.5L)스탠 비이커에 소분한다. <br />
+                  </li>
+                  <li>천연 분말을 작은 비이커에 넣고 잘 푼다.</li>
+                  <li>비이커 내용물을 전체 혼합액에 넣고 완전히 섞는다.</li>
+                </ul>
+              </li>
             </ol>
           </div>
         </Col>
