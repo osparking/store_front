@@ -348,6 +348,8 @@ const ProduceSteps = () => {
                 </button>
               </li>              
             </ol>
+            <hr className="mt-3" />
+            <p className="endItem mb-5">끝</p>            
           </div>
         </Col>
       </Row>
