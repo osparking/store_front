@@ -150,6 +150,12 @@ const ProduceSteps = () => {
                     >
                       [네 가지 재료 목록 {showFourIngred ? "숨김" : ""}]
                     </button>
+                    <ul>
+                      <li>올리브 오일 - 4,420g (10L 스탠 다라이)</li>
+                      <li>어성초 분말 - 59g</li>
+                      <li>율무씨 분말 - 59g</li>
+                      <li>비자나무 향오일 - 177g</li>
+                    </ul>
                   </div>
                 )}
                 <button
@@ -158,8 +164,7 @@ const ProduceSteps = () => {
                 >
                   [네 가지 재료 목록 {showFourIngred ? "숨김" : ""}]
                 </button>
-              </li>
-              
+              </li>              
             </ol>
           </div>
         </Col>
