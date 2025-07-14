@@ -101,6 +101,7 @@ h2.details {
 
 li.disc {
   list-style-type:disc;
+  text-align: start;
 }
 
 .squareImg {
