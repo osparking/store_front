@@ -1,5 +1,3 @@
-import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
-import "./carousel.css";
 import { useState } from "react";
 import { Figure } from "react-bootstrap";
 import "./carousel.css";
@@ -16,13 +14,9 @@ const Carousel = ({ images, bgColor, selColor, disColor }) => {
             className={slide === idx ? "carousel" : "carousel slide-hidden"}
             key={idx}
           >
-            <BsArrowLeftCircleFill
-              className="arrow arrow-left"
-              style={{ color: selColor }}
-            />            
-            <Figure>
+            <Figure className="mb-0">
               <Figure.Image
-                style={{ backgroundColor: bgColor }}              
+                style={{ backgroundColor: bgColor }}
                 src={`${imageRoot}/${soap.image}`}
                 alt={soap.name}
                 className="slide"
@@ -46,10 +40,6 @@ const Carousel = ({ images, bgColor, selColor, disColor }) => {
                 })}
               </span>
             </Figure>
-            <BsArrowRightCircleFill
-              className="arrow arrow-right"
-              style={{ color: selColor }}
-            />            
           </div>
         );
       })}
