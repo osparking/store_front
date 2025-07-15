@@ -5,6 +5,7 @@ import Ingredient from "./Ingredient";
 import "./soapIntro.css";
 import ProduceSteps from "./ProduceSteps";
 import { useState } from "react";
+import BumShapes from "./BumShapes";
 
 const SoapIntro = () => {
   const handleSoapIntroTabSelect = (key) => {
@@ -36,7 +37,9 @@ const SoapIntro = () => {
         <Tab
           eventKey="shapes"
           title={<h5 className="tabLabel">외형 종류</h5>}
-        ></Tab>
+        >
+          <BumShapes />
+        </Tab>
       </Tabs>
     </Container>
   );
