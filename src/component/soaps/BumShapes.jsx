@@ -2,9 +2,12 @@ import { Col, Container, Row } from "react-bootstrap";
 import "./bumShapes.css";
 import { soapImages } from "./soapImages.js";
 import Carousel from "./Carousel";
+import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
+import "./bumShapes.css";
 
 const BumShapes = () => {
   const normalSoaps = soapImages.filter((soap) => soap.shape === "normal");
+  const selColor = "#d9c1a6";
 
   return (
     <Container fluid className="home-container mt-5">
@@ -60,7 +63,9 @@ const BumShapes = () => {
             <tbody>
               <tr>
                 <td>
-                  <strong><a href="#normal-soap">보통비누</a></strong>
+                  <strong>
+                    <a href="#normal-soap">보통비누</a>
+                  </strong>
                 </td>
                 <td>기본형</td>
                 <td></td>
@@ -89,16 +94,24 @@ const BumShapes = () => {
             <strong>보통비누</strong>
           </h2>
           <div className="carousel-container">
+            <BsArrowLeftCircleFill
+              className="arrow arrow-left"
+              style={{ color: selColor }}
+            />
             <Carousel
               images={normalSoaps}
               bgColor="#263e59"
-              selColor="#d9c1a6"
-              disColor="#6199daff"              
+              selColor= {selColor} 
+              disColor="#6199daff"
               className="mt-5"
+            />
+            <BsArrowRightCircleFill
+              className="arrow arrow-right"
+              style={{ color: selColor }}
             />
           </div>
         </Col>
-      </Row>      
+      </Row>
     </Container>
   );
 };
