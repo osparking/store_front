@@ -106,18 +106,51 @@ const BumShapes = () => {
             <BsArrowLeftCircleFill
               className="arrow arrow-left"
               style={{ color: selColor }}
+              onClick={prevSlide}
             />
-            <Carousel
-              images={normalSoaps}
-              bgColor="#263e59"
-              selColor= {selColor} 
-              disColor="#6199daff"
-              className="mt-5"
-            />
+            {normalSoaps.map((soap, idx) => {
+              return (
+                <div
+                  className={
+                    slide === idx ? "carousel" : "carousel slide-hidden"
+                  }
+                  key={idx}
+                >
+                  <Figure className="mb-0">
+                    <Figure.Image
+                      style={{ backgroundColor: "#263e59" }}
+                      src={`${imageRoot}/${soap.image}`}
+                      alt={soap.name}
+                      className="slide"
+                    />
+                  </Figure>
+                </div>
+              );
+            })}
+
             <BsArrowRightCircleFill
               className="arrow arrow-right"
               style={{ color: selColor }}
+              onClick={nextSlide}
             />
+            <span className="indicators">
+              {normalSoaps.map((_, idx) => {
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => setSlide(idx)}
+                    className={
+                      slide === idx
+                        ? "indicator"
+                        : "indicator indicator-inactive"
+                    }
+                    style={{
+                      backgroundColor: slide === idx ? selColor : "#6199daff",
+                    }}
+                  />
+                );
+              })}
+            </span>
           </div>
         </Col>
       </Row>
