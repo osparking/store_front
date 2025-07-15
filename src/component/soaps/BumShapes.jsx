@@ -60,7 +60,7 @@ const BumShapes = () => {
             <tbody>
               <tr>
                 <td>
-                  <strong>보통비누</strong>
+                  <strong><a href="#normal-soap">보통비누</a></strong>
                 </td>
                 <td>기본형</td>
                 <td></td>
@@ -91,6 +91,9 @@ const BumShapes = () => {
           <div className="carousel-container">
             <Carousel
               images={normalSoaps}
+              bgColor="#263e59"
+              selColor="#d9c1a6"
+              disColor="#6199daff"              
               className="mt-5"
             />
           </div>
