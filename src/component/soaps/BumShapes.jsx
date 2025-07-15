@@ -1,7 +1,11 @@
 import { Col, Container, Row } from "react-bootstrap";
 import "./bumShapes.css";
+import { soapImages } from "./soapImages.js";
+import Carousel from "./Carousel";
 
 const BumShapes = () => {
+  const normalSoaps = soapImages.filter((soap) => soap.shape === "normal");
+
   return (
     <Container fluid className="home-container mt-5">
       <Row className="justify-content-center allIngred mt-3">
@@ -79,6 +83,19 @@ const BumShapes = () => {
           </table>
         </Col>
       </Row>
+      <Row className="justify-content-center allIngred pt-3 mb-5">
+        <Col md={8}>
+          <h2 className="ps-0" id="normal-soap">
+            <strong>보통비누</strong>
+          </h2>
+          <div className="carousel-container">
+            <Carousel
+              images={normalSoaps}
+              className="mt-5"
+            />
+          </div>
+        </Col>
+      </Row>      
     </Container>
   );
 };
