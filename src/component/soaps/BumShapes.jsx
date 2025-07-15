@@ -1,13 +1,22 @@
-import { Col, Container, Row } from "react-bootstrap";
-import "./bumShapes.css";
-import { soapImages } from "./soapImages.js";
-import Carousel from "./Carousel";
+import { useState } from "react";
+import { Col, Container, Figure, Row } from "react-bootstrap";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 import "./bumShapes.css";
+import { soapImages } from "./soapImages.js";
 
 const BumShapes = () => {
   const normalSoaps = soapImages.filter((soap) => soap.shape === "normal");
   const selColor = "#d9c1a6";
+  const [slide, setSlide] = useState(0);
+  const imageRoot = "/src/assets/images/soap";
+
+  const nextSlide = () => {
+    setSlide((slide + 1) % normalSoaps.length);
+  };
+
+  const prevSlide = () => {
+    setSlide((slide - 1 + normalSoaps.length) % normalSoaps.length);
+  };
 
   return (
     <Container fluid className="home-container mt-5">
