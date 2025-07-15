@@ -20,6 +20,24 @@ const Carousel = ({ images }) => {
                 alt={soap.name}
                 className="slide"
               />
+              <span className="indicators">
+                {images.map((_, idx) => {
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => setSlide(idx)}
+                      className={
+                        slide === idx
+                          ? "indicator"
+                          : "indicator indicator-inactive"
+                      }
+                      style={{
+                        backgroundColor: slide === idx ? "red" : "black",
+                      }}
+                    />
+                  );
+                })}
+              </span>
             </Figure>
           </div>
         );
