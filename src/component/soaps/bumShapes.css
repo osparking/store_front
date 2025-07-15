@@ -39,3 +39,52 @@ ul li {
 .arrow-right {
   right: 4rem;
 }
+
+.carousel-container {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.carousel {
+  position:relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide-hidden {
+  display: none;
+}
+
+.slide {
+  border-radius: 0.5rem;
+  box-shadow: 0 0 7px #666;
+  width: 500px;
+  height: 500px;
+}
+
+.indicators {
+  display: flex;
+  position: absolute;
+  bottom: 1rem;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.indicator {
+  background-color: rgb(49, 14, 105);
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  box-shadow: 0 0 5px #555;
+  margin: 0 0.2rem;
+  cursor: pointer;
+}
+
+.indicator-inactive {
+  background-color: grey;
+}
