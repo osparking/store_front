@@ -14,3 +14,28 @@ ul.billiard li::marker {
 ul li {
   margin-top: 1em;
 }
+
+.arrow {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  color: saddlebrown;
+}
+
+.arrow:hover {
+  cursor: pointer;
+}
+
+.arrow-left, .arrow-right {
+  z-index: 1;
+  top: 50%;
+  margin-top: -25px;
+}
+
+.arrow-left {
+  left: 4rem;
+}
+
+.arrow-right {
+  right: 4rem;
+}
