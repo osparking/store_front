@@ -1,5 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap";
-import "./bumShapes.css"
+import "./bumShapes.css";
 
 const BumShapes = () => {
   return (
@@ -54,10 +54,31 @@ const BumShapes = () => {
               </tr>
             </thead>
             <tbody>
+              <tr>
+                <td>
+                  <strong>보통비누</strong>
+                </td>
+                <td>기본형</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>백설공주</strong>
+                </td>
+                <td>기본형</td>
+                <td>생성</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>메주비누</strong>
+                </td>
+                <td>변경형</td>
+                <td></td>
+              </tr>
             </tbody>
           </table>
         </Col>
-      </Row>      
+      </Row>
     </Container>
   );
 };
