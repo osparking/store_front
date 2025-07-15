@@ -1,4 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap";
+import "./bumShapes.css"
 
 const BumShapes = () => {
   return (
@@ -29,6 +30,34 @@ const BumShapes = () => {
           </ul>
         </Col>
       </Row>
+      <Row className="justify-content-center allIngred ">
+        <Col md={8}>
+          <table className="stepInfo mt-3">
+            <caption>
+              <ul className="billiard ms-3">
+                <li className="mt-0">
+                  <strong>
+                    <small>
+                      변경형 향오일 비누에 소다회가 끼는 현상은 거의 없었습니다.
+                      이는 변경 향오일이 숙성 중의 비누 온도를 다소 높여주는
+                      것이 원인일 거라고 추정합니다.
+                    </small>
+                  </strong>
+                </li>
+              </ul>
+            </caption>
+            <thead>
+              <tr>
+                <th className="">구분</th>
+                <th className="">비자나무 향오일</th>
+                <th className="">소다회 생성 여부</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </Col>
+      </Row>      
     </Container>
   );
 };
