@@ -1,0 +1,16 @@
+caption {
+  color: hotpink;
+}
+
+ul.billiard {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul.billiard li::marker {
+  content: "\203B";
+}
+
+ul li {
+  margin-top: 1em;
+}
