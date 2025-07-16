@@ -118,7 +118,7 @@ const BumShapes = () => {
           <div className="carousel-container">
             <BsArrowLeftCircleFill
               className="arrow arrow-left"
-              style={{ color: selColor }}
+              style={arrowStyle}
               onClick={prevSlide}
             />
             {normalSoaps.map((soap, idx) => {
@@ -139,7 +139,7 @@ const BumShapes = () => {
 
             <BsArrowRightCircleFill
               className="arrow arrow-right"
-              style={{ color: selColor }}
+              style={arrowStyle}
               onClick={nextSlide}
             />
             <span className="indicators">
@@ -167,7 +167,7 @@ const BumShapes = () => {
                 <strong>{normalSoaps[slide].desc}</strong>
               </Figure.Caption>
             </Figure>
-          </div>          
+          </div>
         </Col>
       </Row>
     </Container>
