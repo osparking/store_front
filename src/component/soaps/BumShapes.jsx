@@ -18,6 +18,8 @@ const BumShapes = () => {
     setSlide((slide - 1 + normalSoaps.length) % normalSoaps.length);
   };
 
+  const imgWidth = 500;
+
   return (
     <Container fluid className="home-container mt-5">
       <Row className="justify-content-center allIngred mt-3">
@@ -110,21 +112,17 @@ const BumShapes = () => {
             />
             {normalSoaps.map((soap, idx) => {
               return (
-                <div
-                  className={
-                    slide === idx ? "carousel" : "carousel slide-hidden"
-                  }
+                <img
                   key={idx}
-                >
-                  <Figure className="mb-0">
-                    <Figure.Image
-                      style={{ backgroundColor: "#263e59" }}
-                      src={`${imageRoot}/${soap.image}`}
-                      alt={soap.name}
-                      className="slide"
-                    />
-                  </Figure>
-                </div>
+                  style={{ backgroundColor: "#263e59", width: imgWidth }}
+                  src={`${imageRoot}/${soap.image}`}
+                  alt={soap.name}
+                  className={
+                    slide === idx
+                      ? "slide carousel"
+                      : "slide carousel slide-hidden"
+                  }
+                />
               );
             })}
 
