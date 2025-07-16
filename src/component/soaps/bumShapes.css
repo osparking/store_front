@@ -20,11 +20,11 @@ ul li {
 }
 
 .arrow-left {
-  left: 4rem;
+  left: .3rem;
 }
 
 .arrow-right {
-  right: 4rem;
+  right: .3rem;
 }
 
 .carousel-container {
@@ -39,6 +39,8 @@ ul li {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 500px;
+  height: 500px;
 }
 
 .slide-hidden {
