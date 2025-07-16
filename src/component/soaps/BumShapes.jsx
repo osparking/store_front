@@ -12,7 +12,6 @@ const BumShapes = () => {
   const arrowSz = 1.8; // in rem
 
   const arrowStyle = {
-    position: "absolute",
     color: selColor,
     width: `${arrowSz}rem`,
     height: `${arrowSz}rem`,
@@ -21,7 +20,15 @@ const BumShapes = () => {
     top: "50%",
   };
 
-  const buttonStyle = {};
+  const buttonStyle = {
+    position: "absolute",
+    marginTop: `${-(arrowSz / 2)}rem`,
+    zIndex: "1",
+    top: "50%",
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+  };
 
   const [arrowDisabled, setArrowDisabled] = useState(false);
 
