@@ -150,6 +150,13 @@ const BumShapes = () => {
               })}
             </span>
           </div>
+          <div className="imgCapDiv">
+            <Figure className="mt-3">
+              <Figure.Caption style={{ width: imgWidth }} className="soapCap">
+                <strong>{normalSoaps[slide].desc}</strong>
+              </Figure.Caption>
+            </Figure>
+          </div>          
         </Col>
       </Row>
     </Container>
