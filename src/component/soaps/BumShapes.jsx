@@ -11,15 +11,6 @@ const BumShapes = () => {
   const imageRoot = "/src/assets/images/soap";
   const arrowSz = 1.8; // in rem
 
-  const arrowStyle = {
-    color: selColor,
-    width: `${arrowSz}rem`,
-    height: `${arrowSz}rem`,
-    marginTop: `${-(arrowSz / 2)}rem`,
-    zIndex: "1",
-    top: "50%",
-  };
-
   const buttonStyle = {
     position: "absolute",
     marginTop: `${-(arrowSz / 2)}rem`,
@@ -28,6 +19,11 @@ const BumShapes = () => {
     background: "none",
     border: "none",
     cursor: "pointer",
+    fontSize: `${arrowSz}rem`,
+  };
+
+  const arrowStyle = {
+    color: selColor,
   };
 
   const [arrowDisabled, setArrowDisabled] = useState(false);
@@ -138,7 +134,7 @@ const BumShapes = () => {
           <div className="carousel-container">
             <div className="carousel">
               <button
-                className="arrow arrow-left"
+                className="button button-left"
                 style={buttonStyle}
                 onClick={() => nextSlide("L")}
                 disabled={arrowDisabled}
@@ -161,7 +157,7 @@ const BumShapes = () => {
                 );
               })}
               <button
-                className="arrow arrow-right"
+                className="button button-right"
                 style={buttonStyle}
                 onClick={() => nextSlide("R")}
                 disabled={arrowDisabled}
