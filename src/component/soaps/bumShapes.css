@@ -88,3 +88,18 @@ ul li {
 .indicator-inactive {
   background-color: grey;
 }
+
+.imgCapDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: .1rem;
+}
+
+figcaption.soapCap {
+  color: saddlebrown;
+  height: 100px;
+  text-align: justify;
+  text-justify: inter-word;
+  border: 1px dashed rgb(221, 175, 175)
+}
