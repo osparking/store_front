@@ -21,8 +21,7 @@ const BumShapes = () => {
     top: "50%",
   };
 
-  const buttonStyle = {
-  }
+  const buttonStyle = {};
 
   const [arrowDisabled, setArrowDisabled] = useState(false);
 
@@ -154,11 +153,14 @@ const BumShapes = () => {
                   />
                 );
               })}
-              <BsArrowRightCircleFill
+              <button
                 className="arrow arrow-right"
-                style={arrowStyle}
+                style={buttonStyle}
                 onClick={() => nextSlide("R")}
-              />
+                disabled={arrowDisabled}
+              >
+                <BsArrowRightCircleFill style={arrowStyle} />
+              </button>
               <span className="indicators">
                 {normalSoaps.map((_, idx) => {
                   return (
