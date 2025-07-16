@@ -99,7 +99,7 @@ const BumShapes = () => {
       </Row>
       <Row className="justify-content-center allIngred pt-3 mb-5">
         <Col md={8}>
-          <h2 className="ps-0" id="normal-soap">
+          <h2 className="ps-0 mb-4" id="normal-soap">
             <strong>보통비누</strong>
           </h2>
           <div className="carousel-container">
