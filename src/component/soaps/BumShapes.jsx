@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Col, Container, Figure, Row } from "react-bootstrap";
+import { Button, Col, Container, Figure, Row } from "react-bootstrap";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 import "./bumShapes.css";
 import { soapImages } from "./soapImages.js";
@@ -12,21 +12,38 @@ const BumShapes = () => {
   const arrowSz = 1.8; // in rem
 
   const arrowStyle = {
-    position: 'absolute',
     color: selColor,
     width: `${arrowSz}rem`,
     height: `${arrowSz}rem`,
+  };
+
+  const buttonStyle = {
+    position: "absolute",
     marginTop: `${-(arrowSz / 2)}rem`,
-    zIndex: '1',
-    top: '50%',
+    zIndex: "1",
+    top: "50%",
+    background: "none",
+    border: "none",
+    cursor: "pointer",
   };
 
-  const nextSlide = () => {
-    setSlide((slide + 1) % normalSoaps.length);
-  };
+  const [arrowDisabled, setArrowDisabled] = useState(false);
 
-  const prevSlide = () => {
-    setSlide((slide - 1 + normalSoaps.length) % normalSoaps.length);
+  const nextSlide = (lOrR) => {
+    if (arrowDisabled) {
+      return;
+    }
+    let newSlide = -1;
+    if (lOrR === "R") {
+      newSlide = (slide + 1) % normalSoaps.length;
+    } else {
+      newSlide = (slide - 1 + normalSoaps.length) % normalSoaps.length;
+    }
+    setSlide(newSlide);
+    setArrowDisabled(true); // Disable the arrow
+    setTimeout(() => {
+      setArrowDisabled(false);
+    }, 200);
   };
 
   const imgWidth = 500;
@@ -116,50 +133,57 @@ const BumShapes = () => {
             <strong>보통비누</strong>
           </h2>
           <div className="carousel-container">
-            <BsArrowLeftCircleFill
-              className="arrow arrow-left"
-              style={arrowStyle}
-              onClick={prevSlide}
-            />
-            {normalSoaps.map((soap, idx) => {
-              return (
-                <img
-                  key={idx}
-                  style={{ backgroundColor: "#263e59", width: imgWidth }}
-                  src={`${imageRoot}/${soap.image}`}
-                  alt={soap.name}
-                  className={
-                    slide === idx
-                      ? "slide carousel"
-                      : "slide carousel slide-hidden"
-                  }
-                />
-              );
-            })}
-
-            <BsArrowRightCircleFill
-              className="arrow arrow-right"
-              style={arrowStyle}
-              onClick={nextSlide}
-            />
-            <span className="indicators">
-              {normalSoaps.map((_, idx) => {
+            <div className="carousel">
+              <button
+                className="arrow arrow-left"
+                style={buttonStyle}
+                onClick={() => nextSlide("L")}
+                disabled={arrowDisabled}
+              >
+                <BsArrowLeftCircleFill style={arrowStyle} />
+              </button>
+              {normalSoaps.map((soap, idx) => {
                 return (
-                  <button
+                  <img
                     key={idx}
-                    onClick={() => setSlide(idx)}
+                    style={{ backgroundColor: "#263e59", width: imgWidth }}
+                    src={`${imageRoot}/${soap.image}`}
+                    alt={soap.name}
                     className={
                       slide === idx
-                        ? "indicator"
-                        : "indicator indicator-inactive"
+                        ? "slide carousel"
+                        : "slide carousel slide-hidden"
                     }
-                    style={{
-                      backgroundColor: slide === idx ? selColor : "#6199daff",
-                    }}
                   />
                 );
               })}
-            </span>
+              <button
+                className="arrow arrow-right"
+                style={buttonStyle}
+                onClick={() => nextSlide("R")}
+                disabled={arrowDisabled}
+              >
+                <BsArrowRightCircleFill style={arrowStyle} />
+              </button>
+              <span className="indicators">
+                {normalSoaps.map((_, idx) => {
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => setSlide(idx)}
+                      className={
+                        slide === idx
+                          ? "indicator"
+                          : "indicator indicator-inactive"
+                      }
+                      style={{
+                        backgroundColor: slide === idx ? selColor : "#6199daff",
+                      }}
+                    />
+                  );
+                })}
+              </span>
+            </div>
           </div>
           <div className="imgCapDiv">
             <Figure className="mt-3">
