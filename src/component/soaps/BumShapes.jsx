@@ -9,6 +9,17 @@ const BumShapes = () => {
   const selColor = "#d9c1a6";
   const [slide, setSlide] = useState(0);
   const imageRoot = "/src/assets/images/soap";
+  const arrowSz = 1.8; // in rem
+
+  const arrowStyle = {
+    position: 'absolute',
+    color: selColor,
+    width: `${arrowSz}rem`,
+    height: `${arrowSz}rem`,
+    marginTop: `${-(arrowSz / 2)}rem`,
+    zIndex: '1',
+    top: '50%',
+  };
 
   const nextSlide = () => {
     setSlide((slide + 1) % normalSoaps.length);
