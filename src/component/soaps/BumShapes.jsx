@@ -13,7 +13,7 @@ const BumShapes = () => {
 
   const buttonStyle = {
     position: "absolute",
-    marginTop: `${-(arrowSz / 2)}rem`,
+    marginTop: `${-(arrowSz)}rem`,
     zIndex: "1",
     top: "50%",
     background: "none",

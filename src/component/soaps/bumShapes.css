@@ -19,12 +19,12 @@ ul li {
   cursor: pointer;
 }
 
-.arrow-left {
-  left: .3rem;
+.button-left {
+  left: .1rem;
 }
 
-.arrow-right {
-  right: .3rem;
+.button-right {
+  right: .1rem;
 }
 
 .carousel-container {
