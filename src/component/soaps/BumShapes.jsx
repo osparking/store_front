@@ -45,8 +45,6 @@ const BumShapes = () => {
     }, 200);
   };
 
-  const imgWidth = 500;
-
   return (
     <Container fluid className="home-container mt-5">
       <Row className="justify-content-center allIngred mt-3">
@@ -145,7 +143,7 @@ const BumShapes = () => {
                 return (
                   <img
                     key={idx}
-                    style={{ backgroundColor: "#263e59", width: imgWidth }}
+                    style={{ backgroundColor: "#263e59", width: "100%", height: "auto" }}
                     src={`${imageRoot}/${soap.image}`}
                     alt={soap.name}
                     className={
@@ -186,7 +184,7 @@ const BumShapes = () => {
           </div>
           <div className="imgCapDiv">
             <Figure className="mt-3">
-              <Figure.Caption style={{ width: imgWidth }} className="soapCap">
+              <Figure.Caption  className="soapCap">
                 <strong>{normalSoaps[slide].desc}</strong>
               </Figure.Caption>
             </Figure>
