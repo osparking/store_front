@@ -1,3 +1,9 @@
 .tabLabel {
   font-weight: bold;
+    justify-content: center;
+  align-items: center;
+}
+
+.tabBackgroundThick {
+  background-color: rgb(103, 172, 183);
 }

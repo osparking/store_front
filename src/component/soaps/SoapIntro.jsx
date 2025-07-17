@@ -19,10 +19,11 @@ const SoapIntro = () => {
     <Container fluid className="home-container">
       <Tabs
         defaultActiveKey={currTabKey}
-        className="tabBackground tabHead tabFix contentHolyCentered"
+        className="tabBackgroundThick tabHead tabFix contentHolyCentered"
         onSelect={handleSoapIntroTabSelect}
+        style={{ zIndex: 2 }}
       >
-        <Tab eventKey="effect" title={<h5 className="tabLabel">효능 소개</h5>}>
+        <Tab eventKey="effect" className="abcd" title={<h5 className="tabLabel">효능 소개</h5>}>
           <Effect />
         </Tab>
         <Tab

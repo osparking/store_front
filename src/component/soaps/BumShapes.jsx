@@ -1,49 +1,20 @@
 import { useState } from "react";
-import { Col, Container, Figure, Row } from "react-bootstrap";
-import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
+import { Col, Container, Figure, Row, Tab, Tabs } from "react-bootstrap";
 import "./bumShapes.css";
 import { soapImages } from "./soapImages.js";
+import SoapImages from "./SoapImages.jsx";
 
 const BumShapes = () => {
   const normalSoaps = soapImages.filter((soap) => soap.shape === "normal");
-  const selColor = "#d9c1a6";
-  const [slide, setSlide] = useState(0);
-  const imageRoot = "/src/assets/images/soap";
-  const arrowSz = 1.8; // in rem
+  const sWhiteSoaps = soapImages.filter((soap) => soap.shape === "s-white");
 
-  const buttonStyle = {
-    position: "absolute",
-    marginTop: `${-(arrowSz)}rem`,
-    zIndex: "1",
-    top: "50%",
-    background: "none",
-    border: "none",
-    cursor: "pointer",
-    fontSize: `${arrowSz}rem`,
+  const handleSoapShapeSelect = (key) => {
+    localStorage.setItem("SOAP_INTRO_TAB", key);
   };
 
-  const arrowStyle = {
-    color: selColor,
-  };
-
-  const [arrowDisabled, setArrowDisabled] = useState(false);
-
-  const nextSlide = (lOrR) => {
-    if (arrowDisabled) {
-      return;
-    }
-    let newSlide = -1;
-    if (lOrR === "R") {
-      newSlide = (slide + 1) % normalSoaps.length;
-    } else {
-      newSlide = (slide - 1 + normalSoaps.length) % normalSoaps.length;
-    }
-    setSlide(newSlide);
-    setArrowDisabled(true); // Disable the arrow
-    setTimeout(() => {
-      setArrowDisabled(false);
-    }, 200);
-  };
+  const [currTabKey, setCurrTabKey] = useState(
+    localStorage.getItem("SOAP_SHAPE_TAB") || "normalSoap"
+  );
 
   return (
     <Container fluid className="home-container mt-5">
@@ -124,72 +95,32 @@ const BumShapes = () => {
           </table>
         </Col>
       </Row>
-      <Row className="justify-content-center allIngred pt-3 mb-5">
-        <Col md={8}>
-          <h2 className="ps-0 mb-4" id="normal-soap">
-            <strong>보통비누</strong>
-          </h2>
-          <div className="carousel-container">
-            <div className="carousel">
-              <button
-                className="button button-left"
-                style={buttonStyle}
-                onClick={() => nextSlide("L")}
-                disabled={arrowDisabled}
-              >
-                <BsArrowLeftCircleFill style={arrowStyle} />
-              </button>
-              {normalSoaps.map((soap, idx) => {
-                return (
-                  <img
-                    key={idx}
-                    style={{ backgroundColor: "#263e59", width: "100%", height: "auto" }}
-                    src={`${imageRoot}/${soap.image}`}
-                    alt={soap.name}
-                    className={
-                      slide === idx
-                        ? "slide carousel"
-                        : "slide carousel slide-hidden"
-                    }
-                  />
-                );
-              })}
-              <button
-                className="button button-right"
-                style={buttonStyle}
-                onClick={() => nextSlide("R")}
-                disabled={arrowDisabled}
-              >
-                <BsArrowRightCircleFill style={arrowStyle} />
-              </button>
-              <span className="indicators">
-                {normalSoaps.map((_, idx) => {
-                  return (
-                    <button
-                      key={idx}
-                      onClick={() => setSlide(idx)}
-                      className={
-                        slide === idx
-                          ? "indicator"
-                          : "indicator indicator-inactive"
-                      }
-                      style={{
-                        backgroundColor: slide === idx ? selColor : "#6199daff",
-                      }}
-                    />
-                  );
-                })}
-              </span>
-            </div>
-          </div>
-          <div className="imgCapDiv">
-            <Figure className="mt-3">
-              <Figure.Caption  className="soapCap">
-                <strong>{normalSoaps[slide].desc}</strong>
-              </Figure.Caption>
-            </Figure>
-          </div>
-        </Col>
+      <Row className="justify-content-center allIngred mb-5">
+        <Tabs
+          defaultActiveKey={currTabKey}
+          className="tabBackground tabHead tabFix contentHolyCentered"
+          onSelect={handleSoapShapeSelect}
+          style={{position: "sticky", top: "115px", zIndex: 1 }}
+        >
+          <Tab
+            eventKey="normalSoap"
+            className="carousel-container"
+            title={<h5 className="tabLabel">보통비누</h5>}
+            style={{ backgroundColor: "lightBlue"}}
+          >
+            <SoapImages soapImages={normalSoaps} />
+          </Tab>
+          <Tab
+            eventKey="ingredient"
+            title={<h5 className="tabLabel">백설공주</h5>}
+          >
+            <SoapImages soapImages={sWhiteSoaps} />
+          </Tab>
+          <Tab eventKey="steps" title={<h5 className="tabLabel">메주비누</h5>}>
+            {/* <ProduceSteps /> */}
+          </Tab>
+        </Tabs>
+        {/* <hr /> */}
       </Row>
     </Container>
   );

@@ -12,7 +12,7 @@ ul.billiard li::marker {
 }
 
 ul li {
-  margin-top: 1em;
+  margin-top: .5em;
 }
 
 .arrow:hover {
@@ -91,4 +91,14 @@ figcaption.soapCap {
   text-align: justify;
   text-justify: inter-word;
   border: 1px dashed rgb(221, 175, 175)
+}
+
+.tabLabel {
+  font-weight: bold;
+    justify-content: center;
+  align-items: center;
+}
+
+.tabBackground {
+  background-color: rgba(160, 205, 212);
 }
