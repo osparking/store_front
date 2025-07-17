@@ -100,27 +100,26 @@ const BumShapes = () => {
           defaultActiveKey={currTabKey}
           className="tabBackground tabHead tabFix contentHolyCentered"
           onSelect={handleSoapShapeSelect}
-          style={{position: "sticky", top: "115px", zIndex: 1 }}
+          style={{ position: "sticky", top: "115px", zIndex: 1 }}
         >
           <Tab
             eventKey="normalSoap"
             className="carousel-container"
             title={<h5 className="tabLabel">보통비누</h5>}
-            style={{ backgroundColor: "lightBlue"}}
+            style={{ backgroundColor: "lightBlue" }}
           >
-            <SoapImages soapImages={normalSoaps} />
+            <SoapImages soapImages={normalSoaps} bgColor="#263e59" />
           </Tab>
           <Tab
             eventKey="ingredient"
             title={<h5 className="tabLabel">백설공주</h5>}
           >
-            <SoapImages soapImages={sWhiteSoaps} />
+            <SoapImages soapImages={sWhiteSoaps} bgColor="#2f363a" />
           </Tab>
           <Tab eventKey="steps" title={<h5 className="tabLabel">메주비누</h5>}>
             {/* <ProduceSteps /> */}
           </Tab>
         </Tabs>
-        {/* <hr /> */}
       </Row>
     </Container>
   );
