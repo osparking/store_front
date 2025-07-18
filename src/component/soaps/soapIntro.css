@@ -1,3 +1,8 @@
 .tabLabel {
   font-weight: bold;
 }
+
+.tabBackgroundThick {
+  background-color: rgb(103, 172, 183);
+  z-index: 10000;
+}
