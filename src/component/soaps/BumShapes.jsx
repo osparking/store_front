@@ -1,49 +1,19 @@
 import { useState } from "react";
-import { Col, Container, Figure, Row } from "react-bootstrap";
-import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
+import { Col, Container, Row, Tab, Tabs } from "react-bootstrap";
 import "./bumShapes.css";
 import { soapImages } from "./soapImages.js";
+import SoapImages from "./SoapImages.jsx";
 
 const BumShapes = () => {
   const normalSoaps = soapImages.filter((soap) => soap.shape === "normal");
-  const selColor = "#d9c1a6";
-  const [slide, setSlide] = useState(0);
-  const imageRoot = "/src/assets/images/soap";
-  const arrowSz = 1.8; // in rem
 
-  const buttonStyle = {
-    position: "absolute",
-    marginTop: `${-(arrowSz)}rem`,
-    zIndex: "1",
-    top: "50%",
-    background: "none",
-    border: "none",
-    cursor: "pointer",
-    fontSize: `${arrowSz}rem`,
+  const handleSoapShapeSelect = (key) => {
+    localStorage.setItem("SOAP_INTRO_TAB", key);
   };
 
-  const arrowStyle = {
-    color: selColor,
-  };
-
-  const [arrowDisabled, setArrowDisabled] = useState(false);
-
-  const nextSlide = (lOrR) => {
-    if (arrowDisabled) {
-      return;
-    }
-    let newSlide = -1;
-    if (lOrR === "R") {
-      newSlide = (slide + 1) % normalSoaps.length;
-    } else {
-      newSlide = (slide - 1 + normalSoaps.length) % normalSoaps.length;
-    }
-    setSlide(newSlide);
-    setArrowDisabled(true); // Disable the arrow
-    setTimeout(() => {
-      setArrowDisabled(false);
-    }, 200);
-  };
+  const [currTabKey, setCurrTabKey] = useState(
+    localStorage.getItem("SOAP_SHAPE_TAB") || "normalSoap"
+  );
 
   return (
     <Container fluid className="home-container mt-5">
