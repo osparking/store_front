@@ -106,6 +106,18 @@ export const soapImages = [
   },
   {
     id: 11,
+    name: "보통비누-백설공주",
+    shape: "s-white",
+    image: "normal-white.png",
+    width: 1000,
+    height: 1000,
+    desc: "보통비누와 백설공주를 나란히 놓고 촬영한 것입니다. "
+    + "둘 다, 사용한 성분과 제조과정이 완전히 동일하지만, "
+    + "5 주 간의 숙성 기간 동안 주위 온도 차이로 인하여 이렇게 "
+    + "다른 톤의 비누가 되었습니다."
+  },
+  {
+    id: 12,
     name: "메주비누 - 정면도",
     shape: "maejoo",
     image: "maejoo-front.png",
