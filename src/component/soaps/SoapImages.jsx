@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Col, Figure, Row } from "react-bootstrap";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 
-const SoapImages = ({soapImages, bgColor}) => {
+const SoapImages = ({soapImages, bgColor, indColor}) => {
   const arrowSz = 1.8; // in rem
 
   const buttonStyle = {
@@ -99,7 +99,7 @@ const SoapImages = ({soapImages, bgColor}) => {
                         : "indicator indicator-inactive"
                     }
                     style={{
-                      backgroundColor: slide === idx ? selColor : "#6199daff",
+                      backgroundColor: slide === idx ? selColor : indColor,
                     }}
                   />
                 );
