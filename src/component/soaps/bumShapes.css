@@ -12,7 +12,11 @@ ul.billiard li::marker {
 }
 
 ul li {
-  margin-top: 1em;
+  margin-top: .5em;
+}
+
+.tabLabel {
+  font-weight: bold;
 }
 
 .arrow:hover {
