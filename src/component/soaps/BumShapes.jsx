@@ -8,6 +8,7 @@ const BumShapes = () => {
   const normalSoaps = soapImages.filter((soap) => soap.shape === "normal");
   const sWhiteSoaps = soapImages.filter((soap) => soap.shape === "s-white");
   const maejooSoaps = soapImages.filter((soap) => soap.shape === "maejoo");
+  const manageSoaps = soapImages.filter((soap) => soap.shape === "manage");
 
   const handleSoapShapeSelect = (key) => {
     localStorage.setItem("SOAP_INTRO_TAB", key);
@@ -117,7 +118,7 @@ const BumShapes = () => {
             />
           </Tab>
           <Tab
-            eventKey="ingredient"
+            eventKey="sWhiteSoap"
             title={<h5 className="tabLabel">백설공주</h5>}
           >
             <SoapImages
@@ -127,12 +128,20 @@ const BumShapes = () => {
               heading="백설공주"
             />
           </Tab>
-          <Tab eventKey="steps" title={<h5 className="tabLabel">메주비누</h5>}>
+          <Tab eventKey="maejooSoap" title={<h5 className="tabLabel">메주비누</h5>}>
             <SoapImages
               soapImages={maejooSoaps}
               bgColor="#667180"
               indColor="#a9b2bfff"
               heading="메주비누"
+            />
+          </Tab>
+          <Tab eventKey="manage" title={<h5 className="tabLabel">사용방법</h5>}>
+            <SoapImages
+              soapImages={manageSoaps}
+              bgColor="#4e5c80"
+              indColor="#99a4c0ff"
+              heading="사용 방법"
             />
           </Tab>
         </Tabs>
