@@ -113,6 +113,7 @@ const BumShapes = () => {
               soapImages={normalSoaps}
               bgColor="#263e59"
               indColor="#6199daff"
+              heading="보통비누"
             />
           </Tab>
           <Tab
@@ -123,6 +124,7 @@ const BumShapes = () => {
               soapImages={sWhiteSoaps}
               bgColor="#2f363a"
               indColor="#727b7fff"
+              heading="백설공주"
             />
           </Tab>
           <Tab eventKey="steps" title={<h5 className="tabLabel">메주비누</h5>}>
@@ -130,6 +132,7 @@ const BumShapes = () => {
               soapImages={maejooSoaps}
               bgColor="#667180"
               indColor="#a9b2bfff"
+              heading="메주비누"
             />
           </Tab>
         </Tabs>

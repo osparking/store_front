@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Col, Figure, Row } from "react-bootstrap";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
+import "./soapImages.css";
 
-const SoapImages = ({soapImages, bgColor, indColor}) => {
+const SoapImages = ({soapImages, bgColor, indColor, heading}) => {
   const arrowSz = 1.8; // in rem
 
   const buttonStyle = {
@@ -45,9 +46,9 @@ const SoapImages = ({soapImages, bgColor, indColor}) => {
   return (
     <Row className="justify-content-center allIngred pt-3 mb-5">
       <Col md={8}>
-        <h2 className="ps-0 mb-4" id="normal-soap">
-          <strong>보통비누</strong>
-        </h2>
+        <h5 className="ps-0 mb-4" id="normal-soap">
+          <strong>{heading} 영상 - {soapImages.length} 개</strong>
+        </h5>
         <div className="carousel-container">
           <div className="carousel">
             <button
