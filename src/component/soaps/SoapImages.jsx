@@ -113,6 +113,7 @@ const SoapImages = ({soapImages, bgColor, indColor}) => {
           </Figure>
         </div>
       </Col>
+      <hr />
     </Row>
   );
 };
