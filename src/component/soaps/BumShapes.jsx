@@ -6,6 +6,7 @@ import SoapImages from "./SoapImages.jsx";
 
 const BumShapes = () => {
   const normalSoaps = soapImages.filter((soap) => soap.shape === "normal");
+  const sWhiteSoaps = soapImages.filter((soap) => soap.shape === "s-white");
 
   const handleSoapShapeSelect = (key) => {
     localStorage.setItem("SOAP_INTRO_TAB", key);
@@ -113,6 +114,16 @@ const BumShapes = () => {
               indColor="#6199daff"
             />
           </Tab>
+          <Tab
+            eventKey="ingredient"
+            title={<h5 className="tabLabel">백설공주</h5>}
+          >
+            <SoapImages
+              soapImages={sWhiteSoaps}
+              bgColor="#2f363a"
+              indColor="#727b7fff"
+            />
+          </Tab>          
         </Tabs>
       </Row>
     </Container>
