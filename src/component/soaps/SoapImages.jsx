@@ -63,7 +63,7 @@ const SoapImages = ({soapImages, bgColor, indColor}) => {
                 <img
                   key={idx}
                   style={{
-                    backgroundColor: "#263e59",
+                    backgroundColor: bgColor,
                     width: "100%",
                     height: "auto",
                   }}
@@ -97,7 +97,7 @@ const SoapImages = ({soapImages, bgColor, indColor}) => {
                         : "indicator indicator-inactive"
                     }
                     style={{
-                      backgroundColor: slide === idx ? selColor : "#6199daff",
+                      backgroundColor: slide === idx ? selColor : indColor,
                     }}
                   />
                 );
