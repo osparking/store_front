@@ -101,7 +101,7 @@ const BumShapes = () => {
           defaultActiveKey={currTabKey}
           className="tabBackground tabHead tabFix contentHolyCentered"
           onSelect={handleSoapShapeSelect}
-          style={{ position: "sticky", top: "115px", zIndex: 1 }}
+          style={{ position: "sticky", top: "115px", zIndex: 100000 }}
         >
           <Tab
             eventKey="normalSoap"
