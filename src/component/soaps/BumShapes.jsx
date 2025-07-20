@@ -117,8 +117,9 @@ const BumShapes = () => {
           </table>
         </Col>
       </Row>
-      <Row className="justify-content-center allIngred mb-5">
-        <Tabs
+      <Row className="justify-content-center allIngred mb-5" >
+        <Tabs          
+          ref={imageRowRef}
           defaultActiveKey={currTabKey}
           activeKey={currTabKey}
           className="tabBackground tabHead tabFix contentHolyCentered"
