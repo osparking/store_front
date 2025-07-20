@@ -83,9 +83,9 @@ const BumShapes = () => {
               <tr>
                 <td>
                   <strong>
-                    <a href="#" onClick={() => shapeClicked("normalSoap")}>
+                    <button onClick={() => shapeClicked("normalSoap")}>
                       보통비누
-                    </a>
+                    </button>
                   </strong>
                 </td>
                 <td>기본형</td>
@@ -94,9 +94,9 @@ const BumShapes = () => {
               <tr>
                 <td>
                   <strong>
-                    <a href="#" onClick={() => shapeClicked("sWhiteSoap")}>
+                    <button onClick={() => shapeClicked("sWhiteSoap")}>
                       백설공주
-                    </a>
+                    </button>
                   </strong>
                 </td>
                 <td>기본형</td>
@@ -105,9 +105,9 @@ const BumShapes = () => {
               <tr>
                 <td>
                   <strong>
-                    <a href="#" onClick={() => shapeClicked("maejooSoap")}>
+                    <button onClick={() => shapeClicked("maejooSoap")}>
                       메주비누
-                    </a>
+                    </button>
                   </strong>
                 </td>
                 <td>변경형</td>
