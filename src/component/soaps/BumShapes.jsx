@@ -11,12 +11,18 @@ const BumShapes = () => {
   const manageSoaps = soapImages.filter((soap) => soap.shape === "manage");
 
   const handleSoapShapeSelect = (key) => {
-    localStorage.setItem("SOAP_INTRO_TAB", key);
+    setCurrTabKey(key);
+    localStorage.setItem("SOAP_SHAPE_TAB", key);
   };
 
   const [currTabKey, setCurrTabKey] = useState(
     localStorage.getItem("SOAP_SHAPE_TAB") || "normalSoap"
   );
+
+  const shapeClicked = (shape) => {
+    // put soap image tabs element to viewport
+    handleSoapShapeSelect(shape);
+  };
 
   return (
     <Container fluid className="home-container mt-5">
@@ -73,7 +79,9 @@ const BumShapes = () => {
               <tr>
                 <td>
                   <strong>
-                    <a href="#normal-soap">보통비누</a>
+                    <a href="#" onClick={() => shapeClicked("normalSoap")}>
+                      보통비누
+                    </a>
                   </strong>
                 </td>
                 <td>기본형</td>
@@ -81,14 +89,22 @@ const BumShapes = () => {
               </tr>
               <tr>
                 <td>
-                  <strong>백설공주</strong>
+                  <strong>
+                    <a href="#" onClick={() => shapeClicked("sWhiteSoap")}>
+                      백설공주
+                    </a>
+                  </strong>
                 </td>
                 <td>기본형</td>
                 <td>생성</td>
               </tr>
               <tr>
                 <td>
-                  <strong>메주비누</strong>
+                  <strong>
+                    <a href="#" onClick={() => shapeClicked("maejooSoap")}>
+                      메주비누
+                    </a>
+                  </strong>
                 </td>
                 <td>변경형</td>
                 <td></td>
@@ -100,6 +116,7 @@ const BumShapes = () => {
       <Row className="justify-content-center allIngred mb-5">
         <Tabs
           defaultActiveKey={currTabKey}
+          activeKey={currTabKey}
           className="tabBackground tabHead tabFix contentHolyCentered"
           onSelect={handleSoapShapeSelect}
           style={{ position: "sticky", top: "115px", zIndex: 100000 }}
@@ -128,7 +145,10 @@ const BumShapes = () => {
               heading="백설공주"
             />
           </Tab>
-          <Tab eventKey="maejooSoap" title={<h5 className="tabLabel">메주비누</h5>}>
+          <Tab
+            eventKey="maejooSoap"
+            title={<h5 className="tabLabel">메주비누</h5>}
+          >
             <SoapImages
               soapImages={maejooSoaps}
               bgColor="#667180"
