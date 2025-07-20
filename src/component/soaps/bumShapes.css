@@ -96,3 +96,9 @@ figcaption.soapCap {
   text-justify: inter-word;
   border: 1px dashed rgb(221, 175, 175)
 }
+
+button {
+  background: none;
+  text-decoration: underline;
+  font-family: "Noto Sans KR", Cambria, Cochin, Georgia, Times;
+}
