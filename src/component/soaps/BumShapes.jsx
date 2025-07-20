@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Col, Container, Row, Tab, Tabs } from "react-bootstrap";
 import "./bumShapes.css";
 import { soapImages } from "./soapImages.js";
@@ -19,8 +19,12 @@ const BumShapes = () => {
     localStorage.getItem("SOAP_SHAPE_TAB") || "normalSoap"
   );
 
+  const imageRowRef = useRef(null);
   const shapeClicked = (shape) => {
-    // put soap image tabs element to viewport
+    imageRowRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
     handleSoapShapeSelect(shape);
   };
 
