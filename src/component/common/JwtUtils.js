@@ -12,6 +12,7 @@ export const jwtToUser = (jwt) => {
     fullName: decodedToken.fullName,
     roles: decodedToken.roles,
     isAdmin: isAdmin,
+    isWorker: isWorker,
     loginMethod: decodedToken.loginMethod,
     signUpMethod: decodedToken.signUpMethod,
     twoFaEnabled: decodedToken.twoFaEnabled,
