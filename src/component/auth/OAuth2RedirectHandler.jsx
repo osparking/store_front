@@ -18,6 +18,7 @@ const OAuth2RedirectHandler = () => {
     localStorage.setItem("TOKEN", token);
 
     localStorage.setItem("IS_ADMIN", user.isAdmin);
+    localStorage.setItem("IS_WORKER", user.isWorker);
     window.dispatchEvent(new Event("loginEvt"));
     navigate(`/dashboard/${user.id}/user`);
   };
