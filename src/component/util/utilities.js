@@ -19,4 +19,5 @@ export const storeLoginInfo = (user, token) => {
   localStorage.setItem("LOGIN_ID", user.id);
   localStorage.setItem("TOKEN", token);
   localStorage.setItem("IS_ADMIN", user.isAdmin);
+  localStorage.setItem("IS_WORKER", user.isWorker);
 };
