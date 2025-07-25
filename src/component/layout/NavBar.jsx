@@ -8,10 +8,15 @@ const NavBar = () => {
   const beforeLogin = localStorage.getItem("TOKEN") === null;
 
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isWorker, setIsWorker] = useState(false);
+
   const [identity, setIdentity] = useState();
   const checkIfAdmin = () => {
     const isAdminJson = localStorage.getItem("IS_ADMIN");
     setIsAdmin(isAdminJson ? JSON.parse(isAdminJson) : false);
+
+    const isWorkerJson = localStorage.getItem("IS_WORKER");
+    setIsWorker(isWorkerJson ? JSON.parse(isWorkerJson) : false);
 
     const userJson = localStorage.getItem("USER");
     const user = JSON.parse(userJson);
@@ -57,6 +62,11 @@ const NavBar = () => {
             {isAdmin && (
               <Nav.Link to={`/dashboard/admin`} as={Link}>
                 관리자
+              </Nav.Link>
+            )}
+            {(isAdmin || isWorker) && (
+              <Nav.Link to={"/work_item"} as={Link} className="bold">
+                직원 직무
               </Nav.Link>
             )}
           </Nav>
