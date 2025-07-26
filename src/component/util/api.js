@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const prefix = "http://localhost:9193/api/s1";
+
 export const api = axios.create({
-  baseURL: "http://localhost:9193/api/s1",
+  baseURL: prefix,
 });
 
 export async function callWithToken(method, urlSuffix, data = null) {
