@@ -1,7 +1,7 @@
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { callWithToken } from "../user/UserService";
+import { callWithToken } from "../util/api";
 
 const QRcodeBox = ({ qrCodeUrl, setTwoFaEnabled, setShowQrCode }) => {
   const [qrRevealed, setQrRevealed] = useState(false);

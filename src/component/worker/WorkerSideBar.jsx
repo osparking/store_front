@@ -17,7 +17,7 @@ const WorkerSideBar = ({ openSidebar, toggleSidebar, tabClicked }) => {
       <ul className="sidebar-list">
         <li
           className="sidebar-list-item"
-          onClick={() => tabClicked("Overview")}
+          // onClick={() => tabClicked("Overview")}
         >
           <a href="#">
             <LuComponent className="icon" />

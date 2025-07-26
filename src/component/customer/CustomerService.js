@@ -1,5 +1,4 @@
-import React from 'react'
-import { callWithToken } from '../user/UserService';
+import { callWithToken } from "../util/api";
 
 export async function getCustomerList() {
   try {

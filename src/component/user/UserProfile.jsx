@@ -8,8 +8,9 @@ import EmpImage from "../common/EmpImage";
 import ChangePassword from "../modal/ChangePassword";
 import DeleteConfirmModal from "../modal/DeleteConfirmModal";
 import ImageUp from "../modal/ImageUp";
-import { callWithToken, deleteUserAccount } from "./UserService";
+import { deleteUserAccount } from "./UserService";
 import QRcodeBox from "../auth/QRcodeBox";
+import { callWithToken } from "../util/api";
 
 const UserProfile = ({ user, handleRemovePhoto }) => {
   const [showImageUp, setShowImageUp] = useState(false);

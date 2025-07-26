@@ -1,4 +1,4 @@
-import { callWithToken } from "../user/UserService";
+import { callWithToken } from "../util/api";
 
 const prefix = "http://localhost:9193/api/s1";
 
