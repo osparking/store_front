@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Col, Row } from "react-bootstrap";
+import { BsPlusSquareFill } from "react-icons/bs";
+import { Link, useNavigate } from "react-router-dom";
+import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import { getIngredientList } from "./WorkerService";
 
@@ -42,7 +45,27 @@ const StoredIngre = () => {
     readIngredientList();
   }, []);
 
-  return <div>입고 재료 목록</div>;
+  return (
+    <main>
+      <Row>
+        <Col>
+          {alertSuccess && (
+            <AlertMessage type={"success"} message={successMsg} />
+          )}
+          {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
+        </Col>
+        <Col>
+          {" "}
+          <div className="d-flex justify-content-end">
+            <Link to={"/register-user"}>
+              {" "}
+              <BsPlusSquareFill />
+            </Link>
+          </div>
+        </Col>
+      </Row>
+    </main>
+  );
 };
 
 export default StoredIngre;
