@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Table } from "react-bootstrap";
 import { BsPlusSquareFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
@@ -64,6 +64,41 @@ const StoredIngre = () => {
           </div>
         </Col>
       </Row>
+      <Table bordered hover striped>
+        <thead>
+          <tr>
+            <th>순번</th>
+            <th>재료명</th>
+            <th>입고일</th>
+            <th>구매처</th>
+            <th>용량</th>
+            <th>단위</th>
+            <th>수량</th>
+            <th>사용기한</th>
+            <th>입력일시</th>
+            <th>직원ID</th>
+            <th colSpan={2}>작업</th>
+          </tr>
+        </thead>
+        <tbody>
+          {ingreList.map((ingredient, index) => (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>{ingredient.ingreName}</td>
+              <td>{ingredient.storeDate}</td>
+              <td>{ingredient.buyPlace}</td>
+              <td>{ingredient.quantity}</td>
+              <td>{ingredient.packunit}</td>
+              <td>{ingredient.count}</td>
+              <td>{ingredient.expireDate}</td>
+              <td>{ingredient.addTime}</td>
+              <td>{ingredient.workerId}</td>
+              <td>수정</td>
+              <td>삭제</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
     </main>
   );
 };
