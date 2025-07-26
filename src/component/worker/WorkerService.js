@@ -1,7 +1,17 @@
 import axios, { HttpStatusCode } from "axios";
 import { api } from "../util/api";
+import { callWithToken } from "../util/api";
 
 const prefix = "http://localhost:9193/api/s1";
+
+export async function getIngredientList() {
+  try {
+    const result = await callWithToken("get", "/store_ingred/get_all");
+    return result ? result.data : result;
+  } catch (err) {
+    throw err;
+  }
+}
 
 export async function getWorkerList() {
   try {
