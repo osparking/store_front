@@ -41,6 +41,21 @@ const StoredIngre = () => {
       });
   };
 
+  function isValidUrl(string) {
+    try {
+      new URL(string);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function getDomain(url) {
+    let domain = new URL(url);
+    domain = domain.hostname;
+    return domain;
+  }
+
   useEffect(() => {
     readIngredientList();
   }, []);
@@ -86,7 +101,15 @@ const StoredIngre = () => {
               <td>{index + 1}</td>
               <td>{ingredient.ingreName}</td>
               <td>{ingredient.storeDate}</td>
-              <td>{ingredient.buyPlace}</td>
+              <td>
+                {isValidUrl(ingredient.buyPlace) ? (
+                  <Link to={ingredient.buyPlace} target="_blank">
+                    {getDomain(ingredient.buyPlace)}
+                  </Link>
+                ) : (
+                  ingredient.buyPlace
+                )}
+              </td>
               <td>{ingredient.quantity}</td>
               <td>{ingredient.packunit}</td>
               <td>{ingredient.count}</td>
