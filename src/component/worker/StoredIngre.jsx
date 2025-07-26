@@ -91,7 +91,7 @@ const StoredIngre = () => {
             <th>수량</th>
             <th>사용기한</th>
             <th>입력일시</th>
-            <th>직원ID</th>
+            <th>직원명</th>
             <th colSpan={2}>작업</th>
           </tr>
         </thead>
@@ -115,7 +115,7 @@ const StoredIngre = () => {
               <td>{ingredient.count}</td>
               <td>{ingredient.expireDate}</td>
               <td>{ingredient.addTime}</td>
-              <td>{ingredient.workerId}</td>
+              <td>{ingredient.workerName}</td>
               <td>수정</td>
               <td>삭제</td>
             </tr>
