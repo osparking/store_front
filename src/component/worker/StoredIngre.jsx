@@ -1,9 +1,22 @@
-import React from 'react'
+import React, { useState } from "react";
 
 const StoredIngre = () => {
-  return (
-    <div>StoredIngre</div>
-  )
-}
+  const [ingreList, setIngreList] = useState([]);
+  const [showDelModal, setShowDelModal] = useState(false);
+  const [workerToDel, setWorkerToDel] = useState(null);
 
-export default StoredIngre
+  const {
+    successMsg,
+    setSuccessMsg,
+    alertSuccess,
+    setAlertSuccess,
+    errorMsg,
+    setErrorMsg,
+    alertError,
+    setAlertError,
+  } = BsAlertHook();
+
+  return <div>StoredIngre</div>;
+};
+
+export default StoredIngre;
