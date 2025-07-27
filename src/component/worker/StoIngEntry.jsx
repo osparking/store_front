@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import BsAlertHook from "../hook/BsAlertHook";
 import { sendStoIngInfo } from "./WorkerService";
+import IngreNameSelector from "./IngreNameSelector";
 
 const StoIngEntry = () => {
   const [ingredient, setIngredient] = useState({
@@ -56,6 +57,13 @@ const StoIngEntry = () => {
                 <Form.Group>
                   <Row>
                     <Col>재료 이름 선택/입력부</Col>
+                  </Row>
+                </Form.Group>
+                <Form.Group>
+                  <Row>
+                    <Col>
+                      <IngreNameSelector />
+                    </Col>
                   </Row>
                 </Form.Group>
                 <div className="d-flex justify-content-center mb-3 mt-3">
