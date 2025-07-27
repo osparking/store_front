@@ -13,6 +13,16 @@ export async function getIngredientList() {
   }
 }
 
+export async function sendStoIngInfo(ingredient) {
+  try {
+    var url = "/store_ingred/add";
+    const result = await callWithToken("post", url, ingredient);
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function getWorkerList() {
   try {
     const token = localStorage.getItem("TOKEN");
