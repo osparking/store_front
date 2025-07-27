@@ -1,5 +1,6 @@
 import { useState } from "react";
 import BsAlertHook from "../hook/BsAlertHook";
+import { sendStoIngInfo } from "./WorkerService";
 
 const StoIngEntry = () => {
   const [ingredient, setIngredient] = useState({
@@ -27,6 +28,20 @@ const StoIngEntry = () => {
     setUser({ ...ingredient, [e.target.name]: e.target.value });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await sendStoIngInfo(ingredient);
+      console.log("response: ", response);
+      setSuccessMsg(response.message);
+      setAlertSuccess(true);
+    } catch (error) {
+      console.log("error.response: ", error.response);
+      setErrorMsg(error.response.data.message);
+      setAlertError(true);
+    }
+  };
+  
   return <div>StoIngEntry</div>;
 };
 
