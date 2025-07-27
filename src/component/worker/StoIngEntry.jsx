@@ -53,6 +53,11 @@ const StoIngEntry = () => {
                 입고된 재료 정보
               </Card.Header>
               <Card.Body>
+                <Form.Group>
+                  <Row>
+                    <Col>재료 이름 선택/입력부</Col>
+                  </Row>
+                </Form.Group>
                 <div className="d-flex justify-content-center mb-3 mt-3">
                   <Button
                     type="submit"
