@@ -1,6 +1,7 @@
 import { useState } from "react";
 import BsAlertHook from "../hook/BsAlertHook";
 import { sendStoIngInfo } from "./WorkerService";
+import { Card, Col, Container, Form, Row } from "react-bootstrap";
 
 const StoIngEntry = () => {
   const [ingredient, setIngredient] = useState({
@@ -41,8 +42,21 @@ const StoIngEntry = () => {
       setAlertError(true);
     }
   };
-  
-  return <div>StoIngEntry</div>;
+
+  return (
+    <Container className="mt-5">
+      <Row className="justify-content-center">
+        <Col xs={12} md={8} lg={6}>
+          <Form>
+            <Card>
+              <Card.Header></Card.Header>
+              <Card.Body></Card.Body>
+            </Card>
+          </Form>
+        </Col>
+      </Row>
+    </Container>  
+  )
 };
 
 export default StoIngEntry;
