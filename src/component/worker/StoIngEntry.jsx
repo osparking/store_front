@@ -24,6 +24,10 @@ const StoIngEntry = () => {
     setAlertError,
   } = BsAlertHook();
 
+  const handleChange = (e) => {
+    setUser({ ...ingredient, [e.target.name]: e.target.value });
+  };
+
   return <div>StoIngEntry</div>;
 };
 
