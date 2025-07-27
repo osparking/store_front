@@ -17,6 +17,7 @@ import RegisterUser from "./component/user/RegisterUser";
 import UserUpdate from "./component/user/UpdateUser";
 import UserDashboard from "./component/user/UserDashboard";
 import WorkerDashboard from "./component/worker/WorkerDashboard";
+import StoIngEntry from "./component/worker/StoIngEntry";
 
 function App() {
   const router = createBrowserRouter(
@@ -32,6 +33,7 @@ function App() {
         <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
         <Route path="/soap_intro" element={<SoapIntro />} />
         <Route path="/work_item" element={<WorkerDashboard />} />
+        <Route path="/add-stored-ingre" element={<StoIngEntry />} />
       </Route>
     )
   );

@@ -72,7 +72,7 @@ const StoredIngre = () => {
         <Col>
           {" "}
           <div className="d-flex justify-content-end">
-            <Link to={"/register-user"}>
+            <Link to={"/add-stored-ingre"}>
               {" "}
               <BsPlusSquareFill />
             </Link>
