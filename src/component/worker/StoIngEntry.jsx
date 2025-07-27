@@ -48,8 +48,10 @@ const StoIngEntry = () => {
       <Row className="justify-content-center">
         <Col xs={12} md={8} lg={6}>
           <Form onSubmit={handleSubmit}>
-            <Card>
-              <Card.Header></Card.Header>
+            <Card className="shadow mb-5">
+              <Card.Header className="text-center">
+                입고된 재료 정보
+              </Card.Header>
               <Card.Body>
                 <div className="d-flex justify-content-center mb-3 mt-3">
                   <Button
