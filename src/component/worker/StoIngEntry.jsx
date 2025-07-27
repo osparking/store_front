@@ -56,11 +56,6 @@ const StoIngEntry = () => {
               <Card.Body>
                 <Form.Group>
                   <Row>
-                    <Col>재료 이름 선택/입력부</Col>
-                  </Row>
-                </Form.Group>
-                <Form.Group>
-                  <Row>
                     <Col>
                       <IngreNameSelector />
                     </Col>
