@@ -3,14 +3,13 @@ import BsAlertHook from "../hook/BsAlertHook";
 
 const StoIngEntry = () => {
   const [ingredient, setIngredient] = useState({
-    ingreName: "",
-    quantity: "",
-    packunit: "",
-    count: "",
-    storeDate: "",
-    buyPlace: "",
-    workerId: "",
-    expireDate: "",
+    ingreName: "가성소다",
+    quantity: "1",
+    packunit: "kg",
+    count: "1",
+    storeDate: "2020-11-29",
+    buyPlace: "https://smartstore.naver.com/vase_shop/",
+    expireDate: "2120-11-28",
   });
 
   const {
