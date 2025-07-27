@@ -4,6 +4,15 @@ import { callWithToken } from "../util/api";
 
 const prefix = "http://localhost:9193/api/s1";
 
+export async function getAllIngreNames() {
+  try {
+    const result = await callWithToken("get", "/store_ingred/get_all_names");
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function getIngredientList() {
   try {
     const result = await callWithToken("get", "/store_ingred/get_all");
