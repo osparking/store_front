@@ -27,7 +27,7 @@ const StoIngEntry = () => {
   } = BsAlertHook();
 
   const handleChange = (e) => {
-    setUser({ ...ingredient, [e.target.name]: e.target.value });
+    setIngredient({ ...ingredient, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -56,8 +56,11 @@ const StoIngEntry = () => {
               <Card.Body>
                 <Form.Group>
                   <Row>
-                    <Col>
-                      <IngreNameSelector />
+                    <Col xs={6} className="mb-2 mb-sm-0">
+                      <IngreNameSelector
+                        ingreName={ingredient.ingreName}
+                        onChange={handleChange}
+                      />
                     </Col>
                   </Row>
                 </Form.Group>
