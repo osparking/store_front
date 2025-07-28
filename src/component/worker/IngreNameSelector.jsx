@@ -19,10 +19,25 @@ const IngreNameSelector = ({ingreName, onChange}) => {
     readIngreNames();
   }, []);
   
+  const handleIngreName = (event) => {
+    if (event.target.value === "add_name") {
+      setShowNameAdder(true);
+    } else {
+      onChange(event);
+    }
+  };
+
   return (
     <React.Fragment>
       <Form.Group>
-        <Form.Control as="select" name="ingreName" value={ingreName} required>
+        <Form.Label>재료 명칭</Form.Label>
+        <Form.Control
+          as="select"
+          name="ingreName"
+          value={ingreName}
+          required
+          onChange={handleIngreName}
+        >
           <option value="">- 재료 명칭 -</option>
           {ingreNames.map((name, index) => (
             <option value={name} key={index}>
