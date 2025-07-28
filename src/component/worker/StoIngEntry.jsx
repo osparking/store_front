@@ -1,19 +1,23 @@
 import { useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import BsAlertHook from "../hook/BsAlertHook";
-import { sendStoIngInfo } from "./WorkerService";
-import IngreNameSelector from "./IngreNameSelector";
 import BuyPlaceSelector from "./BuyPlaceSelector";
+import IngreNameSelector from "./IngreNameSelector";
+import { sendStoIngInfo } from "./WorkerService";
 
 const StoIngEntry = () => {
+  const [storeDate, setStoreDate] = useState(new Date());
+  let expireDate = new Date();
+  expireDate.setFullYear(expireDate.getFullYear() + 1);
+
   const [ingredient, setIngredient] = useState({
     ingreName: "가성소다",
     quantity: "1",
     packunit: "kg",
     count: "1",
-    storeDate: "2020-11-29",
+    storeDate: storeDate,
     buyPlace: "https://smartstore.naver.com/vase_shop/",
-    expireDate: "2120-11-28",
+    expireDate: expireDate,
   });
 
   const {
