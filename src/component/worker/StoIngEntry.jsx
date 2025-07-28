@@ -5,6 +5,7 @@ import BsAlertHook from "../hook/BsAlertHook";
 import BuyPlaceSelector from "./BuyPlaceSelector";
 import IngreNameSelector from "./IngreNameSelector";
 import { sendStoIngInfo } from "./WorkerService";
+import "react-datepicker/dist/react-datepicker.css";
 
 const StoIngEntry = () => {
   const [storeDate, setStoreDate] = useState(new Date());
