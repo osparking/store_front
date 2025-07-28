@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getAllIngreNames } from "./WorkerService";
-import { Form } from "react-bootstrap";
+import { Form, Row } from "react-bootstrap";
 import AdderModal from "../modal/AdderModal";
 
 const IngreNameSelector = ({ingreName, onChange}) => {
@@ -29,7 +29,6 @@ const IngreNameSelector = ({ingreName, onChange}) => {
   };
 
   const handleNewName = (newName) => {
-    console.log("새 이름: " + newName);
     if (newName && !ingreNames.includes(newName)) {
       setIngreNames([...ingreNames, newName]);
       onChange({ target: { name: "ingreName", value: newName } });
@@ -38,7 +37,7 @@ const IngreNameSelector = ({ingreName, onChange}) => {
 
   return (
     <React.Fragment>
-      <Form.Group>
+      <Form.Group as={Row} controlId="password" className="mb-4">
         <Form.Label>재료 명칭</Form.Label>
         <Form.Control
           as="select"
