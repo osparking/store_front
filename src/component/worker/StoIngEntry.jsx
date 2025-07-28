@@ -3,6 +3,7 @@ import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import BsAlertHook from "../hook/BsAlertHook";
 import { sendStoIngInfo } from "./WorkerService";
 import IngreNameSelector from "./IngreNameSelector";
+import BuyPlaceSelector from "./BuyPlaceSelector";
 
 const StoIngEntry = () => {
   const [ingredient, setIngredient] = useState({
@@ -63,6 +64,14 @@ const StoIngEntry = () => {
                       />
                     </Col>
                   </Row>
+                </Form.Group>
+                <Form.Group as={Row} controlId="password" className="mb-4">
+                  <Col className="mb-2 mb-sm-0">
+                    <BuyPlaceSelector
+                      buyPlace={ingredient.buyPlace}
+                      onChange={handleChange}
+                    />
+                  </Col>
                 </Form.Group>
                 <div className="d-flex justify-content-center mb-3 mt-3">
                   <Button
