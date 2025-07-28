@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { getAllIngreNames } from "./WorkerService";
 import { Form } from "react-bootstrap";
 
-const IngreNameSelector = ({ingreName}) => {
+const IngreNameSelector = ({ingreName, onChange}) => {
   const [ingreNames, setIngreNames] = useState([]);
+  const [showNameAdder, setShowNameAdder] = useState(false);
 
   useEffect(() => {
     const readIngreNames = async () => {
