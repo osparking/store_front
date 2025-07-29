@@ -41,6 +41,14 @@ const StoIngEntry = () => {
     setIngredient({ ...ingredient, [e.target.name]: e.target.value });
   };
 
+  const handleStoreDate = (storeDate) => {
+    setIngredient({ ...ingredient, storeDate: storeDate });
+  };
+
+  const handleExpireDate = (expireDate) => {
+    setIngredient({ ...ingredient, expireDate: expireDate });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -88,8 +96,8 @@ const StoIngEntry = () => {
                     <Col xs={6} className="mb-3 mb-sm-0">
                       <Form.Label>입고 일자</Form.Label>
                       <DatePicker
-                        selected={storeDate}
-                        onChange={(date) => setStoreDate(date)}
+                        selected={ingredient.storeDate}
+                        onChange={handleStoreDate}
                         dateFormat="yyyy-MM-dd"
                         className="form-control"
                         maxDate={new Date()}
@@ -102,8 +110,8 @@ const StoIngEntry = () => {
                     <Col xs={6} className="mb-3 mb-sm-0">
                       <Form.Label>사용 기한</Form.Label>
                       <DatePicker
-                        selected={expireDate}
-                        onChange={(date) => setExpireDate(date)}
+                        selected={ingredient.expireDate}
+                        onChange={handleExpireDate}
                         dateFormat="yyyy-MM-dd"
                         className="form-control"
                         minDate={new Date()}
