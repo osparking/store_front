@@ -1,16 +1,19 @@
+import ko from "date-fns/locale/ko";
 import { useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
-import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import BsAlertHook from "../hook/BsAlertHook";
 import BuyPlaceSelector from "./BuyPlaceSelector";
 import IngreNameSelector from "./IngreNameSelector";
 import { sendStoIngInfo } from "./WorkerService";
-import "react-datepicker/dist/react-datepicker.css";
 
 const StoIngEntry = () => {
   const [storeDate, setStoreDate] = useState(new Date());
   let expireDate = new Date();
   expireDate.setFullYear(expireDate.getFullYear() + 1);
+
+  registerLocale("ko", ko);
 
   const [ingredient, setIngredient] = useState({
     ingreName: "가성소다",
@@ -92,6 +95,7 @@ const StoIngEntry = () => {
                         placeholderText="(입고 날짜)"
                         defaultShow={true}
                         required
+                        locale="ko"
                       />
                     </Col>
                     <Col xs={6} className="mb-3 mb-sm-0">
@@ -101,12 +105,13 @@ const StoIngEntry = () => {
                         onChange={(date) => setStoreDate(date)}
                         dateFormat="yyyy-MM-dd"
                         className="form-control"
-                        maxDate={new Date()}
+                        minDate={new Date()}
                         placeholderText="(사용기한)"
                         defaultShow={true}
                         required
+                        locale="ko"
                       />
-                    </Col>                    
+                    </Col>
                   </Row>
                 </Form.Group>
 
