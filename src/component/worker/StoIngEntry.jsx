@@ -7,6 +7,7 @@ import BsAlertHook from "../hook/BsAlertHook";
 import BuyPlaceSelector from "./BuyPlaceSelector";
 import IngreNameSelector from "./IngreNameSelector";
 import { sendStoIngInfo } from "./WorkerService";
+import AlertMessage from "../common/AlertMessage";
 
 const StoIngEntry = () => {
   const [storeDate, setStoreDate] = useState(new Date());
@@ -38,6 +39,13 @@ const StoIngEntry = () => {
   } = BsAlertHook();
 
   const handleChange = (e) => {
+    switch (e.target.name) {
+      case "quantity":
+        if (isNaN(e.target.value)) {
+          setErrorMsg("숫자만 입력하세요!");
+          setAlertError(true);
+        }
+    }
     setIngredient({ ...ingredient, [e.target.name]: e.target.value });
   };
 
@@ -72,6 +80,9 @@ const StoIngEntry = () => {
               <Card.Header className="text-center">
                 입고된 재료 정보
               </Card.Header>
+              {alertError && (
+                <AlertMessage type={"danger"} message={errorMsg} />
+              )}
               <Card.Body>
                 <Form.Group>
                   <Row>
