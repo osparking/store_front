@@ -10,8 +10,9 @@ import { sendStoIngInfo } from "./WorkerService";
 
 const StoIngEntry = () => {
   const [storeDate, setStoreDate] = useState(new Date());
-  let expireDate = new Date();
-  expireDate.setFullYear(expireDate.getFullYear() + 1);
+  let endDate = new Date();
+  endDate.setFullYear(endDate.getFullYear() + 1);
+  const [expireDate, setExpireDate] = useState(endDate);
 
   registerLocale("ko", ko);
 
@@ -101,8 +102,8 @@ const StoIngEntry = () => {
                     <Col xs={6} className="mb-3 mb-sm-0">
                       <Form.Label>사용 기한</Form.Label>
                       <DatePicker
-                        selected={ingredient.expireDate}
-                        onChange={(date) => setStoreDate(date)}
+                        selected={expireDate}
+                        onChange={(date) => setExpireDate(date)}
                         dateFormat="yyyy-MM-dd"
                         className="form-control"
                         minDate={new Date()}
