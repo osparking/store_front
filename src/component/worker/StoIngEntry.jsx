@@ -8,6 +8,7 @@ import BuyPlaceSelector from "./BuyPlaceSelector";
 import IngreNameSelector from "./IngreNameSelector";
 import { sendStoIngInfo } from "./WorkerService";
 import AlertMessage from "../common/AlertMessage";
+import UnitSelector from "./UnitSelector";
 
 const StoIngEntry = () => {
   const [storeDate, setStoreDate] = useState(new Date());
@@ -135,7 +136,7 @@ const StoIngEntry = () => {
                   </Row>
                 </Form.Group>
 
-                <Form.Group as={Row} controlId="qualtities" className="mb-1">
+                <Form.Group as={Row} className="mb-1">
                   <Row>
                     <Col xs={4} className="mb-3 mb-sm-0">
                       <Form.Label>용량</Form.Label>
@@ -148,8 +149,15 @@ const StoIngEntry = () => {
                         pattern="[0-9]*" // HTML5 pattern for basic browser validation
                       />
                     </Col>
+                    <Col xs={4} className="mb-3 mb-sm-0">
+                      <UnitSelector
+                        packunit={ingredient.packunit}
+                        onChange={handleChange}
+                      />
+                    </Col>
                   </Row>
                 </Form.Group>
+
 
                 <div className="d-flex justify-content-center mb-3 mt-3">
                   <Button
