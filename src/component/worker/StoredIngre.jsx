@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
-import { Col, Row, Table } from "react-bootstrap";
+import { Button, Col, Row, Table } from "react-bootstrap";
 import { BsPlusSquareFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import { getIngredientList } from "./WorkerService";
+import AddIngreModal from "./AddIngreModal";
 
 const StoredIngre = () => {
   const [ingreList, setIngreList] = useState([]);
-  const [showDelModal, setShowDelModal] = useState(false);
+  const [ingreAdded, setIngreAdded] = useState(false);
   const [workerToDel, setWorkerToDel] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const {
     successMsg,
@@ -58,7 +60,7 @@ const StoredIngre = () => {
 
   useEffect(() => {
     readIngredientList();
-  }, []);
+  }, [ingreAdded]);
 
   return (
     <main>
@@ -72,10 +74,9 @@ const StoredIngre = () => {
         <Col>
           {" "}
           <div className="d-flex justify-content-end">
-            <Link to={"/add-stored-ingre"}>
-              {" "}
+            <Button onClick={() => setShowModal(true)}>
               <BsPlusSquareFill />
-            </Link>
+            </Button>
           </div>
         </Col>
       </Row>
@@ -122,6 +123,11 @@ const StoredIngre = () => {
           ))}
         </tbody>
       </Table>
+      <AddIngreModal
+        show={showModal}
+        closer={() => setShowModal(false)}
+        setIngreAdded={setIngreAdded}
+      />
     </main>
   );
 };

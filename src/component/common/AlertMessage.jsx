@@ -1,10 +1,10 @@
 import { Alert } from "react-bootstrap";
 
-export default function AlertMessage({ type, message }) {
+export default function AlertMessage({ type, message, severity }) {
   if (!message) return null;
   console.log("type: " + type + ", message: " + message);
   return (
-    <Alert variant={type} dismissible>
+    <Alert variant={type} severity={severity} dismissible>
       {message}
     </Alert>
   );
