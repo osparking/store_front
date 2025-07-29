@@ -3,12 +3,12 @@ import { useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import BuyPlaceSelector from "./BuyPlaceSelector";
 import IngreNameSelector from "./IngreNameSelector";
-import { sendStoIngInfo } from "./WorkerService";
-import AlertMessage from "../common/AlertMessage";
 import UnitSelector from "./UnitSelector";
+import { sendStoIngInfo } from "./WorkerService";
 
 const StoIngEntry = () => {
   const [storeDate, setStoreDate] = useState(new Date());
@@ -42,10 +42,12 @@ const StoIngEntry = () => {
   const handleChange = (e) => {
     switch (e.target.name) {
       case "quantity":
+      case "count":
         if (isNaN(e.target.value)) {
           setErrorMsg("숫자만 입력하세요!");
           setAlertError(true);
         }
+        break;
     }
     setIngredient({ ...ingredient, [e.target.name]: e.target.value });
   };
@@ -155,9 +157,19 @@ const StoIngEntry = () => {
                         onChange={handleChange}
                       />
                     </Col>
+                    <Col xs={4} className="mb-3 mb-sm-0">
+                      <Form.Label>수량</Form.Label>
+                      <Form.Control
+                        type="text" // Use "text" to gain more control over input
+                        name="count"
+                        value={ingredient.count}
+                        onChange={handleChange}
+                        inputMode="numeric" // Suggest numeric keyboard on mobile devices
+                        pattern="[0-9]*" // HTML5 pattern for basic browser validation
+                      />
+                    </Col>
                   </Row>
                 </Form.Group>
-
 
                 <div className="d-flex justify-content-center mb-3 mt-3">
                   <Button
