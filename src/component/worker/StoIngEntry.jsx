@@ -91,7 +91,7 @@ const StoIngEntry = () => {
                     />
                   </Col>
                 </Form.Group>
-                <Form.Group as={Row} controlId="twoDates" className="mb-1">
+                <Form.Group as={Row} controlId="twoDates" className="mb-4">
                   <Row>
                     <Col xs={6} className="mb-3 mb-sm-0">
                       <Form.Label>입고 일자</Form.Label>
@@ -119,6 +119,22 @@ const StoIngEntry = () => {
                         defaultShow={true}
                         required
                         locale="ko"
+                      />
+                    </Col>
+                  </Row>
+                </Form.Group>
+
+                <Form.Group as={Row} controlId="qualtities" className="mb-1">
+                  <Row>
+                    <Col xs={4} className="mb-3 mb-sm-0">
+                      <Form.Label>용량</Form.Label>
+                      <Form.Control
+                        type="text" // Use "text" to gain more control over input
+                        name="quantity"
+                        value={ingredient.quantity}
+                        onChange={handleChange}
+                        inputMode="numeric" // Suggest numeric keyboard on mobile devices
+                        pattern="[0-9]*" // HTML5 pattern for basic browser validation
                       />
                     </Col>
                   </Row>
