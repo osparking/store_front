@@ -10,7 +10,7 @@ import IngreNameSelector from "./IngreNameSelector";
 import UnitSelector from "./UnitSelector";
 import { sendStoIngInfo } from "./WorkerService";
 
-const AddIngreModal = () => {
+const AddIngreModal = ({ show, closer, setIngreAdded }) => {
   const [storeDate, setStoreDate] = useState(new Date());
   let endDate = new Date();
   endDate.setFullYear(endDate.getFullYear() + 1);
@@ -28,6 +28,18 @@ const AddIngreModal = () => {
     expireDate: expireDate,
   });
 
+  const handleReset = () => {
+    setIngredient({
+      ingreName: "",
+      quantity: "1",
+      packunit: "",
+      count: "1",
+      storeDate: storeDate,
+      buyPlace: "",
+      expireDate: expireDate,
+    });
+  };
+  
   const {
     successMsg,
     setSuccessMsg,
