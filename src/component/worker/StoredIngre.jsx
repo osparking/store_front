@@ -8,8 +8,13 @@ import { getIngredientList } from "./WorkerService";
 
 const StoredIngre = () => {
   const [ingreList, setIngreList] = useState([]);
-  const [showDelModal, setShowDelModal] = useState(false);
   const [workerToDel, setWorkerToDel] = useState(null);
+
+  const [ingreAdded, setIngreAdded] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const ingreNames = Array.from(
+    new Set(ingreList.map((ingre) => ingre.ingreName))
+  );
 
   const {
     successMsg,
