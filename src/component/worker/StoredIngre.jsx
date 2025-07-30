@@ -89,7 +89,22 @@ const StoredIngre = () => {
       setIngreAdded(false);
     }
   }, [ingreAdded]);
-  
+
+  useEffect(() => {
+    localStorage.setItem("CURR_INGRE_PAGE", currIngrePage);
+  }, [currIngrePage]);
+
+  useEffect(() => {
+    localStorage.setItem("INGRE_NAME", selectedName);
+    if (selectedName) {
+      setFiltered(
+        ingreList.filter((ingre) => ingre.ingreName === selectedName)
+      );
+    } else {
+      setFiltered(ingreList);
+    }
+  }, [ingreList, selectedName]);
+
   return (
     <main>
       <Row>
