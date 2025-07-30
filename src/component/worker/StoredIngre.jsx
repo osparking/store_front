@@ -187,6 +187,17 @@ const StoredIngre = () => {
           ))}
         </tbody>
       </Table>
+      <AddIngreModal
+        show={showModal}
+        closer={() => setShowModal(false)}
+        setIngreAdded={setIngreAdded}
+      />
+      <Paginator
+        pageSize={ingresPerPage}
+        totalItems={filtered.length}
+        currPage={currIngrePage}
+        setCurrPage={setCurrIngrePage}
+      />
     </main>
   );
 };
