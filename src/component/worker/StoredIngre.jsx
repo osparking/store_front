@@ -3,11 +3,11 @@ import { Button, Col, Row, Table } from "react-bootstrap";
 import { BsPlusSquareFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
-import BsAlertHook from "../hook/BsAlertHook";
-import { getIngredientList } from "./WorkerService";
-import AddIngreModal from "./AddIngreModal";
 import ItemFilter from "../common/ItemFilter";
 import Paginator from "../common/Paginator";
+import BsAlertHook from "../hook/BsAlertHook";
+import AddIngreModal from "./AddIngreModal";
+import { getIngredientList } from "./WorkerService";
 
 const StoredIngre = () => {
   const [ingreList, setIngreList] = useState([]);
@@ -32,6 +32,12 @@ const StoredIngre = () => {
   const [selectedName, setSelectedName] = useState(
     localStorage.getItem("INGRE_NAME") || ""
   );
+
+  const changeSelectedName = (e) => {
+    console.log("e: " + e);
+    setSelectedName(e);
+  };
+
   const handleClearFilter = () => {
     setSelectedName("");
   };
@@ -78,27 +84,37 @@ const StoredIngre = () => {
 
   useEffect(() => {
     readIngredientList();
+  }, []);
+
+  useEffect(() => {
+    if (ingreAdded) {
+      readIngredientList();
+      setIngreAdded(false);
+    }
   }, [ingreAdded]);
 
   useEffect(() => {
     localStorage.setItem("CURR_INGRE_PAGE", currIngrePage);
   }, [currIngrePage]);
 
-  const [ingresPerPage] = useState(5);
-  const indexOfLastIngre = currIngrePage * ingresPerPage;
-  const indexOfFirstIngre = indexOfLastIngre - ingresPerPage;
-  const currIngres = filtered.slice(indexOfFirstIngre, indexOfLastIngre);
-
   useEffect(() => {
     localStorage.setItem("INGRE_NAME", selectedName);
     if (selectedName) {
+      let check = ingreList.filter((ingre) => ingre.ingreName === selectedName);
+      console.log("check:" + JSON.stringify(check));
       setFiltered(
-        ingreList.filter((ingre) => ingre.ingreName === selectedName)
+        // ingreList.filter((ingre) => (ingre.ingreName === selectedName))
+        check
       );
     } else {
       setFiltered(ingreList);
     }
   }, [ingreList, selectedName]);
+
+  const [ingresPerPage] = useState(5);
+  const indexOfLastIngre = currIngrePage * ingresPerPage;
+  const indexOfFirstIngre = indexOfLastIngre - ingresPerPage;
+  const currIngres = filtered.slice(indexOfFirstIngre, indexOfLastIngre);
 
   return (
     <main>
@@ -108,7 +124,8 @@ const StoredIngre = () => {
             label={"재료명"}
             options={ingreNames}
             selectedOption={selectedName}
-            onOptionSelection={setSelectedName}
+            onOptionSelection={changeSelectedName}
+            // onOptionSelection={(e) => setSelectedName(e)}
             onClearFilter={handleClearFilter}
           />
         </Col>
