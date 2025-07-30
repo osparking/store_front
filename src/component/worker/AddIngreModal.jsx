@@ -183,16 +183,16 @@ const AddIngreModal = ({ show, closer, setIngreAdded }) => {
               {alertError && (
                 <AlertMessage type={"danger"} message={errorMsg} />
               )}
+              
               <div className="d-flex justify-content-center mb-3 mt-3">
-                <Button
-                  type="submit"
-                  variant="outline-primary"
-                  size="sm"
-                  className="me-2"
-                >
-                  등록
+                <Button variant="outline-info" size="md" onClick={handleReset}>
+                  리셋
                 </Button>
               </div>
+
+              {alertSuccess && (
+                <AlertMessage severity={"success"} message={successMsg} />
+              )}              
             </Form>
           </Col>
         </Row>
