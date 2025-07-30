@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Col, OverlayTrigger, Row, Table, Tooltip } from "react-bootstrap";
-import { BsPencilFill, BsPlusSquareFill } from "react-icons/bs";
+import { BsPencilFill, BsPlusSquareFill, BsTrashFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
@@ -187,12 +187,29 @@ const StoredIngre = () => {
                     <Tooltip id={`tooltip-view-${index}`}>정보 편집</Tooltip>
                   }
                 >
-                  <Link to={`/stored_ingred/${ingredient.id}/update`} className="text-success">
+                  <Link
+                    to={`/stored_ingred/${ingredient.id}/update`}
+                    className="text-success"
+                  >
                     <BsPencilFill />
                   </Link>
                 </OverlayTrigger>
               </td>
-              <td>삭제</td>
+              <td>
+                <OverlayTrigger
+                  overlay={
+                    <Tooltip id={`tooltip-view-${index}`}>입고 기록 삭제</Tooltip>
+                  }
+                >
+                  <Link
+                    to={"#"}
+                    className="text-danger"
+                    onClick={() => handleShowDelModal(ingredient.id)}
+                  >
+                    <BsTrashFill />
+                  </Link>
+                </OverlayTrigger>
+              </td>
             </tr>
           ))}
         </tbody>
