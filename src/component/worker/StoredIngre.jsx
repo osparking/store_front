@@ -6,6 +6,8 @@ import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import { getIngredientList } from "./WorkerService";
 import AddIngreModal from "./AddIngreModal";
+import ItemFilter from "../common/ItemFilter";
+import Paginator from "../common/Paginator";
 
 const StoredIngre = () => {
   const [ingreList, setIngreList] = useState([]);
@@ -23,6 +25,22 @@ const StoredIngre = () => {
     alertError,
     setAlertError,
   } = BsAlertHook();
+
+  const ingreNames = Array.from(
+    new Set(ingreList.map((ingre) => ingre.ingreName))
+  );
+  const [selectedName, setSelectedName] = useState(
+    localStorage.getItem("INGRE_NAME") || ""
+  );
+  const handleClearFilter = () => {
+    setSelectedName("");
+  };
+
+  const [filtered, setFiltered] = useState([]);
+
+  const [currIngrePage, setCurrIngrePage] = useState(
+    localStorage.getItem("CURR_INGRE_PAGE") || 1
+  );
 
   const navigate = useNavigate();
 
@@ -62,8 +80,39 @@ const StoredIngre = () => {
     readIngredientList();
   }, [ingreAdded]);
 
+  useEffect(() => {
+    localStorage.setItem("CURR_INGRE_PAGE", currIngrePage);
+  }, [currIngrePage]);
+
+  const [ingresPerPage] = useState(5);
+  const indexOfLastIngre = currIngrePage * ingresPerPage;
+  const indexOfFirstIngre = indexOfLastIngre - ingresPerPage;
+  const currIngres = filtered.slice(indexOfFirstIngre, indexOfLastIngre);
+
+  useEffect(() => {
+    localStorage.setItem("INGRE_NAME", selectedName);
+    if (selectedName) {
+      setFiltered(
+        ingreList.filter((ingre) => ingre.ingreName === selectedName)
+      );
+    } else {
+      setFiltered(ingreList);
+    }
+  }, [ingreList, selectedName]);
+
   return (
     <main>
+      <Row className="mb-2">
+        <Col md={6}>
+          <ItemFilter
+            label={"재료명"}
+            options={ingreNames}
+            selectedOption={selectedName}
+            onOptionSelection={setSelectedName}
+            onClearFilter={handleClearFilter}
+          />
+        </Col>
+      </Row>
       <Row>
         <Col>
           {alertSuccess && (
@@ -97,7 +146,7 @@ const StoredIngre = () => {
           </tr>
         </thead>
         <tbody>
-          {ingreList.map((ingredient, index) => (
+          {currIngres.map((ingredient, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
               <td>{ingredient.ingreName}</td>
@@ -127,6 +176,12 @@ const StoredIngre = () => {
         show={showModal}
         closer={() => setShowModal(false)}
         setIngreAdded={setIngreAdded}
+      />
+      <Paginator
+        pageSize={ingresPerPage}
+        totalItems={filtered.length}
+        currPage={currIngrePage}
+        setCurrPage={setCurrIngrePage}
       />
     </main>
   );
