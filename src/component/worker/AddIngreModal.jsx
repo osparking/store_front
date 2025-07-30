@@ -1,6 +1,6 @@
 import ko from "date-fns/locale/ko";
 import { useState } from "react";
-import { Button, Col, Form, Row } from "react-bootstrap";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import AlertMessage from "../common/AlertMessage";
@@ -183,7 +183,7 @@ const AddIngreModal = ({ show, closer, setIngreAdded }) => {
               {alertError && (
                 <AlertMessage type={"danger"} message={errorMsg} />
               )}
-              
+
               <div className="d-flex justify-content-center mb-3 mt-3">
                 <Button variant="outline-info" size="md" onClick={handleReset}>
                   리셋
@@ -192,7 +192,7 @@ const AddIngreModal = ({ show, closer, setIngreAdded }) => {
 
               {alertSuccess && (
                 <AlertMessage severity={"success"} message={successMsg} />
-              )}              
+              )}
             </Form>
           </Col>
         </Row>
