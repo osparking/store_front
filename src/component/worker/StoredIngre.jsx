@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Button, Col, Row, Table } from "react-bootstrap";
-import { BsPlusSquareFill } from "react-icons/bs";
+import { Button, Col, OverlayTrigger, Row, Table, Tooltip } from "react-bootstrap";
+import { BsPencilFill, BsPlusSquareFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
@@ -181,7 +181,17 @@ const StoredIngre = () => {
               <td>{ingredient.expireDate}</td>
               <td>{ingredient.addTime}</td>
               <td>{ingredient.workerName}</td>
-              <td>수정</td>
+              <td>
+                <OverlayTrigger
+                  overlay={
+                    <Tooltip id={`tooltip-view-${index}`}>정보 편집</Tooltip>
+                  }
+                >
+                  <Link to={`/stored_ingred/${ingredient.id}/update`} className="text-success">
+                    <BsPencilFill />
+                  </Link>
+                </OverlayTrigger>
+              </td>
               <td>삭제</td>
             </tr>
           ))}
