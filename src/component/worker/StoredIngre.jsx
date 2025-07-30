@@ -77,6 +77,19 @@ const StoredIngre = () => {
     readIngredientList();
   }, []);
 
+  const [filtered, setFiltered] = useState([]);
+
+  const [currIngrePage, setCurrIngrePage] = useState(
+    localStorage.getItem("CURR_INGRE_PAGE") || 1
+  );
+
+  useEffect(() => {
+    if (ingreAdded) {
+      readIngredientList();
+      setIngreAdded(false);
+    }
+  }, [ingreAdded]);
+  
   return (
     <main>
       <Row>
