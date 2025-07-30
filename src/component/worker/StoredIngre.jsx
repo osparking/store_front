@@ -16,6 +16,18 @@ const StoredIngre = () => {
     new Set(ingreList.map((ingre) => ingre.ingreName))
   );
 
+  const [selectedName, setSelectedName] = useState(
+    localStorage.getItem("INGRE_NAME") || ""
+  );
+
+  const changeSelectedName = (e) => {
+    setSelectedName(e);
+  };
+
+  const handleClearFilter = () => {
+    setSelectedName("");
+  };
+
   const {
     successMsg,
     setSuccessMsg,
