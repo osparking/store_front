@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
-import { Col, Row, Table } from "react-bootstrap";
+import { Button, Col, Row, Table } from "react-bootstrap";
 import { BsPlusSquareFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import { getIngredientList } from "./WorkerService";
+import ItemFilter from "../common/ItemFilter";
+import AddIngreModal from "./AddIngreModal";
+import Paginator from "../common/Paginator";
 
 const StoredIngre = () => {
   const [ingreList, setIngreList] = useState([]);
@@ -112,6 +115,19 @@ const StoredIngre = () => {
 
   return (
     <main>
+      <Row className="mb-2">
+        <Col md={6}>
+          <ItemFilter
+            label={"재료명"}
+            options={ingreNames}
+            selectedOption={selectedName}
+            onOptionSelection={changeSelectedName}
+            // onOptionSelection={(e) => setSelectedName(e)}
+            onClearFilter={handleClearFilter}
+          />
+        </Col>
+      </Row>
+
       <Row>
         <Col>
           {alertSuccess && (
@@ -145,7 +161,7 @@ const StoredIngre = () => {
           </tr>
         </thead>
         <tbody>
-          {ingreList.map((ingredient, index) => (
+          {currIngres.map((ingredient, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
               <td>{ingredient.ingreName}</td>
