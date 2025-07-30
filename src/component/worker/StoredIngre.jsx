@@ -105,6 +105,11 @@ const StoredIngre = () => {
     }
   }, [ingreList, selectedName]);
 
+  const [ingresPerPage] = useState(5);
+  const indexOfLastIngre = currIngrePage * ingresPerPage;
+  const indexOfFirstIngre = indexOfLastIngre - ingresPerPage;
+  const currIngres = filtered.slice(indexOfFirstIngre, indexOfLastIngre);
+
   return (
     <main>
       <Row>
@@ -117,10 +122,9 @@ const StoredIngre = () => {
         <Col>
           {" "}
           <div className="d-flex justify-content-end">
-            <Link to={"/add-stored-ingre"}>
-              {" "}
+            <Button onClick={() => setShowModal(true)}>
               <BsPlusSquareFill />
-            </Link>
+            </Button>
           </div>
         </Col>
       </Row>
