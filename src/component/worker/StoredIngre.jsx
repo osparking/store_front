@@ -215,7 +215,9 @@ const StoredIngre = () => {
               <td>
                 <OverlayTrigger
                   overlay={
-                    <Tooltip id={`tooltip-view-${index}`}>입고 기록 삭제</Tooltip>
+                    <Tooltip id={`tooltip-view-${index}`}>
+                      입고 기록 삭제
+                    </Tooltip>
                   }
                 >
                   <Link
@@ -235,6 +237,8 @@ const StoredIngre = () => {
         show={showModal}
         closer={() => setShowModal(false)}
         setIngreAdded={setIngreAdded}
+        ingredient={ingredient}
+        setIngredient={setIngredient}
       />
       <Paginator
         pageSize={ingresPerPage}

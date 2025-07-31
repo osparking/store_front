@@ -10,7 +10,13 @@ import IngreNameSelector from "./IngreNameSelector";
 import UnitSelector from "./UnitSelector";
 import { sendStoIngInfo } from "./WorkerService";
 
-const AddIngreModal = ({ show, closer, setIngreAdded }) => {
+const AddIngreModal = ({
+  show,
+  closer,
+  setIngreAdded,
+  ingredient,
+  setIngredient,
+}) => {
   const [storeDate, setStoreDate] = useState(new Date());
   let endDate = new Date();
   endDate.setFullYear(endDate.getFullYear() + 1);
