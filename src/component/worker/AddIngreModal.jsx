@@ -18,16 +18,6 @@ const AddIngreModal = ({ show, closer, setIngreAdded }) => {
 
   registerLocale("ko", ko);
 
-  const [ingredient, setIngredient] = useState({
-    ingreName: "가성소다",
-    quantity: "1",
-    packunit: "kg",
-    count: "1",
-    storeDate: storeDate,
-    buyPlace: "https://smartstore.naver.com/vase_shop/",
-    expireDate: expireDate,
-  });
-
   const handleReset = () => {
     setIngredient({
       ingreName: "",

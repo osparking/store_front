@@ -119,6 +119,17 @@ const StoredIngre = () => {
   const indexOfFirstIngre = indexOfLastIngre - ingresPerPage;
   const currIngres = filtered.slice(indexOfFirstIngre, indexOfLastIngre);
 
+  const [ingredient, setIngredient] = useState({});
+  const dummy = {
+    ingreName: "가성소다",
+    quantity: "1",
+    packunit: "kg",
+    count: "1",
+    storeDate: storeDate,
+    buyPlace: "https://smartstore.naver.com/vase_shop/",
+    expireDate: expireDate,
+  };
+
   return (
     <main>
       <Row className="mb-2">
