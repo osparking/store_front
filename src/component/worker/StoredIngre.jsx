@@ -108,11 +108,12 @@ const StoredIngre = () => {
     const currPage = localStorage.getItem("CURR_INGRE_PAGE");
     // 현재 페이지가 총 페이지를 초과해도, 총 페이지를 현재 페이지에 배정
     if (ingreAdded || totalPages < currPage) {
-      setCurrIngrePage(totalPages);
-      localStorage.setItem("CURR_INGRE_PAGE", totalPages);
+      setCurrIngrePage(totalPages > 0 ? totalPages : 1);
       if (ingreAdded) {
         setIngreAdded(false);
       }
+    } else {
+      setCurrIngrePage(currPage);
     }
   }, [filtered]);
 
