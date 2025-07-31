@@ -9,13 +9,11 @@ const DeleteConfirmModal = ({
   disabled,
 }) => {
   return (
-    <Modal show={show} onHide={onHide} >
+    <Modal show={show} onHide={onHide}>
       <Modal.Header closeButton>
         <Modal.Title>삭제 후 복구 불가</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        삭제되면, '{target}' 계정은 복구 불가합니다!
-      </Modal.Body>
+      <Modal.Body>삭제되면, '{target}' 복구는 불가합니다!</Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onHide}>
           삭제 취소
