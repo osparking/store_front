@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
-import { Button, Col, OverlayTrigger, Row, Table, Tooltip } from "react-bootstrap";
+import {
+  Button,
+  Col,
+  OverlayTrigger,
+  Row,
+  Table,
+  Tooltip,
+} from "react-bootstrap";
 import { BsPencilFill, BsPlusSquareFill, BsTrashFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
-import BsAlertHook from "../hook/BsAlertHook";
-import { getIngredientList } from "./WorkerService";
 import ItemFilter from "../common/ItemFilter";
-import AddIngreModal from "./AddIngreModal";
 import Paginator from "../common/Paginator";
+import BsAlertHook from "../hook/BsAlertHook";
+import AddIngreModal from "./AddIngreModal";
+import { getIngredientList } from "./WorkerService";
 
 const StoredIngre = () => {
   const [ingreList, setIngreList] = useState([]);
@@ -43,7 +50,7 @@ const StoredIngre = () => {
   } = BsAlertHook();
 
   const navigate = useNavigate();
-
+  
   const readIngredientList = () => {
     getIngredientList()
       .then((data) => {
@@ -87,13 +94,6 @@ const StoredIngre = () => {
   );
 
   useEffect(() => {
-    if (ingreAdded) {
-      readIngredientList();
-      setIngreAdded(false);
-    }
-  }, [ingreAdded]);
-
-  useEffect(() => {
     localStorage.setItem("CURR_INGRE_PAGE", currIngrePage);
   }, [currIngrePage]);
 
@@ -113,6 +113,42 @@ const StoredIngre = () => {
   const indexOfFirstIngre = indexOfLastIngre - ingresPerPage;
   const currIngres = filtered.slice(indexOfFirstIngre, indexOfLastIngre);
 
+  const [storeDate, setStoreDate] = useState(new Date());
+  let endDate = new Date();
+  endDate.setFullYear(endDate.getFullYear() + 1);
+  const [expireDate, setExpireDate] = useState(endDate);
+
+  const [ingredient, setIngredient] = useState({});
+  const dummyRow = {
+    ingreName: "가성소다",
+    quantity: "1",
+    packunit: "kg",
+    count: "1",
+    storeDate: storeDate,
+    buyPlace: "https://smartstore.naver.com/vase_shop/",
+    expireDate: expireDate,
+  };
+
+  const openWithRow = (row) => {
+    setIngredient(row);
+    setShowModal(true);
+  };
+
+  useEffect(() => {
+    if (ingreAdded) {
+      readIngredientList();
+      setIngreAdded(false);
+    }
+  }, [ingreAdded]);
+
+  useEffect(() => {
+    console.log("필터된 재료 목록 길이:" + filtered.length);
+    const totalPages = Math.ceil(filtered.length / ingresPerPage);
+    setCurrIngrePage(totalPages);
+    console.log("총페이지:" + totalPages);
+    localStorage.setItem("CURR_INGRE_PAGE", totalPages);
+  }, [filtered]);
+
   return (
     <main>
       <Row className="mb-2">
@@ -122,7 +158,6 @@ const StoredIngre = () => {
             options={ingreNames}
             selectedOption={selectedName}
             onOptionSelection={changeSelectedName}
-            // onOptionSelection={(e) => setSelectedName(e)}
             onClearFilter={handleClearFilter}
           />
         </Col>
@@ -138,7 +173,7 @@ const StoredIngre = () => {
         <Col>
           {" "}
           <div className="d-flex justify-content-end">
-            <Button onClick={() => setShowModal(true)}>
+            <Button onClick={() => openWithRow(dummyRow)}>
               <BsPlusSquareFill />
             </Button>
           </div>
@@ -187,18 +222,27 @@ const StoredIngre = () => {
                     <Tooltip id={`tooltip-view-${index}`}>정보 편집</Tooltip>
                   }
                 >
-                  <Link
+                  {/* <Link
                     to={`/stored_ingred/${ingredient.id}/update`}
                     className="text-success"
                   >
                     <BsPencilFill />
-                  </Link>
+                  </Link> */}
+                  <Button
+                    size="sm"
+                    style={{ backgroundColor: "transparent", border: "none" }}
+                    onClick={() => openWithRow(ingredient)}
+                  >
+                    <BsPencilFill className="text-success" />
+                  </Button>
                 </OverlayTrigger>
               </td>
               <td>
                 <OverlayTrigger
                   overlay={
-                    <Tooltip id={`tooltip-view-${index}`}>입고 기록 삭제</Tooltip>
+                    <Tooltip id={`tooltip-view-${index}`}>
+                      입고 기록 삭제
+                    </Tooltip>
                   }
                 >
                   <Link
@@ -218,6 +262,8 @@ const StoredIngre = () => {
         show={showModal}
         closer={() => setShowModal(false)}
         setIngreAdded={setIngreAdded}
+        ingredient={ingredient}
+        setIngredient={setIngredient}
       />
       <Paginator
         pageSize={ingresPerPage}
