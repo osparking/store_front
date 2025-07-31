@@ -220,12 +220,13 @@ const StoredIngre = () => {
                     <Tooltip id={`tooltip-view-${index}`}>정보 편집</Tooltip>
                   }
                 >
-                  <Link
-                    to={`/stored_ingred/${ingredient.id}/update`}
-                    className="text-success"
+                  <Button
+                    size="sm"
+                    style={{ backgroundColor: "transparent", border: "none" }}
+                    onClick={() => openWithRow(ingredient)}
                   >
-                    <BsPencilFill />
-                  </Link>
+                    <BsPencilFill className="text-success" />
+                  </Button>
                 </OverlayTrigger>
               </td>
               <td>
