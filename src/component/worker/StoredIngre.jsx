@@ -10,17 +10,18 @@ import {
 import { BsPencilFill, BsPlusSquareFill, BsTrashFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
-import BsAlertHook from "../hook/BsAlertHook";
-import { getIngredientList } from "./WorkerService";
 import ItemFilter from "../common/ItemFilter";
-import AddIngreModal from "./AddIngreModal";
 import Paginator from "../common/Paginator";
+import BsAlertHook from "../hook/BsAlertHook";
+import AddIngreModal from "./AddIngreModal";
+import { getIngredientList } from "./WorkerService";
 
 const StoredIngre = () => {
   const [ingreList, setIngreList] = useState([]);
   const [workerToDel, setWorkerToDel] = useState(null);
 
   const [ingreAdded, setIngreAdded] = useState(false);
+  const [ingreUpdated, setIngreUpdated] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const ingreNames = Array.from(
     new Set(ingreList.map((ingre) => ingre.ingreName))
@@ -94,16 +95,21 @@ const StoredIngre = () => {
   );
 
   useEffect(() => {
-    if (ingreAdded) {
+    if (ingreAdded || ingreUpdated) {
       readIngredientList();
-      setIngreAdded(false);
+      if (ingreUpdated) {
+        setIngreUpdated(false);
+      }
     }
-  }, [ingreAdded]);
+  }, [ingreAdded, ingreUpdated]);
 
   useEffect(() => {
-    const totalPages = Math.ceil(filtered.length / ingresPerPage);
-    setCurrIngrePage(totalPages);
-    localStorage.setItem("CURR_INGRE_PAGE", totalPages);
+    if (ingreAdded) {
+      const totalPages = Math.ceil(filtered.length / ingresPerPage);
+      setCurrIngrePage(totalPages);
+      localStorage.setItem("CURR_INGRE_PAGE", totalPages);
+      setIngreAdded(false);
+    }
   }, [filtered]);
 
   useEffect(() => {
@@ -254,6 +260,7 @@ const StoredIngre = () => {
         show={showModal}
         closer={() => setShowModal(false)}
         setIngreAdded={setIngreAdded}
+        setIngreUpdated={setIngreUpdated}
         ingredient={ingredient}
         setIngredient={setIngredient}
       />
