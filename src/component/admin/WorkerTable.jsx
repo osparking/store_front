@@ -155,7 +155,7 @@ const WorkerTable = () => {
         show={showDelModal}
         onHide={() => setShowDelModal(false)}
         handleDeletion={handleDeletion}
-        target={`${delTarget.name}`}
+        target={`${delTarget.name} 계정의`}
         disabled={delBtnDisabled}
       />
       <h5 className='mb-3'>직원 관리</h5>

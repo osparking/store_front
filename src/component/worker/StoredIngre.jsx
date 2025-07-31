@@ -15,6 +15,7 @@ import Paginator from "../common/Paginator";
 import BsAlertHook from "../hook/BsAlertHook";
 import IngreDataModal from "./IngreDataModal";
 import { getIngredientList } from "./WorkerService";
+import DeleteConfirmModal from "../modal/DeleteConfirmModal";
 
 const StoredIngre = () => {
   const [ingreList, setIngreList] = useState([]);
@@ -30,6 +31,8 @@ const StoredIngre = () => {
   const [selectedName, setSelectedName] = useState(
     localStorage.getItem("INGRE_NAME") || ""
   );
+
+  const [showDelModal, setShowDelModal] = useState(false);
 
   const changeSelectedName = (e) => {
     setSelectedName(e);
@@ -156,8 +159,42 @@ const StoredIngre = () => {
     setShowModal(true);
   };
 
+  const [delBtnDisabled, setDelBtnDisabled] = useState(false);
+  const handleIngreDelete = async () => {
+    if (ingIdToDel) {
+      try {
+        setDelBtnDisabled(true);
+        const result = await deleteStoredIngre(ingIdToDel);
+        setSuccessMsg(result.message);
+        setShowSuccessAlert(true);
+        setShowDelModal(false);
+        readIngredientList();
+      } catch (err) {
+        console.error("err:", err);
+        setErrorMsg(err.message);
+        setShowErrorAlert(true);
+      } finally {
+        setDelBtnDisabled(false);        
+      }
+    }
+  };
+
+  const [ingIdToDel, setIngIdToDel] = useState(null);
+  const handleShowDelModal = (ingId) => {
+    setShowDelModal(true);
+    setIngIdToDel(ingId);
+  };
+
   return (
     <main>
+      <DeleteConfirmModal
+        show={showDelModal}
+        onHide={() => setShowDelModal(false)}
+        handleDeletion={handleIngreDelete}
+        target="입고 재료 정보의"
+        disabled={delBtnDisabled}
+      />
+
       <Row className="mb-2">
         <Col md={6}>
           <ItemFilter

@@ -79,7 +79,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
         show={showDelModal}
         onHide={handleModalXButtonClick}
         handleDeletion={handleDeleteOrder}
-        target={`${user.fullName}`}
+        target={`${user.fullName} 계정의`}
         deleting={false}
       />
       <React.Fragment>
