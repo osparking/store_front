@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Button, Col, OverlayTrigger, Row, Table, Tooltip } from "react-bootstrap";
+import {
+  Button,
+  Col,
+  OverlayTrigger,
+  Row,
+  Table,
+  Tooltip,
+} from "react-bootstrap";
 import { BsPencilFill, BsPlusSquareFill, BsTrashFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
@@ -120,14 +127,23 @@ const StoredIngre = () => {
   const currIngres = filtered.slice(indexOfFirstIngre, indexOfLastIngre);
 
   const [ingredient, setIngredient] = useState({});
+
+  let expireDate = new Date();
+  expireDate.setFullYear(expireDate.getFullYear() + 1);
+
   const dummy = {
     ingreName: "가성소다",
     quantity: "1",
     packunit: "kg",
     count: "1",
-    storeDate: storeDate,
+    storeDate: new Date(),
     buyPlace: "https://smartstore.naver.com/vase_shop/",
     expireDate: expireDate,
+  };
+
+  const openWithRow = (row) => {
+    setIngredient(row);
+    setShowModal(true);
   };
 
   return (
@@ -155,7 +171,7 @@ const StoredIngre = () => {
         <Col>
           {" "}
           <div className="d-flex justify-content-end">
-            <Button onClick={() => setShowModal(true)}>
+            <Button onClick={() => openWithRow(dummy)}>
               <BsPlusSquareFill />
             </Button>
           </div>
