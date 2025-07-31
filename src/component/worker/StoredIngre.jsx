@@ -173,13 +173,13 @@ const StoredIngre = () => {
         setDelBtnDisabled(true);
         const result = await deleteStoredIngre(ingIdToDel);
         setSuccessMsg(result.message);
-        setShowSuccessAlert(true);
+        setAlertSuccess(true);
         setShowDelModal(false);
         readIngredientList();
       } catch (err) {
         console.error("err:", err);
         setErrorMsg(err.message);
-        setShowErrorAlert(true);
+        setAlertError(true);
       } finally {
         setDelBtnDisabled(false);
       }
