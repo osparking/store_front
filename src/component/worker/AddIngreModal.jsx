@@ -14,6 +14,7 @@ const AddIngreModal = ({
   show,
   closer,
   setIngreAdded,
+  setIngreUpdated,
   ingredient,
   setIngredient,
 }) => {
@@ -75,7 +76,11 @@ const AddIngreModal = ({
       console.log("response: ", response);
       setSuccessMsg(response.message);
       setAlertSuccess(true);
-      setIngreAdded(true);
+      if (ingredient.id) {
+        setIngreUpdated(true);
+      } else {
+        setIngreAdded(true);
+      }
     } catch (error) {
       console.log("error.response: ", error.response);
       setErrorMsg(error.response.data.message);
