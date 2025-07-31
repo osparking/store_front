@@ -94,6 +94,12 @@ const StoredIngre = () => {
   }, [ingreAdded]);
 
   useEffect(() => {
+    const totalPages = Math.ceil(filtered.length / ingresPerPage);
+    setCurrIngrePage(totalPages);
+    localStorage.setItem("CURR_INGRE_PAGE", totalPages);
+  }, [filtered]);
+
+  useEffect(() => {
     localStorage.setItem("CURR_INGRE_PAGE", currIngrePage);
   }, [currIngrePage]);
 
