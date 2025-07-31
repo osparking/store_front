@@ -157,6 +157,15 @@ const StoredIngre = () => {
     setShowModal(true);
   };
 
+  const [showDelModal, setShowDelModal] = useState(false);
+  const [ingIdToDel, setIngIdToDel] = useState(null);
+  const [delBtnDisabled, setDelBtnDisabled] = useState(false);
+
+  const handleShowDelModal = (ingId) => {
+    setShowDelModal(true);
+    setIngIdToDel(ingId);
+  };
+
   return (
     <main>
       <Row className="mb-2">
