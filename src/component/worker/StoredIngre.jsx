@@ -306,7 +306,7 @@ const StoredIngre = () => {
         ingredient={ingredient}
         setIngredient={setIngredient}
       />
-      <Paginator
+      <Paginator 
         pageSize={ingresPerPage}
         totalItems={filtered.length}
         currPage={currIngrePage}

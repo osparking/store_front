@@ -16,7 +16,7 @@ const Paginator = ({ pageSize, totalItems, currPage, setCurrPage }) => {
     );
   }
   return (
-    <div className="d-flex justify-content-end">
+    <div className="d-flex justify-content-center">
       <Pagination>{items}</Pagination>
     </div>
   );
