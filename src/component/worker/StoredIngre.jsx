@@ -15,6 +15,7 @@ import Paginator from "../common/Paginator";
 import BsAlertHook from "../hook/BsAlertHook";
 import IngreDataModal from "./IngreDataModal";
 import { deleteStoredIngre, getIngredientList } from "./WorkerService";
+import DeleteConfirmModal from "../modal/DeleteConfirmModal";
 
 const StoredIngre = () => {
   const [ingreList, setIngreList] = useState([]);
@@ -187,6 +188,14 @@ const StoredIngre = () => {
 
   return (
     <main>
+     <DeleteConfirmModal
+        show={showDelModal}
+        onHide={() => setShowDelModal(false)}
+        handleDeletion={handleIngreDelete}
+        target="입고 재료 정보의"
+        disabled={delBtnDisabled}
+      />
+
       <Row className="mb-2">
         <Col md={6}>
           <ItemFilter
