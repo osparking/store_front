@@ -14,7 +14,7 @@ import ItemFilter from "../common/ItemFilter";
 import Paginator from "../common/Paginator";
 import BsAlertHook from "../hook/BsAlertHook";
 import IngreDataModal from "./IngreDataModal";
-import { getIngredientList } from "./WorkerService";
+import { deleteStoredIngre, getIngredientList } from "./WorkerService";
 
 const StoredIngre = () => {
   const [ingreList, setIngreList] = useState([]);
@@ -164,6 +164,25 @@ const StoredIngre = () => {
   const handleShowDelModal = (ingId) => {
     setShowDelModal(true);
     setIngIdToDel(ingId);
+  };
+
+  const handleIngreDelete = async () => {
+    if (ingIdToDel) {
+      try {
+        setDelBtnDisabled(true);
+        const result = await deleteStoredIngre(ingIdToDel);
+        setSuccessMsg(result.message);
+        setShowSuccessAlert(true);
+        setShowDelModal(false);
+        readIngredientList();
+      } catch (err) {
+        console.error("err:", err);
+        setErrorMsg(err.message);
+        setShowErrorAlert(true);
+      } finally {
+        setDelBtnDisabled(false);
+      }
+    }
   };
 
   return (
