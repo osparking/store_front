@@ -10,7 +10,7 @@ import IngreNameSelector from "./IngreNameSelector";
 import UnitSelector from "./UnitSelector";
 import { sendStoIngInfo } from "./WorkerService";
 
-const AddIngreModal = ({
+const IngreDataModal = ({
   show,
   closer,
   setIngreAdded,
@@ -210,4 +210,4 @@ const AddIngreModal = ({
   );
 };
 
-export default AddIngreModal;
+export default IngreDataModal;

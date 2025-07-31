@@ -13,7 +13,7 @@ import AlertMessage from "../common/AlertMessage";
 import ItemFilter from "../common/ItemFilter";
 import Paginator from "../common/Paginator";
 import BsAlertHook from "../hook/BsAlertHook";
-import AddIngreModal from "./AddIngreModal";
+import IngreDataModal from "./IngreDataModal";
 import { getIngredientList } from "./WorkerService";
 
 const StoredIngre = () => {
@@ -260,7 +260,7 @@ const StoredIngre = () => {
           ))}
         </tbody>
       </Table>
-      <AddIngreModal
+      <IngreDataModal
         show={showModal}
         closer={() => setShowModal(false)}
         setIngreAdded={setIngreAdded}
