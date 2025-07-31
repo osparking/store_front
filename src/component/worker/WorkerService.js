@@ -4,6 +4,16 @@ import { callWithToken } from "../util/api";
 
 const prefix = "http://localhost:9193/api/s1";
 
+export async function deleteStoredIngre(ingId) {
+  try {
+    var url = `/store_ingred/${ingId}/delete`;
+    const result = await callWithToken("delete", url);
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function getAllPackUnits() {
   try {
     const result = await callWithToken("get", "/store_ingred/get_packunits");
