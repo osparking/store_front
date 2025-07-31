@@ -188,7 +188,7 @@ const StoredIngre = () => {
 
   return (
     <main>
-     <DeleteConfirmModal
+      <DeleteConfirmModal
         show={showDelModal}
         onHide={() => setShowDelModal(false)}
         handleDeletion={handleIngreDelete}
@@ -207,6 +207,14 @@ const StoredIngre = () => {
             onClearFilter={handleClearFilter}
           />
         </Col>
+        <Col>
+          {" "}
+          <div className="d-flex justify-content-end">
+            <Button onClick={() => openWithRow(dummy)}>
+              <BsPlusSquareFill />
+            </Button>
+          </div>
+        </Col>
       </Row>
 
       <Row>
@@ -215,14 +223,6 @@ const StoredIngre = () => {
             <AlertMessage type={"success"} message={successMsg} />
           )}
           {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
-        </Col>
-        <Col>
-          {" "}
-          <div className="d-flex justify-content-end">
-            <Button onClick={() => openWithRow(dummy)}>
-              <BsPlusSquareFill />
-            </Button>
-          </div>
         </Col>
       </Row>
       <Table bordered hover striped>
