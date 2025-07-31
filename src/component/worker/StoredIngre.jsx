@@ -104,11 +104,15 @@ const StoredIngre = () => {
   }, [ingreAdded, ingreUpdated]);
 
   useEffect(() => {
-    if (ingreAdded) {
-      const totalPages = Math.ceil(filtered.length / ingresPerPage);
+    const totalPages = Math.ceil(filtered.length / ingresPerPage);
+    const currPage = localStorage.getItem("CURR_INGRE_PAGE");
+    // 현재 페이지가 총 페이지를 초과해도, 총 페이지를 현재 페이지에 배정
+    if (ingreAdded || totalPages < currPage) {
       setCurrIngrePage(totalPages);
       localStorage.setItem("CURR_INGRE_PAGE", totalPages);
-      setIngreAdded(false);
+      if (ingreAdded) {
+        setIngreAdded(false);
+      }
     }
   }, [filtered]);
 
