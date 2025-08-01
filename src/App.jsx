@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useEffect } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -35,6 +36,18 @@ function App() {
       </Route>
     )
   );
+
+  useEffect(() => {
+    const cleanupLocalStorage = () => {
+      localStorage.clear();
+    };
+
+    window.addEventListener("beforeunload", cleanupLocalStorage);
+
+    return () => {
+      window.removeEventListener("beforeunload", cleanupLocalStorage);
+    };
+  }, []);
 
   return (
     <main className="">
