@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import { getUserByMonthType } from '../user/UserService';
+import React, { useEffect, useState } from "react";
 import {
   Bar,
   BarChart,
@@ -10,17 +9,21 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import NoDataExists from '../common/NoDataExists';
+import NoDataExists from "../common/NoDataExists";
+import { callWithToken } from "../util/api";
 
 const UserChart = () => {
   const [userStat, setUserStat] = useState([]);
   const [errorMsg, setErrorMsg] = useState(null);
-  
+
   useEffect(() => {
     const getUserRegisterStat = async () => {
       try {
-        const userRegister = await getUserByMonthType();
-        const userStat = await userRegister.data;
+        const userRegister = await callWithToken(
+          "get",
+          "/admin/user/count_stat"
+        );
+        const userStat = await userRegister.data.data;
         if (userRegister) {
           const chartData = Object.entries(userStat).map(
             ([month, userCount]) => {
@@ -37,19 +40,19 @@ const UserChart = () => {
           navigate("/login");
         }
       } catch (err) {
-        setErrorMsg("유저 등록 통계 오류: ", err.message)
+        setErrorMsg("유저 등록 통계 오류: ", err.message);
       }
     };
     getUserRegisterStat();
   }, []);
 
   return (
-    <section className='mb-5'>
+    <section className="mb-5">
       {userStat && userStat.length > 0 ? (
         <React.Fragment>
           <ResponsiveContainer width={"75%"} height={300}>
             <h5 className="chart-title mb-5">등록 유저 통계</h5>
-            <BarChart data={userStat} >
+            <BarChart data={userStat}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" angle={-50} textAnchor="end" height={70} />
               <YAxis />
@@ -61,13 +64,10 @@ const UserChart = () => {
           </ResponsiveContainer>
         </React.Fragment>
       ) : (
-        <NoDataExists
-          dataType={" (유저) 등록 자료 "}
-          errorMessage={errorMsg}
-        />
+        <NoDataExists dataType={" (유저) 등록 자료 "} errorMessage={errorMsg} />
       )}
     </section>
-  )
-}
- 
-export default UserChart
+  );
+};
+
+export default UserChart;
