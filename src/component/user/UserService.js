@@ -89,30 +89,6 @@ export async function getUserById(userId) {
   }
 }
 
-export async function getUserCount() {
-  try {
-    const token = localStorage.getItem("TOKEN");
-    if (token) {
-      const result = await axios({
-        method: "get",
-        url: `${prefix}/admin/user/count`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return result.data;
-    } else {
-      return null;
-    }
-  } catch (err) {
-    if (err.response.status === HttpStatusCode.Forbidden) {
-      return null;
-    } else {
-      throw err;
-    }
-  }
-}
-
 export async function getUserDtoById(userId) {
   try {
     const result = await callWithToken("get", `/user/${userId}/get_dto`);
