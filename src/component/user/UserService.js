@@ -23,30 +23,6 @@ export async function deleteUserAccount(userId) {
   }
 }
 
-export const toggleEnabledColumn = async (userId) => {
-  try {
-    const token = localStorage.getItem("TOKEN");
-    if (token) {
-      const result = await axios({
-        method: "put",
-        url: `${prefix}/admin/worker/${userId}/toggle`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return result.data;
-    } else {
-      return null;
-    }
-  } catch (err) {
-    if (err.response.status === HttpStatusCode.Forbidden) {
-      return null;
-    } else {
-      throw err;
-    }
-  }
-};
-
 export async function getUserByMonthType() {
   try {
     const token = localStorage.getItem("TOKEN");

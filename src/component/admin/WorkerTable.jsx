@@ -1,14 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { Col, OverlayTrigger, Row, Table, Tooltip } from 'react-bootstrap';
-import { BsEyeFill, BsLockFill, BsPencilFill, BsPlusSquareFill, BsTrashFill, BsUnlockFill } from 'react-icons/bs';
-import { Link, useNavigate } from 'react-router-dom';
-import AlertMessage from '../common/AlertMessage';
-import ItemFilter from '../common/ItemFilter';
-import Paginator from '../common/Paginator';
-import BsAlertHook from '../hook/BsAlertHook';
-import DeleteConfirmModal from '../modal/DeleteConfirmModal';
-import { deleteUserAccount, toggleEnabledColumn } from "../user/UserService";
-import { getWorkerList } from '../worker/WorkerService';
+import { useEffect, useState } from "react";
+import { Col, OverlayTrigger, Row, Table, Tooltip } from "react-bootstrap";
+import {
+  BsEyeFill,
+  BsLockFill,
+  BsPencilFill,
+  BsPlusSquareFill,
+  BsTrashFill,
+  BsUnlockFill,
+} from "react-icons/bs";
+import { Link, useNavigate } from "react-router-dom";
+import AlertMessage from "../common/AlertMessage";
+import ItemFilter from "../common/ItemFilter";
+import Paginator from "../common/Paginator";
+import BsAlertHook from "../hook/BsAlertHook";
+import DeleteConfirmModal from "../modal/DeleteConfirmModal";
+import { deleteUserAccount } from "../user/UserService";
+import { getWorkerList } from "../worker/WorkerService";
+import { callWithToken } from "../util/api";
 
 const WorkerTable = () => {
   const [workerList, setWorkerList] = useState([]);
@@ -40,15 +48,19 @@ const WorkerTable = () => {
     } catch (err) {
       setErrorMsg(err.message);
       setAlertError(true);
-    };
+    }
   };
 
   const handleLockToggle = async (worker) => {
     try {
-      let result = await toggleEnabledColumn(worker.id);
+      const result = await callWithToken(
+        "put",
+        `/admin/worker/${worker.id}/toggle`
+      );
+      console.log("result:" + JSON.stringify(result));
       setReloadFlag(!reloadFlag);
       setAlertError(false);
-      setSuccessMsg(result.message + ", 활성값: " + !worker.enabled);
+      setSuccessMsg(result.data.message + ", 활성값: " + !worker.enabled);
       setAlertSuccess(true);
     } catch (e) {
       console.error("e:", e);
@@ -85,18 +97,19 @@ const WorkerTable = () => {
   const processDeletion = async (id, name) => {
     setDelTarget({ id, name });
     setShowDelModal(true);
-  }
+  };
 
   const [filteredWorkers, setFilteredWorkers] = useState([]);
   const [selectedDept, setSelectedDept] = useState(
-    localStorage.getItem("SELECTED_DEPT") | "");
+    localStorage.getItem("SELECTED_DEPT") | ""
+  );
 
   useEffect(() => {
     const savedDept = localStorage.getItem("SELECTED_DEPT");
     let searchKey = undefined;
 
     /**
-     * selectedDept 는 재방문 때 0 이되고, 
+     * selectedDept 는 재방문 때 0 이되고,
      * 초기화 혹은 목록 중 '-소속 선택-' 클릭 때 ""(빈문자열)이 된다.
      * 재방문 후에는 저장된 부서 검색 기준인 savedDept 가 우선이다.
      */
@@ -109,16 +122,17 @@ const WorkerTable = () => {
     }
     // 검색키에 의미있는 값이 들어있으면, 이로써 일꾼을 걸러낸다.
     if (searchKey) {
-      setFilteredWorkers(workerList.filter(
-        (worker) => worker.dept === searchKey));
+      setFilteredWorkers(
+        workerList.filter((worker) => worker.dept === searchKey)
+      );
     } else {
       setFilteredWorkers(workerList);
     }
-    // 유저가 의도적으로 택한 검색키를 저장소에 보관한다. 
+    // 유저가 의도적으로 택한 검색키를 저장소에 보관한다.
     if (selectedDept && selectedDept !== 0) {
       localStorage.setItem("SELECTED_DEPT", selectedDept);
     }
-  }, [workerList, selectedDept])
+  }, [workerList, selectedDept]);
 
   const departments = Array.from(
     new Set(workerList.map((worker) => worker.dept))
@@ -128,16 +142,17 @@ const WorkerTable = () => {
     localStorage.removeItem("SELECTED_DEPT");
     localStorage.removeItem("CURR_WORKER_PAGE");
     setSelectedDept("");
-  }
+  };
 
   const handleDeptSelection = (e) => {
     setSelectedDept(e);
     localStorage.removeItem("CURR_WORKER_PAGE");
     setCurrWorkerPage(1);
-  }
-  
+  };
+
   const [currWorkerPage, setCurrWorkerPage] = useState(
-    localStorage.getItem("CURR_WORKER_PAGE") || 1);
+    localStorage.getItem("CURR_WORKER_PAGE") || 1
+  );
 
   const [pageSize] = useState(10);
   const idxLastPlus1 = currWorkerPage * pageSize;
@@ -147,7 +162,7 @@ const WorkerTable = () => {
   const setAndSavePageNo = (pageNo) => {
     setCurrWorkerPage(pageNo);
     localStorage.setItem("CURR_WORKER_PAGE", pageNo);
-  }
+  };
 
   return (
     <main>
@@ -158,15 +173,13 @@ const WorkerTable = () => {
         target={`${delTarget.name} 계정의`}
         disabled={delBtnDisabled}
       />
-      <h5 className='mb-3'>직원 관리</h5>
+      <h5 className="mb-3">직원 관리</h5>
       <Row>
         <Col>
           {alertSuccess && (
             <AlertMessage type={"success"} message={successMsg} />
           )}
-          {alertError && (
-            <AlertMessage type={"danger"} message={errorMsg} />
-          )}
+          {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
         </Col>
       </Row>
       <Row className="mb-2">
@@ -218,9 +231,11 @@ const WorkerTable = () => {
                     <Tooltip id={`tooltip-view-${index}`}>상세 보기</Tooltip>
                   }
                 >
-                  <Link to={`/dashboard/${worker.id}/user`} 
+                  <Link
+                    to={`/dashboard/${worker.id}/user`}
                     className="text-info"
-                    state={{ userState: worker }}>
+                    state={{ userState: worker }}
+                  >
                     <BsEyeFill />
                   </Link>
                 </OverlayTrigger>
@@ -231,9 +246,11 @@ const WorkerTable = () => {
                     <Tooltip id={`tooltip-view-${index}`}>정보 수정</Tooltip>
                   }
                 >
-                  <Link to={`/user/${worker.id}/update`}
+                  <Link
+                    to={`/user/${worker.id}/update`}
                     className="text-warning"
-                    state={{ userState: worker }}>
+                    state={{ userState: worker }}
+                  >
                     <BsPencilFill />
                   </Link>
                 </OverlayTrigger>
@@ -256,9 +273,7 @@ const WorkerTable = () => {
               </td>
               <td>
                 <OverlayTrigger
-                  overlay={
-                    <Tooltip id={`tooltip-view-${index}`}>삭제</Tooltip>
-                  }
+                  overlay={<Tooltip id={`tooltip-view-${index}`}>삭제</Tooltip>}
                 >
                   <Link
                     to={"#"}
@@ -280,7 +295,7 @@ const WorkerTable = () => {
         setCurrPage={setAndSavePageNo}
       />
     </main>
-  )
-}
+  );
+};
 
-export default WorkerTable
+export default WorkerTable;
