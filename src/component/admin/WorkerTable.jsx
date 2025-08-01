@@ -15,7 +15,6 @@ import Paginator from "../common/Paginator";
 import BsAlertHook from "../hook/BsAlertHook";
 import DeleteConfirmModal from "../modal/DeleteConfirmModal";
 import { deleteUserAccount } from "../user/UserService";
-import { getWorkerList } from "../worker/WorkerService";
 import { callWithToken } from "../util/api";
 
 const WorkerTable = () => {
@@ -38,10 +37,10 @@ const WorkerTable = () => {
 
   const readWorkerList = async () => {
     try {
-      const data = await getWorkerList();
-
-      if (data) {
-        setWorkerList(data.data);
+      const response = await callWithToken("get", "/admin/worker/get_all");
+      console.log("Data: " + JSON.stringify(response.data));
+      if (response) {
+        setWorkerList(response.data.data);
       } else {
         navigate("/login");
       }
