@@ -6,6 +6,7 @@ export async function getCustomerList() {
     const result = await callWithToken("get", url);
     return result.data;
   } catch (err) {
+    console.log("err: " + JSON.stringify(err));
     throw err;
   }
 }

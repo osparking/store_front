@@ -18,6 +18,7 @@ const RegisterUser = () => {
     password: "",
     userType: "",
     dept: "",
+    signUpMethod: "EMAIL",
   });
 
   const {
@@ -51,6 +52,7 @@ const RegisterUser = () => {
     }
     try {
       setIsProcessing(true);
+      console.log("유저: " + JSON.stringify(user));
       const response = await registerUser(user);
       console.log("response: ", response);
       setSuccessMsg(response.message);
@@ -72,6 +74,7 @@ const RegisterUser = () => {
       password: "",
       userType: "",
       dept: "",
+      signUpMethod: "EMAIL",
     });
   };
 
@@ -83,6 +86,7 @@ const RegisterUser = () => {
       password: "1234",
       userType: "CUSTOMER",
       dept: "생산부",
+      signUpMethod: "EMAIL",
     });
   };
 
@@ -96,6 +100,9 @@ const RegisterUser = () => {
                 <legend>사용자 등록</legend>
               </Card.Header>
               <Card.Body>
+                <Form.Group controlId="signUpMethod" style={{display: "none"}}>
+                  <Form.Control type="text" name="signUpMethod" value="EMAIL" />
+                </Form.Group>
                 <Form.Group as={Row} controlId="full-name" className="mb-4">
                   <Col xs={6} className="mb-2 mb-sm-0">
                     <Form.Label>성명</Form.Label>
@@ -215,8 +222,10 @@ const RegisterUser = () => {
                 {alertSuccess && (
                   <>
                     <AlertMessage type="success" message={successMsg} />
-                    <p className="text-danger">*등록한 이메일에 로그인하여 메일 주소를 검증하십시오</p>
-                  </>                  
+                    <p className="text-danger">
+                      *등록한 이메일에 로그인하여 메일 주소를 검증하십시오
+                    </p>
+                  </>
                 )}
                 {alertError && (
                   <AlertMessage type="danger" message={errorMsg} />
