@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -38,8 +38,17 @@ function App() {
   );
 
   useEffect(() => {
+    const storedCnt = Number(localStorage.getItem("TAB_COUNT"));
+    const tabCount = storedCnt ? storedCnt + 1 : 1;
+    localStorage.setItem("TAB_COUNT", tabCount);
+
     const cleanupLocalStorage = () => {
-      localStorage.clear();
+      const tab_count = Number(localStorage.getItem("TAB_COUNT"));
+      if (tab_count <= 1) {
+        localStorage.clear();
+      } else {
+        localStorage.setItem("TAB_COUNT", tab_count - 1);
+      }
     };
 
     window.addEventListener("beforeunload", cleanupLocalStorage);
