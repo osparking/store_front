@@ -16,7 +16,7 @@ const Overview = () => {
     const readCounts = async () => {
       try {
         const userCount = await callWithToken("get", "/admin/user/count");
-        if (userCount.data) {
+        if (userCount) {
           setUserCount(userCount.data);
         } else {
           navigate("/login");
