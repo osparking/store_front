@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import { Col, Container, Row, Tab, Tabs } from "react-bootstrap";
 import "./bumShapes.css";
-import { soapImages } from "./soapImages.js";
 import SoapImages from "./SoapImages.jsx";
+import { soapImages } from "./SoapImages.js";
 
 const BumShapes = () => {
   const normalSoaps = soapImages.filter((soap) => soap.shape === "normal");
