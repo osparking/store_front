@@ -67,18 +67,20 @@ const IngredTabAccord = ({ ingAllData, keepOthersOpen }) => {
         <td>{ingredient.id}</td>
         <td className="text-center">
           {ingredient.id ? (
-            <button
-              style={{ width: "100%" }}
-              className="toggle"
-              onClick={() => handleAccordionToggle(ingredient)}
-            >
-              {ingredient.name}
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <button
+                style={{ width: "100%" }}
+                className="toggle"
+                onClick={() => handleAccordionToggle(ingredient)}
+              >
+                {ingredient.name}
+              </button>
               <small>
                 <span className="direction-indicator simple">
                   {ingredient.expanded ? "一" : "十"}
                 </span>
               </small>
-            </button>
+            </div>
           ) : (
             ingredient.name
           )}
