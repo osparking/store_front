@@ -1,7 +1,5 @@
 import { api, callWithToken } from "../util/api";
 
-const prefix = "http://localhost:9193/api/s1";
-
 export async function updateUser(userId, user) {
   try {
     const url = `/user/${userId}/update`;
