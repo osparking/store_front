@@ -21,3 +21,8 @@ export const storeLoginInfo = (user, token) => {
   localStorage.setItem("IS_ADMIN", user.isAdmin);
   localStorage.setItem("IS_WORKER", user.isWorker);
 };
+
+export const setDifference = (arrA, arrB) => {
+  const setB = new Set(arrB);
+  return arrA.filter(item => !setB.has(item));
+};
