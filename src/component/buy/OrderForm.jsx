@@ -36,7 +36,6 @@ const OrderForm = ({ shapeLabels, changeCarouselShape }) => {
     orderStatus: "결재대기",
   });
 
-  const [allSoapLabels, setAllSoapLabels] = useState([]);
   const [disableButton, setDisableButton] = useState(false);
 
   const findDefaultShape = (allLabels) => {
@@ -47,7 +46,6 @@ const OrderForm = ({ shapeLabels, changeCarouselShape }) => {
 
     setDisableButton(notListedLabels.length === 0);
     if (notListedLabels.length > 0) {
-      // alert(`비 열거 비누 외형 1 순위: ${notListedLabels[0]}`);
       setDefaultShape(notListedLabels[0]);
     }
   };
@@ -60,11 +58,8 @@ const OrderForm = ({ shapeLabels, changeCarouselShape }) => {
     const allLabels = shapeLabels
       .filter((label) => label.count > 0)
       .map((label) => label.shapeLabel);
-    setAllSoapLabels(allLabels);
 
     findDefaultShape(allLabels);
-
-    console.log("all set:", allLabels);
   }, [shapeLabels, formData.items]);
 
   const [defaultShape, setDefaultShape] = useState();
