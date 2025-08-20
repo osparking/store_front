@@ -60,7 +60,7 @@ const OrderItemEntry = ({
             >
               {shape.count > 0
                 ? `${shape.shapeLabel}(재고: ${shape.count})`
-                : `${shape.shapeLabel}`}
+                : `${shape.shapeLabel}(품절)`}
             </option>
           ))}
         </Form.Control>
