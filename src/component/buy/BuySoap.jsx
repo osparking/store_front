@@ -12,7 +12,6 @@ const BuySoap = () => {
 
   const [images2show, setImages2show] = useState(normalSoaps);
   const [shapeLabels, setShapeLabels] = useState([]);
-  const [defaultShape, setDefaultShape] = useState("보통비누");
 
   function changeCarouselShape(idx) {
     const prefix = shapeLabels[idx].shapeLabel.substring(0, 2);
@@ -38,9 +37,7 @@ const BuySoap = () => {
     const readShapes = async () => {
       try {
         const response = await getSoapShapes();
-        setShapeLabels(response.data.shapeLabelList);
-        console.log("list: " + JSON.stringify(response.data.shapeLabelList));
-        setDefaultShape(response.data.defaultShape);
+        setShapeLabels(response.data);
       } catch (error) {
         console.error("비누 외형 읽기 오류:", error);
       }
@@ -74,7 +71,6 @@ const BuySoap = () => {
             <Card.Body>
               <OrderForm
                 shapeLabels={shapeLabels}
-                defaultShape={defaultShape}
                 changeCarouselShape={changeCarouselShape}
               />
             </Card.Body>
