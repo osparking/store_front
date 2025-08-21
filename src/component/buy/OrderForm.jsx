@@ -54,7 +54,16 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
 
   useEffect(() => {
     setDisableButton(false);
-  }, []);
+
+    const items = [
+      {
+        shape: defaultLabel,
+        count: "1",
+      },
+    ];
+
+    setFormData((prevState) => ({ ...prevState, items: items }));
+  }, [defaultLabel]);
 
   useEffect(() => {
     const allLabels = shapeLabels
