@@ -15,21 +15,23 @@ const BuySoap = () => {
 
   function changeCarouselShape(idx) {
     const prefix = shapeLabels[idx].shapeLabel.substring(0, 2);
+    setCarouselImages(prefix);
+  }
 
+  function setCarouselImages(prefix) {
     switch (prefix) {
       case "보통":
         setImages2show(normalSoaps);
         break;
       case "백설":
         setImages2show(sWhiteSoaps);
-        console.log("백설 비누로 변경");
         break;
       case "메주":
         setImages2show(maejooSoaps);
         break;
       default:
-        console.error("Unknown shape prefix:", prefix);
         setImages2show(normalSoaps);
+        break;
     }
   }
 
