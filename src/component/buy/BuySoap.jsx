@@ -4,6 +4,7 @@ import SoapCarousel from "../soaps/SoapCarousel.jsx";
 import { soapImages } from "../soaps/SoapImages.js";
 import OrderForm from "./OrderForm.jsx";
 import { getSoapShapes } from "./orderService.js";
+import { labelsOver } from "../util/utilities.js";
 
 const BuySoap = () => {
   const normalSoaps = soapImages.filter((soap) => soap.shape === "normal");

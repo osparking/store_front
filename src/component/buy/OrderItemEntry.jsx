@@ -51,16 +51,14 @@ const OrderItemEntry = ({
           <option value="" disabled>
             - 외형 선택 -{" "}
           </option>
-          {/* Populate options dynamically based on shapeLabels */}
-          {shapeLabels.map((shape, idx) => (
+          {/* Populate options dynamically based on optionLabels */}
+          {optionLabels.map((label, idx) => (
             <option
-              value={shape.shapeLabel}
+              value={label.optionLabel}
               key={idx}
-              disabled={shape.count === 0}
+              disabled={label.count === 0}
             >
-              {shape.count > 0
-                ? `${shape.shapeLabel}(재고: ${shape.count})`
-                : `${shape.shapeLabel}(품절)`}
+              {label.optionLabel}
             </option>
           ))}
         </Form.Control>
