@@ -17,7 +17,7 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
     items: [
       {
         shape: defaultLabel,
-        count: "2",
+        count: "1",
       },
     ],
     recipRegiReq: {

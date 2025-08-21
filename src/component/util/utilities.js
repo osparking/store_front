@@ -26,3 +26,9 @@ export const setDifference = (arrA, arrB) => {
   const setB = new Set(arrB);
   return arrA.filter(item => !setB.has(item));
 };
+
+export function labelsOver(labels, threshold) {
+  return labels
+      .filter((label) => label.count > threshold)
+      .map((label) => label.optionLabel);
+}

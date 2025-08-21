@@ -1,7 +1,8 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import SoapCarousel from "../soaps/SoapCarousel.jsx";
 import { soapImages } from "../soaps/SoapImages.js";
+import { labelsOver } from "../util/utilities.js";
 import OrderForm from "./OrderForm.jsx";
 import { getSoapShapes } from "./orderService.js";
 
@@ -58,9 +59,7 @@ const BuySoap = () => {
     }));
     setOptionLabels(optionLabels);
 
-    const plus20soaps = optionLabels
-      .filter((label) => label.count > 19)
-      .map((label) => label.optionLabel);
+    const plus20soaps = labelsOver(optionLabels, 19);
     setDefaultLabel(plus20soaps.length > 0 ? plus20soaps[0] : "");
   };
 
