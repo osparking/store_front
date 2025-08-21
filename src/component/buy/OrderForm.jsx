@@ -59,9 +59,12 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
       {
         shape: defaultLabel,
         count: "1",
+        inventory: optionLabels.find(
+          (label) => label.optionLabel === defaultLabel
+        )?.inventory || 0,
       },
     ];
-
+  
     setFormData((prevState) => ({ ...prevState, items: items }));
   }, [defaultLabel]);
 
