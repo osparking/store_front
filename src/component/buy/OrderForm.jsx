@@ -8,7 +8,7 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import { BsPlusSquareFill } from "react-icons/bs";
-import { setDifference } from "../util/utilities.js";
+import { labelsOver, setDifference } from "../util/utilities.js";
 import OrderItemEntry from "./OrderItemEntry.jsx";
 
 const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
@@ -16,7 +16,7 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
     userId: 3,
     items: [
       {
-        shape: defaultLabel,
+        shape: "",
         count: "1",
       },
     ],
@@ -26,7 +26,8 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
       addrBasisAddReq: {
         zipcode: "12915",
         roadAddress:
-          "경기도 하남시 미사강변서로 127 (망월동, 미사강변센텀팰리스(CentumPalace)) 1801동~1817동",
+          "경기도 하남시 미사강변서로 127 (망월동, 미사강변센텀팰리스(CentumPalace)) " +
+          "1801동~1817동",
         zBunAddress:
           "경기도 하남시 망월동 1050 (미사강변센텀팰리스(CentumPalace))",
       },
@@ -35,35 +36,37 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
     },
     orderStatus: "결재대기",
   });
-  formData.items[0].shape = defaultLabel;
 
   const [disableButton, setDisableButton] = useState(false);
   const [defaultShape, setDefaultShape] = useState();
 
   const findDefaultShape = (allLabels) => {
-    console.log("2: ", formData.items);
     const listedLabels = new Set(formData.items.map((label) => label.shape));
-    console.log("3: ", listedLabels);
     const notListedLabels = setDifference(allLabels, listedLabels);
 
-    setDisableButton(notListedLabels.length === 0);
-
-    if (notListedLabels.length > 0) {
+    if (notListedLabels.length === 0) {
+      setDisableButton(true);
+    } else {      
+      setDisableButton(false);
       setDefaultShape(notListedLabels[0]);
-      console.log("4:" + notListedLabels[0]);
     }
   };
 
   useEffect(() => {
     setDisableButton(false);
-    formData.items[0].shape = defaultLabel;
-  }, []);
+
+    const items = [
+      {
+        shape: defaultLabel,
+        count: "1",
+      },
+    ];
+
+    setFormData((prevState) => ({ ...prevState, items: items }));
+  }, [defaultLabel]);
 
   useEffect(() => {
-    const allLabels = optionLabels
-      .filter((label) => label.count > 0)
-      .map((label) => label.optionLabel);
-
+    const allLabels = labelsOver(optionLabels, 0);
     findDefaultShape(allLabels);
   }, [optionLabels, formData.items, defaultLabel]);
 

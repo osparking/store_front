@@ -20,12 +20,13 @@ const OrderItemEntry = ({
 }) => {
   function handleShapeChange(e) {
     const currShapes = formDataItems.map((item) => item.shape);
-    console.log("타켓:", e.target.name);
-    console.log("타켓:", e.target.value);
     if (currShapes.includes(e.target.value)) {
       alert("중복 선택은 안됩니다. 다른 외형을 선택해주세요.");
     } else {
       const idx = e.target.selectedIndex;
+      handleInputChange(e);
+      changeCarouselShape(idx - 1);
+
       const maxCount = optionLabels[idx - 1].count;
       const countElement = document.getElementById(`soapCount${index}`);
 
@@ -35,8 +36,6 @@ const OrderItemEntry = ({
           item.count = maxCount;
         }
       }
-      handleInputChange(e);
-      changeCarouselShape(idx - 1);
     }
   }
 

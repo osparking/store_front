@@ -16,7 +16,10 @@ const BuySoap = () => {
 
   function changeCarouselShape(idx) {
     const prefix = shapeLabels[idx].shapeLabel.substring(0, 2);
+    setCarouselImages(prefix);
+  }
 
+  function setCarouselImages(prefix) {
     switch (prefix) {
       case "보통":
         setImages2show(normalSoaps);
@@ -29,6 +32,7 @@ const BuySoap = () => {
         break;
       default:
         setImages2show(normalSoaps);
+        break;
     }
   }
 
@@ -60,7 +64,12 @@ const BuySoap = () => {
     setOptionLabels(optionLabels);
 
     const plus20soaps = labelsOver(optionLabels, 19);
-    setDefaultLabel(plus20soaps.length > 0 ? plus20soaps[0] : "");
+    if (plus20soaps.length > 0) {
+      setDefaultLabel(plus20soaps[0]);
+      setCarouselImages(plus20soaps[0].substring(0, 2));
+    } else {
+      setDefaultLabel("");
+    }
   };
 
   return (
