@@ -41,11 +41,34 @@ const BuySoap = () => {
         const response = await getSoapShapes();
         setShapeLabels(response.data);
       } catch (error) {
-        console.error("비누 외형 읽기 오류:", error);
+        console.error("Error fetching soap shapes:", error);
       }
     };
     readShapes();
   }, []);
+
+  const [optionLabels, setOptionLabels] = useState([]);
+  const [defaultLabel, setDefaultLabel] = useState("");
+
+  const calculateDefaultLabel = (labels) => {
+    const optionLabels = labels.map((shape) => ({
+      optionLabel:
+        shape.count > 0
+          ? `${shape.shapeLabel}(재고: ${shape.count})`
+          : `${shape.shapeLabel}(품절)`,
+      count: shape.count,
+      price: shape.price,
+    }));
+    setOptionLabels(optionLabels);
+
+    const plus20soaps = labelsOver(optionLabels, 19);
+    if (plus20soaps.length > 0) {
+      setDefaultLabel(plus20soaps[0]);
+      setCarouselImages(plus20soaps[0].substring(0, 2));
+    } else {
+      setDefaultLabel("");
+    }
+  };
 
   return (
     <div style={{ width: "100%" }}>
