@@ -29,6 +29,6 @@ export const setDifference = (arrA, arrB) => {
 
 export function labelsOver(labels, threshold) {
   return labels
-      .filter((label) => label.count > threshold)
+      .filter((label) => label.inventory > threshold)
       .map((label) => label.optionLabel);
 }
