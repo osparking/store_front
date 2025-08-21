@@ -67,7 +67,7 @@ const OrderItemEntry = ({
           required
           onChange={handleShapeChange}
         >
-          <option value="" disabled>
+          <option value="" >
             - 외형 선택 -{" "}
           </option>
           {/* Populate options dynamically based on optionLabels */}
@@ -82,16 +82,16 @@ const OrderItemEntry = ({
           ))}
         </Form.Control>
       </Col>
-      <Col md={4}>
+      <Col md={3}>
         <Form.Control
           type="number"
           name="count"
           id={`soapCount${index}`}
           min="1"
-          max={item.maxCount}
+          max={item.inventory}
           value={item.count}
-          placeholder="개수 입력"
-          onChange={handleInputChange}
+          placeholder="수량"
+          onChange={handleCountChange}
           required
         />
       </Col>
