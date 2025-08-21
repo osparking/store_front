@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import SoapCarousel from "../soaps/SoapCarousel.jsx";
 import { soapImages } from "../soaps/SoapImages.js";
+import { labelsOver } from "../util/utilities.js";
 import OrderForm from "./OrderForm.jsx";
 import { getSoapShapes } from "./orderService.js";
-import { labelsOver } from "../util/utilities.js";
 
 const BuySoap = () => {
   const normalSoaps = soapImages.filter((soap) => soap.shape === "normal");
@@ -58,7 +58,7 @@ const BuySoap = () => {
         shape.count > 0
           ? `${shape.shapeLabel}(재고: ${shape.count})`
           : `${shape.shapeLabel}(품절)`,
-      count: shape.count,
+      inventory: shape.count,
       price: shape.price,
     }));
     setOptionLabels(optionLabels);
@@ -102,7 +102,7 @@ const BuySoap = () => {
                 changeCarouselShape={changeCarouselShape}
               />
             </Card.Body>
-          </Card>
+          </Card>          
         </Col>
       </Row>
     </div>
