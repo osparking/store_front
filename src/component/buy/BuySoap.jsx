@@ -40,6 +40,7 @@ const BuySoap = () => {
       try {
         const response = await getSoapShapes();
         setShapeLabels(response.data);
+        calculateDefaultLabel(response.data);
       } catch (error) {
         console.error("Error fetching soap shapes:", error);
       }
@@ -95,7 +96,8 @@ const BuySoap = () => {
             </Card.Header>
             <Card.Body>
               <OrderForm
-                shapeLabels={shapeLabels}
+                optionLabels={optionLabels}
+                defaultLabel={defaultLabel}
                 changeCarouselShape={changeCarouselShape}
               />
             </Card.Body>
