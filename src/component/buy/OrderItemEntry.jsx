@@ -12,7 +12,7 @@ const OrderItemEntry = ({
   index,
   item,
   formDataItems,
-  shapeLabels,
+  optionLabels,
   handleInputChange,
   changeCarouselShape,
   canRemove = true,
@@ -24,7 +24,7 @@ const OrderItemEntry = ({
       alert("중복 선택은 안됩니다. 다른 외형을 선택해주세요.");
     } else {
       const idx = e.target.selectedIndex;
-      const maxCount = shapeLabels[idx - 1].count;
+      const maxCount = optionLabels[idx - 1].count;
       const countElement = document.getElementById(`soapCount${index}`);
 
       if (countElement) {
