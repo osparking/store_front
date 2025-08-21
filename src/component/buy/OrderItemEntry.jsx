@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   Button,
   Col,
@@ -24,13 +25,17 @@ const OrderItemEntry = ({
       alert("중복 선택은 안됩니다. 다른 외형을 선택해주세요.");
     } else {
       const idx = e.target.selectedIndex;
-      const maxCount = optionLabels[idx - 1].count;
+      if (idx === 0) {
+        alert("외형을 선택해주세요.");
+        return;
+      }
+      const inventory = optionLabels[idx - 1].inventory;
       const countElement = document.getElementById(`soapCount${index}`);
 
       if (countElement) {
-        countElement.max = maxCount;
-        if (parseInt(item.count) > maxCount) {
-          item.count = maxCount;
+        countElement.max = inventory;
+        if (parseInt(item.count) > inventory) {
+          item.count = inventory;
         }
       }
       handleInputChange(e);
