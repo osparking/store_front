@@ -66,6 +66,7 @@ const OrderItemEntry = ({
           value={item.shape}
           required
           onChange={handleShapeChange}
+          onFocus={(e) => changeCarouselShape(e.target.selectedIndex - 1)}
         >
           <option value="" >
             - 외형 선택 -{" "}
