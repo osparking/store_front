@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import SoapCarousel from "../soaps/SoapCarousel.jsx";
 import { soapImages } from "../soaps/SoapImages.js";
@@ -22,13 +22,11 @@ const BuySoap = () => {
         break;
       case "백설":
         setImages2show(sWhiteSoaps);
-        console.log("백설 비누로 변경");
         break;
       case "메주":
         setImages2show(maejooSoaps);
         break;
       default:
-        console.error("Unknown shape prefix:", prefix);
         setImages2show(normalSoaps);
     }
   }
@@ -38,12 +36,33 @@ const BuySoap = () => {
       try {
         const response = await getSoapShapes();
         setShapeLabels(response.data);
+        calculateDefaultLabel(response.data);
       } catch (error) {
-        console.error("비누 외형 읽기 오류:", error);
+        console.error("Error fetching soap shapes:", error);
       }
     };
     readShapes();
   }, []);
+
+  const [optionLabels, setOptionLabels] = useState([]);
+  const [defaultLabel, setDefaultLabel] = useState("");
+
+  const calculateDefaultLabel = (labels) => {
+    const optionLabels = labels.map((shape) => ({
+      optionLabel:
+        shape.count > 0
+          ? `${shape.shapeLabel}(재고: ${shape.count})`
+          : `${shape.shapeLabel}(품절)`,
+      count: shape.count,
+      price: shape.price,
+    }));
+    setOptionLabels(optionLabels);
+
+    const plus20soaps = optionLabels
+      .filter((label) => label.count > 19)
+      .map((label) => label.optionLabel);
+    setDefaultLabel(plus20soaps.length > 0 ? plus20soaps[0] : "");
+  };
 
   return (
     <div style={{ width: "100%" }}>
@@ -70,7 +89,8 @@ const BuySoap = () => {
             </Card.Header>
             <Card.Body>
               <OrderForm
-                shapeLabels={shapeLabels}
+                optionLabels={optionLabels}
+                defaultLabel={defaultLabel}
                 changeCarouselShape={changeCarouselShape}
               />
             </Card.Body>

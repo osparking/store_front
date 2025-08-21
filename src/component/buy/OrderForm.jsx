@@ -11,13 +11,13 @@ import { BsPlusSquareFill } from "react-icons/bs";
 import { setDifference } from "../util/utilities.js";
 import OrderItemEntry from "./OrderItemEntry.jsx";
 
-const OrderForm = ({ shapeLabels, changeCarouselShape }) => {
+const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
   const [formData, setFormData] = useState({
     userId: 3,
     items: [
       {
-        shape: "",
-        count: "1",
+        shape: defaultLabel,
+        count: "2",
       },
     ],
     recipRegiReq: {
@@ -35,34 +35,37 @@ const OrderForm = ({ shapeLabels, changeCarouselShape }) => {
     },
     orderStatus: "결재대기",
   });
+  formData.items[0].shape = defaultLabel;
 
   const [disableButton, setDisableButton] = useState(false);
+  const [defaultShape, setDefaultShape] = useState();
 
   const findDefaultShape = (allLabels) => {
-    console.log("Form data items changed:", formData.items);
+    console.log("2: ", formData.items);
     const listedLabels = new Set(formData.items.map((label) => label.shape));
-    console.log("sel set:", listedLabels);
+    console.log("3: ", listedLabels);
     const notListedLabels = setDifference(allLabels, listedLabels);
 
     setDisableButton(notListedLabels.length === 0);
+
     if (notListedLabels.length > 0) {
       setDefaultShape(notListedLabels[0]);
+      console.log("4:" + notListedLabels[0]);
     }
   };
 
   useEffect(() => {
     setDisableButton(false);
+    formData.items[0].shape = defaultLabel;
   }, []);
 
   useEffect(() => {
-    const allLabels = shapeLabels
+    const allLabels = optionLabels
       .filter((label) => label.count > 0)
-      .map((label) => label.shapeLabel);
+      .map((label) => label.optionLabel);
 
     findDefaultShape(allLabels);
-  }, [shapeLabels, formData.items]);
-
-  const [defaultShape, setDefaultShape] = useState();
+  }, [optionLabels, formData.items, defaultLabel]);
 
   const handlePropChange = (index, e) => {
     const { name, value } = e.target;
@@ -119,7 +122,7 @@ const OrderForm = ({ shapeLabels, changeCarouselShape }) => {
                 index={index}
                 item={item}
                 formDataItems={formData.items}
-                shapeLabels={shapeLabels}
+                optionLabels={optionLabels}
                 handleInputChange={(e) => handlePropChange(index, e)}
                 changeCarouselShape={changeCarouselShape}
                 canRemove={index > 0}

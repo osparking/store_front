@@ -12,7 +12,7 @@ const OrderItemEntry = ({
   index,
   item,
   formDataItems,
-  shapeLabels,
+  optionLabels,
   handleInputChange,
   changeCarouselShape,
   canRemove = true,
@@ -20,11 +20,13 @@ const OrderItemEntry = ({
 }) => {
   function handleShapeChange(e) {
     const currShapes = formDataItems.map((item) => item.shape);
+    console.log("타켓:", e.target.name);
+    console.log("타켓:", e.target.value);
     if (currShapes.includes(e.target.value)) {
       alert("중복 선택은 안됩니다. 다른 외형을 선택해주세요.");
     } else {
       const idx = e.target.selectedIndex;
-      const maxCount = shapeLabels[idx - 1].count;
+      const maxCount = optionLabels[idx - 1].count;
       const countElement = document.getElementById(`soapCount${index}`);
 
       if (countElement) {
@@ -51,16 +53,14 @@ const OrderItemEntry = ({
           <option value="" disabled>
             - 외형 선택 -{" "}
           </option>
-          {/* Populate options dynamically based on shapeLabels */}
-          {shapeLabels.map((shape, idx) => (
+          {/* Populate options dynamically based on optionLabels */}
+          {optionLabels.map((label, idx) => (
             <option
-              value={shape.shapeLabel}
+              value={label.optionLabel}
               key={idx}
-              disabled={shape.count === 0}
+              disabled={label.count === 0}
             >
-              {shape.count > 0
-                ? `${shape.shapeLabel}(재고: ${shape.count})`
-                : `${shape.shapeLabel}(품절)`}
+              {label.optionLabel}
             </option>
           ))}
         </Form.Control>
