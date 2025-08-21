@@ -8,7 +8,7 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import { BsPlusSquareFill } from "react-icons/bs";
-import { setDifference } from "../util/utilities.js";
+import { labelsOver, setDifference } from "../util/utilities.js";
 import OrderItemEntry from "./OrderItemEntry.jsx";
 
 const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
@@ -66,12 +66,9 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
   }, [defaultLabel]);
 
   useEffect(() => {
-    const allLabels = shapeLabels
-      .filter((label) => label.count > 0)
-      .map((label) => label.shapeLabel);
-
+    const allLabels = labelsOver(optionLabels, 0);
     findDefaultShape(allLabels);
-  }, [shapeLabels, formData.items]);
+  }, [optionLabels, formData.items, defaultLabel]);
 
   const handlePropChange = (index, e) => {
     const { name, value } = e.target;
@@ -128,7 +125,7 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
                 index={index}
                 item={item}
                 formDataItems={formData.items}
-                shapeLabels={shapeLabels}
+                optionLabels={optionLabels}
                 handleInputChange={(e) => handlePropChange(index, e)}
                 changeCarouselShape={changeCarouselShape}
                 canRemove={index > 0}
