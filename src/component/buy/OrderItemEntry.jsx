@@ -43,6 +43,20 @@ const OrderItemEntry = ({
     }
   }
 
+  function handleCountChange(e) {
+    const inventory =
+      optionLabels.find((label) => label.optionLabel === item.shape)
+        ?.inventory || 1;
+    if (parseInt(e.target.value) > inventory) {
+      alert("재고를 초과할 수 없습니다.");
+      e.target.value = inventory;
+    } else if (parseInt(e.target.value) < 1) {
+      alert("최소 1개 이상 입력해주세요.");
+      e.target.value = 1;
+    }
+    handleInputChange(e);
+  }
+
   return (
     <Row className="justify-content-center mb-3">
       <Col md={5}>
