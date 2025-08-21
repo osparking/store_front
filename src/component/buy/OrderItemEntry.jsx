@@ -76,7 +76,7 @@ const OrderItemEntry = ({
             <option
               value={label.optionLabel}
               key={idx}
-              disabled={label.count === 0}
+              disabled={label.inventory === 0}
             >
               {label.optionLabel}
             </option>
