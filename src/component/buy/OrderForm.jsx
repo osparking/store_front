@@ -178,6 +178,28 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
               </Col>
               <Col md={1}></Col>
             </Row>
+            <Row className="justify-content-center mt-5">
+              <Col md={3}>
+                <Button
+                  variant="info"
+                  size="sm"
+                  className="pt-2 pb-2"
+                  onClick={putToCart}
+                >
+                  장바구니 담기
+                </Button>
+              </Col>
+              <Col md={3}>
+                <Button
+                  variant="success"
+                  size="sm"
+                  className="pt-2 pb-2"
+                  onClick={gotoPaymentPage}
+                >
+                  바로 구매하기
+                </Button>
+              </Col>
+            </Row>
           </Form.Group>
         </fieldset>
       </Form>
