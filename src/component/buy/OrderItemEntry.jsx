@@ -68,9 +68,7 @@ const OrderItemEntry = ({
           onChange={handleShapeChange}
           onFocus={(e) => changeCarouselShape(e.target.selectedIndex - 1)}
         >
-          <option value="" >
-            - 외형 선택 -{" "}
-          </option>
+          <option value="">- 외형 선택 - </option>
           {/* Populate options dynamically based on optionLabels */}
           {optionLabels.map((label, idx) => (
             <option
@@ -83,7 +81,7 @@ const OrderItemEntry = ({
           ))}
         </Form.Control>
       </Col>
-      <Col md={3}>
+      <Col md={2}>
         <Form.Control
           type="number"
           name="count"
@@ -96,11 +94,22 @@ const OrderItemEntry = ({
           required
         />
       </Col>
+      <Col md={3}>
+        <p
+          style={{
+            margin: "5px 10px",
+            textAlign: "right",
+          }}
+        >
+          {(item.price * item.count).toLocaleString()} 원
+        </p>
+      </Col>
       <Col md={1}>
         {canRemove && (
           <div className="d-flex justify-content-end mt-1">
             <OverlayTrigger overlay={<Tooltip>항목 제거</Tooltip>}>
               <Button
+                style={{ padding: "0 .5rem .2rem" }}
                 variant="danger"
                 size="sm"
                 onClick={() => delSoapItem(index)}
