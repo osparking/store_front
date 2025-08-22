@@ -80,6 +80,17 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
     findDefaultShape(allLabels);
   }, [optionLabels, formData.items, defaultLabel]);
 
+  const soapPriceTotal = () => {
+    return formData.items
+      .reduce((total, item) => {
+        if (item.shape !== "") {
+          return total + item.price * item.count;
+        }
+        return total;
+      }, 0)
+      .toLocaleString();
+  };
+
   const handlePropChange = (index, e) => {
     const { name, value } = e.target;
     const newItems = [...formData.items];
