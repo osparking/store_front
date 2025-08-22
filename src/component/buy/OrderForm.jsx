@@ -46,11 +46,17 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
 
     if (notListedLabels.length === 0) {
       setDisableButton(true);
-    } else {      
+    } else {
       setDisableButton(false);
       setDefaultShape(notListedLabels[0]);
     }
   };
+
+  function findPrice(labels, targetLabel) {
+    return (
+      labels.find((label) => label.optionLabel === targetLabel)?.price || 0
+    );
+  }
 
   useEffect(() => {
     setDisableButton(false);
@@ -59,12 +65,13 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
       {
         shape: defaultLabel,
         count: "1",
-        inventory: optionLabels.find(
-          (label) => label.optionLabel === defaultLabel
-        )?.inventory || 0,
+        inventory:
+          optionLabels.find((label) => label.optionLabel === defaultLabel)
+            ?.inventory || 0,
+        price: findPrice(optionLabels, defaultLabel),
       },
     ];
-  
+
     setFormData((prevState) => ({ ...prevState, items: items }));
   }, [defaultLabel]);
 
@@ -88,6 +95,7 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
     const newItem = {
       shape: defaultShape,
       count: "1",
+      price: findPrice(optionLabels, defaultShape),
     };
     setFormData((prevState) => ({
       ...prevState,
@@ -113,6 +121,7 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
               <Col md={2}>
                 <OverlayTrigger overlay={<Tooltip>외형 추가</Tooltip>}>
                   <Button
+                    style={{ padding: "0 .5rem .2rem" }}
                     className="btn btn-sm btn-primary me-1"
                     onClick={addSoapItem}
                     disabled={false || disableButton}
