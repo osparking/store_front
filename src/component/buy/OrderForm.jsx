@@ -119,6 +119,26 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
     setFormData((prevState) => ({ ...prevState, items: newItems }));
   };
 
+  function putToCart() {
+    if (formData.items.length === 0) {
+      alert("비누 외형을 선택해주세요.");
+      return;
+    }
+    if (formData.items.some((item) => item.shape === "")) {
+      alert("모든 비누 외형을 선택해주세요.");
+      return;
+    }
+    if (formData.items.some((item) => parseInt(item.count) < 1)) {
+      alert("비누 수량은 최소 1개 이상이어야 합니다.");
+      return;
+    }
+    console.log("장바구니에 담을 비누 정보:", formData.items);
+
+    // 장바구니에 담는 로직
+
+    alert("장바구니에 담았습니다.");
+  }
+
   return (
     <div className="order-form">
       <Form onSubmit={handleSubmit}>
