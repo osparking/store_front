@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -11,6 +11,9 @@ import AdminDashboard from "./component/admin/AdminDashboard";
 import EmailVerifin from "./component/auth/EmailVerifin";
 import Login from "./component/auth/Login";
 import OAuth2RedirectHandler from "./component/auth/OAuth2RedirectHandler";
+import ProtectedRoute from "./component/auth/ProtectedRoute";
+import Unauthorized from "./component/auth/Unauthorized";
+import BuySoap from "./component/buy/BuySoap";
 import Home from "./component/home/Home";
 import RootLayout from "./component/layout/RootLayout";
 import SoapIntro from "./component/soaps/SoapIntro";
@@ -18,7 +21,6 @@ import RegisterUser from "./component/user/RegisterUser";
 import UserUpdate from "./component/user/UpdateUser";
 import UserDashboard from "./component/user/UserDashboard";
 import WorkerDashboard from "./component/worker/WorkerDashboard";
-import BuySoap from "./component/buy/BuySoap";
 
 function App() {
   const router = createBrowserRouter(
@@ -33,8 +35,19 @@ function App() {
         <Route path="/user/:id/update" element={<UserUpdate />} />
         <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
         <Route path="/soap_intro" element={<SoapIntro />} />
-        <Route path="/buy_soap" element={<BuySoap />} />
+        {/* 인증이 필요한 루트 */}
+        <Route
+          element={
+            <ProtectedRoute
+              allowedRoles={["ROLE_ADMIN", "ROLE_CUSTOMER"]}
+              useOutlet={true}
+            />
+          }
+        >
+          <Route path="/buy_soap" element={<BuySoap />} />
+        </Route>
         <Route path="/work_item" element={<WorkerDashboard />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
       </Route>
     )
   );
