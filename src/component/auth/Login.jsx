@@ -83,8 +83,8 @@ const Login = () => {
     }
   };
 
-  const googleLogin = () => {
-    window.location.href = "http://localhost:9193/oauth2/authorization/google";
+  const handleOauth2Login = (provider) => {
+    window.location.href = `http://localhost:9193/oauth2/authorization/${provider}`;
   };
 
   const loginEntryCard = () => {
@@ -140,7 +140,7 @@ const Login = () => {
           <div className="text-center mt-3 mb-3">
             <button
               className="button button-solid"
-              onClick={naverLogin}
+              onClick={() => handleOauth2Login("naver")}
               style={{ margin: "10px" }}
             >
               <img height="18" src={naverIcon} />
@@ -148,7 +148,7 @@ const Login = () => {
             </button>
             <button
               className="button button-solid"
-              onClick={googleLogin}
+              onClick={() => handleOauth2Login("google")}
               style={{ margin: "10px" }}
             >
               <FcGoogle />
@@ -163,10 +163,6 @@ const Login = () => {
         </Card.Body>
       </Card>
     );
-  };
-
-  const naverLogin = () => {
-    window.location.href = "http://localhost:9193/oauth2/authorization/naver";
   };
 
   const hideCodeModal = () => {
