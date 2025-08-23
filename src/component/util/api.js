@@ -24,10 +24,11 @@ export async function callWithToken(method, urlSuffix, data = null) {
           url: `${prefix}${urlSuffix}`,
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
           data: data,
         }
-      } 
+      }
       const result = await axios(config);
       return result;
     } else {
