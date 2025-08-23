@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 import { BsLockFill, BsPersonFill } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import naverIcon from "../../assets/images/btnD_icon_square.png";
 import AlertMessage from "../common/AlertMessage";
 import { jwtToUser } from "../common/JwtUtils";
@@ -51,6 +51,9 @@ const Login = () => {
   };
 
   const navigate = useNavigate();
+  const location = useLocation();
+  
+  const from = location.state?.from?.pathname;
   const actLogin = async (e) => {
     e.preventDefault();
     if (!credentials.email || !credentials.password) {
@@ -70,7 +73,7 @@ const Login = () => {
         } else {
           storeLoginInfo(user, data.token);
           window.dispatchEvent(new Event("loginEvt"));
-          navigate(`/dashboard/${user.id}/user`);
+          navigate(from || `/dashboard/${user.id}/user`, { replace: true });
         }
       }
     } catch (error) {
