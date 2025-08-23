@@ -10,6 +10,8 @@ import {
 import { BsPlusSquareFill } from "react-icons/bs";
 import { labelsOver, setDifference } from "../util/utilities.js";
 import OrderItemEntry from "./OrderItemEntry.jsx";
+import { callWithToken } from "../util/api.js";
+import { useNavigate } from "react-router-dom";
 
 const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
   const [formData, setFormData] = useState({
@@ -119,7 +121,10 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
     setFormData((prevState) => ({ ...prevState, items: newItems }));
   };
 
+  const navigate = useNavigate();
+
   function putToCart() {
+
     if (formData.items.length === 0) {
       alert("비누 외형을 선택해주세요.");
       return;
@@ -132,12 +137,36 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
       alert("비누 수량은 최소 1개 이상이어야 합니다.");
       return;
     }
-    console.log("장바구니에 담을 비누 정보:", formData.items);
 
     // 장바구니에 담는 로직
+    const cartItems = formData.items.map((item) => ({
+      shape: item.shape.substring(0, item.shape.indexOf("(")),
+      count: item.count,
+    }));
+    const userId = localStorage.getItem("LOGIN_ID") || "0";
+    console.log("장바구니에 담 비누 정보:", cartItems);
+    cartItems.forEach(async (item) => {
+      try {
+        const formData = new FormData();
 
-    alert("장바구니에 담았습니다.");
+        formData.append("userId", userId);
+        formData.append("shape", item.shape);
+        formData.append("count", item.count);        
+
+        const result = await callWithToken("post", "/cart/item/add", formData);
+
+        if (result) {
+          return result.data;
+        } else {
+          navigate("/login");
+        }
+      } catch (err) {
+        throw err;
+      }
+    });
   }
+
+  function gotoPaymentPage() {}
 
   return (
     <div className="order-form">

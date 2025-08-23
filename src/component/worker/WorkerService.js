@@ -1,4 +1,3 @@
-import axios, { HttpStatusCode } from "axios";
 import { api } from "../util/api";
 import { callWithToken } from "../util/api";
 
