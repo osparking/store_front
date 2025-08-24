@@ -232,7 +232,7 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
                 <Button
                   variant="info"
                   size="sm"
-                  className="pt-2 pb-2"
+                  className="pt-2 pb-2 order-button-width"
                   onClick={putToCart}
                 >
                   장바구니 담기
@@ -242,7 +242,7 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
                 <Button
                   variant="success"
                   size="sm"
-                  className="pt-2 pb-2"
+                  className="pt-2 pb-2 order-button-width"
                   onClick={gotoPaymentPage}
                 >
                   바로 구매하기

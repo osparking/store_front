@@ -5,6 +5,7 @@ import { soapImages } from "../soaps/SoapImages.js";
 import { labelsOver } from "../util/utilities.js";
 import OrderForm from "./OrderForm.jsx";
 import { getSoapShapes } from "./orderService.js";
+import "./buySoap.css";
 
 const BuySoap = () => {
   const normalSoaps = soapImages.filter((soap) => soap.shape === "normal");
@@ -90,7 +91,7 @@ const BuySoap = () => {
             </Card.Body>
           </Card>
         </Col>
-        <Col xs={10} md={5}>
+        <Col xs={10} md={5} className="order-form-width">
           <Card className="shadow mb-5">
             <Card.Header as="h5" className="text-center">
               비누 주문 내역
