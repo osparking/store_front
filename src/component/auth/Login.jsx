@@ -84,7 +84,9 @@ const Login = () => {
   };
 
   const handleOauth2Login = (provider) => {
-    window.location.href = `http://localhost:9193/oauth2/authorization/${provider}`;
+    // Store the protected URL in sessionStorage or state
+    sessionStorage.setItem("preLoginUrl", location.pathname + location.search);
+    window.location.href = `/oauth2/authorization/${provider}`;
   };
 
   const loginEntryCard = () => {
