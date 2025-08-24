@@ -20,7 +20,13 @@ const OAuth2RedirectHandler = () => {
     localStorage.setItem("IS_ADMIN", user.isAdmin);
     localStorage.setItem("IS_WORKER", user.isWorker);
     window.dispatchEvent(new Event("loginEvt"));
-    navigate(`/dashboard/${user.id}/user`);
+
+    // Check for stored pre-login URL
+    const landingUrl =
+      sessionStorage.getItem("preLoginUrl") || `/dashboard/${user.id}/user`;
+    sessionStorage.removeItem("preLoginUrl");
+
+    navigate(landingUrl, { replace: true });
   };
 
   const hideCodeModal = () => {
