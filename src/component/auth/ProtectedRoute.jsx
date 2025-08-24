@@ -7,6 +7,10 @@ const ProtectedRoute = ({ children, allowedRoles = [], useOutlet = false }) => {
   const location = useLocation();
 
   if (!loggedIn) {
+    // Store the protected URL in sessionStorage or state
+    const preLoginUrl = location.pathname + location.search;
+    sessionStorage.setItem("preLoginUrl", preLoginUrl);
+
     // login 페이지로 보내고, (로그인 후 복귀할 수 있게) 직전 위치 기억
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
