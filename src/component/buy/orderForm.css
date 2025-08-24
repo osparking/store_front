@@ -1,3 +1,5 @@
-.order-button-width {
-  min-width: 110px;
+Button.order-button-width {
+  width: 110px;
+  display: inline;
+  margin-left: 15px;
 }

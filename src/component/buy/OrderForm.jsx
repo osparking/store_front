@@ -124,7 +124,6 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
   const navigate = useNavigate();
 
   function putToCart() {
-
     if (formData.items.length === 0) {
       alert("비누 외형을 선택해주세요.");
       return;
@@ -151,7 +150,7 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
 
         formData.append("userId", userId);
         formData.append("shape", item.shape);
-        formData.append("count", item.count);        
+        formData.append("count", item.count);
 
         const result = await callWithToken("post", "/cart/item/add", formData);
 
@@ -227,8 +226,11 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
               </Col>
               <Col md={1}></Col>
             </Row>
-            <Row className="justify-content-center mt-5">
-              <Col md={3}>
+            <Row className="mt-5">
+              <div
+                style={{ display: "flex", gap: "20px" }}
+                className="justify-content-center"
+              >
                 <Button
                   variant="info"
                   size="sm"
@@ -237,8 +239,6 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
                 >
                   장바구니 담기
                 </Button>
-              </Col>
-              <Col md={3}>
                 <Button
                   variant="success"
                   size="sm"
@@ -247,7 +247,7 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
                 >
                   바로 구매하기
                 </Button>
-              </Col>
+              </div>
             </Row>
           </Form.Group>
         </fieldset>
