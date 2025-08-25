@@ -6,18 +6,40 @@ export const api = axios.create({
   baseURL: prefix,
 });
 
+const isTokenExpired = (token) => {
+  if (!token) return true;
+  
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const currentTime = Date.now() / 1000;
+    return payload.exp < currentTime;
+  } catch (error) {
+    console.error('Error decoding token:', error);
+    return true;
+  }
+};
+
 export async function callWithToken(method, urlSuffix, data = null) {
   try {
     const token = localStorage.getItem("TOKEN");
-    if (token) {
+    
+    if (token) {      
       console.log("url: ", `${prefix}${urlSuffix}`);
+
+      if (isTokenExpired(token)) {
+        // Token expired, redirect to login
+        localStorage.removeItem('TOKEN');
+        window.location.href = '/login';
+        return Promise.reject(new Error('Token expired'));
+      }
+
       let config = {
         method: method,
         url: `${prefix}${urlSuffix}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }
+      };
       if (data) {
         config = {
           method: method,
@@ -27,7 +49,7 @@ export async function callWithToken(method, urlSuffix, data = null) {
             "Content-Type": "application/json",
           },
           data: data,
-        }
+        };
       }
       const result = await axios(config);
       return result;
@@ -35,7 +57,9 @@ export async function callWithToken(method, urlSuffix, data = null) {
       return null;
     }
   } catch (err) {
-    if (err.response.status === HttpStatusCode.Forbidden ||
+    console.error("erro:", err);
+    if (
+      err.response.status === HttpStatusCode.Forbidden ||
       err.response.status === HttpStatusCode.Unauthorized
     ) {
       return null;
