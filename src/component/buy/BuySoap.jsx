@@ -6,8 +6,13 @@ import { labelsOver } from "../util/utilities.js";
 import OrderForm from "./OrderForm.jsx";
 import { getSoapShapes } from "./orderService.js";
 import "./buySoap.css";
+import { useLocation } from "react-router-dom";
+import ShoppingCart from "./ShoppingCart.jsx";
 
 const BuySoap = () => {
+  const location = useLocation();
+  const { showCart } = location.state || false;
+
   const normalSoaps = soapImages.filter((soap) => soap.shape === "normal");
   const sWhiteSoaps = soapImages.filter((soap) => soap.shape === "s-white");
   const maejooSoaps = soapImages.filter((soap) => soap.shape === "maejoo");
@@ -92,18 +97,22 @@ const BuySoap = () => {
           </Card>
         </Col>
         <Col xs={10} md={5} className="order-form-width">
-          <Card className="shadow mb-5">
-            <Card.Header as="h5" className="text-center">
-              비누 주문 내역
-            </Card.Header>
-            <Card.Body>
-              <OrderForm
-                optionLabels={optionLabels}
-                defaultLabel={defaultLabel}
-                changeCarouselShape={changeCarouselShape}
-              />
-            </Card.Body>
-          </Card>          
+          {showCart ? (
+            <ShoppingCart />
+          ) : (
+            <Card className="shadow mb-5">
+              <Card.Header as="h5" className="text-center form-header">
+                비누 주문 내역
+              </Card.Header>
+              <Card.Body>
+                <OrderForm
+                  optionLabels={optionLabels}
+                  defaultLabel={defaultLabel}
+                  changeCarouselShape={changeCarouselShape}
+                />
+              </Card.Body>
+            </Card>
+          )}         
         </Col>
       </Row>
     </div>

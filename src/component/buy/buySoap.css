@@ -1,3 +1,7 @@
 .order-form-width {
   min-width: 600px;
 }
+
+.form-header {
+  min-width: 95%;
+}
