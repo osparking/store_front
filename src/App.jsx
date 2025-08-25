@@ -45,6 +45,7 @@ function App() {
           }
         >
           <Route path="/buy_soap" element={<BuySoap />} />
+          <Route path="/shopping_cart" element={<BuySoap showCart={true}/>} />
         </Route>
         <Route path="/work_item" element={<WorkerDashboard />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
