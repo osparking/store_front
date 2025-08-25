@@ -12,6 +12,7 @@ import { labelsOver, setDifference } from "../util/utilities.js";
 import OrderItemEntry from "./OrderItemEntry.jsx";
 import { callWithToken } from "../util/api.js";
 import { useNavigate } from "react-router-dom";
+import CartPutModal from "./CartPutModal.jsx";
 
 const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
   const [formData, setFormData] = useState({
@@ -128,7 +129,47 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
 
   const navigate = useNavigate();
 
-  function putToCart() {
+  const cartAddResultMap = new Map();
+
+  async function saveCart(items, userId) {
+    for (const item of items) {
+      try {
+        const formData = new FormData();
+
+        formData.append("userId", userId);
+        formData.append("shape", item.shape);
+        formData.append("count", item.count);
+
+        const result = await callWithToken("post", "/cart/item/add", formData);
+
+        if (result) {
+          cartAddResultMap.set(
+            result.data.message,
+            (cartAddResultMap.get(result.data.message) || 0) + 1
+          );
+        } else {
+          navigate("/login");
+        }
+      } catch (err) {
+        throw err;
+      }
+    }
+  }
+
+  function getResultString() {
+    const resultString = Array.from(
+      cartAddResultMap,
+      ([key, value]) => `${key}: ${value} 건`
+    );
+    return resultString;
+  }
+
+  const showCartModal = (content) => {
+    setCartModalMessage(content);
+    setShowResultModal(true);
+  };
+
+  async function putToCart() {
     if (formData.items.length === 0) {
       alert("비누 외형을 선택해주세요.");
       return;
@@ -148,27 +189,13 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
       count: item.count,
     }));
     const userId = localStorage.getItem("LOGIN_ID") || "0";
-    console.log("장바구니에 담 비누 정보:", cartItems);
-    cartItems.forEach(async (item) => {
-      try {
-        const formData = new FormData();
 
-        formData.append("userId", userId);
-        formData.append("shape", item.shape);
-        formData.append("count", item.count);
-
-        const result = await callWithToken("post", "/cart/item/add", formData);
-
-        if (result) {
-          return result.data;
-        } else {
-          navigate("/login");
-        }
-      } catch (err) {
-        throw err;
-      }
-    });
+    await saveCart(cartItems, userId);
+    showCartModal(getResultString());
   }
+
+  const [showResultModal, setShowResultModal] = useState(false);
+  const [cartModalMessage, setCartModalMessage] = useState("");
 
   function gotoPaymentPage() {}
 
@@ -257,6 +284,15 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
           </Form.Group>
         </fieldset>
       </Form>
+
+      <CartPutModal
+        show={showResultModal}
+        closer={() => {
+          setShowResultModal(false);
+          cartAddResultMap.clear();
+        }}
+        getResultString={cartModalMessage}
+      />
     </div>
   );
 };
