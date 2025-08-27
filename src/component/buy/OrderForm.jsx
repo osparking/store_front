@@ -98,10 +98,10 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
     const { name, value } = e.target;
     const newItems = [...formData.items];
 
-  // 만일 name 이 'shape' 라면, 가격도 함께 바꿔준다.
-  if (name === "shape") {
-    newItems[index]["price"] = findPrice(optionLabels, value);
-  }
+    // 만일 name 이 'shape' 라면, 가격도 함께 바꿔준다.
+    if (name === "shape") {
+      newItems[index]["price"] = findPrice(optionLabels, value);
+    }
     newItems[index][name] = value;
     setFormData((prevState) => ({ ...prevState, items: newItems }));
   };
