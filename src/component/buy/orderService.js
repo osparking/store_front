@@ -18,3 +18,13 @@ export async function readUserCart(userId) {
     throw err;
   }
 }
+
+export async function updateUserCart(data) {
+  try {
+    const result = await callWithToken("put", "/cart/update", data);
+    console.log("data: ", result.data.data);
+    return result.data.data;
+  } catch (err) {
+    throw err;
+  }
+}
