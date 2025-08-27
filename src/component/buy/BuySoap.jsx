@@ -105,7 +105,7 @@ const BuySoap = () => {
               <Card.Body>
                 <ShoppingCart
                   optionLabels={optionLabels}
-                  changeCarouselShape={changeCarouselShape}
+                  setCarouselImages={setCarouselImages}
                 />
               </Card.Body>
             </Card>
