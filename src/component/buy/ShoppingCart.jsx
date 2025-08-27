@@ -1,10 +1,24 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import CartItemRow from "./CartItemRow";
+import OrderItemEntry from "./OrderItemEntry";
 import { readUserCart, updateUserCart } from "./orderService";
+import CartItemRow from "./CartItemRow";
+import BsAlertHook from "../hook/BsAlertHook";
+import AlertMessage from "../common/AlertMessage";
 
 const ShoppingCart = ({ optionLabels, changeCarouselShape }) => {
+  const {
+    successMsg,
+    setSuccessMsg,
+    alertSuccess,
+    setAlertSuccess,
+    errorMsg,
+    setErrorMsg,
+    alertError,
+    setAlertError,
+  } = BsAlertHook();
+
   const [formData, setFormData] = useState({
     items: [
       {
@@ -128,6 +142,16 @@ const ShoppingCart = ({ optionLabels, changeCarouselShape }) => {
                   비누 주문 하기
                 </Button>
               </div>
+            </Row>
+            <Row className="mt-5 justify-content-center">
+              <Col md={7}>
+                {alertSuccess && (
+                  <AlertMessage type={"success"} message={successMsg} />
+                )}
+                {alertError && (
+                  <AlertMessage type={"danger"} message={errorMsg} />
+                )}
+              </Col>
             </Row>
           </Form.Group>
         </fieldset>
