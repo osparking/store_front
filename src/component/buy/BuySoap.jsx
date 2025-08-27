@@ -98,11 +98,21 @@ const BuySoap = () => {
         </Col>
         <Col xs={10} md={5} className="order-form-width">
           {showCart ? (
-            <ShoppingCart />
+            <Card className="shadow mb-5">
+              <Card.Header as="h5" className="text-center form-header">
+                장바구니
+              </Card.Header>
+              <Card.Body>
+                <ShoppingCart
+                  optionLabels={optionLabels}
+                  changeCarouselShape={changeCarouselShape}
+                />
+              </Card.Body>
+            </Card>
           ) : (
             <Card className="shadow mb-5">
               <Card.Header as="h5" className="text-center form-header">
-                비누 주문 내역
+                비누 주문 하기
               </Card.Header>
               <Card.Body>
                 <OrderForm
