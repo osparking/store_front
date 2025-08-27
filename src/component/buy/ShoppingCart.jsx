@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import OrderItemEntry from "./OrderItemEntry";
-import { readUserCart, updateUserCart } from "./orderService";
-import CartItemRow from "./CartItemRow";
-import BsAlertHook from "../hook/BsAlertHook";
 import AlertMessage from "../common/AlertMessage";
+import BsAlertHook from "../hook/BsAlertHook";
+import CartItemRow from "./CartItemRow";
+import { readUserCart, updateUserCart } from "./orderService";
 
-const ShoppingCart = ({ optionLabels, changeCarouselShape }) => {
+const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
   const {
     successMsg,
     setSuccessMsg,
@@ -102,10 +101,9 @@ const ShoppingCart = ({ optionLabels, changeCarouselShape }) => {
                   key={index}
                   index={index}
                   item={item}
-                  formDataItems={formData.items}
                   optionLabels={optionLabels}
                   handleInputChange={(e) => handlePropChange(index, e)}
-                  changeCarouselShape={changeCarouselShape}
+                  setCarouselImages={setCarouselImages}
                   delSoapItem={delCartItem}
                 />
               ))
