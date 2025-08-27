@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { readUserCart } from "./orderService";
+import CartItemRow from "./CartItemRow";
 
 const ShoppingCart = ({ optionLabels, changeCarouselShape }) => {
   const [formData, setFormData] = useState({
@@ -17,6 +18,13 @@ const ShoppingCart = ({ optionLabels, changeCarouselShape }) => {
 
   const [deleteIdList] = useState(new Array());
 
+  const delCartItem = (index) => {
+    deleteIdList.push(formData.items[index].id);
+    console.log("deleted item id list: ", deleteIdList);
+    const newItems = formData.items.filter((_, i) => i !== index);
+    setFormData((prevState) => ({ ...prevState, items: newItems }));
+  };
+  
   function gotoPaymentPage() {}
 
   const handleSubmit = (e) => {
@@ -56,6 +64,22 @@ const ShoppingCart = ({ optionLabels, changeCarouselShape }) => {
               </Col>
               <Col md={2}></Col>
             </Row>
+            {formData.items.length > 0 ? (
+              formData.items.map((item, index) => (
+                <CartItemRow
+                  key={index}
+                  index={index}
+                  item={item}
+                  formDataItems={formData.items}
+                  optionLabels={optionLabels}
+                  handleInputChange={(e) => handlePropChange(index, e)}
+                  changeCarouselShape={changeCarouselShape}
+                  delSoapItem={delCartItem}
+                />
+              ))
+            ) : (
+              <p>장바구니가 비었습니다.</p>
+            )}            
             <Row className="mt-5">
               <div
                 style={{ display: "flex", gap: "20px" }}

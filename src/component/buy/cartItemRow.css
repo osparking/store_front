@@ -1,0 +1,9 @@
+.cartItem {
+  margin: 5px 0px;
+  text-align: right;
+}
+
+.shapeCount {
+  padding: 5px;
+  text-align: right;
+}
