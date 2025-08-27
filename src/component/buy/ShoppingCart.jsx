@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { readUserCart } from "./orderService";
 import CartItemRow from "./CartItemRow";
+import { readUserCart, updateUserCart } from "./orderService";
 
 const ShoppingCart = ({ optionLabels, changeCarouselShape }) => {
   const [formData, setFormData] = useState({
@@ -24,7 +24,7 @@ const ShoppingCart = ({ optionLabels, changeCarouselShape }) => {
     const newItems = formData.items.filter((_, i) => i !== index);
     setFormData((prevState) => ({ ...prevState, items: newItems }));
   };
-  
+
   function gotoPaymentPage() {}
 
   const handleSubmit = (e) => {
@@ -50,7 +50,25 @@ const ShoppingCart = ({ optionLabels, changeCarouselShape }) => {
     readCart();
   }, []);
 
-  function saveCartUpdate() {}
+  const handlePropChange = (index, e) => {
+    const { name, value } = e.target;
+    const newItems = [...formData.items];
+
+    newItems[index][name] = value;
+    setFormData((prevState) => ({ ...prevState, items: newItems }));
+  };
+
+  async function saveCartUpdate() {
+    const convertedItems = formData.items.map((item) => {
+      return { id: item.id, count: item.count };
+    });
+    let data = { deleteId: deleteIdList, updateCount: convertedItems };
+    const result = await updateUserCart(data);
+    readCart();
+    setSuccessMsg("장바구니 내용이 저장되었습니다.");
+    setAlertSuccess(true);
+    console.log("result: ", result);
+  }
 
   return (
     <div className="order-form">
@@ -79,7 +97,7 @@ const ShoppingCart = ({ optionLabels, changeCarouselShape }) => {
               ))
             ) : (
               <p>장바구니가 비었습니다.</p>
-            )}            
+            )}
             <Row className="mt-5">
               <div
                 style={{ display: "flex", gap: "20px" }}
