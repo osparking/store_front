@@ -42,7 +42,7 @@ const CartPutModal = ({ show, closer, getResultString = [] }) => {
             className="pt-2 pb-2 order-button-width"
             onClick={closer}
           >
-            뒤로 돌아가기
+            결과 보기 닫기
           </Button>
         </div>
       </Modal.Body>
