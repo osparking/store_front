@@ -12,13 +12,13 @@ import "./cartItemRow.css";
 const CartItemRow = ({
   index,
   item,
-  formDataItems,
   optionLabels,
   handleInputChange,
-  changeCarouselShape,
+  setCarouselImages,
   delSoapItem,
 }) => {
   function handleCountChange(e) {
+    setCarouselImages(item.shapeLabel.substring(0, 2))
     const inventory =
       optionLabels.find((label) =>
         label.optionLabel.startsWith(item.shapeLabel)
