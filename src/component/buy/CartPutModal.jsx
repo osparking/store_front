@@ -34,15 +34,16 @@ const CartPutModal = ({ show, closer, getResultString = [] }) => {
             className="pt-2 pb-2 order-button-width"
             onClick={showShoppingCart}
           >
-            장바구니 보기
+            바구니 보기
           </Button>
           <Button
             variant="success"
             size="sm"
             className="pt-2 pb-2 order-button-width"
             onClick={closer}
+            style={{minWidth: '95px'}}
           >
-            결과 보기 닫기
+            비누 주문
           </Button>
         </div>
       </Modal.Body>

@@ -99,6 +99,10 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
     setAlertSuccess(true);
   }
 
+  function cancelCartUpdate() {
+    readCart();
+  }
+
   return (
     <div className="order-form">
       <Form onSubmit={handleSubmit}>
@@ -137,7 +141,7 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
                   className="pt-2 pb-2 order-button-width"
                   onClick={gotoPaymentPage}
                 >
-                  선택 항목 주문
+                  선택 주문
                 </Button>
                 <Button
                   variant="warning"
@@ -146,7 +150,16 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
                   onClick={saveCartUpdate}
                   disabled={countsAreEqual(formData.items)}
                 >
-                  변경 내용 저장
+                  변경 저장
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="pt-2 pb-2 order-button-width"
+                  onClick={cancelCartUpdate}
+                  disabled={countsAreEqual(formData.items)}
+                >
+                  변경 취소
                 </Button>
                 <Button
                   variant="success"
@@ -154,7 +167,7 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
                   className="pt-2 pb-2 order-button-width"
                   onClick={gotoOrderForm}
                 >
-                  비누 주문 하기
+                  비누 주문
                 </Button>
               </div>
             </Row>
