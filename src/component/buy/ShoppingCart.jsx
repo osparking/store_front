@@ -60,11 +60,14 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
     });
   }
 
-  async function readCart() {
-    const userId = localStorage.getItem("LOGIN_ID");
-    if (userId) {
-      const userCart = await readUserCart(userId);
-
+  async function readCart(userCart) {
+    if (userCart === undefined) {
+      const userId = localStorage.getItem("LOGIN_ID");
+      if (userId) {
+        userCart = await readUserCart(userId);
+      }
+    }
+    if (userCart) {
       // 변경 여부 판단을 위하여 수량 값만 배열로 저장
       setCartInDB(
         userCart.map((item) => {
@@ -94,7 +97,7 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
     let data = { deleteId: deleteIdList, updateCount: convertedItems };
     const result = await updateUserCart(data);
     
-    readCart();
+    readCart(result);
     setSuccessMsg("장바구니 내용이 저장되었습니다.");
     setAlertSuccess(true);
   }
