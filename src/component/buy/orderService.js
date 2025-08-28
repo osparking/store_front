@@ -12,7 +12,6 @@ export async function getSoapShapes() {
 export async function readUserCart(userId) {
   try {
     const result = await callWithToken("get", `/cart/${userId}/get`);
-    console.log("data: ", result.data.data);
     return result.data.data;
   } catch (err) {
     throw err;
@@ -22,7 +21,6 @@ export async function readUserCart(userId) {
 export async function updateUserCart(data) {
   try {
     const result = await callWithToken("put", "/cart/update", data);
-    console.log("data: ", result.data.data);
     return result.data.data;
   } catch (err) {
     throw err;

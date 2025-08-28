@@ -2,8 +2,6 @@ import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const CartPutModal = ({ show, closer, getResultString = [] }) => {
-  console.log("type: ", typeof getResultString);
-  console.log("getResultString: ", getResultString);
   const navigate = useNavigate();
 
   const showShoppingCart = () => {
