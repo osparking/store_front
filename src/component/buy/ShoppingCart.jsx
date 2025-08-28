@@ -33,7 +33,6 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
 
   const delCartItem = (index) => {
     deleteIdList.push(formData.items[index].id);
-    console.log("deleted item id list: ", deleteIdList);
     const newItems = formData.items.filter((_, i) => i !== index);
     setFormData((prevState) => ({ ...prevState, items: newItems }));
   };
@@ -49,12 +48,30 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
     navigate("/buy_soap");
   }
 
+  const [cartInDB, setCartInDB] = useState([]);
+
+  function countsAreEqual(itemsCart) {
+    if (cartInDB.length !== itemsCart.length) {
+      return false;
+    }
+
+    return cartInDB.every((item, index) => {
+      return item["count"] === itemsCart[index]["count"];
+    });
+  }
+
   async function readCart() {
     const userId = localStorage.getItem("LOGIN_ID");
     if (userId) {
       const userCart = await readUserCart(userId);
+
+      // 변경 여부 판단을 위하여 수량 값만 배열로 저장
+      setCartInDB(
+        userCart.map((item) => {
+          return { count: item.count };
+        })
+      );
       // 후단에서 유저의 카트 내용을 읽고, 그 결과로 formData.items 에 치환.
-      console.log("items: ", userCart);
       setFormData((prevState) => ({ ...prevState, items: userCart }));
     }
   }
@@ -66,21 +83,20 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
   const handlePropChange = (index, e) => {
     const { name, value } = e.target;
     const newItems = [...formData.items];
-
-    newItems[index][name] = value;
+    newItems[index][name] = parseInt(value) ? parseInt(value) : value;
     setFormData((prevState) => ({ ...prevState, items: newItems }));
   };
-
+  
   async function saveCartUpdate() {
     const convertedItems = formData.items.map((item) => {
       return { id: item.id, count: item.count };
     });
     let data = { deleteId: deleteIdList, updateCount: convertedItems };
     const result = await updateUserCart(data);
+    
     readCart();
     setSuccessMsg("장바구니 내용이 저장되었습니다.");
     setAlertSuccess(true);
-    console.log("result: ", result);
   }
 
   return (
@@ -128,6 +144,7 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
                   size="sm"
                   className="pt-2 pb-2 order-button-width"
                   onClick={saveCartUpdate}
+                  disabled={countsAreEqual(formData.items)}
                 >
                   변경 내용 저장
                 </Button>
