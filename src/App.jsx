@@ -21,6 +21,7 @@ import RegisterUser from "./component/user/RegisterUser";
 import UserUpdate from "./component/user/UpdateUser";
 import UserDashboard from "./component/user/UserDashboard";
 import WorkerDashboard from "./component/worker/WorkerDashboard";
+import Recepient from "./component/buy/Recepient";
 
 function App() {
   const router = createBrowserRouter(
@@ -46,6 +47,7 @@ function App() {
         >
           <Route path="/buy_soap" element={<BuySoap />} />
           <Route path="/shopping_cart" element={<BuySoap showCart={true}/>} />
+          <Route path="/recepient" element={<Recepient />} />
         </Route>
         <Route path="/work_item" element={<WorkerDashboard />} />
         <Route path="/unauthorized" element={<Unauthorized />} />

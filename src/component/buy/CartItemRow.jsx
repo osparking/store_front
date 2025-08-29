@@ -39,6 +39,7 @@ const CartItemRow = ({
         <Form.Check
           className="cartItem"
           type="checkbox"
+          name="isChecked"
           checked={item.isChecked}
           label={item.shapeLabel}
           onChange={handleInputChange}
