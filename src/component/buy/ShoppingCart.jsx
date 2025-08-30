@@ -38,7 +38,7 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
   };
 
   function enterDeliveryInfo() {
-    const productList = formData.items.filter(item => item.isChecked);
+    const productList = formData.items.filter((item) => item.isChecked);
     navigate("/recepient", { state: { productList: productList } });
   }
 
@@ -79,9 +79,10 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
       );
 
       // 각 요소에 isChecked 멤버 추가
-      const cartItems = userCart.map(item => ({
-        ...item, isChecked: false
-      }))
+      const cartItems = userCart.map((item) => ({
+        ...item,
+        isChecked: false,
+      }));
 
       // 후단에서 유저의 카트 내용을 읽고, 그 결과로 formData.items 에 치환.
       setFormData((prevState) => ({ ...prevState, items: cartItems }));
@@ -92,12 +93,41 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
     readCart();
   }, []);
 
-  const handlePropChange = (index, e) => {
-    const { name, value, checked } = e.target;
-    const newItems = [...formData.items];
-    newItems[index][name] = parseInt(value) ? parseInt(value) : checked;
-    setFormData((prevState) => ({ ...prevState, items: newItems }));
-  };
+  const handlePropChange = (e, index = null, parentKey = 'items') => {
+  const { name, value, checked, type } = e.target;
+  
+  let inputValue;
+  
+  switch (type) {
+    case 'checkbox':
+      inputValue = checked;
+      break;
+    case 'number':
+    case 'range':
+      inputValue = value === '' ? '' : parseFloat(value);
+      break;
+    case 'radio':
+      inputValue = value;
+      break;
+    case 'file':
+      inputValue = e.target.files[0];
+      break;
+    default:
+      inputValue = value;
+  }
+  
+  setFormData(prevState => {
+    if (index !== null) {
+      // Handle array items
+      const newItems = [...prevState[parentKey]];
+      newItems[index][name] = inputValue;
+      return { ...prevState, [parentKey]: newItems };
+    } else {
+      // Handle regular form fields
+      return { ...prevState, [name]: inputValue };
+    }
+  });
+};
 
   async function saveCartUpdate() {
     const convertedItems = formData.items.map((item) => {
@@ -105,7 +135,7 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
     });
     let data = { deleteId: deleteIdList, updateCount: convertedItems };
     const result = await updateUserCart(data);
-    
+
     readCart(result);
     setSuccessMsg("장바구니 내용이 저장되었습니다.");
     setAlertSuccess(true);
@@ -134,7 +164,7 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
                   index={index}
                   item={item}
                   optionLabels={optionLabels}
-                  handleInputChange={(e) => handlePropChange(index, e)}
+                  handleInputChange={(e) => handlePropChange(e, index)}
                   setCarouselImages={setCarouselImages}
                   delSoapItem={delCartItem}
                 />
