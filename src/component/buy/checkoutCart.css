@@ -1,0 +1,27 @@
+@import url("recepient.css");
+
+.cartItem {
+  margin: 5px 0px;
+  text-align: right;
+}
+
+.listLeftLabel {
+  margin-bottom: 16px;
+  background-color: ivory;
+  opacity: 1;
+  width: 200px;
+  text-align: right;
+  border: 1px solid black;
+}
+
+.rightColumnParagraph {
+    float: right;
+    margin-left: 20px; /* Optional: Add space between columns */
+    margin-bottom: 0;;
+    font-weight: 600;
+    text-align: right;
+}
+
+.grandTotal {
+  text-align: end;
+}
