@@ -5,6 +5,7 @@ import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import CartItemRow from "./CartItemRow";
 import { readUserCart, updateUserCart } from "./orderService";
+import { handlePropChange } from "../util/utilities";
 
 const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
   const {
@@ -93,42 +94,6 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
     readCart();
   }, []);
 
-  const handlePropChange = (e, index = null, parentKey = 'items') => {
-  const { name, value, checked, type } = e.target;
-  
-  let inputValue;
-  
-  switch (type) {
-    case 'checkbox':
-      inputValue = checked;
-      break;
-    case 'number':
-    case 'range':
-      inputValue = value === '' ? '' : parseFloat(value);
-      break;
-    case 'radio':
-      inputValue = value;
-      break;
-    case 'file':
-      inputValue = e.target.files[0];
-      break;
-    default:
-      inputValue = value;
-  }
-  
-  setFormData(prevState => {
-    if (index !== null) {
-      // Handle array items
-      const newItems = [...prevState[parentKey]];
-      newItems[index][name] = inputValue;
-      return { ...prevState, [parentKey]: newItems };
-    } else {
-      // Handle regular form fields
-      return { ...prevState, [name]: inputValue };
-    }
-  });
-};
-
   async function saveCartUpdate() {
     const convertedItems = formData.items.map((item) => {
       return { id: item.id, count: item.count };
@@ -164,7 +129,9 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
                   index={index}
                   item={item}
                   optionLabels={optionLabels}
-                  handleInputChange={(e) => handlePropChange(e, index)}
+                  handleInputChange={(e) =>
+                    handlePropChange(e, setFormData, index)
+                  }
                   setCarouselImages={setCarouselImages}
                   delSoapItem={delCartItem}
                 />

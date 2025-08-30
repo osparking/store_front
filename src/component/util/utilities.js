@@ -32,3 +32,44 @@ export function labelsOver(labels, threshold) {
       .filter((label) => label.inventory > threshold)
       .map((label) => label.optionLabel);
 }
+
+export function handlePropChange(
+  e,
+  setFormData,
+  index = null,
+  parentKey = "items"
+) {
+  const { name, value, checked, type } = e.target;
+
+  let inputValue;
+
+  switch (type) {
+    case "checkbox":
+      inputValue = checked;
+      break;
+    case "number":
+    case "range":
+      inputValue = value === "" ? "" : parseFloat(value);
+      break;
+    case "radio":
+      inputValue = value;
+      break;
+    case "file":
+      inputValue = e.target.files[0];
+      break;
+    default:
+      inputValue = value;
+  }
+
+  setFormData((prevState) => {
+    if (index !== null) {
+      // Handle array items
+      const newItems = [...prevState[parentKey]];
+      newItems[index][name] = inputValue;
+      return { ...prevState, [parentKey]: newItems };
+    } else {
+      // Handle regular form fields
+      return { ...prevState, [name]: inputValue };
+    }
+  });
+};
