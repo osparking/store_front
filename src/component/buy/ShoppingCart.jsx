@@ -39,7 +39,6 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
 
   function enterDeliveryInfo() {
     const productList = formData.items.filter(item => item.isChecked);
-    console.log("상품 목록 1: ", JSON.stringify(productList));
     navigate("/recepient", { state: { productList: productList } });
   }
 
@@ -95,10 +94,8 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
 
   const handlePropChange = (index, e) => {
     const { name, value, checked } = e.target;
-    console.log("name, value: ", name, value);
     const newItems = [...formData.items];
     newItems[index][name] = parseInt(value) ? parseInt(value) : checked;
-    console.log("newItems: ", JSON.stringify(newItems));
     setFormData((prevState) => ({ ...prevState, items: newItems }));
   };
 
