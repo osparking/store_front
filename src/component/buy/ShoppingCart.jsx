@@ -5,6 +5,7 @@ import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import CartItemRow from "./CartItemRow";
 import { readUserCart, updateUserCart } from "./orderService";
+import { handlePropChange } from "../util/utilities";
 
 const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
   const {
@@ -37,7 +38,10 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
     setFormData((prevState) => ({ ...prevState, items: newItems }));
   };
 
-  function gotoPaymentPage() {}
+  function enterDeliveryInfo() {
+    const productList = formData.items.filter((item) => item.isChecked);
+    navigate("/recepient", { state: { productList: productList } });
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -74,21 +78,21 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
           return { count: item.count };
         })
       );
+
+      // 각 요소에 isChecked 멤버 추가
+      const cartItems = userCart.map((item) => ({
+        ...item,
+        isChecked: false,
+      }));
+
       // 후단에서 유저의 카트 내용을 읽고, 그 결과로 formData.items 에 치환.
-      setFormData((prevState) => ({ ...prevState, items: userCart }));
+      setFormData((prevState) => ({ ...prevState, items: cartItems }));
     }
   }
 
   useEffect(() => {
     readCart();
   }, []);
-
-  const handlePropChange = (index, e) => {
-    const { name, value } = e.target;
-    const newItems = [...formData.items];
-    newItems[index][name] = parseInt(value) ? parseInt(value) : value;
-    setFormData((prevState) => ({ ...prevState, items: newItems }));
-  };
   
   async function saveCartUpdate() {
     const convertedItems = formData.items.map((item) => {
@@ -125,7 +129,9 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
                   index={index}
                   item={item}
                   optionLabels={optionLabels}
-                  handleInputChange={(e) => handlePropChange(index, e)}
+                  handleInputChange={(e) =>
+                    handlePropChange(e, setFormData, index)
+                  }
                   setCarouselImages={setCarouselImages}
                   delSoapItem={delCartItem}
                 />
@@ -142,7 +148,7 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
                   variant="info"
                   size="sm"
                   className="pt-2 pb-2 order-button-width"
-                  onClick={gotoPaymentPage}
+                  onClick={enterDeliveryInfo}
                 >
                   선택 주문
                 </Button>
