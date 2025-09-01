@@ -36,15 +36,17 @@ const CartItemRow = ({
   return (
     <Row className="justify-content-center mb-3">
       <Col md={3}>
-        <Form.Check
-          className="cartItem"
-          type="checkbox"
-          name="isChecked"
-          id={`putOrder${index}`}
-          checked={item.isChecked}
-          label={item.shapeLabel}
-          onChange={handleInputChange}
-        />
+        <OverlayTrigger overlay={<Tooltip>주문 선택</Tooltip>}>
+          <Form.Check
+            className="cartItem"
+            type="checkbox"
+            name="isChecked"
+            id={`putOrder${index}`}
+            checked={item.isChecked}
+            label={item.shapeLabel}
+            onChange={handleInputChange}
+          />
+        </OverlayTrigger>
       </Col>
       <Col md={2}>
         <Form.Control
