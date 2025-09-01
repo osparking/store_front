@@ -20,15 +20,13 @@ const Recepient = () => {
   const location = useLocation();
   const { productList } = location.state || [];
 
-  const findRoadAddr = (e) => {
-    e.preventDefault();
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
   const calcGrandTotal = (productList) => {
+    if (productList === undefined) return "";
+
     const grand = productList
       .map((prod) => prod.subTotal)
       .reduce((sum, num) => sum + num, 0);
