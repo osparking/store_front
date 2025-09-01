@@ -2,7 +2,40 @@ import { useEffect, useState } from "react";
 import { Button, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
 
 const RecepientInfo = ({ formData, setFormData }) => {
-  const [phoneNumber] = useState(`${formData.mbPhone}`);
+  const [phoneNumber, setPhoneNumber] = useState(`${formData.mbPhone}`);
+
+  const handleKeyDown = (e) => {
+    // 허용: backspace, delete, tab, escape, enter
+    if (
+      [46, 8, 9, 27, 13].includes(e.keyCode) ||
+      // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
+      (e.keyCode === 65 && e.ctrlKey === true) ||
+      (e.keyCode === 67 && e.ctrlKey === true) ||
+      (e.keyCode === 86 && e.ctrlKey === true) ||
+      (e.keyCode === 88 && e.ctrlKey === true) ||
+      // Allow: numbers
+      (e.keyCode >= 48 && e.keyCode <= 57) ||
+      (e.keyCode >= 96 && e.keyCode <= 105)
+    ) {
+      return;
+    }
+    e.preventDefault();
+  };
+
+  const handlePhoneChange = (e) => {
+    const input = e.target.value;
+    const cleaned = input.replace(/\D/g, "");
+
+    if (cleaned.length <= 3) {
+      setPhoneNumber(cleaned);
+    } else if (cleaned.length <= 7) {
+      setPhoneNumber(`${cleaned.slice(0, 3)}-${cleaned.slice(3)}`);
+    } else {
+      setPhoneNumber(
+        `${cleaned.slice(0, 3)}-${cleaned.slice(3, 7)}-${cleaned.slice(7, 11)}`
+      );
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,12 +67,16 @@ const RecepientInfo = ({ formData, setFormData }) => {
           <tr>
             <th className="rText">휴대폰</th>
             <td className="boxLeft">
-              <input
-                type="tel"
-                value={phoneNumber}
-                placeholder="000-0000-0000"
-                maxLength="13"
-              />
+              <OverlayTrigger overlay={<Tooltip>숫자만 :-)</Tooltip>}>
+                <input
+                  type="tel"
+                  value={phoneNumber}
+                  onChange={handlePhoneChange}
+                  onKeyDown={handleKeyDown}
+                  placeholder="000-0000-0000"
+                  maxLength="13"
+                />
+              </OverlayTrigger>
             </td>
           </tr>
           <tr>
