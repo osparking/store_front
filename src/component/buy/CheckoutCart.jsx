@@ -4,7 +4,7 @@ import "./checkoutCart.css";
 const CheckoutCart = ({ productList, grandTotal }) => {
 
   return (
-    <Row className="justify-content-center mt-3 pt-4 rowStyle">
+    <Row className="justify-content-center pt-4 rowStyle">
       <Col md={3} className="d-flex align-items-center listLeftLabel">
         <div className="container">
           <p className="rightColumnParagraph">주문 상품 요약 ➡</p>

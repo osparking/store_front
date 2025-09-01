@@ -38,8 +38,15 @@ const Recepient = () => {
 
   return (
     <div>
+      <div className="d-flex justify-content-center ">
+        <Row className="pt-4 pb-2 mt-3 rowStyleDark">
+          <Col md={8}>
+            <h5 className="centered">비누 주문서</h5>
+          </Col>
+        </Row>
+      </div>
       <div className="d-flex justify-content-center">
-        <CheckoutCart productList={productList} grandTotal={grandTotal}/>
+        <CheckoutCart productList={productList} grandTotal={grandTotal} />
       </div>
     </div>
   );

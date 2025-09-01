@@ -2,3 +2,8 @@
   background-color: ivory;
   width: 65%;
 }
+
+.rowStyleDark {
+  background-color: rgb(215, 215, 151);
+  width: 65%;
+}
