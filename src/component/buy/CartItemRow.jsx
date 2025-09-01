@@ -40,6 +40,7 @@ const CartItemRow = ({
           className="cartItem"
           type="checkbox"
           name="isChecked"
+          id={`putOrder${index}`}
           checked={item.isChecked}
           label={item.shapeLabel}
           onChange={handleInputChange}
