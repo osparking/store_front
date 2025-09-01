@@ -7,3 +7,59 @@
   background-color: rgb(215, 215, 151);
   width: 65%;
 }
+
+.rText {
+  text-align: right;
+}
+
+.noBorder,
+.noBorder th,
+.noBorder td,
+.noBorder tr {
+  border: none !important;
+}
+
+.noBorder {
+  margin-top: 15px;
+}
+
+.noBorder th {
+  min-width: 65px;
+}
+
+.centered {
+  text-align: center;
+}
+
+.boxLeft {
+  text-align: left;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.addrSearchButton {
+  /* margin-top: -4px; */
+  min-width: 60px;
+}
+
+.addrSearchText {
+  padding-top: 0;
+}
+
+td.goldCell {
+  background-color: rgb(215, 215, 151);
+  padding-left: 10;
+  padding-top: 10;
+  margin-left: 10;
+}
+
+.tooltip {
+  font-family: "Noto Serif KR", Cambria, Cochin, Georgia, Times,
+      "Times New Roman", sans-serif;
+}
+
+input.readOnly {
+  background-color:  rgb(215, 215, 151);
+}
