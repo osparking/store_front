@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Button, Form, Modal, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
+import {
+  Button,
+  Form,
+  Modal,
+  OverlayTrigger,
+  Table,
+  Tooltip,
+} from "react-bootstrap";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import Paginator from "../common/Paginator";
@@ -44,7 +51,7 @@ const AddressModal = ({ show, setFormData, closer }) => {
     // Simulate API call delay time, but, only in debug mode
     if (process.env.NODE_ENV === "development") {
       setTimeout(() => {
-        setItems(generateItems());
+        console.log("loading delay is being simulated");
         setLoading(false);
       }, 100);
     }
@@ -78,7 +85,7 @@ const AddressModal = ({ show, setFormData, closer }) => {
           variant="outline-primary"
           type="submit"
           className="w-25 ms-2"
-          style={{ width: "50vw"}}
+          style={{ width: "50vw" }}
         >
           <ProcessSpinner message="로딩" />
         </Button>
@@ -90,7 +97,7 @@ const AddressModal = ({ show, setFormData, closer }) => {
           variant="outline-primary"
           type="submit"
           className="w-25 ms-2"
-          style={{ width: "50vw"}}
+          style={{ width: "50vw" }}
         >
           <FaMagnifyingGlass />
           <span className="shourcut">(Alt+S)</span>
