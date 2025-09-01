@@ -85,7 +85,6 @@ const BuySoap = () => {
         {/* Use align-items-center for vertical alignment */}
         <Col xs={10} md={5}>
           <Card className="shadow mb-5">
-            <Card.Header as="h5" className="text-center"></Card.Header>
             <Card.Body>
               <SoapCarousel
                 soapImages={images2show}
