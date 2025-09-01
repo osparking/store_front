@@ -18,6 +18,20 @@ export async function readUserCart(userId) {
   }
 }
 
+export async function searchAddress(addressKey, page, size) {
+  const urlPrefix = "/order/address/search?searchKey=";
+
+  try {
+    const result = await callWithToken(
+      "get",
+      `${urlPrefix}${addressKey}&page=${page}&size=${size}`
+    );
+    return result.data.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function updateUserCart(data) {
   try {
     const result = await callWithToken("put", "/cart/update", data);
