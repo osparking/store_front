@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
+import AddressModal from "./AddressModal";
 
 const RecepientInfo = ({ formData, setFormData }) => {
   const [phoneNumber, setPhoneNumber] = useState(`${formData.mbPhone}`);
@@ -47,6 +48,12 @@ const RecepientInfo = ({ formData, setFormData }) => {
       return { ...prevState, mbPhone: phoneNumber };
     });
   }, [phoneNumber]);
+
+  const [showAddressModal, setShowAddressModal] = useState(false);
+
+  const openAddressModal = () => {
+    setShowAddressModal(true);
+  };
 
   return (
     <div>
@@ -101,6 +108,7 @@ const RecepientInfo = ({ formData, setFormData }) => {
                   marginTop: "-5px",
                   marginLeft: 0,
                 }}
+                onClick={openAddressModal}
               >
                 <span className="addrSearchText">검색</span>
               </Button>
@@ -122,7 +130,7 @@ const RecepientInfo = ({ formData, setFormData }) => {
                 name="mbPhone"
                 rows="2"
                 cols="45"
-                readonly
+                readOnly
                 value={formData.addrBasisAddReq.roadAddress}
                 onChange={handleSubmit}
               />
@@ -142,6 +150,14 @@ const RecepientInfo = ({ formData, setFormData }) => {
           </tr>
         </tbody>
       </Table>
+      <AddressModal
+        show={showAddressModal}
+        setFormData={setFormData}
+        closer={() => {
+          setShowAddressModal(false);
+          cartAddResultMap.clear();
+        }}
+      />          
     </div>
   );
 };
