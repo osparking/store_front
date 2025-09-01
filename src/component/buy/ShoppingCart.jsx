@@ -38,9 +38,14 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
     setFormData((prevState) => ({ ...prevState, items: newItems }));
   };
 
+  const [selectedItems, setSelectedItems] = useState([]);
+
+  useEffect(() => {
+    setSelectedItems(formData.items.filter((item) => item.isChecked));
+  }, [formData]);
+
   function enterDeliveryInfo() {
-    const productList = formData.items.filter((item) => item.isChecked);
-    navigate("/recepient", { state: { productList: productList } });
+    navigate("/recepient", { state: { productList: selectedItems } });
   }
 
   const handleSubmit = (e) => {
@@ -149,6 +154,7 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
                   size="sm"
                   className="pt-2 pb-2 order-button-width"
                   onClick={enterDeliveryInfo}
+                  disabled={selectedItems.length === 0}
                 >
                   선택 주문
                 </Button>
