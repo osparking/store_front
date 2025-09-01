@@ -1,0 +1,40 @@
+span.shourcut {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.thickFont {
+  font-weight: 600;
+}
+
+.custom-modal {
+  /* Important for overriding default max-width */
+  width: 700px;
+  max-width: 700px;
+}
+
+p {  
+  text-align: start;
+}
+
+p.above {
+  font-weight: 700;
+}
+
+p.below {
+  margin-top: -10px;
+  margin-bottom: 0;
+}
+
+th {
+  font-weight: 400;
+}
+
+.smaller {
+  font-size: 0.9em;
+  font-weight: 400;
+}
+
+.thicker {
+  font-weight: bold;
+}
