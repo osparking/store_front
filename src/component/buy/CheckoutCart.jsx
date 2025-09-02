@@ -5,12 +5,12 @@ const CheckoutCart = ({ productList, grandTotal }) => {
 
   return (
     <Row className="justify-content-center pt-4 rowStyle">
-      <Col md={3} className="d-flex align-items-center listLeftLabel">
+      <Col md={3} className="d-flex align-items-center listLeftLabel border-0">
         <div className="container">
           <p className="rightColumnParagraph">주문 상품 요약 ➡</p>
         </div>
       </Col>
-      <Col md={5}>
+      <Col md={5} style={{paddingRight: 0}}>
         <Table bordered hover striped>
           <thead>
             <tr>
