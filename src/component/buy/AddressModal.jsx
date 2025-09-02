@@ -8,15 +8,13 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
 import Paginator from "../common/Paginator";
 import ProcessSpinner from "../common/ProcessSpinner";
 import "./AddressModal.css";
 import { searchAddress } from "./orderService";
 
 const AddressModal = ({ show, setFormData, closer }) => {
-  const navigate = useNavigate();
-  const [addressKey, setAddressKey] = useState("미사강변북로");
+  const [addressKey, setAddressKey] = useState("미사강변서로 127");
   const [addresses, setAddresses] = useState([]);
   const [addrPage, setAddrPage] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -39,7 +37,10 @@ const AddressModal = ({ show, setFormData, closer }) => {
 
   const loadAddressPage = async () => {
     setLoading(true);
+    console.log("주소 목록 요청");
     const searchResult = await searchAddress(addressKey, currentPage, pageSize);
+    console.log("search result:", JSON.stringify(searchResult));
+    console.log("주소 목록 읽어옴");
     setLoading(false);
     setSearchResult(searchResult);
     if (searchResult && searchResult.addressPage) {
@@ -49,12 +50,12 @@ const AddressModal = ({ show, setFormData, closer }) => {
     }
 
     // Simulate API call delay time, but, only in debug mode
-    if (process.env.NODE_ENV === "development") {
-      setTimeout(() => {
-        console.log("loading delay is being simulated");
-        setLoading(false);
-      }, 100);
-    }
+    // if (process.env.NODE_ENV === "development") {
+    //   setTimeout(() => {
+    //     console.log("loading delay is being simulated");
+    //     setLoading(false);
+    //   }, 100);
+    // }
   };
 
   useEffect(() => {
@@ -111,6 +112,20 @@ const AddressModal = ({ show, setFormData, closer }) => {
     loadAddressPage();
   };
 
+  const selectAddress = (addr) => {
+    const addrBasisAddReq = {
+      zipcode: addr.zipcode,
+      roadAddress: addr.roadAddress,
+      zBunAddress: addr.zbunAddress,
+    };
+    console.log("addrBasisAddReq: ", addrBasisAddReq);
+    setFormData((prevState) => ({
+      ...prevState,
+      addrBasisAddReq: addrBasisAddReq,
+    }));
+    closer();
+  }; 
+
   return (
     <Modal show={show} onHide={closer} dialogClassName="custom-modal">
       <div className="custom-modal-width">
@@ -152,8 +167,8 @@ const AddressModal = ({ show, setFormData, closer }) => {
                   {addresses &&
                     addresses.map((addr, index) => (
                       <tr key={index}>
-                        <td>{addr.zipcode}</td>
-                        <td>
+                        <td className="small">{addr.zipcode}</td>
+                        <td onClick={() => selectAddress(addr)}>
                           <p className="above">{addr.roadAddress}</p>
                           <p className="below">{addr.zbunAddress}</p>
                         </td>

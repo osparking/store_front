@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
 import AddressModal from "./AddressModal";
+import { handlePropChange } from "../util/utilities";
 
 const RecepientInfo = ({ formData, setFormData }) => {
   const [phoneNumber, setPhoneNumber] = useState(`${formData.mbPhone}`);
@@ -55,6 +56,13 @@ const RecepientInfo = ({ formData, setFormData }) => {
     setShowAddressModal(true);
   };
 
+  const updateDetail = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      addressDetail: e.target.value,
+    }));
+  };
+
   return (
     <div>
       <Table className="noBorder">
@@ -67,7 +75,7 @@ const RecepientInfo = ({ formData, setFormData }) => {
                 name="fullName"
                 size="12"
                 value={formData.fullName}
-                onChange={handleSubmit}
+                onChange={(e) => handlePropChange(e, setFormData)}
               />
             </td>
           </tr>
@@ -82,6 +90,7 @@ const RecepientInfo = ({ formData, setFormData }) => {
                   onKeyDown={handleKeyDown}
                   placeholder="000-0000-0000"
                   maxLength="13"
+                  required
                 />
               </OverlayTrigger>
             </td>
@@ -117,33 +126,28 @@ const RecepientInfo = ({ formData, setFormData }) => {
                   type="text"
                   name="zipcode"
                   size="1"
+                  readOnly
                   className="ms-2 readOnly"
                   value={formData.addrBasisAddReq.zipcode}
-                  onChange={handleSubmit}
                 />
               </OverlayTrigger>
             </td>
           </tr>
           <tr>
             <td className="boxLeft goldCell">
-              <textarea
-                name="mbPhone"
-                rows="2"
-                cols="45"
-                readOnly
-                value={formData.addrBasisAddReq.roadAddress}
-                onChange={handleSubmit}
-              />
+              <OverlayTrigger overlay={<Tooltip>수정 불가!</Tooltip>}>
+                <span>{formData.addrBasisAddReq.roadAddress}</span>
+              </OverlayTrigger>
             </td>
           </tr>
           <tr>
             <td className="boxLeft goldCell" style={{ paddingTop: 0 }}>
               <input
                 type="text"
-                name="mbPhone"
+                name="addressDetail"
                 size="20"
                 value={formData.addressDetail}
-                onChange={handleSubmit}
+                onChange={updateDetail}
                 style={{ fontWeight: 500 }}
               />
             </td>
@@ -157,7 +161,7 @@ const RecepientInfo = ({ formData, setFormData }) => {
           setShowAddressModal(false);
           cartAddResultMap.clear();
         }}
-      />          
+      />
     </div>
   );
 };

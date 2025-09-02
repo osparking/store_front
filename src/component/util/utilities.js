@@ -40,7 +40,7 @@ export function handlePropChange(
   parentKey = "items"
 ) {
   const { name, value, checked, type } = e.target;
-
+  console.log("name, value: ", name, value);
   let inputValue;
 
   switch (type) {

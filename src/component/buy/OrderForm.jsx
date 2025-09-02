@@ -19,7 +19,7 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
     userId: 3,
     items: [
       {
-        shape: "",
+        shape: defaultLabel,
         count: "1",
       },
     ],
@@ -63,7 +63,6 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
 
   useEffect(() => {
     setDisableButton(false);
-
     const items = [
       {
         shape: defaultLabel,
@@ -74,8 +73,10 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
         price: findPrice(optionLabels, defaultLabel),
       },
     ];
-
-    setFormData((prevState) => ({ ...prevState, items: items }));
+    setFormData((prevState) => ({
+      ...prevState,
+      items: items,
+    }));    
   }, [defaultLabel]);
 
   useEffect(() => {

@@ -4,8 +4,8 @@ import "./checkoutCart.css";
 const CheckoutCart = ({ productList, grandTotal }) => {
 
   return (
-    <Row className="justify-content-center pt-4 rowStyle">
-      <Col md={3} className="d-flex align-items-center listLeftLabel">
+    <Row className="justify-content-center pt-4 rowStyle" style={{paddingRight: 0}}>
+      <Col md={3} className="d-flex align-items-center listLeftLabel" style={{border: 0}}>
         <div className="container">
           <p className="rightColumnParagraph">주문 상품 요약 ➡</p>
         </div>

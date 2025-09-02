@@ -19,11 +19,13 @@ p {
 
 p.above {
   font-weight: 700;
+  font-size: small;
 }
 
 p.below {
   margin-top: -10px;
   margin-bottom: 0;
+  font-size: smaller;
 }
 
 th {
@@ -37,4 +39,12 @@ th {
 
 .thicker {
   font-weight: bold;
+}
+
+tbody p {
+  white-space: nowrap;
+}
+
+.small {
+  font-size: small;
 }

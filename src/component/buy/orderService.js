@@ -40,3 +40,12 @@ export async function updateUserCart(data) {
     throw err;
   }
 }
+
+export async function saveOrderRecepient(data) {
+  try {
+    const result = await callWithToken("post", "/order/add", data);
+    return result.data.data;
+  } catch (err) {
+    throw err;
+  }
+}
