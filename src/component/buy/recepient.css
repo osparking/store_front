@@ -60,6 +60,15 @@ td.goldCell {
       "Times New Roman", sans-serif;
 }
 
-input.readOnly {
+input.readOnly, textarea.readOnly {
   background-color:  rgb(215, 215, 151);
+}
+
+.boldText {
+  font-weight: bolder;
+}
+
+Button.order-button-width {
+  width: 110px;
+  display: inline;
 }
