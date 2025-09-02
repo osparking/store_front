@@ -1,4 +1,4 @@
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { Form, useLocation } from "react-router-dom";
 import BsAlertHook from "../hook/BsAlertHook";
 import CheckoutCart from "./CheckoutCart";
@@ -69,17 +69,44 @@ const Recepient = () => {
           </Col>
         </Row>
       </div>
-      <div className="d-flex justify-content-center ">
-        <Row className="justify-content-center pb-5 rowStyle">
-          <Col md={9}>
-            <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
+        <div className="d-flex justify-content-center ">
+          <Row className="justify-content-center pb-5 rowStyle">
+            <Col md={9}>
               <div className="table-container">
                 <RecepientInfo formData={formData} setFormData={setFormData} />
               </div>
-            </Form>
-          </Col>
-        </Row>
-      </div>      
+            </Col>
+          </Row>
+        </div>
+        <div>
+          {alertSuccess && (
+            <AlertMessage type={"success"} message={successMsg} />
+          )}
+          {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
+        </div>
+        <div className="d-flex justify-content-center ">
+          <Row
+            className="justify-content-center pb-5 rowStyle"
+            style={{ display: "flex", gap: "20px" }}
+          >
+            <Button
+              variant="info"
+              className="pt-2 pb-2 order-button-width"
+              onClick={() => navigate(-1)}
+            >
+              <span className="boldText">뒤로</span>
+            </Button>
+            <Button
+              type="submit"
+              variant="success"
+              className="pt-2 pb-2 order-button-width"
+            >
+              <span className="boldText">결제</span>
+            </Button>
+          </Row>
+        </div>
+      </Form>
     </div>
   );
 };
