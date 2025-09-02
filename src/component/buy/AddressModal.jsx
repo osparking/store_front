@@ -15,7 +15,6 @@ import "./AddressModal.css";
 import { searchAddress } from "./orderService";
 
 const AddressModal = ({ show, setFormData, closer }) => {
-  const navigate = useNavigate();
   const [addressKey, setAddressKey] = useState("미사강변북로");
   const [addresses, setAddresses] = useState([]);
   const [addrPage, setAddrPage] = useState({});
@@ -49,17 +48,31 @@ const AddressModal = ({ show, setFormData, closer }) => {
     }
 
     // Simulate API call delay time, but, only in debug mode
-    if (process.env.NODE_ENV === "development") {
-      setTimeout(() => {
-        console.log("loading delay is being simulated");
-        setLoading(false);
-      }, 100);
-    }
+    // if (process.env.NODE_ENV === "development") {
+    //   setTimeout(() => {
+    //     console.log("loading delay is being simulated");
+    //     setLoading(false);
+    //   }, 100);
+    // }
   };
 
   useEffect(() => {
     loadAddressPage();
   }, [currentPage]);
+
+  const selectAddress = (addr) => {
+    const addrBasisAddReq = {
+      zipcode: addr.zipcode,
+      roadAddress: addr.roadAddress,
+      zBunAddress: addr.zbunAddress,
+    };
+    console.log("addrBasisAddReq: ", addrBasisAddReq);
+    setFormData((prevState) => ({
+      ...prevState,
+      addrBasisAddReq: addrBasisAddReq,
+    }));
+    closer();
+  }; 
 
   const keyNotEnough = () => {
     return addressKey.length < 5;
@@ -152,8 +165,8 @@ const AddressModal = ({ show, setFormData, closer }) => {
                   {addresses &&
                     addresses.map((addr, index) => (
                       <tr key={index}>
-                        <td>{addr.zipcode}</td>
-                        <td>
+                        <td className="small">{addr.zipcode}</td>
+                        <td onClick={() => selectAddress(addr)}>
                           <p className="above">{addr.roadAddress}</p>
                           <p className="below">{addr.zbunAddress}</p>
                         </td>
