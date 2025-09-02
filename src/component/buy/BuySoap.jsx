@@ -21,8 +21,10 @@ const BuySoap = () => {
   const [shapeLabels, setShapeLabels] = useState([]);
 
   function changeCarouselShape(idx) {
-    const prefix = shapeLabels[idx].shapeLabel.substring(0, 2);
-    setCarouselImages(prefix);
+    if (shapeLabels[idx]) {
+      const prefix = shapeLabels[idx].shapeLabel.substring(0, 2);
+      setCarouselImages(prefix);
+    }
   }
 
   function setCarouselImages(prefix) {
@@ -70,6 +72,7 @@ const BuySoap = () => {
     setOptionLabels(optionLabels);
 
     const plus20soaps = labelsOver(optionLabels, 19);
+
     if (plus20soaps.length > 0) {
       setDefaultLabel(plus20soaps[0]);
       setCarouselImages(plus20soaps[0].substring(0, 2));
