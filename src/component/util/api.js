@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { HttpStatusCode } from "axios";
 
 const prefix = "http://localhost:9193/api/s1";
 
