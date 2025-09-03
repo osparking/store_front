@@ -1,10 +1,11 @@
 import { Button, Col, Row } from "react-bootstrap";
-import { Form, useLocation } from "react-router-dom";
+import { Form, useLocation, useNavigate } from "react-router-dom";
 import BsAlertHook from "../hook/BsAlertHook";
 import CheckoutCart from "./CheckoutCart";
 import "./recepient.css";
 import { useState } from "react";
 import RecepientInfo from "./RecepientInfo";
+import AlertMessage from '../common/AlertMessage';
 
 const Recepient = () => {
   const {
@@ -19,10 +20,6 @@ const Recepient = () => {
   } = BsAlertHook();
   const location = useLocation();
   const { productList } = location.state || [];
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
 
   const calcGrandTotal = (productList) => {
     if (productList === undefined) return "";
@@ -49,6 +46,8 @@ const Recepient = () => {
     mbPhone: "",
     fullName: "홍길동",
   });
+
+  const navigate = useNavigate();
 
   return (
     <div>
