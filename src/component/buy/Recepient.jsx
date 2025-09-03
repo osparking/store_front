@@ -3,7 +3,7 @@ import { Form, useLocation, useNavigate } from "react-router-dom";
 import BsAlertHook from "../hook/BsAlertHook";
 import CheckoutCart from "./CheckoutCart";
 import "./recepient.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RecepientInfo from "./RecepientInfo";
 import AlertMessage from "../common/AlertMessage";
 import { saveOrderRecepient } from "./orderService";
@@ -75,6 +75,12 @@ const Recepient = () => {
   };
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (productList === undefined) {
+      navigate("/buy_soap");
+    }
+  }, [productList]);
 
   return (
     <div>
