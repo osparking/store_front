@@ -47,7 +47,7 @@ const AddressModal = ({ show, setFormData, closer }) => {
       setTotalPages(searchResult.totalPages);
     }
 
-    // Simulate API call delay time, but, only in debug mode
+    // //Simulate API call delay time, but, only in debug mode
     // if (process.env.NODE_ENV === "development") {
     //   setTimeout(() => {
     //     console.log("loading delay is being simulated");
