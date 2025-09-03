@@ -59,8 +59,8 @@ const NavBar = () => {
             <Nav.Link to={"/soap_intro"} as={Link} className="bold">
               비누 소개
             </Nav.Link>
-            <Nav.Link to={"/buy_soap"} as={Link}  className="bold">
-              <span style={{color: "ivory", background: "darkgreen"}}> 비누 주문</span>
+            <Nav.Link to={"/buy_soap"} as={Link} className="bold serif">
+              <span style={{ color: "deeppink" }}> 비누 주문</span>
             </Nav.Link>
             {isAdmin && (
               <Nav.Link to={`/dashboard/admin`} as={Link}>
