@@ -9,8 +9,18 @@ export const loginUser = async (email, password) => {
   }
 };
 
+const clearLoginUserInfo = () => {
+  const items = ["USER", "LOGIN_ID", "TOKEN", "IS_ADMIN"];
+
+  items.push("IS_WORKER");
+
+  items.forEach((item) => {
+    localStorage.removeItem(item);
+  });
+};
+
 export const logoutUser = () => {
-  localStorage.clear();
+  clearLoginUserInfo();
   window.dispatchEvent(new Event("logoutEvt"));
 }
 
