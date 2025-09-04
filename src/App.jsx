@@ -14,6 +14,7 @@ import OAuth2RedirectHandler from "./component/auth/OAuth2RedirectHandler";
 import ProtectedRoute from "./component/auth/ProtectedRoute";
 import Unauthorized from "./component/auth/Unauthorized";
 import BuySoap from "./component/buy/BuySoap";
+import Recepient from "./component/buy/Recepient";
 import Home from "./component/home/Home";
 import RootLayout from "./component/layout/RootLayout";
 import SoapIntro from "./component/soaps/SoapIntro";
@@ -21,9 +22,48 @@ import RegisterUser from "./component/user/RegisterUser";
 import UserUpdate from "./component/user/UpdateUser";
 import UserDashboard from "./component/user/UserDashboard";
 import WorkerDashboard from "./component/worker/WorkerDashboard";
-import Recepient from "./component/buy/Recepient";
 
 function App() {
+
+  useEffect(() => {
+    const tabId = Date.now() + Math.random().toString(36).slice(2, 9);
+    sessionStorage.setItem("TAB_ID", tabId);
+
+    // Update tab count in localStorage
+    const updateTabCount = (increment) => {
+      const storedTabs = JSON.parse(
+        localStorage.getItem("ACTIVE_TABS") || "{}"
+      );
+
+      if (increment) {
+        storedTabs[tabId] = Date.now();
+      } else {
+        delete storedTabs[tabId];
+      }
+
+      localStorage.setItem("ACTIVE_TABS", JSON.stringify(storedTabs));
+      localStorage.setItem("TAB_COUNT", Object.keys(storedTabs).length);
+    };
+
+    updateTabCount(true);
+
+    const handleBeforeUnload = (event) => {
+      updateTabCount(false);
+      // This message might not be shown in modern browsers
+      const message = '페이지를 벗어납니다.';
+      // event.preventDefault();
+      event.returnValue = message; // Standard for most browsers
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    // Cleanup
+    return () => {
+      updateTabCount(false);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
@@ -46,7 +86,7 @@ function App() {
           }
         >
           <Route path="/buy_soap" element={<BuySoap />} />
-          <Route path="/shopping_cart" element={<BuySoap showCart={true}/>} />
+          <Route path="/shopping_cart" element={<BuySoap showCart={true} />} />
           <Route path="/recepient" element={<Recepient />} />
         </Route>
         <Route path="/work_item" element={<WorkerDashboard />} />
@@ -54,27 +94,6 @@ function App() {
       </Route>
     )
   );
-
-  useEffect(() => {
-    const storedCnt = Number(localStorage.getItem("TAB_COUNT"));
-    const tabCount = storedCnt ? storedCnt + 1 : 1;
-    localStorage.setItem("TAB_COUNT", tabCount);
-
-    const cleanupLocalStorage = () => {
-      const tab_count = Number(localStorage.getItem("TAB_COUNT"));
-      if (tab_count <= 1) {
-        localStorage.clear();
-      } else {
-        localStorage.setItem("TAB_COUNT", tab_count - 1);
-      }
-    };
-
-    window.addEventListener("beforeunload", cleanupLocalStorage);
-
-    return () => {
-      window.removeEventListener("beforeunload", cleanupLocalStorage);
-    };
-  }, []);
 
   return (
     <main className="">
