@@ -198,7 +198,17 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
   const [showResultModal, setShowResultModal] = useState(false);
   const [cartModalMessage, setCartModalMessage] = useState("");
 
-  function gotoPaymentPage() {}
+  function enterDeliveryInfo() {
+    const checkoutItems = formData.items.map((item) => {
+      const paren = item.shape.indexOf("(");
+      return {
+        count: item.count,
+        shapeLabel: item.shape.slice(0, paren),
+        subTotal: item.count * item.price,
+      };
+    });
+    navigate("/recepient", { state: { productList: checkoutItems } });
+  }
 
   return (
     <div className="order-form">
@@ -276,7 +286,7 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
                   variant="success"
                   size="sm"
                   className="pt-2 pb-2 order-button-width"
-                  onClick={gotoPaymentPage}
+                  onClick={enterDeliveryInfo}
                 >
                   바로 구매하기
                 </Button>
