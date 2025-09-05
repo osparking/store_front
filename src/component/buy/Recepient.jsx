@@ -19,18 +19,33 @@ const Recepient = () => {
     alertError,
     setAlertError,
   } = BsAlertHook();
+  
   const location = useLocation();
-  const { formItems } = location.state || [];
+  const { formItems, source } = location.state || [];
+  let productList = undefined;
 
-  // formItems 각 항목에 shapeLabel 과 subTotal 추가
-  const productList = formItems.map((item) => {
-    const paren = item.shape.indexOf("(");
-    return {
-      count: item.count,
-      shapeLabel: item.shape.slice(0, paren),
-      subTotal: item.count * item.price,
-    };
-  });
+  // source 에 따라 productList 를 다르게 만들어 배정
+  if (source === "shoppingCart") {
+    productList = formItems
+      .filter((item) => item.isChecked)
+      .map((item) => {
+        return {
+          count: item.count,
+          shapeLabel: item.shapeLabel,
+          subTotal: item.subTotal,
+        };
+      });
+  } else if (source) {
+    // formItems 각 항목에 shapeLabel 과 subTotal 추가
+    productList = formItems.map((item) => {
+      const paren = item.shape.indexOf("(");
+      return {
+        count: item.count,
+        shapeLabel: item.shape.slice(0, paren),
+        subTotal: item.count * item.price,
+      };
+    });
+  }
 
   const calcGrandTotal = (productList) => {
     if (productList === undefined) return "";
