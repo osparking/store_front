@@ -19,7 +19,7 @@ const Recepient = () => {
     alertError,
     setAlertError,
   } = BsAlertHook();
-  
+
   const location = useLocation();
   const { formItems, source } = location.state || [];
   let productList = undefined;
@@ -108,7 +108,13 @@ const Recepient = () => {
   }, [productList]);
 
   const goBack = () => {
-    navigate("/buy_soap", { state: { formItems: formItems } });
+    if (source === "shoppingCart") {
+      navigate("/shopping_cart", {
+        state: { formItems: formItems, showCart: true },
+      });
+    } else {
+      navigate("/buy_soap", { state: { formItems: formItems } });
+    }
   };
 
   return (
