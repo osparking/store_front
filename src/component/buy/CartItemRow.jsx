@@ -32,6 +32,11 @@ const CartItemRow = ({
     }
     handleInputChange(e);
   }
+  
+  function handleCheckChange(e) {
+    setCarouselImages(item.shapeLabel.substring(0, 2))
+    handleInputChange(e);
+  }
 
   return (
     <Row className="justify-content-center mb-3">
@@ -44,7 +49,7 @@ const CartItemRow = ({
             id={`putOrder${index}`}
             checked={item.isChecked}
             label={item.shapeLabel}
-            onChange={handleInputChange}
+            onChange={handleCheckChange}
           />
         </OverlayTrigger>
       </Col>
