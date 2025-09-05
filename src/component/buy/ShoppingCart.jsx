@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import CartItemRow from "./CartItemRow";
@@ -8,6 +8,9 @@ import { readUserCart, updateUserCart } from "./orderService";
 import { handlePropChange } from "../util/utilities";
 
 const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
+  const location = useLocation();
+  const { formItems } = location.state || false;
+
   const {
     successMsg,
     setSuccessMsg,
@@ -98,6 +101,18 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
   }
 
   useEffect(() => {
+    if (formItems) {
+      setFormData((prevState) => ({
+        ...prevState,
+        items: formItems,
+      }));
+    }
+  }, [formItems]);
+
+  useEffect(() => {
+    if (formItems) {
+      return; // 주문에서 '뒤로' 돌아온 경우
+    }
     readCart();
   }, []);
 
