@@ -45,7 +45,7 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
   }, [formData]);
 
   function enterDeliveryInfo() {
-    navigate("/recepient", { state: { productList: selectedItems } });
+    navigate("/recepient", { state: { formItems: formData.items } });
   }
 
   const handleSubmit = (e) => {
