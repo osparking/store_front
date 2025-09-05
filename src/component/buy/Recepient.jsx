@@ -20,7 +20,17 @@ const Recepient = () => {
     setAlertError,
   } = BsAlertHook();
   const location = useLocation();
-  const { productList } = location.state || [];
+  const { formItems } = location.state || [];
+
+  // formItems 각 항목에 shapeLabel 과 subTotal 추가
+  const productList = formItems.map((item) => {
+    const paren = item.shape.indexOf("(");
+    return {
+      count: item.count,
+      shapeLabel: item.shape.slice(0, paren),
+      subTotal: item.count * item.price,
+    };
+  });
 
   const calcGrandTotal = (productList) => {
     if (productList === undefined) return "";
@@ -82,6 +92,10 @@ const Recepient = () => {
     }
   }, [productList]);
 
+  const goBack = () => {
+    navigate("/buy_soap", { state: { formItems: formItems } });
+  };
+
   return (
     <div>
       <div className="d-flex justify-content-center ">
@@ -131,7 +145,7 @@ const Recepient = () => {
             <Button
               variant="info"
               className="pt-2 pb-2 order-button-width"
-              onClick={() => navigate(-1)}
+              onClick={goBack}
             >
               <span className="boldText">뒤로</span>
             </Button>
