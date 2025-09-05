@@ -8,13 +8,16 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import { BsPlusSquareFill } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { callWithToken } from "../util/api.js";
 import { labelsOver, setDifference } from "../util/utilities.js";
 import CartPutModal from "./CartPutModal.jsx";
 import OrderItemEntry from "./OrderItemEntry.jsx";
 
 const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
+  const location = useLocation();
+  const { formItems } = location.state || false;
+
   const [formData, setFormData] = useState({
     userId: 3,
     items: [
@@ -62,6 +65,19 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
   }
 
   useEffect(() => {
+    if (formItems) {
+      setFormData((prevState) => ({
+        ...prevState,
+        items: formItems,
+      }));
+    }
+  }, [formItems]);
+
+  useEffect(() => {
+    if (formItems) {
+      // 주문서에서 '뒤로' 돌아온 경우
+      return;
+    }
     setDisableButton(false);
     const items = [
       {
@@ -76,7 +92,7 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
     setFormData((prevState) => ({
       ...prevState,
       items: items,
-    }));    
+    }));
   }, [defaultLabel]);
 
   useEffect(() => {
@@ -199,15 +215,7 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
   const [cartModalMessage, setCartModalMessage] = useState("");
 
   function enterDeliveryInfo() {
-    const checkoutItems = formData.items.map((item) => {
-      const paren = item.shape.indexOf("(");
-      return {
-        count: item.count,
-        shapeLabel: item.shape.slice(0, paren),
-        subTotal: item.count * item.price,
-      };
-    });
-    navigate("/recepient", { state: { productList: checkoutItems } });
+    navigate("/recepient", { state: { formItems: formData.items } });
   }
 
   return (
