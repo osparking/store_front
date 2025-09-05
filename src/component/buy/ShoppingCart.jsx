@@ -45,7 +45,9 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
   }, [formData]);
 
   function enterDeliveryInfo() {
-    navigate("/recepient", { state: { formItems: formData.items } });
+    navigate("/recepient", {
+      state: { formItems: formData.items, source: "shoppingCart" },
+    });
   }
 
   const handleSubmit = (e) => {
@@ -98,14 +100,14 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
   useEffect(() => {
     readCart();
   }, []);
-  
+
   async function saveCartUpdate() {
     const convertedItems = formData.items.map((item) => {
       return { id: item.id, count: item.count };
     });
     let data = { deleteId: deleteIdList, updateCount: convertedItems };
     const result = await updateUserCart(data);
-    
+
     readCart(result);
     setSuccessMsg("장바구니 내용이 저장되었습니다.");
     setAlertSuccess(true);
