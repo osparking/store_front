@@ -19,18 +19,32 @@ const Recepient = () => {
     alertError,
     setAlertError,
   } = BsAlertHook();
-  const location = useLocation();
-  const { formItems } = location.state || [];
 
-  // formItems 각 항목에 shapeLabel 과 subTotal 추가
-  const productList = formItems.map((item) => {
-    const paren = item.shape.indexOf("(");
-    return {
-      count: item.count,
-      shapeLabel: item.shape.slice(0, paren),
-      subTotal: item.count * item.price,
-    };
-  });
+  const location = useLocation();
+  const { formItems, source } = location.state || [];
+  let productList = undefined;
+
+  if (source === "shoppingCart") {
+    productList = formItems
+      .filter((item) => item.isChecked)
+      .map((item) => {
+        return {
+          count: item.count,
+          shapeLabel: item.shapeLabel,
+          subTotal: item.subTotal,
+        };
+      });
+  } else if (source) {
+    // formItems 각 항목에 shapeLabel 과 subTotal 추가
+    productList = formItems.map((item) => {
+      const paren = item.shape.indexOf("(");
+      return {
+        count: item.count,
+        shapeLabel: item.shape.slice(0, paren),
+        subTotal: item.count * item.price,
+      };
+    });
+  }
 
   const calcGrandTotal = (productList) => {
     if (productList === undefined) return "";
@@ -93,7 +107,13 @@ const Recepient = () => {
   }, [productList]);
 
   const goBack = () => {
-    navigate("/buy_soap", { state: { formItems: formItems } });
+    if (source === "shoppingCart") {
+      navigate("/shopping_cart", {
+        state: { formItems: formItems, showCart: true },
+      });
+    } else {
+      navigate("/buy_soap", { state: { formItems: formItems } });
+    }
   };
 
   return (
