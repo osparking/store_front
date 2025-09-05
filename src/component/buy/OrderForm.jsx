@@ -215,7 +215,9 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
   const [cartModalMessage, setCartModalMessage] = useState("");
 
   function enterDeliveryInfo() {
-    navigate("/recepient", { state: { formItems: formData.items } });
+    navigate("/recepient", {
+      state: { formItems: formData.items, source: "orderForm" },
+    });
   }
 
   return (
