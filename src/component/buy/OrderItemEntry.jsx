@@ -15,6 +15,7 @@ const OrderItemEntry = ({
   optionLabels,
   handleInputChange,
   changeCarouselShape,
+  setCarouselImages,
   canRemove = true,
   delSoapItem,
 }) => {
@@ -53,6 +54,7 @@ const OrderItemEntry = ({
       alert("최소 1개 이상 입력해주세요.");
       e.target.value = 1;
     }
+    setCarouselImages(item.shape.slice(0, 2));
     handleInputChange(e);
   }
 

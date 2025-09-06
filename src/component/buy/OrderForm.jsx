@@ -14,7 +14,7 @@ import { labelsOver, setDifference } from "../util/utilities.js";
 import CartPutModal from "./CartPutModal.jsx";
 import OrderItemEntry from "./OrderItemEntry.jsx";
 
-const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
+const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape, setCarouselImages }) => {
   const location = useLocation();
   const { formItems } = location.state || false;
 
@@ -252,6 +252,7 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
                 optionLabels={optionLabels}
                 handleInputChange={(e) => handlePropChange(index, e)}
                 changeCarouselShape={changeCarouselShape}
+                setCarouselImages={setCarouselImages}
                 canRemove={index > 0}
                 delSoapItem={delSoapItem}
               />

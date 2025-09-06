@@ -121,6 +121,7 @@ const BuySoap = () => {
                   optionLabels={optionLabels}
                   defaultLabel={defaultLabel}
                   changeCarouselShape={changeCarouselShape}
+                  setCarouselImages={setCarouselImages}
                 />
               </Card.Body>
             </Card>
