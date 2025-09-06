@@ -1,8 +1,18 @@
 import { api, callWithToken } from "../util/api";
 
+export async function getDeliveryFee(data) {
+  try {
+    const result = await callWithToken("post", "/order/get_delivery_fee", data);
+    console.log("orderService: ", result.data);
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function getSoapShapes() {
   try {
-    const result = await api.get('/soap/shapes');
+    const result = await api.get("/soap/shapes");
     return result.data;
   } catch (err) {
     throw err;

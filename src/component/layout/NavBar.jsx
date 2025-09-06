@@ -20,7 +20,6 @@ const NavBar = () => {
 
     const userJson = localStorage.getItem("USER");
     const user = JSON.parse(userJson);
-    console.log("유저Json - " + userJson);
     if (user) {
       if (user.loginMethod === "이메일") {
         setIdentity(user.fullName);

@@ -22,7 +22,6 @@ const isTokenExpired = (token) => {
 export async function callWithToken(method, urlSuffix, data = null) {
   try {
     const token = localStorage.getItem("TOKEN");
-    
     if (token) {      
       console.log("url: ", `${prefix}${urlSuffix}`);
 
