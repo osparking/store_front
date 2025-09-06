@@ -1,12 +1,12 @@
+import { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { Form, useLocation, useNavigate } from "react-router-dom";
+import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import CheckoutCart from "./CheckoutCart";
+import { getDeliveryFee } from "./orderService";
 import "./recepient.css";
-import { useEffect, useState } from "react";
 import RecepientInfo from "./RecepientInfo";
-import AlertMessage from "../common/AlertMessage";
-import { saveOrderRecepient } from "./orderService";
 
 const Recepient = () => {
   const {
@@ -53,7 +53,7 @@ const Recepient = () => {
     const grand = productList
       .map((prod) => prod.subTotal)
       .reduce((sum, num) => sum + num, 0);
-    return grand.toLocaleString();
+    return grand;
   };
 
   const [grandTotal] = useState(calcGrandTotal(productList));
@@ -73,7 +73,7 @@ const Recepient = () => {
     fullName: "홍길동",
   });
 
-  const saveAndGotoPay = async (e) => {
+  const gotoPayment = async (e) => {
     e.preventDefault();
     // 현재까지 수집된 주문 정보를 일단 저장
     const userId = localStorage.getItem("LOGIN_ID");
@@ -81,7 +81,7 @@ const Recepient = () => {
       shape: item.shapeLabel,
       count: item.count,
     }));
-
+    console.log("지불 페이지로 이동 중");
     const orderData = {
       userId: userId,
       items: items,
@@ -89,14 +89,31 @@ const Recepient = () => {
       orderStatus: "결제대기",
     };
 
-    try {
-      const response = await saveOrderRecepient(orderData);
-      setSuccessMsg(response.message);
-      setAlertSuccess(true);
-    } catch (error) {
-      setErrorMsg("오류 - " + error.response.data.message);
-      setAlertError(true);
-    }
+    // 결제 창 표시 정보 수집
+    //  - 상품 총액, 배송비(금액 혹은 '무료')
+    const zipcode = orderData.recipRegiReq.addrBasisAddReq.zipcode;
+    let data = {
+      zipcode: zipcode,
+      grandTotal: grandTotal,
+    };
+    const result = await getDeliveryFee(data);
+    const paymentData = {
+      ...orderData,
+      productFee: grandTotal,
+      deliveryFee: result.data,
+    };
+    navigate("/payment", {
+      state: { paymentData: paymentData },
+    });
+
+    // try {
+    //   const response = await saveOrderRecepient(orderData);
+    //   setSuccessMsg(response.message);
+    //   setAlertSuccess(true);
+    // } catch (error) {
+    //   setErrorMsg("오류 - " + error.response.data.message);
+    //   setAlertError(true);
+    // }
   };
 
   const navigate = useNavigate();
@@ -127,7 +144,10 @@ const Recepient = () => {
         </Row>
       </div>
       <div className="d-flex justify-content-center">
-        <CheckoutCart productList={productList} grandTotal={grandTotal} />
+        <CheckoutCart
+          productList={productList}
+          grandTotal={grandTotal.toLocaleString()}
+        />
       </div>
       <div className="d-flex justify-content-center ">
         <Row className="pt-4 pb-2 rowStyleDark">
@@ -136,7 +156,7 @@ const Recepient = () => {
           </Col>
         </Row>
       </div>
-      <Form onSubmit={saveAndGotoPay}>
+      <Form onSubmit={gotoPayment}>
         <div className="d-flex justify-content-center ">
           <Row className="justify-content-center pb-5 rowStyle">
             <Col md={9}>
