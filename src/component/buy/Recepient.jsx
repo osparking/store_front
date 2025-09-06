@@ -73,7 +73,7 @@ const Recepient = () => {
     fullName: "홍길동",
   });
 
-  const saveAndGotoPay = async (e) => {
+  const gotoPayment = async (e) => {
     e.preventDefault();
     // 현재까지 수집된 주문 정보를 일단 저장
     const userId = localStorage.getItem("LOGIN_ID");
@@ -136,7 +136,7 @@ const Recepient = () => {
           </Col>
         </Row>
       </div>
-      <Form onSubmit={saveAndGotoPay}>
+      <Form onSubmit={gotoPayment}>
         <div className="d-flex justify-content-center ">
           <Row className="justify-content-center pb-5 rowStyle">
             <Col md={9}>
