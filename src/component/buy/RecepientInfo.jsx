@@ -100,7 +100,6 @@ const RecepientInfo = ({ formData, setFormData }) => {
               <Button
                 variant="primary"
                 className="w-25 ddrSearchButton"
-                type="submit"
                 style={{
                   height: "30px",
                   paddingTop: "2px",
