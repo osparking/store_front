@@ -6,7 +6,7 @@ import "./recepient.css";
 import { useEffect, useState } from "react";
 import RecepientInfo from "./RecepientInfo";
 import AlertMessage from "../common/AlertMessage";
-import { saveOrderRecepient } from "./orderService";
+import { getDeliveryFee, saveOrderRecepient } from "./orderService";
 
 const Recepient = () => {
   const {
@@ -89,14 +89,21 @@ const Recepient = () => {
       orderStatus: "결제대기",
     };
 
-    try {
-      const response = await saveOrderRecepient(orderData);
-      setSuccessMsg(response.message);
-      setAlertSuccess(true);
-    } catch (error) {
-      setErrorMsg("오류 - " + error.response.data.message);
-      setAlertError(true);
-    }
+    // 결제 창 표시 정보 수집
+    //  - 상품 총액, 배송비
+    const zipcode = orderData.recipRegiReq.addrBasisAddReq.zipcode;
+    const result = await getDeliveryFee({
+      zipcode: zipcode,
+      grandTotal: grandTotal,
+    });
+    const paymentData = {
+      ...orderData,
+      productTotal: grandTotal,
+      deliveryFee: result.data,
+    };
+    navigate("/payment", {
+      state: { paymentData: paymentData },
+    });
   };
 
   const navigate = useNavigate();
