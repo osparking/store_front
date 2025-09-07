@@ -53,7 +53,7 @@ const Recepient = () => {
     const grand = productList
       .map((prod) => prod.subTotal)
       .reduce((sum, num) => sum + num, 0);
-    return grand.toLocaleString();
+    return grand;
   };
 
   const [grandTotal] = useState(calcGrandTotal(productList));
@@ -127,7 +127,10 @@ const Recepient = () => {
         </Row>
       </div>
       <div className="d-flex justify-content-center">
-        <CheckoutCart productList={productList} grandTotal={grandTotal} />
+        <CheckoutCart
+          productList={productList}
+          grandTotal={grandTotal.toLocaleString()}
+        />
       </div>
       <div className="d-flex justify-content-center ">
         <Row className="pt-4 pb-2 rowStyleDark">
