@@ -1,12 +1,12 @@
+import { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { Form, useLocation, useNavigate } from "react-router-dom";
+import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import CheckoutCart from "./CheckoutCart";
+import { getDeliveryFee } from "./orderService";
 import "./recepient.css";
-import { useEffect, useState } from "react";
 import RecepientInfo from "./RecepientInfo";
-import AlertMessage from "../common/AlertMessage";
-import { getDeliveryFee, saveOrderRecepient } from "./orderService";
 
 const Recepient = () => {
   const {
@@ -96,11 +96,15 @@ const Recepient = () => {
       zipcode: zipcode,
       grandTotal: grandTotal,
     });
+    const deliveryFee = result.data;
+
     const paymentData = {
       ...orderData,
       productTotal: grandTotal,
-      deliveryFee: result.data,
+      deliveryFee: deliveryFee,
+      paymentFee: grandTotal + deliveryFee,
     };
+
     navigate("/payment", {
       state: { paymentData: paymentData },
     });
