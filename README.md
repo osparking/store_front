@@ -1,3 +1,7 @@
+# Local project location
+* C:\Users\jbpar\IdeaProjects\store_front
+* /c/Users/jbpar/IdeaProjects/store_front
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
