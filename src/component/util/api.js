@@ -6,6 +6,11 @@ export const api = axios.create({
   baseURL: prefix,
 });
 
+export const apic = axios.create({
+  baseURL: prefix,
+  withCredentials: true,
+});
+
 const isTokenExpired = (token) => {
   if (!token) return true;
   
