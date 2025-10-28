@@ -1,7 +1,7 @@
 import { Col, Row } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 
-const Payment = () => {
+const OrderDigest = () => {
   const location = useLocation();
   const { paymentData } = location.state || false;
 
@@ -30,4 +30,4 @@ const Payment = () => {
   );
 };
 
-export default Payment;
+export default OrderDigest;
