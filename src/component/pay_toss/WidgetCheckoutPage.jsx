@@ -1,6 +1,6 @@
 import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
 import { useEffect, useState } from "react";
-import "./App.css";
+import "./WidgetCheckoutPage.css";
 import { api } from "./util/api";
 
 // 전자결제 신청 및 가입 완료 후, clientKey 를 다음으로 수정할 것.
