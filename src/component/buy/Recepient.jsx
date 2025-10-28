@@ -87,6 +87,7 @@ const Recepient = () => {
       items: items,
       recipRegiReq: formData,
       orderStatus: "결제대기",
+      orderName: items[0].shape + " " + items[0].count + "개 등",
     };
 
     // 결제 창 표시 정보 수집
