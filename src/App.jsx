@@ -17,16 +17,14 @@ import BuySoap from "./component/buy/BuySoap";
 import Recepient from "./component/buy/Recepient";
 import Home from "./component/home/Home";
 import RootLayout from "./component/layout/RootLayout";
+import WidgetCheckoutPage from "./component/pay_toss/WidgetCheckoutPage";
 import SoapIntro from "./component/soaps/SoapIntro";
 import RegisterUser from "./component/user/RegisterUser";
 import UserUpdate from "./component/user/UpdateUser";
 import UserDashboard from "./component/user/UserDashboard";
 import WorkerDashboard from "./component/worker/WorkerDashboard";
-import Payment from "./component/buy/Payment";
-import WidgetCheckoutPage from "./component/pay_toss/WidgetCheckoutPage";
 
 function App() {
-
   useEffect(() => {
     const tabId = Date.now() + Math.random().toString(36).slice(2, 9);
     sessionStorage.setItem("TAB_ID", tabId);
@@ -52,17 +50,17 @@ function App() {
     const handleBeforeUnload = (event) => {
       updateTabCount(false);
       // This message might not be shown in modern browsers
-      const message = '페이지를 벗어납니다.';
+      const message = "페이지를 벗어납니다.";
       // event.preventDefault();
       event.returnValue = message; // Standard for most browsers
     };
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener("beforeunload", handleBeforeUnload);
 
     // Cleanup
     return () => {
       updateTabCount(false);
-      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
 
