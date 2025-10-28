@@ -23,6 +23,7 @@ import UserUpdate from "./component/user/UpdateUser";
 import UserDashboard from "./component/user/UserDashboard";
 import WorkerDashboard from "./component/worker/WorkerDashboard";
 import Payment from "./component/buy/Payment";
+import WidgetCheckoutPage from "./component/pay_toss/WidgetCheckoutPage";
 
 function App() {
 
@@ -89,7 +90,7 @@ function App() {
           <Route path="/buy_soap" element={<BuySoap />} />
           <Route path="/shopping_cart" element={<BuySoap showCart={true} />} />
           <Route path="/recepient" element={<Recepient />} />
-          <Route path="/payment" element={<Payment />} />
+          <Route path="/checkout" element={<WidgetCheckoutPage />} />
         </Route>
         <Route path="/work_item" element={<WorkerDashboard />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
