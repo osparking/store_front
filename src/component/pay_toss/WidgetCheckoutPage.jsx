@@ -1,7 +1,9 @@
 import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import OrderDigest from "../buy/OrderDigest";
+import { apic } from "../util/api";
 import "./WidgetCheckoutPage.css";
-import { apic } from "../util/api"
 
 // 전자결제 신청 및 가입 완료 후, clientKey 를 다음으로 수정할 것.
 // 개발자센터의 결제위젯 연동 키 > 클라이언트 키
@@ -15,6 +17,9 @@ function generateRandomString() {
 function WidgetCheckoutPage() {
   const [widgets, setWidgets] = useState(null);
   const [bsOrder, setBsOrder] = useState({ amount: 0 });
+  const location = useLocation();
+  const paymentData = useState(location.state.data);
+  console.log("결제자료", paymentData);
 
   useEffect(() => {
     async function fetchOrderInfo() {
@@ -106,21 +111,11 @@ function WidgetCheckoutPage() {
   return (
     <div className="wrapper">
       <div className="box_section">
-        <h3>구매 내역 요약</h3>
-        <ul
-          style={{
-            textAlign: "left",
-            border: "1px solid black",
-            width: "90%",
-            margin: "5%",
-          }}
-        >
-          <li>내역: {bsOrder.orderName}</li>
-          <li>금액: {bsOrder.amount?.toLocaleString()}원</li>
-          <li>주문ID: {bsOrder.orderId}</li>
-        </ul>
+        <OrderDigest paymentData={paymentData} />
+
         {/* 결제 UI */}
         <div id="payment-method" />
+        
         {/* 이용약관 UI */}
         <div id="agreement" />
 
