@@ -4,8 +4,6 @@ import { useLocation } from "react-router-dom";
 const OrderDigest = () => {
   const location = useLocation();
   const { paymentData } = location.state || false;
-
-  console.log("결제 요약 정보: ", JSON.stringify(paymentData));
   const recepient = paymentData.recipRegiReq;
 
   return (
