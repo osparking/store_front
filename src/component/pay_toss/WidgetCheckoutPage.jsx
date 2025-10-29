@@ -18,6 +18,7 @@ function WidgetCheckoutPage() {
   const [widgets, setWidgets] = useState(null);
   const [bsOrder, setBsOrder] = useState({ amount: 0 });
   const location = useLocation();
+  const [state] = useState(location.state);
 
   useEffect(() => {
     async function fetchPaymentWidgets() {
@@ -81,12 +82,21 @@ function WidgetCheckoutPage() {
     }
 
     renderPaymentWidgets();
-  }, [widgets, bsOrder]);
+  }, [widgets, state]);
+
+  useEffect(() => {
+    if (state) {
+      // paymentData 참고하여, 후단에 주문 정보 저장
+      // - 주문 정보에 주문 이름 포함
+      // - 저장 후, 반응에서 orderId, amount를 뽑아낸다.
+      console.log("결제자료", JSON.stringify(state.paymentData));
+    }
+  }, [state]);
 
   return (
     <div className="wrapper">
       <div className="box_section">
-        <OrderDigest paymentData={paymentData} />
+        <OrderDigest paymentData={state.paymentData} />
 
         {/* 결제 UI */}
         <div id="payment-method" />
