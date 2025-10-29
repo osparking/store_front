@@ -18,31 +18,6 @@ function WidgetCheckoutPage() {
   const [widgets, setWidgets] = useState(null);
   const [bsOrder, setBsOrder] = useState({ amount: 0 });
   const location = useLocation();
-  const paymentData = useState(location.state.data);
-  console.log("결제자료", paymentData);
-
-  useEffect(() => {
-    async function fetchOrderInfo() {
-      try {
-        const url = new URL("http://localhost:9193/payments/orderInfo");
-        let response = await fetch(url, {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        let orderInfo = await response.json();
-        setBsOrder(orderInfo);
-        console.log("후단에서 읽은 결제 정보: ", JSON.stringify(orderInfo));
-      } catch (error) {
-        console.error("주문 정보 읽기 오류:", error);
-      }
-    }
-
-    fetchOrderInfo();
-  }, []);
 
   useEffect(() => {
     async function fetchPaymentWidgets() {
