@@ -4,6 +4,7 @@ import OrderDigest from "../buy/OrderDigest";
 import { apic } from "../util/api";
 import "./WidgetCheckoutPage.css";
 import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
+import { saveOrderRecepient } from "../buy/orderService";
 
 // 전자결제 신청 및 가입 완료 후, clientKey 를 다음으로 수정할 것.
 // 개발자센터의 결제위젯 연동 키 > 클라이언트 키
@@ -49,7 +50,7 @@ function WidgetCheckoutPage() {
         console.log("위젯은 널");
         return;
       }
-      
+
       // @docs https://docs.tosspayments.com/sdk/v2/js#widgetssetamount
       await widgets.setAmount({
         currency: "KRW",
@@ -80,12 +81,20 @@ function WidgetCheckoutPage() {
     renderPaymentWidgets();
   }, [widgets, state]);
 
+  const [orderId, setOrderId] = useState("dummyId");
+
   useEffect(() => {
+    const saveOrder = async () => {
+      // orderData 객체 주문 정보 후단 저장
+      const response = await saveOrderRecepient(state.orderData);
+      console.log("결제 전, ", response.message);
+
+      // 저장 반응에서 orderId 추출
+      setOrderId(response.data?.orderId);
+      console.log("orderId: ", response.data?.orderId);
+    };
     if (state) {
-      // paymentData 참고하여, 후단에 주문 정보 저장
-      // - 주문 정보에 주문 이름 포함
-      // - 저장 후, 반응에서 orderId, amount를 뽑아낸다.
-      // 그리고 orderId, amount, paymentFee 를 서버 세션에 저장한다.
+      saveOrder();
     }
   }, [state]);
 
@@ -115,7 +124,7 @@ function WidgetCheckoutPage() {
             try {
               // 결제를 요청 전, 결제 정보(orderId, amount) 서버 저장 - 결제 금액 확인 용
               const saveOrderInfoReq = {
-                orderId: state.orderData.orderId | "(empty)",
+                orderId: orderId | "(empty)",
                 amount: state.feeData.amount,
                 orderName: state.orderData.orderName,
               };
