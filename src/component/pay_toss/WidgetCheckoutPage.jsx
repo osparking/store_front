@@ -16,7 +16,6 @@ function generateRandomString() {
 
 function WidgetCheckoutPage() {
   const [widgets, setWidgets] = useState(null);
-  const [bsOrder, setBsOrder] = useState({ amount: 0 });
   const location = useLocation();
   const [state] = useState(location.state);
 
@@ -50,14 +49,11 @@ function WidgetCheckoutPage() {
         console.log("위젯은 널");
         return;
       }
-      if (bsOrder.amount === 0) {
-        console.log("금액은 0");
-        return;
-      }
+      
       // @docs https://docs.tosspayments.com/sdk/v2/js#widgetssetamount
       await widgets.setAmount({
         currency: "KRW",
-        value: bsOrder.amount,
+        value: state.feeData.amount,
       });
 
       await Promise.all([
@@ -119,9 +115,9 @@ function WidgetCheckoutPage() {
             try {
               // 결제를 요청 전, 결제 정보(orderId, amount) 서버 저장 - 결제 금액 확인 용
               const saveOrderInfoReq = {
-                orderId: bsOrder.orderId,
-                amount: bsOrder.amount,
-                orderName: bsOrder.orderName,
+                orderId: state.orderData.orderId | "(empty)",
+                amount: state.feeData.amount,
+                orderName: state.orderData.orderName,
               };
               console.log("저장 정보: ", JSON.stringify(saveOrderInfoReq));
               await apic
@@ -133,8 +129,8 @@ function WidgetCheckoutPage() {
                   console.error("저장 실패:", error);
                 });
               await widgets.requestPayment({
-                orderId: bsOrder.orderId, // 주문 고유 번호
-                orderName: bsOrder.orderName,
+                orderId: state.orderData.orderId, // 주문 고유 번호
+                orderName: state.orderData.orderName,
                 successUrl: window.location.origin + "/success", // 결제 요청이 성공하면 리다이렉트되는 URL
                 failUrl: window.location.origin + "/fail", // 결제 요청이 실패하면 리다이렉트되는 URL
                 customerEmail: "jbpark03@gmail.com",
