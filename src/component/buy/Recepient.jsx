@@ -99,15 +99,14 @@ const Recepient = () => {
     });
     const deliveryFee = result.data;
 
-    const paymentData = {
-      ...orderData,
+    const feeData = {
       productTotal: grandTotal,
       deliveryFee: deliveryFee,
-      paymentFee: grandTotal + deliveryFee,
+      amount: grandTotal + deliveryFee,
     };
 
     navigate("/checkout", {
-      state: { paymentData: paymentData },
+      state: { orderData: orderData, feeData: feeData },
     });
   };
 
