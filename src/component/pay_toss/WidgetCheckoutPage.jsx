@@ -129,16 +129,18 @@ function WidgetCheckoutPage() {
               console.log("금액 정보: ", JSON.stringify(saveAmountReq));
               const result = await callWithToken(
                 "post",
-                "/saveAmount",
+                "/order/saveAmount",
                 saveAmountReq
               );
 
               if (result) {
-                console.log("결제 요청 전, ", response.data);
-              } else {
-                console.error("결제액 세션 저장 실패: ", error);
-              }
+                console.log("결제 요청 전, ", result.data);
+              } 
+            } catch (error) {
+              console.error("결제액 세션 저장 실패: ", error);
+            }
 
+            try {
               await widgets.requestPayment({
                 orderId: state.orderData.orderId, // 주문 고유 번호
                 orderName: state.orderData.orderName,
@@ -151,7 +153,7 @@ function WidgetCheckoutPage() {
               });
             } catch (error) {
               // 에러 처리하기
-              console.error(error);
+              console.error("결제 요청 오류: ", error);
             }
           }}
         >
