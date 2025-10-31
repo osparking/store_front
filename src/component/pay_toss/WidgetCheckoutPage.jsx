@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import OrderDigest from "../buy/OrderDigest";
-import { apic } from "../util/api";
+import { apic, callWithToken } from "../util/api";
 import "./WidgetCheckoutPage.css";
 import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
 import { saveOrderRecepient } from "../buy/orderService";
@@ -117,26 +117,29 @@ function WidgetCheckoutPage() {
         <button
           className="button"
           style={{ marginTop: "30px" }}
-          disabled={!ready}
+          disabled= {!ready}
           // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
           // @docs https://docs.tosspayments.com/sdk/v2/js#widgetsrequestpayment
           onClick={async () => {
             try {
               // 결제를 요청 전, 결제 정보(orderId, amount) 서버 저장 - 결제 금액 확인 용
-              const saveOrderInfoReq = {
-                orderId: orderId | "(empty)",
+              const saveAmountReq = {
+                orderId: orderId,
                 amount: state.feeData.amount,
-                orderName: state.orderData.orderName,
               };
-              console.log("저장 정보: ", JSON.stringify(saveOrderInfoReq));
-              await apic
-                .post("/saveOrderInfo", saveOrderInfoReq)
-                .then((response) => {
-                  console.log("금액 저장:", response.data);
-                })
-                .catch((error) => {
-                  console.error("저장 실패:", error);
-                });
+              console.log("금액 정보: ", JSON.stringify(saveAmountReq));
+              const result = await callWithToken(
+                "post",
+                "/saveAmount",
+                saveAmountReq
+              );
+
+              if (result) {
+                console.log("결제 요청 전, ", response.data);
+              } else {
+                console.error("결제액 세션 저장 실패: ", error);
+              }
+
               await widgets.requestPayment({
                 orderId: state.orderData.orderId, // 주문 고유 번호
                 orderName: state.orderData.orderName,
@@ -153,7 +156,7 @@ function WidgetCheckoutPage() {
             }
           }}
         >
-          결제하기
+          결제 하기
         </button>
       </div>
     </div>
