@@ -1,10 +1,10 @@
+import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import OrderDigest from "../buy/OrderDigest";
-import { apic, callWithToken } from "../util/api";
-import "./WidgetCheckoutPage.css";
-import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
 import { saveOrderRecepient } from "../buy/orderService";
+import { callWithToken } from "../util/api";
+import "./WidgetCheckoutPage.css";
 
 // 전자결제 신청 및 가입 완료 후, clientKey 를 다음으로 수정할 것.
 // 개발자센터의 결제위젯 연동 키 > 클라이언트 키
@@ -24,7 +24,6 @@ function WidgetCheckoutPage() {
     async function fetchPaymentWidgets() {
       try {
         const tossPayments = await loadTossPayments(clientKey);
-
         // 회원 결제
         // @docs https://docs.tosspayments.com/sdk/v2/js#tosspaymentswidgets
         const widgets = tossPayments.widgets({
@@ -32,7 +31,6 @@ function WidgetCheckoutPage() {
         });
         // 비회원 결제
         // const widgets = tossPayments.widgets({ customerKey: ANONYMOUS });
-
         setWidgets(widgets);
       } catch (error) {
         console.error("Error fetching payment widget:", error);
@@ -74,11 +72,12 @@ function WidgetCheckoutPage() {
           variantKey: "AGREEMENT",
         }),
       ]);
-
       setReady(true);
     }
 
-    renderPaymentWidgets();
+    if (!ready) {
+      renderPaymentWidgets();
+    }
   }, [widgets, state]);
 
   const [orderId, setOrderId] = useState("dummyId");
@@ -117,7 +116,7 @@ function WidgetCheckoutPage() {
         <button
           className="button"
           style={{ marginTop: "30px" }}
-          disabled= {!ready}
+          disabled={!ready}
           // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
           // @docs https://docs.tosspayments.com/sdk/v2/js#widgetsrequestpayment
           onClick={async () => {
