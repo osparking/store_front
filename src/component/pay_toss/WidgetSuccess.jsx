@@ -22,7 +22,9 @@ export function WidgetSuccessPage() {
       );
       console.log(JSON.stringify(response));
 
-      if (!amountMatches) {
+      if (response.data.matches) {
+        console.log("결제 금액 일치 확인");
+      } else {
         throw { message: "결제 금액 불일치 오류", code: 400 };
       }
       const requestData = {
@@ -30,16 +32,14 @@ export function WidgetSuccessPage() {
         paymentKey: searchParams.get("paymentKey"),
       };
 
-      // response = await fetch(`${prefix}/confirm`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(requestData),
-      // });
+      const result = await callWithToken(
+        "post",
+        "/payments/confirm",
+        requestData
+      );
 
-      const paymentConfirmResponse = await response.json();
-      return paymentConfirmResponse;
+      console.log(JSON.stringify(result));
+      return result.data;
     }
 
     confirm()
