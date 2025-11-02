@@ -129,7 +129,7 @@ function WidgetCheckoutPage() {
               console.log("금액 정보: ", JSON.stringify(saveAmountReq));
               const result = await callWithToken(
                 "post",
-                "/order/saveAmount",
+                "/payments/saveAmount",
                 saveAmountReq
               );
 
