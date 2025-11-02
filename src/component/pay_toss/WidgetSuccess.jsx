@@ -7,6 +7,7 @@ export function WidgetSuccessPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [responseData, setResponseData] = useState(null);
+  const [orderName, setOrderName] = useState("");
   const bsOrder = {
     orderId: searchParams.get("orderId"),
     amount: parseInt(searchParams.get("amount")),
@@ -26,6 +27,7 @@ export function WidgetSuccessPage() {
 
       if (response.data.matches) {
         console.log("결제 금액 일치 확인");
+        setOrderName(response.data.orderName);
       } else {
         throw { message: "결제 금액 불일치 오류", code: 400 };
       }
