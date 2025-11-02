@@ -125,6 +125,7 @@ function WidgetCheckoutPage() {
               const saveAmountReq = {
                 orderId: orderId,
                 amount: state.feeData.amount,
+                orderName: state.orderData.orderName
               };
               console.log("금액 정보: ", JSON.stringify(saveAmountReq));
               const result = await callWithToken(
