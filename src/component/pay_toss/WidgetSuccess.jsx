@@ -1,26 +1,28 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { callWithToken } from "../util/api";
+import PaymentDoneModal from "../modal/PaymentDone";
 
 export function WidgetSuccessPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [responseData, setResponseData] = useState(null);
+  const bsOrder = {
+    orderId: searchParams.get("orderId"),
+    amount: parseInt(searchParams.get("amount")),
+    paymentKey: searchParams.get("paymentKey")
+  };
 
   useEffect(() => {
     async function confirm() {
-      const orderAmount = {
-        orderId: searchParams.get("orderId"),
-        amount: parseInt(searchParams.get("amount")),
-      };
-      console.log("확인 대상 결제액: ", JSON.stringify(orderAmount));
+      console.log("확인 대상 결제액: ", JSON.stringify(bsOrder));
 
       const response = await callWithToken(
         "post",
         "/payments/checkAmount",
-        orderAmount
+        bsOrder
       );
-      console.log(JSON.stringify(response));
+      console.log("response: ", JSON.stringify(response));
 
       if (response.data.matches) {
         console.log("결제 금액 일치 확인");
@@ -28,7 +30,7 @@ export function WidgetSuccessPage() {
         throw { message: "결제 금액 불일치 오류", code: 400 };
       }
       const requestData = {
-        ...orderAmount,
+        ...bsOrder,
         paymentKey: searchParams.get("paymentKey"),
       };
 
