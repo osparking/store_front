@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { prefix } from "./util/api";
+import { callWithToken } from "../util/api";
 
 export function WidgetSuccessPage() {
   const navigate = useNavigate();
@@ -9,43 +9,34 @@ export function WidgetSuccessPage() {
 
   useEffect(() => {
     async function confirm() {
-      const params = {
+      const orderAmount = {
         orderId: searchParams.get("orderId"),
         amount: parseInt(searchParams.get("amount")),
       };
-      console.log("saved amount check request: ", JSON.stringify(params));
+      console.log("확인 대상 결제액: ", JSON.stringify(orderAmount));
 
-      // For GET requests - using URL object
-      const url = new URL("http://localhost:9193/payments/checkAmount");
-      Object.entries(params).forEach(([key, value]) => {
-        url.searchParams.append(key, value);
-      });
-
-      let response = await fetch(url, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      let amountMatches = await response.json();
+      const response = await callWithToken(
+        "post",
+        "/payments/checkAmount",
+        orderAmount
+      );
+      console.log(JSON.stringify(response));
 
       if (!amountMatches) {
         throw { message: "결제 금액 불일치 오류", code: 400 };
       }
       const requestData = {
-        ...params,
+        ...orderAmount,
         paymentKey: searchParams.get("paymentKey"),
       };
 
-      response = await fetch(`${prefix}/confirm`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      });
+      // response = await fetch(`${prefix}/confirm`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(requestData),
+      // });
 
       const paymentConfirmResponse = await response.json();
       return paymentConfirmResponse;
