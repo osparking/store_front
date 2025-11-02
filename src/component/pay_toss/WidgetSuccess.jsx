@@ -8,6 +8,7 @@ export function WidgetSuccessPage() {
   const [searchParams] = useSearchParams();
   const [responseData, setResponseData] = useState(null);
   const [orderName, setOrderName] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const bsOrder = {
     orderId: searchParams.get("orderId"),
     amount: parseInt(searchParams.get("amount")),
@@ -49,6 +50,7 @@ export function WidgetSuccessPage() {
     confirm()
       .then((data) => {
         setResponseData(data);
+        setIsModalOpen(true);        
       })
       .catch((error) => {
         navigate(`/fail?code=${error.code}&message=${error.message}`);
@@ -64,6 +66,11 @@ export function WidgetSuccessPage() {
     },
     { property: "결제 키:", value: bsOrder.paymentKey },
   ];
+
+  function closeModal() {
+    setIsModalOpen(false);
+    // navigate("/my_payments", { state: { data: myPayments } });
+  }  
 
   return (
     <>
