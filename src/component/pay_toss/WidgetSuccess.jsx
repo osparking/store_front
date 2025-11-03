@@ -32,15 +32,11 @@ export function WidgetSuccessPage() {
       } else {
         throw { message: "결제 금액 불일치 오류", code: 400 };
       }
-      const requestData = {
-        ...bsOrder,
-        paymentKey: searchParams.get("paymentKey"),
-      };
 
       const result = await callWithToken(
         "post",
         "/payments/confirm",
-        requestData
+        bsOrder
       );
 
       console.log(JSON.stringify(result));
