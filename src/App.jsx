@@ -49,21 +49,6 @@ function App() {
 
     updateTabCount(true);
 
-    const handleBeforeUnload = (event) => {
-      updateTabCount(false);
-      // This message might not be shown in modern browsers
-      const message = "페이지를 벗어납니다.";
-      // event.preventDefault();
-      event.returnValue = message; // Standard for most browsers
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    // Cleanup
-    return () => {
-      updateTabCount(false);
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
   }, []);
 
   const router = createBrowserRouter(
