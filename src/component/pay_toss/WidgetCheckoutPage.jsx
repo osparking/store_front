@@ -16,45 +16,43 @@ function generateRandomString() {
 }
 
 function WidgetCheckoutPage() {
-  const [widgets, setWidgets] = useState(null);
   const location = useLocation();
-  const [state] = useState(location.state);
+  const { orderData, feeData } = location.state;
+
+  const [widgets, setWidgets] = useState(null);
+  const [ready, setReady] = useState(false);
+  const [orderId, setOrderId] = useState("");
+
+  useEffect(async () => {
+    const response = await saveOrderRecepient(orderData);
+    setOrderId(response.data?.orderId);
+
+    try {
+      const tossPayments = await loadTossPayments(clientKey);
+      // 회원 결제
+      // @docs https://docs.tosspayments.com/sdk/v2/js#tosspaymentswidgets
+      const widgets = tossPayments.widgets({ customerKey });
+
+      // 비회원 결제
+      // const widgets = tossPayments.widgets({ customerKey: ANONYMOUS });
+
+      setWidgets(widgets);
+    } catch (error) {
+      console.error("Error fetching payment widget:", error);
+    }
+  }, []); // 마운트 때 1회 실행
 
   useEffect(() => {
     async function fetchPaymentWidgets() {
-      try {
-        const tossPayments = await loadTossPayments(clientKey);
-        // 회원 결제
-        // @docs https://docs.tosspayments.com/sdk/v2/js#tosspaymentswidgets
-        const widgets = tossPayments.widgets({
-          customerKey,
-        });
-        // 비회원 결제
-        // const widgets = tossPayments.widgets({ customerKey: ANONYMOUS });
-        setWidgets(widgets);
-      } catch (error) {
-        console.error("Error fetching payment widget:", error);
-      }
-    }
-
-    fetchPaymentWidgets();
-  }, [clientKey, customerKey]);
-
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    async function renderPaymentWidgets() {
       if (widgets == null) {
         console.log("위젯은 널");
         return;
       }
-
       // @docs https://docs.tosspayments.com/sdk/v2/js#widgetssetamount
       await widgets.setAmount({
         currency: "KRW",
-        value: state.feeData.amount,
+        value: feeData.amount,
       });
-
       await Promise.all([
         // ------  결제 UI 렌더링 ------
         // @docs https://docs.tosspayments.com/sdk/v2/js#widgetsrenderpaymentmethods
@@ -73,37 +71,66 @@ function WidgetCheckoutPage() {
         }),
       ]);
       setReady(true);
+      console.log("setReady called");
     }
 
-    if (!ready) {
-      renderPaymentWidgets();
+    fetchPaymentWidgets();
+  }, [widgets]);
+
+  // Reset ready state before payment to prevent warning
+  const handlePayment = async () => {
+    if (!orderId) {
+      return; // 주문 후단 저장 후, 반응에서 얻은 ID orderId 상태에 배정 전.
     }
-  }, [widgets, state]);
 
-  const [orderId, setOrderId] = useState("dummyId");
+    try {
+      const saveAmountReq = {
+        orderId: orderId,
+        amount: feeData?.amount,
+        orderName: orderData?.orderName,
+      };
 
-  useEffect(() => {
-    const saveOrder = async () => {
-      // orderData 객체 주문 정보 후단 저장
-      const response = await saveOrderRecepient(state.orderData);
-      console.log("결제 전, ", response.message);
+      console.log("금액 정보: ", JSON.stringify(saveAmountReq));
+      const result = await callWithToken(
+        "post",
+        "/payments/saveAmount",
+        saveAmountReq
+      );
 
-      // 저장 반응에서 orderId 추출
-      setOrderId(response.data?.orderId);
-      console.log("orderId: ", response.data?.orderId);
-    };
-    if (state) {
-      saveOrder();
+      if (result) {
+        console.log("결제 요청 전, ", result.data);
+      }
+    } catch (error) {
+      console.error("결제액 세션 저장 실패: ", error);
     }
-  }, [state]);
+
+    try {
+      // Reset React state before navigation
+      setReady(false);
+
+      await widgets.requestPayment({
+        orderId: orderId,
+        orderName: orderData?.orderName,
+        successUrl: window.location.origin + "/success",
+        failUrl: window.location.origin + "/fail",
+        customerEmail: "jbpark03@gmail.com",
+        customerName: "범이고객",
+      });
+    } catch (error) {
+      // Restore ready state if payment fails
+      setReady(true);
+      console.log("setReady called true");
+      console.error("결제 요청 오류: ", error);
+    }
+  };
 
   return (
     <div className="wrapper">
       <div className="box_section">
         <OrderDigest
-          name={state.orderData.orderName}
-          amount={state.feeData.amount}
-          address={state.orderData.recipRegiReq.addressDetail}
+          name={orderData.orderName}
+          amount={feeData.amount}
+          address={orderData.recipRegiReq.addressDetail}
         />
 
         {/* 결제 UI */}
@@ -119,44 +146,7 @@ function WidgetCheckoutPage() {
           disabled={!ready}
           // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
           // @docs https://docs.tosspayments.com/sdk/v2/js#widgetsrequestpayment
-          onClick={async () => {
-            try {
-              // 결제를 요청 전, 결제 정보(orderId, amount) 서버 저장 - 결제 금액 확인 용
-              const saveAmountReq = {
-                orderId: orderId,
-                amount: state.feeData.amount,
-                orderName: state.orderData.orderName
-              };
-              console.log("금액 정보: ", JSON.stringify(saveAmountReq));
-              const result = await callWithToken(
-                "post",
-                "/payments/saveAmount",
-                saveAmountReq
-              );
-
-              if (result) {
-                console.log("결제 요청 전, ", result.data);
-              } 
-            } catch (error) {
-              console.error("결제액 세션 저장 실패: ", error);
-            }
-
-            try {
-              await widgets.requestPayment({
-                orderId: orderId, // 주문 고유 번호
-                orderName: state.orderData.orderName,
-                successUrl: window.location.origin + "/success", // 결제 요청이 성공하면 리다이렉트되는 URL
-                failUrl: window.location.origin + "/fail", // 결제 요청이 실패하면 리다이렉트되는 URL
-                customerEmail: "jbpark03@gmail.com",
-                customerName: "범이고객",
-                // 가상계좌 안내, 퀵계좌이체 휴대폰 번호 자동 완성에 사용되는 값입니다. 필요하다면 주석을 해제해 주세요.
-                // customerMobilePhone: "01012341234",
-              });
-            } catch (error) {
-              // 에러 처리하기
-              console.error("결제 요청 오류: ", error);
-            }
-          }}
+          onClick={handlePayment}
         >
           결제 하기
         </button>
