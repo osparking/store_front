@@ -106,7 +106,12 @@ const Recepient = () => {
     };
 
     navigate("/checkout", {
-      state: { orderData: orderData, feeData: feeData },
+      state: {
+        orderData: orderData,
+        feeData: feeData,
+        formItems: formItems,
+        source: source,
+      },
     });
   };
 
