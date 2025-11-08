@@ -8,7 +8,6 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import { useNavigate } from "react-router-dom";
 import Paginator from "../common/Paginator";
 import ProcessSpinner from "../common/ProcessSpinner";
 import "./AddressModal.css";
@@ -72,7 +71,7 @@ const AddressModal = ({ show, setFormData, closer }) => {
       addrBasisAddReq: addrBasisAddReq,
     }));
     closer();
-  }; 
+  };
 
   const keyNotEnough = () => {
     return addressKey.length < 5;
@@ -108,9 +107,10 @@ const AddressModal = ({ show, setFormData, closer }) => {
         <Button
           disabled={keyNotEnough()}
           variant="outline-primary"
-          type="submit"
+          type="button"
           className="w-25 ms-2"
           style={{ width: "50vw" }}
+          onClick={handleAddressKey}
         >
           <FaMagnifyingGlass />
           <span className="shourcut">(Alt+S)</span>
@@ -124,6 +124,19 @@ const AddressModal = ({ show, setFormData, closer }) => {
     loadAddressPage();
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" || event.key === "Process") {
+      event.preventDefault();
+    }
+  };
+
+  const handleKeyUp = (event) => {
+    if (event.key === "Process") {
+      event.preventDefault();
+      handleAddressKey();
+    }
+  };
+
   return (
     <Modal show={show} onHide={closer} dialogClassName="custom-modal">
       <div className="custom-modal-width">
@@ -131,7 +144,7 @@ const AddressModal = ({ show, setFormData, closer }) => {
           <Modal.Title>주소 검색</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={handleAddressKey}>
+          <Form>
             <div className="d-flex">
               <OverlayTrigger overlay={<Tooltip>5 글자 이상 입력!</Tooltip>}>
                 <Form.Control
@@ -140,6 +153,8 @@ const AddressModal = ({ show, setFormData, closer }) => {
                   placeholder="(주소 일부)"
                   value={addressKey}
                   onChange={(e) => setAddressKey(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  onKeyUp={handleKeyUp}
                 />
               </OverlayTrigger>
               <MyButton />
