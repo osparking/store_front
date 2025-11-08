@@ -1,8 +1,10 @@
 import { Col, Row } from "react-bootstrap";
 import "./OrderDigest.css";
 
-const OrderDigest = ({ name, amount, address }) => {
-  const toRecipient = () => {};
+const OrderDigest = ({ name, amount, address, goRecipient }) => {
+  const toRecipient = () => {
+    goRecipient();
+  };
 
   return (
     <Row className="d-flex justify-content-center">
@@ -26,7 +28,7 @@ const OrderDigest = ({ name, amount, address }) => {
           style={{
             backgroundColor: "green",
             borderColor: "green",
-            marginTop: 0
+            marginTop: 0,
           }}
           onClick={toRecipient} // Use the extracted function
         >
