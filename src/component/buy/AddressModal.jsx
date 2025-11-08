@@ -12,6 +12,7 @@ import Paginator from "../common/Paginator";
 import ProcessSpinner from "../common/ProcessSpinner";
 import "./AddressModal.css";
 import { searchAddress } from "./orderService";
+import { useDebounce } from "../util/utilities";
 
 const AddressModal = ({ show, setFormData, closer }) => {
   const [addressKey, setAddressKey] = useState("미사강변북로");
@@ -55,8 +56,10 @@ const AddressModal = ({ show, setFormData, closer }) => {
     // }
   };
 
+  const debouncedLoadAddressPage = useDebounce(loadAddressPage, 1000);  
+
   useEffect(() => {
-    loadAddressPage();
+    debouncedLoadAddressPage(); // loadAddressPage();
   }, [currentPage]);
 
   const selectAddress = (addr) => {
@@ -83,7 +86,7 @@ const AddressModal = ({ show, setFormData, closer }) => {
         if ((event.altKey || event.metaKey) && event.key === "s") {
           event.preventDefault(); // Prevent browser save dialog
           setCurrentPage(1);
-          loadAddressPage();
+          debouncedLoadAddressPage();
         }
       };
       document.addEventListener("keydown", handleKeyPress);
@@ -121,7 +124,7 @@ const AddressModal = ({ show, setFormData, closer }) => {
 
   const handleAddressKey = () => {
     setCurrentPage(1);
-    loadAddressPage();
+    debouncedLoadAddressPage(); // loadAddressPage();
   };
 
   const handleKeyDown = (event) => {
@@ -131,7 +134,7 @@ const AddressModal = ({ show, setFormData, closer }) => {
   };
 
   const handleKeyUp = (event) => {
-    if (event.key === "Process") {
+    if (event.key === "Process" || event.key === "Enter") {
       event.preventDefault();
       handleAddressKey();
     }
