@@ -2,6 +2,8 @@ import { Col, Row } from "react-bootstrap";
 import "./OrderDigest.css";
 
 const OrderDigest = ({ name, amount, address }) => {
+  const toRecipient = () => {};
+
   return (
     <Row className="d-flex justify-content-center">
       <Col md={6}>
@@ -14,13 +16,22 @@ const OrderDigest = ({ name, amount, address }) => {
             <h5>주문 요약</h5>
             <ul>
               <li>주문 이름 : {name}</li>
-              <li className="mt_0">
-                결제 금액 : {amount.toLocaleString()} 원
-              </li>
+              <li className="mt_0">결제 금액 : {amount.toLocaleString()} 원</li>
               <li className="mt_0">상세 주소 : {address}</li>
             </ul>
           </div>
         )}
+        <button
+          className="button"
+          style={{
+            backgroundColor: "green",
+            borderColor: "green",
+            marginTop: 0
+          }}
+          onClick={toRecipient} // Use the extracted function
+        >
+          뒤로
+        </button>
       </Col>
     </Row>
   );
