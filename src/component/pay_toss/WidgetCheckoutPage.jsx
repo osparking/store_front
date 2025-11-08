@@ -1,6 +1,6 @@
 import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import OrderDigest from "../buy/OrderDigest";
 import { saveOrderRecepient } from "../buy/orderService";
 import { callWithToken } from "../util/api";
@@ -17,7 +17,7 @@ function generateRandomString() {
 
 function WidgetCheckoutPage() {
   const location = useLocation();
-  const { orderData, feeData } = location.state;
+  const { orderData, feeData, formItems, source } = location.state;
 
   const [widgets, setWidgets] = useState(null);
   const [ready, setReady] = useState(false);
@@ -129,6 +129,14 @@ function WidgetCheckoutPage() {
     }
   };
 
+  const navigate = useNavigate();
+
+  const goRecipient = () => {
+    navigate("/recepient", {
+      state: { formItems: formItems, source: source },
+    });
+  };
+
   return (
     <div className="wrapper">
       <div className="box_section">
@@ -136,6 +144,7 @@ function WidgetCheckoutPage() {
           name={orderData.orderName}
           amount={feeData.amount}
           address={orderData.recipRegiReq.addressDetail}
+          goRecipient={goRecipient}
         />
 
         {/* 결제 UI */}
