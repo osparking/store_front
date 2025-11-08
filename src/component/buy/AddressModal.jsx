@@ -55,7 +55,7 @@ const AddressModal = ({ show, setFormData, closer }) => {
   );
 
   useEffect(() => {
-    loadAddressPage();
+    throttledLoading.current(addressKey);
   }, [currentPage]);
 
   const selectAddress = (addr) => {
@@ -82,7 +82,7 @@ const AddressModal = ({ show, setFormData, closer }) => {
         if ((event.altKey || event.metaKey) && event.key === "s") {
           event.preventDefault(); // Prevent browser save dialog
           setCurrentPage(1);
-          loadAddressPage();
+          throttledLoading.current(addressKey);
         }
       };
       document.addEventListener("keydown", handleKeyPress);
@@ -120,7 +120,7 @@ const AddressModal = ({ show, setFormData, closer }) => {
 
   const handleAddressKey = () => {
     setCurrentPage(1);
-    loadAddressPage();
+    throttledLoading.current(addressKey);
   };
 
   const handleKeyDown = (event) => {
