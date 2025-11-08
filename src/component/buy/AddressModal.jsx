@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { throttle } from "lodash";
+import { useEffect, useRef, useState } from "react";
 import {
   Button,
   Form,
@@ -14,7 +15,7 @@ import "./AddressModal.css";
 import { searchAddress } from "./orderService";
 
 const AddressModal = ({ show, setFormData, closer }) => {
-  const [addressKey, setAddressKey] = useState("미사강변북로");
+  const [addressKey, setAddressKey] = useState("");
   const [addresses, setAddresses] = useState([]);
   const [addrPage, setAddrPage] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,28 +36,26 @@ const AddressModal = ({ show, setFormData, closer }) => {
   const idxLastPlus1 = currentPage * pageSize;
   const indexOfFirst = idxLastPlus1 - pageSize;
 
-  const loadAddressPage = async () => {
-    setLoading(true);
-    const searchResult = await searchAddress(addressKey, currentPage, pageSize);
-    setLoading(false);
-    setSearchResult(searchResult);
-    if (searchResult && searchResult.addressPage) {
-      setAddresses(searchResult.addressPage.content);
-      setAddrPage(searchResult.addressPage);
-      setTotalPages(searchResult.totalPages);
-    }
-
-    // Simulate API call delay time, but, only in debug mode
-    // if (process.env.NODE_ENV === "development") {
-    //   setTimeout(() => {
-    //     console.log("loading delay is being simulated");
-    //     setLoading(false);
-    //   }, 100);
-    // }
-  };
+  const throttledLoading = useRef(
+    throttle(async (value) => {
+      try {
+        setLoading(true);
+        const searchResult = await searchAddress(value, currentPage, pageSize);
+        setLoading(false);
+        setSearchResult(searchResult);
+        if (searchResult && searchResult.addressPage) {
+          setAddresses(searchResult.addressPage.content);
+          setAddrPage(searchResult.addressPage);
+          setTotalPages(searchResult.totalPages);
+        }
+      } catch (error) {
+        console.error("API call failed:", error);
+      }
+    }, 1000) // 1000ms = 1 second
+  );
 
   useEffect(() => {
-    loadAddressPage();
+    throttledLoading.current(addressKey);
   }, [currentPage]);
 
   const selectAddress = (addr) => {
@@ -83,7 +82,7 @@ const AddressModal = ({ show, setFormData, closer }) => {
         if ((event.altKey || event.metaKey) && event.key === "s") {
           event.preventDefault(); // Prevent browser save dialog
           setCurrentPage(1);
-          loadAddressPage();
+          throttledLoading.current(addressKey);
         }
       };
       document.addEventListener("keydown", handleKeyPress);
@@ -121,7 +120,7 @@ const AddressModal = ({ show, setFormData, closer }) => {
 
   const handleAddressKey = () => {
     setCurrentPage(1);
-    loadAddressPage();
+    throttledLoading.current(addressKey);
   };
 
   const handleKeyDown = (event) => {
@@ -134,6 +133,14 @@ const AddressModal = ({ show, setFormData, closer }) => {
     if (event.key === "Process") {
       event.preventDefault();
       handleAddressKey();
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setAddressKey(value.trim());
+    if (value.trim().length > 4) {
+      throttledLoading.current(value.trim());
     }
   };
 
@@ -152,7 +159,7 @@ const AddressModal = ({ show, setFormData, closer }) => {
                   name="addressKey"
                   placeholder="(주소 일부)"
                   value={addressKey}
-                  onChange={(e) => setAddressKey(e.target.value)}
+                  onChange={handleInputChange}
                   onKeyDown={handleKeyDown}
                   onKeyUp={handleKeyUp}
                 />
