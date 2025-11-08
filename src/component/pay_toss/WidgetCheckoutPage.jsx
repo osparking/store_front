@@ -44,10 +44,7 @@ function WidgetCheckoutPage() {
 
   useEffect(() => {
     async function fetchPaymentWidgets() {
-      if (widgets == null) {
-        console.log("위젯은 널");
-        return;
-      }
+
       // @docs https://docs.tosspayments.com/sdk/v2/js#widgetssetamount
       await widgets.setAmount({
         currency: "KRW",
@@ -73,8 +70,11 @@ function WidgetCheckoutPage() {
       setReady(true);
       console.log("setReady called");
     }
-
-    fetchPaymentWidgets();
+    if (widgets !== null) {
+      fetchPaymentWidgets();
+    } else {
+      console.log("위젯은 널");
+    }
   }, [widgets]);
 
   // Reset ready state before payment to prevent warning
