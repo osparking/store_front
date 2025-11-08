@@ -136,6 +136,14 @@ const AddressModal = ({ show, setFormData, closer }) => {
     }
   };
 
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setAddressKey(value.trim());
+    if (value.trim().length > 4) {
+      throttledLoading.current(value.trim());
+    }
+  };
+
   return (
     <Modal show={show} onHide={closer} dialogClassName="custom-modal">
       <div className="custom-modal-width">
@@ -151,7 +159,7 @@ const AddressModal = ({ show, setFormData, closer }) => {
                   name="addressKey"
                   placeholder="(주소 일부)"
                   value={addressKey}
-                  onChange={(e) => setAddressKey(e.target.value)}
+                  onChange={handleInputChange}
                   onKeyDown={handleKeyDown}
                   onKeyUp={handleKeyUp}
                 />
