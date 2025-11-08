@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { throttle } from "lodash";
+import { useEffect, useRef, useState } from "react";
 import {
   Button,
   Form,
@@ -35,25 +36,23 @@ const AddressModal = ({ show, setFormData, closer }) => {
   const idxLastPlus1 = currentPage * pageSize;
   const indexOfFirst = idxLastPlus1 - pageSize;
 
-  const loadAddressPage = async () => {
-    setLoading(true);
-    const searchResult = await searchAddress(addressKey, currentPage, pageSize);
-    setLoading(false);
-    setSearchResult(searchResult);
-    if (searchResult && searchResult.addressPage) {
-      setAddresses(searchResult.addressPage.content);
-      setAddrPage(searchResult.addressPage);
-      setTotalPages(searchResult.totalPages);
-    }
-
-    // Simulate API call delay time, but, only in debug mode
-    // if (process.env.NODE_ENV === "development") {
-    //   setTimeout(() => {
-    //     console.log("loading delay is being simulated");
-    //     setLoading(false);
-    //   }, 100);
-    // }
-  };
+  const throttledLoading = useRef(
+    throttle(async (value) => {
+      try {
+        setLoading(true);
+        const searchResult = await searchAddress(value, currentPage, pageSize);
+        setLoading(false);
+        setSearchResult(searchResult);
+        if (searchResult && searchResult.addressPage) {
+          setAddresses(searchResult.addressPage.content);
+          setAddrPage(searchResult.addressPage);
+          setTotalPages(searchResult.totalPages);
+        }
+      } catch (error) {
+        console.error("API call failed:", error);
+      }
+    }, 1000) // 1000ms = 1 second
+  );
 
   useEffect(() => {
     loadAddressPage();
