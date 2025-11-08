@@ -23,28 +23,33 @@ function WidgetCheckoutPage() {
   const [ready, setReady] = useState(false);
   const [orderId, setOrderId] = useState("");
 
-  useEffect(async () => {
-    const response = await saveOrderRecepient(orderData);
-    setOrderId(response.data?.orderId);
-
-    try {
-      const tossPayments = await loadTossPayments(clientKey);
-      // 회원 결제
-      // @docs https://docs.tosspayments.com/sdk/v2/js#tosspaymentswidgets
-      const widgets = tossPayments.widgets({ customerKey });
-
-      // 비회원 결제
-      // const widgets = tossPayments.widgets({ customerKey: ANONYMOUS });
-
-      setWidgets(widgets);
-    } catch (error) {
-      console.error("Error fetching payment widget:", error);
+  useEffect(() => {
+    async function saveOrderRecord() {
+      const response = await saveOrderRecepient(orderData);
+      setOrderId(response.data?.orderId);
     }
+    saveOrderRecord();
+
+    async function getTossWidgets() {
+      try {
+        const tossPayments = await loadTossPayments(clientKey);
+        // 회원 결제
+        // @docs https://docs.tosspayments.com/sdk/v2/js#tosspaymentswidgets
+        const widgets = tossPayments.widgets({ customerKey });
+
+        // 비회원 결제
+        // const widgets = tossPayments.widgets({ customerKey: ANONYMOUS });
+
+        setWidgets(widgets);
+      } catch (error) {
+        console.error("토스페이먼츠 위젯 오류:", error);
+      }
+    }
+    getTossWidgets();
   }, []); // 마운트 때 1회 실행
 
   useEffect(() => {
     async function fetchPaymentWidgets() {
-
       // @docs https://docs.tosspayments.com/sdk/v2/js#widgetssetamount
       await widgets.setAmount({
         currency: "KRW",
