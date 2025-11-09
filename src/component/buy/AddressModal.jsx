@@ -43,14 +43,18 @@ const AddressModal = ({
   const indexOfFirst = idxLastPlus1 - pageSize;
 
   const loadAddressPage = async (value) => {
-    setLoading(true);
-    const searchResult = await searchAddress(value, currentPage, pageSize);
-    setLoading(false);
-    setSearchResult(searchResult);
-    if (searchResult && searchResult.addressPage) {
-      setAddresses(searchResult.addressPage.content);
-      setAddrPage(searchResult.addressPage);
-      setTotalPages(searchResult.totalPages);
+    try {
+      setLoading(true);
+      const searchResult = await searchAddress(value, currentPage, pageSize);
+      setLoading(false);
+      setSearchResult(searchResult);
+      if (searchResult && searchResult.addressPage) {
+        setAddresses(searchResult.addressPage.content);
+        setAddrPage(searchResult.addressPage);
+        setTotalPages(searchResult.totalPages);
+      }
+    } catch (error) {
+      console.error("API call failed:", error);
     }
   };
 
