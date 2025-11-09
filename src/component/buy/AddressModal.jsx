@@ -42,6 +42,18 @@ const AddressModal = ({
   const idxLastPlus1 = currentPage * pageSize;
   const indexOfFirst = idxLastPlus1 - pageSize;
 
+  const loadAddressPage = async () => {
+    setLoading(true);
+    const searchResult = await searchAddress(addressKey, currentPage, pageSize);
+    setLoading(false);
+    setSearchResult(searchResult);
+    if (searchResult && searchResult.addressPage) {
+      setAddresses(searchResult.addressPage.content);
+      setAddrPage(searchResult.addressPage);
+      setTotalPages(searchResult.totalPages);
+    }
+  };
+
   const throttledLoading = useRef(
     throttle(async (value) => {
       try {
@@ -61,7 +73,7 @@ const AddressModal = ({
   );
 
   useEffect(() => {
-    throttledLoading.current(addressKey);
+    loadAddressPage();
   }, [currentPage]);
 
   const selectAddress = (addr) => {
