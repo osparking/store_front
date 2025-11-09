@@ -42,9 +42,9 @@ const AddressModal = ({
   const idxLastPlus1 = currentPage * pageSize;
   const indexOfFirst = idxLastPlus1 - pageSize;
 
-  const loadAddressPage = async () => {
+  const loadAddressPage = async (value) => {
     setLoading(true);
-    const searchResult = await searchAddress(addressKey, currentPage, pageSize);
+    const searchResult = await searchAddress(value, currentPage, pageSize);
     setLoading(false);
     setSearchResult(searchResult);
     if (searchResult && searchResult.addressPage) {
@@ -73,7 +73,7 @@ const AddressModal = ({
   );
 
   useEffect(() => {
-    loadAddressPage();
+    loadAddressPage(addressKey);
   }, [currentPage]);
 
   const selectAddress = (addr) => {
