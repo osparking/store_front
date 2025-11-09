@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
-import AddressModal from "./AddressModal";
 import { handlePropChange } from "../util/utilities";
+import AddressModal from "./AddressModal";
 
 const RecepientInfo = ({ formData, setFormData }) => {
   const [phoneNumber, setPhoneNumber] = useState(`${formData.mbPhone}`);
@@ -47,6 +47,22 @@ const RecepientInfo = ({ formData, setFormData }) => {
   }, [phoneNumber]);
 
   const [showAddressModal, setShowAddressModal] = useState(false);
+  const [focusDetailedAddr, setFocusDetailedAddr] = useState(false);
+  const addressDetailInputRef = useRef(null);
+
+  const putFocus2detailedAddr = () => {
+    setFocusDetailedAddr(true);
+  };
+
+  useEffect(() => {
+    if (focusDetailedAddr && addressDetailInputRef.current) {
+      setTimeout(() => {
+        addressDetailInputRef.current.focus();
+        addressDetailInputRef.current.select();
+      }, 200);
+      setFocusDetailedAddr(false);
+    }
+  }, [focusDetailedAddr]);
 
   const openAddressModal = () => {
     setShowAddressModal(true);
@@ -132,6 +148,7 @@ const RecepientInfo = ({ formData, setFormData }) => {
           <tr>
             <td className="boxLeft goldCell" style={{ paddingTop: 0 }}>
               <input
+                ref={addressDetailInputRef}
                 type="text"
                 name="addressDetail"
                 size="20"
@@ -151,6 +168,7 @@ const RecepientInfo = ({ formData, setFormData }) => {
           setShowAddressModal(false);
           // cartAddResultMap.clear();
         }}
+        putFocus2detailedAddr={putFocus2detailedAddr}
       />
     </div>
   );
