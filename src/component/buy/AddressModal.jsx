@@ -59,21 +59,7 @@ const AddressModal = ({
   };
 
   const throttledLoading = useRef(
-    throttle(async (value) => {
-      try {
-        setLoading(true);
-        const searchResult = await searchAddress(value, currentPage, pageSize);
-        setLoading(false);
-        setSearchResult(searchResult);
-        if (searchResult && searchResult.addressPage) {
-          setAddresses(searchResult.addressPage.content);
-          setAddrPage(searchResult.addressPage);
-          setTotalPages(searchResult.totalPages);
-        }
-      } catch (error) {
-        console.error("API call failed:", error);
-      }
-    }, 1000) // 1000ms = 1 second
+    throttle(loadAddressPage, 1000) // 1000ms = 1 second
   );
 
   useEffect(() => {
