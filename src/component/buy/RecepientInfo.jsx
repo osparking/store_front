@@ -145,10 +145,11 @@ const RecepientInfo = ({ formData, setFormData }) => {
       </Table>
       <AddressModal
         show={showAddressModal}
+        formData={formData}
         setFormData={setFormData}
         closer={() => {
           setShowAddressModal(false);
-          cartAddResultMap.clear();
+          // cartAddResultMap.clear();
         }}
       />
     </div>
