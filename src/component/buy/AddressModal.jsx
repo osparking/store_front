@@ -14,7 +14,13 @@ import ProcessSpinner from "../common/ProcessSpinner";
 import "./AddressModal.css";
 import { searchAddress } from "./orderService";
 
-const AddressModal = ({ show, formData, setFormData, closer }) => {
+const AddressModal = ({
+  show,
+  formData,
+  setFormData,
+  closer,
+  putFocus2detailedAddr,
+}) => {
   const [addressKey, setAddressKey] = useState("미사강변북로");
   const [addresses, setAddresses] = useState([]);
   const [addrPage, setAddrPage] = useState({});
@@ -75,6 +81,8 @@ const AddressModal = ({ show, formData, setFormData, closer }) => {
         ...prevState,
         addressDetail: "",
       }));
+
+      putFocus2detailedAddr();
     }
 
     closer();
