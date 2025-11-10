@@ -32,9 +32,9 @@ const AddressModal = ({
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    if (searchResult && searchResult.addressPage) {
-      setAddresses(searchResult.addressPage.content);
-      setAddrPage(searchResult.addressPage);
+    if (searchResult && searchResult.pageContent) {
+      setAddresses(searchResult.pageContent.content);
+      setAddrPage(searchResult.pageContent);
       setTotalPages(searchResult.totalPages);
     }
   }, [searchResult]);
@@ -48,9 +48,9 @@ const AddressModal = ({
       const searchResult = await searchAddress(value, currentPage, pageSize);
       setLoading(false);
       setSearchResult(searchResult);
-      if (searchResult && searchResult.addressPage) {
-        setAddresses(searchResult.addressPage.content);
-        setAddrPage(searchResult.addressPage);
+      if (searchResult && searchResult.pageContent) {
+        setAddresses(searchResult.pageContent.content);
+        setAddrPage(searchResult.pageContent);
         setTotalPages(searchResult.totalPages);
       }
     } catch (error) {
