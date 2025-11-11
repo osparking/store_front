@@ -6,7 +6,7 @@ import PaymentDoneModal from "../modal/PaymentDone";
 export function WidgetSuccessPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [responseData, setResponseData] = useState(null);
+  const [myOrders, setMyOrders] = useState(null);
   const [orderName, setOrderName] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const bsOrder = {
@@ -45,7 +45,7 @@ export function WidgetSuccessPage() {
 
     confirm()
       .then((data) => {
-        setResponseData(data);
+        setMyOrders(data);
         setIsModalOpen(true);        
       })
       .catch((error) => {
@@ -65,7 +65,7 @@ export function WidgetSuccessPage() {
 
   function closeModal() {
     setIsModalOpen(false);
-    // navigate("/my_payments", { state: { data: myPayments } });
+    navigate("/myorders", { state: { data: myOrders } });
   }  
 
   return (
@@ -101,15 +101,6 @@ export function WidgetSuccessPage() {
           </tbody>
         </table>
       </PaymentDoneModal>
-      <div
-        className="box_section"
-        style={{ width: "600px", textAlign: "left" }}
-      >
-        <b>Response Data :</b>
-        <div id="response" style={{ whiteSpace: "initial" }}>
-          {responseData && <pre>{JSON.stringify(responseData, null, 4)}</pre>}
-        </div>
-      </div>
     </>
   );
 }
