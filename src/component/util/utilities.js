@@ -14,7 +14,7 @@ export const useAlertTimeout = (initialVisibility = false, duration = 9000) => {
   return [showAlert, setShowAlert];
 };
 
-export const storeLoginInfo = (user, token) => {  
+export const storeLoginInfo = (user, token) => {
   localStorage.setItem("USER", JSON.stringify(user));
   localStorage.setItem("LOGIN_ID", user.id);
   localStorage.setItem("TOKEN", token);
@@ -24,13 +24,13 @@ export const storeLoginInfo = (user, token) => {
 
 export const setDifference = (arrA, arrB) => {
   const setB = new Set(arrB);
-  return arrA.filter(item => !setB.has(item));
+  return arrA.filter((item) => !setB.has(item));
 };
 
 export function labelsOver(labels, threshold) {
   return labels
-      .filter((label) => label.inventory > threshold)
-      .map((label) => label.optionLabel);
+    .filter((label) => label.inventory > threshold)
+    .map((label) => label.optionLabel);
 }
 
 export function handlePropChange(
@@ -72,4 +72,15 @@ export function handlePropChange(
       return { ...prevState, [name]: inputValue };
     }
   });
-};
+}
+
+export function formatDate(dateString) {
+  const date = new Date(dateString);
+  const year = date.getFullYear().toString().slice(-2); // Get last 2 digits
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+
+  return `${year}년${month}월${day}일 ${hours}:${minutes}`;
+}
