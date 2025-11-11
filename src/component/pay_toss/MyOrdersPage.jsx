@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { formatDate } from "../util/utilities";
+import "./MyOrdersPage.css";
 
 const MyOrdersPage = () => {
   const location = useLocation();
@@ -14,7 +15,7 @@ const MyOrdersPage = () => {
   };
 
   return (
-    <div className="box_section payment_table_div">
+    <div className="box_section orders_table_div">
       <div className="d-flex justify-content-center align-items-center">
         <h3>나의 주문 목록</h3>
       </div>
