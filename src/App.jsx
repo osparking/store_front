@@ -25,6 +25,7 @@ import UserUpdate from "./component/user/UpdateUser";
 import UserDashboard from "./component/user/UserDashboard";
 import WorkerDashboard from "./component/worker/WorkerDashboard";
 import { WidgetSuccessPage } from "./component/pay_toss/WidgetSuccess";
+import MyOrdersPage from "./component/pay_toss/MyOrdersPage";
 
 function App() {
   useEffect(() => {
@@ -78,6 +79,7 @@ function App() {
           <Route path="/checkout" element={<WidgetCheckoutPage />} />
           <Route path="/success" element={<WidgetSuccessPage />} />
           <Route path="/fail" element={<FailPage />} />
+          <Route path="/myorders" element={<MyOrdersPage />} />
         </Route>
         <Route path="/work_item" element={<WorkerDashboard />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
