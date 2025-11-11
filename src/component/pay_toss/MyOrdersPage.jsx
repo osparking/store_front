@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
+import { formatDate } from "../util/utilities";
 
 const MyOrdersPage = () => {
   const location = useLocation();
@@ -50,7 +51,7 @@ const MyOrdersPage = () => {
                   </td>
                   <td>{order.recipientName}</td>
                   <td>{Number(order.paymentAmount).toLocaleString()}원</td>
-                  <td>{order.paymentTime}</td>
+                  <td>{formatDate(order.paymentTime)}</td>
                   <td className="text-center">
                     <a href={order.receiptUrl} target="_blank">
                       링크
