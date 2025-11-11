@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const MyOrdersPage = () => {
   const location = useLocation();
   const [myOrders, setMyOrders] = useState(location.state?.data);
+  const orderArray = myOrders.data.pageContent.content;
   const navigate = useNavigate();
 
   const goHome = () => {
@@ -23,46 +24,42 @@ const MyOrdersPage = () => {
           )}
         </p>
       </div>
-      {/* <div className="d-flex justify-content-between">
-        <div style={{ width: "100px", visibility: "hidden" }}>
-          <PaymentCountSelect />
-        </div>
-      </div> */}
       <div
         id="response"
         style={{ whiteSpace: "initial" }}
         className="d-flex justify-content-center align-items-center"
       >
-        {myOrders && <pre>{JSON.stringify(myOrders.data.pageContent.content[1], null, 4)}</pre>}
-        {/* <Table striped bordered hover>
+        <Table striped bordered hover>
           <thead>
             <tr>
-              <th>주문ID</th>
-              <th>결제일시</th>
-              <th>결제방법</th>
-              <th>결제금액</th>
+              <th>식별자</th>
               <th>주문명</th>
+              <th>수신인</th>
+              <th>결제액</th>
+              <th>결제일</th>
               <th>영수증</th>
             </tr>
           </thead>
           <tbody>
-            {myOrders &&
-              myOrders.map((payment, idx) => (
+            {orderArray &&
+              orderArray.map((order, idx) => (
                 <tr key={idx}>
-                  <td>{payment.orderId}</td>
-                  <td>{formatDate(payment.approvedAt)}</td>
-                  <td className="text-center">{payment.method}</td>
-                  <td>{Number(payment.totalAmount).toLocaleString()}원</td>
-                  <td>{payment.orderName}</td>
+                  <td>{order.orderId}</td>
+                  <td>
+                    <a href="#">{order.orderName}</a>
+                  </td>
+                  <td>{order.recipientName}</td>
+                  <td>{Number(order.paymentAmount).toLocaleString()}원</td>
+                  <td>{order.paymentTime}</td>
                   <td className="text-center">
-                    <a href={payment.receiptUrl} target="_blank">
+                    <a href={order.receiptUrl} target="_blank">
                       링크
                     </a>
                   </td>
                 </tr>
               ))}
           </tbody>
-        </Table> */}
+        </Table>
       </div>
       <div className="d-flex justify-content-center align-items-center">
         <Button
