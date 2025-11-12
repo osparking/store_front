@@ -11,11 +11,10 @@ const MyOrdersPage = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [orderPage, setOrderPage] = useState({});
   const [orderArray, setOrderArray] = useState([]);
+  const [pageSize, setPageSize] = useState(5); // itemsPerPage
   const [currentPage, setCurrentPage] = useState(1);
 
   const [searchResult, setSearchResult] = useState(location.state?.data.data);
-
-  const pageSize = 5; // itemsPerPage
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -23,6 +22,7 @@ const MyOrdersPage = () => {
       setTotalPages(searchResult.totalPages);
       setOrderPage(searchResult.pageContent);
       setOrderArray(searchResult.pageContent.content);
+      setPageSize(searchResult.pageSize);
       setCurrentPage(searchResult.currentPage);
     }
   }, [searchResult]);

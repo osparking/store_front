@@ -25,7 +25,7 @@ const AddressModal = ({
   const [addresses, setAddresses] = useState([]);
   const [addrPage, setAddrPage] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize] = useState(5); // itemsPerPage
+  const [pageSize, setPageSize] = useState(5); // itemsPerPage
   const [loading, setLoading] = useState(false);
 
   const [searchResult, setSearchResult] = useState({});
@@ -35,6 +35,7 @@ const AddressModal = ({
     if (searchResult && searchResult.pageContent) {
       setAddresses(searchResult.pageContent.content);
       setAddrPage(searchResult.pageContent);
+      setPageSize(searchResult.pageSize);
       setTotalPages(searchResult.totalPages);
     }
   }, [searchResult]);
