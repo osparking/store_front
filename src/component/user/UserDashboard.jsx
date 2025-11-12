@@ -7,6 +7,7 @@ import { getUserDtoById } from "./UserService";
 import { deleteUserPhoto } from "../modal/ImageService";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./UserDashboard.css";
+import MyOrdersPage from "../pay_toss/MyOrdersPage";
 
 const UserDashboard = () => {
   const location = useLocation();
@@ -72,7 +73,8 @@ const UserDashboard = () => {
         </Tab>
         <Tab eventKey="purchase_stat" title={<h5>구매 통계</h5>}>
         </Tab>
-        <Tab eventKey="purchase_list" title={<h5>구매 목록</h5>}>
+        <Tab eventKey="purchase_list" title={<h5>나의 주문</h5>}>
+          <MyOrdersPage />
         </Tab>
         <Tab eventKey="my_question" title={<h5>나의 질문</h5>}>
         </Tab>

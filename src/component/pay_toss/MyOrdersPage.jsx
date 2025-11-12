@@ -94,7 +94,7 @@ const MyOrdersPage = () => {
                   <td>{formatDate(order.paymentTime)}</td>
                   <td className="text-center">
                     <a href={order.receiptUrl} target="_blank">
-                      링크
+                      보기
                     </a>
                   </td>
                 </tr>
