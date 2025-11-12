@@ -218,7 +218,6 @@ const AddressModal = ({
             </div>
             {searchResult && addrPage && (
               <Paginator
-                addresses={addresses}
                 pageSize={addrPage.size}
                 totalItems={addrPage.totalElements}
                 totalPages={totalPages}

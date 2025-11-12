@@ -2,7 +2,6 @@
 import { Container, Pagination } from "react-bootstrap";
 
 const Paginator = ({
-  addresses,
   pageSize,
   totalItems,
   totalPages,
@@ -61,8 +60,6 @@ const Paginator = ({
 
   const indexOfLastItem = currPage * pageSize; // idxLastPlus1
   const indexOfFirstItem = indexOfLastItem - pageSize; // indexOfFirst
-  //   displayAddresses
-  const currentItems = addresses.slice(indexOfFirstItem, indexOfLastItem);
 
   // Change page
   const paginate = (pageNumber) => setCurrPage(pageNumber);
