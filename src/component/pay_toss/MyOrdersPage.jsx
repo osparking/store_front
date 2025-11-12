@@ -3,6 +3,7 @@ import { Button, Table } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { formatDate } from "../util/utilities";
 import "./MyOrdersPage.css";
+import Paginator from "../common/Paginator";
 import { getOrderPage } from "../buy/orderService";
 
 const MyOrdersPage = () => {
@@ -101,6 +102,15 @@ const MyOrdersPage = () => {
           </tbody>
         </Table>
       </div>
+      {searchResult && orderPage && (
+        <Paginator
+          pageSize={pageSize}
+          totalItems={orderPage.totalElements}
+          totalPages={totalPages}
+          currPage={currentPage}
+          setCurrPage={(pageNo) => setCurrentPage(pageNo)}
+        />
+      )}
       <div className="d-flex justify-content-center align-items-center">
         <Button
           variant="info"
