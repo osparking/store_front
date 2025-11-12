@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { formatDate } from "../util/utilities";
@@ -6,9 +6,29 @@ import "./MyOrdersPage.css";
 
 const MyOrdersPage = () => {
   const location = useLocation();
-  const [myOrders, setMyOrders] = useState(location.state?.data);
-  const orderArray = myOrders.data.pageContent.content;
   const navigate = useNavigate();
+
+  const [totalPages, setTotalPages] = useState(1);
+  const [orderPage, setOrderPage] = useState({});
+  const [orderArray, setOrderArray] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const [searchResult, setSearchResult] = useState(location.state?.data.data);
+
+  const pageSize = 5; // itemsPerPage
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (searchResult && searchResult.pageContent) {
+      setTotalPages(searchResult.totalPages);
+      setOrderPage(searchResult.pageContent);
+      setOrderArray(searchResult.pageContent.content);
+      setCurrentPage(searchResult.currentPage);
+    }
+  }, [searchResult]);
+
+  const idxLastPlus1 = currentPage * pageSize;
+  const indexOfFirst = idxLastPlus1 - pageSize;
 
   const goHome = () => {
     navigate("/");
@@ -20,14 +40,14 @@ const MyOrdersPage = () => {
         <h3>나의 주문 목록</h3>
       </div>
       <div className="d-flex justify-content-center align-items-center">
-        <p>
-          {myOrders && (
-            <span>주문건수: {myOrders.data.pageContent.content.length}</span>
-          )}
+        <p className="text-center text-muted mb-4">
+          주문 총 {searchResult.pageContent.totalElements} 건 중, {indexOfFirst + 1} ~
+          {" "}
+          {Math.min(idxLastPlus1, searchResult.pageContent.totalElements)}번째 주소
         </p>
       </div>
       <div
-        id="response"
+        id="orderTable"
         style={{ whiteSpace: "initial" }}
         className="d-flex justify-content-center align-items-center"
       >
