@@ -3,6 +3,7 @@ import { Button, Table } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { formatDate } from "../util/utilities";
 import "./MyOrdersPage.css";
+import { getOrderPage } from "../buy/orderService";
 
 const MyOrdersPage = () => {
   const location = useLocation();
@@ -30,6 +31,24 @@ const MyOrdersPage = () => {
   const idxLastPlus1 = currentPage * pageSize;
   const indexOfFirst = idxLastPlus1 - pageSize;
 
+  useEffect(() => {
+    const loadOrderPage = async (loginId) => {
+      setLoading(true);
+      const searchResult = await getOrderPage(loginId, currentPage, pageSize);
+      setLoading(false);
+      setSearchResult(searchResult);
+      if (searchResult && searchResult.addressPage) {
+        setTotalPages(searchResult.totalPages);
+        setOrderPage(searchResult.pageContent);
+        setOrderArray(searchResult.pageContent.content);
+        setPageSize(searchResult.pageSize);
+        setCurrentPage(searchResult.currentPage);
+      }
+    };
+    const loginId = localStorage.getItem("LOGIN_ID");
+    loadOrderPage(loginId);
+  }, [currentPage]);
+
   const goHome = () => {
     navigate("/");
   };
@@ -41,9 +60,8 @@ const MyOrdersPage = () => {
       </div>
       <div className="d-flex justify-content-center align-items-center">
         <p className="text-center text-muted mb-4">
-          주문 총 {searchResult.pageContent.totalElements} 건 중, {indexOfFirst + 1} ~
-          {" "}
-          {Math.min(idxLastPlus1, searchResult.pageContent.totalElements)}번째 주소
+          주문 총 {orderPage.totalElements} 건 중, {indexOfFirst + 1} ~{" "}
+          {Math.min(idxLastPlus1, orderPage.totalElements)}번째 주소
         </p>
       </div>
       <div
