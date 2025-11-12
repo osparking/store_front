@@ -13,6 +13,7 @@ import Paginator from "../common/Paginator";
 import ProcessSpinner from "../common/ProcessSpinner";
 import "./AddressModal.css";
 import { searchAddress } from "./orderService";
+import { useDebounce } from "../util/utilities";
 
 const AddressModal = ({
   show,
@@ -59,12 +60,10 @@ const AddressModal = ({
     }
   };
 
-  const throttledLoading = useRef(
-    throttle(loadAddressPage, 1000) // 1000ms = 1 second
-  );
+  const debouncedPageLoad = useDebounce(loadAddressPage, 1000);
 
   useEffect(() => {
-    loadAddressPage(addressKey);
+    debouncedPageLoad(addressKey);
   }, [currentPage]);
 
   const selectAddress = (addr) => {
@@ -101,7 +100,7 @@ const AddressModal = ({
         if ((event.altKey || event.metaKey) && event.key === "s") {
           event.preventDefault(); // Prevent browser save dialog
           setCurrentPage(1);
-          throttledLoading.current(addressKey);
+          debouncedPageLoad(addressKey);
         }
       };
       document.addEventListener("keydown", handleKeyPress);
@@ -139,12 +138,13 @@ const AddressModal = ({
 
   const handleAddressKey = () => {
     setCurrentPage(1);
-    throttledLoading.current(addressKey);
+    debouncedPageLoad(addressKey);
   };
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter" || event.key === "Process") {
       event.preventDefault();
+      debouncedPageLoad(addressKey)
     }
   };
 
@@ -157,9 +157,9 @@ const AddressModal = ({
 
   const handleInputChange = (e) => {
     const value = e.target.value;
-    setAddressKey(value.trim());
+    setAddressKey(value);
     if (value.trim().length > 4) {
-      throttledLoading.current(value.trim());
+      debouncedPageLoad(value.trim());
     }
   };
 
