@@ -135,7 +135,11 @@ function WidgetCheckoutPage() {
 
   const goRecipient = () => {
     navigate("/recepient", {
-      state: { formItems: formItems, source: source },
+      state: {
+        formItems: formItems,
+        source: source,
+        recipient: orderData.recipRegiReq,
+      },
     });
   };
 
