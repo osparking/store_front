@@ -110,6 +110,8 @@ function WidgetCheckoutPage() {
     }
 
     try {
+      const user = JSON.parse(localStorage.getItem("USER"));
+      
       // Reset React state before navigation
       setReady(false);
 
@@ -118,8 +120,8 @@ function WidgetCheckoutPage() {
         orderName: orderData?.orderName,
         successUrl: window.location.origin + "/success",
         failUrl: window.location.origin + "/fail",
-        customerEmail: "jbpark03@gmail.com",
-        customerName: "범이고객",
+        customerEmail: user.email,
+        customerName: user.fullName,
       });
     } catch (error) {
       // Restore ready state if payment fails
