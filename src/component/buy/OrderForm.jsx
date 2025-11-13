@@ -26,20 +26,6 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape, setCarouse
         count: "1",
       },
     ],
-    recipRegiReq: {
-      addressDetail: "1001동 1503호",
-      doroZbun: "지번",
-      addrBasisAddReq: {
-        zipcode: "12915",
-        roadAddress:
-          "경기도 하남시 미사강변서로 127 (망월동, 미사강변센텀팰리스(CentumPalace)) " +
-          "1801동~1817동",
-        zBunAddress:
-          "경기도 하남시 망월동 1050 (미사강변센텀팰리스(CentumPalace))",
-      },
-      mbPhone: "010-1111-2222",
-      fullName: "홍길동",
-    },
     orderStatus: "결재대기",
   });
 
