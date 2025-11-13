@@ -62,7 +62,7 @@ const MyOrdersPage = () => {
       <div className="d-flex justify-content-center align-items-center">
         <p className="text-center text-muted mb-4">
           주문 총 {orderPage.totalElements} 건 중, {indexOfFirst + 1} ~{" "}
-          {Math.min(idxLastPlus1, orderPage.totalElements)}번째 주소
+          {Math.min(idxLastPlus1, orderPage.totalElements)}번째 주문
         </p>
       </div>
       <div
