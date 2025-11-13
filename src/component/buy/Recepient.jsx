@@ -57,6 +57,7 @@ const Recepient = () => {
   };
 
   const [grandTotal] = useState(calcGrandTotal(productList));
+  const user = JSON.parse(localStorage.getItem("USER"));
 
   const [formData, setFormData] = useState({
     addressDetail: "1001동 1503호",
@@ -70,7 +71,7 @@ const Recepient = () => {
         "경기도 하남시 망월동 1050 (미사강변센텀팰리스(CentumPalace))",
     },
     mbPhone: "010-1234-5678",
-    fullName: "홍길동",
+    fullName: user.fullName,
   });
 
   const gotoCheckout = async (e) => {
