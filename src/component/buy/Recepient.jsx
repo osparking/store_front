@@ -93,9 +93,8 @@ const Recepient = () => {
 
     // 결제 창 표시 정보 수집
     //  - 상품 총액, 배송비
-    const zipcode = orderData.recipRegiReq.addrBasisAddReq.zipcode;
     const result = await getDeliveryFee({
-      zipcode: zipcode,
+      zipcode: formData.addrBasisAddReq.zipcode,
       grandTotal: grandTotal,
     });
     const deliveryFee = result.data;
