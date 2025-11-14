@@ -21,7 +21,7 @@ const OrderForm = ({
   setCarouselImages,
 }) => {
   const location = useLocation();
-  const { formItems } = location.state || false;
+  const { formItems, recipient } = location.state || false;
 
   const [formData, setFormData] = useState({
     userId: 3,
@@ -207,7 +207,7 @@ const OrderForm = ({
 
   function enterDeliveryInfo() {
     navigate("/recipient", {
-      state: { formItems: formData.items, source: "orderForm" },
+      state: { formItems: formData.items, source: "orderForm", recipient },
     });
   }
 
