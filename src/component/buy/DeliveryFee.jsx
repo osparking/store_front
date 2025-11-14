@@ -29,6 +29,6 @@ const DeliveryFee = ({ deliveryFee }) => {
       </Col>
     </Row>
   );
-};
+}; 
 
 export default DeliveryFee;

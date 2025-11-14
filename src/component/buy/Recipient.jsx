@@ -7,6 +7,7 @@ import CheckoutCart from "./CheckoutCart";
 import { getDeliveryFee } from "./orderService";
 import "./recipient.css";
 import RecipientInfo from "./RecipientInfo";
+import DeliveryFee from "./DeliveryFee";
 
 const Recipient = () => {
   const {
@@ -76,6 +77,22 @@ const Recipient = () => {
     }
   );
 
+  const [deliveryFee, setDeliveryFee] = useState(0);
+
+  useEffect(() => {
+    const callGetDeliveryFee = async () => {
+      const result = await getDeliveryFee({
+        zipcode: formData.addrBasisAddReq.zipcode,
+        grandTotal: grandTotal,
+      });
+      setDeliveryFee(result.data);
+      console.log("delivery fee: ", result.data);
+    };
+    if (formData.addrBasisAddReq.zipcode) {
+      callGetDeliveryFee();
+    }
+  }, [formData.addrBasisAddReq.zipcode]);
+
   const gotoCheckout = async (e) => {
     e.preventDefault();
     // 현재까지 수집된 주문 정보를 일단 저장
@@ -92,14 +109,6 @@ const Recipient = () => {
       orderStatus: "결제대기",
       orderName: items[0].shape + " " + items[0].count + "개 등",
     };
-
-    // 결제 창 표시 정보 수집
-    //  - 상품 총액, 배송비
-    const result = await getDeliveryFee({
-      zipcode: formData.addrBasisAddReq.zipcode,
-      grandTotal: grandTotal,
-    });
-    const deliveryFee = result.data;
 
     const feeData = {
       productTotal: grandTotal,
@@ -150,6 +159,11 @@ const Recipient = () => {
         <CheckoutCart
           productList={productList}
           grandTotal={grandTotal.toLocaleString()}
+        />
+      </div>
+      <div className="d-flex justify-content-center">
+        <DeliveryFee
+          deliveryFee={deliveryFee}
         />
       </div>
       <div className="d-flex justify-content-center ">
