@@ -14,18 +14,18 @@ import OAuth2RedirectHandler from "./component/auth/OAuth2RedirectHandler";
 import ProtectedRoute from "./component/auth/ProtectedRoute";
 import Unauthorized from "./component/auth/Unauthorized";
 import BuySoap from "./component/buy/BuySoap";
-import Recepient from "./component/buy/Recepient";
+import Recipient from "./component/buy/Recipient";
 import Home from "./component/home/Home";
 import RootLayout from "./component/layout/RootLayout";
 import { FailPage } from "./component/pay_toss/Fail";
+import MyOrdersPage from "./component/pay_toss/MyOrdersPage";
 import WidgetCheckoutPage from "./component/pay_toss/WidgetCheckoutPage";
+import { WidgetSuccessPage } from "./component/pay_toss/WidgetSuccess";
 import SoapIntro from "./component/soaps/SoapIntro";
 import RegisterUser from "./component/user/RegisterUser";
 import UserUpdate from "./component/user/UpdateUser";
 import UserDashboard from "./component/user/UserDashboard";
 import WorkerDashboard from "./component/worker/WorkerDashboard";
-import { WidgetSuccessPage } from "./component/pay_toss/WidgetSuccess";
-import MyOrdersPage from "./component/pay_toss/MyOrdersPage";
 
 function App() {
   useEffect(() => {
@@ -49,7 +49,6 @@ function App() {
     };
 
     updateTabCount(true);
-
   }, []);
 
   const router = createBrowserRouter(
@@ -75,7 +74,7 @@ function App() {
         >
           <Route path="/buy_soap" element={<BuySoap />} />
           <Route path="/shopping_cart" element={<BuySoap showCart={true} />} />
-          <Route path="/recepient" element={<Recepient />} />
+          <Route path="/recipient" element={<Recipient />} />
           <Route path="/checkout" element={<WidgetCheckoutPage />} />
           <Route path="/success" element={<WidgetSuccessPage />} />
           <Route path="/fail" element={<FailPage />} />

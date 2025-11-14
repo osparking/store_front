@@ -1,4 +1,4 @@
-@import url("recepient.css");
+@import url("recipient.css");
 
 .cartItem {
   margin: 5px 0px;
@@ -15,11 +15,11 @@
 }
 
 .rightColumnParagraph {
-    float: right;
-    margin-left: 20px; /* Optional: Add space between columns */
-    margin-bottom: 0;;
-    font-weight: 600;
-    text-align: right;
+  float: right;
+  margin-left: 20px; /* Optional: Add space between columns */
+  margin-bottom: 0;
+  font-weight: 600;
+  text-align: right;
 }
 
 .grandTotal {

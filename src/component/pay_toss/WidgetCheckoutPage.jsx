@@ -2,7 +2,7 @@ import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import OrderDigest from "../buy/OrderDigest";
-import { saveOrderRecepient } from "../buy/orderService";
+import { saveOrderRecipient } from "../buy/orderService";
 import { callWithToken } from "../util/api";
 import "./WidgetCheckoutPage.css";
 
@@ -25,7 +25,7 @@ function WidgetCheckoutPage() {
 
   useEffect(() => {
     async function saveOrderRecord() {
-      const response = await saveOrderRecepient(orderData);
+      const response = await saveOrderRecipient(orderData);
       setOrderId(response.data?.orderId);
     }
     saveOrderRecord();
@@ -111,7 +111,7 @@ function WidgetCheckoutPage() {
 
     try {
       const user = JSON.parse(localStorage.getItem("USER"));
-      
+
       // Reset React state before navigation
       setReady(false);
 
@@ -134,7 +134,7 @@ function WidgetCheckoutPage() {
   const navigate = useNavigate();
 
   const goRecipient = () => {
-    navigate("/recepient", {
+    navigate("/recipient", {
       state: {
         formItems: formItems,
         source: source,

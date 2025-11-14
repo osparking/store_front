@@ -65,7 +65,7 @@ export async function updateUserCart(data) {
   }
 }
 
-export async function saveOrderRecepient(data) {
+export async function saveOrderRecipient(data) {
   try {
     const result = await callWithToken("post", "/order/add", data);
     return result.data;

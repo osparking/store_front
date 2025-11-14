@@ -5,10 +5,10 @@ import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import CheckoutCart from "./CheckoutCart";
 import { getDeliveryFee } from "./orderService";
-import "./recepient.css";
-import RecepientInfo from "./RecepientInfo";
+import "./recipient.css";
+import RecipientInfo from "./RecipientInfo";
 
-const Recepient = () => {
+const Recipient = () => {
   const {
     successMsg,
     setSuccessMsg,
@@ -162,7 +162,7 @@ const Recepient = () => {
           <Row className="justify-content-center pb-5 rowStyle">
             <Col md={9}>
               <div className="table-container">
-                <RecepientInfo formData={formData} setFormData={setFormData} />
+                <RecipientInfo formData={formData} setFormData={setFormData} />
               </div>
             </Col>
           </Row>
@@ -205,4 +205,4 @@ const Recepient = () => {
   );
 };
 
-export default Recepient;
+export default Recipient;

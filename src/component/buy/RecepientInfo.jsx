@@ -3,7 +3,7 @@ import { Button, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
 import { handlePropChange } from "../util/utilities";
 import AddressModal from "./AddressModal";
 
-const RecepientInfo = ({ formData, setFormData }) => {
+const RecipientInfo = ({ formData, setFormData }) => {
   const [phoneNumber, setPhoneNumber] = useState(`${formData.mbPhone}`);
 
   const handleKeyDown = (e) => {
@@ -174,4 +174,4 @@ const RecepientInfo = ({ formData, setFormData }) => {
   );
 };
 
-export default RecepientInfo;
+export default RecipientInfo;

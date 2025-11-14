@@ -3,9 +3,9 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
+import { handlePropChange } from "../util/utilities";
 import CartItemRow from "./CartItemRow";
 import { readUserCart, updateUserCart } from "./orderService";
-import { handlePropChange } from "../util/utilities";
 
 const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
   const location = useLocation();
@@ -48,7 +48,7 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
   }, [formData]);
 
   function enterDeliveryInfo() {
-    navigate("/recepient", {
+    navigate("/recipient", {
       state: { formItems: formData.items, source: "shoppingCart" },
     });
   }

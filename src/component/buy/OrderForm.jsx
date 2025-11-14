@@ -14,7 +14,12 @@ import { labelsOver, setDifference } from "../util/utilities.js";
 import CartPutModal from "./CartPutModal.jsx";
 import OrderItemEntry from "./OrderItemEntry.jsx";
 
-const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape, setCarouselImages }) => {
+const OrderForm = ({
+  optionLabels,
+  defaultLabel,
+  changeCarouselShape,
+  setCarouselImages,
+}) => {
   const location = useLocation();
   const { formItems } = location.state || false;
 
@@ -201,7 +206,7 @@ const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape, setCarouse
   const [cartModalMessage, setCartModalMessage] = useState("");
 
   function enterDeliveryInfo() {
-    navigate("/recepient", {
+    navigate("/recipient", {
       state: { formItems: formData.items, source: "orderForm" },
     });
   }
