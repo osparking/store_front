@@ -13,6 +13,7 @@ import { callWithToken } from "../util/api.js";
 import { labelsOver, setDifference } from "../util/utilities.js";
 import CartPutModal from "./CartPutModal.jsx";
 import OrderItemEntry from "./OrderItemEntry.jsx";
+import { getDefaultRecipient } from "../user/UserService.js";
 
 const OrderForm = ({
   optionLabels,
@@ -21,7 +22,7 @@ const OrderForm = ({
   setCarouselImages,
 }) => {
   const location = useLocation();
-  const { formItems, recipient } = location.state || false;
+  const { formItems } = location.state || false;
 
   const [formData, setFormData] = useState({
     userId: 3,
@@ -204,10 +205,30 @@ const OrderForm = ({
 
   const [showResultModal, setShowResultModal] = useState(false);
   const [cartModalMessage, setCartModalMessage] = useState("");
+  const [recipientDto, setRecipientDto] = useState(null);
+
+  useEffect(() => {
+    const readDefaultRecipient = async () => {
+      try {
+        const user = JSON.parse(localStorage.getItem("USER"));        
+        const response = await getDefaultRecipient(user.id);
+        setRecipientDto(response.data);
+      } catch (error) {
+        console.error("Error fetching default recipient:", error);
+      }
+    };
+    if (recipientDto == null) {
+      readDefaultRecipient();
+    }
+  }, []);
 
   function enterDeliveryInfo() {
     navigate("/recipient", {
-      state: { formItems: formData.items, source: "orderForm", recipient },
+      state: {
+        formItems: formData.items,
+        source: "orderForm",
+        recipientDto: recipientDto,
+      },
     });
   }
 
