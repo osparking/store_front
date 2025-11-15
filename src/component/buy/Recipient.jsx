@@ -8,6 +8,7 @@ import { getDeliveryFee } from "./orderService";
 import "./recipient.css";
 import RecipientInfo from "./RecipientInfo";
 import DeliveryFee from "./DeliveryFee";
+import PaymentFee from "./PaymentFee";
 
 const Recipient = () => {
   const {
@@ -164,6 +165,11 @@ const Recipient = () => {
       <div className="d-flex justify-content-center">
         <DeliveryFee
           deliveryFee={deliveryFee}
+        />
+      </div>
+      <div className="d-flex justify-content-center">
+        <PaymentFee
+          paymentFee={grandTotal + deliveryFee }
         />
       </div>
       <div className="d-flex justify-content-center ">
