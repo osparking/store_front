@@ -4,11 +4,11 @@ import { Form, useLocation, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import CheckoutCart from "./CheckoutCart";
+import DeliveryFee from "./DeliveryFee";
 import { getDeliveryFee } from "./orderService";
+import PaymentFee from "./PaymentFee";
 import "./recipient.css";
 import RecipientInfo from "./RecipientInfo";
-import DeliveryFee from "./DeliveryFee";
-import PaymentFee from "./PaymentFee";
 
 const Recipient = () => {
   const {
@@ -23,7 +23,7 @@ const Recipient = () => {
   } = BsAlertHook();
 
   const location = useLocation();
-  const { formItems, source, recipient } = location.state || [];
+  const { formItems, source, recipientDto, recipient } = location.state || [];
   let productList = undefined;
 
   // source 에 따라 productList 를 다르게 만들어 배정
@@ -59,22 +59,17 @@ const Recipient = () => {
   };
 
   const [grandTotal] = useState(calcGrandTotal(productList));
-  const user = JSON.parse(localStorage.getItem("USER"));
-
   const [formData, setFormData] = useState(
     recipient || {
-      addressDetail: "1001동 1503호",
-      doroZbun: "지번",
+      addressDetail: recipientDto.addressDetail,
+      doroZbun: "도로",
       addrBasisAddReq: {
-        zipcode: "12915",
-        roadAddress:
-          "경기도 하남시 미사강변서로 127 (망월동, 미사강변센텀팰리스(CentumPalace)) " +
-          "1801동~1817동",
-        zbunAddress:
-          "경기도 하남시 망월동 1050 (미사강변센텀팰리스(CentumPalace))",
+        zipcode: recipientDto.zipcode,
+        roadAddress: recipientDto.roadAddress,
+        zbunAddress: "",
       },
-      mbPhone: "010-1234-5678",
-      fullName: user.fullName,
+      mbPhone: recipientDto.mbPhone,
+      fullName: recipientDto.fullName,
     }
   );
 
@@ -163,14 +158,10 @@ const Recipient = () => {
         />
       </div>
       <div className="d-flex justify-content-center">
-        <DeliveryFee
-          deliveryFee={deliveryFee}
-        />
+        <DeliveryFee deliveryFee={deliveryFee} />
       </div>
       <div className="d-flex justify-content-center">
-        <PaymentFee
-          paymentFee={grandTotal + deliveryFee }
-        />
+        <PaymentFee paymentFee={grandTotal + deliveryFee} />
       </div>
       <div className="d-flex justify-content-center ">
         <Row className="pt-4 pb-2 rowStyleDark">
