@@ -29,6 +29,15 @@ export async function registerUser(user) {
   }
 }
 
+export async function getDefaultRecipient(userId) {
+  try {
+    const result = await callWithToken("get", `/user/${userId}/get_recipient`);
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function getUserById(userId) {
   try {
     const result = await api.get(`/user/${userId}/get`);
