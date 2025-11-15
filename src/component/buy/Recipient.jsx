@@ -62,11 +62,11 @@ const Recipient = () => {
   const [formData, setFormData] = useState(
     recipient || {
       addressDetail: recipientDto.addressDetail,
-      doroZbun: "도로",
+      doroZbun: recipientDto.doroZbun,
       addrBasisAddReq: {
         zipcode: recipientDto.zipcode,
         roadAddress: recipientDto.roadAddress,
-        zbunAddress: "",
+        zbunAddress: zBunAddress,
       },
       mbPhone: recipientDto.mbPhone,
       fullName: recipientDto.fullName,
