@@ -66,7 +66,7 @@ const Recipient = () => {
       addrBasisAddReq: {
         zipcode: recipientDto.zipcode,
         roadAddress: recipientDto.roadAddress,
-        zbunAddress: zBunAddress,
+        zbunAddress: recipientDto.zBunAddress,
       },
       mbPhone: recipientDto.mbPhone,
       fullName: recipientDto.fullName,
