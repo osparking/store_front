@@ -218,7 +218,7 @@ const OrderForm = ({
         console.error("Error fetching default recipient:", error);
       }
     };
-    if (!recipient && recipientDto == null) {
+    if (!recipient && recipientDto === null) {
       readDefaultRecipient();
     }
   }, []);
