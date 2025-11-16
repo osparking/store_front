@@ -5,6 +5,7 @@ import OrderDigest from "../buy/OrderDigest";
 import { saveOrderRecipient } from "../buy/orderService";
 import { callWithToken } from "../util/api";
 import "./WidgetCheckoutPage.css";
+import { getSuffixAfterSpace } from "../util/utilities";
 
 // 전자결제 신청 및 가입 완료 후, clientKey 를 다음으로 수정할 것.
 // 개발자센터의 결제위젯 연동 키 > 클라이언트 키
@@ -131,14 +132,20 @@ function WidgetCheckoutPage() {
     }
   };
 
-  const navigate = useNavigate();
+  const recipient = orderData.recipRegiReq;
+  let address = recipient.addressDetail.trim();
 
+  if (address === "") {
+    address = getSuffixAfterSpace(recipient.addrBasisAddReq.roadAddress, 20);
+  }
+
+  const navigate = useNavigate();
   const goRecipient = () => {
     navigate("/recipient", {
       state: {
         formItems: formItems,
         source: source,
-        recipient: orderData.recipRegiReq,
+        recipient: recipient,
       },
     });
   };
@@ -149,7 +156,7 @@ function WidgetCheckoutPage() {
         <OrderDigest
           name={orderData.orderName}
           amount={feeData.amount}
-          address={orderData.recipRegiReq.addressDetail}
+          address={address}
           goRecipient={goRecipient}
         />
 
