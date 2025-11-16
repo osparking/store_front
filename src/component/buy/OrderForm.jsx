@@ -20,6 +20,7 @@ const OrderForm = ({
   defaultLabel,
   changeCarouselShape,
   setCarouselImages,
+  recipient,
 }) => {
   const location = useLocation();
   const { formItems } = location.state || false;
@@ -217,7 +218,7 @@ const OrderForm = ({
         console.error("Error fetching default recipient:", error);
       }
     };
-    if (recipientDto == null) {
+    if (!recipient && recipientDto == null) {
       readDefaultRecipient();
     }
   }, []);
@@ -228,6 +229,7 @@ const OrderForm = ({
         formItems: formData.items,
         source: "orderForm",
         recipientDto: recipientDto,
+        recipient: recipient,
       },
     });
   }
