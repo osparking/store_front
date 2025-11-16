@@ -61,15 +61,15 @@ const Recipient = () => {
   const [grandTotal] = useState(calcGrandTotal(productList));
   const [formData, setFormData] = useState(
     recipient || {
-      addressDetail: recipientDto.addressDetail,
-      doroZbun: recipientDto.doroZbun,
+      addressDetail: recipientDto?.addressDetail || "",
+      doroZbun: recipientDto?.doroZbun || "도로",
       addrBasisAddReq: {
-        zipcode: recipientDto.zipcode,
-        roadAddress: recipientDto.roadAddress,
-        zbunAddress: recipientDto.zBunAddress,
+        zipcode: recipientDto?.zipcode || "",
+        roadAddress: recipientDto?.roadAddress || "",
+        zbunAddress: recipientDto?.zBunAddress || "",
       },
-      mbPhone: recipientDto.mbPhone,
-      fullName: recipientDto.fullName,
+      mbPhone: recipientDto?.mbPhone || "",
+      fullName: recipientDto?.fullName || "",
     }
   );
 
