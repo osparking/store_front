@@ -1,5 +1,19 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
+
+/* 길이가 length 이내이며, 최대한 길고, 공백문자로 구분된 접미사를 찾아낸다.
+*/
+export function getSuffixAfterSpace(str, length) {  
+  if (!str || str.length <= length) {
+    return str;
+  }
+
+  const startSubString = str.substring(Math.max(0, str.length - length -1));
+  const suffixAfterSpace = startSubString.substring(startSubString.indexOf(" ") + 1);
+
+  return suffixAfterSpace;
+}
+
 export const useDebounce = (callback, delay) => {
   const timeoutRef = useRef(null);
 
