@@ -11,7 +11,7 @@ import ShoppingCart from "./ShoppingCart.jsx";
 
 const BuySoap = () => {
   const location = useLocation();
-  const { showCart } = location.state || false;
+  const { recipient, showCart } = location.state || false;
 
   const normalSoaps = soapImages.filter((soap) => soap.shape === "normal");
   const sWhiteSoaps = soapImages.filter((soap) => soap.shape === "s-white");
@@ -122,6 +122,7 @@ const BuySoap = () => {
                   defaultLabel={defaultLabel}
                   changeCarouselShape={changeCarouselShape}
                   setCarouselImages={setCarouselImages}
+                  recipient={recipient}
                 />
               </Card.Body>
             </Card>
