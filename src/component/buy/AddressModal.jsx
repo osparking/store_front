@@ -70,7 +70,7 @@ const AddressModal = ({
     const addrBasisAddReq = {
       zipcode: addr.zipcode,
       roadAddress: addr.roadAddress,
-      zBunAddress: addr.zbunAddress,
+      zbunAddress: addr.zbunAddress,
     };
     console.log("addrBasisAddReq: ", addrBasisAddReq);
     setFormData((prevState) => ({
