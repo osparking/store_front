@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { Button, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
+import { Button, Form, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
 import { handlePropChange } from "../util/utilities";
 import AddressModal from "./AddressModal";
 
 const RecipientInfo = ({ formData, setFormData }) => {
   const [phoneNumber, setPhoneNumber] = useState(`${formData.mbPhone}`);
-
   const handleKeyDown = (e) => {
     // 허용: backspace, delete, tab, escape, enter
     if (
@@ -75,14 +74,23 @@ const RecipientInfo = ({ formData, setFormData }) => {
           <tr>
             <th className="rText">성명</th>
             <td className="boxLeft">
-              <input
-                type="text"
-                name="fullName"
-                size="12"
-                value={formData.fullName}
-                onChange={(e) => handlePropChange(e, setFormData)}
-                required
-              />
+              <div className="d-flex align-items-center gap-5">
+                <input
+                  type="text"
+                  name="fullName"
+                  size="12"
+                  value={formData.fullName}
+                  onChange={(e) => handlePropChange(e, setFormData)}
+                  required
+                />
+                <Form.Check
+                  type="checkbox"
+                  name="isDefaultRecipient"
+                  label="기본 수신처"
+                  checked={formData.isDefaultRecipient}
+                  onChange={(e) => handlePropChange(e, setFormData)}
+                />
+              </div>
             </td>
           </tr>
           <tr>

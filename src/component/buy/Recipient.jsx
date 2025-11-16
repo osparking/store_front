@@ -70,9 +70,9 @@ const Recipient = () => {
       },
       mbPhone: recipientDto?.mbPhone || "",
       fullName: recipientDto?.fullName || "",
-    }
+      isDefaultRecipient : recipientDto !== null,
+    },
   );
-
   const [deliveryFee, setDeliveryFee] = useState(0);
 
   useEffect(() => {
@@ -175,7 +175,10 @@ const Recipient = () => {
           <Row className="justify-content-center pb-5 rowStyle">
             <Col md={9}>
               <div className="table-container">
-                <RecipientInfo formData={formData} setFormData={setFormData} />
+                <RecipientInfo
+                  formData={formData}
+                  setFormData={setFormData}
+                />
               </div>
             </Col>
           </Row>
