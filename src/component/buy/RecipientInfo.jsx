@@ -13,7 +13,7 @@ const RecipientInfo = ({
   const handleKeyDown = (e) => {
     // 허용: backspace, delete, tab, escape, enter
     if (
-      [46, 8, 9, 27, 13].includes(e.keyCode) ||
+      [46, 8, 9, 27, 13, 35, 36, 37, 39].includes(e.keyCode) ||
       // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
       (e.keyCode === 65 && e.ctrlKey === true) ||
       (e.keyCode === 67 && e.ctrlKey === true) ||
