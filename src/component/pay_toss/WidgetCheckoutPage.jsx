@@ -23,10 +23,9 @@ function WidgetCheckoutPage() {
     feeData,
     formItems,
     source,
+    toDefaultRecipient,
     isDefaultRecipient,
   } = location.state;
-
-  // console.log("orderData: ", JSON.stringify(orderData));
 
   const [widgets, setWidgets] = useState(null);
   const [ready, setReady] = useState(false);
@@ -35,6 +34,16 @@ function WidgetCheckoutPage() {
   useEffect(() => {
     async function saveOrderRecord() {
       const response = await saveOrderRecipient(orderData);
+
+      // 유저의 기본 수신처 갱신 
+      if (toDefaultRecipient) {
+        if (!isDefaultRecipient) {
+          console.log("action: remove");
+        }
+      } else if (isDefaultRecipient) {
+          console.log("action: store");
+      }
+
       setOrderId(response.data?.orderId);
     }
     saveOrderRecord();
