@@ -3,7 +3,12 @@ import { Button, Form, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
 import { handlePropChange } from "../util/utilities";
 import AddressModal from "./AddressModal";
 
-const RecipientInfo = ({ formData, setFormData }) => {
+const RecipientInfo = ({
+  formData,
+  setFormData,
+  isDefaultRecipient,
+  setIsDefaultRecipient,
+}) => {
   const [phoneNumber, setPhoneNumber] = useState(`${formData.mbPhone}`);
   const handleKeyDown = (e) => {
     // 허용: backspace, delete, tab, escape, enter
@@ -87,8 +92,8 @@ const RecipientInfo = ({ formData, setFormData }) => {
                   type="checkbox"
                   name="isDefaultRecipient"
                   label="기본 수신처"
-                  checked={formData.isDefaultRecipient}
-                  onChange={(e) => handlePropChange(e, setFormData)}
+                  checked={isDefaultRecipient}
+                  onChange={(e) => setIsDefaultRecipient(e.target.checked)}
                 />
               </div>
             </td>
