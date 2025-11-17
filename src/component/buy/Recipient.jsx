@@ -108,6 +108,13 @@ const Recipient = () => {
     recipient || recipientDefault || recipientEmpty
   );
 
+  useEffect(() => {
+    if (!recipient && recipientDefault) {
+      setFormData(recipientDefault);
+      setIsDefaultRecipient(true);
+    }
+  }, [recipientDefault]);
+
   const [isDefaultRecipient, setIsDefaultRecipient] = useState(
     recipientDto !== null
   );

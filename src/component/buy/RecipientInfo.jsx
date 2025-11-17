@@ -9,7 +9,7 @@ const RecipientInfo = ({
   isDefaultRecipient,
   setIsDefaultRecipient,
 }) => {
-  const [phoneNumber, setPhoneNumber] = useState(`${formData.mbPhone}`);
+  const [phoneNumber, setPhoneNumber] = useState(formData.mbPhone);
   const handleKeyDown = (e) => {
     // 허용: backspace, delete, tab, escape, enter
     if (
