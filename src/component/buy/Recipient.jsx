@@ -85,6 +85,12 @@ const Recipient = () => {
     fullName: "",
   };
 
+  const [formData, setFormData] = useState(
+    recipient || recipientDefault || recipientEmpty
+  );
+
+  const [isDefaultRecipient, setIsDefaultRecipient] = useState(
+    recipientDto !== null
   );
   const [deliveryFee, setDeliveryFee] = useState(0);
 
@@ -191,6 +197,8 @@ const Recipient = () => {
                 <RecipientInfo
                   formData={formData}
                   setFormData={setFormData}
+                  isDefaultRecipient={isDefaultRecipient}
+                  setIsDefaultRecipient={setIsDefaultRecipient}
                 />
               </div>
             </Col>
