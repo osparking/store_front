@@ -123,14 +123,6 @@ const Recipient = () => {
   );
   const [deliveryFee, setDeliveryFee] = useState(0);
 
-  const addressSame = _.isEqual(recipientDefault, formData);
-  
-  if (addressSame && !isDefaultRecipient) {
-    console.log("remove default recipient");
-  }
-  if (!addressSame && isDefaultRecipient) {
-    console.log("store default recipient");
-  }
   useEffect(() => {
     const callGetDeliveryFee = async () => {
       const result = await getDeliveryFee({
@@ -174,6 +166,7 @@ const Recipient = () => {
         feeData: feeData,
         formItems: formItems,
         source: source,
+        toDefaultRecipient: _.isEqual(recipientDefault, formData),
         isDefaultRecipient: isDefaultRecipient,
       },
     });
