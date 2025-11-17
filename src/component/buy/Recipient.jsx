@@ -59,19 +59,32 @@ const Recipient = () => {
   };
 
   const [grandTotal] = useState(calcGrandTotal(productList));
-  const [formData, setFormData] = useState(
-    recipient || {
-      addressDetail: recipientDto?.addressDetail || "",
-      doroZbun: recipientDto?.doroZbun || "도로",
+  const recipientDefault =
+    (recipientDto && {
+      addressDetail: recipientDto.addressDetail,
+      doroZbun: recipientDto.doroZbun,
       addrBasisAddReq: {
-        zipcode: recipientDto?.zipcode || "",
-        roadAddress: recipientDto?.roadAddress || "",
-        zbunAddress: recipientDto?.zBunAddress || "",
+        zipcode: recipientDto.zipcode,
+        roadAddress: recipientDto.roadAddress,
+        zbunAddress: recipientDto.zbunAddress,
       },
-      mbPhone: recipientDto?.mbPhone || "",
-      fullName: recipientDto?.fullName || "",
-      isDefaultRecipient : recipientDto !== null,
+      mbPhone: recipientDto.mbPhone,
+      fullName: recipientDto.fullName,
+    }) ||
+    null;
+
+  const recipientEmpty = {
+    addressDetail: "",
+    doroZbun: "도로",
+    addrBasisAddReq: {
+      zipcode: "",
+      roadAddress: "",
+      zbunAddress: "",
     },
+    mbPhone: "",
+    fullName: "",
+  };
+
   );
   const [deliveryFee, setDeliveryFee] = useState(0);
 
