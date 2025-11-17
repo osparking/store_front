@@ -33,16 +33,18 @@ function WidgetCheckoutPage() {
 
   useEffect(() => {
     async function saveOrderRecord() {
-      const response = await saveOrderRecipient(orderData);
-
+      let action = "";
       // 유저의 기본 수신처 갱신 
       if (toDefaultRecipient) {
         if (!isDefaultRecipient) {
-          console.log("action: remove");
+          action = "remove";
         }
       } else if (isDefaultRecipient) {
-          console.log("action: store");
+          action = "store";
       }
+
+      const orderAction = { ...orderData, defaultRecipientAction: action };
+      const response = await saveOrderRecipient(orderAction);
 
       setOrderId(response.data?.orderId);
     }
