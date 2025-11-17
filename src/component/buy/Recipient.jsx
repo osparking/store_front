@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { Form, useLocation, useNavigate } from "react-router-dom";
@@ -94,6 +95,14 @@ const Recipient = () => {
   );
   const [deliveryFee, setDeliveryFee] = useState(0);
 
+  const addressSame = _.isEqual(recipientDefault, formData);
+  
+  if (addressSame && !isDefaultRecipient) {
+    console.log("remove default recipient");
+  }
+  if (!addressSame && isDefaultRecipient) {
+    console.log("store default recipient");
+  }
   useEffect(() => {
     const callGetDeliveryFee = async () => {
       const result = await getDeliveryFee({
