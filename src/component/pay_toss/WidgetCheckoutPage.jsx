@@ -4,8 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import OrderDigest from "../buy/OrderDigest";
 import { saveOrderRecipient } from "../buy/orderService";
 import { callWithToken } from "../util/api";
-import "./WidgetCheckoutPage.css";
 import { getSuffixAfterSpace } from "../util/utilities";
+import "./WidgetCheckoutPage.css";
 
 // 전자결제 신청 및 가입 완료 후, clientKey 를 다음으로 수정할 것.
 // 개발자센터의 결제위젯 연동 키 > 클라이언트 키
@@ -18,7 +18,15 @@ function generateRandomString() {
 
 function WidgetCheckoutPage() {
   const location = useLocation();
-  const { orderData, feeData, formItems, source } = location.state;
+  const {
+    orderData,
+    feeData,
+    formItems,
+    source,
+    isDefaultRecipient,
+  } = location.state;
+
+  // console.log("orderData: ", JSON.stringify(orderData));
 
   const [widgets, setWidgets] = useState(null);
   const [ready, setReady] = useState(false);
@@ -74,12 +82,9 @@ function WidgetCheckoutPage() {
         }),
       ]);
       setReady(true);
-      console.log("setReady called");
     }
     if (widgets !== null) {
       fetchPaymentWidgets();
-    } else {
-      console.log("위젯은 널");
     }
   }, [widgets]);
 
@@ -127,7 +132,6 @@ function WidgetCheckoutPage() {
     } catch (error) {
       // Restore ready state if payment fails
       setReady(true);
-      console.log("setReady called true");
       console.error("결제 요청 오류: ", error);
     }
   };
@@ -146,6 +150,7 @@ function WidgetCheckoutPage() {
         formItems: formItems,
         source: source,
         recipient: recipient,
+        wasDefaultRecipient: isDefaultRecipient,
       },
     });
   };
