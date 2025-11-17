@@ -104,7 +104,7 @@ const RecipientInfo = ({
               <OverlayTrigger overlay={<Tooltip>숫자만 :-)</Tooltip>}>
                 <input
                   type="tel"
-                  value={phoneNumber}
+                  value={formData.mbPhone}
                   onChange={handlePhoneChange}
                   onKeyDown={handleKeyDown}
                   placeholder="000-0000-0000"
