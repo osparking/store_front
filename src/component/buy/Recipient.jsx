@@ -4,6 +4,7 @@ import { Button, Col, Row } from "react-bootstrap";
 import { Form, useLocation, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
+import { getDefaultRecipient } from "../user/UserService.js";
 import CheckoutCart from "./CheckoutCart";
 import DeliveryFee from "./DeliveryFee";
 import { getDeliveryFee } from "./orderService";
@@ -24,8 +25,38 @@ const Recipient = () => {
   } = BsAlertHook();
 
   const location = useLocation();
-  const { formItems, source, recipientDto, recipient } = location.state || [];
+  const { formItems, source, recipient } = location.state || [];
   let productList = undefined;
+
+  const [recipientDefault, setRecipientDefault] = useState(null);
+
+  useEffect(() => {
+    const readDefaultRecipient = async () => {
+      try {
+        const user = JSON.parse(localStorage.getItem("USER"));
+        const response = await getDefaultRecipient(user.id);
+        const recipientDto = response.data;
+        console.log("response.data:", JSON.stringify(recipientDto));
+
+        if (recipientDto) {
+          setRecipientDefault({
+            addressDetail: recipientDto.addressDetail,
+            doroZbun: recipientDto.doroZbun,
+            addrBasisAddReq: {
+              zipcode: recipientDto.zipcode,
+              roadAddress: recipientDto.roadAddress,
+              zbunAddress: recipientDto.zbunAddress,
+            },
+            mbPhone: recipientDto.mbPhone,
+            fullName: recipientDto.fullName,
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching default recipient:", error);
+      }
+    };
+    readDefaultRecipient();
+  }, []);
 
   // source 에 따라 productList 를 다르게 만들어 배정
   if (source === "shoppingCart") {
@@ -60,19 +91,6 @@ const Recipient = () => {
   };
 
   const [grandTotal] = useState(calcGrandTotal(productList));
-  const recipientDefault =
-    (recipientDto && {
-      addressDetail: recipientDto.addressDetail,
-      doroZbun: recipientDto.doroZbun,
-      addrBasisAddReq: {
-        zipcode: recipientDto.zipcode,
-        roadAddress: recipientDto.roadAddress,
-        zbunAddress: recipientDto.zbunAddress,
-      },
-      mbPhone: recipientDto.mbPhone,
-      fullName: recipientDto.fullName,
-    }) ||
-    null;
 
   const recipientEmpty = {
     addressDetail: "",
