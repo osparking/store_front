@@ -25,7 +25,8 @@ const Recipient = () => {
   } = BsAlertHook();
 
   const location = useLocation();
-  const { formItems, source, recipient } = location.state || [];
+  const { formItems, source, recipient, wasDefaultRecipient } =
+    location.state || [];
   let productList = undefined;
 
   const [recipientDefault, setRecipientDefault] = useState(null);
@@ -116,7 +117,9 @@ const Recipient = () => {
   }, [recipientDefault]);
 
   const [isDefaultRecipient, setIsDefaultRecipient] = useState(
-    recipientDto !== null
+    wasDefaultRecipient === undefined
+      ? recipientDefault !== null
+      : wasDefaultRecipient
   );
   const [deliveryFee, setDeliveryFee] = useState(0);
 
@@ -171,6 +174,7 @@ const Recipient = () => {
         feeData: feeData,
         formItems: formItems,
         source: source,
+        isDefaultRecipient: isDefaultRecipient,
       },
     });
   };
