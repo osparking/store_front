@@ -72,6 +72,10 @@ const RecipientInfo = ({
     setShowAddressModal(true);
   };
 
+  const showMyRecipients = () => {
+    console.log("과거 수신처 목록 표시 모달 게시");
+  };
+
   return (
     <div>
       <Table className="noBorder">
@@ -83,7 +87,7 @@ const RecipientInfo = ({
                 <input
                   type="text"
                   name="fullName"
-                  size="12"
+                  size="20"
                   value={formData.fullName}
                   onChange={(e) => handlePropChange(e, setFormData)}
                   required
@@ -91,7 +95,7 @@ const RecipientInfo = ({
                 <Form.Check
                   type="checkbox"
                   name="isDefaultRecipient"
-                  label="기본 수신처"
+                  label="기본"
                   checked={isDefaultRecipient}
                   onChange={(e) => setIsDefaultRecipient(e.target.checked)}
                 />
@@ -101,17 +105,26 @@ const RecipientInfo = ({
           <tr>
             <th className="rText">휴대폰</th>
             <td className="boxLeft">
-              <OverlayTrigger overlay={<Tooltip>숫자만 :-)</Tooltip>}>
-                <input
-                  type="tel"
-                  value={formData.mbPhone}
-                  onChange={handlePhoneChange}
-                  onKeyDown={handleKeyDown}
-                  placeholder="000-0000-0000"
-                  maxLength="13"
-                  required
-                />
-              </OverlayTrigger>
+              <div className="d-flex align-items-center gap-5">
+                <OverlayTrigger overlay={<Tooltip>숫자만 :-)</Tooltip>}>
+                  <input
+                    type="tel"
+                    value={formData.mbPhone}
+                    onChange={handlePhoneChange}
+                    onKeyDown={handleKeyDown}
+                    placeholder="000-0000-0000"
+                    maxLength="13"
+                    required
+                  />
+                </OverlayTrigger>
+                <Button
+                  variant="warning"
+                  className="pt-0 pb-1 order-button-width fw-light"
+                  onClick={showMyRecipients}
+                >
+                  <span className="boldText">과거 수신처</span>
+                </Button>
+              </div>
             </td>
           </tr>
           <tr>
