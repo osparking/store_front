@@ -1,5 +1,4 @@
-import { throttle } from "lodash";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   Form,
@@ -11,9 +10,9 @@ import {
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import Paginator from "../common/Paginator";
 import ProcessSpinner from "../common/ProcessSpinner";
+import { useDebounce } from "../util/utilities";
 import "./AddressModal.css";
 import { searchAddress } from "./orderService";
-import { useDebounce } from "../util/utilities";
 
 const AddressModal = ({
   show,
@@ -144,7 +143,7 @@ const AddressModal = ({
   const handleKeyDown = (event) => {
     if (event.key === "Enter" || event.key === "Process") {
       event.preventDefault();
-      debouncedPageLoad(addressKey)
+      debouncedPageLoad(addressKey);
     }
   };
 
