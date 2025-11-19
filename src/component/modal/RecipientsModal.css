@@ -1,0 +1,59 @@
+span.shourcut {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.thickFont {
+  font-weight: 600;
+}
+
+.custom-modal {
+  /* Important for overriding default max-width */
+  width: 900px;
+  max-width: 900px;
+}
+
+p {  
+  text-align: start;
+}
+
+p.above {
+  font-weight: 700;
+  font-size: small;
+  margin-bottom: 0;
+}
+
+.w400 {
+  max-width: 400px;
+}
+
+p.below {
+  margin-top: -10px;
+  margin-bottom: 0;
+  font-size: smaller;
+}
+
+th {
+  font-weight: 400;
+}
+
+.smaller {
+  font-size: 0.9em;
+  font-weight: 400;
+}
+
+.thicker {
+  font-weight: bold;
+}
+
+tbody p {
+  white-space: nowrap;
+}
+
+.small {
+  font-size: small;
+}
+
+td {
+  margin-bottom: 0;
+}
