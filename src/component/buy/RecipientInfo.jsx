@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button, Form, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
 import { handlePropChange } from "../util/utilities";
 import AddressModal from "./AddressModal";
+import RecipientsModal from "../modal/RecipientsModal";
 
 const RecipientInfo = ({
   formData,
@@ -51,6 +52,7 @@ const RecipientInfo = ({
   }, [phoneNumber]);
 
   const [showAddressModal, setShowAddressModal] = useState(false);
+  const [showRecipientsModal, setShowRecipientsModal] = useState(false);
   const [focusDetailedAddr, setFocusDetailedAddr] = useState(false);
   const addressDetailInputRef = useRef(null);
 
@@ -73,7 +75,7 @@ const RecipientInfo = ({
   };
 
   const showMyRecipients = () => {
-    console.log("과거 수신처 목록 표시 모달 게시");
+    setShowRecipientsModal(true);
   };
 
   return (
@@ -193,6 +195,15 @@ const RecipientInfo = ({
         closer={() => {
           setShowAddressModal(false);
           // cartAddResultMap.clear();
+        }}
+        putFocus2detailedAddr={putFocus2detailedAddr}
+      />
+      <RecipientsModal 
+        show={showRecipientsModal}
+        formData={formData}
+        setFormData={setFormData}
+        closer={() => {
+          setShowRecipientsModal(false);
         }}
         putFocus2detailedAddr={putFocus2detailedAddr}
       />
