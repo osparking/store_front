@@ -59,10 +59,10 @@ const AddressModal = ({
     }
   };
 
-  const debouncedPageLoad = useDebounce(loadAddressPage, 1000);
+  const debouncedPageLoad = useDebounce(loadAddressPage, 200);
 
   useEffect(() => {
-    debouncedPageLoad(addressKey);
+    loadAddressPage(addressKey);
   }, [currentPage]);
 
   const selectAddress = (addr) => {
