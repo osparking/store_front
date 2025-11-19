@@ -38,6 +38,16 @@ export async function getDefaultRecipient(userId) {
   }
 }
 
+export async function getMyRecipients(userId, page, size) {
+  try {
+    const result = await callWithToken("get", 
+      `/user/get_recipients?id=${userId}&page=${page}&size=${size}`);
+    return result.data.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function getUserById(userId) {
   try {
     const result = await api.get(`/user/${userId}/get`);
