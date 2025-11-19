@@ -28,7 +28,7 @@ p.above {
 }
 
 p.below {
-  margin-top: -10px;
+  margin-top: 5px;
   margin-bottom: 0;
   font-size: smaller;
 }
