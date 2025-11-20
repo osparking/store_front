@@ -22,7 +22,7 @@ const OrderForm = ({
   recipient,
 }) => {
   const location = useLocation();
-  const { formItems } = location.state || false;
+  const { formItems, isDefaultRecipient } = location.state || false;
 
   const [formData, setFormData] = useState({
     userId: 3,
@@ -212,6 +212,7 @@ const OrderForm = ({
         formItems: formData.items,
         source: "orderForm",
         recipient: recipient,
+        wasDefaultRecipient: isDefaultRecipient,
       },
     });
   }
