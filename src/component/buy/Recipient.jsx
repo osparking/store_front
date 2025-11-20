@@ -183,11 +183,20 @@ const Recipient = () => {
   const goBack = () => {
     if (source === "shoppingCart") {
       navigate("/shopping_cart", {
-        state: { formItems: formItems, recipient: formData, showCart: true },
+        state: {
+          formItems: formItems,
+          recipient: formData,
+          isDefaultRecipient: isDefaultRecipient,
+          showCart: true,
+        },
       });
     } else {
       navigate("/buy_soap", {
-        state: { formItems: formItems, recipient: formData },
+        state: {
+          formItems: formItems,
+          recipient: formData,
+          isDefaultRecipient: isDefaultRecipient,
+        },
       });
     }
   };
