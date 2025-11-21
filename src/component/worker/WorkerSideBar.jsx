@@ -1,6 +1,7 @@
 import { BsX } from "react-icons/bs";
 import { GiOlive } from "react-icons/gi";
 import { LuComponent } from "react-icons/lu";
+import { HiOutlinePencilSquare } from "react-icons/hi2";
 
 const WorkerSideBar = ({ openSidebar, toggleSidebar, tabClicked }) => {
   return (
@@ -17,11 +18,20 @@ const WorkerSideBar = ({ openSidebar, toggleSidebar, tabClicked }) => {
       <ul className="sidebar-list">
         <li
           className="sidebar-list-item"
-          // onClick={() => tabClicked("Overview")}
+          onClick={() => tabClicked("manageOrder")}
+        >
+          <a href="#">
+            <HiOutlinePencilSquare className="icon" />
+            주문 관리
+          </a>
+        </li>
+        <li
+          className="sidebar-list-item"
+          onClick={() => tabClicked("manageIngredient")}
         >
           <a href="#">
             <LuComponent className="icon" />
-            입고 재료
+            재료 관리
           </a>
         </li>
       </ul>
