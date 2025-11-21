@@ -13,11 +13,11 @@ import AlertMessage from "../common/AlertMessage";
 import ItemFilter from "../common/ItemFilter";
 import Paginator from "../common/Paginator";
 import BsAlertHook from "../hook/BsAlertHook";
+import DeleteConfirmModal from "../modal/DeleteConfirmModal";
 import IngreDataModal from "./IngreDataModal";
 import { deleteStoredIngre, getIngredientList } from "./WorkerService";
-import DeleteConfirmModal from "../modal/DeleteConfirmModal";
 
-const StoredIngre = () => {
+const ManageIngredient = () => {
   const [ingreList, setIngreList] = useState([]);
   const [workerToDel, setWorkerToDel] = useState(null);
 
@@ -306,7 +306,7 @@ const StoredIngre = () => {
         ingredient={ingredient}
         setIngredient={setIngredient}
       />
-      <Paginator 
+      <Paginator
         pageSize={ingresPerPage}
         totalItems={filtered.length}
         currPage={currIngrePage}
@@ -316,4 +316,4 @@ const StoredIngre = () => {
   );
 };
 
-export default StoredIngre;
+export default ManageIngredient;
