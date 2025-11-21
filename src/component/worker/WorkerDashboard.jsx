@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { LuPanelLeftOpen } from "react-icons/lu";
+import ManageOrder from "./ManageOrder";
+import ManageIngredient from "./ManageIngredient";
 import WorkerSideBar from "./WorkerSideBar";
-import StoredIngre from "./StoredIngre";
 
 const WorkerDashboard = () => {
+  const [workerTab, setWorkerTab] = useState("manageOrder");
+  const tabClicked = (tab) => {
+    setWorkerTab(tab);
+    localStorage.setItem("WORKER_TAB", tab);
+  };
   const [openSidebar, setOpenSidebar] = useState(true);
   const toggleSidebar = () => {
     setOpenSidebar(!openSidebar);
@@ -11,11 +17,12 @@ const WorkerDashboard = () => {
 
   return (
     <main className="admin-body">
-      <div className="grid-container">
+      <div className="grid-container grid-columns">
         {openSidebar ? (
           <WorkerSideBar
             openSidebar={openSidebar}
             toggleSidebar={toggleSidebar}
+            tabClicked={tabClicked}
           />
         ) : (
           <span className="icon-header" onClick={toggleSidebar}>
@@ -24,7 +31,8 @@ const WorkerDashboard = () => {
         )}
 
         <div className="main-container">
-          <StoredIngre />
+          {workerTab === "manageOrder" && <ManageOrder />}
+          {workerTab === "manageIngredient" && <ManageIngredient />}
         </div>
       </div>
     </main>
