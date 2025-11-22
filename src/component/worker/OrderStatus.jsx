@@ -11,6 +11,24 @@ const OrderStatus = ({ statusLabels, value, onChange }) => {
     setStatusValue(event.target.value);
   };
 
+  const isDisabled = (value, label) => {
+    let result = true;
+    
+    switch(value) {
+      case "결제완료":
+        result = label === "발주확인" ? false : true;
+        break;
+
+      case "발주확인":
+        result = label === "GS25 접수" ? false : true;
+        break;
+
+      default:
+        break;
+    }
+    return result;
+  }
+
   return (
     <React.Fragment>
       <Form.Group>
@@ -22,7 +40,11 @@ const OrderStatus = ({ statusLabels, value, onChange }) => {
           className="form-select"
         >
           {statusLabels.map((statusLabel, index) => (
-            <option value={statusLabel} key={index}>
+            <option
+              value={statusLabel}
+              key={index}
+              disabled={isDisabled(statusValue, statusLabel)}
+            >
               {statusLabel}
             </option>
           ))}
