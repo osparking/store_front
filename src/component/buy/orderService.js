@@ -42,6 +42,20 @@ export async function searchAddress(addressKey, page, size) {
   }
 }
 
+export async function fetchOrderPage(page, size) {
+  const urlPrefix = "/order/order_page?page=";
+
+  try {
+    const result = await callWithToken(
+      "get",
+      `${urlPrefix}${page}&size=${size}`
+    );
+    return result.data.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function getOrderPage(userId, page, size) {
   const urlPrefix = "/order/myrows?userId=";
 
