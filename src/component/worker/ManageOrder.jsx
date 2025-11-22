@@ -59,6 +59,19 @@ const ManageOrder = () => {
               </tr>
             </thead>
             <tbody>
+              {soapOrders &&
+                soapOrders.map((order, index) => (
+                  <tr key={index}>
+                    <td>{formatDate(order.orderTime)}</td>
+                    <td>{order.orderStatus}</td>
+                    <td>{order.orderName}</td>
+                    <td>{order.customer}</td>
+                    <td>{order.recipient}</td>
+                    <td>{Number(order.payment).toLocaleString()}원</td>
+                    <td>{order.orderId}</td>
+                    <td>{order.user_id}</td>
+                  </tr>
+                ))}
             </tbody>
           </Table>
         </div>
