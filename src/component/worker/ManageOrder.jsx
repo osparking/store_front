@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import { Table } from "react-bootstrap";
 import "../../App.css";
 import { fetchOrderPage } from "../buy/orderService";
-import { Table } from "react-bootstrap";
 import Paginator from "../common/Paginator";
 import { formatDate } from "../util/utilities";
 const ManageOrder = () => {
@@ -39,7 +39,7 @@ const ManageOrder = () => {
     <main>
       <h5 className="chart-title">주문 관리</h5>
       <div className="mt-5">
-        <p className="text-center text-muted mb-4">
+        <p className="text-center mb-4">
           주문 총 {orderPage.totalElements} 건 중, {indexOfFirst + 1} ~{" "}
           {Math.min(idxLastPlus1, orderPage.totalElements)}번째 주문
         </p>
@@ -82,6 +82,7 @@ const ManageOrder = () => {
             totalPages={totalPages}
             currPage={fetchResult.currentPage}
             setCurrPage={(pageNo) => setCurrentPage(pageNo)}
+            darkBackground="true"
           />
         )}
       </div>

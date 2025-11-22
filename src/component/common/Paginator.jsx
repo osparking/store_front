@@ -7,6 +7,7 @@ const Paginator = ({
   totalPages,
   currPage,
   setCurrPage,
+  darkBackground,
 }) => {
   let active = currPage;
   let items = [];
@@ -100,7 +101,7 @@ const Paginator = ({
       </div>
 
       <div className="text-center">
-        <span className="text-muted">
+        <span className={darkBackground === undefined ? 'text-muted' : ""}>
           총 {totalPages} 페이지 중 {currPage} 번째 페이지 
         </span>
       </div>
