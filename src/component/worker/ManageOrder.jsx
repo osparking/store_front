@@ -4,6 +4,8 @@ import "../../App.css";
 import { fetchOrderPage, getOrderStatusList } from "../buy/orderService";
 import Paginator from "../common/Paginator";
 import { formatDate } from "../util/utilities";
+import OrderStatus from "./OrderStatus";
+
 const ManageOrder = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [orderPage, setOrderPage] = useState({});
@@ -33,13 +35,18 @@ const ManageOrder = () => {
         setPageSize(response.pageSize);
         setCurrentPage(response.currentPage);
       }
-      
+
       const statuses = await getOrderStatusList();
       setStatusLabels(statuses.data);
       console.log("status labels: ", JSON.stringify(statuses.data));
     };
     loadOrderPage();
   }, []); // currentPage
+
+  const changeOrderStatus = (index, e) => {
+    const { name, value } = e.target;
+    soapOrders[index][name] = value;
+  };
 
   return (
     <main>
@@ -69,7 +76,13 @@ const ManageOrder = () => {
                 soapOrders.map((order, index) => (
                   <tr key={index}>
                     <td>{formatDate(order.orderTime)}</td>
-                    <td>{order.orderStatus}</td>
+                    <td>
+                      <OrderStatus
+                        statusLabels={statusLabels}
+                        value={order.orderStatus}
+                        onChange={(e) => changeOrderStatus(index, e)}
+                      />
+                    </td>
                     <td>{order.orderName}</td>
                     <td>{order.customer}</td>
                     <td>{order.recipient}</td>
