@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import "../../App.css";
-import { fetchOrderPage } from "../buy/orderService";
+import { fetchOrderPage, getOrderStatusList } from "../buy/orderService";
 import Paginator from "../common/Paginator";
 import { formatDate } from "../util/utilities";
 const ManageOrder = () => {
@@ -15,6 +15,8 @@ const ManageOrder = () => {
   const [loading, setLoading] = useState(false);
   const idxLastPlus1 = currentPage * pageSize;
   const indexOfFirst = idxLastPlus1 - pageSize;
+
+  const [statusLabels, setStatusLabels] = useState([]);
 
   useEffect(() => {
     const loadOrderPage = async () => {
@@ -31,6 +33,10 @@ const ManageOrder = () => {
         setPageSize(response.pageSize);
         setCurrentPage(response.currentPage);
       }
+      
+      const statuses = await getOrderStatusList();
+      setStatusLabels(statuses.data);
+      console.log("status labels: ", JSON.stringify(statuses.data));
     };
     loadOrderPage();
   }, []); // currentPage
