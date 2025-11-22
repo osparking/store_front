@@ -62,6 +62,15 @@ const ManageOrder = () => {
             </tbody>
           </Table>
         </div>
+        {fetchResult && orderPage && (
+          <Paginator
+            pageSize={orderPage.size}
+            totalItems={orderPage.totalElements}
+            totalPages={totalPages}
+            currPage={fetchResult.currentPage}
+            setCurrPage={(pageNo) => setCurrentPage(pageNo)}
+          />
+        )}
       </div>
     </main>
   );
