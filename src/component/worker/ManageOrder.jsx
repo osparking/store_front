@@ -38,6 +38,31 @@ const ManageOrder = () => {
   return (
     <main>
       <h5 className="chart-title">주문 관리</h5>
+      <div className="mt-5">
+        <p className="text-center text-muted mb-4">
+          주문 총 {orderPage.totalElements} 건 중, {indexOfFirst + 1} ~{" "}
+          {Math.min(idxLastPlus1, orderPage.totalElements)}번째 주문
+        </p>
+
+        <div className="table-container">
+          <Table bordered hover striped>
+            <thead>
+              <tr>
+                <th>주문일시</th>
+                <th>상태</th>
+                <th>주문명칭</th>
+                <th>고객명</th>
+                <th>수신자</th>
+                <th>지불액</th>
+                <th>주문ID</th>
+                <th>유저ID</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </Table>
+        </div>
+      </div>
     </main>
   );
 };
