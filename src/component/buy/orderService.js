@@ -19,6 +19,15 @@ export async function getSoapShapes() {
   }
 }
 
+export async function getOrderStatusList() {
+  try {
+    const result = await callWithToken("get", "/order/status_list");
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function readUserCart(userId) {
   try {
     const result = await callWithToken("get", `/cart/${userId}/get`);
