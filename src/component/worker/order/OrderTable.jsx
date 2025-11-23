@@ -6,7 +6,7 @@ import Paginator from "../../common/Paginator";
 import { formatDate } from "../../util/utilities";
 import OrderStatus from "./OrderStatus";
 
-const OrderTable = () => {
+const OrderTable = ({ setShowDetail, setDetailId }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [orderPage, setOrderPage] = useState({});
   const [soapOrders, setSoapOrders] = useState([]);
@@ -48,6 +48,13 @@ const OrderTable = () => {
     soapOrders[index][name] = value;
   };
 
+  function viewOrderDetail(id) {
+    console.log("Clicked order ID:", id);
+    setDetailId(id);
+    setShowDetail(true);
+    return false; // Prevent default
+  }
+
   return (
     <div className="mt-3">
       <p className="text-center mb-4">
@@ -81,7 +88,11 @@ const OrderTable = () => {
                       onChange={(e) => changeOrderStatus(index, e)}
                     />
                   </td>
-                  <td>{order.orderName}</td>
+                  <td>
+                    <a href="#" onClick={() => viewOrderDetail(order.id)}>
+                      {order.orderName}
+                    </a>
+                  </td>
                   <td>{order.customer}</td>
                   <td>{order.recipient}</td>
                   <td>{Number(order.payment).toLocaleString()}원</td>
