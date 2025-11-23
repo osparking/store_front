@@ -80,7 +80,16 @@ function App() {
           <Route path="/fail" element={<FailPage />} />
           <Route path="/myorders" element={<MyOrdersPage />} />
         </Route>
-        <Route path="/work_item" element={<WorkerDashboard />} />
+        <Route
+          element={
+            <ProtectedRoute
+              allowedRoles={["ROLE_ADMIN", "ROLE_WORKER"]}
+              useOutlet={true}
+            />
+          }
+        >
+          <Route path="/work_item" element={<WorkerDashboard />} />
+        </Route>
         <Route path="/unauthorized" element={<Unauthorized />} />
       </Route>
     )
