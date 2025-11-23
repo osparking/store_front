@@ -1,9 +1,14 @@
-import React from 'react'
+import { Button } from "react-bootstrap";
 
-const OrderDetail = () => {
+const OrderDetail = ({ detailId, setShowDetail }) => {
   return (
-    <div>OrderDetail</div>
-  )
-}
+    <>
+      <div>Detail for order ID : {detailId}</div>
+      <Button variant="success" onClick={() => setShowDetail(false)}>
+        주문 목록
+      </Button>
+    </>
+  );
+};
 
-export default OrderDetail
+export default OrderDetail;
