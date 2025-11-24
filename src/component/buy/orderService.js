@@ -65,6 +65,17 @@ export async function fetchOrderPage(page, size) {
   }
 }
 
+export async function getOrderDetail(orderId) {
+  try {
+    const result = await callWithToken(
+      "get", `/order/${orderId}/get_details`
+    );
+    return result.data.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function getOrderPage(userId, page, size) {
   const urlPrefix = "/order/myrows?userId=";
 
