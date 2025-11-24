@@ -40,7 +40,7 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
       console.log("status labels: ", JSON.stringify(statuses.data));
     };
     loadOrderPage();
-  }, []); // currentPage
+  }, [currentPage]);
 
   const changeOrderStatus = (index, e) => {
     const { name, value } = e.target;
