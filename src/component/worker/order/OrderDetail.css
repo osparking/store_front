@@ -6,6 +6,7 @@ th.iLabel {
 th.aLabel {
   background-color: lightpink;
   width: 20%;
+  text-align: right;
 }
 
 td.oText {
@@ -15,4 +16,25 @@ td.oText {
 
 Table.tabWidth {
   min-width: 280px;
+}
+
+p.shapeCount {
+  margin-bottom: 0;
+  text-align: center;
+}
+
+th.bold {
+  font-weight: bold;
+}
+
+th.center {
+  text-align: center;
+}
+
+tr.hidden {
+  visibility: hidden;
+}
+
+td.hidden, th.hidden {
+  border: none;
 }

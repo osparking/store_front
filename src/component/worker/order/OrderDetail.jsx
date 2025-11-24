@@ -62,18 +62,18 @@ const OrderDetail = ({ detailId, setShowDetail }) => {
                       {Number(orderDetails.order.payment).toLocaleString()}원
                     </td>
                   </tr>
-                  <tr>
-                    <th className="iLabel">수령자명</th>
-                    <td className="oText">{orderDetails.order.recipient}</td>
+                  <tr className="hidden">
+                    <th className="iLabel hidden">.</th>
+                    <td className="oText hidden"></td>
                   </tr>
                 </tbody>
               </Table>
             </Col>
           </Row>
           <Row className="d-flex justify-content-center align-items-center">
-            <Col xs={12} md={3}>
-              <h6>외형별 개수</h6>
-              <Table>
+            <Col xs={12} md={2}>
+              <p className="shapeCount">외형별 개수</p>
+              <Table style={{marginTop: 0}}>
                 <tbody>
                   {orderDetails.items.map((item, index) => (
                     <tr key={index}>
@@ -81,15 +81,20 @@ const OrderDetail = ({ detailId, setShowDetail }) => {
                       <td> {item.count} 개</td>
                     </tr>
                   ))}
+                  <tr style={{fontWeight: "bold"}}>
+                      <th className="aLabel bold center">합   계</th>
+                      <td> {orderDetails.totalSoapCount} 개</td>                    
+                  </tr>
                 </tbody>
               </Table>
             </Col>
-            <Col xs={12} md={5}>
-              <Table className="tabWidth">
+            <Col xs={12} md={6}>
+              <p className="shapeCount">배송지</p>
+              <Table className="tabWidth" style={{marginTop: 0}}>
                 <tbody>
                   <tr>
                     <th className="aLabel">우편번호</th>
-                    <td className="oText">{orderDetails.order.customer}</td>
+                    <td className="oText">{orderDetails.order.zipcode}</td>
                   </tr>
                   <tr>
                     <th className="aLabel">도로주소</th>
@@ -98,12 +103,16 @@ const OrderDetail = ({ detailId, setShowDetail }) => {
                   <tr>
                     <th className="aLabel">상세주소</th>
                     <td className="oText">
-                      {Number(orderDetails.order.payment).toLocaleString()}원
+                      {orderDetails.order.addressDetail}                      
                     </td>
                   </tr>
                   <tr>
-                    <th className="aLabel">휴대폰</th>
+                    <th className="aLabel">받는 분</th>
                     <td className="oText">{orderDetails.order.recipient}</td>
+                  </tr>
+                  <tr>
+                    <th className="aLabel">휴대폰</th>
+                    <td className="oText">{orderDetails.order.mbPhone}</td>
                   </tr>
                 </tbody>
               </Table>
