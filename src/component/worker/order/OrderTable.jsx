@@ -24,7 +24,6 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
     const loadOrderPage = async () => {
       setLoading(true);
       const response = await fetchOrderPage(currentPage, pageSize);
-      console.log("response: ", JSON.stringify(response));
       setLoading(false);
       setFetchResult(response);
 
