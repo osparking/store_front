@@ -1,0 +1,18 @@
+th.iLabel {
+  background-color: lightgreen;
+  width: 38%;
+}
+
+th.aLabel {
+  background-color: lightpink;
+  width: 20%;
+}
+
+td.oText {
+  min-width: 170px;
+  text-align: left;
+}
+
+Table.tabWidth {
+  min-width: 280px;
+}
