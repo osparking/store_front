@@ -99,6 +99,15 @@ export async function updateUserCart(data) {
   }
 }
 
+export async function changeOrderStatus(data) {
+  try {
+    const result = await callWithToken("patch", "/order/update_status", data);
+    return result.data.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function saveOrderRecipient(data) {
   try {
     const result = await callWithToken("post", "/order/add", data);
