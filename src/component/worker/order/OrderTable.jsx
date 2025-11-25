@@ -5,7 +5,6 @@ import { fetchOrderPage, getOrderStatusList } from "../../buy/orderService";
 import Paginator from "../../common/Paginator";
 import { formatDate } from "../../util/utilities";
 import OrderStatus from "./OrderStatus";
-import ConfirmationModal from "../../modal/ConfirmationModal";
 
 const OrderTable = ({ setShowDetail, setDetailId }) => {
   const [totalPages, setTotalPages] = useState(1);
@@ -38,7 +37,6 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
 
       const statuses = await getOrderStatusList();
       setStatusLabels(statuses.data);
-      console.log("status labels: ", JSON.stringify(statuses.data));
     };
     loadOrderPage();
   }, [currentPage]);

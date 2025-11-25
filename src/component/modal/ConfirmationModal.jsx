@@ -15,7 +15,7 @@ export default function ConfirmationModal({
       <Modal.Body>{getMessage()}</Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
-          발추취소
+          상태유지
         </Button>
         <Button variant="primary" onClick={handleConfirm}>
           발주확인
