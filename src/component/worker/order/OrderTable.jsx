@@ -5,6 +5,7 @@ import { fetchOrderPage, getOrderStatusList } from "../../buy/orderService";
 import Paginator from "../../common/Paginator";
 import { formatDate } from "../../util/utilities";
 import OrderStatus from "./OrderStatus";
+import ConfirmationModal from "../../modal/ConfirmationModal";
 
 const OrderTable = ({ setShowDetail, setDetailId }) => {
   const [totalPages, setTotalPages] = useState(1);
@@ -41,11 +42,6 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
     };
     loadOrderPage();
   }, [currentPage]);
-
-  const changeOrderStatus = (index, e) => {
-    const { name, value } = e.target;
-    soapOrders[index][name] = value;
-  };
 
   function viewOrderDetail(id) {
     console.log("Clicked order ID:", id);
@@ -84,7 +80,8 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
                     <OrderStatus
                       statusLabels={statusLabels}
                       value={order.orderStatus}
-                      onChange={(e) => changeOrderStatus(index, e)}
+                      soapOrders={soapOrders}
+                      orderIndex={index}
                     />
                   </td>
                   <td>
