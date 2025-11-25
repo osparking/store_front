@@ -47,24 +47,24 @@ const OrderStatus = ({ statusLabels, value, soapOrders, orderIndex }) => {
     if (status === "결제완료") {
       setStatusValue(toState);
       soapOrders[orderIndex]["orderStatus"] = toState;
-      console.log("후단 상태 변경요청 대상 주문ID: ", soapOrders[orderIndex].id);      
+      console.log("후단 상태 변경요청 대상 주문ID: ", soapOrders[orderIndex].id);
     }
   };
 
   return (
     <React.Fragment>
-  <ConfirmationModal
-    show={showModal}
-    handleClose={() => setShowModal(false)}
-    handleConfirm={handleConfirm}
-    getMessage={getMessage}
-    title="주문 상태 변경 확인"
-  />
+      <ConfirmationModal
+        show={showModal}
+        handleClose={() => setShowModal(false)}
+        handleConfirm={handleConfirm}
+        getMessage={getMessage}
+        title="주문 상태 변경 확인"
+      />
       <Form.Group>
         <Form.Control
           as="select"
           name="orderStatus"
-          value={statusValue}
+          value={soapOrders[orderIndex]["orderStatus"]}
           onChange={handleStatusChange}
           className="form-select"
         >
