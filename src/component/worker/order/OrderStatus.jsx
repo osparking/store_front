@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import ConfirmationModal from "../../modal/ConfirmationModal";
+import { changeOrderStatus } from "../../buy/orderService";
 
 const OrderStatus = ({ statusLabels, value, soapOrders, orderIndex }) => {
   const [statusValue, setStatusValue] = useState(value);
@@ -39,7 +40,7 @@ const OrderStatus = ({ statusLabels, value, soapOrders, orderIndex }) => {
     return "'" + soapOrders[orderIndex].orderName + "' 주문을 발주하겠습니까?";
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     setShowModal(false);
 
     const status = soapOrders[orderIndex]["orderStatus"];
@@ -47,8 +48,10 @@ const OrderStatus = ({ statusLabels, value, soapOrders, orderIndex }) => {
     if (status === "결제완료") {
       setStatusValue(toState);
       soapOrders[orderIndex]["orderStatus"] = toState;
-      console.log("후단 상태 변경요청 대상 주문ID: ", soapOrders[orderIndex].id);
-    }
+      const data = {id: soapOrders[orderIndex].id, status: toState};
+      const result = await changeOrderStatus(data);
+      console.log("주문 상태 갱신: ", JSON.stringify(result));   
+    }   
   };
 
   return (
