@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
+import { changeOrderStatus, storeWaybillNo } from "../../buy/orderService";
 import ConfirmationModal from "../../modal/ConfirmationModal";
-import { changeOrderStatus } from "../../buy/orderService";
+import WaybillModal from "../../modal/WaybillModal";
 
 const OrderStatus = ({ statusLabels, value, soapOrders, orderIndex }) => {
   const [statusValue, setStatusValue] = useState(value);
@@ -12,8 +13,14 @@ const OrderStatus = ({ statusLabels, value, soapOrders, orderIndex }) => {
   const handleStatusChange = (event) => {
     setToState(event.target.value);
 
+    const status = soapOrders[orderIndex]["orderStatus"];
+
     // 주문 상태 변경 의지 확인
-    setShowModal(true);
+    if (status === "결제완료") {
+      setShowModal(true);
+    } else {
+      setShowWaybillModal(true);
+    }
   };
 
   const isDisabled = (value, label) => {
@@ -21,11 +28,11 @@ const OrderStatus = ({ statusLabels, value, soapOrders, orderIndex }) => {
 
     switch (value) {
       case "결제완료":
-        result = (label === "발주확인") ? false : true;
+        result = label === "발주확인" ? false : true;
         break;
 
       case "발주확인":
-        result = (label === "GS25 접수") ? false : true;
+        result = label === "GS25 접수" ? false : true;
         break;
 
       default:
@@ -35,9 +42,41 @@ const OrderStatus = ({ statusLabels, value, soapOrders, orderIndex }) => {
   };
 
   const [showModal, setShowModal] = useState(false);
+  const [showWaybillModal, setShowWaybillModal] = useState(false);
 
   const getMessage = () => {
-    return "'" + soapOrders[orderIndex].orderName + "' 주문을 발주하겠습니까?";
+    return (
+      "'" + soapOrders[orderIndex].customer + "'님의 주문을 발주하겠습니까?"
+    );
+  };
+
+  const getWaybillMessage = () => {
+    return (
+      "'" +
+      soapOrders[orderIndex].customer +
+      "'님의 " +
+      soapOrders[orderIndex].orderName +
+      " 주문 상품"
+    );
+  };
+
+  const handleWaybillConfirm = async (waybillNo) => {
+    try {
+      setShowWaybillModal(false);
+      setStatusValue(toState);
+
+      soapOrders[orderIndex]["orderStatus"] = toState;
+      const data = {
+        id: soapOrders[orderIndex].id,
+        status: toState,
+        waybillNo: waybillNo,
+      };
+
+      const result = await storeWaybillNo(data);
+      console.log("운송장번호 저장 결과: ", JSON.stringify(result));
+    } catch (error) {
+      console.error("운송장번호 저장 에러:", error);
+    }
   };
 
   const handleConfirm = async () => {
@@ -48,10 +87,10 @@ const OrderStatus = ({ statusLabels, value, soapOrders, orderIndex }) => {
     if (status === "결제완료") {
       setStatusValue(toState);
       soapOrders[orderIndex]["orderStatus"] = toState;
-      const data = {id: soapOrders[orderIndex].id, status: toState};
+      const data = { id: soapOrders[orderIndex].id, status: toState };
       const result = await changeOrderStatus(data);
-      console.log("주문 상태 갱신: ", JSON.stringify(result));   
-    }   
+      console.log("주문 상태 갱신: ", JSON.stringify(result));
+    }
   };
 
   return (
@@ -62,6 +101,13 @@ const OrderStatus = ({ statusLabels, value, soapOrders, orderIndex }) => {
         handleConfirm={handleConfirm}
         getMessage={getMessage}
         title="주문 상태 변경 확인"
+      />
+      <WaybillModal
+        show={showWaybillModal}
+        handleClose={() => setShowWaybillModal(false)}
+        handleSubmit={handleWaybillConfirm}
+        getMessage={getWaybillMessage}
+        title="운송장번호 등록"
       />
       <Form.Group>
         <Form.Control
@@ -75,7 +121,10 @@ const OrderStatus = ({ statusLabels, value, soapOrders, orderIndex }) => {
             <option
               value={statusLabel}
               key={index}
-              disabled={isDisabled(soapOrders[orderIndex]["orderStatus"], statusLabel)}
+              disabled={isDisabled(
+                soapOrders[orderIndex]["orderStatus"],
+                statusLabel
+              )}
             >
               {statusLabel}
             </option>
