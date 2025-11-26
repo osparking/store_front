@@ -108,6 +108,20 @@ export async function changeOrderStatus(data) {
   }
 }
 
+export async function storeWaybillNo(data) {
+  const waybill = JSON.stringify(data);
+  try {
+    const result = await callWithToken(
+      "patch",
+      "/order/update_waybill_no",
+      data
+    );
+    return result.data.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function saveOrderRecipient(data) {
   try {
     const result = await callWithToken("post", "/order/add", data);
