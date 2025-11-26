@@ -21,11 +21,11 @@ const OrderStatus = ({ statusLabels, value, soapOrders, orderIndex }) => {
 
     switch (value) {
       case "결제완료":
-        result = label === "발주확인" ? false : true;
+        result = (label === "발주확인") ? false : true;
         break;
 
       case "발주확인":
-        result = label === "GS25 접수" ? false : true;
+        result = (label === "GS25 접수") ? false : true;
         break;
 
       default:
@@ -75,7 +75,7 @@ const OrderStatus = ({ statusLabels, value, soapOrders, orderIndex }) => {
             <option
               value={statusLabel}
               key={index}
-              disabled={isDisabled(statusValue, statusLabel)}
+              disabled={isDisabled(soapOrders[orderIndex]["orderStatus"], statusLabel)}
             >
               {statusLabel}
             </option>
