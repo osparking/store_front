@@ -39,6 +39,13 @@ const MyOrdersPage = () => {
     navigate("/");
   };
 
+  function viewOrderDetail(id) {
+    console.log("Clicked order ID:", id);
+    setDetailId(id);
+    setShowDetail(true);
+    return false; // Prevent default
+  }  
+
   return (
     <div className="box_section orders_table_div">
       <div className="d-flex justify-content-center align-items-center">
@@ -72,7 +79,9 @@ const MyOrdersPage = () => {
                 <tr key={idx}>
                   <td>{order.orderId}</td>
                   <td>
-                    <a href="#">{order.orderName}</a>
+                    <a href="#" onClick={() => viewOrderDetail(order.id)}>
+                      {order.orderName}
+                    </a>
                   </td>
                   <td>{order.recipientName}</td>
                   <td>{Number(order.paymentAmount).toLocaleString()}원</td>
