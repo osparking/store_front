@@ -16,6 +16,14 @@ const OrderDetail = ({ detailId, setShowDetail }) => {
     readOrderDetail();
   }, []);
 
+  const getStatusLabel = () => {
+    if (orderDetails.order.orderStatus !== "GS25 접수") {
+      return "주문 상태";
+    } else {
+      return "배송 상태";
+    }
+  };
+
   return (
     <>
       {orderDetails && (
@@ -39,7 +47,7 @@ const OrderDetail = ({ detailId, setShowDetail }) => {
                     </td>
                   </tr>
                   <tr>
-                    <th className="iLabel">주문상태</th>
+                    <th className="iLabel">{getStatusLabel()}</th>
                     <td className="oText">{orderDetails.order.orderStatus}</td>
                   </tr>
                 </tbody>
