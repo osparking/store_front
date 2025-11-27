@@ -24,6 +24,11 @@ const OrderDetail = ({ detailId, setShowDetail }) => {
     }
   };
 
+  const enableButton = () => {
+    return orderDetails.order.orderStatus !== "GS25 접수";
+  };
+  const cjlogistics = "https://trace.cjlogistics.com/next/tracking.html?wblNo";
+
   return (
     <>
       {orderDetails && (
@@ -70,9 +75,21 @@ const OrderDetail = ({ detailId, setShowDetail }) => {
                       {Number(orderDetails.order.payment).toLocaleString()}원
                     </td>
                   </tr>
-                  <tr className="hidden">
-                    <th className="iLabel hidden">.</th>
-                    <td className="oText hidden"></td>
+                  <tr>
+                    <td
+                      className="oText hidden centered"
+                      colSpan={2}
+                    >
+                      <Button
+                        className="pt-0 pb-0"
+                        href={`${cjlogistics}=363131774074`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        disabled={enableButton()}
+                      >
+                        배송 조회
+                      </Button>
+                    </td>
                   </tr>
                 </tbody>
               </Table>
@@ -81,7 +98,7 @@ const OrderDetail = ({ detailId, setShowDetail }) => {
           <Row className="d-flex justify-content-center align-items-center">
             <Col xs={12} md={2}>
               <p className="shapeCount">외형별 개수</p>
-              <Table style={{marginTop: 0}}>
+              <Table style={{ marginTop: 0 }}>
                 <tbody>
                   {orderDetails.items.map((item, index) => (
                     <tr key={index}>
@@ -89,16 +106,16 @@ const OrderDetail = ({ detailId, setShowDetail }) => {
                       <td> {item.count} 개</td>
                     </tr>
                   ))}
-                  <tr style={{fontWeight: "bold"}}>
-                      <th className="aLabel bold center">합   계</th>
-                      <td> {orderDetails.totalSoapCount} 개</td>                    
+                  <tr style={{ fontWeight: "bold" }}>
+                    <th className="aLabel bold center">합 계</th>
+                    <td> {orderDetails.totalSoapCount} 개</td>
                   </tr>
                 </tbody>
               </Table>
             </Col>
             <Col xs={12} md={6}>
               <p className="shapeCount">배송지</p>
-              <Table className="tabWidth" style={{marginTop: 0}}>
+              <Table className="tabWidth" style={{ marginTop: 0 }}>
                 <tbody>
                   <tr>
                     <th className="aLabel">우편번호</th>
@@ -111,7 +128,7 @@ const OrderDetail = ({ detailId, setShowDetail }) => {
                   <tr>
                     <th className="aLabel">상세주소</th>
                     <td className="oText">
-                      {orderDetails.order.addressDetail}                      
+                      {orderDetails.order.addressDetail}
                     </td>
                   </tr>
                   <tr>
