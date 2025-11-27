@@ -1,44 +1,26 @@
 import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
-import { useLocation, useNavigate } from "react-router-dom";
 import { formatDate } from "../util/utilities";
 import "./MyOrdersPage.css";
 import Paginator from "../common/Paginator";
 import { getOrderPage } from "../buy/orderService";
 
 const MyOrdersPage = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-
   const [totalPages, setTotalPages] = useState(1);
   const [orderPage, setOrderPage] = useState({});
   const [orderArray, setOrderArray] = useState([]);
   const [pageSize, setPageSize] = useState(5); // itemsPerPage
   const [currentPage, setCurrentPage] = useState(1);
 
-  const [searchResult, setSearchResult] = useState(location.state?.data.data);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (searchResult && searchResult.pageContent) {
-      setTotalPages(searchResult.totalPages);
-      setOrderPage(searchResult.pageContent);
-      setOrderArray(searchResult.pageContent.content);
-      setPageSize(searchResult.pageSize);
-      setCurrentPage(searchResult.currentPage);
-    }
-  }, [searchResult]);
-
+  const [searchResult, setSearchResult] = useState();
   const idxLastPlus1 = currentPage * pageSize;
   const indexOfFirst = idxLastPlus1 - pageSize;
 
   useEffect(() => {
     const loadOrderPage = async (loginId) => {
-      setLoading(true);
       const searchResult = await getOrderPage(loginId, currentPage, pageSize);
-      setLoading(false);
       setSearchResult(searchResult);
-      if (searchResult && searchResult.addressPage) {
+      if (searchResult) {
         setTotalPages(searchResult.totalPages);
         setOrderPage(searchResult.pageContent);
         setOrderArray(searchResult.pageContent.content);
