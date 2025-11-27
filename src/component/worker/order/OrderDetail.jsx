@@ -27,6 +27,8 @@ const OrderDetail = ({ detailId, setShowDetail }) => {
   const enableButton = () => {
     return orderDetails.order.orderStatus !== "GS25 접수";
   };
+
+  const [showTooltip, setShowTooltip] = useState(false);
   const cjlogistics = "https://trace.cjlogistics.com/next/tracking.html?wblNo";
 
   return (
@@ -79,6 +81,10 @@ const OrderDetail = ({ detailId, setShowDetail }) => {
                     <td
                       className="oText hidden centered"
                       colSpan={2}
+                      onMouseEnter={() =>
+                        enableButton() && setShowTooltip(true)
+                      }
+                      onMouseLeave={() => setShowTooltip(false)}
                     >
                       <Button
                         className="pt-0 pb-0"
@@ -89,6 +95,15 @@ const OrderDetail = ({ detailId, setShowDetail }) => {
                       >
                         배송 조회
                       </Button>
+                      {showTooltip && (
+                        <div
+                          className="absolute bottom-full left-1/2 
+                          transform -translate-x-1/2 mb-1 px-2 py-1 
+                          bg-black text-white text-xs rounded"
+                        >
+                          'GS25 접수' 후 활성화됨
+                        </div>
+                      )}
                     </td>
                   </tr>
                 </tbody>
