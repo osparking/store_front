@@ -26,6 +26,7 @@ import RegisterUser from "./component/user/RegisterUser";
 import UserUpdate from "./component/user/UpdateUser";
 import UserDashboard from "./component/user/UserDashboard";
 import WorkerDashboard from "./component/worker/WorkerDashboard";
+import ManageMyOrder from "./component/user/ManageMyOrder";
 
 function App() {
   useEffect(() => {
@@ -78,7 +79,7 @@ function App() {
           <Route path="/checkout" element={<WidgetCheckoutPage />} />
           <Route path="/success" element={<WidgetSuccessPage />} />
           <Route path="/fail" element={<FailPage />} />
-          <Route path="/myorders" element={<MyOrdersPage />} />
+          <Route path="/myorders" element={<ManageMyOrder />} />
         </Route>
         <Route
           element={
