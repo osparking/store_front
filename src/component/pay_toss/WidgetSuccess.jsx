@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { callWithToken } from "../util/api";
 import PaymentDoneModal from "../modal/PaymentDone";
+import { callWithToken } from "../util/api";
 
 export function WidgetSuccessPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [myOrders, setMyOrders] = useState(null);
   const [orderName, setOrderName] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const bsOrder = {
     orderId: searchParams.get("orderId"),
     amount: parseInt(searchParams.get("amount")),
-    paymentKey: searchParams.get("paymentKey")
+    paymentKey: searchParams.get("paymentKey"),
   };
 
   useEffect(() => {
@@ -33,20 +32,12 @@ export function WidgetSuccessPage() {
         throw { message: "결제 금액 불일치 오류", code: 400 };
       }
 
-      const result = await callWithToken(
-        "post",
-        "/payments/confirm",
-        bsOrder
-      );
-
-      console.log(JSON.stringify(result));
-      return result.data;
+      await callWithToken("post", "/payments/confirm", bsOrder);
     }
 
     confirm()
-      .then((data) => {
-        setMyOrders(data);
-        setIsModalOpen(true);        
+      .then(() => {
+        setIsModalOpen(true);
       })
       .catch((error) => {
         navigate(`/fail?code=${error.code}&message=${error.message}`);
@@ -65,8 +56,8 @@ export function WidgetSuccessPage() {
 
   function closeModal() {
     setIsModalOpen(false);
-    navigate("/myorders", { state: { data: myOrders } });
-  }  
+    navigate("/myorders");
+  }
 
   return (
     <>
