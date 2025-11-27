@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { getOrderPage } from "../buy/orderService";
+import Paginator from "../common/Paginator";
 import { formatDate } from "../util/utilities";
 import "./MyOrdersPage.css";
-import Paginator from "../common/Paginator";
-import { getOrderPage } from "../buy/orderService";
 
 const MyOrdersPage = () => {
   const [totalPages, setTotalPages] = useState(1);
@@ -31,6 +32,8 @@ const MyOrdersPage = () => {
     const loginId = localStorage.getItem("LOGIN_ID");
     loadOrderPage(loginId);
   }, [currentPage]);
+
+  const navigate = useNavigate();
 
   const goHome = () => {
     navigate("/");
