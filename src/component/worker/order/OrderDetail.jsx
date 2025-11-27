@@ -88,7 +88,7 @@ const OrderDetail = ({ detailId, setShowDetail }) => {
                     >
                       <Button
                         className="pt-0 pb-0"
-                        href={`${cjlogistics}=363131774074`}
+                        href={`${cjlogistics}=${orderDetails.order.waybillNo}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         disabled={enableButton()}
