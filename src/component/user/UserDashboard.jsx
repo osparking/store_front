@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
+import { deleteUserPhoto } from "../modal/ImageService";
+import ManageMyOrder from "./ManageMyOrder";
+import "./UserDashboard.css";
 import UserProfile from "./UserProfile";
 import { getUserDtoById } from "./UserService";
-import { deleteUserPhoto } from "../modal/ImageService";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import "./UserDashboard.css";
-import MyOrdersPage from "../pay_toss/MyOrdersPage";
 
 const UserDashboard = () => {
   const location = useLocation();
@@ -63,23 +63,18 @@ const UserDashboard = () => {
     <Container fluid className="home-container mt-3">
       <Tabs className="tabBackground">
         <Tab eventKey="profile" title={<h5>프로필</h5>}>
-          {alertError && (
-            <AlertMessage type={"danger"} message={errorMsg} />
-          )}
+          {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
           {alertSuccess && (
             <AlertMessage type={"success"} message={successMsg} />
           )}
           {user && <UserProfile user={user} handleRemovePhoto={removePhoto} />}
         </Tab>
-        <Tab eventKey="purchase_stat" title={<h5>구매 통계</h5>}>
-        </Tab>
+        <Tab eventKey="purchase_stat" title={<h5>구매 통계</h5>}></Tab>
         <Tab eventKey="purchase_list" title={<h5>나의 주문</h5>}>
-          <MyOrdersPage />
+          <ManageMyOrder />
         </Tab>
-        <Tab eventKey="my_question" title={<h5>나의 질문</h5>}>
-        </Tab>
-        <Tab eventKey="my_review" title={<h5>나의 리뷰</h5>}>
-        </Tab>
+        <Tab eventKey="my_question" title={<h5>나의 질문</h5>}></Tab>
+        <Tab eventKey="my_review" title={<h5>나의 리뷰</h5>}></Tab>
       </Tabs>
     </Container>
   );
