@@ -23,6 +23,11 @@ p.shapeCount {
   text-align: center;
 }
 
+p.darkFont {
+  color: black;
+  font-weight: bold;
+}
+
 th.bold {
   font-weight: bold;
 }
@@ -39,4 +44,8 @@ td.centered {
 
 td.hidden {
   border: none;
+}
+
+div.darkBack {
+  background-color: rgb(224, 224, 145);
 }
