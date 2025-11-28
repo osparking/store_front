@@ -34,8 +34,9 @@ const OrderDetail = ({ detailId, setShowDetail }) => {
   return (
     <>
       {orderDetails && (
-        <div>
+        <div className="box_section orders_table_div darkBack">
           <Row className="d-flex justify-content-center align-items-center">
+            <p className="shapeCount darkFont">주문 개요</p>
             <Col xs={12} md={4}>
               <Table className="tabWidth">
                 <tbody>
@@ -112,7 +113,7 @@ const OrderDetail = ({ detailId, setShowDetail }) => {
           </Row>
           <Row className="d-flex justify-content-center align-items-center">
             <Col xs={12} md={2}>
-              <p className="shapeCount">외형별 개수</p>
+              <p className="shapeCount darkFont">외형별 개수</p>
               <Table style={{ marginTop: 0 }}>
                 <tbody>
                   {orderDetails.items.map((item, index) => (
@@ -128,8 +129,8 @@ const OrderDetail = ({ detailId, setShowDetail }) => {
                 </tbody>
               </Table>
             </Col>
-            <Col xs={12} md={6}>
-              <p className="shapeCount">배송지</p>
+            <Col xs={12} md={8}>
+              <p className="shapeCount darkFont">배송지</p>
               <Table className="tabWidth" style={{ marginTop: 0 }}>
                 <tbody>
                   <tr>
