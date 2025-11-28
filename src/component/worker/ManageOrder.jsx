@@ -11,7 +11,11 @@ const ManageOrder = () => {
     <main>
       <h5 className="chart-title">주문 관리</h5>
       {showDetail ? (
-        <OrderDetail detailId = {detailId} setShowDetail={setShowDetail} />
+        <OrderDetail
+          detailId={detailId}
+          setShowDetail={setShowDetail}
+          isHouse={true}
+        />
       ) : (
         <OrderTable setShowDetail={setShowDetail} setDetailId={setDetailId} />
       )}
