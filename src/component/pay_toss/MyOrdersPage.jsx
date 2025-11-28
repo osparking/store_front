@@ -6,7 +6,7 @@ import Paginator from "../common/Paginator";
 import { formatDate } from "../util/utilities";
 import "./MyOrdersPage.css";
 
-const MyOrdersPage = () => {
+const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [orderPage, setOrderPage] = useState({});
   const [orderArray, setOrderArray] = useState([]);
