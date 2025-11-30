@@ -24,7 +24,6 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
   const [statusLabels, setStatusLabels] = useState([]);
 
   useEffect(() => {
-    console.log("페이지: ", currentPage);
     localStorage.setItem("ORDER_PAGE_WORKER", currentPage);
     const loadOrderPage = async () => {
       setLoading(true);
