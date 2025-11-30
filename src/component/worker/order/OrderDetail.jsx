@@ -61,6 +61,15 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
 
   return (
     <>
+      <ConfirmationModal
+        show={showModal}
+        handleClose={() => setShowModal(false)}
+        handleConfirm={handleConfirm}
+        getMessage={getMessage}
+        title="주문 상품 수취 확인"
+        noLabel="아닙니다"
+        yesLabel="받았어요"
+      />    
       {orderDetails && (
         <div className="box_section orders_table_div darkBack">
           <Row className="d-flex justify-content-center align-items-center">
