@@ -12,7 +12,9 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
   const [orderPage, setOrderPage] = useState({});
   const [soapOrders, setSoapOrders] = useState([]);
   const [pageSize, setPageSize] = useState(10); // itemsPerPage
-  const [currentPage, setCurrentPage] = useState(1);
+
+  const savedPageNo = localStorage.getItem("ORDER_PAGE_WORKER");
+  const [currentPage, setCurrentPage] = useState(savedPageNo || 1);
 
   const [fetchResult, setFetchResult] = useState();
   const [loading, setLoading] = useState(false);
