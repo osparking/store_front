@@ -11,13 +11,16 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
   const [orderPage, setOrderPage] = useState({});
   const [orderArray, setOrderArray] = useState([]);
   const [pageSize, setPageSize] = useState(1); // itemsPerPage
-  const [currentPage, setCurrentPage] = useState(1);
+
+  const savedPageNo = localStorage.getItem("ORDER_PAGE_고객");
+  const [currentPage, setCurrentPage] = useState(savedPageNo || 1);
 
   const [searchResult, setSearchResult] = useState();
   const idxLastPlus1 = currentPage * pageSize;
   const indexOfFirst = idxLastPlus1 - pageSize;
 
   useEffect(() => {
+    localStorage.setItem("ORDER_PAGE_고객", currentPage);
     const loadOrderPage = async (loginId) => {
       const searchResult = await getOrderPage(loginId, currentPage, pageSize);
       setSearchResult(searchResult);
@@ -44,7 +47,7 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
     setDetailId(id);
     setShowDetail(true);
     return false; // Prevent default
-  }  
+  }
 
   return (
     <div className="box_section orders_table_div">
