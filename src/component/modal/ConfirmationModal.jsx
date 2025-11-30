@@ -6,6 +6,8 @@ export default function ConfirmationModal({
   handleConfirm,
   getMessage,
   title,
+  noLabel,
+  yesLabel,
 }) {
   return (
     <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
@@ -14,11 +16,11 @@ export default function ConfirmationModal({
       </Modal.Header>
       <Modal.Body>{getMessage()}</Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          상태유지
+        <Button variant="secondary" onClick={handleClose} className="flex-fill">
+          {noLabel}
         </Button>
-        <Button variant="primary" onClick={handleConfirm}>
-          발주확인
+        <Button variant="primary" onClick={handleConfirm} className="flex-fill ms-2">
+          {yesLabel}
         </Button>
       </Modal.Footer>
     </Modal>

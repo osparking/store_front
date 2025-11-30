@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
-import { getOrderDetail } from "../../buy/orderService";
+import { changeOrderStatus, getOrderDetail } from "../../buy/orderService";
+import ConfirmationModal from "../../modal/ConfirmationModal";
 import { formatDate } from "../../util/utilities";
 import "./OrderDetail.css";
 
 const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   const [orderDetails, setOrderDetails] = useState(undefined);
+  const [showModal, setShowModal] = useState(false);
+  const [orderStatus, setOrderStatus] = useState(undefined);
 
   useEffect(() => {
     const readOrderDetail = async () => {
       const response = await getOrderDetail(detailId);
       setOrderDetails(response);
+      setOrderStatus(response.order.orderStatus);
       console.log("Response: ", JSON.stringify(response));
     };
     readOrderDetail();
@@ -24,8 +28,15 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     }
   };
 
-  const isDisabled = () => {
-    return orderDetails.order.orderStatus !== "GS25 접수";
+/*
+  PAY_WAIT(""),
+  PAID(""),
+  SELLER_RECOGNIZED(""),
+*/
+  const disableContition = () => {
+    return orderDetails.order.orderStatus === "결제대기"
+    || orderDetails.order.orderStatus === "결제완료"
+    || orderDetails.order.orderStatus === "발주확인";
   };
 
   const [showTooltip1, setShowTooltip1] = useState(false);
@@ -33,11 +44,36 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   const cjlogistics = "https://trace.cjlogistics.com/next/tracking.html?wblNo";
 
   const receptionAcked = () => {
-    console.log("고객 수취 확인함.");
-  }
+    setShowModal(true);
+  };
+
+  const handleConfirm = async () => {
+    setShowModal(false);
+
+    if (orderDetails.order.orderStatus === "GS25 접수") {
+      const nextStatus = "수취 확인";
+      const data = { id: orderDetails.order.id, status: nextStatus };
+      const result = await changeOrderStatus(data);
+      setOrderStatus(nextStatus);
+    }
+  };
+
+  const getMessage = () => {
+    if (!orderDetails) return;
+    return "'" + orderDetails.order.orderName + "' 상품을 받으셨습니까?";
+  };
 
   return (
     <>
+      <ConfirmationModal
+        show={showModal}
+        handleClose={() => setShowModal(false)}
+        handleConfirm={handleConfirm}
+        getMessage={getMessage}
+        title="주문 상품 수취 확인"
+        noLabel="아닙니다"
+        yesLabel="받았어요"
+      />
       {orderDetails && (
         <div className="box_section orders_table_div darkBack">
           <Row className="d-flex justify-content-center align-items-center">
@@ -61,7 +97,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                   </tr>
                   <tr>
                     <th className="iLabel">{getStatusLabel()}</th>
-                    <td className="oText">{orderDetails.order.orderStatus}</td>
+                    <td className="oText">{orderStatus}</td>
                   </tr>
                 </tbody>
               </Table>
@@ -89,9 +125,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                     <td
                       className="oText hidden centered"
                       colSpan={2}
-                      onMouseEnter={() =>
-                        isDisabled() && setShowTooltip1(true)
-                      }
+                      onMouseEnter={() => disableContition() && setShowTooltip1(true)}
                       onMouseLeave={() => setShowTooltip1(false)}
                     >
                       <Button
@@ -99,7 +133,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                         href={`${cjlogistics}=${orderDetails.order.waybillNo}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        disabled={isDisabled()}
+                        disabled={disableContition()}
                       >
                         배송 조회
                       </Button>
@@ -120,13 +154,13 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                         className="oText hidden centered"
                         colSpan={2}
                         onMouseEnter={() =>
-                          isDisabled() && setShowTooltip2(true)
+                          disableContition() && setShowTooltip2(true)
                         }
                         onMouseLeave={() => setShowTooltip2(false)}
                       >
                         <Button
                           className="pt-0 pb-0"
-                          disabled={isDisabled()}
+                          disabled={orderDetails.order.orderStatus !== "GS25 접수"}
                           onClick={() => receptionAcked()}
                         >
                           수취 확인

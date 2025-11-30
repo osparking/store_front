@@ -22,7 +22,8 @@ import CodeEntryModal from "./CodeEntryModal";
 const Login = () => {
   const [showCodeModal, setShowCodeModal] = useState(false);
   const [credentials, setCredentials] = useState({
-    email: "worker1@email.com",
+    email: "jbpark03@naver.com",
+    // email: "worker1@email.com",
     password: "1234",
     save_login: true,
   });
@@ -52,7 +53,7 @@ const Login = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   const from = location.state?.from?.pathname;
   const actLogin = async (e) => {
     e.preventDefault();
