@@ -10,7 +10,7 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [orderPage, setOrderPage] = useState({});
   const [orderArray, setOrderArray] = useState([]);
-  const [pageSize, setPageSize] = useState(5); // itemsPerPage
+  const [pageSize, setPageSize] = useState(1); // itemsPerPage
   const [currentPage, setCurrentPage] = useState(1);
 
   const [searchResult, setSearchResult] = useState();
