@@ -49,21 +49,15 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
     return false; // Prevent default
   }
 
-  const getBGcolor = (orderStatus) => {
-    console.log("상태: ", orderStatus);
-    let bgColor = "white";
+  const getStatusClass = (orderStatus) => {
     switch (orderStatus) {
       case "결제완료":
-        bgColor = "pink";
-        break;
+        return "status-paid";
       case "발주확인":
-        bgColor = "skyblue";
-        break;
+        return "status-confirmed";
       default:
-        bgColor = "white";
-        break;
+        return "status-default";
     }
-    return bgColor;
   };
 
   return (
@@ -92,12 +86,7 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
               soapOrders.map((order, index) => (
                 <tr key={index}>
                   <td>{formatDate(order.orderTime)}</td>
-                  <td
-                    style={{
-                      backgroundColor: getBGcolor(order.orderStatus),
-                      transition: "background-color 0.3s ease"
-                    }}
-                  >
+                  <td className={getStatusClass(order.orderStatus)}>
                     <OrderStatus
                       statusLabels={statusLabels}
                       value={order.orderStatus}

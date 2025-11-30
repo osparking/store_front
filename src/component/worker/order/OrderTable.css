@@ -1,0 +1,11 @@
+table td.status-paid {
+  background-color: #ffb6c1;
+}
+
+table td.status-confirmed {
+  background-color: #87ceeb;
+}
+
+table td.status-default {
+  background-color: white;
+}
