@@ -7,6 +7,7 @@ import "./OrderDetail.css";
 const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   const [orderDetails, setOrderDetails] = useState(undefined);
   const [orderStatus, setOrderStatus] = useState(undefined);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const readOrderDetail = async () => {
@@ -27,20 +28,36 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   };
 
   const notAtGS25yet = () => {
-    return orderDetails.order.orderStatus === "결제대기"
-    || orderDetails.order.orderStatus === "결제완료"
-    || orderDetails.order.orderStatus === "발주확인";
+    return (
+      orderDetails.order.orderStatus === "결제대기" ||
+      orderDetails.order.orderStatus === "결제완료" ||
+      orderDetails.order.orderStatus === "발주확인"
+    );
   };
-
-  
 
   const [showTooltip1, setShowTooltip1] = useState(false);
   const [showTooltip2, setShowTooltip2] = useState(false);
   const cjlogistics = "https://trace.cjlogistics.com/next/tracking.html?wblNo";
 
   const receptionAcked = () => {
-    console.log("고객 수취 확인함.");
-  }
+    setShowModal(true);
+  };
+
+  const handleConfirm = async () => {
+    setShowModal(false);
+
+    if (orderDetails.order.orderStatus === "GS25 접수") {
+      const nextStatus = "수취 확인";
+      const data = { id: orderDetails.order.id, status: nextStatus };
+      const result = await changeOrderStatus(data);
+      setOrderStatus(nextStatus);
+    }
+  };
+
+  const getMessage = () => {
+    if (!orderDetails) return;
+    return "'" + orderDetails.order.orderName + "' 상품을 받으셨습니까?";
+  };
 
   return (
     <>
@@ -132,7 +149,9 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                       >
                         <Button
                           className="pt-0 pb-0"
-                          disabled={orderDetails.order.orderStatus !== "GS25 접수"}
+                          disabled={
+                            orderDetails.order.orderStatus !== "GS25 접수"
+                          }
                           onClick={() => receptionAcked()}
                         >
                           수취 확인
