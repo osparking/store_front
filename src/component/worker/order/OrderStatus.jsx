@@ -100,7 +100,9 @@ const OrderStatus = ({ statusLabels, value, soapOrders, orderIndex }) => {
         handleClose={() => setShowModal(false)}
         handleConfirm={handleConfirm}
         getMessage={getMessage}
-        title="주문 상태 변경 확인"
+        title="범이비누 주문 발주"
+        noLabel="아니오"
+        yesLabel="발주"       
       />
       <WaybillModal
         show={showWaybillModal}
