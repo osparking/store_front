@@ -24,9 +24,13 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     }
   };
 
-  const isDisabled = () => {
-    return orderDetails.order.orderStatus !== "GS25 접수";
+  const notAtGS25yet = () => {
+    return orderDetails.order.orderStatus === "결제대기"
+    || orderDetails.order.orderStatus === "결제완료"
+    || orderDetails.order.orderStatus === "발주확인";
   };
+
+  
 
   const [showTooltip1, setShowTooltip1] = useState(false);
   const [showTooltip2, setShowTooltip2] = useState(false);
@@ -90,7 +94,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                       className="oText hidden centered"
                       colSpan={2}
                       onMouseEnter={() =>
-                        isDisabled() && setShowTooltip1(true)
+                        notAtGS25yet() && setShowTooltip1(true)
                       }
                       onMouseLeave={() => setShowTooltip1(false)}
                     >
@@ -99,7 +103,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                         href={`${cjlogistics}=${orderDetails.order.waybillNo}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        disabled={isDisabled()}
+                        disabled={notAtGS25yet()}
                       >
                         배송 조회
                       </Button>
@@ -120,13 +124,13 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                         className="oText hidden centered"
                         colSpan={2}
                         onMouseEnter={() =>
-                          isDisabled() && setShowTooltip2(true)
+                          notAtGS25yet() && setShowTooltip2(true)
                         }
                         onMouseLeave={() => setShowTooltip2(false)}
                       >
                         <Button
                           className="pt-0 pb-0"
-                          disabled={isDisabled()}
+                          disabled={orderDetails.order.orderStatus !== "GS25 접수"}
                           onClick={() => receptionAcked()}
                         >
                           수취 확인
