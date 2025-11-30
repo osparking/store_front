@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
-import { getOrderDetail } from "../../buy/orderService";
+import { changeOrderStatus, getOrderDetail } from "../../buy/orderService";
 import { formatDate } from "../../util/utilities";
 import "./OrderDetail.css";
 import ConfirmationModal from "../../modal/ConfirmationModal";
