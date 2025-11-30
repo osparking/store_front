@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import "../../../App.css";
+import "./OrderTable.css"
 import { fetchOrderPage, getOrderStatusList } from "../../buy/orderService";
 import Paginator from "../../common/Paginator";
 import { formatDate } from "../../util/utilities";
@@ -48,6 +49,23 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
     return false; // Prevent default
   }
 
+  const getBGcolor = (orderStatus) => {
+    console.log("상태: ", orderStatus);
+    let bgColor = "white";
+    switch (orderStatus) {
+      case "결제완료":
+        bgColor = "pink";
+        break;
+      case "발주확인":
+        bgColor = "skyblue";
+        break;
+      default:
+        bgColor = "white";
+        break;
+    }
+    return bgColor;
+  };
+
   return (
     <div className="mt-3">
       <p className="text-center mb-4">
@@ -74,7 +92,12 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
               soapOrders.map((order, index) => (
                 <tr key={index}>
                   <td>{formatDate(order.orderTime)}</td>
-                  <td>
+                  <td
+                    style={{
+                      backgroundColor: getBGcolor(order.orderStatus),
+                      transition: "background-color 0.3s ease"
+                    }}
+                  >
                     <OrderStatus
                       statusLabels={statusLabels}
                       value={order.orderStatus}
