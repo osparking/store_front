@@ -3,6 +3,7 @@ import { Button, Col, Row, Table } from "react-bootstrap";
 import { getOrderDetail } from "../../buy/orderService";
 import { formatDate } from "../../util/utilities";
 import "./OrderDetail.css";
+import ConfirmationModal from "../../modal/ConfirmationModal";
 
 const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   const [orderDetails, setOrderDetails] = useState(undefined);
