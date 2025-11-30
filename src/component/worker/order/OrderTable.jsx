@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import "../../../App.css";
-import "./OrderTable.css"
+import "./OrderTable.css";
 import { fetchOrderPage, getOrderStatusList } from "../../buy/orderService";
 import Paginator from "../../common/Paginator";
 import { formatDate } from "../../util/utilities";
@@ -22,6 +22,8 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
   const [statusLabels, setStatusLabels] = useState([]);
 
   useEffect(() => {
+    console.log("페이지: ", currentPage);
+    localStorage.setItem("ORDER_PAGE_WORKER", currentPage);
     const loadOrderPage = async () => {
       setLoading(true);
       const response = await fetchOrderPage(currentPage, pageSize);
