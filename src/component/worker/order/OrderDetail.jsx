@@ -6,11 +6,13 @@ import "./OrderDetail.css";
 
 const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   const [orderDetails, setOrderDetails] = useState(undefined);
+  const [orderStatus, setOrderStatus] = useState(undefined);
 
   useEffect(() => {
     const readOrderDetail = async () => {
       const response = await getOrderDetail(detailId);
       setOrderDetails(response);
+      setOrderStatus(response.order.orderStatus);
       console.log("Response: ", JSON.stringify(response));
     };
     readOrderDetail();
@@ -65,7 +67,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                   </tr>
                   <tr>
                     <th className="iLabel">{getStatusLabel()}</th>
-                    <td className="oText">{orderDetails.order.orderStatus}</td>
+                    <td className="oText">{orderStatus}</td>
                   </tr>
                 </tbody>
               </Table>
