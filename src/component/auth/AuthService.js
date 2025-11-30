@@ -10,7 +10,17 @@ export const loginUser = async (email, password) => {
 };
 
 const clearLoginUserInfo = () => {
-  const items = ["USER", "LOGIN_ID", "TOKEN", "IS_ADMIN"];
+  const items = [
+    "USER",
+    "LOGIN_ID",
+    "TOKEN",
+    "IS_ADMIN",
+    "ORDER_PAGE_고객",
+    "ORDER_PAGE_WORKER",
+    "WORKER_TAB",
+    "SOAP_SHAPE_TAB",
+    "SOAP_INTRO_TAB",
+  ];
 
   items.push("IS_WORKER");
 
