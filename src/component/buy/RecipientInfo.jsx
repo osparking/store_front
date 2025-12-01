@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Button, Form, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
-import { handlePropChange } from "../util/utilities";
+import { handlePropChange, insertHyphens } from "../util/utilities";
 import AddressModal from "./AddressModal";
 import RecipientsModal from "../modal/RecipientsModal";
 
@@ -38,9 +38,7 @@ const RecipientInfo = ({
     } else if (cleaned.length <= 7) {
       setPhoneNumber(`${cleaned.slice(0, 3)}-${cleaned.slice(3)}`);
     } else {
-      setPhoneNumber(
-        `${cleaned.slice(0, 3)}-${cleaned.slice(3, 7)}-${cleaned.slice(7, 11)}`
-      );
+      setPhoneNumber(insertHyphens(cleaned));
     }
   };
 

@@ -11,6 +11,7 @@ import { getDeliveryFee } from "./orderService";
 import PaymentFee from "./PaymentFee";
 import "./recipient.css";
 import RecipientInfo from "./RecipientInfo";
+import { insertHyphens } from "../util/utilities.js";
 
 const Recipient = () => {
   const {
@@ -100,7 +101,7 @@ const Recipient = () => {
       roadAddress: "",
       zbunAddress: "",
     },
-    mbPhone: `${(user.mbPhone)}`,
+    mbPhone: `${insertHyphens(user.mbPhone)}`,
     fullName: `${user.fullName}`,
   };
 
