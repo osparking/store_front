@@ -70,6 +70,7 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
             <tr>
               <th>식별자</th>
               <th>주문명</th>
+              <th>현상태</th>
               <th>수신인</th>
               <th>결제액</th>
               <th>결제일</th>
@@ -86,6 +87,7 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
                       {order.orderName}
                     </a>
                   </td>
+                  <td>{order.orderStatus}</td>
                   <td>{order.recipientName}</td>
                   <td>{Number(order.paymentAmount).toLocaleString()}원</td>
                   <td>{formatDate(order.paymentTime)}</td>
