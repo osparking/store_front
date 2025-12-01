@@ -30,11 +30,11 @@ const Recipient = () => {
   let productList = undefined;
 
   const [recipientDefault, setRecipientDefault] = useState(null);
+  const user = JSON.parse(localStorage.getItem("USER"));
 
   useEffect(() => {
     const readDefaultRecipient = async () => {
       try {
-        const user = JSON.parse(localStorage.getItem("USER"));
         const response = await getDefaultRecipient(user.id);
         const recipientDto = response.data;
         console.log("response.data:", JSON.stringify(recipientDto));
@@ -92,7 +92,6 @@ const Recipient = () => {
   };
 
   const [grandTotal] = useState(calcGrandTotal(productList));
-
   const recipientEmpty = {
     addressDetail: "",
     doroZbun: "도로",
@@ -101,8 +100,8 @@ const Recipient = () => {
       roadAddress: "",
       zbunAddress: "",
     },
-    mbPhone: "",
-    fullName: "",
+    mbPhone: `${(user.mbPhone)}`,
+    fullName: `${user.fullName}`,
   };
 
   const [formData, setFormData] = useState(
