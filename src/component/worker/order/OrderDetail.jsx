@@ -60,6 +60,25 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     return "'" + orderDetails.order.orderName + "' 상품을 받으셨습니까?";
   };
 
+  const getButtonLabel = (status) => {
+    let label = undefined;
+    switch (status) {
+      case "수취 확인":
+        label = "구매 확정";
+        break;
+      case "구매 확정":
+        label = "후기 작성";
+        break;
+      case "후기 작성":
+        label = "후기 수정/삭제";
+        break;
+      default:
+        label = "수취 확인";
+        break;
+    }
+    return label;
+  };
+
   return (
     <>
       <ConfirmationModal
@@ -70,7 +89,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         title="주문 상품 수취 확인"
         noLabel="아닙니다"
         yesLabel="받았어요"
-      />    
+      />
       {orderDetails && (
         <div className="box_section orders_table_div darkBack">
           <Row className="d-flex justify-content-center align-items-center">
@@ -164,7 +183,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                           }
                           onClick={() => receptionAcked()}
                         >
-                          수취 확인
+                          {getButtonLabel(orderDetails.order.orderStatus)}
                         </Button>
                         {showTooltip2 && (
                           <div
