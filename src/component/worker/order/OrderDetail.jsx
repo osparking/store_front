@@ -78,6 +78,25 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     return label;
   };
 
+  const getModalTitle = (status) => {
+    let title = undefined;
+    switch (status) {
+      case "수취 확인":
+        title = "상품 구매 확정";
+        break;
+      case "구매 확정":
+        title = "상품 후기 작성";
+        break;
+      case "후기 작성":
+        title = "후기 수정/삭제";
+        break;
+      default:
+        title = "상품 수취 확인";
+        break;
+    }
+    return title;
+  }
+
   return (
     <>
       <ConfirmationModal
@@ -85,7 +104,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         handleClose={() => setShowModal(false)}
         handleConfirm={handleConfirm}
         getMessage={getMessage}
-        title="주문 상품 수취 확인"
+        title={getModalTitle(orderStatus)}
         noLabel="아닙니다"
         yesLabel="받았어요"
       />
