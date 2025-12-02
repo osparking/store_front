@@ -97,6 +97,22 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     return title;
   }
 
+  const getNoLabel = (status) => {
+    let noLabel = undefined;
+    switch (status) {
+      case "수취 확인":
+        noLabel = "확정 보류";
+        break;
+      case "후기 작성":
+        noLabel = "그냥둘께요";
+        break;
+      default:
+        noLabel = "아닙니다";
+        break;
+    }
+    return noLabel;
+  }
+
   return (
     <>
       <ConfirmationModal
@@ -105,7 +121,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         handleConfirm={handleConfirm}
         getMessage={getMessage}
         title={getModalTitle(orderStatus)}
-        noLabel="아닙니다"
+        noLabel={getNoLabel(orderStatus)}
         yesLabel="받았어요"
       />
       {orderDetails && (
