@@ -44,14 +44,27 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     setShowModal(true);
   };
 
-  const handleConfirm = async () => {
+  const handleConfirm = async (yesLabel) => {
     setShowModal(false);
+    let nextStatus = undefined;
 
-    if (orderDetails.order.orderStatus === "GS25 접수") {
-      const nextStatus = "수취 확인";
+    switch (orderDetails.order.orderStatus) {
+      case "GS25 접수":
+        nextStatus = "수취 확인";
+        break;
+      case "수취 확인":
+        nextStatus = "구매 확정";
+        break;
+      default:
+        break;
+    }
+
+    if (nextStatus) {
       const data = { id: orderDetails.order.id, status: nextStatus };
-      const result = await changeOrderStatus(data);
+      await changeOrderStatus(data);
       setOrderStatus(nextStatus);
+    } else {
+      console.log("행동 지침: ", yesLabel);
     }
   };
 
