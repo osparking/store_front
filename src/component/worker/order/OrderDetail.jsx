@@ -54,7 +54,6 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
       setOrderStatus(nextStatus);
     }
   };
-
   const getMessage = () => {
     if (!orderDetails) return;
     return "'" + orderDetails.order.orderName + "' 상품을 받으셨습니까?";
@@ -181,7 +180,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                           disabled={notAtGS25yet()}
                           onClick={() => receptionAcked()}
                         >
-                          {getButtonLabel(orderDetails.order.orderStatus)}
+                          {getButtonLabel(orderStatus)}
                         </Button>
                         {showTooltip2 && (
                           <div
