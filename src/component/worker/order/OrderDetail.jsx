@@ -107,10 +107,29 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         noLabel = "그냥둘께요";
         break;
       default:
-        noLabel = "아닙니다";
+        noLabel = "아니오";
         break;
     }
     return noLabel;
+  }
+  
+  const getYesLabel = (status) => {
+    let yesLabel = undefined;
+    switch (status) {
+      case "수취 확인":
+        yesLabel = "구매 확정";
+        break;
+      case "구매 확정":
+        yesLabel = "작성 시작";
+        break;
+      case "후기 작성":
+        yesLabel = "바꿀께요";
+        break;
+      default:
+        yesLabel = "받았어요";
+        break;
+    }
+    return yesLabel;
   }
 
   return (
@@ -122,7 +141,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         getMessage={getMessage}
         title={getModalTitle(orderStatus)}
         noLabel={getNoLabel(orderStatus)}
-        yesLabel="받았어요"
+        yesLabel={getYesLabel(orderStatus)}
       />
       {orderDetails && (
         <div className="box_section orders_table_div darkBack">
