@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
 import { changeOrderStatus, getOrderDetail } from "../../buy/orderService";
+import ConfirmationModal from "../../modal/ConfirmationModal";
 import { formatDate } from "../../util/utilities";
 import "./OrderDetail.css";
-import ConfirmationModal from "../../modal/ConfirmationModal";
 
 const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   const [orderDetails, setOrderDetails] = useState(undefined);
@@ -178,9 +178,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                       >
                         <Button
                           className="pt-0 pb-0"
-                          disabled={
-                            orderDetails.order.orderStatus !== "GS25 접수"
-                          }
+                          disabled={notAtGS25yet()}
                           onClick={() => receptionAcked()}
                         >
                           {getButtonLabel(orderDetails.order.orderStatus)}
