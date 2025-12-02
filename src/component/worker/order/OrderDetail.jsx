@@ -54,9 +54,31 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
       setOrderStatus(nextStatus);
     }
   };
-  const getMessage = () => {
+
+  const getBodyMessage = (status) => {
     if (!orderDetails) return;
-    return "'" + orderDetails.order.orderName + "' 상품을 받으셨습니까?";
+
+    const orderName = orderDetails.order.orderName;
+    let msg = undefined;
+
+    switch (status) {
+      case "GS25 접수":
+        msg = "'" + orderName + "' 상품을 받으셨습니까?";
+        break;
+      case "수취 확인":
+        msg = "'" + orderName + "' 구매를 확정하겠습니까?";
+        break;
+      case "구매 확정":
+        msg = "'" + orderName + "' 구매 후기를 작성하겠습니까?";
+        break;
+      case "후기 작성":
+        msg = "'" + orderName + "' 구매 후기를 수정하겠습니까?";
+        break;
+      default:
+        msg = "'" + orderName + "' 관련 확인!";
+        break;
+    }
+    return msg;
   };
 
   const getButtonLabel = (status) => {
@@ -138,7 +160,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         show={showModal}
         handleClose={() => setShowModal(false)}
         handleConfirm={handleConfirm}
-        getMessage={getMessage}
+        bodyMessage={getBodyMessage(orderStatus)}
         title={getModalTitle(orderStatus)}
         noLabel={getNoLabel(orderStatus)}
         yesLabel={getYesLabel(orderStatus)}

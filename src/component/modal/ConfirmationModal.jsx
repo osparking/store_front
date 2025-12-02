@@ -4,7 +4,7 @@ export default function ConfirmationModal({
   show,
   handleClose,
   handleConfirm,
-  getMessage,
+  bodyMessage,
   title,
   noLabel,
   yesLabel,
@@ -14,7 +14,7 @@ export default function ConfirmationModal({
       <Modal.Header closeButton>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
-      <Modal.Body>{getMessage()}</Modal.Body>
+      <Modal.Body>{bodyMessage}</Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose} className="flex-fill">
           {noLabel}
