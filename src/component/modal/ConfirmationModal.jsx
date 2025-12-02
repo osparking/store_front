@@ -19,7 +19,7 @@ export default function ConfirmationModal({
         <Button variant="secondary" onClick={handleClose} className="flex-fill">
           {noLabel}
         </Button>
-        <Button variant="primary" onClick={handleConfirm} className="flex-fill ms-2">
+        <Button variant="primary" onClick={() => handleConfirm(yesLabel)} className="flex-fill ms-2">
           {yesLabel}
         </Button>
       </Modal.Footer>
