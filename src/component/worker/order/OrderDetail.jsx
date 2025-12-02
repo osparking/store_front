@@ -71,7 +71,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
       case "구매 확정":
         msg = "'" + orderName + "' 구매 후기를 작성하겠습니까?";
         break;
-      case "후기 작성":
+      case "후기 존재":
         msg = "'" + orderName + "' 구매 후기를 수정하겠습니까?";
         break;
       default:
@@ -90,7 +90,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
       case "구매 확정":
         label = "후기 작성";
         break;
-      case "후기 작성":
+      case "후기 존재":
         label = "후기 수정/삭제";
         break;
       default:
@@ -109,7 +109,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
       case "구매 확정":
         title = "상품 후기 작성";
         break;
-      case "후기 작성":
+      case "후기 존재":
         title = "후기 수정/삭제";
         break;
       default:
@@ -117,7 +117,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         break;
     }
     return title;
-  }
+  };
 
   const getNoLabel = (status) => {
     let noLabel = undefined;
@@ -125,7 +125,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
       case "수취 확인":
         noLabel = "확정 보류";
         break;
-      case "후기 작성":
+      case "후기 존재":
         noLabel = "그냥둘께요";
         break;
       default:
@@ -133,8 +133,8 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         break;
     }
     return noLabel;
-  }
-  
+  };
+
   const getYesLabel = (status) => {
     let yesLabel = undefined;
     switch (status) {
@@ -144,15 +144,15 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
       case "구매 확정":
         yesLabel = "작성 시작";
         break;
-      case "후기 작성":
-        yesLabel = "바꿀께요";
+      case "후기 존재":
+        yesLabel = "수정 적용";
         break;
       default:
         yesLabel = "받았어요";
         break;
     }
     return yesLabel;
-  }
+  };
 
   return (
     <>
