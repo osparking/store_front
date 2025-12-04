@@ -1,7 +1,13 @@
 import { Modal } from "react-bootstrap";
 import MyQuillEditor from "../util/MyQuillEditor";
 
-export default function ReviewModal({ show, handleClose, title, orderName }) {
+export default function ReviewModal({
+  show,
+  handleClose,
+  title,
+  order,
+  saveReview,
+}) {
   return (
     <Modal
       show={show}
@@ -15,7 +21,11 @@ export default function ReviewModal({ show, handleClose, title, orderName }) {
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <MyQuillEditor orderName={orderName} />
+        <MyQuillEditor
+          order={order}
+          handleClose={handleClose}
+          saveReview={saveReview}
+        />
       </Modal.Body>
     </Modal>
   );
