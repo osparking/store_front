@@ -67,9 +67,7 @@ export async function fetchOrderPage(page, size) {
 
 export async function getOrderDetail(orderId) {
   try {
-    const result = await callWithToken(
-      "get", `/order/${orderId}/get_details`
-    );
+    const result = await callWithToken("get", `/order/${orderId}/get_details`);
     return result.data.data;
   } catch (err) {
     throw err;
@@ -93,6 +91,15 @@ export async function getOrderPage(userId, page, size) {
 export async function updateUserCart(data) {
   try {
     const result = await callWithToken("put", "/cart/update", data);
+    return result.data.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function patchOrderReview(data) {
+  try {
+    const result = await callWithToken("patch", "/order/update_review", data);
     return result.data.data;
   } catch (err) {
     throw err;
