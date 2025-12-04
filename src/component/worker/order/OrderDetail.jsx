@@ -90,7 +90,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
       case "구매 확정":
         msg = "'" + orderName + "' 구매 후기를 작성하겠습니까?";
         break;
-      case "후기 존재":
+      case "후기 남김":
         msg = "'" + orderName + "' 구매 후기를 수정하겠습니까?";
         break;
       default:
@@ -109,8 +109,8 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
       case "구매 확정":
         label = "후기 작성";
         break;
-      case "후기 존재":
-        label = "후기 수정/삭제";
+      case "후기 남김":
+        label = "후기 관리";
         break;
       default:
         label = "수취 확인";
@@ -128,8 +128,8 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
       case "구매 확정":
         title = "퀼(Quill) - 리치(rich) 문서 편집기";
         break;
-      case "후기 존재":
-        title = "후기 수정/삭제";
+      case "후기 남김":
+        title = "후기 관리";
         break;
       default:
         title = "상품 수취 확인";
@@ -144,7 +144,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
       case "수취 확인":
         noLabel = "확정 보류";
         break;
-      case "후기 존재":
+      case "후기 남김":
         noLabel = "그냥둘께요";
         break;
       default:
@@ -163,7 +163,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
       case "구매 확정":
         yesLabel = "작성 시작";
         break;
-      case "후기 존재":
+      case "후기 남김":
         yesLabel = "수정 적용";
         break;
       default:
