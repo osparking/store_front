@@ -4,11 +4,13 @@ import { changeOrderStatus, getOrderDetail } from "../../buy/orderService";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import { formatDate } from "../../util/utilities";
 import "./OrderDetail.css";
+import ReviewModal from "../../modal/ReviewModal";
 
 const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   const [orderDetails, setOrderDetails] = useState(undefined);
   const [orderStatus, setOrderStatus] = useState(undefined);
   const [showModal, setShowModal] = useState(false);
+  const [showReviewModal, setShowReviewModal] = useState(false);
 
   useEffect(() => {
     const readOrderDetail = async () => {
@@ -40,8 +42,12 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   const [showTooltip2, setShowTooltip2] = useState(false);
   const cjlogistics = "https://trace.cjlogistics.com/next/tracking.html?wblNo";
 
-  const receptionAcked = () => {
-    setShowModal(true);
+  const button2pushed = () => {
+    if (orderStatus === "구매 확정") {
+      setShowReviewModal(true);
+    } else {
+      setShowModal(true);
+    }
   };
 
   const handleConfirm = async (yesLabel) => {
@@ -178,6 +184,13 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         noLabel={getNoLabel(orderStatus)}
         yesLabel={getYesLabel(orderStatus)}
       />
+      <ReviewModal
+        show={showReviewModal}
+        handleClose={() => setShowReviewModal(false)}
+        title={getModalTitle(orderStatus)}
+        orderName={orderDetails?.order.orderName}
+      />
+
       {orderDetails && (
         <div className="box_section orders_table_div darkBack">
           <Row className="d-flex justify-content-center align-items-center">
@@ -267,7 +280,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                         <Button
                           className="pt-0 pb-0"
                           disabled={notAtGS25yet()}
-                          onClick={() => receptionAcked()}
+                          onClick={() => button2pushed()}
                         >
                           {getButtonLabel(orderStatus)}
                         </Button>
