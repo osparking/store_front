@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
-import { changeOrderStatus, getOrderDetail } from "../../buy/orderService";
+import { changeOrderStatus, getOrderDetail, patchOrderReview } from "../../buy/orderService";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import { formatDate } from "../../util/utilities";
 import "./OrderDetail.css";
@@ -69,9 +69,14 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
       const data = { id: orderDetails.order.id, status: nextStatus };
       await changeOrderStatus(data);
       setOrderStatus(nextStatus);
-    } else {
-      console.log("행동 지침: ", yesLabel);
     }
+  };
+
+  const saveReview = async (reviewData) => {
+    setShowReviewModal(false)
+    let nextStatus = "후기 남김";
+    await patchOrderReview(reviewData);
+    setOrderStatus(nextStatus);
   };
 
   const getBodyMessage = (status) => {
@@ -188,7 +193,8 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         show={showReviewModal}
         handleClose={() => setShowReviewModal(false)}
         title={getModalTitle(orderStatus)}
-        orderName={orderDetails?.order.orderName}
+        order={orderDetails?.order}
+        saveReview={saveReview}
       />
 
       {orderDetails && (
