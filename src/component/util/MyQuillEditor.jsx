@@ -4,6 +4,7 @@ import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css"; // Import styles
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../App.css";
+import "./MyQuillEditor.css";
 
 function MyQuillEditor({orderName}) {
   const [editorContent, setEditorContent] = useState("");

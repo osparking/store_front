@@ -8,6 +8,8 @@ export default function ReviewModal({ show, handleClose, title, orderName }) {
       onHide={handleClose}
       backdrop="static"
       keyboard={false}
+      size="xl"
+      dialogClassName="quill-editor-modal"
     >
       <Modal.Header closeButton>
         <Modal.Title>{title}</Modal.Title>
