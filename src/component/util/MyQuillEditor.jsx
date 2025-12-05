@@ -1,29 +1,36 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
+import toast from "react-hot-toast";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css"; // Import styles
-import "bootstrap/dist/css/bootstrap.min.css";
 import "../../App.css";
 import "./MyQuillEditor.css";
 
-function MyQuillEditor({orderName}) {
+function MyQuillEditor({ order, handleClose, saveReview }) {
   const [editorContent, setEditorContent] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleEditorChange = (content, delta, source, editor) => {
     setEditorContent(content);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Editor Content:", editorContent);
+    try {
+      setLoading(true);
+      const reviewData = { id: order.id, review: editorContent };
 
-    // Get plain text version
-    const plainText = editorContent.replace(/<[^>]*>/g, "");
-    console.log("Plain Text:", plainText);
-
-    // Handle saving or processing the content
-    // Example: send to API
-    // await saveContent(editorContent);
+      await saveReview(reviewData);
+      
+      toast.success("후기 저장 성공.");
+      handleClose();
+    } catch (err) {
+      console.error("err: ", err);
+      toast.error("후기 저장 오류!");
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Custom toolbar configuration
@@ -61,7 +68,7 @@ function MyQuillEditor({orderName}) {
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>
-            <h5>{orderName} 구매 후기</h5>
+            <h5>{order.orderName} 구매 후기</h5>
           </Form.Label>
           <ReactQuill
             theme="snow"
@@ -89,8 +96,9 @@ function MyQuillEditor({orderName}) {
             type="submit"
             className="px-4"
             style={{ cursor: "pointer" }}
+            disabled={loading}
           >
-            저장
+            {loading ? <span>저장 중...</span> : "저장"}
           </Button>
           <Button
             variant="outline-secondary"
