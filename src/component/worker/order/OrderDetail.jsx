@@ -43,11 +43,15 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   const cjlogistics = "https://trace.cjlogistics.com/next/tracking.html?wblNo";
 
   const button2pushed = () => {
-    if (orderStatus === "구매 확정") {
-      setShowReviewModal(true);
-    } else {
-      setShowModal(true);
-    }
+    switch (orderStatus) {
+      case "구매 확정":
+      case "후기 남김":
+        setShowReviewModal(true);
+        break;
+      default:
+        setShowModal(true);
+        break;
+    }    
   };
 
   const handleConfirm = async (yesLabel) => {
