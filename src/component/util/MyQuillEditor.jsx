@@ -91,7 +91,7 @@ function MyQuillEditor({ order, handleClose, saveReview }) {
 
         {/* Character count (optional) */}
         <div className="text-muted mb-3">
-          글자수: {editorContent.replace(/<[^>]*>/g, "").length}자
+          글자수: {editorContent?.replace(/<[^>]*>/g, "").length}자
         </div>
 
         <div className="d-flex gap-2 justify-content-center">
@@ -107,9 +107,10 @@ function MyQuillEditor({ order, handleClose, saveReview }) {
           <Button
             variant="outline-secondary"
             type="button"
+            className="px-3"
             onClick={() => setEditorContent("")}
           >
-            지우기
+            초기화
           </Button>
         </div>
       </Form>
