@@ -8,7 +8,7 @@ import "../../App.css";
 import "./MyQuillEditor.css";
 
 function MyQuillEditor({ order, handleClose, saveReview }) {
-  const [editorContent, setEditorContent] = useState("");
+  const [editorContent, setEditorContent] = useState(order.review);
   const [loading, setLoading] = useState(false);
 
   const handleEditorChange = (content, delta, source, editor) => {
@@ -19,13 +19,13 @@ function MyQuillEditor({ order, handleClose, saveReview }) {
     e.preventDefault();
     if (editorContent.trim().length === 0) {
       return toast.error("후기 내용을 작성하세요!");
-    }    
+    }
     try {
       setLoading(true);
       const reviewData = { id: order.id, review: editorContent };
 
       await saveReview(reviewData);
-      
+
       toast.success("후기 저장 성공.");
       handleClose();
     } catch (err) {
