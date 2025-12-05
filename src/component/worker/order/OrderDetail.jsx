@@ -55,7 +55,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     }    
   };
 
-  const handleConfirm = async (yesLabel) => {
+  const handleConfirm = async () => {
     setShowModal(false);
     let nextStatus = undefined;
 
