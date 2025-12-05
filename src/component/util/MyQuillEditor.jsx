@@ -96,6 +96,14 @@ function MyQuillEditor({ order, handleClose, saveReview }) {
 
         <div className="d-flex gap-2 justify-content-center">
           <Button
+            variant="secondary"
+            type="button"
+            className="px-4"
+            onClick={() => handleClose()}
+          >
+            닫기
+          </Button>
+          <Button
             variant="primary"
             type="submit"
             className="px-4"
