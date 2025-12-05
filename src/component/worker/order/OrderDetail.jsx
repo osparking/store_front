@@ -12,13 +12,14 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   const [showModal, setShowModal] = useState(false);
   const [showReviewModal, setShowReviewModal] = useState(false);
 
+  const readOrderDetail = async () => {
+    const response = await getOrderDetail(detailId);
+    setOrderDetails(response);
+    setOrderStatus(response.order.orderStatus);
+    console.log("Response: ", JSON.stringify(response));
+  };
+  
   useEffect(() => {
-    const readOrderDetail = async () => {
-      const response = await getOrderDetail(detailId);
-      setOrderDetails(response);
-      setOrderStatus(response.order.orderStatus);
-      console.log("Response: ", JSON.stringify(response));
-    };
     readOrderDetail();
   }, []);
 
@@ -81,6 +82,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     let nextStatus = "후기 남김";
     await patchOrderReview(reviewData);
     setOrderStatus(nextStatus);
+    readOrderDetail();
   };
 
   const getBodyMessage = (status) => {
