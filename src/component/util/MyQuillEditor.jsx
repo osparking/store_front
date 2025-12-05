@@ -17,6 +17,9 @@ function MyQuillEditor({ order, handleClose, saveReview }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (editorContent.trim().length === 0) {
+      return toast.error("후기 내용을 작성하세요!");
+    }    
     try {
       setLoading(true);
       const reviewData = { id: order.id, review: editorContent };
