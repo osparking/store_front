@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Form, InputGroup, Modal } from "react-bootstrap";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import AlertMessage from "../common/AlertMessage";
@@ -64,9 +64,7 @@ const ChangePassword = ({ userId, show, handleClose }) => {
       </Modal.Header>
       <Modal.Body>
         {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
-        {alertSuccess && (
-          <AlertMessage type={"success"} message={successMsg} />
-        )}
+        {alertSuccess && <AlertMessage type={"success"} message={successMsg} />}
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="curPwd">
             <Form.Label>현재 비밀번호: </Form.Label>
