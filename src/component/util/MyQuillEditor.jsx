@@ -6,6 +6,7 @@ import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css"; // Import styles
 import "../../App.css";
 import "./MyQuillEditor.css";
+import ConfirmationModal from "../modal/ConfirmationModal";
 
 function MyQuillEditor({ order, handleClose, saveReview }) {
   const [editorContent, setEditorContent] = useState(order.review);
@@ -67,8 +68,27 @@ function MyQuillEditor({ order, handleClose, saveReview }) {
     "video",
   ];
 
+  const [showModal, setShowModal] = useState(false);
+  
+  const confirmDeletion = () => {
+    setShowModal(true);
+  };
+
+  const performDeletion = () => {
+    console.log("후기 삭제 대상 주문 ID: ", order.id);
+  };
+
   return (
     <Container className="mt-4">
+      <ConfirmationModal
+        show={showModal}
+        handleClose={() => setShowModal(false)}
+        handleConfirm={performDeletion}
+        bodyMessage="후기를 삭제하려면, 삭제 버튼을 누르십시오!"
+        title="후기 삭제 확인"
+        noLabel="취소"
+        yesLabel="삭제"
+      />
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>
@@ -91,7 +111,8 @@ function MyQuillEditor({ order, handleClose, saveReview }) {
 
         {/* Character count (optional) */}
         <div className="text-muted mb-3">
-          글자수: {editorContent?.replace(/<[^>]*>/g, "").length}자
+          글자수:{" "}
+          {editorContent ? editorContent.replace(/<[^>]*>/g, "").length : 0} 자
         </div>
 
         <div className="d-flex gap-2 justify-content-center">
@@ -120,6 +141,16 @@ function MyQuillEditor({ order, handleClose, saveReview }) {
           >
             초기화
           </Button>
+          {order.review && (
+            <Button
+              variant="danger"
+              type="button"
+              className="px-4"
+              onClick={confirmDeletion}
+            >
+              삭제
+            </Button>
+          )}
         </div>
       </Form>
     </Container>
