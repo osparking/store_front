@@ -8,10 +8,11 @@ export default function ConfirmationModal({
   title,
   noLabel,
   yesLabel,
+  headerBgColor = "",
 }) {
   return (
     <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
-      <Modal.Header closeButton>
+      <Modal.Header closeButton className={`${headerBgColor}`}>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>{bodyMessage}</Modal.Body>
@@ -19,7 +20,11 @@ export default function ConfirmationModal({
         <Button variant="secondary" onClick={handleClose} className="flex-fill">
           {noLabel}
         </Button>
-        <Button variant="primary" onClick={() => handleConfirm(yesLabel)} className="flex-fill ms-2">
+        <Button
+          variant="primary"
+          onClick={() => handleConfirm()}
+          className="flex-fill ms-2"
+        >
           {yesLabel}
         </Button>
       </Modal.Footer>

@@ -88,6 +88,7 @@ function MyQuillEditor({ order, handleClose, saveReview }) {
         title="후기 삭제 확인"
         noLabel="취소"
         yesLabel="삭제"
+        headerBgColor="bg-danger"
       />
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
