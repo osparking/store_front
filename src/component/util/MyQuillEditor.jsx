@@ -16,10 +16,19 @@ function MyQuillEditor({ order, handleClose, saveReview }) {
     setEditorContent(content);
   };
 
+  const getTextLength = () => {
+    let textLength = 0;
+
+    if (editorContent) {
+      const plainText = editorContent.replace(/<[^>]*>/g, "");
+      textLength = plainText.trim().length;
+    }
+    return textLength;
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const plainText = editorContent.replace(/<[^>]*>/g, "");
-    if (plainText.trim().length === 0) {
+    if (getTextLength() === 0) {
       return toast.error("후기 내용을 작성하세요!");
     }
     try {
@@ -125,10 +134,7 @@ function MyQuillEditor({ order, handleClose, saveReview }) {
         </Form.Group>
 
         {/* Character count (optional) */}
-        <div className="text-muted mb-3">
-          글자수:{" "}
-          {editorContent ? editorContent.replace(/<[^>]*>/g, "").length : 0} 자
-        </div>
+        <div className="text-muted mb-3">글자수: {getTextLength()} 자</div>
 
         <div className="d-flex gap-2 justify-content-center">
           <Button
