@@ -74,8 +74,21 @@ function MyQuillEditor({ order, handleClose, saveReview }) {
     setShowModal(true);
   };
 
-  const performDeletion = () => {
-    console.log("후기 삭제 대상 주문 ID: ", order.id);
+  const performDeletion = async () => {
+    try {
+      setLoading(true);
+      const reviewData = { id: order.id, review: null };
+
+      await saveReview(reviewData);
+
+      toast.success("후기 삭제 완료");
+      handleClose();
+    } catch (err) {
+      console.error("err: ", err);
+      toast.error("후기 삭제 실패!");
+    } finally {
+      setLoading(false);
+    }    
   };
 
   return (
@@ -148,6 +161,7 @@ function MyQuillEditor({ order, handleClose, saveReview }) {
               variant="danger"
               type="button"
               className="px-4"
+              disabled={loading}
               onClick={confirmDeletion}
             >
               삭제
