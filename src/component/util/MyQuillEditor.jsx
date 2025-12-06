@@ -89,6 +89,7 @@ function MyQuillEditor({ order, handleClose, saveReview }) {
         noLabel="취소"
         yesLabel="삭제"
         headerBgColor="bg-danger"
+        modelClassName="modal-slide-down"
       />
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">

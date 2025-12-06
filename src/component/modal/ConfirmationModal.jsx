@@ -1,4 +1,5 @@
 import { Button, Modal } from "react-bootstrap";
+import "./ConfirmationModal.css";
 
 export default function ConfirmationModal({
   show,
@@ -9,9 +10,16 @@ export default function ConfirmationModal({
   noLabel,
   yesLabel,
   headerBgColor = "",
+  modelClassName = "",
 }) {
   return (
-    <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+    <Modal
+      show={show}
+      onHide={handleClose}
+      backdrop="static"
+      keyboard={false}
+      className={`${modelClassName}`}
+    >
       <Modal.Header closeButton className={`${headerBgColor}`}>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
