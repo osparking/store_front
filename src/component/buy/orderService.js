@@ -74,6 +74,20 @@ export async function getOrderDetail(orderId) {
   }
 }
 
+export async function getReviewPage(page, size) {
+  const urlPrefix = "/order/my_reviews?page=";
+
+  try {
+    const result = await callWithToken(
+      "get",
+      `${urlPrefix}${page}&size=${size}`
+    );
+    return result.data.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function getOrderPage(userId, page, size) {
   const urlPrefix = "/order/myrows?userId=";
 
