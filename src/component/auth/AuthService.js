@@ -16,6 +16,7 @@ const clearLoginUserInfo = () => {
     "TOKEN",
     "IS_ADMIN",
     "ORDER_PAGE_고객",
+    "REVIEW_PAGE_고객",
     "ORDER_PAGE_WORKER",
     "WORKER_TAB",
     "SOAP_SHAPE_TAB",
