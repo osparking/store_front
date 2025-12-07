@@ -55,8 +55,8 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
       </div>
       <div className="d-flex justify-content-center align-items-center">
         <p className="text-center text-muted mb-4">
-          주문 총 {reviewPage.totalElements} 건 중, {indexOfFirst + 1} ~{" "}
-          {Math.min(idxLastPlus1, reviewPage.totalElements)}번째 주문
+          후기 총 {reviewPage.totalElements} 건 중, {indexOfFirst + 1} ~{" "}
+          {Math.min(idxLastPlus1, reviewPage.totalElements)}번째 후기
         </p>
       </div>
       <div
