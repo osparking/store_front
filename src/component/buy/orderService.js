@@ -74,6 +74,20 @@ export async function getOrderDetail(orderId) {
   }
 }
 
+export async function fetchReview(oId) {
+  const urlPrefix = "/order/";
+
+  try {
+    const result = await callWithToken(
+      "get",
+      `${urlPrefix}${oId}/review_info`
+    );
+    return result.data.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function getReviewPage(page, size) {
   const urlPrefix = "/order/my_reviews?page=";
 
