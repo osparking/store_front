@@ -19,19 +19,20 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
   const idxLastPlus1 = currentPage * pageSize;
   const indexOfFirst = idxLastPlus1 - pageSize;
 
+  const loadReviewPage = async () => {
+    const searchResult = await getReviewPage(currentPage, pageSize);
+    setSearchResult(searchResult);
+    if (searchResult) {
+      setTotalPages(searchResult.totalPages);
+      setReviewPage(searchResult.pageContent);
+      setReviews(searchResult.pageContent.content);
+      setPageSize(searchResult.pageSize);
+      setCurrentPage(searchResult.currentPage);
+    }
+  };
+
   useEffect(() => {
     localStorage.setItem("REVIEW_PAGE_고객", currentPage);
-    const loadReviewPage = async () => {
-      const searchResult = await getReviewPage(currentPage, pageSize);
-      setSearchResult(searchResult);
-      if (searchResult) {
-        setTotalPages(searchResult.totalPages);
-        setReviewPage(searchResult.pageContent);
-        setReviews(searchResult.pageContent.content);
-        setPageSize(searchResult.pageSize);
-        setCurrentPage(searchResult.currentPage);
-      }
-    };
     loadReviewPage();
   }, [currentPage]);
 
