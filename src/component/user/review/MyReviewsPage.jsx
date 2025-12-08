@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { getReviewPage } from "../../buy/orderService";
+import { getReviewPage, patchOrderReview } from "../../buy/orderService";
 import Paginator from "../../common/Paginator";
 import "../../pay_toss/MyOrdersPage.css";
 import { formatDate } from "../../util/utilities";
+import ReviewModal from "../../modal/ReviewModal";
 
 const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
   const [totalPages, setTotalPages] = useState(1);
@@ -55,8 +56,21 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
     setShowReviewModal(true);
   };
 
+  const saveReview = async (reviewData) => {
+    setShowReviewModal(false);
+    await patchOrderReview(reviewData);
+    loadReviewPage();
+  };
+
   return (
     <div className="box_section orders_table_div">
+      <ReviewModal
+        show={showReviewModal}
+        handleClose={() => setShowReviewModal(false)}
+        title={"후기 관리"}
+        order={review}
+        saveReview={saveReview}
+      />
       <div className="d-flex justify-content-center align-items-center">
         <h3>나의 후기 목록</h3>
       </div>
