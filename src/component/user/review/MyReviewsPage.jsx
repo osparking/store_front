@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { getReviewPage, patchOrderReview } from "../../buy/orderService";
+import { fetchReview, getReviewPage, patchOrderReview } from "../../buy/orderService";
 import Paginator from "../../common/Paginator";
 import "../../pay_toss/MyOrdersPage.css";
 import { formatDate } from "../../util/utilities";
@@ -46,13 +46,9 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [review, setReview] = useState({});
 
-  const fetchReview = (oId) => {
-    return { id: oId, orderName: "아무거", review: "대충 만족한다" };
-  };
-
-  const manageReview = (oId) => {
-    const review = fetchReview(oId);
-    setReview(review);
+  const manageReview = async (oId) => {
+    const review = await fetchReview(oId);
+    setReview({...review, id: oId});
     setShowReviewModal(true);
   };
 
