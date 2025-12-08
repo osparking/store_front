@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { formatDate } from "../../util/utilities";
-import "../../pay_toss/MyOrdersPage.css";
 import { getReviewPage } from "../../buy/orderService";
 import Paginator from "../../common/Paginator";
+import "../../pay_toss/MyOrdersPage.css";
+import { formatDate } from "../../util/utilities";
 
 const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
   const [totalPages, setTotalPages] = useState(1);
@@ -42,12 +42,18 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
     navigate("/");
   };
 
-  function viewOrderDetail(id) {
-    console.log("Clicked order ID:", id);
-    setDetailId(id);
-    setShowDetail(true);
-    return false; // Prevent default
-  }
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [review, setReview] = useState({});
+
+  const fetchReview = (oId) => {
+    return { id: oId, orderName: "아무거", review: "대충 만족한다" };
+  };
+
+  const manageReview = (oId) => {
+    const review = fetchReview(oId);
+    setReview(review);
+    setShowReviewModal(true);
+  };
 
   return (
     <div className="box_section orders_table_div">
@@ -83,7 +89,7 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
                   <td>{review.orderName}</td>
                   <td>{formatDate(review.orderTime)}</td>
                   <td>
-                    <a href="#" onClick={() => viewOrderDetail(review.id)}>
+                    <a href="#" onClick={() => manageReview(review.id)}>
                       {review.reviewPreview}
                     </a>
                   </td>
