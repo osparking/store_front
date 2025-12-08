@@ -98,7 +98,7 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
                 <tr key={idx}>
                   <td>{review.orderName}</td>
                   <td>{formatDate(review.orderTime)}</td>
-                  <td>
+                  <td className="text-start">
                     <a href="#" onClick={() => manageReview(review.id)}>
                       {review.reviewPreview}
                     </a>
