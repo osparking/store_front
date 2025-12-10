@@ -1,8 +1,15 @@
 import { Button, Card, Col, Container, ListGroup, Row } from "react-bootstrap";
 import olive_label from "../../assets/images/olive_label.jpg";
 import soap_rack from "../../assets/images/soap_rack.jpg";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const gotoReviews = () => {
+    navigate("/reviews");
+  }
+
   return (
     <Container fluid className="home-container mt-3">
       <Row>
@@ -76,7 +83,9 @@ const Home = () => {
                 여기를 범이비누를 직접 구매ᐧ사용한 고객님들의 목소리가 있습니다.
               </p>
               <h5 className="text-center">
-                <span className="text-info"> 고객님 리뷰</span>
+                <span className="text-info">
+                  <a href="#" onClick={() => gotoReviews()}>구매 후기</a>
+                </span>
               </h5>
             </Card.Body>
           </Card>
