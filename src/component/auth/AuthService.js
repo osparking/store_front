@@ -18,6 +18,7 @@ const clearLoginUserInfo = () => {
     "ORDER_PAGE_고객",
     "REVIEW_PAGE_고객",
     "ORDER_PAGE_WORKER",
+    "REVIEW_PAGE_CUSTOMER",
     "WORKER_TAB",
     "SOAP_SHAPE_TAB",
     "SOAP_INTRO_TAB",
