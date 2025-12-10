@@ -27,6 +27,7 @@ import UserUpdate from "./component/user/UpdateUser";
 import UserDashboard from "./component/user/UserDashboard";
 import WorkerDashboard from "./component/worker/WorkerDashboard";
 import ManageMyOrder from "./component/user/ManageMyOrder";
+import SurfingReviews from "./component/soaps/SurfingReviews";
 
 function App() {
   useEffect(() => {
@@ -64,6 +65,7 @@ function App() {
         <Route path="/user/:id/update" element={<UserUpdate />} />
         <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
         <Route path="/soap_intro" element={<SoapIntro />} />
+        <Route path="/reviews" element={<SurfingReviews />} />
         {/* 인증이 필요한 루트 */}
         <Route
           element={
