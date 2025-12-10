@@ -78,10 +78,7 @@ export async function fetchReview(oId) {
   const urlPrefix = "/order/";
 
   try {
-    const result = await callWithToken(
-      "get",
-      `${urlPrefix}${oId}/review_info`
-    );
+    const result = await callWithToken("get", `${urlPrefix}${oId}/review_info`);
     return result.data.data;
   } catch (err) {
     throw err;
@@ -161,6 +158,20 @@ export async function saveOrderRecipient(data) {
   try {
     const result = await callWithToken("post", "/order/add", data);
     return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function fetchReviewPage(page, size) {
+  const urlPrefix = "/soap/review_page?page=";
+
+  try {
+    const result = await callWithToken(
+      "get",
+      `${urlPrefix}${page}&size=${size}`
+    );
+    return result.data.data;
   } catch (err) {
     throw err;
   }
