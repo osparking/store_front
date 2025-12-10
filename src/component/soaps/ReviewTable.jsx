@@ -1,0 +1,101 @@
+import { useEffect, useState } from "react";
+import { Table } from "react-bootstrap";
+import "../../App.css";
+import { fetchReviewPage } from "../buy/orderService";
+import "./ReviewTable.css";
+import Paginator from "../common/Paginator";
+import { formatDate } from "../util/utilities";
+
+const ReviewTable = ({ setShowDetail, setDetailId }) => {
+  const [totalPages, setTotalPages] = useState(1);
+  const [reviewPage, setReviewPage] = useState({});
+  const [reviews, setReviews] = useState([]);
+  const [pageSize, setPageSize] = useState(5); // itemsPerPage
+
+  const savedPageNo = localStorage.getItem("REVIEW_PAGE_CUSTOMER");
+  const [currentPage, setCurrentPage] = useState(savedPageNo || 1);
+
+  const [fetchResult, setFetchResult] = useState();
+  const idxLastPlus1 = currentPage * pageSize;
+  const indexOfFirst = idxLastPlus1 - pageSize;
+
+  useEffect(() => {
+    localStorage.setItem("REVIEW_PAGE_CUSTOMER", currentPage);
+    const loadReviewPage = async () => {
+      const response = await fetchReviewPage(currentPage, pageSize);
+      console.log("resp: ", JSON.stringify(response));
+      setFetchResult(response);
+
+      if (response && response.pageContent) {
+        setTotalPages(response.totalPages);
+        setReviewPage(response.pageContent);
+        setReviews(response.pageContent.content);
+        setPageSize(response.pageSize);
+        setCurrentPage(response.currentPage);
+      }
+    };
+    loadReviewPage();
+  }, [currentPage]);
+
+  function viewReviewDetail(id) {
+    console.log("후기 읽을 주문 ID: ", id);
+    setDetailId(id);
+    setShowDetail(true);
+    return false; // Prevent default
+  }
+
+  return (
+    <div className="box_section review_table_div" style={{ overflowX: 'auto' }}>
+      <p className="text-center mb-4">
+        후기 총 {reviewPage.totalElements} 건 중, {indexOfFirst + 1} ~{" "}
+        {Math.min(idxLastPlus1, reviewPage.totalElements)}번째 후기
+      </p>
+
+      <div className="table-container">
+        <Table bordered hover striped>
+          <thead>
+            <tr>
+              <th>주문 시점</th>
+              <th>후기 작성/갱신 일시</th>
+              <th>후기 시작 부분</th>
+              <th>고객명</th>
+              <th>비누 외형</th>
+              <th>사진</th>
+              <th>유튜브</th>
+            </tr>
+          </thead>
+          <tbody>
+            {reviews &&
+              reviews.map((review, index) => (
+                <tr key={index}>
+                  <td>{review.orderTime} 일전</td>
+                  <td>{formatDate(review.reviewTime)}</td>
+                  <td className="text-start">
+                    <a href="#" onClick={() => viewReviewDetail(review.id)}>
+                      {review.reviewPreview}
+                    </a>
+                  </td>
+                  <td>{review.customerName}</td>
+                  <td>{review.shapesList}</td>
+                  <td>{review.hasImage ? "있음" : ""}</td>
+                  <td>{review.hasVideo ? "있음" : ""}</td>
+                </tr>
+              ))}
+          </tbody>
+        </Table>
+      </div>
+      {fetchResult && reviewPage && (
+        <Paginator
+          pageSize={reviewPage.size}
+          totalItems={reviewPage.totalElements}
+          totalPages={totalPages}
+          currPage={fetchResult.currentPage}
+          setCurrPage={(pageNo) => setCurrentPage(pageNo)}
+          darkBackground="true"
+        />
+      )}
+    </div>
+  );
+};
+
+export default ReviewTable;

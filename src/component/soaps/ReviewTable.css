@@ -1,0 +1,21 @@
+/* 후기 목록 페이지 테이블 전용 모양새 */
+table {
+  margin-top: 20px;
+}
+
+th, .text-center{
+  text-align: center;
+}
+
+.review_table_div {
+  min-width: 700px;
+  max-width: 950px;
+  text-align: left;
+  overflow-x: auto; 
+}
+
+.pinkBack {
+  background-color: rgb(250, 222, 226, 0.5);
+  color: rgb(45, 62, 78);
+  padding: 5px;
+}
