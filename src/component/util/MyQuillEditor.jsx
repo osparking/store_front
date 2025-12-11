@@ -5,10 +5,10 @@ import toast from "react-hot-toast";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css"; // Import styles
 import "../../App.css";
-import "./MyQuillEditor.css";
 import ConfirmationModal from "../modal/ConfirmationModal";
+import "./MyQuillEditor.css";
 
-function MyQuillEditor({ order, handleClose, saveReview }) {
+function MyQuillEditor({ order, handleClose, saveReview, editable }) {
   const [editorContent, setEditorContent] = useState(order.review);
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +24,7 @@ function MyQuillEditor({ order, handleClose, saveReview }) {
       textLength = plainText.trim().length;
     }
     return textLength;
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -78,7 +78,7 @@ function MyQuillEditor({ order, handleClose, saveReview }) {
   ];
 
   const [showModal, setShowModal] = useState(false);
-  
+
   const confirmDeletion = () => {
     setShowModal(true);
   };
@@ -97,7 +97,7 @@ function MyQuillEditor({ order, handleClose, saveReview }) {
       toast.error("후기 삭제 실패!");
     } finally {
       setLoading(false);
-    }    
+    }
   };
 
   return (
@@ -145,24 +145,28 @@ function MyQuillEditor({ order, handleClose, saveReview }) {
           >
             닫기
           </Button>
-          <Button
-            variant="primary"
-            type="submit"
-            className="px-4"
-            style={{ cursor: "pointer" }}
-            disabled={loading}
-          >
-            {loading ? <span>저장 중...</span> : "저장"}
-          </Button>
-          <Button
-            variant="outline-secondary"
-            type="button"
-            className="px-3"
-            onClick={() => setEditorContent("")}
-          >
-            초기화
-          </Button>
-          {order.review && (
+          {editable && (
+            <>
+              <Button
+                variant="primary"
+                type="submit"
+                className="px-4"
+                style={{ cursor: "pointer" }}
+                disabled={loading}
+              >
+                {loading ? <span>저장 중...</span> : "저장"}
+              </Button>
+              <Button
+                variant="outline-secondary"
+                type="button"
+                className="px-3"
+                onClick={() => setEditorContent("")}
+              >
+                초기화
+              </Button>
+            </>
+          )}
+          {order.review && editable && (
             <Button
               variant="danger"
               type="button"
