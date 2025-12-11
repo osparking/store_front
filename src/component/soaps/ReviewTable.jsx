@@ -81,7 +81,7 @@ const ReviewTable = () => {
                 <tr key={index}>
                   <td>{review.orderTime} 일전</td>
                   <td>{formatDate(review.reviewTime)}</td>
-                  <td
+                  <td style={{ cursor: 'pointer' }}
                     className="text-start linkLook text-primary"
                     onClick={() => viewReviewDetail(review.id)}
                   >
