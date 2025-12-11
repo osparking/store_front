@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import "../../App.css";
-import { fetchReviewPage } from "../buy/orderService";
+import { fetchReview, fetchReviewPage } from "../buy/orderService";
 import "./ReviewTable.css";
 import Paginator from "../common/Paginator";
 import { formatDate } from "../util/utilities";
+import ReviewModal from "../modal/ReviewModal";
 
-const ReviewTable = ({ setShowDetail, setDetailId }) => {
+const ReviewTable = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [reviewPage, setReviewPage] = useState({});
   const [reviews, setReviews] = useState([]);
@@ -37,16 +38,26 @@ const ReviewTable = ({ setShowDetail, setDetailId }) => {
     loadReviewPage();
   }, [currentPage]);
 
-  function viewReviewDetail(id) {
-    console.log("후기 읽을 주문 ID: ", id);
-    setDetailId(id);
-    setShowDetail(true);
-    return false; // Prevent default
+  async function viewReviewDetail(oId) { // 주문 ID(순수 번호)
+    const review = await fetchReview(oId);
+    setReview({ ...review, id: oId });
+    setShowReviewModal(true);
   }
 
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [review, setReview] = useState({});
+
   return (
-    <div className="box_section review_table_div" style={{ overflowX: 'auto' }}>
-      <p className="text-center mb-4">
+    <div className="box_section review_table_div" style={{ overflowX: "auto" }}>
+      <ReviewModal
+        show={showReviewModal}
+        handleClose={() => setShowReviewModal(false)}
+        title={"후기 관리"}
+        order={review}
+        // saveReview={saveReview}
+      />
+      <h5 className="chart-title pinkBack">고객 구매 후기</h5>
+      <p className="text-center mb-0 mt-4">
         후기 총 {reviewPage.totalElements} 건 중, {indexOfFirst + 1} ~{" "}
         {Math.min(idxLastPlus1, reviewPage.totalElements)}번째 후기
       </p>
@@ -70,10 +81,11 @@ const ReviewTable = ({ setShowDetail, setDetailId }) => {
                 <tr key={index}>
                   <td>{review.orderTime} 일전</td>
                   <td>{formatDate(review.reviewTime)}</td>
-                  <td className="text-start">
-                    <a href="#" onClick={() => viewReviewDetail(review.id)}>
-                      {review.reviewPreview}
-                    </a>
+                  <td
+                    className="text-start linkLook text-primary"
+                    onClick={() => viewReviewDetail(review.id)}
+                  >
+                    {review.reviewPreview}
                   </td>
                   <td>{review.customerName}</td>
                   <td>{review.shapesList}</td>
