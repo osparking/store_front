@@ -7,6 +7,7 @@ export default function ReviewModal({
   title,
   order,
   saveReview,
+  editable
 }) {
   return (
     <Modal
@@ -21,11 +22,12 @@ export default function ReviewModal({
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <MyQuillEditor
-          order={order}
-          handleClose={handleClose}
-          saveReview={saveReview}
-        />
+  <MyQuillEditor
+    order={order}
+    handleClose={handleClose}
+    saveReview={saveReview}
+    editable={editable}
+  />
       </Modal.Body>
     </Modal>
   );
