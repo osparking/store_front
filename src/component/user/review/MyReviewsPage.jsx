@@ -66,6 +66,7 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
         title={"후기 관리"}
         order={review}
         saveReview={saveReview}
+        editable={true}
       />
       <div className="d-flex justify-content-center align-items-center">
         <h3>나의 후기 목록</h3>
