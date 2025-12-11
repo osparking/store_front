@@ -18,16 +18,15 @@ import Recipient from "./component/buy/Recipient";
 import Home from "./component/home/Home";
 import RootLayout from "./component/layout/RootLayout";
 import { FailPage } from "./component/pay_toss/Fail";
-import MyOrdersPage from "./component/pay_toss/MyOrdersPage";
 import WidgetCheckoutPage from "./component/pay_toss/WidgetCheckoutPage";
 import { WidgetSuccessPage } from "./component/pay_toss/WidgetSuccess";
+import ReviewTable from "./component/soaps/ReviewTable";
 import SoapIntro from "./component/soaps/SoapIntro";
+import ManageMyOrder from "./component/user/ManageMyOrder";
 import RegisterUser from "./component/user/RegisterUser";
 import UserUpdate from "./component/user/UpdateUser";
 import UserDashboard from "./component/user/UserDashboard";
 import WorkerDashboard from "./component/worker/WorkerDashboard";
-import ManageMyOrder from "./component/user/ManageMyOrder";
-import SurfingReviews from "./component/soaps/SurfingReviews";
 
 function App() {
   useEffect(() => {
@@ -65,7 +64,8 @@ function App() {
         <Route path="/user/:id/update" element={<UserUpdate />} />
         <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
         <Route path="/soap_intro" element={<SoapIntro />} />
-        <Route path="/reviews" element={<SurfingReviews />} />
+        <Route path="/reviews" element={<ReviewTable />} />
+
         {/* 인증이 필요한 루트 */}
         <Route
           element={
