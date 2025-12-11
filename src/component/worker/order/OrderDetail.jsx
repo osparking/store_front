@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
-import { changeOrderStatus, getOrderDetail, patchOrderReview } from "../../buy/orderService";
+import {
+  changeOrderStatus,
+  getOrderDetail,
+  patchOrderReview,
+} from "../../buy/orderService";
 import ConfirmationModal from "../../modal/ConfirmationModal";
+import ReviewModal from "../../modal/ReviewModal";
 import { formatDate } from "../../util/utilities";
 import "./OrderDetail.css";
-import ReviewModal from "../../modal/ReviewModal";
 
 const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   const [orderDetails, setOrderDetails] = useState(undefined);
@@ -18,7 +22,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     setOrderStatus(response.order.orderStatus);
     console.log("Response: ", JSON.stringify(response));
   };
-  
+
   useEffect(() => {
     readOrderDetail();
   }, []);
@@ -52,7 +56,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
       default:
         setShowModal(true);
         break;
-    }    
+    }
   };
 
   const handleConfirm = async () => {
@@ -78,7 +82,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   };
 
   const saveReview = async (reviewData) => {
-    setShowReviewModal(false)
+    setShowReviewModal(false);
     let nextStatus = "후기 남김";
     await patchOrderReview(reviewData);
     setOrderStatus(nextStatus);
@@ -111,7 +115,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     return msg;
   };
 
-  const getButtonLabel = (status) => {
+  const getBottomButtonLabel = (status) => {
     let label = undefined;
     switch (status) {
       case "수취 확인":
@@ -121,7 +125,18 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         label = "후기 작성";
         break;
       case "후기 남김":
-        label = "후기 관리";
+        if (isHouse) {
+          label = "후기 읽기";
+        } else {
+          label = "후기 관리";
+        }
+        break;
+      case "GS25 접수":
+        if (isHouse) {
+          label = "배송 조회";
+        } else {
+          label = "수취 확인";
+        }
         break;
       default:
         label = "수취 확인";
@@ -184,6 +199,15 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     return yesLabel;
   };
 
+  const handleTopButton = () => {
+    const url = `${cjlogistics}=${orderDetails.order.waybillNo}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const getTopButtonLabel = () => {
+    return "배송 조회";
+  };
+
   return (
     <>
       <ConfirmationModal
@@ -201,6 +225,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         title={getModalTitle(orderStatus)}
         order={orderDetails?.order}
         saveReview={saveReview}
+        editable={!isHouse}
       />
 
       {orderDetails && (
@@ -261,12 +286,11 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                     >
                       <Button
                         className="pt-0 pb-0"
-                        href={`${cjlogistics}=${orderDetails.order.waybillNo}`}
-                        target="_blank"
                         rel="noopener noreferrer"
                         disabled={notAtGS25yet()}
+                        onClick={() => handleTopButton()}
                       >
-                        배송 조회
+                        {getTopButtonLabel()}
                       </Button>
                       {showTooltip1 && (
                         <div
@@ -294,7 +318,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                           disabled={notAtGS25yet()}
                           onClick={() => button2pushed()}
                         >
-                          {getButtonLabel(orderStatus)}
+                          {getBottomButtonLabel(orderStatus)}
                         </Button>
                         {showTooltip2 && (
                           <div
