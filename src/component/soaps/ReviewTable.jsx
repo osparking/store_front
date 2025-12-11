@@ -52,9 +52,9 @@ const ReviewTable = () => {
       <ReviewModal
         show={showReviewModal}
         handleClose={() => setShowReviewModal(false)}
-        title={"후기 관리"}
+        title={"후기 읽기"}
         order={review}
-        // saveReview={saveReview}
+        editable={false}
       />
       <h5 className="chart-title pinkBack">고객 구매 후기</h5>
       <p className="text-center mb-0 mt-4">
