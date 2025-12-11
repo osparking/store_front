@@ -286,7 +286,6 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                     >
                       <Button
                         className="pt-0 pb-0"
-                        rel="noopener noreferrer"
                         disabled={notAtGS25yet()}
                         onClick={() => handleTopButton()}
                       >
