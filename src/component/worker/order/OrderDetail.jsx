@@ -62,8 +62,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   const handleConfirm = async () => {
     setShowModal(false);
     let nextStatus = undefined;
-
-    switch (orderDetails.order.orderStatus) {
+    switch (orderStatus) {
       case "GS25 접수":
         nextStatus = "수취 확인";
         break;
