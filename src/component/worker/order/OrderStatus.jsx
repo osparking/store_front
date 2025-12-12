@@ -44,12 +44,6 @@ const OrderStatus = ({ statusLabels, value, soapOrders, orderIndex }) => {
   const [showModal, setShowModal] = useState(false);
   const [showWaybillModal, setShowWaybillModal] = useState(false);
 
-  const getMessage = () => {
-    return (
-      "'" + soapOrders[orderIndex].customer + "'님의 주문을 발주하겠습니까?"
-    );
-  };
-
   const getWaybillMessage = () => {
     return (
       "'" +
@@ -99,10 +93,10 @@ const OrderStatus = ({ statusLabels, value, soapOrders, orderIndex }) => {
         show={showModal}
         handleClose={() => setShowModal(false)}
         handleConfirm={handleConfirm}
-        getMessage={getMessage}
+        bodyMessage={`'${soapOrders[orderIndex].customer}' 님 주문을 발주하겠습니까?`}
         title="범이비누 주문 발주"
-        noLabel="아니오"
-        yesLabel="발주"       
+        noLabel="발주 보류"
+        yesLabel="발주 진행"
       />
       <WaybillModal
         show={showWaybillModal}
