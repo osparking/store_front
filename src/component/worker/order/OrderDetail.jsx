@@ -208,24 +208,6 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     }
   };
 
-  const getTopButtonLabel = (status) => {
-    console.log("top: ", status);
-    let label = undefined;
-    switch (status) {
-      case "후기 남김":
-        if (isHouse) {
-          label = "후기 읽기";
-        } else {
-          label = "후기 관리";
-        }
-        break;
-      default:
-        label = "배송 조회";
-        break;
-    }
-    return label;
-  };
-
   return (
     <>
       <ConfirmationModal
@@ -293,23 +275,52 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                       {Number(orderDetails.order.payment).toLocaleString()}원
                     </td>
                   </tr>
+                  {!isHouse && (
+                    <tr>
+                      <td
+                        className="oText hidden centered"
+                        colSpan={2}
+                        onMouseEnter={() =>
+                          notAtGS25yet() && setShowTooltip1(true)
+                        }
+                        onMouseLeave={() => setShowTooltip1(false)}
+                      >
+                        <Button
+                          className="pt-0 pb-0"
+                          disabled={notAtGS25yet()}
+                          onClick={() => handleTopButton()}
+                        >
+                          배송 조회
+                        </Button>
+                        {showTooltip1 && (
+                          <div
+                            className="absolute bottom-full left-1/2 
+                            transform -translate-x-1/2 mb-1 px-2 py-1 
+                            bg-black text-white text-xs rounded"
+                          >
+                            'GS25 접수' 후 활성화됨
+                          </div>
+                        )}
+                      </td>
+                    </tr>
+                  )}
                   <tr>
                     <td
                       className="oText hidden centered"
                       colSpan={2}
                       onMouseEnter={() =>
-                        notAtGS25yet() && setShowTooltip1(true)
+                        notAtGS25yet() && setShowTooltip2(true)
                       }
-                      onMouseLeave={() => setShowTooltip1(false)}
+                      onMouseLeave={() => setShowTooltip2(false)}
                     >
                       <Button
                         className="pt-0 pb-0"
                         disabled={notAtGS25yet()}
-                        onClick={() => handleTopButton()}
+                        onClick={() => button2pushed()}
                       >
-                        {getTopButtonLabel(orderStatus)}
+                        {getBottomButtonLabel(orderStatus)}
                       </Button>
-                      {showTooltip1 && (
+                      {showTooltip2 && (
                         <div
                           className="absolute bottom-full left-1/2 
                           transform -translate-x-1/2 mb-1 px-2 py-1 
@@ -320,35 +331,6 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                       )}
                     </td>
                   </tr>
-                  {!isHouse && (
-                    <tr>
-                      <td
-                        className="oText hidden centered"
-                        colSpan={2}
-                        onMouseEnter={() =>
-                          notAtGS25yet() && setShowTooltip2(true)
-                        }
-                        onMouseLeave={() => setShowTooltip2(false)}
-                      >
-                        <Button
-                          className="pt-0 pb-0"
-                          disabled={notAtGS25yet()}
-                          onClick={() => button2pushed()}
-                        >
-                          {getBottomButtonLabel(orderStatus)}
-                        </Button>
-                        {showTooltip2 && (
-                          <div
-                            className="absolute bottom-full left-1/2 
-                          transform -translate-x-1/2 mb-1 px-2 py-1 
-                          bg-black text-white text-xs rounded"
-                          >
-                            'GS25 접수' 후 활성화됨
-                          </div>
-                        )}
-                      </td>
-                    </tr>
-                  )}
                 </tbody>
               </Table>
             </Col>
