@@ -270,12 +270,6 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                     </tr>
                   )}
                   <tr>
-                    <th className="iLabel">지불금액</th>
-                    <td className="oText">
-                      {Number(orderDetails.order.payment).toLocaleString()}원
-                    </td>
-                  </tr>
-                  <tr>
                     <td
                       className="oText hidden centered"
                       colSpan={2}
@@ -289,7 +283,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                         disabled={notAtGS25yet()}
                         onClick={() => handleTopButton()}
                       >
-                        {getTopButtonLabel()}
+                        {getTopButtonLabel(orderStatus)}
                       </Button>
                       {showTooltip1 && (
                         <div
@@ -300,6 +294,12 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                           'GS25 접수' 후 활성화됨
                         </div>
                       )}
+                    </td>
+                  </tr>
+                  <tr>
+                    <th className="iLabel">지불금액</th>
+                    <td className="oText">
+                      {Number(orderDetails.order.payment).toLocaleString()}원
                     </td>
                   </tr>
                   {!isHouse && (
