@@ -200,12 +200,30 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   };
 
   const handleTopButton = () => {
-    const url = `${cjlogistics}=${orderDetails.order.waybillNo}`;
-    window.open(url, "_blank", "noopener,noreferrer");
+    if (isHouse) {
+      setShowReviewModal(true);
+    } else {
+      const url = `${cjlogistics}=${orderDetails.order.waybillNo}`;
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
   };
 
-  const getTopButtonLabel = () => {
-    return "배송 조회";
+  const getTopButtonLabel = (status) => {
+    console.log("top: ", status);
+    let label = undefined;
+    switch (status) {
+      case "후기 남김":
+        if (isHouse) {
+          label = "후기 읽기";
+        } else {
+          label = "후기 관리";
+        }
+        break;
+      default:
+        label = "배송 조회";
+        break;
+    }
+    return label;
   };
 
   return (
