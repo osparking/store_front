@@ -47,15 +47,23 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   const [showTooltip2, setShowTooltip2] = useState(false);
   const cjlogistics = "https://trace.cjlogistics.com/next/tracking.html?wblNo";
 
-  const button2pushed = () => {
-    switch (orderStatus) {
-      case "구매 확정":
-      case "후기 남김":
+  const handleBottomButton = () => {
+    if (isHouse) {
+      if (orderStatus === "후기 남김") {
         setShowReviewModal(true);
-        break;
-      default:
-        setShowModal(true);
-        break;
+      } else {
+        showDeliveryStatus();
+      }
+    } else {
+      switch (orderStatus) {
+        case "구매 확정":
+        case "후기 남김":
+          setShowReviewModal(true);
+          break;
+        default:
+          setShowModal(true);
+          break;
+      }
     }
   };
 
@@ -198,12 +206,16 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     return yesLabel;
   };
 
+  const showDeliveryStatus = () => {
+    const url = `${cjlogistics}=${orderDetails.order.waybillNo}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
   const handleTopButton = () => {
     if (isHouse) {
       setShowReviewModal(true);
     } else {
-      const url = `${cjlogistics}=${orderDetails.order.waybillNo}`;
-      window.open(url, "_blank", "noopener,noreferrer");
+      showDeliveryStatus();
     }
   };
 
@@ -315,7 +327,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                       <Button
                         className="pt-0 pb-0"
                         disabled={notAtGS25yet()}
-                        onClick={() => button2pushed()}
+                        onClick={() => handleBottomButton()}
                       >
                         {getBottomButtonLabel(orderStatus)}
                       </Button>
