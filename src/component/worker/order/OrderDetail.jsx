@@ -116,30 +116,30 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
 
   const getBottomButtonLabel = (status) => {
     let label = undefined;
-    switch (status) {
-      case "수취 확인":
-        label = "구매 확정";
-        break;
-      case "구매 확정":
-        label = "후기 작성";
-        break;
-      case "후기 남김":
-        if (isHouse) {
-          label = "후기 읽기";
-        } else {
+    if (isHouse) {
+      if (status === "후기 남김") {
+        label = "후기 읽기";
+      } else {
+        label = "배송 조회";
+      }
+    } else {
+      switch (status) {
+        case "수취 확인":
+          label = "구매 확정";
+          break;
+        case "구매 확정":
+          label = "후기 작성";
+          break;
+        case "후기 남김":
           label = "후기 관리";
-        }
-        break;
-      case "GS25 접수":
-        if (isHouse) {
-          label = "배송 조회";
-        } else {
+          break;
+        case "GS25 접수":
           label = "수취 확인";
-        }
-        break;
-      default:
-        label = "수취 확인";
-        break;
+          break;
+        default:
+          label = "수취 확인";
+          break;
+      }
     }
     return label;
   };
