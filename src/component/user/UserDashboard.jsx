@@ -61,9 +61,9 @@ const UserDashboard = () => {
   };
 
   return (
-    <Container fluid className="home-container mt-3">
-      <Tabs className="tabBackground">
-        <Tab eventKey="profile" title={<h5>프로필</h5>}>
+    <Container fluid className="home-container">
+      <Tabs className="tabBackgroundThick tabHead tabFix contentHolyCentered">
+        <Tab eventKey="profile" title={<h5>내 프로필</h5>}>
           {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
           {alertSuccess && (
             <AlertMessage type={"success"} message={successMsg} />
@@ -76,7 +76,7 @@ const UserDashboard = () => {
         </Tab>
         <Tab eventKey="my_question" title={<h5>나의 질문</h5>}></Tab>
         <Tab eventKey="my_review" title={<h5>나의 리뷰</h5>}>
-          <ManageMyReviews />        
+          <ManageMyReviews />
         </Tab>
       </Tabs>
     </Container>
