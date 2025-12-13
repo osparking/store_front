@@ -5,14 +5,21 @@ const SoapCarousel = ({ soapImages, bgColor, indColor }) => {
   const arrowSz = 1.8; // in rem
 
   const buttonStyle = {
-    position: "absolute",
-    marginTop: `${-arrowSz}rem`,
-    zIndex: "1",
-    top: "50%",
+    alignItems: "center",
     background: "none",
     border: "none",
     cursor: "pointer",
+    display: "inline-flex",
     fontSize: `${arrowSz}rem`,
+    height: "fit-content",
+    justifyContent: "center",
+    margin: 0,
+    marginTop: `${-arrowSz / 2}rem`,
+    padding: 0,
+    position: "absolute",
+    top: "50%",
+    width: "fit-content",
+    zIndex: "1",
   };
 
   const [arrowDisabled, setArrowDisabled] = useState(false);
@@ -24,7 +31,6 @@ const SoapCarousel = ({ soapImages, bgColor, indColor }) => {
   const imageRoot = "/src/assets/images/soap";
   const [slide, setSlide] = useState(0);
 
-  
   const nextSlide = (lOrR) => {
     if (arrowDisabled) {
       return;
@@ -41,7 +47,7 @@ const SoapCarousel = ({ soapImages, bgColor, indColor }) => {
       setArrowDisabled(false);
     }, 200);
   };
-  
+
   return (
     <div className="carousel-container">
       <div className="carousel">
