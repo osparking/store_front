@@ -26,23 +26,6 @@ const SoapImages = ({ soapImages, bgColor, indColor, heading }) => {
   const imageRoot = "/src/assets/images/soap";
   const [slide, setSlide] = useState(0);
 
-  const nextSlide = (lOrR) => {
-    if (arrowDisabled) {
-      return;
-    }
-    let newSlide = -1;
-    if (lOrR === "R") {
-      newSlide = (slide + 1) % soapImages.length;
-    } else {
-      newSlide = (slide - 1 + soapImages.length) % soapImages.length;
-    }
-    setSlide(newSlide);
-    setArrowDisabled(true); // Disable the arrow
-    setTimeout(() => {
-      setArrowDisabled(false);
-    }, 200);
-  };
-
   return (
     <Row className="justify-content-center allIngred pt-3 mb-5">
       <Col md={8}>
@@ -55,6 +38,8 @@ const SoapImages = ({ soapImages, bgColor, indColor, heading }) => {
           soapImages={soapImages}
           bgColor={bgColor}
           indColor={indColor}
+          slide={slide}
+          setSlide={setSlide}
         />
         <div className="imgCapDiv">
           <Figure className="mt-3">

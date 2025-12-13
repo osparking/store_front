@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 
-const SoapCarousel = ({ soapImages, bgColor, indColor }) => {
+const SoapCarousel = ({ soapImages, bgColor, indColor, slide, setSlide }) => {
   const arrowSz = 1.8; // in rem
 
   const buttonStyle = {
@@ -29,7 +29,6 @@ const SoapCarousel = ({ soapImages, bgColor, indColor }) => {
   };
 
   const imageRoot = "/src/assets/images/soap";
-  const [slide, setSlide] = useState(0);
 
   const nextSlide = (lOrR) => {
     if (arrowDisabled) {
