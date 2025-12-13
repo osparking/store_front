@@ -15,10 +15,6 @@ ul li {
   margin-top: .5em;
 }
 
-.tabLabel {
-  font-weight: bold;
-}
-
 .arrow:hover {
   cursor: pointer;
 }

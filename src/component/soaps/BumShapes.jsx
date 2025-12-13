@@ -117,8 +117,8 @@ const BumShapes = () => {
           </table>
         </Col>
       </Row>
-      <Row className="justify-content-center allIngred mb-5" >
-        <Tabs          
+      <Row className="justify-content-center allIngred mb-5">
+        <Tabs
           ref={imageRowRef}
           defaultActiveKey={currTabKey}
           activeKey={currTabKey}
@@ -129,7 +129,7 @@ const BumShapes = () => {
           <Tab
             eventKey="normalSoap"
             className="carousel-container"
-            title={<h5 className="tabLabel">보통비누</h5>}
+            title={<h5>보통비누</h5>}
             style={{ backgroundColor: "lightBlue" }}
           >
             <SoapImages
@@ -139,10 +139,7 @@ const BumShapes = () => {
               heading="보통비누"
             />
           </Tab>
-          <Tab
-            eventKey="sWhiteSoap"
-            title={<h5 className="tabLabel">백설공주</h5>}
-          >
+          <Tab eventKey="sWhiteSoap" title={<h5>백설공주</h5>}>
             <SoapImages
               soapImages={sWhiteSoaps}
               bgColor="#2f363a"
@@ -150,10 +147,7 @@ const BumShapes = () => {
               heading="백설공주"
             />
           </Tab>
-          <Tab
-            eventKey="maejooSoap"
-            title={<h5 className="tabLabel">메주비누</h5>}
-          >
+          <Tab eventKey="maejooSoap" title={<h5>메주비누</h5>}>
             <SoapImages
               soapImages={maejooSoaps}
               bgColor="#667180"
@@ -161,7 +155,7 @@ const BumShapes = () => {
               heading="메주비누"
             />
           </Tab>
-          <Tab eventKey="manage" title={<h5 className="tabLabel">사용방법</h5>}>
+          <Tab eventKey="manage" title={<h5>사용방법</h5>}>
             <SoapImages
               soapImages={manageSoaps}
               bgColor="#4e5c80"
