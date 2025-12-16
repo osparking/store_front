@@ -1,3 +1,5 @@
+# related backend project github repository
+* https://github.com/osparking/store_back
 # Local project location
 * C:\Users\jbpar\IdeaProjects\store_front
 * /c/Users/jbpar/IdeaProjects/store_front
