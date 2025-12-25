@@ -4,7 +4,13 @@ import { changeOrderStatus, storeWaybillNo } from "../../buy/orderService";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import WaybillModal from "../../modal/WaybillModal";
 
-const OrderStatus = ({ statusLabels, value, soapOrders, orderIndex }) => {
+const OrderStatus = ({
+  statusLabels,
+  value,
+  soapOrders,
+  setSoapOrders,
+  orderIndex,
+}) => {
   const [statusValue, setStatusValue] = useState(value);
 
   // 예정 주문 상태
@@ -54,12 +60,21 @@ const OrderStatus = ({ statusLabels, value, soapOrders, orderIndex }) => {
     );
   };
 
+  const updateOrderStatus = (toState) => {
+    setSoapOrders(prevOrders => 
+      prevOrders.map((order, idx) => 
+        idx === orderIndex 
+          ? { ...order, orderStatus: toState } 
+          : order
+      )
+    );
+  };  
+
   const handleWaybillConfirm = async (waybillNo) => {
     try {
       setShowWaybillModal(false);
       setStatusValue(toState);
-
-      soapOrders[orderIndex]["orderStatus"] = toState;
+      updateOrderStatus(toState);
       const data = {
         id: soapOrders[orderIndex].id,
         status: toState,
@@ -80,7 +95,7 @@ const OrderStatus = ({ statusLabels, value, soapOrders, orderIndex }) => {
 
     if (status === "결제완료") {
       setStatusValue(toState);
-      soapOrders[orderIndex]["orderStatus"] = toState;
+      updateOrderStatus(toState);
       const data = { id: soapOrders[orderIndex].id, status: toState };
       const result = await changeOrderStatus(data);
       console.log("주문 상태 갱신: ", JSON.stringify(result));
