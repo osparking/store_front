@@ -4,23 +4,15 @@ import { changeOrderStatus, storeWaybillNo } from "../../buy/orderService";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import WaybillModal from "../../modal/WaybillModal";
 
-const OrderStatus = ({
-  statusLabels,
-  value,
-  soapOrders,
-  orderIndex,
-  loadOrderPage
-}) => {
+const OrderStatus = ({ statusLabels, order, loadOrderPage }) => {
   // 예정 주문 상태
   const [toState, setToState] = useState("");
 
   const handleStatusChange = (event) => {
     setToState(event.target.value);
 
-    const status = soapOrders[orderIndex]["orderStatus"];
-
     // 주문 상태 변경 의지 확인
-    if (status === "결제완료") {
+    if (order.orderStatus === "결제완료") {
       setShowModal(true);
     } else {
       setShowWaybillModal(true);
@@ -49,13 +41,7 @@ const OrderStatus = ({
   const [showWaybillModal, setShowWaybillModal] = useState(false);
 
   const getWaybillMessage = () => {
-    return (
-      "'" +
-      soapOrders[orderIndex].customer +
-      "'님의 " +
-      soapOrders[orderIndex].orderName +
-      " 주문 상품"
-    );
+    return "'" + order.customer + "'님의 " + order.orderName + " 주문 상품";
   };
 
   const handleWaybillConfirm = async (waybillNo) => {
@@ -63,7 +49,7 @@ const OrderStatus = ({
       setShowWaybillModal(false);
       loadOrderPage();
       const data = {
-        id: soapOrders[orderIndex].id,
+        id: order.id,
         status: toState,
         waybillNo: waybillNo,
       };
@@ -77,12 +63,9 @@ const OrderStatus = ({
 
   const handleConfirm = async () => {
     setShowModal(false);
-
-    const status = soapOrders[orderIndex]["orderStatus"];
-
-    if (status === "결제완료") {
       loadOrderPage();
-      const data = { id: soapOrders[orderIndex].id, status: toState };
+    if (order.orderStatus === "결제완료") {
+      const data = { id: order.id, status: toState };
       const result = await changeOrderStatus(data);
       console.log("주문 상태 갱신: ", JSON.stringify(result));
     }
@@ -94,7 +77,7 @@ const OrderStatus = ({
         show={showModal}
         handleClose={() => setShowModal(false)}
         handleConfirm={handleConfirm}
-        bodyMessage={`'${soapOrders[orderIndex].customer}' 님 주문을 발주하겠습니까?`}
+        bodyMessage={`'${order.customer}' 님 주문을 발주하겠습니까?`}
         title="범이비누 주문 발주"
         noLabel="발주 보류"
         yesLabel="발주 진행"
@@ -110,7 +93,7 @@ const OrderStatus = ({
         <Form.Control
           as="select"
           name="orderStatus"
-          value={soapOrders[orderIndex]["orderStatus"]}
+          value={order.orderStatus}
           onChange={handleStatusChange}
           className="form-select"
         >
@@ -118,10 +101,7 @@ const OrderStatus = ({
             <option
               value={statusLabel}
               key={index}
-              disabled={isDisabled(
-                soapOrders[orderIndex]["orderStatus"],
-                statusLabel
-              )}
+              disabled={isDisabled(order.orderStatus, statusLabel)}
             >
               {statusLabel}
             </option>
