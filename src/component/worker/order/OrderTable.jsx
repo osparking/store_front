@@ -23,25 +23,26 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
 
   const [statusLabels, setStatusLabels] = useState([]);
 
+  const loadOrderPage = async () => {
+    setLoading(true);
+    const response = await fetchOrderPage(currentPage, pageSize);
+    setLoading(false);
+    setFetchResult(response);
+
+    if (response && response.pageContent) {
+      setTotalPages(response.totalPages);
+      setOrderPage(response.pageContent);
+      setSoapOrders(response.pageContent.content);
+      setPageSize(response.pageSize);
+      setCurrentPage(response.currentPage);
+    }
+
+    const statuses = await getOrderStatusList();
+    setStatusLabels(statuses.data);
+  };
+
   useEffect(() => {
     localStorage.setItem("ORDER_PAGE_WORKER", currentPage);
-    const loadOrderPage = async () => {
-      setLoading(true);
-      const response = await fetchOrderPage(currentPage, pageSize);
-      setLoading(false);
-      setFetchResult(response);
-
-      if (response && response.pageContent) {
-        setTotalPages(response.totalPages);
-        setOrderPage(response.pageContent);
-        setSoapOrders(response.pageContent.content);
-        setPageSize(response.pageSize);
-        setCurrentPage(response.currentPage);
-      }
-
-      const statuses = await getOrderStatusList();
-      setStatusLabels(statuses.data);
-    };
     loadOrderPage();
   }, [currentPage]);
 
@@ -96,6 +97,7 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
                       soapOrders={soapOrders}
                       setSoapOrders={setSoapOrders}
                       orderIndex={index}
+                      loadOrderPage={loadOrderPage}
                     />
                   </td>
                   <td>
