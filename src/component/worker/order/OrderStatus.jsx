@@ -47,7 +47,6 @@ const OrderStatus = ({ statusLabels, order, loadOrderPage }) => {
   const handleWaybillConfirm = async (waybillNo) => {
     try {
       setShowWaybillModal(false);
-      loadOrderPage();
       const data = {
         id: order.id,
         status: toState,
@@ -55,6 +54,7 @@ const OrderStatus = ({ statusLabels, order, loadOrderPage }) => {
       };
 
       const result = await storeWaybillNo(data);
+      loadOrderPage();
       console.log("운송장번호 저장 결과: ", JSON.stringify(result));
     } catch (error) {
       console.error("운송장번호 저장 에러:", error);
@@ -63,10 +63,10 @@ const OrderStatus = ({ statusLabels, order, loadOrderPage }) => {
 
   const handleConfirm = async () => {
     setShowModal(false);
-      loadOrderPage();
     if (order.orderStatus === "결제완료") {
       const data = { id: order.id, status: toState };
       const result = await changeOrderStatus(data);
+      loadOrderPage();
       console.log("주문 상태 갱신: ", JSON.stringify(result));
     }
   };
