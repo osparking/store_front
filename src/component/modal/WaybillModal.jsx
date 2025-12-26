@@ -10,6 +10,10 @@ export default function WaybillModal({
 }) {
   const [waybillNo, setWaybillNo] = useState("3631317740");
   const inputRef = useRef(null);
+  const saveWaybillNo = (event) => {
+    event.preventDefault();
+    handleSubmit(waybillNo);
+  }
 
   useEffect(() => {
     if (show) {
@@ -34,7 +38,7 @@ export default function WaybillModal({
       </Modal.Header>
       <Modal.Body>
         {getMessage()}
-        <Form onSubmit={() => handleSubmit(waybillNo)}>
+        <Form onSubmit={saveWaybillNo}>
           <Form.Group controlId="curPwd">
             <Form.Label>GS25 운송장번호: 363131774074</Form.Label>
             <InputGroup>
