@@ -11,8 +11,6 @@ const OrderStatus = ({
   orderIndex,
   loadOrderPage
 }) => {
-  const [statusValue, setStatusValue] = useState(value);
-
   // 예정 주문 상태
   const [toState, setToState] = useState("");
 
@@ -63,7 +61,6 @@ const OrderStatus = ({
   const handleWaybillConfirm = async (waybillNo) => {
     try {
       setShowWaybillModal(false);
-      setStatusValue(toState);
       loadOrderPage();
       const data = {
         id: soapOrders[orderIndex].id,
@@ -84,7 +81,6 @@ const OrderStatus = ({
     const status = soapOrders[orderIndex]["orderStatus"];
 
     if (status === "결제완료") {
-      setStatusValue(toState);
       loadOrderPage();
       const data = { id: soapOrders[orderIndex].id, status: toState };
       const result = await changeOrderStatus(data);
