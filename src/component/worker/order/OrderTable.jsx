@@ -95,7 +95,6 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
                       statusLabels={statusLabels}
                       value={order.orderStatus}
                       soapOrders={soapOrders}
-                      setSoapOrders={setSoapOrders}
                       orderIndex={index}
                       loadOrderPage={loadOrderPage}
                     />
