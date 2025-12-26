@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import "../../../App.css";
-import "./OrderTable.css";
 import { fetchOrderPage, getOrderStatusList } from "../../buy/orderService";
 import Paginator from "../../common/Paginator";
 import { formatDate } from "../../util/utilities";
 import OrderStatus from "./OrderStatus";
+import "./OrderTable.css";
 
 const OrderTable = ({ setShowDetail, setDetailId }) => {
   const [totalPages, setTotalPages] = useState(1);
@@ -93,9 +93,7 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
                   <td className={getStatusClass(order.orderStatus)}>
                     <OrderStatus
                       statusLabels={statusLabels}
-                      value={order.orderStatus}
-                      soapOrders={soapOrders}
-                      orderIndex={index}
+                      order={order}
                       loadOrderPage={loadOrderPage}
                     />
                   </td>
