@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import SoapCarousel from "../soaps/SoapCarousel.jsx";
-import { soapImages } from "../soaps/SoapImages.js";
+import { bgColor, indColor, soapImages } from "../soaps/soapImages.js";
 import { labelsOver } from "../util/utilities.js";
 import OrderForm from "./OrderForm.jsx";
 import { getSoapShapes } from "./orderService.js";
@@ -18,6 +18,8 @@ const BuySoap = () => {
   const maejooSoaps = soapImages.filter((soap) => soap.shape === "maejoo");
 
   const [images2show, setImages2show] = useState(normalSoaps);
+  const [imageBgColor, setImageBgColor] = useState(bgColor.normal);
+  const [imageIndColor, setImageIndColor] = useState(indColor.normal);
   const [shapeLabels, setShapeLabels] = useState([]);
 
   function changeCarouselShape(idx) {
@@ -81,6 +83,8 @@ const BuySoap = () => {
     }
   };
 
+  const [slide, setSlide] = useState(0);
+
   return (
     <div style={{ width: "100%" }}>
       <Row className="justify-content-center">
@@ -91,9 +95,10 @@ const BuySoap = () => {
             <Card.Body>
               <SoapCarousel
                 soapImages={images2show}
-                bgColor="#263e59"
-                indColor="#6199daff"
-                id="carousel"
+                bgColor={imageBgColor}
+                indColor={imageIndColor}
+                slide={slide}
+                setSlide={setSlide}
               />
             </Card.Body>
           </Card>
@@ -126,7 +131,7 @@ const BuySoap = () => {
                 />
               </Card.Body>
             </Card>
-          )}         
+          )}
         </Col>
       </Row>
     </div>
