@@ -33,12 +33,18 @@ const BuySoap = () => {
     switch (prefix) {
       case "보통":
         setImages2show(normalSoaps);
+        setImageBgColor(bgColor.normal);
+        setImageIndColor(indColor.normal);
         break;
       case "백설":
         setImages2show(sWhiteSoaps);
+        setImageBgColor(bgColor.sWhite);
+        setImageIndColor(indColor.sWhite);
         break;
       case "메주":
-        setImages2show(maejooSoaps);
+        setImages2show(maejooSoaps);        
+        setImageBgColor(bgColor.maejoo);
+        setImageIndColor(indColor.maejoo);
         break;
       default:
         setImages2show(normalSoaps);
