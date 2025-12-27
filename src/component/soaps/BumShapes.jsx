@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import { Col, Container, Row, Tab, Tabs } from "react-bootstrap";
 import "./bumShapes.css";
+import { bgColor, indColor, soapImages } from "./soapImages.js";
 import SoapImages from "./SoapImages.jsx";
-import { soapImages } from "./SoapImages.js";
 
 const BumShapes = () => {
   const normalSoaps = soapImages.filter((soap) => soap.shape === "normal");
@@ -134,23 +134,23 @@ const BumShapes = () => {
           >
             <SoapImages
               soapImages={normalSoaps}
-              bgColor="#263e59"
-              indColor="#6199daff"
+              bgColor={bgColor.normal}
+              indColor={indColor.normal}
               heading="보통비누"
             />
           </Tab>
           <Tab eventKey="sWhiteSoap" title={<h5>백설공주</h5>}>
             <SoapImages
               soapImages={sWhiteSoaps}
-              bgColor="#2f363a"
-              indColor="#727b7fff"
+              bgColor={bgColor.sWhite}
+              indColor={indColor.sWhite}
               heading="백설공주"
             />
           </Tab>
           <Tab eventKey="maejooSoap" title={<h5>메주비누</h5>}>
             <SoapImages
               soapImages={maejooSoaps}
-              bgColor="#667180"
+              bgColor={bgColor.maejoo}
               indColor="#a9b2bfff"
               heading="메주비누"
             />
