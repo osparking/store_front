@@ -7,8 +7,13 @@ export default function ReviewModal({
   title,
   order,
   saveReview,
-  editable
+  editable,
 }) {
+  const [stars, setStars] = useState(0);
+  const saveEdit = (editorText) => {
+    const reviewData = { stars: stars, ...editorText };
+    saveReview(reviewData);
+  };
   return (
     <Modal
       show={show}
@@ -22,12 +27,12 @@ export default function ReviewModal({
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-  <MyQuillEditor
-    order={order}
-    handleClose={handleClose}
-    saveReview={saveReview}
-    editable={editable}
-  />
+        <MyQuillEditor
+          order={order}
+          handleClose={handleClose}
+          saveEdit={saveEdit}
+          editable={editable}
+        />
       </Modal.Body>
     </Modal>
   );
