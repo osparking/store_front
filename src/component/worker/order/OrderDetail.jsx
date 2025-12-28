@@ -20,7 +20,6 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     const response = await getOrderDetail(detailId);
     setOrderDetails(response);
     setOrderStatus(response.order.orderStatus);
-    console.log("Response: ", JSON.stringify(response));
   };
 
   useEffect(() => {
@@ -209,7 +208,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   const showDeliveryStatus = () => {
     const url = `${cjlogistics}=${orderDetails.order.waybillNo}`;
     window.open(url, "_blank", "noopener,noreferrer");
-  }
+  };
 
   const handleTopButton = () => {
     if (isHouse) {
