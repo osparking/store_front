@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import Rating from "../review/Rating";
 import MyQuillEditor from "../util/MyQuillEditor";
@@ -16,6 +16,11 @@ export default function ReviewModal({
     const reviewData = { stars: stars, ...editorText };
     saveReview(reviewData);
   };
+
+  useEffect(() => {
+    setStars(order && order.stars);
+  }, [order]);
+
   return (
     <Modal
       show={show}
