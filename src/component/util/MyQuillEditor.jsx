@@ -8,7 +8,7 @@ import "../../App.css";
 import ConfirmationModal from "../modal/ConfirmationModal";
 import "./MyQuillEditor.css";
 
-function MyQuillEditor({ order, handleClose, saveReview, editable }) {
+function MyQuillEditor({ order, handleClose, saveEdit, editable }) {
   const [editorContent, setEditorContent] = useState(order.review);
   const [loading, setLoading] = useState(false);
 
@@ -35,7 +35,7 @@ function MyQuillEditor({ order, handleClose, saveReview, editable }) {
       setLoading(true);
       const reviewData = { id: order.id, review: editorContent };
 
-      await saveReview(reviewData);
+      await saveEdit(reviewData);
 
       toast.success("후기 저장 성공.");
       handleClose();
@@ -88,7 +88,7 @@ function MyQuillEditor({ order, handleClose, saveReview, editable }) {
       setLoading(true);
       const reviewData = { id: order.id, review: null };
 
-      await saveReview(reviewData);
+      await saveEdit(reviewData);
 
       toast.success("후기 삭제 완료");
       handleClose();
