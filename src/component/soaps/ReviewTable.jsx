@@ -10,6 +10,7 @@ import "./ReviewTable.css";
 import Paginator from "../common/Paginator";
 import { formatDate } from "../util/utilities";
 import ReviewModal from "../review/ReviewModal";
+import RatingAvg from "../review/RatingAvg";
 
 const ReviewTable = () => {
   const [totalPages, setTotalPages] = useState(1);
@@ -69,8 +70,9 @@ const ReviewTable = () => {
       />
       <h5 className="chart-title pinkBack">고객 구매 후기</h5>
       <p className="text-center mb-0 mt-4">
-        후기 {reviewPage.totalElements} 건 별점 평균 :&nbsp;
-        {parseFloat(averageStars.toFixed(2))}
+        <RatingAvg rating={averageStars} />(
+        {parseFloat(averageStars.toFixed(2))}, {reviewPage.totalElements}건
+        평균)
       </p>
 
       <div className="table-container">
