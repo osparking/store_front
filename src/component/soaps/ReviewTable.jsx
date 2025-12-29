@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import "../../App.css";
-import { fetchReview, fetchReviewPage } from "../buy/orderService";
+import {
+  fetchReview,
+  fetchReviewPage,
+  fetchAverageStars,
+} from "../buy/orderService";
 import "./ReviewTable.css";
 import Paginator from "../common/Paginator";
 import { formatDate } from "../util/utilities";
-import ReviewModal from "../review/ReviewModal"
+import ReviewModal from "../review/ReviewModal";
 
 const ReviewTable = () => {
   const [totalPages, setTotalPages] = useState(1);
@@ -17,14 +21,20 @@ const ReviewTable = () => {
   const [currentPage, setCurrentPage] = useState(savedPageNo || 1);
 
   const [fetchResult, setFetchResult] = useState();
-  const idxLastPlus1 = currentPage * pageSize;
-  const indexOfFirst = idxLastPlus1 - pageSize;
+  const [averageStars, setAverageStars] = useState(0);
+
+  useEffect(() => {
+    const getAverageStars = async () => {
+      const response = await fetchAverageStars();
+      setAverageStars(response);
+    };
+    getAverageStars();
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("REVIEW_PAGE_CUSTOMER", currentPage);
     const loadReviewPage = async () => {
       const response = await fetchReviewPage(currentPage, pageSize);
-      console.log("resp: ", JSON.stringify(response));
       setFetchResult(response);
 
       if (response && response.pageContent) {
@@ -38,7 +48,8 @@ const ReviewTable = () => {
     loadReviewPage();
   }, [currentPage]);
 
-  async function viewReviewDetail(oId) { // 주문 ID(순수 번호)
+  async function viewReviewDetail(oId) {
+    // 주문 ID(순수 번호)
     const review = await fetchReview(oId);
     setReview({ ...review, id: oId });
     setShowReviewModal(true);
@@ -58,8 +69,8 @@ const ReviewTable = () => {
       />
       <h5 className="chart-title pinkBack">고객 구매 후기</h5>
       <p className="text-center mb-0 mt-4">
-        후기 총 {reviewPage.totalElements} 건 중, {indexOfFirst + 1} ~{" "}
-        {Math.min(idxLastPlus1, reviewPage.totalElements)}번째 후기
+        후기 {reviewPage.totalElements} 건 별점 평균 :&nbsp;
+        {parseFloat(averageStars.toFixed(2))}
       </p>
 
       <div className="table-container">
@@ -82,7 +93,8 @@ const ReviewTable = () => {
                   <td>{review.orderTime} 일전</td>
                   <td>{formatDate(review.reviewTime)}</td>
                   <td>{review.stars}</td>
-                  <td style={{ cursor: 'pointer' }}
+                  <td
+                    style={{ cursor: "pointer" }}
                     className="text-start linkLook text-primary"
                     onClick={() => viewReviewDetail(review.id)}
                   >
