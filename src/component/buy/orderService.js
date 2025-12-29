@@ -172,7 +172,16 @@ export async function fetchReviewPage(page, size) {
       "get",
       `${urlPrefix}${page}&size=${size}`
     );
-    return result.data.data;
+    return result && result.data.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function fetchAverageStars() {
+  try {
+    const result = await callWithToken("get", "/order/average_stars");
+    return result && result.data.data;
   } catch (err) {
     throw err;
   }
