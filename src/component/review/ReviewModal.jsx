@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
-import Rating from "../review/Rating";
+import Rating from "./Rating";
 import MyQuillEditor from "../util/MyQuillEditor";
+import "./ReviewModal.css";
 
 export default function ReviewModal({
   show,
@@ -34,6 +35,7 @@ export default function ReviewModal({
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <h5>주문명: {order.orderName}</h5>
         <Rating stars={stars} setStars={setStars} />
         <MyQuillEditor
           order={order}
