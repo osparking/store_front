@@ -5,7 +5,7 @@ import { fetchReview, fetchReviewPage } from "../buy/orderService";
 import "./ReviewTable.css";
 import Paginator from "../common/Paginator";
 import { formatDate } from "../util/utilities";
-import ReviewModal from "../modal/ReviewModal";
+import ReviewModal from "../review/ReviewModal"
 
 const ReviewTable = () => {
   const [totalPages, setTotalPages] = useState(1);

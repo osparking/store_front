@@ -6,7 +6,7 @@ import {
   patchOrderReview,
 } from "../../buy/orderService";
 import ConfirmationModal from "../../modal/ConfirmationModal";
-import ReviewModal from "../../modal/ReviewModal";
+import ReviewModal from "../../review/ReviewModal";
 import { formatDate } from "../../util/utilities";
 import "./OrderDetail.css";
 

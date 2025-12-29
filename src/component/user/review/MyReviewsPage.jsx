@@ -5,7 +5,7 @@ import { fetchReview, getReviewPage, patchOrderReview } from "../../buy/orderSer
 import Paginator from "../../common/Paginator";
 import "../../pay_toss/MyOrdersPage.css";
 import { formatDate } from "../../util/utilities";
-import ReviewModal from "../../modal/ReviewModal";
+import ReviewModal from "../../review/ReviewModal";
 
 const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
   const [totalPages, setTotalPages] = useState(1);
