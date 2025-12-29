@@ -116,7 +116,7 @@ function MyQuillEditor({ order, handleClose, saveEdit, editable }) {
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
           <Form.Label>
-            <h5>{order.orderName} 구매 후기</h5>
+            <h5 style={{ textAlign: "left" }}>구매 후기</h5>
           </Form.Label>
           <ReactQuill
             theme="snow"
