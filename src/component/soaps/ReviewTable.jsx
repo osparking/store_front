@@ -68,8 +68,8 @@ const ReviewTable = () => {
             <tr>
               <th>주문 시점</th>
               <th>후기 작성/갱신 일시</th>
+              <th>별점</th>
               <th>후기 시작 부분</th>
-              <th>고객명</th>
               <th>비누 외형</th>
               <th>사진</th>
               <th>유튜브</th>
@@ -81,13 +81,13 @@ const ReviewTable = () => {
                 <tr key={index}>
                   <td>{review.orderTime} 일전</td>
                   <td>{formatDate(review.reviewTime)}</td>
+                  <td>{review.stars}</td>
                   <td style={{ cursor: 'pointer' }}
                     className="text-start linkLook text-primary"
                     onClick={() => viewReviewDetail(review.id)}
                   >
                     {review.reviewPreview}
                   </td>
-                  <td>{review.customerName}</td>
                   <td>{review.shapesList}</td>
                   <td>{review.hasImage ? "있음" : ""}</td>
                   <td>{review.hasVideo ? "있음" : ""}</td>
