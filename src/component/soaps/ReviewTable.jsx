@@ -37,6 +37,7 @@ const ReviewTable = () => {
     const loadReviewPage = async () => {
       const response = await fetchReviewPage(currentPage, pageSize);
       setFetchResult(response);
+      console.log("respo:", JSON.stringify(response.pageContent.content));
 
       if (response && response.pageContent) {
         setTotalPages(response.totalPages);
@@ -79,8 +80,8 @@ const ReviewTable = () => {
         <Table bordered hover striped>
           <thead>
             <tr>
-              <th>주문 시점</th>
-              <th>후기 작성/갱신 일시</th>
+              <th>주문 일시</th>
+              <th>후기 작성</th>
               <th>별점</th>
               <th>후기 시작 부분</th>
               <th>비누 외형</th>
@@ -92,8 +93,8 @@ const ReviewTable = () => {
             {reviews &&
               reviews.map((review, index) => (
                 <tr key={index}>
-                  <td>{review.orderTime} 일전</td>
-                  <td>{formatDate(review.reviewTime)}</td>
+                  <td>{review.orderTimeStr}</td>
+                  <td>{review.reviewDayDelay}일 후</td>
                   <td>{review.stars}</td>
                   <td
                     style={{ cursor: "pointer" }}
