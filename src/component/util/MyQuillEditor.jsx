@@ -121,6 +121,7 @@ function MyQuillEditor({ order, handleClose, saveEdit, editable }) {
           <ReactQuill
             theme="snow"
             value={editorContent}
+            readOnly={!editable}
             onChange={handleEditorChange}
             modules={modules}
             formats={formats}
