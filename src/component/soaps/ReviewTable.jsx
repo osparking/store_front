@@ -74,9 +74,8 @@ const ReviewTable = () => {
       />
       <h5 className="chart-title pinkBack">고객 구매 후기</h5>
       <p className="text-center mb-0 mt-4">
-        <RatingAvg rating={averageStars} />(
-        {parseFloat(averageStars.toFixed(2))}, {reviewPage.totalElements}건
-        평균)
+        <RatingAvg rating={averageStars} />({averageStars.toFixed(2)} — 총{" "}
+        {reviewPage.totalElements}건 평균)
       </p>
 
       <div className="table-container">
