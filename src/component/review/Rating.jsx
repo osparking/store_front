@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Container, Form } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
+import "./Rating.css";
 
-const Rating = ({ stars, setStars }) => {
+const Rating = ({ stars, setStars, editable }) => {
   const [hover, setHover] = useState(null);
   const handleRatingChange = (value) => {
-    setStars(value);
+    if (editable) setStars(value);
   };
 
   return (
@@ -18,7 +19,7 @@ const Rating = ({ stars, setStars }) => {
             <Form.Label key={index} className="me-2">
               <Form.Check
                 type="radio"
-                name="rading"
+                name="rating"
                 value={starCount}
                 onChange={() => handleRatingChange(starCount)}
                 checked={stars === starCount}
@@ -26,9 +27,9 @@ const Rating = ({ stars, setStars }) => {
               />
               <FaStar
                 size={20}
-                className="star"
+                className={editable ? "star" : "star no-cursor"}
                 color={starCount <= (hover || stars) ? "#ffc107" : "#e4e5e9"}
-                onMouseEnter={() => setHover(starCount)}
+                onMouseEnter={() => setHover(editable && starCount)}
                 onMouseLeave={() => setHover(null)}
               />
             </Form.Label>
