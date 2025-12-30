@@ -2,15 +2,14 @@ import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import "../../App.css";
 import {
+  fetchAverageStars,
   fetchReview,
   fetchReviewPage,
-  fetchAverageStars,
 } from "../buy/orderService";
-import "./ReviewTable.css";
 import Paginator from "../common/Paginator";
-import { formatDate } from "../util/utilities";
-import ReviewModal from "../review/ReviewModal";
 import RatingAvg from "../review/RatingAvg";
+import ReviewModal from "../review/ReviewModal";
+import "./ReviewTable.css";
 
 const ReviewTable = () => {
   const [totalPages, setTotalPages] = useState(1);
@@ -37,7 +36,6 @@ const ReviewTable = () => {
     const loadReviewPage = async () => {
       const response = await fetchReviewPage(currentPage, pageSize);
       setFetchResult(response);
-      console.log("respo:", JSON.stringify(response.pageContent.content));
 
       if (response && response.pageContent) {
         setTotalPages(response.totalPages);
@@ -50,10 +48,15 @@ const ReviewTable = () => {
     loadReviewPage();
   }, [currentPage]);
 
-  async function viewReviewDetail(oId) {
+  async function viewReviewDetail(oId, customerName, reviewTime) {
     // 주문 ID(순수 번호)
     const review = await fetchReview(oId);
-    setReview({ ...review, id: oId });
+    setReview({
+      ...review,
+      id: oId,
+      customerName: customerName,
+      reviewTime: reviewTime,
+    });
     setShowReviewModal(true);
   }
 
@@ -66,7 +69,7 @@ const ReviewTable = () => {
         show={showReviewModal}
         handleClose={() => setShowReviewModal(false)}
         title={"후기 읽기"}
-        order={review}
+        review={review}
         editable={false}
       />
       <h5 className="chart-title pinkBack">고객 구매 후기</h5>
@@ -99,7 +102,13 @@ const ReviewTable = () => {
                   <td
                     style={{ cursor: "pointer" }}
                     className="text-start linkLook text-primary"
-                    onClick={() => viewReviewDetail(review.id)}
+                    onClick={() =>
+                      viewReviewDetail(
+                        review.id,
+                        review.customerName,
+                        review.reviewTime
+                      )
+                    }
                   >
                     {review.reviewPreview}
                   </td>
