@@ -1,15 +1,16 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-
 /* 길이가 length 이내이며, 최대한 길고, 공백문자로 구분된 접미사를 찾아낸다.
-*/
-export function getSuffixAfterSpace(str, length) {  
+ */
+export function getSuffixAfterSpace(str, length) {
   if (!str || str.length <= length) {
     return str;
   }
 
-  const startSubString = str.substring(Math.max(0, str.length - length -1));
-  const suffixAfterSpace = startSubString.substring(startSubString.indexOf(" ") + 1);
+  const startSubString = str.substring(Math.max(0, str.length - length - 1));
+  const suffixAfterSpace = startSubString.substring(
+    startSubString.indexOf(" ") + 1
+  );
 
   return suffixAfterSpace;
 }
@@ -17,16 +18,19 @@ export function getSuffixAfterSpace(str, length) {
 export const useDebounce = (callback, delay) => {
   const timeoutRef = useRef(null);
 
-  return useCallback((...args) => {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-    
-    timeoutRef.current = setTimeout(() => {
-      callback(...args);
-      console.log(".");
-    }, delay);
-  }, [callback, delay]);
+  return useCallback(
+    (...args) => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
+      timeoutRef.current = setTimeout(() => {
+        callback(...args);
+        console.log(".");
+      }, delay);
+    },
+    [callback, delay]
+  );
 };
 
 export const useAlertTimeout = (initialVisibility = false, duration = 9000) => {
@@ -111,7 +115,7 @@ export function formatDate(dateString) {
   const hours = String(date.getHours()).padStart(2, "0");
   const minutes = String(date.getMinutes()).padStart(2, "0");
 
-  return `${year}년${month}월${day}일 ${hours}:${minutes}`;
+  return `'${year}년 ${month}월 ${day}일 ${hours}:${minutes}`;
 }
 
 export function insertHyphens(phone) {

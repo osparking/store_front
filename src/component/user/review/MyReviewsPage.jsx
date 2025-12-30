@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { fetchReview, getReviewPage, patchOrderReview } from "../../buy/orderService";
+import {
+  fetchReview,
+  getReviewPage,
+  patchOrderReview,
+} from "../../buy/orderService";
 import Paginator from "../../common/Paginator";
 import "../../pay_toss/MyOrdersPage.css";
 import { formatDate } from "../../util/utilities";
@@ -48,7 +52,7 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
 
   const manageReview = async (oId) => {
     const review = await fetchReview(oId);
-    setReview({...review, id: oId});
+    setReview({ ...review, id: oId });
     setShowReviewModal(true);
   };
 
