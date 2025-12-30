@@ -180,7 +180,7 @@ export async function fetchReviewPage(page, size) {
 
 export async function fetchAverageStars() {
   try {
-    const result = await callWithToken("get", "/order/average_stars");
+    const result = await api.get("/soap/average_stars");
     return result && result.data.data;
   } catch (err) {
     throw err;
