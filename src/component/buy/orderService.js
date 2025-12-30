@@ -168,10 +168,7 @@ export async function fetchReviewPage(page, size) {
   const urlPrefix = "/soap/review_page?page=";
 
   try {
-    const result = await callWithToken(
-      "get",
-      `${urlPrefix}${page}&size=${size}`
-    );
+    const result = await api.get(`${urlPrefix}${page}&size=${size}`);
     return result && result.data.data;
   } catch (err) {
     throw err;
