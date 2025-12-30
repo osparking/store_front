@@ -7,7 +7,7 @@ export default function ReviewModal({
   show,
   handleClose,
   title,
-  order,
+  review,
   saveReview,
   editable,
 }) {
@@ -18,8 +18,8 @@ export default function ReviewModal({
   };
 
   useEffect(() => {
-    setStars(order && order.stars);
-  }, [order]);
+    setStars(review && review.stars);
+  }, [review]);
 
   return (
     <Modal
@@ -34,10 +34,15 @@ export default function ReviewModal({
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h5>주문명: {order && order.orderName}</h5>
-        <Rating stars={stars} setStars={setStars} editable={editable} />
-        <MyQuillEditor
-          order={order}
+        <h5>주문명: {review && review.orderName}</h5>
+        <Rating
+          stars={stars}
+          setStars={setStars}
+          editable={editable}
+          review={review}
+        />
+  <MyQuillEditor
+    order={review}
           handleClose={handleClose}
           saveEdit={saveEdit}
           editable={editable}
