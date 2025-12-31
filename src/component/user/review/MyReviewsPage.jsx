@@ -50,9 +50,9 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [review, setReview] = useState({});
 
-  const manageReview = async (oId) => {
-    const review = await fetchReview(oId);
-    setReview({ ...review, id: oId });
+  const manageReview = async (review) => {
+    const reviewInfo = await fetchReview(review.id);
+    setReview({ ...reviewInfo, id: review.id, reviewTime: review.reviewTime });
     setShowReviewModal(true);
   };
 
@@ -105,7 +105,7 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
                   <td>{formatDate(review.orderTime)}</td>
                   <td>{review.stars}</td>
                   <td className="text-start">
-                    <a href="#" onClick={() => manageReview(review.id)}>
+                    <a href="#" onClick={() => manageReview(review)}>
                       {review.reviewPreview}
                     </a>
                   </td>

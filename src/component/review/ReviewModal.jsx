@@ -41,8 +41,8 @@ export default function ReviewModal({
           editable={editable}
           review={review}
         />
-  <MyQuillEditor
-    order={review}
+        <MyQuillEditor
+          order={review}
           handleClose={handleClose}
           saveEdit={saveEdit}
           editable={editable}
