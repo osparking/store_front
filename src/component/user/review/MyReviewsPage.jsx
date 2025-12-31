@@ -68,7 +68,7 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
         show={showReviewModal}
         handleClose={() => setShowReviewModal(false)}
         title={"후기 관리"}
-        order={review}
+        review={review}
         saveReview={saveReview}
         editable={true}
       />
