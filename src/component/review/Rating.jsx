@@ -15,11 +15,11 @@ const Rating = ({ stars, setStars, editable, review }) => {
       <Row className="align-items-center">
         <Col xs={4} md={4}>
           <h5 style={{ textAlign: "left" }}>별점 평가</h5>
-          <div className="mb-3">
+          <div>
             {[...Array(5)].map((_, index) => {
               const starCount = index + 1;
               return (
-                <Form.Label key={index} className="me-2">
+                <Form.Label key={index} style={{marginRight: '-8px'}}>
                   <Form.Check
                     type="radio"
                     name="rating"
