@@ -43,10 +43,12 @@ const Rating = ({ stars, setStars, editable, review }) => {
           </div>
         </Col>
         <Col className="text-center" xs={4} md={4}>
-          <span>리뷰 일시: {formatDate(review.reviewTime)}</span>
+          <span>작성 일시 : {formatDate(review.reviewTime)}</span>
         </Col>
         <Col className="text-end" xs={4} md={4}>
-          <span className="me-2">작성자: {review.customerName}</span>
+          {!editable && (
+            <span className="me-2">작성자: {review.customerName}</span>
+          )}
         </Col>
       </Row>
     </Container>
@@ -54,4 +56,3 @@ const Rating = ({ stars, setStars, editable, review }) => {
 };
 
 export default Rating;
-("");
