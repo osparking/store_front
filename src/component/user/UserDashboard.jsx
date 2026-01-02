@@ -9,6 +9,7 @@ import "./UserDashboard.css";
 import UserProfile from "./UserProfile";
 import { getUserDtoById } from "./UserService";
 import ManageMyReviews from "./review/ManageMyReviews";
+import OverviewUser from "./OverviewUser";
 
 const UserDashboard = () => {
   const location = useLocation();
@@ -70,7 +71,9 @@ const UserDashboard = () => {
           )}
           {user && <UserProfile user={user} handleRemovePhoto={removePhoto} />}
         </Tab>
-        <Tab eventKey="purchase_stat" title={<h5>구매 통계</h5>}></Tab>
+        <Tab eventKey="purchase_stat" title={<h5>구매 통계</h5>}>
+          <OverviewUser />
+        </Tab>
         <Tab eventKey="purchase_list" title={<h5>나의 주문</h5>}>
           <ManageMyOrder />
         </Tab>
