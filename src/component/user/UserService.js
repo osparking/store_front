@@ -20,6 +20,17 @@ export async function deleteUserAccount(userId) {
   }
 }
 
+export async function getSoapsMonthUser(userId) {
+  try {
+    const urlSuffix = `/user/${userId}/soaps_month`;
+    console.log("suffix:", urlSuffix);
+    const result = await callWithToken("get", urlSuffix);
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function registerUser(user) {
   try {
     const result = await api.post("/user/add", user);
@@ -40,8 +51,10 @@ export async function getDefaultRecipient(userId) {
 
 export async function getMyRecipients(userId, page, size) {
   try {
-    const result = await callWithToken("get", 
-      `/user/get_recipients?id=${userId}&page=${page}&size=${size}`);
+    const result = await callWithToken(
+      "get",
+      `/user/get_recipients?id=${userId}&page=${page}&size=${size}`
+    );
     return result.data.data;
   } catch (err) {
     throw err;
