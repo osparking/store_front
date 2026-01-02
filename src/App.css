@@ -158,6 +158,13 @@
   margin: 15px 0;
 }
 
+.main-2-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 15px 0;
+}
+
 .admin-card {
   display: flex;
   flex-direction: column;
@@ -202,7 +209,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-  margin-top: 60px;
+  margin-top: 30px;
   height: 300px;
   margin-bottom: 20px;
 }
