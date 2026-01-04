@@ -33,7 +33,7 @@ const SoapShapeRatio = () => {
 
   return (
     <section>
-      {shapeCount && shapeCount.length > 0 ? (
+      {shapeCount && (
         <React.Fragment>
           <h5
             className="chart-title mb-1 p-3"
@@ -41,30 +41,38 @@ const SoapShapeRatio = () => {
           >
             비누 외형 비중
           </h5>
-          <ResponsiveContainer width="100%" height={250}>
-            <PieChart className="p-3" style={{ backgroundColor: "#d8aab8ff" }}>
-              <Pie
-                data={shapeCount}
-                dataKey="count"
-                nameKey="shapeLabel"
-                label
-                outerRadius={75}
-                fill="#8884d8"
+          <ResponsiveContainer width="100%" height={250} style={{ backgroundColor: "#d8aab8ff" }}>
+            {shapeCount.length === 0 ? (
+              <NoDataExists
+                dataType={"비누 구매 건수"}
+                errorMessage={errorMessage}
+              />
+            ) : (
+              <PieChart
+                className="p-3"
+                style={{ backgroundColor: "#d8aab8ff" }}
               >
-                {shapeCount.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={colors[entry.shapeLabel]} />
-                ))}
-              </Pie>
-              <Tooltip />
-              <Legend layout="horizontal" />
-            </PieChart>
+                <Pie
+                  data={shapeCount}
+                  dataKey="count"
+                  nameKey="shapeLabel"
+                  label
+                  outerRadius={75}
+                  fill="#8884d8"
+                >
+                  {shapeCount.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={colors[entry.shapeLabel]}
+                    />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend layout="horizontal" />
+              </PieChart>
+            )}
           </ResponsiveContainer>
         </React.Fragment>
-      ) : (
-        <NoDataExists
-          dataType={" 계정 외형 비중 자료 "}
-          errorMessage={errorMessage}
-        />
       )}
     </section>
   );
