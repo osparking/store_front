@@ -31,6 +31,16 @@ export async function getSoapsMonthUser(userId) {
   }
 }
 
+export async function getShapeCount(userId) {
+  try {
+    const urlSuffix = `/order/${userId}/get_shape_count`;
+    const result = await callWithToken("get", urlSuffix);
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function registerUser(user) {
   try {
     const result = await api.post("/user/add", user);
