@@ -21,7 +21,6 @@ const SoapShapeRatio = () => {
         const userId = localStorage.getItem("LOGIN_ID");
         const result = await getShapeCount(userId);
         setShapeCount(result.data);
-        setShapeCount(accountData);
       } catch (error) {
         setErrorMessage(error.message);
       }
@@ -41,7 +40,11 @@ const SoapShapeRatio = () => {
           >
             비누 외형 비중
           </h5>
-          <ResponsiveContainer width="100%" height={250} style={{ backgroundColor: "#d8aab8ff" }}>
+          <ResponsiveContainer
+            width="100%"
+            height={250}
+            style={{ backgroundColor: "#d8aab8ff" }}
+          >
             {shapeCount.length === 0 ? (
               <NoDataExists
                 dataType={"비누 구매 건수"}
@@ -56,7 +59,11 @@ const SoapShapeRatio = () => {
                   data={shapeCount}
                   dataKey="count"
                   nameKey="shapeLabel"
-                  label
+                  label={({ shapeLabel, count, percent }) =>
+                    `${shapeLabel}: ${Math.trunc(count)} (${(
+                      percent * 100
+                    ).toFixed(1)}%)`
+                  }
                   outerRadius={75}
                   fill="#8884d8"
                 >
@@ -67,7 +74,9 @@ const SoapShapeRatio = () => {
                     />
                   ))}
                 </Pie>
-                <Tooltip />
+                <Tooltip
+                  formatter={(value, name) => [`${Math.trunc(value)}개`, name]}
+                />
                 <Legend layout="horizontal" />
               </PieChart>
             )}
