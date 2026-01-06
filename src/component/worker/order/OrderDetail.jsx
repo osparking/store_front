@@ -14,11 +14,22 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   const [orderDetails, setOrderDetails] = useState(undefined);
   const [orderStatus, setOrderStatus] = useState(undefined);
   const [showModal, setShowModal] = useState(false);
+  const [review, setReview] = useState();
   const [showReviewModal, setShowReviewModal] = useState(false);
 
   const readOrderDetail = async () => {
     const response = await getOrderDetail(detailId);
     setOrderDetails(response);
+    setReview(
+      response && {
+        orderName: response.order.orderName,
+        review: response.order.review,
+        stars: response.order.stars,
+        userId: response.order.userId,
+        id: response.order.id,
+        reviewTime: response.order.reviewTime,
+      }
+    );
     setOrderStatus(response.order.orderStatus);
   };
 
@@ -233,7 +244,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         show={showReviewModal}
         handleClose={() => setShowReviewModal(false)}
         title={getModalTitle(orderStatus)}
-        order={orderDetails?.order}
+        review={review}
         saveReview={saveReview}
         editable={!isHouse}
       />
