@@ -23,6 +23,7 @@ import { WidgetSuccessPage } from "./component/pay_toss/WidgetSuccess";
 import ReviewTable from "./component/soaps/ReviewTable";
 import SoapIntro from "./component/soaps/SoapIntro";
 import ManageMyOrder from "./component/user/ManageMyOrder";
+import QuestionMaker from "./component/user/question/QuestionMaker";
 import RegisterUser from "./component/user/RegisterUser";
 import UserUpdate from "./component/user/UpdateUser";
 import UserDashboard from "./component/user/UserDashboard";
@@ -82,6 +83,7 @@ function App() {
           <Route path="/success" element={<WidgetSuccessPage />} />
           <Route path="/fail" element={<FailPage />} />
           <Route path="/myorders" element={<ManageMyOrder />} />
+          <Route path="/question" element={<QuestionMaker editable={true} />} />
         </Route>
         <Route
           element={
