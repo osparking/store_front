@@ -56,15 +56,18 @@ function QuestionMaker({ editable }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (getTextLength() === 0) {
-      return toast.error("질문 내용을 작성하세요!");
+    const title = e.target.elements.title.value;
+
+    if (title.trim().length === 0 || getTextLength() === 0) {
+      return toast.error("질문 제목과 내용을 둘 다 작성하세요!");
     }
     try {
       const userId = localStorage.getItem("LOGIN_ID");
+
       setSaving(true);
       const questionData = {
         userId: userId,
-        title: "질문 제목",
+        title: title,
         question: editorContent,
       };
 
@@ -111,12 +114,25 @@ function QuestionMaker({ editable }) {
   ];
 
   return (
-    <Container className="mt-5 question-container">
-      <Form onSubmit={handleSubmit}>
+    <Container className="mt-5 question-container mb-5">
+      <Form onSubmit={handleSubmit} className="p-3">
         <Form.Group className="mb-3">
           <Form.Label>
             <h5 style={{ textAlign: "left" }}>질문 작성</h5>
           </Form.Label>
+          <Form.Group className="mb-0" controlId="formBasicEmail">
+            <Form.Label className="mt-3">제목</Form.Label>
+            <Form.Control
+              type="text"
+              maxLength={40}
+              name="title"
+              placeholder="(제목 입력)"
+            />
+            <Form.Text className="text-muted ms-2">
+              (내용을 30 자 내외로 요약하세요.)
+            </Form.Text>
+          </Form.Group>
+          <Form.Label className="mt-3">내용</Form.Label>
           <ReactQuill
             theme="snow"
             value={editorContent || placeholder}
@@ -127,8 +143,8 @@ function QuestionMaker({ editable }) {
             modules={modules}
             formats={formats}
             style={{
-              height: "250px",
-              marginBottom: "50px",
+              height: "230px",
+              marginBottom: "70px",
               borderRadius: "4px",
             }}
           />
@@ -136,7 +152,7 @@ function QuestionMaker({ editable }) {
 
         <div className="text-muted mb-3">글자수: {getTextLength()} 자</div>
 
-        <div className="d-flex gap-2 justify-content-center">
+        <div className="d-flex gap-2 justify-content-center mb-3">
           <Button
             variant="secondary"
             type="button"
