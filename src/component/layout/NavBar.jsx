@@ -112,6 +112,9 @@ const NavBar = () => {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
+          <Nav.Link className="ms-2 identity" to={"/question"} as={Link} >
+            질문하기
+          </Nav.Link>
         </Navbar.Collapse>
       </Container>
     </Navbar>
