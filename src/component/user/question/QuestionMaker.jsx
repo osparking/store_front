@@ -1,0 +1,175 @@
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useState } from "react";
+import { Button, Container, Form } from "react-bootstrap";
+import toast from "react-hot-toast";
+import ReactQuill from "react-quill-new";
+import "react-quill-new/dist/quill.snow.css"; // Import styles
+import { useNavigate } from "react-router-dom";
+import "../../../App.css";
+import "./QuestionMaker.css";
+import { saveQuestion } from "./QuestionService";
+
+function QuestionMaker({ editable }) {
+  const [editorContent, setEditorContent] = useState("");
+  const [saving, setSaving] = useState(false);
+  const promptMessage = "여기에 질문을 작성하세요 :-)";
+  const [placeholder, setPlaceholder] = useState(promptMessage);
+
+  const handleEditorChange = (content) => {
+    setEditorContent(content);
+  };
+
+  const clearPlaceholder = () => {
+    const plainContent = editorContent.replace(/<[^>]*>/g, "");
+    if (plainContent === promptMessage) {
+      setEditorContent("");
+      setPlaceholder("");
+    }
+  };
+
+  const handleEditorBlur = () => {
+    const plainContent = editorContent.replace(/<[^>]*>/g, "").trim();
+    if (plainContent.trim() === "") {
+      setPlaceholder(promptMessage);
+      setEditorContent("");
+    }
+  };
+
+  const getTextLength = () => {
+    let textLength = 0;
+
+    if (editorContent) {
+      const plainText = editorContent.replace(/<[^>]*>/g, "");
+      if (plainText === promptMessage) {
+        return 0;
+      }
+      textLength = plainText.trim().length;
+    }
+    return textLength;
+  };
+
+  const navigate = useNavigate();
+
+  const handleClose = () => {
+    navigate("/");
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (getTextLength() === 0) {
+      return toast.error("질문 내용을 작성하세요!");
+    }
+    try {
+      const userId = localStorage.getItem("LOGIN_ID");
+      setSaving(true);
+      const questionData = {
+        userId: userId,
+        title: "질문 제목",
+        question: editorContent,
+      };
+
+      await saveQuestion(questionData);
+
+      toast.success("질문 저장 성공.");
+      // handleClose();
+    } catch (err) {
+      console.error("err: ", err);
+      toast.error("질문 저장 오류!");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  // Custom toolbar configuration
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ["bold", "italic", "underline", "strike"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ indent: "-1" }, { indent: "+1" }],
+      [{ color: [] }, { background: [] }],
+      [{ align: [] }],
+      ["link", "image", "video"],
+      ["clean"],
+    ],
+  };
+
+  const formats = [
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "list",
+    "indent",
+    "color",
+    "background",
+    "align",
+    "link",
+    "image",
+    "video",
+  ];
+
+  return (
+    <Container className="mt-5 question-container">
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3">
+          <Form.Label>
+            <h5 style={{ textAlign: "left" }}>질문 작성</h5>
+          </Form.Label>
+          <ReactQuill
+            theme="snow"
+            value={editorContent || placeholder}
+            readOnly={!editable}
+            onChange={handleEditorChange}
+            onFocus={clearPlaceholder}
+            onBlur={handleEditorBlur}
+            modules={modules}
+            formats={formats}
+            style={{
+              height: "250px",
+              marginBottom: "50px",
+              borderRadius: "4px",
+            }}
+          />
+        </Form.Group>
+
+        <div className="text-muted mb-3">글자수: {getTextLength()} 자</div>
+
+        <div className="d-flex gap-2 justify-content-center">
+          <Button
+            variant="secondary"
+            type="button"
+            className="px-4"
+            onClick={() => handleClose()}
+          >
+            닫기
+          </Button>
+          {editable && (
+            <>
+              <Button
+                variant="primary"
+                type="submit"
+                className="px-4"
+                style={{ cursor: "pointer" }}
+                disabled={saving}
+              >
+                {saving ? <span>저장 중...</span> : "저장"}
+              </Button>
+              <Button
+                variant="outline-secondary"
+                type="button"
+                className="px-3"
+                onClick={() => setEditorContent("")}
+              >
+                초기화
+              </Button>
+            </>
+          )}
+        </div>
+      </Form>
+    </Container>
+  );
+}
+
+export default QuestionMaker;
