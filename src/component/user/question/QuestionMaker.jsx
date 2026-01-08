@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import "../../../App.css";
 import "./QuestionMaker.css";
 import { saveQuestion } from "./QuestionService";
+import { getPlainContent } from "../../util/utilities";
 
 function QuestionMaker({ editable }) {
   const [editorContent, setEditorContent] = useState("");
@@ -20,32 +21,24 @@ function QuestionMaker({ editable }) {
   };
 
   const clearPlaceholder = () => {
-    const plainContent = editorContent.replace(/<[^>]*>/g, "");
-    if (plainContent === promptMessage) {
+    if (getPlainContent(editorContent) === promptMessage) {
       setEditorContent("");
       setPlaceholder("");
     }
   };
 
   const handleEditorBlur = () => {
-    const plainContent = editorContent.replace(/<[^>]*>/g, "").trim();
-    if (plainContent.trim() === "") {
+    if (getPlainContent(editorContent) === "") {
       setPlaceholder(promptMessage);
       setEditorContent("");
     }
   };
-
+  
   const getTextLength = () => {
-    let textLength = 0;
+    if (!editorContent) return 0;
 
-    if (editorContent) {
-      const plainText = editorContent.replace(/<[^>]*>/g, "");
-      if (plainText === promptMessage) {
-        return 0;
-      }
-      textLength = plainText.trim().length;
-    }
-    return textLength;
+    const plainContent = getPlainContent(editorContent);
+    return plainContent === promptMessage ? 0 : plainContent.length;
   };
 
   const navigate = useNavigate();
