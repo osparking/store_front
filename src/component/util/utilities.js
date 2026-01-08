@@ -121,3 +121,7 @@ export function formatDate(dateString) {
 export function insertHyphens(phone) {
   return `${phone.slice(0, 3)}-${phone.slice(3, 7)}-${phone.slice(7, 11)}`;
 }
+
+export function getPlainContent(htmlContent) {
+  return htmlContent.replace(/<[^>]*>/g, "").trim();
+}
