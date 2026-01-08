@@ -7,6 +7,7 @@ import "react-quill-new/dist/quill.snow.css"; // Import styles
 import "../../App.css";
 import ConfirmationModal from "../modal/ConfirmationModal";
 import "./MyQuillEditor.css";
+import { getPlainContent } from "./utilities";
 
 function MyQuillEditor({ order, handleClose, saveEdit, editable }) {
   const [editorContent, setEditorContent] = useState(order.review);
@@ -17,13 +18,7 @@ function MyQuillEditor({ order, handleClose, saveEdit, editable }) {
   };
 
   const getTextLength = () => {
-    let textLength = 0;
-
-    if (editorContent) {
-      const plainText = editorContent.replace(/<[^>]*>/g, "");
-      textLength = plainText.trim().length;
-    }
-    return textLength;
+    return editorContent ? getPlainContent(editorContent).length : 0;
   };
 
   const handleSubmit = async (e) => {
