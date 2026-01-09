@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 import { LuPanelLeftOpen } from "react-icons/lu";
-import Overview from './Overview';
-import AdminSideBar from './AdminSideBar';
-import WorkerTable from './WorkerTable';
-import Customer from './CustomerTable';
+import AdminSideBar from "./AdminSideBar";
+import Customer from "./CustomerTable";
+import Overview from "./Overview";
+import Questions from "./Questions";
+import WorkerTable from "./WorkerTable";
 
 const AdminDashboard = () => {
   const [adminTab, setAdminTab] = useState("");
@@ -24,24 +25,27 @@ const AdminDashboard = () => {
   return (
     <main className="admin-body">
       <div className="grid-container">
-        {openSidebar
-          ? <AdminSideBar
+        {openSidebar ? (
+          <AdminSideBar
             openSidebar={openSidebar}
             toggleSidebar={toggleSidebar}
-            tabClicked={tabClicked} />
-          : <span className="icon-header" onClick={toggleSidebar}>
+            tabClicked={tabClicked}
+          />
+        ) : (
+          <span className="icon-header" onClick={toggleSidebar}>
             <LuPanelLeftOpen />
           </span>
-        }  
+        )}
 
-        <div className="main-container" >
+        <div className="main-container">
           {adminTab === "Overview" && <Overview />}
           {adminTab === "Employee" && <WorkerTable />}
           {adminTab === "Customer" && <Customer />}
+          {adminTab === "Questions" && <Questions />}
         </div>
       </div>
     </main>
   );
-}
+};
 
-export default AdminDashboard
+export default AdminDashboard;
