@@ -1,0 +1,30 @@
+table {
+  margin-top: 20px;
+}
+
+th, .text-center{
+  text-align: center;
+}
+
+table.questions {
+  min-width: 700px;
+  width: 800px;
+  max-width: 900px;
+  text-align: left;
+}
+
+.smaller-amp {
+  font-size: 12px; /* Adjust as needed */
+  /* Or use specific pixel size: font-size: 12px; 0.75em*/
+  vertical-align:middle; /* Ensures proper alignment */
+}
+
+table td.attention {
+  background-color: #ffb6c1;
+}
+
+div.w-900plus {
+  min-width: 900px;
+  width: 70%;
+  max-width: 950px;
+}
