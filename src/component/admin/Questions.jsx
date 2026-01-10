@@ -61,10 +61,10 @@ const Questions = () => {
         <Table striped bordered hover className="questions">
           <thead>
             <tr>
-              <th>질문 제목(서두 15자)</th>
-              <th>질문 일시</th>
-              <th>질문 내용(서두 20자)</th>
-              <th>답변 여부</th>
+              <th className="lightBlue">질문 제목(서두 15자)</th>
+              <th className="lightBlue">질문 일시</th>
+              <th className="lightBlue">질문 내용(서두 20자)</th>
+              <th className="lightBlue">답변 여부</th>
             </tr>
           </thead>
           <tbody>

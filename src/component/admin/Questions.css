@@ -28,3 +28,11 @@ div.w-900plus {
   width: 70%;
   max-width: 950px;
 }
+
+table tr th {
+  font-weight: bold;  
+}
+
+th.lightBlue {
+  background-color: lightblue;
+}
