@@ -10,3 +10,17 @@ export async function saveQuestion(data) {
     throw err;
   }
 }
+
+export async function getQuestionPage(page, size) {
+  const urlPrefix = "/admin/all_questions?page=";
+
+  try {
+    const result = await callWithToken(
+      "get",
+      `${urlPrefix}${page}&size=${size}`
+    );
+    return result.data.data;
+  } catch (err) {
+    throw err;
+  }
+}
