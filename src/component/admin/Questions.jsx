@@ -1,3 +1,111 @@
-const Questions = () => {};
+import { useEffect, useState } from "react";
+import { Button, Table } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import Paginator from "../common/Paginator";
+import { getQuestionPage } from "../user/question/QuestionService";
+import "./Questions.css";
+
+const Questions = () => {
+  const [totalPages, setTotalPages] = useState(1);
+  const [questionPage, setQuestionPage] = useState({});
+  const [questions, setQuestioins] = useState([]);
+  const [pageSize, setPageSize] = useState(5); // itemsPerPage
+
+  const savedPageNo = localStorage.getItem("QUESTION_PAGE_관리");
+  const [currentPage, setCurrentPage] = useState(savedPageNo || 1);
+
+  const [searchResult, setSearchResult] = useState();
+  const idxLastPlus1 = currentPage * pageSize;
+  const indexOfFirst = idxLastPlus1 - pageSize;
+
+  const loadReviewPage = async () => {
+    const searchResult = await getQuestionPage(currentPage, pageSize);
+
+    setSearchResult(searchResult);
+    if (searchResult) {
+      setTotalPages(searchResult.totalPages);
+      setQuestionPage(searchResult.pageContent);
+      setQuestioins(searchResult.pageContent.content);
+      setPageSize(searchResult.pageSize);
+      setCurrentPage(searchResult.currentPage);
+    }
+  };
+
+  useEffect(() => {
+    localStorage.setItem("QUESTION_PAGE_관리", currentPage);
+    loadReviewPage();
+  }, [currentPage]);
+
+  const navigate = useNavigate();
+
+  const goHome = () => {
+    navigate("/");
+  };
+
+  return (
+    <div className="box_section w-900plus">
+      <div className="d-flex justify-content-center align-items-center">
+        <h3>고객 질문 목록</h3>
+      </div>
+      <div className="d-flex justify-content-center align-items-center">
+        <p className="text-center text-muted mb-4">
+          총 {questionPage.totalElements} 건 중, 제 {indexOfFirst + 1} ~{" "}
+          {Math.min(idxLastPlus1, questionPage.totalElements)}번 질문
+        </p>
+      </div>
+      <div
+        id="questionTableDiv"
+        style={{ whiteSpace: "initial" }}
+        className="d-flex justify-content-center align-items-center"
+      >
+        <Table striped bordered hover className="questions">
+          <thead>
+            <tr>
+              <th>질문 제목(서두 15자)</th>
+              <th>질문 일시</th>
+              <th>질문 내용(서두 20자)</th>
+              <th>답변 여부</th>
+            </tr>
+          </thead>
+          <tbody>
+            {questions &&
+              questions.map((question, idx) => (
+                <tr key={idx}>
+                  <td className="text-center">{question.title}</td>
+                  <td>{question.insertTime}</td>
+                  <td className="text-start">{question.question}</td>
+                  <td
+                    className={
+                      question.answered === "미답변" ? "attention" : ""
+                    }
+                  >
+                    {question.answered}
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </Table>
+      </div>
+      {searchResult && questionPage && (
+        <Paginator
+          pageSize={pageSize}
+          totalItems={questionPage.totalElements}
+          totalPages={totalPages}
+          currPage={currentPage}
+          setCurrPage={(pageNo) => setCurrentPage(pageNo)}
+        />
+      )}
+      <div className="d-flex justify-content-center align-items-center">
+        <Button
+          variant="info"
+          onClick={() => goHome()}
+          style={{ marginTop: "30px" }}
+        >
+          범이비누
+        </Button>
+      </div>
+    </div>
+  );
+};
 
 export default Questions;
