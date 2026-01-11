@@ -24,3 +24,21 @@ export async function getQuestionPage(page, size) {
     throw err;
   }
 }
+
+export async function getQuestion(id) {
+  const urlPrefix = "/question";
+
+  try {
+    const result = await callWithToken(
+      "get",
+      `${urlPrefix}/${id}/read`
+    );
+    return result.data.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function saveAnswerAct(answer) {
+  
+}
