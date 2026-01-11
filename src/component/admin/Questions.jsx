@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Paginator from "../common/Paginator";
-import { getQuestionPage } from "../user/question/QuestionService";
+import { getQuestion, getQuestionPage, saveAnswerAct } from "../user/question/QuestionService";
 import "./Questions.css";
+import AnswerModal from "./AnswerModal";
 
 const Questions = () => {
   const [totalPages, setTotalPages] = useState(1);
@@ -18,7 +19,7 @@ const Questions = () => {
   const idxLastPlus1 = currentPage * pageSize;
   const indexOfFirst = idxLastPlus1 - pageSize;
 
-  const loadReviewPage = async () => {
+  const loadQuestionage = async () => {
     const searchResult = await getQuestionPage(currentPage, pageSize);
 
     setSearchResult(searchResult);
@@ -33,7 +34,7 @@ const Questions = () => {
 
   useEffect(() => {
     localStorage.setItem("QUESTION_PAGE_관리", currentPage);
-    loadReviewPage();
+    loadQuestionage();
   }, [currentPage]);
 
   const navigate = useNavigate();
@@ -42,8 +43,30 @@ const Questions = () => {
     navigate("/");
   };
 
+  const [showAnswerModal, setShowAnswerModal] = useState(false);
+  const [question, setQuestion] = useState({});
+
+  const answerQuestion = async (question) => {
+    const theQuestion = await getQuestion(question.id);
+    setQuestion(theQuestion);
+    setShowAnswerModal(true);
+  };
+
+
+  const saveAnswer = async (answer) => {
+    setShowAnswerModal(false);
+    await saveAnswerAct(answer);
+    loadQuestionage();
+  };
+
   return (
     <div className="box_section w-900plus">
+      <AnswerModal
+        show={showAnswerModal}
+        handleClose={() => setShowAnswerModal(false)}
+        question={question}
+        saveAnswer={saveAnswer}
+      />      
       <div className="d-flex justify-content-center align-items-center">
         <h3>고객 질문 목록</h3>
       </div>
@@ -73,7 +96,11 @@ const Questions = () => {
                 <tr key={idx}>
                   <td className="text-center">{question.title}</td>
                   <td>{question.insertTime}</td>
-                  <td className="text-start">{question.question}</td>
+                  <td className="text-start">
+                    <a href="#" onClick={() => answerQuestion(question)}>
+                      {question.question}
+                    </a>                    
+                  </td>
                   <td
                     className={
                       question.answered === "미답변" ? "attention" : ""
