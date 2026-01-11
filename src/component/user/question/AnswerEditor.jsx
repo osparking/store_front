@@ -93,6 +93,23 @@ function AnswerEditor({ question, handleClose, saveEdit, editable }) {
     }
   };
 
+  const promptMessage = "답변 작성 공간";
+  const [placeholder, setPlaceholder] = useState(promptMessage);
+
+  const clearPlaceholder = () => {
+    if (getPlainContent(editorContent) === promptMessage) {
+      setEditorContent("");
+      setPlaceholder("");
+    }
+  };
+
+  const handleEditorBlur = () => {
+    if (getPlainContent(editorContent) === "") {
+      setPlaceholder(promptMessage);
+      setEditorContent("");
+    }
+  };
+
   return (
     <>
       <ConfirmationModal
@@ -115,11 +132,12 @@ function AnswerEditor({ question, handleClose, saveEdit, editable }) {
           </Form.Label>
           <ReactQuill
             theme="snow"
-            value={editorContent}
+            value={editorContent || placeholder}
             onChange={handleEditorChange}
+            onFocus={clearPlaceholder}
+            onBlur={handleEditorBlur}
             modules={modules}
             formats={formats}
-            placeholder="답변 작성 공간"
             style={{
               marginBottom: "10px",
               borderRadius: "4px",
