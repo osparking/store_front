@@ -7,7 +7,7 @@ import "../../../App.css";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import { getPlainContent } from "../../util/utilities";
 
-function AnswerEditor({ question, handleClose, saveEdit, editable }) {
+function AnswerEditor({ question, handleClose, saveAnswer, editable }) {
   const [editorContent, setEditorContent] = useState(question.review);
   const [loading, setLoading] = useState(false);
 
@@ -16,25 +16,32 @@ function AnswerEditor({ question, handleClose, saveEdit, editable }) {
   };
 
   const getTextLength = () => {
-    return editorContent ? getPlainContent(editorContent).length : 0;
+    if (!editorContent) return 0;
+
+    const plainContent = getPlainContent(editorContent);
+    return plainContent === promptMessage ? 0 : plainContent.length;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (getTextLength() === 0) {
-      return toast.error("후기 내용을 작성하세요!");
+      return toast.error("답변을 작성하세요!");
     }
     try {
       setLoading(true);
-      const reviewData = { id: question.id, review: editorContent };
+      const answerData = {
+        content: editorContent,
+        questionId: question.id,
+        userId: question.userId,
+      };
+      
+      await saveAnswer(answerData);
 
-      await saveEdit(reviewData);
-
-      toast.success("후기 저장 성공.");
+      toast.success("답변 저장 성공.");
       handleClose();
     } catch (err) {
       console.error("err: ", err);
-      toast.error("후기 저장 오류!");
+      toast.error("답변 저장 오류!");
     } finally {
       setLoading(false);
     }
@@ -81,7 +88,7 @@ function AnswerEditor({ question, handleClose, saveEdit, editable }) {
       setLoading(true);
       const reviewData = { id: question.id, review: null };
 
-      await saveEdit(reviewData);
+      await saveAnswer(reviewData);
 
       toast.success("후기 삭제 완료");
       handleClose();
