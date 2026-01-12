@@ -24,7 +24,7 @@ export default function AnswerModal({
         <AnswerEditor
           question={question}
           handleClose={handleClose}
-          saveEdit={saveAnswer}
+          saveAnswer={saveAnswer}
           editable={true}
         />
         <Form className="mt-3 ms-3 mb-3">

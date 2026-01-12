@@ -29,10 +29,7 @@ export async function getQuestion(id) {
   const urlPrefix = "/question";
 
   try {
-    const result = await callWithToken(
-      "get",
-      `${urlPrefix}/${id}/read`
-    );
+    const result = await callWithToken("get", `${urlPrefix}/${id}/read`);
     return result.data.data;
   } catch (err) {
     throw err;
@@ -40,5 +37,12 @@ export async function getQuestion(id) {
 }
 
 export async function saveAnswerAct(answer) {
-  
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const result = await callWithToken("post", "/question/follow_up", answer);
+    console.log("답변/댓글 결과.data: ", result.data);
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
 }
