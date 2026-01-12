@@ -38,7 +38,7 @@ export async function getQuestion(id) {
 
 export async function saveAnswerAct(answer) {
   try {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // await new Promise((resolve) => setTimeout(resolve, 1000));
     const result = await callWithToken("post", "/question/follow_up", answer);
     console.log("답변/댓글 결과.data: ", result.data);
     return result.data;
