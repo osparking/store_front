@@ -76,7 +76,7 @@ const NavBar = () => {
             {beforeLogin ? "(로그인 전)" : `${identity}`}
           </Nav>
           <Nav>
-            <NavDropdown title="계정" id="basic-nav-dropdown">
+            <NavDropdown title="계정" id="basic-nav-dropdown" className="me-2">
               {beforeLogin ? (
                 <>
                   <NavDropdown.Item to={"/login"} as={Link}>
@@ -112,8 +112,12 @@ const NavBar = () => {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          <Nav.Link className="ms-2 identity" to={"/question"} as={Link} >
-            질문하기
+          <Nav.Link className="identity" to={"/question"} as={Link}>
+            <span
+              style={{ fontSize: "0.9em", color: "blue", fontWeight: "bold" }}
+            >
+              질문하기
+            </span>
           </Nav.Link>
         </Navbar.Collapse>
       </Container>
