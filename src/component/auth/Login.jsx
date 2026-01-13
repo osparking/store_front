@@ -77,7 +77,6 @@ const Login = () => {
         }
       }
     } catch (error) {
-      console.log("error " + error);
       setErrorMsg(error.response.data.message);
       setAlertError(true);
     }

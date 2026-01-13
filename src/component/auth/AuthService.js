@@ -5,6 +5,9 @@ export const loginUser = async (email, password) => {
     const response = await api.post("/autho/login", { email, password });
     return response;
   } catch (error) {
+    if (error.code === "ERR_NETWORK") {
+      alert("네트워크 오류");
+    }
     throw error;
   }
 };
@@ -34,7 +37,7 @@ const clearLoginUserInfo = () => {
 export const logoutUser = () => {
   clearLoginUserInfo();
   window.dispatchEvent(new Event("logoutEvt"));
-}
+};
 
 export const verifyEmail = async (token) => {
   try {
