@@ -11,6 +11,20 @@ export async function saveQuestion(data) {
   }
 }
 
+export async function getMyQuestionsPage(page, size) {
+  const urlPrefix = "/question/my_questions?page=";
+
+  try {
+    const result = await callWithToken(
+      "get",
+      `${urlPrefix}${page}&size=${size}`
+    );
+    return result.data.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function getQuestionPage(page, size) {
   const urlPrefix = "/admin/all_questions?page=";
 
