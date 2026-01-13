@@ -8,7 +8,7 @@ import {
   getQuestionPage,
   saveAnswerAct,
 } from "../user/question/QuestionService";
-import AnswerModal from "./AnswerModal";
+import QuestionItemModal from "./QuestionItemModal";
 import "./Questions.css";
 
 const Questions = ({ mine }) => {
@@ -67,7 +67,7 @@ const Questions = ({ mine }) => {
 
   return (
     <div className="box_section w-900plus">
-      <AnswerModal
+      <QuestionItemModal
         show={showAnswerModal}
         handleClose={() => setShowAnswerModal(false)}
         question={question}

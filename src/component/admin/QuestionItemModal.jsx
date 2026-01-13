@@ -2,7 +2,7 @@ import { Form, Modal } from "react-bootstrap";
 import AnswerEditor from "../user/question/AnswerEditor";
 import QuestionViewer from "../user/question/QuestionViewer";
 
-export default function AnswerModal({
+export default function QuestionItemModal({
   show,
   handleClose,
   question,
