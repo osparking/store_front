@@ -10,6 +10,8 @@ import UserProfile from "./UserProfile";
 import { getUserDtoById } from "./UserService";
 import ManageMyReviews from "./review/ManageMyReviews";
 import OverviewUser from "./OverviewUser";
+import MyQuestions from "./question/MyQuestions";
+import Questions from "../admin/Questions";
 
 const UserDashboard = () => {
   const location = useLocation();
@@ -77,7 +79,9 @@ const UserDashboard = () => {
         <Tab eventKey="purchase_list" title={<h5>나의 주문</h5>}>
           <ManageMyOrder />
         </Tab>
-        <Tab eventKey="my_question" title={<h5>나의 질문</h5>}></Tab>
+        <Tab eventKey="my_question" title={<h5>나의 질문</h5>}>
+          <Questions mine/>
+        </Tab>
         <Tab eventKey="my_review" title={<h5>나의 리뷰</h5>}>
           <ManageMyReviews />
         </Tab>
