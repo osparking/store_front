@@ -83,10 +83,7 @@ function App() {
           <Route path="/success" element={<WidgetSuccessPage />} />
           <Route path="/fail" element={<FailPage />} />
           <Route path="/myorders" element={<ManageMyOrder />} />
-          <Route
-            path="/question"
-            element={<QuestionEditor editable={true} />}
-          />
+          <Route path="/question" element={<QuestionEditor />} />
         </Route>
         <Route
           element={
