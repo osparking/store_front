@@ -9,7 +9,7 @@ import {
   saveAnswerAct,
 } from "../user/question/QuestionService";
 import "./Questions.css";
-import QuestionFollowUpModal from "./QuestionItemModal";
+import QuestionFollowUpModal from "./QuestionFollowUpModal";
 
 const Questions = ({ mine }) => {
   const [totalPages, setTotalPages] = useState(1);
@@ -50,17 +50,19 @@ const Questions = ({ mine }) => {
     navigate("/");
   };
 
-  const [showAnswerModal, setShowAnswerModal] = useState(false);
+  const [showQuestionFollowUpModal, setShowQuestionFollowUpModal] =
+    useState(false);
+
   const [question, setQuestion] = useState({});
 
   const answerQuestion = async (question) => {
     const theQuestion = await getQuestion(question.id);
-    setQuestion(theQuestion);
-    setShowAnswerModal(true);
+    setQuestion({ ...theQuestion, answered: question.answered === "답변함" });
+    setShowQuestionFollowUpModal(true);
   };
 
   const saveAnswer = async (answer) => {
-    setShowAnswerModal(false);
+    setShowQuestionFollowUpModal(false);
     await saveAnswerAct(answer);
     loadQuestionage();
   };
@@ -68,10 +70,11 @@ const Questions = ({ mine }) => {
   return (
     <div className="box_section w-900plus">
       <QuestionFollowUpModal
-        show={showAnswerModal}
-        handleClose={() => setShowAnswerModal(false)}
+        show={showQuestionFollowUpModal}
+        handleClose={() => setShowQuestionFollowUpModal(false)}
         question={question}
         saveAnswer={saveAnswer}
+        mine={mine}
       />
       <div className="d-flex justify-content-center align-items-center">
         <h3>질문 목록</h3>
