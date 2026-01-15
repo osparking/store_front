@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import toast from "react-hot-toast";
 import ReactQuill from "react-quill-new";
@@ -10,8 +10,10 @@ import { getPlainContent } from "../../util/utilities";
 import "./QuestionEditor.css";
 import { saveQuestion } from "./QuestionService";
 
-function QuestionEditor({ editable }) {
-  const [editorContent, setEditorContent] = useState("");
+function QuestionEditor({ question, mine, handleClose }) {
+  const [editorContent, setEditorContent] = useState(
+    question ? question.question : ""
+  );
   const [saving, setSaving] = useState(false);
   const promptMessage = "여기에 질문을 작성하세요 :-)";
   const [placeholder, setPlaceholder] = useState(promptMessage);
@@ -43,8 +45,10 @@ function QuestionEditor({ editable }) {
 
   const navigate = useNavigate();
 
-  const handleClose = () => {
-    navigate("/");
+  const closeEditor = () => {
+    handleClose
+      ? handleClose() // 질문 댓글 모달 닫고, 질문 목록으로 복귀
+      : navigate(-1); // [질문하기] 성분 닫고, 그전 방문지로 귀환
   };
 
   const handleSubmit = async (e) => {
@@ -67,7 +71,13 @@ function QuestionEditor({ editable }) {
       await saveQuestion(questionData);
 
       toast.success("질문 저장 성공.");
-      // handleClose();
+      localStorage.setItem("DASHBOARD_TAB", "my_question");
+      localStorage.setItem("QUESTION_PAGE", 1);
+
+      handleClose();
+
+      const id = localStorage.getItem("LOGIN_ID");
+      navigate(`/dashboard/${id}/user`);
     } catch (err) {
       console.error("err: ", err);
       toast.error("질문 저장 오류!");
@@ -106,12 +116,40 @@ function QuestionEditor({ editable }) {
     "video",
   ];
 
+  // 제목 상자에 탭 핸들러 추가: 내용 편집기로 촛점 이동
+  const quillRef = useRef(null);
+
+  useEffect(() => {
+    const handleTitleKeyDown = (e) => {
+      if (e.key === "Tab" && !e.shiftKey) {
+        e.preventDefault();
+        if (quillRef.current && quillRef.current.getEditor()) {
+          const editor = quillRef.current.getEditor();
+          editor.focus();
+        }
+      }
+    };
+
+    const titleInput = document.querySelector('input[name="title"]');
+    if (titleInput) {
+      titleInput.addEventListener("keydown", handleTitleKeyDown);
+      return () => {
+        titleInput.removeEventListener("keydown", handleTitleKeyDown);
+      };
+    }
+  }, []);
+
   return (
-    <Container className="mt-5 question-container mb-5">
-      <Form onSubmit={handleSubmit} className="p-3">
+    <div className="d-flex justify-content-center align-items-center vh-67">
+      <Form
+        onSubmit={handleSubmit}
+        className={mine ? "question-editor-modal" : "question-editor-window"}
+      >
         <Form.Group className="mb-3">
           <Form.Label>
-            <h5 style={{ textAlign: "left" }}>질문 작성</h5>
+            <h5 style={{ textAlign: "left" }}>
+              {mine ? "나의 질문" : "고객 질문"}
+            </h5>
           </Form.Label>
           <Form.Group className="mb-0" controlId="formBasicEmail">
             <Form.Label className="mt-3">제목</Form.Label>
@@ -119,6 +157,7 @@ function QuestionEditor({ editable }) {
               type="text"
               maxLength={40}
               name="title"
+              defaultValue={question ? question.title : ""}
               placeholder="(제목 입력)"
             />
             <Form.Text className="text-muted ms-2">
@@ -127,19 +166,15 @@ function QuestionEditor({ editable }) {
           </Form.Group>
           <Form.Label className="mt-3">내용</Form.Label>
           <ReactQuill
+            ref={quillRef}
             theme="snow"
             value={editorContent || placeholder}
-            readOnly={!editable}
             onChange={handleEditorChange}
             onFocus={clearPlaceholder}
             onBlur={handleEditorBlur}
             modules={modules}
             formats={formats}
-            style={{
-              height: "230px",
-              marginBottom: "70px",
-              borderRadius: "4px",
-            }}
+            className="content-edit"
           />
         </Form.Group>
 
@@ -150,34 +185,30 @@ function QuestionEditor({ editable }) {
             variant="secondary"
             type="button"
             className="px-4"
-            onClick={() => handleClose()}
+            onClick={() => closeEditor()}
           >
             닫기
           </Button>
-          {editable && (
-            <>
-              <Button
-                variant="primary"
-                type="submit"
-                className="px-4"
-                style={{ cursor: "pointer" }}
-                disabled={saving}
-              >
-                {saving ? <span>저장 중...</span> : "저장"}
-              </Button>
-              <Button
-                variant="outline-secondary"
-                type="button"
-                className="px-3"
-                onClick={() => setEditorContent("")}
-              >
-                초기화
-              </Button>
-            </>
-          )}
+          <Button
+            variant="primary"
+            type="submit"
+            className="px-4"
+            style={{ cursor: "pointer" }}
+            disabled={saving}
+          >
+            {saving ? <span>저장 중...</span> : "저장"}
+          </Button>
+          <Button
+            variant="outline-secondary"
+            type="button"
+            className="px-3"
+            onClick={() => setEditorContent("")}
+          >
+            초기화
+          </Button>
         </div>
       </Form>
-    </Container>
+    </div>
   );
 }
 
