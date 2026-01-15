@@ -1,5 +1,5 @@
 import { Form, Modal } from "react-bootstrap";
-import AnswerEditor from "../user/question/AnswerEditor";
+import FollowUpEditor from "../user/question/FollowUpEditor";
 import QuestionViewer from "../user/question/QuestionViewer";
 
 export default function QuestionItemModal({
@@ -21,7 +21,7 @@ export default function QuestionItemModal({
         <Modal.Title>답변 작성</Modal.Title>
       </Modal.Header>
       <Modal.Body style={{ paddingTop: 0 }}>
-        <AnswerEditor
+        <FollowUpEditor
           question={question}
           handleClose={handleClose}
           saveAnswer={saveAnswer}

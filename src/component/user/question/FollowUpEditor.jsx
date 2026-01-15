@@ -7,7 +7,7 @@ import "../../../App.css";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import { getPlainContent } from "../../util/utilities";
 
-function AnswerEditor({ question, handleClose, saveAnswer, editable }) {
+function FollowUpEditor({ question, handleClose, saveAnswer, editable }) {
   const [editorContent, setEditorContent] = useState(question.review);
   const [loading, setLoading] = useState(false);
 
@@ -34,7 +34,7 @@ function AnswerEditor({ question, handleClose, saveAnswer, editable }) {
         questionId: question.id,
         userId: question.userId,
       };
-      
+
       await saveAnswer(answerData);
 
       toast.success("답변 저장 성공.");
@@ -199,4 +199,4 @@ function AnswerEditor({ question, handleClose, saveAnswer, editable }) {
   );
 }
 
-export default AnswerEditor;
+export default FollowUpEditor;
