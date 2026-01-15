@@ -19,7 +19,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     const adminTab = localStorage.getItem("ADMIN_TAB");
-    setAdminTab(adminTab ? adminTab : "Overview");
+    setAdminTab(adminTab ? adminTab : "Questions");
   }, []);
 
   return (
