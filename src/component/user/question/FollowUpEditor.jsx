@@ -7,8 +7,8 @@ import "../../../App.css";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import { getPlainContent } from "../../util/utilities";
 
-function FollowUpEditor({ question, handleClose, saveAnswer, editable }) {
-  const [editorContent, setEditorContent] = useState(question.review);
+function FollowUpEditor({ followUp, handleClose, saveAnswer, editable }) {
+  const [editorContent, setEditorContent] = useState(followUp.content);
   const [loading, setLoading] = useState(false);
 
   const handleEditorChange = (content, delta, source, editor) => {
@@ -31,8 +31,8 @@ function FollowUpEditor({ question, handleClose, saveAnswer, editable }) {
       setLoading(true);
       const answerData = {
         content: editorContent,
-        questionId: question.id,
-        userId: question.userId,
+        questionId: followUp.id,
+        userId: followUp.userId,
       };
 
       await saveAnswer(answerData);
@@ -86,7 +86,7 @@ function FollowUpEditor({ question, handleClose, saveAnswer, editable }) {
   const performDeletion = async () => {
     try {
       setLoading(true);
-      const reviewData = { id: question.id, review: null };
+      const reviewData = { id: followUp.id, review: null };
 
       await saveAnswer(reviewData);
 
@@ -182,7 +182,7 @@ function FollowUpEditor({ question, handleClose, saveAnswer, editable }) {
               </Button>
             </>
           )}
-          {question.question && editable && (
+          {followUp.question && editable && (
             <Button
               variant="danger"
               type="button"
