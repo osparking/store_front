@@ -25,6 +25,10 @@ const clearLoginUserInfo = () => {
     "WORKER_TAB",
     "SOAP_SHAPE_TAB",
     "SOAP_INTRO_TAB",
+    "ADMIN_TAB",
+    "DASHBOARD_TAB",
+    "QUESTION_PAGE",
+    "QUESTION_PAGE_관리",
   ];
 
   items.push("IS_WORKER");
