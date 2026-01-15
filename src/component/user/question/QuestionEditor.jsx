@@ -6,11 +6,11 @@ import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css"; // Import styles
 import { useNavigate } from "react-router-dom";
 import "../../../App.css";
-import "./QuestionMaker.css";
-import { saveQuestion } from "./QuestionService";
 import { getPlainContent } from "../../util/utilities";
+import "./QuestionEditor.css";
+import { saveQuestion } from "./QuestionService";
 
-function QuestionMaker({ editable }) {
+function QuestionEditor({ editable }) {
   const [editorContent, setEditorContent] = useState("");
   const [saving, setSaving] = useState(false);
   const promptMessage = "여기에 질문을 작성하세요 :-)";
@@ -33,7 +33,7 @@ function QuestionMaker({ editable }) {
       setEditorContent("");
     }
   };
-  
+
   const getTextLength = () => {
     if (!editorContent) return 0;
 
@@ -181,4 +181,4 @@ function QuestionMaker({ editable }) {
   );
 }
 
-export default QuestionMaker;
+export default QuestionEditor;
