@@ -29,6 +29,18 @@ const UserDashboard = () => {
     setAlertError,
   } = BsAlertHook();
 
+  const [activeKey, setActiveKey] = useState("profile");
+
+  useEffect(() => {
+    const dashboardTab = localStorage.getItem("DASHBOARD_TAB");
+    setActiveKey(dashboardTab ? dashboardTab : "profile");
+  }, []);
+
+  const changeActiveKey = (eventKey) => {
+    localStorage.setItem("DASHBOARD_TAB", eventKey);
+    setActiveKey(eventKey);
+  };
+
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -64,7 +76,11 @@ const UserDashboard = () => {
 
   return (
     <Container fluid className="home-container">
-      <Tabs className="tabBackgroundThick tabHead tabFix contentHolyCentered">
+      <Tabs
+        activeKey={activeKey}
+        onSelect={changeActiveKey}
+        className="tabBackgroundThick tabHead tabFix contentHolyCentered"
+      >
         <Tab eventKey="profile" title={<h5>내 프로필</h5>}>
           {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
           {alertSuccess && (
