@@ -1,8 +1,9 @@
 import { Form, Modal } from "react-bootstrap";
 import FollowUpEditor from "../user/question/FollowUpEditor";
 import QuestionViewer from "../user/question/QuestionViewer";
+import "./QuestionFollowUpModal.css";
 
-export default function QuestionItemModal({
+export default function QuestionFollowUpModal({
   show,
   handleClose,
   question,

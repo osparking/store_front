@@ -8,8 +8,8 @@ import {
   getQuestionPage,
   saveAnswerAct,
 } from "../user/question/QuestionService";
-import QuestionItemModal from "./QuestionItemModal";
 import "./Questions.css";
+import QuestionFollowUpModal from "./QuestionItemModal";
 
 const Questions = ({ mine }) => {
   const [totalPages, setTotalPages] = useState(1);
@@ -67,7 +67,7 @@ const Questions = ({ mine }) => {
 
   return (
     <div className="box_section w-900plus">
-      <QuestionItemModal
+      <QuestionFollowUpModal
         show={showAnswerModal}
         handleClose={() => setShowAnswerModal(false)}
         question={question}

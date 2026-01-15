@@ -1,0 +1,9 @@
+question-follow-up {
+  max-width: 750px;
+  min-width: 450px;
+  width: 75%;
+  background-color: whitesmoke;
+  margin: 16px;
+  padding: 16px;
+  justify-content: center;
+}
