@@ -1,9 +1,9 @@
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import FollowUpEditor from "../user/question/FollowUpEditor";
-import QuestionViewer from "../user/question/QuestionViewer";
-import "./QuestionFollowUpModal.css";
 import FollowUpViewer from "../user/question/FollowUpViewer";
 import QuestionEditor from "../user/question/QuestionEditor";
+import QuestionViewer from "../user/question/QuestionViewer";
+import "./QuestionFollowUpModal.css";
 
 export default function QuestionFollowUpModal({
   show,
@@ -13,6 +13,7 @@ export default function QuestionFollowUpModal({
   mine,
 }) {
   const is_admin = localStorage.getItem("IS_ADMIN") === "true";
+  const justReadQuestion = question.answered || is_admin;
 
   return (
     <Modal
@@ -41,7 +42,7 @@ export default function QuestionFollowUpModal({
           )
         )}
         <div className="mt-5">
-          {(question.answered || is_admin) ? (
+          {justReadQuestion ? (
             <QuestionViewer question={question} mine={mine} />
           ) : (
             <QuestionEditor
@@ -68,7 +69,7 @@ export default function QuestionFollowUpModal({
               닫기
             </Button>
           </div>
-        )}        
+        )}
       </Modal.Body>
     </Modal>
   );
