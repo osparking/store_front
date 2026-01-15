@@ -2,32 +2,43 @@ import { Form, Modal } from "react-bootstrap";
 import FollowUpEditor from "../user/question/FollowUpEditor";
 import QuestionViewer from "../user/question/QuestionViewer";
 import "./QuestionFollowUpModal.css";
+import FollowUpViewer from "../user/question/FollowUpViewer";
 
 export default function QuestionFollowUpModal({
   show,
   handleClose,
   question,
   saveAnswer,
+  mine,
 }) {
+  const is_admin = localStorage.getItem("IS_ADMIN") === "true";
+
   return (
     <Modal
       show={show}
       onHide={handleClose}
       backdrop="static"
       keyboard={false}
-      size="xl"
       dialogClassName="quill-editor-modal"
     >
       <Modal.Header closeButton>
-        <Modal.Title>답변 작성</Modal.Title>
+        <Modal.Title>
+          {question.answered ? "답변 보기" : "질문 보기"}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body style={{ paddingTop: 0 }}>
-        <FollowUpEditor
-          question={question}
-          handleClose={handleClose}
-          saveAnswer={saveAnswer}
-          editable={true}
-        />
+        {question.answered && !is_admin ? (
+          <FollowUpViewer followUp={{ content: "(디비에서 읽어온 답변)" }} />
+        ) : (
+          is_admin && (
+            <FollowUpEditor
+              followUp={{ content: "" }}
+              handleClose={handleClose}
+              saveAnswer={saveAnswer}
+              editable={true}
+            />
+          )
+        )}
         <Form className="mt-3 ms-3 mb-3">
           <Form.Label>
             <h5 style={{ textAlign: "left" }}>고객 질문</h5>
