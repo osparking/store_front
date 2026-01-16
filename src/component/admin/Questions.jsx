@@ -53,6 +53,15 @@ const Questions = ({ mine }) => {
   const [showQuestionFollowUpModal, setShowQuestionFollowUpModal] =
     useState(false);
 
+  const [reloadPage, setReloadPage] = useState(false);
+
+  useEffect(() => {
+    if (reloadPage) {
+      loadQuestionage();
+      setReloadPage(false);
+    }
+  }, [reloadPage]);
+
   const [question, setQuestion] = useState({});
 
   const answerQuestion = async (question) => {
@@ -75,6 +84,7 @@ const Questions = ({ mine }) => {
         question={question}
         saveAnswer={saveAnswer}
         mine={mine}
+        setReloadPage={setReloadPage}
       />
       <div className="d-flex justify-content-center align-items-center">
         <h3>질문 목록</h3>
