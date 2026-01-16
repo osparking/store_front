@@ -10,7 +10,7 @@ import { getPlainContent } from "../../util/utilities";
 import "./QuestionEditor.css";
 import { saveQuestion } from "./QuestionService";
 
-function QuestionEditor({ question, mine, handleClose }) {
+function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
   // console.log("question : ", JSON.stringify(question));
   const [editorContent, setEditorContent] = useState(
     question ? question.question : ""
@@ -64,7 +64,7 @@ function QuestionEditor({ question, mine, handleClose }) {
 
       setSaving(true);
       const questionData = {
-        id: question.id,
+        id: question?.id ?? 0,
         userId: userId,
         title: title,
         question: editorContent,
@@ -76,10 +76,15 @@ function QuestionEditor({ question, mine, handleClose }) {
       localStorage.setItem("DASHBOARD_TAB", "my_question");
       localStorage.setItem("QUESTION_PAGE", 1);
 
-      handleClose();
-
-      const id = localStorage.getItem("LOGIN_ID");
-      navigate(`/dashboard/${id}/user`);
+      if (setReloadPage) { 
+        // 모달 내포 퀼 편집기 - 갱신된 질문 저장
+        setReloadPage(true);
+        handleClose();
+      } else {
+        // 고객 질문 입력 후 저장 처리
+        const id = localStorage.getItem("LOGIN_ID");
+        navigate(`/dashboard/${id}/user`);
+      }
     } catch (err) {
       console.error("err: ", err);
       toast.error("질문 저장 오류!");
