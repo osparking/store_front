@@ -11,6 +11,7 @@ import "./QuestionEditor.css";
 import { saveQuestion } from "./QuestionService";
 
 function QuestionEditor({ question, mine, handleClose }) {
+  // console.log("question : ", JSON.stringify(question));
   const [editorContent, setEditorContent] = useState(
     question ? question.question : ""
   );
@@ -63,6 +64,7 @@ function QuestionEditor({ question, mine, handleClose }) {
 
       setSaving(true);
       const questionData = {
+        id: question.id,
         userId: userId,
         title: title,
         question: editorContent,
