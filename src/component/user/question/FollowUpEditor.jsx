@@ -7,7 +7,7 @@ import "../../../App.css";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import { getPlainContent } from "../../util/utilities";
 
-function FollowUpEditor({ followUp, handleClose, saveAnswer, editable }) {
+function FollowUpEditor({ questionId, followUp, handleClose, saveAnswer, editable }) {
   const [editorContent, setEditorContent] = useState(followUp.content);
   const [loading, setLoading] = useState(false);
 
@@ -31,7 +31,7 @@ function FollowUpEditor({ followUp, handleClose, saveAnswer, editable }) {
       setLoading(true);
       const answerData = {
         content: editorContent,
-        questionId: followUp.id,
+        questionId: questionId,
         userId: followUp.userId,
       };
 
