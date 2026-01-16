@@ -34,6 +34,7 @@ export default function QuestionFollowUpModal({
           question.followUpRows.map((followUp, idx, arr) =>
             idx === arr.length - 1 && is_admin ? (
               <FollowUpEditor
+                questionId={question.id}
                 followUp={{ content: followUp.content }}
                 handleClose={handleClose}
                 saveAnswer={saveAnswer}
@@ -51,6 +52,7 @@ export default function QuestionFollowUpModal({
           question.followUpRows &&
           question.followUpRows.length === 0 && (
             <FollowUpEditor
+              questionId={question.id}
               followUp={{ content: "" }}
               handleClose={handleClose}
               saveAnswer={saveAnswer}
