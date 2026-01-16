@@ -11,6 +11,7 @@ export default function QuestionFollowUpModal({
   question,
   saveAnswer,
   mine,
+  setReloadPage,
 }) {
   const is_admin = localStorage.getItem("IS_ADMIN") === "true";
   const justReadQuestion = question.answered || is_admin;
@@ -49,6 +50,7 @@ export default function QuestionFollowUpModal({
               question={question}
               mine={mine}
               handleClose={handleClose}
+              setReloadPage={setReloadPage}
             />
           )}
         </div>
