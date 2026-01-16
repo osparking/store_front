@@ -182,7 +182,7 @@ function FollowUpEditor({ followUp, handleClose, saveAnswer, editable }) {
               </Button>
             </>
           )}
-          {followUp.question && editable && (
+          {followUp.content && editable && (
             <Button
               variant="danger"
               type="button"
