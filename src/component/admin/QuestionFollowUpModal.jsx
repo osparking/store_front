@@ -30,18 +30,34 @@ export default function QuestionFollowUpModal({
         </Modal.Title>
       </Modal.Header>
       <Modal.Body style={{ paddingTop: 0 }}>
-        {question.answered && !is_admin ? (
-          <FollowUpViewer followUp={{ content: "(디비에서 읽어온 답변)" }} />
-        ) : (
-          is_admin && (
+        {question.followUpRows &&
+          question.followUpRows.map((followUp, idx, arr) =>
+            idx === arr.length - 1 && is_admin ? (
+              <FollowUpEditor
+                followUp={{ content: followUp.content }}
+                handleClose={handleClose}
+                saveAnswer={saveAnswer}
+                editable={true}
+                key={idx}
+              />
+            ) : (
+              <FollowUpViewer
+                followUp={{ content: followUp.content }}
+                key={idx}
+              />
+            )
+          )}
+        {is_admin &&
+          question.followUpRows &&
+          question.followUpRows.length === 0 && (
             <FollowUpEditor
               followUp={{ content: "" }}
               handleClose={handleClose}
               saveAnswer={saveAnswer}
               editable={true}
             />
-          )
-        )}
+          )}
+
         <div className="mt-5">
           {justReadQuestion ? (
             <QuestionViewer question={question} mine={mine} />
