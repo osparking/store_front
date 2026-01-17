@@ -14,6 +14,7 @@ function FollowUpEditor({
   handleClose,
   saveAnswer,
   editable,
+  setReloadPage,
 }) {
   console.log("followUp: ", JSON.stringify(followUp));
   const [editorContent, setEditorContent] = useState(followUp.content);
@@ -98,6 +99,7 @@ function FollowUpEditor({
       await deleteFollowUp(followUp.id);
 
       toast.success("댓글 삭제 완료");
+      setReloadPage(true);
       handleClose();
     } catch (err) {
       console.error("err: ", err);
@@ -130,8 +132,8 @@ function FollowUpEditor({
         show={showModal}
         handleClose={() => setShowModal(false)}
         handleConfirm={performDeletion}
-        bodyMessage="후기를 삭제하려면, 삭제 버튼을 누르십시오!"
-        title="후기 삭제 확인"
+        bodyMessage="댓글을 삭제하려면, 삭제 버튼을 누르십시오!"
+        title="댓글 삭제 확인"
         noLabel="취소"
         yesLabel="삭제"
         headerBgColor="bg-danger"
