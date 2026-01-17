@@ -39,6 +39,7 @@ export default function QuestionFollowUpModal({
                 handleClose={handleClose}
                 saveAnswer={saveAnswer}
                 editable={true}
+                setReloadPage={setReloadPage}
                 key={idx}
               />
             ) : (
@@ -57,6 +58,7 @@ export default function QuestionFollowUpModal({
               handleClose={handleClose}
               saveAnswer={saveAnswer}
               editable={true}
+              setReloadPage={setReloadPage}
             />
           )}
 
