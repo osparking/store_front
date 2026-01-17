@@ -54,9 +54,20 @@ export async function saveAnswerAct(answer) {
   try {
     // await new Promise((resolve) => setTimeout(resolve, 1000));
     const result = await callWithToken("post", "/question/follow_up", answer);
-    console.log("답변/댓글 결과.data: ", result.data);
     return result.data;
   } catch (err) {
     throw err;
   }
+}
+
+export async function deleteFollowUp(id) {
+  const urlSuffix = `/question/follow_up/${id}/delete`;
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    const result = await callWithToken("delete", urlSuffix);
+    console.log("댓글 삭제 결과.data: ", result.data);
+    return result.data;
+  } catch (err) {
+    throw err;
+  }  
 }
