@@ -35,7 +35,7 @@ export default function QuestionFollowUpModal({
             idx === arr.length - 1 && is_admin ? (
               <FollowUpEditor
                 questionId={question.id}
-                followUp={{ content: followUp.content }}
+                followUp={followUp}
                 handleClose={handleClose}
                 saveAnswer={saveAnswer}
                 editable={true}
