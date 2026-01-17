@@ -6,8 +6,16 @@ import ReactQuill from "react-quill-new";
 import "../../../App.css";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import { getPlainContent } from "../../util/utilities";
+import { deleteFollowUp } from "./QuestionService";
 
-function FollowUpEditor({ questionId, followUp, handleClose, saveAnswer, editable }) {
+function FollowUpEditor({
+  questionId,
+  followUp,
+  handleClose,
+  saveAnswer,
+  editable,
+}) {
+  console.log("followUp: ", JSON.stringify(followUp));
   const [editorContent, setEditorContent] = useState(followUp.content);
   const [loading, setLoading] = useState(false);
 
@@ -86,15 +94,14 @@ function FollowUpEditor({ questionId, followUp, handleClose, saveAnswer, editabl
   const performDeletion = async () => {
     try {
       setLoading(true);
-      const reviewData = { id: followUp.id, review: null };
 
-      await saveAnswer(reviewData);
+      await deleteFollowUp(followUp.id);
 
-      toast.success("후기 삭제 완료");
+      toast.success("댓글 삭제 완료");
       handleClose();
     } catch (err) {
       console.error("err: ", err);
-      toast.error("후기 삭제 실패!");
+      toast.error("댓글 삭제 실패!");
     } finally {
       setLoading(false);
     }
