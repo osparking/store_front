@@ -63,7 +63,7 @@ export async function saveAnswerAct(answer) {
 export async function deleteFollowUp(id) {
   const urlSuffix = `/question/follow_up/${id}/delete`;
   try {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
     const result = await callWithToken("delete", urlSuffix);
     console.log("댓글 삭제 결과.data: ", result.data);
     return result.data;
