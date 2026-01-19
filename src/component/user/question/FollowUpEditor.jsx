@@ -39,6 +39,7 @@ function FollowUpEditor({
     try {
       setLoading(true);
       const answerData = {
+        id: followUp?.id ?? 0,
         content: editorContent,
         questionId: questionId,
         userId: followUp.userId,
