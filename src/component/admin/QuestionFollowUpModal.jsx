@@ -54,8 +54,8 @@ export default function QuestionFollowUpModal({
           />
         )}
         {question.followUpRows &&
-          question.followUpRows.map((followUp, idx, arr) =>
-            idx === arr.length - 1 && // 마지막 댓글
+          [...question.followUpRows].reverse().map((followUp, idx, arr) =>
+            idx === 0 && // 마지막 댓글
             ((question.answered && is_admin) || // 관리자가 댓글(답변) 편집
               (!question.answered && !is_admin)) ? ( // 질문자가 후속질문
               <FollowUpEditor
