@@ -14,7 +14,8 @@ export default function QuestionFollowUpModal({
   setReloadPage,
 }) {
   const is_admin = localStorage.getItem("IS_ADMIN") === "true";
-  const justReadQuestion = question.answered || is_admin;
+  const justReadQuestion =
+    (question.followUpRows && question.followUpRows.length > 0) || is_admin;
 
   return (
     <Modal
@@ -30,9 +31,33 @@ export default function QuestionFollowUpModal({
         </Modal.Title>
       </Modal.Header>
       <Modal.Body style={{ paddingTop: 0 }}>
+        {question.answered && !is_admin && (
+          <FollowUpEditor
+            questionId={question.id}
+            followUp={{ content: "" }}
+            handleClose={handleClose}
+            saveAnswer={saveAnswer}
+            editable={true}
+            setReloadPage={setReloadPage}
+            headText={"추가 질문"}
+          />
+        )}
+        {is_admin && !question.answered && (
+          <FollowUpEditor
+            questionId={question.id}
+            followUp={{ content: "" }}
+            handleClose={handleClose}
+            saveAnswer={saveAnswer}
+            editable={true}
+            setReloadPage={setReloadPage}
+            headText={"범이 답변"}
+          />
+        )}
         {question.followUpRows &&
           question.followUpRows.map((followUp, idx, arr) =>
-            idx === arr.length - 1 && is_admin ? (
+            idx === arr.length - 1 && // 마지막 댓글
+            ((question.answered && is_admin) || // 관리자가 댓글(답변) 편집
+              (!question.answered && !is_admin)) ? ( // 질문자가 후속질문
               <FollowUpEditor
                 questionId={question.id}
                 followUp={followUp}
@@ -41,27 +66,16 @@ export default function QuestionFollowUpModal({
                 editable={true}
                 setReloadPage={setReloadPage}
                 key={idx}
+                headText={followUp.bumWrote ? "범이 답변" : "추가 질문"}
               />
             ) : (
               <FollowUpViewer
                 followUp={{ content: followUp.content }}
                 key={idx}
+                headText={followUp.bumWrote ? "범이 답변" : "추가 질문"}
               />
-            )
+            ),
           )}
-        {is_admin &&
-          question.followUpRows &&
-          question.followUpRows.length === 0 && (
-            <FollowUpEditor
-              questionId={question.id}
-              followUp={{ content: "" }}
-              handleClose={handleClose}
-              saveAnswer={saveAnswer}
-              editable={true}
-              setReloadPage={setReloadPage}
-            />
-          )}
-
         <div className="mt-5">
           {justReadQuestion ? (
             <QuestionViewer question={question} mine={mine} />
