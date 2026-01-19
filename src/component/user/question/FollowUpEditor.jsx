@@ -15,6 +15,7 @@ function FollowUpEditor({
   saveAnswer,
   editable,
   setReloadPage,
+  headText,
 }) {
   console.log("followUp: ", JSON.stringify(followUp));
   const [editorContent, setEditorContent] = useState(followUp.content);
@@ -110,7 +111,7 @@ function FollowUpEditor({
     }
   };
 
-  const promptMessage = "답변 작성 공간";
+  const promptMessage = `(${headText} 입력)`;
   const [placeholder, setPlaceholder] = useState(promptMessage);
 
   const clearPlaceholder = () => {
@@ -144,7 +145,7 @@ function FollowUpEditor({
         <Form.Group className="mb-3 me-3" controlId="bumAnswer">
           <Form.Label>
             <h5 style={{ textAlign: "left" }} className="mb-2">
-              범이 답변
+              {headText}
             </h5>
           </Form.Label>
           <ReactQuill
