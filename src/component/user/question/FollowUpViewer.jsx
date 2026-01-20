@@ -3,10 +3,9 @@ import { Form } from "react-bootstrap";
 import "../../../App.css";
 import QuillViewer from "./QuillViewer";
 
-function FollowUpViewer({ followUp, headText }) {
-
+function FollowUpViewer({ followUp, headText, bgColor }) {
   return (
-    <Form className="mt-3 ms-3 mb-3">
+    <Form className="mt-3 ms-3 mb-3" style={{ backgroundColor: bgColor }}>
       <Form.Label>
         <h5 style={{ textAlign: "left" }}>{headText}</h5>
       </Form.Label>

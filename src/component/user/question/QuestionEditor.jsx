@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useRef, useState } from "react";
-import { Button, Container, Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import toast from "react-hot-toast";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css"; // Import styles
@@ -13,7 +13,7 @@ import { saveQuestion } from "./QuestionService";
 function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
   // console.log("question : ", JSON.stringify(question));
   const [editorContent, setEditorContent] = useState(
-    question ? question.question : ""
+    question ? question.question : "",
   );
   const [saving, setSaving] = useState(false);
   const promptMessage = "여기에 질문을 작성하세요 :-)";
@@ -76,7 +76,7 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
       localStorage.setItem("DASHBOARD_TAB", "my_question");
       localStorage.setItem("QUESTION_PAGE", 1);
 
-      if (setReloadPage) { 
+      if (setReloadPage) {
         // 모달 내포 퀼 편집기 - 갱신된 질문 저장
         setReloadPage(true);
         handleClose();

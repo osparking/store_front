@@ -15,8 +15,7 @@ export default function QuestionFollowUpModal({
 }) {
   const followUps = question.followUpRows;
   const is_admin = localStorage.getItem("IS_ADMIN") === "true";
-  const justReadQuestion =
-    (followUps && followUps.length > 0) || is_admin;
+  const justReadQuestion = (followUps && followUps.length > 0) || is_admin;
   const showFollowUpEditor =
     (question.answered && !is_admin) || (is_admin && !question.answered);
 
@@ -65,6 +64,7 @@ export default function QuestionFollowUpModal({
                 followUp={followUp}
                 key={idx}
                 headText={followUp.bumWrote ? "범이 답변" : "추가 질문"}
+                bgColor={idx % 2 === 0 ? "ivory" : "#e6ffff"}
               />
             ),
           )}
