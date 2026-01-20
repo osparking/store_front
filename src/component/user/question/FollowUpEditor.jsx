@@ -205,7 +205,8 @@ function FollowUpEditor({
             </Button>
           )}
         </div>
-      </Form>
+    <hr style={{ color: "blue" }} />
+  </Form>
     </>
   );
 }

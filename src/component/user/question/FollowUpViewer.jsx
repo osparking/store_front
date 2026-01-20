@@ -20,6 +20,7 @@ function FollowUpViewer({ followUp, headText }) {
           <QuillViewer question={followUp.content} />
         </Form.Group>
       </Form.Group>
+      <hr style={{ color: "blue" }} />
     </Form>
   );
 }
