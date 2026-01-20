@@ -13,12 +13,13 @@ export default function QuestionFollowUpModal({
   mine,
   setReloadPage,
 }) {
+  const followUps = question.followUpRows;
   const is_admin = localStorage.getItem("IS_ADMIN") === "true";
   const justReadQuestion =
-    (question.followUpRows && question.followUpRows.length > 0) || is_admin;
+    (followUps && followUps.length > 0) || is_admin;
   const showFollowUpEditor =
     (question.answered && !is_admin) || (is_admin && !question.answered);
-    
+
   return (
     <Modal
       show={show}
@@ -44,8 +45,8 @@ export default function QuestionFollowUpModal({
             headText={is_admin ? "범이 답변" : "추가 질문"}
           />
         )}
-        {question.followUpRows &&
-          [...question.followUpRows].reverse().map((followUp, idx, arr) =>
+        {followUps &&
+          [...followUps].reverse().map((followUp, idx, arr) =>
             idx === 0 && // 마지막 댓글
             ((question.answered && is_admin) || // 관리자가 댓글(답변) 편집
               (!question.answered && !is_admin)) ? ( // 질문자가 후속질문
