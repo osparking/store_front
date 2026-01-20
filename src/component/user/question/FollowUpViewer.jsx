@@ -4,14 +4,18 @@ import "../../../App.css";
 import QuillViewer from "./QuillViewer";
 
 function FollowUpViewer({ followUp, headText }) {
-  console.log("followUp viewer");
 
   return (
     <Form className="mt-3 ms-3 mb-3">
       <Form.Label>
         <h5 style={{ textAlign: "left" }}>{headText}</h5>
       </Form.Label>
-      <Form.Group className="mb-3 ms-3 me-4">
+      <Form.Group className="mb-0 ms-3 me-4">
+        <Form.Label className="mt-1" style={{ fontSize: "14px" }}>
+          ※입력: {followUp.insertTime}
+        </Form.Label>
+      </Form.Group>
+      <Form.Group className="mb-2 ms-3 me-4">
         <Form.Group className="mb-0" controlId="formBasicEmail">
           <QuillViewer question={followUp.content} />
         </Form.Group>
