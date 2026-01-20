@@ -16,7 +16,9 @@ export default function QuestionFollowUpModal({
   const is_admin = localStorage.getItem("IS_ADMIN") === "true";
   const justReadQuestion =
     (question.followUpRows && question.followUpRows.length > 0) || is_admin;
-
+  const showFollowUpEditor =
+    (question.answered && !is_admin) || (is_admin && !question.answered);
+    
   return (
     <Modal
       show={show}
@@ -31,7 +33,7 @@ export default function QuestionFollowUpModal({
         </Modal.Title>
       </Modal.Header>
       <Modal.Body style={{ paddingTop: 0 }}>
-        {question.answered && !is_admin && (
+        {showFollowUpEditor && (
           <FollowUpEditor
             questionId={question.id}
             followUp={{ content: "" }}
@@ -39,18 +41,7 @@ export default function QuestionFollowUpModal({
             saveAnswer={saveAnswer}
             editable={true}
             setReloadPage={setReloadPage}
-            headText={"추가 질문"}
-          />
-        )}
-        {is_admin && !question.answered && (
-          <FollowUpEditor
-            questionId={question.id}
-            followUp={{ content: "" }}
-            handleClose={handleClose}
-            saveAnswer={saveAnswer}
-            editable={true}
-            setReloadPage={setReloadPage}
-            headText={"범이 답변"}
+            headText={is_admin ? "범이 답변" : "추가 질문"}
           />
         )}
         {question.followUpRows &&
@@ -88,7 +79,6 @@ export default function QuestionFollowUpModal({
             />
           )}
         </div>
-
         {question.answered && mine && (
           <div
             style={{
