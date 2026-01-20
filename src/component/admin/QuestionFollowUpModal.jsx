@@ -28,9 +28,7 @@ export default function QuestionFollowUpModal({
       dialogClassName="quill-editor-modal"
     >
       <Modal.Header closeButton>
-        <Modal.Title>
-          {question.answered ? "답변 보기" : "질문 보기"}
-        </Modal.Title>
+        <Modal.Title>질문 및 답변</Modal.Title>
       </Modal.Header>
       <Modal.Body style={{ paddingTop: 0 }}>
         {showFollowUpEditor && (
