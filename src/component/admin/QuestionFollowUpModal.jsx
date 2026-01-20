@@ -62,13 +62,13 @@ export default function QuestionFollowUpModal({
               />
             ) : (
               <FollowUpViewer
-                followUp={{ content: followUp.content }}
+                followUp={followUp}
                 key={idx}
                 headText={followUp.bumWrote ? "범이 답변" : "추가 질문"}
               />
             ),
           )}
-        <div className="mt-5">
+        <div className="mt-3">
           {justReadQuestion ? (
             <QuestionViewer question={question} mine={mine} />
           ) : (
