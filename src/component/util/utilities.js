@@ -9,7 +9,7 @@ export function getSuffixAfterSpace(str, length) {
 
   const startSubString = str.substring(Math.max(0, str.length - length - 1));
   const suffixAfterSpace = startSubString.substring(
-    startSubString.indexOf(" ") + 1
+    startSubString.indexOf(" ") + 1,
   );
 
   return suffixAfterSpace;
@@ -29,7 +29,7 @@ export const useDebounce = (callback, delay) => {
         console.log(".");
       }, delay);
     },
-    [callback, delay]
+    [callback, delay],
   );
 };
 
@@ -70,7 +70,7 @@ export function handlePropChange(
   e,
   setFormData,
   index = null,
-  parentKey = "items"
+  parentKey = "items",
 ) {
   const { name, value, checked, type } = e.target;
 
@@ -125,3 +125,27 @@ export function insertHyphens(phone) {
 export function getPlainContent(htmlContent) {
   return htmlContent.replace(/<[^>]*>/g, "").trim();
 }
+
+export const expiredTokenRemoved = () => {
+  const token = localStorage.getItem("TOKEN");
+
+  if (token) {
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      const currentTime = Date.now() / 1000;
+
+      if (payload.exp > currentTime) {
+        return false;
+      } else {
+        localStorage.removeItem("TOKEN"); // 토큰 제거됨
+        return true;
+      }
+    } catch (error) {
+      localStorage.removeItem("TOKEN");
+      console.error("Error decoding token:", error);
+      return true;
+    }
+  } else {
+    return true;
+  }
+};
