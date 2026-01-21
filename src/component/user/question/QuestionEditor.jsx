@@ -6,12 +6,21 @@ import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css"; // Import styles
 import { useNavigate } from "react-router-dom";
 import "../../../App.css";
-import { getPlainContent } from "../../util/utilities";
+import { expiredTokenRemoved, getPlainContent } from "../../util/utilities";
 import "./QuestionEditor.css";
 import { saveQuestion } from "./QuestionService";
 
 function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
-  // console.log("question : ", JSON.stringify(question));
+  if (expiredTokenRemoved()) {
+    console.log("토큰 만료 > 로그인으로 재방향");
+    navigate("/login", {
+      state: {
+        from: "/question",
+        source: "question",
+      },
+    });
+  }
+
   const [editorContent, setEditorContent] = useState(
     question ? question.question : "",
   );
