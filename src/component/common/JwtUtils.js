@@ -2,7 +2,6 @@ import { jwtDecode } from "jwt-decode";
 
 export const jwtToUser = (jwt) => {
   const decodedToken = jwtDecode(jwt);
-  console.log("Decoded Token:", decodedToken);
 
   let isAdmin = decodedToken.roles.includes("ROLE_ADMIN");
   let isWorker = decodedToken.roles.includes("ROLE_WORKER");  
