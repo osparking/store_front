@@ -53,7 +53,6 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   
-  const from = location.state?.from?.pathname;
   const actLogin = async (e) => {
     e.preventDefault();
     if (!credentials.email || !credentials.password) {
@@ -73,7 +72,9 @@ const Login = () => {
         } else {
           storeLoginInfo(user, data.token);
           window.dispatchEvent(new Event("loginEvt"));
-          navigate(from || `/dashboard/${user.id}/user`, { replace: true });
+          navigate(location.state?.from || `/dashboard/${user.id}/user`, {
+            replace: true,
+          });
         }
       }
     } catch (error) {
