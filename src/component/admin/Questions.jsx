@@ -66,7 +66,7 @@ const Questions = ({ mine }) => {
 
   const answerQuestion = async (question) => {
     const theQuestion = await getQuestion(question.id);
-    setQuestion({ ...theQuestion, answered: question.answered === "답변함" });
+    setQuestion({ ...theQuestion, answered: question.answered === "완료" });
     setShowQuestionFollowUpModal(true);
   };
 
@@ -106,7 +106,7 @@ const Questions = ({ mine }) => {
               <th className="lightBlue">질문 제목(서두 15자)</th>
               <th className="lightBlue">질문 내용(서두 20자)</th>
               <th className="lightBlue">질문 일시</th>
-              <th className="lightBlue">답변 여부</th>
+              <th className="lightBlue">답변</th>
             </tr>
           </thead>
           <tbody>
@@ -121,9 +121,7 @@ const Questions = ({ mine }) => {
                   </td>
                   <td>{question.insertTime}</td>
                   <td
-                    className={
-                      question.answered === "미답변" ? "attention" : ""
-                    }
+                    className={question.answered === "대기" ? "attention" : ""}
                   >
                     {question.answered}
                   </td>
