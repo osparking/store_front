@@ -106,6 +106,7 @@ const Questions = ({ mine }) => {
               <th className="lightBlue">질문 제목(서두 15자)</th>
               <th className="lightBlue">질문 내용(서두 20자)</th>
               <th className="lightBlue">질문 일시</th>
+              <th className="lightBlue">댓글</th>
               <th className="lightBlue">답변</th>
             </tr>
           </thead>
@@ -120,6 +121,7 @@ const Questions = ({ mine }) => {
                     </a>
                   </td>
                   <td>{question.insertTime}</td>
+                  <td>{question.followUpCount ?? 0}</td>
                   <td
                     className={question.answered === "대기" ? "attention" : ""}
                   >
