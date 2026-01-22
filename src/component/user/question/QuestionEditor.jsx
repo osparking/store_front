@@ -126,7 +126,6 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
 
   useEffect(() => {
     if (expiredTokenRemoved()) {
-      console.log("토큰 만료 > 로그인으로 재방향");
       navigate("/login", {
         state: {
           from: "/question",

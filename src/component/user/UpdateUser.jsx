@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import AlertMessage from '../common/AlertMessage';
-import ProcessSpinner from '../common/ProcessSpinner';
-import BsAlertHook from '../hook/BsAlertHook';
-import WorkerDeptSelector from '../worker/WorkerDeptSelector';
-import { getUserDtoById, updateUser } from './UserService';
+import { useEffect, useState } from "react";
+import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import AlertMessage from "../common/AlertMessage";
+import ProcessSpinner from "../common/ProcessSpinner";
+import BsAlertHook from "../hook/BsAlertHook";
+import WorkerDeptSelector from "../worker/WorkerDeptSelector";
+import { getUserDtoById, updateUser } from "./UserService";
 
 const UserUpdate = () => {
   const location = useLocation();
@@ -74,11 +74,10 @@ const UserUpdate = () => {
       fullName: user.fullName,
       mbPhone: user.mbPhone,
       dept: user.dept,
-      enabled: user.enabled
+      enabled: user.enabled,
     };
 
     try {
-      console.log("updated user: ", updateUser);
       setIsProcessing(true);
       const response = await updateUser(id, updatedUser);
       setSuccessMsg(response.message);
@@ -88,7 +87,7 @@ const UserUpdate = () => {
       setAlertError(true);
     } finally {
       setIsProcessing(false);
-    }    
+    }
   };
 
   const navigate = useNavigate();
@@ -105,9 +104,7 @@ const UserUpdate = () => {
       <Col md={6}>
         <Form className="mb-5" onSubmit={handleUpdate}>
           <Card className="shadow">
-            <Card.Header className="text-center mb-2 h3">
-              정보 수정
-            </Card.Header>
+            <Card.Header className="text-center mb-2 h3">정보 수정</Card.Header>
             <Card.Body className="mb-3">
               <Row>
                 <Col>
@@ -179,17 +176,19 @@ const UserUpdate = () => {
                         onChange={handleInputChange}
                       />
                     </Col>
-                    <Col >
-                      <Form.Label className='legend' >사진 유무: </Form.Label>
+                    <Col>
+                      <Form.Label className="legend">사진 유무: </Form.Label>
                       <Form.Control
-                        className='ms-0'
+                        className="ms-0"
                         type="text"
                         name="photoYN"
                         value={`${user.photoId ? "유" : "무"}`}
                         disabled
-                      /></Col>
+                      />
+                    </Col>
                   </Row>
-                </fieldset>)}
+                </fieldset>
+              )}
               <Form.Group as={Col} controlId="addDate" className="mb-2">
                 <Form.Label>등록 일시</Form.Label>
                 <Form.Control
@@ -224,11 +223,7 @@ const UserUpdate = () => {
                   </Button>
                 </div>
                 <div className="mx-2">
-                  <Button
-                    variant="secondary"
-                    size="sm"
-                    onClick={cancelUpdate}
-                  >
+                  <Button variant="secondary" size="sm" onClick={cancelUpdate}>
                     닫기
                   </Button>
                 </div>
@@ -239,6 +234,6 @@ const UserUpdate = () => {
       </Col>
     </Container>
   );
-}
+};
 
-export default UserUpdate
+export default UserUpdate;

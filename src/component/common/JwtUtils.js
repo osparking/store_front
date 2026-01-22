@@ -4,7 +4,7 @@ export const jwtToUser = (jwt) => {
   const decodedToken = jwtDecode(jwt);
 
   let isAdmin = decodedToken.roles.includes("ROLE_ADMIN");
-  let isWorker = decodedToken.roles.includes("ROLE_WORKER");  
+  let isWorker = decodedToken.roles.includes("ROLE_WORKER");
 
   const user = {
     id: decodedToken.id,
@@ -18,7 +18,6 @@ export const jwtToUser = (jwt) => {
     signUpMethod: decodedToken.signUpMethod,
     twoFaEnabled: decodedToken.twoFaEnabled,
   };
-  console.log("user:", user);
 
   return user;
 };
