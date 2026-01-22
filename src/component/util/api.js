@@ -1,4 +1,5 @@
 import axios, { HttpStatusCode } from "axios";
+import { expiredTokenRemoved } from "./utilities";
 
 const prefix = "http://localhost:9193/api/s1";
 
@@ -30,11 +31,12 @@ export async function callWithToken(method, urlSuffix, data = null) {
     if (token) {
       console.log("url: ", `${prefix}${urlSuffix}`);
 
-      if (isTokenExpired(token)) {
-        // Token expired, redirect to login
-        localStorage.removeItem("TOKEN");
-        window.location.href = "/login";
-        return Promise.reject(new Error("Token expired"));
+      if (expiredTokenRemoved()) {
+        navigate("/login", {
+          state: {
+            from: `${urlSuffix}`
+          },
+        });
       }
 
       let config = {
