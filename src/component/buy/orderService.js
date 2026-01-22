@@ -91,7 +91,7 @@ export async function getReviewPage(page, size) {
       "get",
       `${urlPrefix}${page}&size=${size}`
     );
-    return result.data.data;
+    return result?.data.data;
   } catch (err) {
     throw err;
   }
@@ -105,7 +105,7 @@ export async function getOrderPage(userId, page, size) {
       "get",
       `${urlPrefix}${userId}&page=${page}&size=${size}`
     );
-    return result.data.data;
+    return result?.data.data;
   } catch (err) {
     throw err;
   }
