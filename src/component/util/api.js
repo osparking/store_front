@@ -26,9 +26,10 @@ const isTokenExpired = (token) => {
   }
 };
 
-const navigate = useNavigate();
 
 export async function callWithToken(method, urlSuffix, data = null) {
+  const navigate = useNavigate();
+  
   try {
     const token = localStorage.getItem("TOKEN");
     if (token) {
