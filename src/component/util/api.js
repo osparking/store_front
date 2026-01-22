@@ -1,5 +1,6 @@
 import axios, { HttpStatusCode } from "axios";
 import { expiredTokenRemoved } from "./utilities";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const prefix = "http://localhost:9193/api/s1";
 
@@ -24,6 +25,8 @@ const isTokenExpired = (token) => {
     return true;
   }
 };
+
+const navigate = useNavigate();
 
 export async function callWithToken(method, urlSuffix, data = null) {
   try {
