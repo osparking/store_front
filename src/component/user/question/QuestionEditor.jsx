@@ -11,19 +11,7 @@ import "./QuestionEditor.css";
 import { saveQuestion } from "./QuestionService";
 
 function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
-  
   const navigate = useNavigate();
-  
-  if (expiredTokenRemoved()) {
-    console.log("토큰 만료 > 로그인으로 재방향");
-    navigate("/login", {
-      state: {
-        from: "/question",
-        source: "question",
-      },
-    });
-  }
-
   const [editorContent, setEditorContent] = useState(
     question ? question.question : "",
   );
@@ -137,6 +125,16 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
   const quillRef = useRef(null);
 
   useEffect(() => {
+    if (expiredTokenRemoved()) {
+      console.log("토큰 만료 > 로그인으로 재방향");
+      navigate("/login", {
+        state: {
+          from: "/question",
+          source: "question",
+        },
+      });
+    }
+
     const handleTitleKeyDown = (e) => {
       if (e.key === "Tab" && !e.shiftKey) {
         e.preventDefault();
