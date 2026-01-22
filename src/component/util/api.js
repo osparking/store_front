@@ -13,22 +13,7 @@ export const apic = axios.create({
   withCredentials: true,
 });
 
-const isTokenExpired = (token) => {
-  if (!token) return true;
-
-  try {
-    const payload = JSON.parse(atob(token.split(".")[1]));
-    const currentTime = Date.now() / 1000;
-    return payload.exp < currentTime;
-  } catch (error) {
-    console.error("Error decoding token:", error);
-    return true;
-  }
-};
-
-
 export async function callWithToken(method, urlSuffix, data = null) {
-  const navigate = useNavigate();
   
   try {
     const token = localStorage.getItem("TOKEN");
@@ -36,11 +21,8 @@ export async function callWithToken(method, urlSuffix, data = null) {
       console.log("url: ", `${prefix}${urlSuffix}`);
 
       if (expiredTokenRemoved()) {
-        navigate("/login", {
-          state: {
-            from: `${urlSuffix}`
-          },
-        });
+        window.location.href = "/login";
+        return Promise.reject(new Error("Token expired"));
       }
 
       let config = {
