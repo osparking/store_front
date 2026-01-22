@@ -11,6 +11,9 @@ import "./QuestionEditor.css";
 import { saveQuestion } from "./QuestionService";
 
 function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
+  
+  const navigate = useNavigate();
+  
   if (expiredTokenRemoved()) {
     console.log("토큰 만료 > 로그인으로 재방향");
     navigate("/login", {
@@ -52,8 +55,6 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
     const plainContent = getPlainContent(editorContent);
     return plainContent === promptMessage ? 0 : plainContent.length;
   };
-
-  const navigate = useNavigate();
 
   const closeEditor = () => {
     handleClose
