@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import toast from "react-hot-toast";
 import ReactQuill from "react-quill-new";
@@ -128,6 +128,15 @@ function FollowUpEditor({
     }
   };
 
+  const quillRef = useRef(null); // Reference for the ReactQuill instance
+
+  const handleHeadingClick = () => {
+    if (quillRef.current) {
+      // Focus the Quill editor when the h5 is clicked
+      quillRef.current.focus();
+    }
+  };  
+
   return (
     <>
       <ConfirmationModal
@@ -142,13 +151,17 @@ function FollowUpEditor({
         modelClassName="modal-slide-down"
       />
       <Form className="mt-3 ms-3 mb-3" onSubmit={handleSubmit}>
-        <Form.Group className="mb-3 me-3" controlId="bumAnswer">
-          <Form.Label>
-            <h5 style={{ textAlign: "left" }} className="mb-2">
-              {headText}
-            </h5>
-          </Form.Label>
+        <Form.Group className="mb-3 me-3">
+          <h5
+            onClick={handleHeadingClick}
+            style={{ textAlign: "left", cursor: "pointer" }}
+            className="mb-2"
+          >
+            {headText}
+          </h5>
           <ReactQuill
+            id="bumAnswer"
+            ref={quillRef}
             theme="snow"
             value={editorContent || placeholder}
             onChange={handleEditorChange}
@@ -205,8 +218,8 @@ function FollowUpEditor({
             </Button>
           )}
         </div>
-    <hr style={{ color: "blue" }} />
-  </Form>
+        <hr style={{ color: "blue" }} />
+      </Form>
     </>
   );
 }
