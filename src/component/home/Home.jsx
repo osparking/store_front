@@ -8,7 +8,11 @@ const Home = () => {
 
   const gotoReviews = () => {
     navigate("/reviews");
-  }
+  };
+
+  const moveToSoapIntro = () => {
+    navigate("/soap_intro");
+  };
 
   return (
     <Container fluid className="home-container mt-3">
@@ -41,7 +45,9 @@ const Home = () => {
                 수제비누와 마찬가지로 제 허벅지 피부 가려움증을 거의 해소시켜
                 주었습니다.
               </Card.Text>
-              <Button variant="outline-info">범이비누로 들어오세요</Button>
+              <Button variant="outline-info" onClick={moveToSoapIntro}>
+                범이비누 소개 보기
+              </Button>
             </Card.Body>
           </Card>
         </Col>
