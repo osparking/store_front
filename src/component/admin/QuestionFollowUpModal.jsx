@@ -1,4 +1,4 @@
-import { Button, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import FollowUpEditor from "../user/question/FollowUpEditor";
 import FollowUpViewer from "../user/question/FollowUpViewer";
 import QuestionEditor from "../user/question/QuestionEditor";
@@ -78,23 +78,6 @@ export default function QuestionFollowUpModal({
             />
           )}
         </div>
-        {question.answered && mine && (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Button
-              variant="secondary"
-              className="w-60 mt-4 mb-4 px-4"
-              onClick={handleClose}
-            >
-              닫기
-            </Button>
-          </div>
-        )}
       </Modal.Body>
     </Modal>
   );
