@@ -132,9 +132,9 @@ function FollowUpEditor({
 
   const h5ref = useRef(null); // 퀼 편집기 위 h5 헤딩 참조자
   useEffect(() => {
-    // 성분 열릴 때, h5 헤딩에 촛점 부여
-    if (h5ref.current) {
-      h5ref.current.focus();
+    // 성분 열릴 때, 퀼 편집기로 촛점 이동
+    if (quillRef.current) {
+      quillRef.current.focus();
     }
   }, []);
 
