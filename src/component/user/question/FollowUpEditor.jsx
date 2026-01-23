@@ -171,6 +171,7 @@ function FollowUpEditor({
       <Form className="mt-3 ms-3 mb-3" onSubmit={handleSubmit}>
         <Form.Group className="mb-3 me-3">
           <h5
+            id="bumAnswer-label"
             ref={h5ref}
             onClick={handleHeadingClick}
             onKeyDown={handleHeadingKeyDown}
@@ -178,12 +179,14 @@ function FollowUpEditor({
             className="mb-2"
             tabIndex="0" // 탭이동 순서에 포함, 포커스 지정 가능
             role="button" // 클릭 가능한 버튼으로 취급 지정
+            aria-label={`${headText} 라벨 및 편집기`} 
           >
             {headText}
           </h5>
           <ReactQuill
             id="bumAnswer"
             ref={quillRef}
+            aria-labelledby="bumAnswer-label" // h5 와 연결
             theme="snow"
             value={editorContent || placeholder}
             onChange={handleEditorChange}
