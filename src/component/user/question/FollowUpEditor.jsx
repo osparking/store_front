@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import toast from "react-hot-toast";
 import ReactQuill from "react-quill-new";
@@ -130,12 +130,20 @@ function FollowUpEditor({
 
   const quillRef = useRef(null); // Reference for the ReactQuill instance
 
+  const h5ref = useRef(null); // 퀼 편집기 위 h5 헤딩 참조자
+  useEffect(() => {
+    // 성분 열릴 때, h5 헤딩에 촛점 부여
+    if (h5ref.current) {
+      h5ref.current.focus();
+    }
+  }, []);
+
   const handleHeadingClick = () => {
     if (quillRef.current) {
       // Focus the Quill editor when the h5 is clicked
       quillRef.current.focus();
     }
-  };  
+  };
 
   return (
     <>
@@ -153,6 +161,7 @@ function FollowUpEditor({
       <Form className="mt-3 ms-3 mb-3" onSubmit={handleSubmit}>
         <Form.Group className="mb-3 me-3">
           <h5
+            ref={h5ref}
             onClick={handleHeadingClick}
             style={{ textAlign: "left", cursor: "pointer" }}
             className="mb-2"
