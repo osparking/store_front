@@ -14,6 +14,10 @@ const Home = () => {
     navigate("/soap_intro");
   };
 
+  const moveToBuySoap = () => {
+    navigate("/buy_soap");
+  };
+
   return (
     <Container fluid className="home-container mt-3">
       <Row>
@@ -76,7 +80,9 @@ const Home = () => {
                 자동화 등을 통하여 비누 가격이 내려갈 수 있으며, 에센셜 향오일을
                 사용하는 등의 품질 고급화 및 다양화가 가능할 수 있습니다.
               </Card.Text>
-              <Button variant="outline-info">범이비누 종류 보기</Button>
+              <Button variant="outline-info" onClick={moveToBuySoap}>
+                범이비누 사러가기
+              </Button>
             </Card.Body>
           </Card>
         </Col>
@@ -90,7 +96,9 @@ const Home = () => {
               </p>
               <h5 className="text-center">
                 <span className="text-info">
-                  <a href="#" onClick={() => gotoReviews()}>구매 후기</a>
+                  <a href="#" onClick={() => gotoReviews()}>
+                    구매 후기
+                  </a>
                 </span>
               </h5>
             </Card.Body>
