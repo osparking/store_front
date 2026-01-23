@@ -140,8 +140,18 @@ function FollowUpEditor({
 
   const handleHeadingClick = () => {
     if (quillRef.current) {
-      // Focus the Quill editor when the h5 is clicked
+      // h5 텍스트 클릭 때, 퀼 편집기로 촛점 이동
       quillRef.current.focus();
+    }
+  };
+
+  const handleHeadingKeyDown = (e) => {
+    // 성분 열린 뒤, 엔터/공백 클릭하면, 퀼 편집기 상자로 촛점 이동
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      if (quillRef.current) {
+        quillRef.current.focus();
+      }
     }
   };
 
@@ -163,8 +173,11 @@ function FollowUpEditor({
           <h5
             ref={h5ref}
             onClick={handleHeadingClick}
+            onKeyDown={handleHeadingKeyDown}
             style={{ textAlign: "left", cursor: "pointer" }}
             className="mb-2"
+            tabIndex="0" // 탭이동 순서에 포함, 포커스 지정 가능
+            role="button" // 클릭 가능한 버튼으로 취급 지정
           >
             {headText}
           </h5>
