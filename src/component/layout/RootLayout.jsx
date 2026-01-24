@@ -1,6 +1,7 @@
 import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
 import BackgroundImageSlider from "../common/BackgroundImageSlider";
+import Footer from "./Footer";
 import NavBar from "./NavBar";
 
 const RootLayout = () => {
@@ -12,6 +13,7 @@ const RootLayout = () => {
       <div>
         <Outlet />
       </div>
+      <Footer />
     </main>
   );
 };
