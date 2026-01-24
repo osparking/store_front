@@ -1,7 +1,7 @@
 import { Button, Card, Col, Container, ListGroup, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import olive_label from "../../assets/images/olive_label.jpg";
 import soap_rack from "../../assets/images/soap_rack.jpg";
-import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const Home = () => {
   };
 
   return (
-    <Container fluid className="home-container mt-3">
+    <Container fluid className="home-container mt-2 mb-2">
       <Row>
         <Col md={6}>
           <Card>
@@ -72,8 +72,9 @@ const Home = () => {
                 <ListGroup.Item>비누 재료</ListGroup.Item>
                 <ListGroup.Item>비누 제조 절차</ListGroup.Item>
                 <ListGroup.Item>비누 영상</ListGroup.Item>
-                <ListGroup.Item>질의 및 응답</ListGroup.Item>
-                <ListGroup.Item>고객님 의견</ListGroup.Item>
+                <ListGroup.Item action onClick={gotoReviews}>
+                  구매 후기
+                </ListGroup.Item>
               </ListGroup>
               <Card.Text className="mt-3">
                 고객님들의 성원과 참여도에 따라 재료 대량 구매, 생산 작업의 부분
@@ -83,24 +84,6 @@ const Home = () => {
               <Button variant="outline-info" onClick={moveToBuySoap}>
                 범이비누 사러가기
               </Button>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <Card>
-            <Card.Body>
-              <p className="text-center">
-                여기를 범이비누를 직접 구매ᐧ사용한 고객님들의 목소리가 있습니다.
-              </p>
-              <h5 className="text-center">
-                <span className="text-info">
-                  <a href="#" onClick={() => gotoReviews()}>
-                    구매 후기
-                  </a>
-                </span>
-              </h5>
             </Card.Body>
           </Card>
         </Col>
