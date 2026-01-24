@@ -6,3 +6,34 @@
 p {
   margin-bottom: 8px;
 }
+
+.bottom-bar-container {
+  /* Define a subtle hover area at the bottom of the screen */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 64px;
+  /* Adjust height based on your bar's height, or slightly larger */
+  z-index: 1000;
+  /* Ensure it's above other content if needed */
+}
+
+.bottom-bar {
+  /* Initial state: hidden below the viewport */
+  transform: translateY(100%);
+  transition: transform 0.3s ease-in-out;
+  /* Smooth transition */
+  /* Ensure the navbar itself doesn't affect the hover area size, if necessary */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+.bottom-bar.visible {
+  /* Target state: visible in the viewport */
+  transform: translateY(0);
+}
