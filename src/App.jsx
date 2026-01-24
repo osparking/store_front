@@ -37,7 +37,7 @@ function App() {
     // Update tab count in localStorage
     const updateTabCount = (increment) => {
       const storedTabs = JSON.parse(
-        localStorage.getItem("ACTIVE_TABS") || "{}"
+        localStorage.getItem("ACTIVE_TABS") || "{}",
       );
 
       if (increment) {
@@ -96,12 +96,12 @@ function App() {
           <Route path="/work_item" element={<WorkerDashboard />} />
         </Route>
         <Route path="/unauthorized" element={<Unauthorized />} />
-      </Route>
-    )
+      </Route>,
+    ),
   );
 
   return (
-    <main className="">
+    <main>
       <RouterProvider router={router} />
     </main>
   );

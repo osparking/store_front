@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { Carousel } from 'react-bootstrap'
-import bgo1 from "../../assets/images/bg/bgo1.jpg"
-import bgo2 from "../../assets/images/bg/bgo2.jpg"
-import bgo3 from "../../assets/images/bg/bgo3.jpg"
-import bgo4 from "../../assets/images/bg/bgo4.jpg"
+import { useState } from "react";
+import { Carousel } from "react-bootstrap";
+import bgo1 from "../../assets/images/bg/bgo1.jpg";
+import bgo2 from "../../assets/images/bg/bgo2.jpg";
+import bgo3 from "../../assets/images/bg/bgo3.jpg";
+import bgo4 from "../../assets/images/bg/bgo4.jpg";
 
 const BackgroundImageSlider = () => {
   const images = [bgo1, bgo2, bgo3, bgo4];
@@ -13,8 +13,12 @@ const BackgroundImageSlider = () => {
   };
   return (
     <div className="background-slider">
-      <Carousel activeIndex={index} onSelect={handleSelect} interval={20000}
-      style={{width: "100%", maxWidth: "100%", height: "100vh"}}>
+      <Carousel
+        activeIndex={index}
+        onSelect={handleSelect}
+        interval={20000}
+        style={{ width: "100%", maxWidth: "100%", height: "100vh" }}
+      >
         {images.map((background, index) => (
           <Carousel.Item key={index} className="carousel-item">
             <img
@@ -29,4 +33,4 @@ const BackgroundImageSlider = () => {
   );
 };
 
-export default BackgroundImageSlider
+export default BackgroundImageSlider;
