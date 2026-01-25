@@ -42,7 +42,7 @@ const BuySoap = () => {
         setImageIndColor(indColor.sWhite);
         break;
       case "메주":
-        setImages2show(maejooSoaps);        
+        setImages2show(maejooSoaps);
         setImageBgColor(bgColor.maejoo);
         setImageIndColor(indColor.maejoo);
         break;
@@ -93,10 +93,8 @@ const BuySoap = () => {
 
   return (
     <div style={{ width: "100%" }}>
-      <Row className="justify-content-center">
-        {" "}
-        {/* Use align-items-center for vertical alignment */}
-        <Col xs={10} md={5}>
+      <div className="d-flex flex-wrap justify-content-center gap-3">
+        <div className="col-md-5 order-card-width">
           <Card className="shadow mb-5">
             <Card.Body>
               <SoapCarousel
@@ -108,8 +106,8 @@ const BuySoap = () => {
               />
             </Card.Body>
           </Card>
-        </Col>
-        <Col xs={10} md={5} className="order-form-width">
+        </div>
+        <div className="col-md-5 order-card-width">
           {showCart ? (
             <Card className="shadow mb-5">
               <Card.Header as="h5" className="text-center form-header">
@@ -138,8 +136,8 @@ const BuySoap = () => {
               </Card.Body>
             </Card>
           )}
-        </Col>
-      </Row>
+        </div>
+      </div>
     </div>
   );
 };
