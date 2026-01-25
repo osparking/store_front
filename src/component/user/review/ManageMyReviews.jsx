@@ -2,13 +2,14 @@ import { useState } from "react";
 import "../../../App.css";
 import OrderDetail from "../../worker/order/OrderDetail";
 import MyReviewsPage from "./MyReviewsPage";
+import { Container } from "react-bootstrap";
 
 const ManageMyReviews = () => {
   const [showDetail, setShowDetail] = useState(false);
   const [detailId, setDetailId] = useState(0);
 
   return (
-    <main>
+    <Container fluid className="home-container mt-3">
       <h5 className="chart-title">후기 관리</h5>
       {showDetail ? (
         <OrderDetail
@@ -22,7 +23,7 @@ const ManageMyReviews = () => {
           setDetailId={setDetailId}
         />
       )}
-    </main>
+    </Container>
   );
 };
 
