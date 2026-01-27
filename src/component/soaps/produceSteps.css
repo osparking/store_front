@@ -32,26 +32,14 @@ img.ingredTabImg {
   box-shadow: 3px 3px;
 }
 
-thead > th {
-  width: 100%;
-}
-
-td.WARNING, span.WARNING {
-  color: red;
+#special-span {
+  font-family: Lucida Sans Unicode, sans-serif;
+  font-weight: bold;
 }
 
 tbody td.INFO {
   color: black;
-}
-
-.toggleButton {
-  font-size: 0.8em;
-  background-color: rgb(137, 197, 47, 0.1);
-}
-
-.sans {
-  font-family: "Noto sans KR", Cambria, Cochin, Georgia, Times;   
-}
+}q
 
 ol ul {
   font-size: 0.9em;
