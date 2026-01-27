@@ -1,4 +1,4 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Card, Col, Container, Row } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
 import { Link } from "react-router-dom";
 import "../../index.css";
@@ -71,14 +71,17 @@ export default function Effect() {
     <Container fluid className="home-container mt-5">
       <Row className="justify-content-center allIngred mt-3 mb-5">
         <Col md={8}>
-          <div className="mt-3 mb-5">
-            <h2 className="mb-1">
-              <strong> 비누 효능</strong><br />
-              <small>(재료로부터 유래)</small>
-            </h2>
-            <hr />
-            <ul className="noBullet">{listItems}</ul>
-          </div>
+          <Card>
+            <Card.Body>
+              <h2 className="mb-1">
+                <strong> 비누 효능</strong>
+                <br />
+                <small>(재료로부터 유래)</small>
+              </h2>
+              <hr />
+              <ul className="noBullet">{listItems}</ul>
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
     </Container>
