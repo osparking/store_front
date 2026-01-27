@@ -20,16 +20,13 @@ function Footer() {
                 <h6></h6>
               </Col>
               <Col md={4}>
-                <h6>범이비누</h6>
-                <p>© {new Date().getFullYear()} All rights reserved.</p>
+                <h6>©{new Date().getFullYear()} 범이비누 - All rights reserved.</h6>
               </Col>
               <Col md={4}>
-                <h6>이메일</h6>
-                <p>jbpark03@gmail.com</p>
+                <h6>이메일 - jbpark03@gmail.com</h6>
               </Col>
               <Col md={3}>
-                <h6>휴대폰</h6>
-                <p>(010) 2899-9168</p>
+                <h6>휴대폰 - (010) 2899-9168</h6>
               </Col>
             </Row>
           </Container>
