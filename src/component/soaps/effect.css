@@ -27,6 +27,10 @@ li p {
   text-align: left;
 }
 
+.card-body {  
+  overflow-y: auto;
+}
+
 ul img {
   width: 200px;
   height: 200px;
