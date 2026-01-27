@@ -2,7 +2,8 @@
   font-weight: bold;
 }
 
-thead, tbody {
+thead,
+tbody {
   opacity: 0.9;
   font-family: "Noto Serif KR", Cambria, Cochin, Georgia, Times,
     "Times New Roman", serif;
@@ -15,5 +16,5 @@ h2.details {
 }
 
 .allIngred {
-  background-color: rgb(236, 233, 233, 0.9); 
+  background-color: rgb(236, 233, 233, 0.9);
 }

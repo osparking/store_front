@@ -35,7 +35,7 @@
 }
 
 .accordion {
-  display:none;
+  display: none;
 }
 
 .accordion.expanded {
@@ -77,7 +77,8 @@ span.simple {
   font-weight: bold;
 }
 
-thead, tbody {
+thead,
+tbody {
   opacity: 0.9;
   font-family: "Noto Serif KR", Cambria, Cochin, Georgia, Times,
     "Times New Roman", serif;
@@ -100,7 +101,7 @@ h2.details {
 }
 
 li.disc {
-  list-style-type:disc;
+  list-style-type: disc;
   text-align: start;
 }
 

@@ -1,7 +1,7 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Card, Col, Container, Row } from "react-bootstrap";
 import "../../index.css";
 import { ingAllData } from "./ingAllData";
-import "./ingredient.css";
+import "./Ingredient.css";
 import IngredTabAccord from "./IngredTabAccord";
 
 const ingAllRows = ingAllData.map((ingred, idx) => (
@@ -19,15 +19,17 @@ const Ingredient = () => {
     <Container fluid className="home-container mt-5">
       <Row className="justify-content-center allIngred mt-3">
         <Col md={9} className="mt">
-          <div className="mt-3 mb-5">
-            <h2 className="mb-1" style={{ paddingLeft: 0 }}>
-              <strong>재료 함량</strong>
-              <br />
-              <small>(비누 1 개용 원액 126g 기준)</small>
-            </h2>
-            <hr />
-            <IngredTabAccord ingAllData={ingAllData} keepOthersOpen={true} />
-          </div>
+          <Card>
+            <Card.Body className="pb-0">
+              <h2 className="mb-1" style={{ paddingLeft: 0 }}>
+                <strong>재료 함량</strong>
+                <br />
+                <small>(비누 1 개용 원액 126g 기준)</small>
+              </h2>
+              <hr />
+              <IngredTabAccord ingAllData={ingAllData} keepOthersOpen={true} />
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
     </Container>
