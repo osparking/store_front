@@ -1,5 +1,5 @@
 body li {
-    font-family: "Noto Serif KR", Cambria, Cochin, Georgia, Times,
+  font-family: "Noto Serif KR", Cambria, Cochin, Georgia, Times,
     "Times New Roman", sans-serif;
 }
 
@@ -38,13 +38,39 @@ h6 {
   left: 0;
   width: 100%;
   height: 100vh;
-  z-index: -1;
 }
 
 .carousel-item img {
   object-fit: cover;
   width: 100%;
   height: 100vh;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 10%;
+  opacity: 0.5 !important;
+  visibility: visible !important;
+
+  pointer-events: auto !important;
+
+  z-index: 1 !important;
+  position: absolute !important;
+
+  background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.carousel-control-prev {
+  left: 0%;
+}
+
+.carousel-control-next {
+  right: 0%;
+}
+
+.carousel-indicators {
+  bottom: 25px;
+  z-index: 1 !important;
 }
 
 .footer {
@@ -129,6 +155,7 @@ h6 {
   transform: translateY(-50%);
   cursor: pointer;
 }
+
 /* End password icon input */
 
 .user-dashboard {
@@ -187,11 +214,11 @@ h6 {
   z-index: 100;
   top: 57px;
   margin-left: auto;
-  margin-right: auto;  
+  margin-right: auto;
   width: 100%;
 }
 
-.contentHolyCentered {  
+.contentHolyCentered {
   align-items: center;
-  justify-content: center;  
+  justify-content: center;
 }
