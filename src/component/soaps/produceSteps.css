@@ -60,3 +60,9 @@ li img {
 .stepInfo, tr {  
   width: 100%;
 }
+
+.cardProduceSteps {
+  min-height: 500px;
+  max-height: 850px;
+  min-width: 635px;
+}
