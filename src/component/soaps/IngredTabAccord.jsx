@@ -1,5 +1,5 @@
 import { Fragment, useEffect, useState } from "react";
-import { Col, Container, Row, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "../../index.css";
 import "./ingredient.css";
@@ -20,8 +20,6 @@ const IngredTabAccord = ({ ingAllData, keepOthersOpen }) => {
   }, [ingAllData]);
 
   function handleAccordionToggle(clickedItem) {
-    console.log("all data 2: " + JSON.stringify(accordionItems));
-    console.log("clicked");
     setAccordionItems([
       ...accordionItems.map((item) => {
         let expanded = item.expanded;
@@ -61,69 +59,68 @@ const IngredTabAccord = ({ ingAllData, keepOthersOpen }) => {
     );
   }
 
-  const ingAllRows = accordionItems?.map((ingredient, idx) => (
-    <Fragment key={idx}>
-      <tr className={ingredient.id === "" ? "sumRow" : ""}>
-        <td>{ingredient.id}</td>
-        <td className="text-center">
-          {ingredient.id ? (
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <button
-                style={{ width: "100%" }}
-                className="toggle"
-                onClick={() => handleAccordionToggle(ingredient)}
-              >
-                {ingredient.name}
-              </button>
-              <small>
-                <span className="direction-indicator simple">
-                  {ingredient.expanded ? "一" : "十"}
-                </span>
-              </small>
-            </div>
-          ) : (
-            ingredient.name
-          )}
-        </td>
-        <td className="text-center">{ingredient.weight}</td>
-        <td className="text-center">{ingredient.incRate}</td>
-        <td>{ingredient.etcEffect}</td>
-      </tr>
-      <tr className={`accordion ${ingredient.expanded ? "expanded" : ""}`}>
-        <td className="content" colSpan={5}>
-          <Container>
-            <Row className="m-3">
-              <Col xs={5} className="justify-content-center">
-                <div className="justify-content-center d-flex align-items-center">
-                  <img
-                    className={ingredient.id === 2 ? "squareImg" : "circleImg"}
-                    src={`${imageRoot}/${ingredient.image}`}
-                    alt={ingredient.name}
-                  />
-                </div>
-              </Col>
-              <Col xs={7} className="frame-10">
-                <AttrList ingred={ingredient} />
-              </Col>
-            </Row>
-          </Container>
-        </td>
-      </tr>
-    </Fragment>
-  ));
+  const ingAllRows = accordionItems?.map((ingredient, idx) => {
+    return (
+      <Fragment key={idx}>
+        {/* Clickable header row */}
+        <tr className={ingredient.id === "" ? "sumRow" : ""}>
+          <td>{ingredient.id}</td>
+          <td className="text-center">
+            {ingredient.id ? (
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <button
+                  style={{ width: "100%" }}
+                  className="toggle text-end"
+                  onClick={() => handleAccordionToggle(ingredient)}
+                >
+                  {ingredient.name}
+                </button>
+                <small>
+                  <span className="direction-indicator simple">
+                    {ingredient.expanded ? "一" : "十"}
+                  </span>
+                </small>
+              </div>
+            ) : (
+              ingredient.name
+            )}
+          </td>
+          <td className="text-center">{ingredient.weight}</td>
+          <td className="text-center">{ingredient.incRate}</td>
+          <td className="text-start">{ingredient.etcEffect}</td>
+        </tr>
+
+        {/* Toggleable content row */}
+        <tr
+          className={`accordion-content ${ingredient.expanded ? "expanded" : ""}`}
+        >
+          <td colSpan={2}>
+            <img
+              className={ingredient.id === 2 ? "squareImg" : "circleImg"}
+              src={`${imageRoot}/${ingredient.image}`}
+              alt={ingredient.name}
+            />
+          </td>
+          <td colSpan={3}>
+            <AttrList ingred={ingredient} />
+          </td>
+        </tr>
+      </Fragment>
+    );
+  });
 
   return (
     <Table striped hover className="mt-0">
       <thead>
         <tr className="text-center">
           <th>#</th>
-          <th>재료명</th>
+          <th className="titleCol">재료명</th>
           <th>중량(g)</th>
-          <th>함유비(%)</th>
+          <th>비율(%)</th>
           <th>비고/효능</th>
         </tr>
       </thead>
-      <tbody className="accordion-parent">{ingAllRows}</tbody>
+      <tbody>{ingAllRows}</tbody>
     </Table>
   );
 };
