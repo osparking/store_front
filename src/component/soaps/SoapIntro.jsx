@@ -20,7 +20,7 @@ const SoapIntro = () => {
     <Container fluid className="home-container">
       <Tabs
         defaultActiveKey={currTabKey}
-        className="tabBackgroundThick tabHead tabFix contentHolyCentered"
+        className="tabBackgroundThick tabFix contentHolyCentered"
         onSelect={handleSoapIntroTabSelect}
       >
         <Tab eventKey="effect" title={<h5 className="tabLabel">효능 소개</h5>}>
@@ -35,7 +35,7 @@ const SoapIntro = () => {
         <Tab eventKey="steps" title={<h5 className="tabLabel">제조 절차</h5>}>
           <ProduceSteps />
         </Tab>
-        <Tab eventKey="shapes" title={<h5 className="tabLabel">외형 종류</h5>}>
+        <Tab eventKey="shapes" title={<h5 className="tabLabel">비누 외형</h5>}>
           <BumShapes />
         </Tab>
       </Tabs>
