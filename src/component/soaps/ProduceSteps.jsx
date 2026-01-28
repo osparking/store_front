@@ -256,7 +256,7 @@ const ProduceSteps = () => {
     <Container fluid className="home-container mt-5">
       <Row className="justify-content-center allIngred mt-3 mb-5">
         <Col md={8} className="mt">
-          <Card style={{ minHeight: "500px" }}>
+          <Card className="cardProduceSteps">
             <Card.Body className="pb-0">
               <table className="stepInfo mt-3">
                 <thead>
