@@ -18,3 +18,8 @@ h2.details {
 .allIngred {
   background-color: rgb(236, 233, 233, 0.9);
 }
+
+.legendFont {
+  font-family: "Noto sans KR", Cambria, Cochin, Georgia, Times;
+  font-size: 0.85em;
+}
