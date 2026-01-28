@@ -1,112 +1,67 @@
-.accordion-parent {
-  border-radius: 3px;
-  background-color: white;
-  box-shadow: 0 1px 2px #00000033;
-  font-weight: 600;
-}
-
-.accordion .toggle {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 1rem;
-  padding: 10px 15px;
-  fill: black;
+.content {
+  height: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.15s ease-out;
   color: black;
-  transition: color 0.15s ease, fill 0.15s ease;
-  font-weight: 600;
-  border: 0;
-  background-color: transparent;
-  cursor: pointer;
 }
 
-.accordion.toggled .content-parent {
+.content.expanded {
   max-height: 500px;
   transition: max-height 0.25s ease-in;
 }
 
-.accordion .toggle .direction-indicator {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 15px;
-  font-weight: 600;
-  font-family: "Noto Serif KR", "Noto Sans Korean", Cambria, Cochin, Georgia, Times;
-}
-
-.accordion {
-  display: none;
-}
-
-.accordion.expanded {
+/* Add these styles for table row accordion */
+.accordion-row {
   display: table-row;
+  vertical-align: inherit;
 }
 
-.accordion .content {
-  padding: 10px 15px;
+.accordion-content {
+  visibility: collapse;
+  max-height: 0;
+  opacity: 0;
+  transition: all 0.3s ease;
 }
 
-.toggle {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.accordion-content.expanded {
+  visibility: visible;
+  max-height: 1000px; /* Large enough to contain content */
+  opacity: 1;
+  transition: all 0.5s ease-in;
 }
 
-.accordion:first-child .toggle {
-  border-bottom: 0;
+/* Hide the content cells when collapsed */
+.accordion-content td {
+  height: 0;
+  padding: 0 !important;
+  overflow: hidden;
+  border: none !important;
 }
 
-.accordion .toggle:hover {
-  color: #6d6d6d;
-  fill: #6d6d6d;
+.accordion-content.expanded td {
+  height: auto;
+  padding: 0.5rem !important;
+  border: inherit !important;
 }
 
 button {
-  border: 0 solid transparent;
-  font-family: "Noto Serif KR", "Noto Sans Korean", Cambria, Cochin, Georgia, Times;
-  font-weight: 500;
-  color: blue;
+  border: 0;
 }
 
-span.simple {
-  font-family: "Sans Serif", "Noto Sans Serif", Times;
-  font-weight: 400;
+.titleCol {
+  width: 250px;
+}
+
+th {
+  border: 1px solid black;
+  color: #0000FF !important;
 }
 
 .sumRow {
   font-weight: bold;
 }
 
-thead,
-tbody {
-  opacity: 0.9;
-  font-family: "Noto Serif KR", Cambria, Cochin, Georgia, Times,
-    "Times New Roman", serif;
-}
-
-h2.details {
-  text-align: left;
-  font-size: 1.3em;
-  background-color: ivory;
-}
-
-.discType {
-  list-style-type: disc;
-}
-
-.circleImg {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-}
-
-li.disc {
-  list-style-type: disc;
-  text-align: start;
-}
-
-.squareImg {
-  width: 200px;
-  height: 200px;
-  border-radius: 10%;
+.sumRow td {
+  color: #0000FF !important;
 }
