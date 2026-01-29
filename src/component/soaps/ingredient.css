@@ -23,3 +23,8 @@ h2.details {
   font-family: "Noto sans KR", Cambria, Cochin, Georgia, Times;
   font-size: 0.85em;
 }
+
+.cardIngredient {
+  height: 690px;
+  max-height: 720px;
+}
