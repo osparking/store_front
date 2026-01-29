@@ -32,7 +32,7 @@ const BumShapes = () => {
     <Container fluid className="home-container mt-5">
       <Row className="justify-content-center allIngred mt-3">
         <Col md={8}>
-          <Card>
+          <Card className="cardBumShapes">
             <Card.Body>
               <h2 className="mb-1">
                 <strong>비누 외형</strong>
