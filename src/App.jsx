@@ -101,7 +101,7 @@ function App() {
   );
 
   return (
-    <main className="mb-5">
+    <main>
       <RouterProvider router={router} />
     </main>
   );
