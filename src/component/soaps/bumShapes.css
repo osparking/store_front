@@ -90,7 +90,8 @@ figcaption.soapCap {
   height: 100px;
   text-align: justify;
   text-justify: inter-word;
-  border: 1px dashed rgb(221, 175, 175)
+  border: 1px solid brown;
+  padding: 5px;  
 }
 
 button {
