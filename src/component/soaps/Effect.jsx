@@ -76,7 +76,7 @@ export default function Effect() {
               <h2 className="mb-1">
                 <strong> 비누 효능</strong>
                 <br />
-                <small>(재료로부터 유래)</small>
+                <span style={{fontSize: "0.6em"}}>(재료 유래 효능)</span>
               </h2>
               <hr />
               <ul className="noBullet">{listItems}</ul>
