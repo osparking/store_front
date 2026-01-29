@@ -120,7 +120,7 @@ const BumShapes = () => {
                 ref={imageRowRef}
                 defaultActiveKey={currTabKey}
                 activeKey={currTabKey}
-                className="tabBackground tabHead tabFix contentHolyCentered"
+                className="tabBackground tabHead tabFixOver contentHolyCentered"
                 onSelect={handleSoapShapeSelect}
                 style={{ position: "sticky", top: "115px", zIndex: 2 }}
               >
