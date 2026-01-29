@@ -1,10 +1,10 @@
+import { Fragment } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
 import { Link } from "react-router-dom";
 import "../../index.css";
 import { ingredients } from "./data.js";
 import "./effect.css";
-import { Fragment } from "react";
 
 export default function Effect() {
   const imageRoot = "/src/assets/images/ingred";
@@ -71,12 +71,12 @@ export default function Effect() {
     <Container fluid className="home-container mt-5">
       <Row className="justify-content-center allIngred mt-3 mb-5">
         <Col md={8}>
-          <Card>
+          <Card className="cardEffect">
             <Card.Body>
               <h2 className="mb-1">
                 <strong> 비누 효능</strong>
                 <br />
-                <span style={{fontSize: "0.6em"}}>(재료 유래 효능)</span>
+                <span style={{ fontSize: "0.6em" }}>(재료 유래 효능)</span>
               </h2>
               <hr />
               <ul className="noBullet">{listItems}</ul>

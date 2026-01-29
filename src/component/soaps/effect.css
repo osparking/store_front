@@ -27,8 +27,8 @@ li p {
   text-align: left;
 }
 
-.card-body {  
-  overflow-y: auto;
+.cardEffect {  
+  height: fit-content;
 }
 
 ul img {
