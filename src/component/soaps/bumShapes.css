@@ -109,3 +109,10 @@ button {
   border-bottom: "2px solid #dee2e6";
   background-color: lightgrey; 
 }
+
+.home-container,
+.allIngred,
+.card,
+.card-body {
+  overflow: visible !important;
+}
