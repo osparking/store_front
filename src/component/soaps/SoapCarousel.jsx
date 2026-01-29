@@ -17,7 +17,6 @@ const SoapCarousel = ({ soapImages, bgColor, indColor, slide, setSlide }) => {
     marginTop: `${-arrowSz / 2}rem`,
     padding: 0,
     position: "absolute",
-    top: "50%",
     width: "fit-content",
     zIndex: "1",
   };
