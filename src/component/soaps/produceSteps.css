@@ -62,7 +62,5 @@ li img {
 }
 
 .cardProduceSteps {
-  min-height: 500px;
-  max-height: 850px;
-  min-width: 635px;
+  height: fit-content;
 }
