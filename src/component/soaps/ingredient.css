@@ -25,6 +25,5 @@ h2.details {
 }
 
 .cardIngredient {
-  height: 690px;
-  max-height: 720px;
+  height: fit-content;
 }
