@@ -17,7 +17,7 @@ const SoapIntro = () => {
   );
 
   return (
-    <Container fluid className="home-container">
+    <Container fluid className="home-container soapIntroduction">
       <Tabs
         defaultActiveKey={currTabKey}
         className="tabBackgroundThick tabFix contentHolyCentered"

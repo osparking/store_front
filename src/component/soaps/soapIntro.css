@@ -2,3 +2,7 @@
   background-color: rgb(103, 172, 183);
   z-index: 2; 
 }
+
+.soapIntroduction .card {
+  height: fit-content;  
+}
