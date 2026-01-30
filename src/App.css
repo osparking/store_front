@@ -430,8 +430,6 @@ body {
 
 main {
   flex: 1 0 auto;
-  display: flex;
-  flex-direction: column;
   min-height: 80vh;
   margin-bottom: 3rem !important;
   width: 100%;
