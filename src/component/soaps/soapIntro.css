@@ -5,4 +5,5 @@
 
 .soapIntroduction .card {
   height: fit-content;  
+  margin: 0;
 }
