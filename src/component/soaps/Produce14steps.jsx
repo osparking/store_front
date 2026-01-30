@@ -15,6 +15,8 @@ const Produce14steps = ({ stepsInfo, keepOthersOpen }) => {
     }
   }, []);
 
+  const endSign = "끝";
+
   function handleAccordionToggle(clickedItem) {
     setProduceSteps([
       ...produceSteps.map((step) => {
@@ -42,24 +44,31 @@ const Produce14steps = ({ stepsInfo, keepOthersOpen }) => {
               className="button-indicator-wrapper"
               id={`listItem.id === 4 ? "ingTable" : ""`}
             >
-              <p>{produceStep.id}. </p>
-              <button
-                className="toggle"
-                onClick={() => handleAccordionToggle(produceStep)}
-                style={{
-                  textDecoration:
-                    produceStep.label === "끝" ? "none" : undefined,
-                }}
-              >
-                <p>{produceStep.label}</p>
-              </button>
-              {produceStep.label !== "끝" && (
+              <p style={{color: "black"}}>
+                {produceStep.label === endSign
+                  ? produceStep.label
+                  : produceStep.id}
+                .
+              </p>
+              {produceStep.label !== endSign && (
+                <button
+                  className="toggle"
+                  onClick={() => handleAccordionToggle(produceStep)}
+                  style={{
+                    textDecoration:
+                      produceStep.label === endSign ? "none" : undefined,
+                  }}
+                >
+                  <p>{produceStep.label}</p>
+                </button>
+              )}
+              {produceStep.label !== endSign && (
                 <span className="direction-indicator simple">
                   {produceStep.toggled ? "一" : "十"}
                 </span>
               )}
             </div>
-            {produceStep.label !== "끝" && (
+            {produceStep.label !== endSign && (
               <div className="content-parent">
                 <div className="content pt-0">
                   {produceStep.renderContent(handleAccordionToggle)}
