@@ -254,9 +254,9 @@ const ProduceSteps = () => {
 
   return (
     <Container fluid className="home-container mt-5">
-      <Row className="justify-content-center allIngred mt-3 mb-5">
+      <Row className="justify-content-center mt-3 mb-5">
         <Col md={8} className="mt">
-          <Card className="cardProduceSteps">
+          <Card>
             <Card.Body className="pb-0">
               <h2 className="mb-1">
                 <strong>제조 절차</strong>
