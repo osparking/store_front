@@ -1,0 +1,13 @@
+.button-div {
+  bottom: 15px;
+  position:sticky;
+  align-items: center;
+  width: 100%;
+}
+
+.button-div > button {
+  margin-top: auto;
+  background-color:#F5D463;
+  font-weight: bold;
+  color: navy;
+}

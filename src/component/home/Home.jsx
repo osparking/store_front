@@ -2,6 +2,7 @@ import { Button, Card, Col, Container, ListGroup, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import olive_label from "../../assets/images/olive_label.jpg";
 import soap_rack from "../../assets/images/soap_rack.jpg";
+import "./home.css";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -49,9 +50,11 @@ const Home = () => {
                 수제비누와 마찬가지로 제 허벅지 피부 가려움증을 거의 해소시켜
                 주었습니다.
               </Card.Text>
-              <Button variant="outline-info" onClick={moveToSoapIntro}>
-                범이비누 소개 보기
-              </Button>
+              <div className="text-center mt-3 button-div">
+                <Button variant="outline-info" onClick={moveToSoapIntro}>
+                  범이비누 소개 보기
+                </Button>
+              </div>
             </Card.Body>
           </Card>
         </Col>
@@ -81,9 +84,11 @@ const Home = () => {
                 자동화 등을 통하여 비누 가격이 내려갈 수 있으며, 에센셜 향오일을
                 사용하는 등의 품질 고급화 및 다양화가 가능할 수 있습니다.
               </Card.Text>
-              <Button variant="outline-info" onClick={moveToBuySoap}>
-                범이비누 사러가기
-              </Button>
+              <div className="text-center mt-3 button-div">
+                <Button variant="outline-info" onClick={moveToBuySoap}>
+                  범이비누 사러가기
+                </Button>
+              </div>
             </Card.Body>
           </Card>
         </Col>
