@@ -7,9 +7,9 @@ import IngredTabAccord from "./IngredTabAccord";
 const Ingredient = () => {
   return (
     <Container fluid className="home-container mt-5">
-      <Row className="justify-content-center allIngred mt-3">
+      <Row className="justify-content-center mt-3">
         <Col md={8}>
-          <Card className="cardIngredient">
+          <Card>
             <Card.Body className="pb-0">
               <div className="mb-5">
                 <h2 className="mb-3" style={{ paddingLeft: 0 }}>

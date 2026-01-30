@@ -15,15 +15,7 @@ h2.details {
   background-color: ivory;
 }
 
-.allIngred {
-  background-color: rgb(236, 233, 233, 0.9);
-}
-
 .legendFont {
   font-family: "Noto sans KR", Cambria, Cochin, Georgia, Times;
   font-size: 0.85em;
-}
-
-.cardIngredient {
-  height: fit-content;
 }
