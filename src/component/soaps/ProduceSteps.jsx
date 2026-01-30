@@ -257,7 +257,7 @@ const ProduceSteps = () => {
       <Row className="justify-content-center mt-3 mb-5">
         <Col md={8} className="mt">
           <Card>
-            <Card.Body className="pb-0">
+            <Card.Body className="pb-0 mb-3">
               <h2 className="mb-1">
                 <strong>제조 절차</strong>
               </h2>
