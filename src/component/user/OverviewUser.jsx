@@ -76,7 +76,7 @@ const OverviewUser = () => {
   return (
     <Container fluid className="home-container mt-3">
       <div className="main-2-cards">
-        <CardCompo
+        <CardCompo 
           label={"최근 6 개월 구매 합계"}
           count={totalSoaps}
           IconCompo={LuPackageOpen}

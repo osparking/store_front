@@ -73,6 +73,11 @@ h6 {
   z-index: 1 !important;
 }
 
+.carousel-inner {
+  bottom: 25px;
+  z-index: -1 !important;
+}
+
 .footer {
   background-color: var(--color-modal);
   color: var(--color-white);
