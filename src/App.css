@@ -395,6 +395,8 @@ input[type="radio"] {
 
 .home-container {
   max-width: 1200px;
+  z-index: 1;
+  position: relative;
 }
 
 .bumsoap-color-dark {
