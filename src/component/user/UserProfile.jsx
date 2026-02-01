@@ -10,6 +10,7 @@ import ImageUp from "../modal/ImageUp";
 import { deleteUserAccount } from "./UserService";
 import QRcodeBox from "../auth/QRcodeBox";
 import { callWithToken } from "../util/api";
+import "./UserProfile.css";
 
 const UserProfile = ({ user, handleRemovePhoto }) => {
   const [showImageUp, setShowImageUp] = useState(false);
@@ -146,7 +147,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
             </Card>
           </Col>
           <Col md={8}>
-            <Card>
+            <Card className="profileItems">
               <Card.Body className="d-flex align-items-center">
                 <Col md={4}>성명 : </Col>
                 <Col md={4}>
