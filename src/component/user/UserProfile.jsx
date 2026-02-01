@@ -3,14 +3,14 @@ import React, { useState } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
+import QRcodeBox from "../auth/QRcodeBox";
 import EmpImage from "../common/EmpImage";
 import ChangePassword from "../modal/ChangePassword";
 import DeleteConfirmModal from "../modal/DeleteConfirmModal";
 import ImageUp from "../modal/ImageUp";
-import { deleteUserAccount } from "./UserService";
-import QRcodeBox from "../auth/QRcodeBox";
 import { callWithToken } from "../util/api";
 import "./UserProfile.css";
+import { deleteUserAccount } from "./UserService";
 
 const UserProfile = ({ user, handleRemovePhoto }) => {
   const userNew = { ...user, enabled: user.enabled ? "가능" : "불가능" };
@@ -167,7 +167,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
             </Card>
           </Col>
           <Col md={8} style={{ maxWidth: "530px" }}>
-            <Card className="profileItems">
+            <Card className="profileItems mb-3">
               {profileData.map((item, index) => (
                 <Card.Body key={index} className="d-flex align-items-center">
                   <Col md={4} className="text-end">
