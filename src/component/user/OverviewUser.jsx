@@ -1,12 +1,13 @@
 import { format, subMonths } from "date-fns";
 import { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
+import { Card, Col, Container, Row } from "react-bootstrap";
 import { FaShapes } from "react-icons/fa6";
 import { LuPackageOpen } from "react-icons/lu";
 import CardCompo from "../card/CardCompo";
 import SoapsMonthUser from "../chart/SoapsMonthUser";
 import { getSoapsMonthUser } from "./UserService";
 import SoapShapeRatio from "../chart/SoapShapeRatio";
+import "./OverviewUser.css";
 
 const OverviewUser = () => {
   const [soapsMonth, setSoapsMonth] = useState([]);
@@ -74,26 +75,35 @@ const OverviewUser = () => {
   }, []);
 
   return (
-    <Container fluid className="home-container mt-3">
-      <div className="main-2-cards">
-        <CardCompo 
-          label={"최근 6 개월 구매 합계"}
-          count={totalSoaps}
-          IconCompo={LuPackageOpen}
-        />
-        <CardCompo
-          label={"최근 6 개월 구매 외형 비중"}
-          IconCompo={FaShapes}
-        />
-      </div>
-      <div className="charts">
-        <div className="chart-container">
-          <SoapsMonthUser soapsMonth={soapsMonth} errorMessage={errorMessage} />
-        </div>
-        <div className="chart-container">
-          <SoapShapeRatio />
-        </div>
-      </div>
+    <Container fluid className="home-container mt-5">
+      <Row className="justify-content-center chart-row">
+        <Col md={5} xs={6}>
+          <Card className="profileItems">
+            <CardCompo
+              label={"최근 6 개월 구매 합계"}
+              count={totalSoaps}
+              IconCompo={LuPackageOpen}
+            />
+            <div className="chart-container">
+              <SoapsMonthUser
+                soapsMonth={soapsMonth}
+                errorMessage={errorMessage}
+              />
+            </div>
+          </Card>
+        </Col>
+        <Col md={5} xs={6}>
+          <Card className="profileItems">
+            <CardCompo
+              label={"최근 6 개월 구매 외형 비중"}
+              IconCompo={FaShapes}
+            />
+            <div className="chart-container">
+              <SoapShapeRatio />
+            </div>
+          </Card>
+        </Col>
+      </Row>
     </Container>
   );
 };
