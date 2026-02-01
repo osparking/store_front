@@ -79,7 +79,7 @@ const UserDashboard = () => {
       <Tabs
         activeKey={activeKey}
         onSelect={changeActiveKey}
-        className="tabBackgroundThick tabHead tabFix contentHolyCentered"
+        className="tabBackgroundThick tabFix contentHolyCentered"
       >
         <Tab eventKey="profile" title={<h5>내 프로필</h5>}>
           {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
