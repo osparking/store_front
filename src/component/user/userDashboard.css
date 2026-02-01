@@ -16,3 +16,7 @@ h5 {
 .nav-tabs .nav-link:hover {
   color: whitesmoke;
 }
+
+.card {
+  margin: 0 0 20px;
+}

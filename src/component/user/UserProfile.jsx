@@ -1,4 +1,3 @@
-
 import Switch from "@mui/material/Switch";
 import React, { useState } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
@@ -74,7 +73,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
   };
 
   return (
-    <Container fluid className="home-container mt-3">
+    <Container fluid className="home-container mt-5">
       <DeleteConfirmModal
         show={showDelModal}
         onHide={handleModalXButtonClick}
