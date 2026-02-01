@@ -13,6 +13,7 @@ import { callWithToken } from "../util/api";
 import "./UserProfile.css";
 
 const UserProfile = ({ user, handleRemovePhoto }) => {
+  const userNew = {...user, enabled: user.enabled ? "가능" : "불가능"}
   const [showImageUp, setShowImageUp] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [switchDisabled, setSwitchDisabled] = useState(false);
@@ -72,6 +73,20 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
       setSwitchDisabled(false);
     }
   };
+
+  const profileData = [
+    { label: "성명", value: userNew.fullName },
+    { label: "휴대폰", value: userNew.mbPhone },
+    { label: "이메일", value: userNew.email },
+    { label: "등록 형태", value: userNew.signUpMethod },
+    { label: "등록 일시", value: userNew.addDate },
+    { label: "유저 구분", value: userNew.userType },
+    { label: "로그인", value: userNew.enabled },
+  ];
+
+  if (userNew.userType === "노동자") {
+    profileData.push({ label: "소속 부서", value: userNew.dept })
+  }
 
   return (
     <Container fluid className="home-container mt-5">
@@ -148,37 +163,22 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
           </Col>
           <Col md={8}>
             <Card className="profileItems">
-              <Card.Body className="d-flex align-items-center">
-                <Col md={4}>성명 : </Col>
-                <Col md={4}>
-                  <Card.Text>{user.fullName}</Card.Text>
-                </Col>
-              </Card.Body>
+              {profileData.map((item, index) => (
+                <Card.Body key={index} className="d-flex align-items-center">
+                  <Col md={4} className="text-end">
+                    {item.label}:
+                  </Col>
+                  <Col md={7}>
+                    <Card.Text>&nbsp;{item.value}</Card.Text>
+                  </Col>
+                </Card.Body>
+              ))}
 
               <Card.Body className="d-flex align-items-center">
-                <Col md={4}>휴대폰 : </Col>
-                <Col md={4}>
-                  <Card.Text>{user.mbPhone}</Card.Text>
+                <Col md={4} className="text-end">
+                  구글 이중 인증(2FA):
                 </Col>
-              </Card.Body>
-
-              <Card.Body className="d-flex align-items-center">
-                <Col md={4}>이메일 : </Col>
-                <Col md={4}>
-                  <Card.Text>{user.email}</Card.Text>
-                </Col>
-              </Card.Body>
-
-              <Card.Body className="d-flex align-items-center">
-                <Col md={4}>로그인 가능성 : </Col>
-                <Col md={4}>
-                  <Card.Text>{user.enabled ? "가능" : "불가능"}</Card.Text>
-                </Col>
-              </Card.Body>
-
-              <Card.Body className="d-flex align-items-center">
-                <Col md={4}>구글 이중 인증(2FA) : </Col>
-                <Col md={6}>
+                <Col md={7}>
                   <div>
                     <Switch
                       disabled={switchDisabled}
@@ -206,40 +206,10 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                   )}
                 </Col>
               </Card.Body>
-
-              <Card.Body className="d-flex align-items-center">
-                <Col md={4}>등록 형태 : </Col>
-                <Col md={7}>
-                  <Card.Text>{user.signUpMethod}</Card.Text>
-                </Col>
-              </Card.Body>
-
-              <Card.Body className="d-flex align-items-center">
-                <Col md={4}>등록 일시 : </Col>
-                <Col md={7}>
-                  <Card.Text>{user.addDate}</Card.Text>
-                </Col>
-              </Card.Body>
-
-              <Card.Body className="d-flex align-items-center">
-                <Col md={4}>유저 구분 : </Col>
-                <Col md={4}>
-                  <Card.Text>{user.userType}</Card.Text>
-                </Col>
-              </Card.Body>
-
-              {user.userType === "노동자" && (
-                <Card.Body className="d-flex align-items-center">
-                  <Col md={4}>소속 부서 : </Col>
-                  <Col md={4}>
-                    <Card.Text>{user.dept}</Card.Text>
-                  </Col>
-                </Card.Body>
-              )}
             </Card>
           </Col>
         </Row>
-        {(fromList && isAdmin) && (
+        {fromList && isAdmin && (
           <Row>
             <div className="returnLink">
               <Link to="/dashboard/admin">목록</Link>

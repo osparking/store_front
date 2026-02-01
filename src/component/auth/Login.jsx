@@ -22,7 +22,7 @@ import CodeEntryModal from "./CodeEntryModal";
 const Login = () => {
   const [showCodeModal, setShowCodeModal] = useState(false);
   const [credentials, setCredentials] = useState({
-    email: "jbpark03@naver.com",
+    email: "jbpark103@hanmail.net",
     password: "1234",
     save_login: true,
   });
