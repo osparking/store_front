@@ -13,7 +13,7 @@ import { callWithToken } from "../util/api";
 import "./UserProfile.css";
 
 const UserProfile = ({ user, handleRemovePhoto }) => {
-  const userNew = {...user, enabled: user.enabled ? "가능" : "불가능"}
+  const userNew = { ...user, enabled: user.enabled ? "가능" : "불가능" };
   const [showImageUp, setShowImageUp] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [switchDisabled, setSwitchDisabled] = useState(false);
@@ -85,7 +85,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
   ];
 
   if (userNew.userType === "노동자") {
-    profileData.push({ label: "소속 부서", value: userNew.dept })
+    profileData.push({ label: "소속 부서", value: userNew.dept });
   }
 
   return (
@@ -99,7 +99,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
       />
       <React.Fragment>
         <Row className="justify-content-center">
-          <Col md={3} xs={6}>
+          <Col md={3} xs={6} style={{ minWidth: "200px" }}>
             <Card className="text-center mb-3 shadow">
               <Card.Body>
                 <div>
@@ -128,9 +128,11 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                       />
                     </>
                   )}
-                  <Link to={"#"} onClick={() => setShowChangePassword(true)}>
-                    비밀번호 변경
-                  </Link>
+                  <p>
+                    <Link to={"#"} onClick={() => setShowChangePassword(true)}>
+                      비밀번호 변경
+                    </Link>
+                  </p>
                   <ChangePassword
                     userId={user.id}
                     show={showChangePassword}
@@ -143,7 +145,8 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                   <div className="mx-2">
                     <Link
                       to={`/user/${user.id}/update`}
-                      className="btn btn-warning btn-sm"
+                      className="btn btn-warning btn-sm  w-100"
+                      style={{ minWidth: "60px" }}
                     >
                       프로필 수정
                     </Link>
@@ -153,6 +156,8 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                       variant="danger"
                       size="sm"
                       onClick={handleCloseAccountButtonCLick}
+                      className="w-100"
+                      style={{ minWidth: "60px" }}
                     >
                       계정 폐쇄
                     </Button>
@@ -161,7 +166,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
               </Card.Body>
             </Card>
           </Col>
-          <Col md={8}>
+          <Col md={8} style={{ maxWidth: "530px" }}>
             <Card className="profileItems">
               {profileData.map((item, index) => (
                 <Card.Body key={index} className="d-flex align-items-center">
