@@ -15,10 +15,10 @@ const SoapsMonthUser = ({ soapsMonth, errorMessage }) => {
   return (
     <section>
       {soapsMonth && soapsMonth.length > 0 ? (
-        <React.Fragment>
-          <ResponsiveContainer width={"100%"} height={250}>
+        <div className="chartDiv">
+          <ResponsiveContainer className="userChart">
             <h5
-              className="chart-title mb-1 p-3"
+              className="chart-title mb-1 p-1"
               style={{ backgroundColor: "hsl(83, 26%, 50%)", color: "ivory" }}
             >
               비누 구매 수량{" "}
@@ -39,7 +39,7 @@ const SoapsMonthUser = ({ soapsMonth, errorMessage }) => {
               </Bar>
             </BarChart>
           </ResponsiveContainer>
-        </React.Fragment>
+        </div>
       ) : (
         <NoDataExists dataType={"비누 구매 수량"} errorMessage={errorMessage} />
       )}
