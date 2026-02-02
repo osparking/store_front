@@ -7,7 +7,7 @@ const CardCompo = ({ label, count, IconCompo }) => {
         {label}
         <IconCompo className="card-icon" />
       </div>
-      <h3 className="text-center">{count}</h3>
+      <h3 className="text-center m-0">{count}</h3>
     </div>
   );
 };

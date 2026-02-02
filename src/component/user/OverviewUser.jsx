@@ -96,6 +96,7 @@ const OverviewUser = () => {
           <Card className="profileItems">
             <CardCompo
               label={"최근 6 개월 구매 외형 비중"}
+              count={totalSoaps}
               IconCompo={FaShapes}
             />
             <div className="chart-container">
