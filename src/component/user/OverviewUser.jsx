@@ -77,8 +77,8 @@ const OverviewUser = () => {
   return (
     <Container fluid className="home-container mt-5">
       <Row className="justify-content-center chart-row">
-        <Col md={5} xs={6}>
-          <Card className="profileItems">
+        <Col lg={5} md={6} xs={12} className="chartUserCol">
+          <Card className="chartUser h-100">
             <CardCompo
               label={"최근 6 개월 구매 합계"}
               count={totalSoaps}
@@ -92,8 +92,8 @@ const OverviewUser = () => {
             </div>
           </Card>
         </Col>
-        <Col md={5} xs={6}>
-          <Card className="profileItems">
+        <Col lg={5} md={6} xs={12} className="chartUserCol">
+          <Card className="chartUser h-100">
             <CardCompo
               label={"최근 6 개월 구매 외형 비중"}
               count={totalSoaps}
