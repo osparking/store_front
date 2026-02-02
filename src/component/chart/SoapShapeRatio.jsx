@@ -33,16 +33,15 @@ const SoapShapeRatio = () => {
   return (
     <section>
       {shapeCount && (
-        <React.Fragment>
+        <div className="chartDiv">
           <h5
-            className="chart-title mb-1 p-3"
+            className="chart-title mb-1 p-1"
             style={{ backgroundColor: "hsl(83, 26%, 50%)", color: "ivory" }}
           >
             비누 외형 비중
           </h5>
           <ResponsiveContainer
-            width="100%"
-            height={250}
+            className="userChart"
             style={{ backgroundColor: "#d8aab8ff" }}
           >
             {shapeCount.length === 0 ? (
@@ -64,7 +63,7 @@ const SoapShapeRatio = () => {
                       percent * 100
                     ).toFixed(1)}%)`
                   }
-                  outerRadius={75}
+                  outerRadius={45}
                   fill="#8884d8"
                 >
                   {shapeCount.map((entry, index) => (
@@ -81,7 +80,7 @@ const SoapShapeRatio = () => {
               </PieChart>
             )}
           </ResponsiveContainer>
-        </React.Fragment>
+        </div>
       )}
     </section>
   );
