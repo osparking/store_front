@@ -10,6 +10,27 @@
   margin-bottom: 0;
 }
 
-.chart-row .card {
-  min-width: 450px;
+.chartDiv {
+  height: 250px;
+}
+
+.chartDiv  h5 {
+  padding: 8px;
+}
+
+.chartDiv .userChart {
+  width: 100%;
+  height: 95% !important;
+}
+
+tspan {
+  font-size: 13px;
+}
+
+.chartUser {
+  min-width: 370px !important;
+}
+
+.chartUserCol {
+  margin: 0 1.5rem 1.5rem !important;
 }
