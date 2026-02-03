@@ -1,6 +1,5 @@
-
 h5 {
-  font-family: "Noto Serif KR", "Noto Sans Korean", Cambria, Cochin, Georgia, Times; 
+  font-family: "Noto Serif KR", "Noto Sans Korean", Cambria, Cochin, Georgia, Times;
 }
 
 .nav-tabs .nav-link.active {
@@ -19,4 +18,8 @@ h5 {
 
 .card {
   margin: 0 0 20px;
+}
+
+.table td {
+  vertical-align: middle;
 }
