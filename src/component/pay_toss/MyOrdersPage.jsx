@@ -50,14 +50,11 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
   }
 
   return (
-    <div className="box_section orders_table_div">
-      <div className="d-flex justify-content-center align-items-center">
-        <h3>나의 주문 목록</h3>
-      </div>
+    <div>
       <div className="d-flex justify-content-center align-items-center">
         <p className="text-center text-muted mb-4">
-          주문 총 {orderPage.totalElements} 건 중, {indexOfFirst + 1} ~{" "}
-          {Math.min(idxLastPlus1, orderPage.totalElements)}번째 주문
+          (총 {orderPage.totalElements} 건 중, {indexOfFirst + 1} ~{" "}
+          {Math.min(idxLastPlus1, orderPage.totalElements)}번째 주문)
         </p>
       </div>
       <div
