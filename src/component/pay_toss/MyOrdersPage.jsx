@@ -59,7 +59,7 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
       </div>
       <div
         id="orderTable"
-        style={{ whiteSpace: "initial" }}
+        style={{ whiteSpace: "initial", overflow: "auto" }}
         className="justify-content-center align-items-center"
       >
         <Table striped bordered hover>
