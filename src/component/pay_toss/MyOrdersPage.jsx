@@ -70,7 +70,7 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
               <th>현상태</th>
               <th>수신인</th>
               <th>결제액</th>
-              <th>결제일</th>
+              <th className="minDateWidth">결제일</th>
               <th>영수증</th>
             </tr>
           </thead>

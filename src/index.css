@@ -227,3 +227,7 @@ h6 {
   align-items: center;
   justify-content: center;
 }
+
+.minDateWidth {
+  min-width: 105px;
+}
