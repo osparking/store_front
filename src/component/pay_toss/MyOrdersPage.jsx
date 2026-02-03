@@ -60,7 +60,7 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
       <div
         id="orderTable"
         style={{ whiteSpace: "initial" }}
-        className="d-flex justify-content-center align-items-center"
+        className="justify-content-center align-items-center"
       >
         <Table striped bordered hover>
           <thead>
@@ -107,7 +107,9 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
           setCurrPage={(pageNo) => setCurrentPage(pageNo)}
         />
       )}
-      <div className="d-flex justify-content-center align-items-center">
+      <div
+        className="d-flex justify-content-center align-items-center"
+      >
         <Button
           variant="info"
           onClick={() => goHome()}

@@ -1,4 +1,3 @@
-
 import { Container, Pagination } from "react-bootstrap";
 
 const Paginator = ({
@@ -19,7 +18,7 @@ const Paginator = ({
         onClick={() => setCurrPage(i)}
       >
         {i}
-      </Pagination.Item>
+      </Pagination.Item>,
     );
   }
 
@@ -67,7 +66,9 @@ const Paginator = ({
 
   return (
     <Container className="my-1">
-      <div className="d-flex justify-content-center mt-1">
+      <div
+        className="d-flex justify-content-center mt-1"
+      >
         <Pagination>
           <Pagination.Prev
             onClick={() => paginate(Math.max(1, currPage - 1))}
@@ -101,8 +102,8 @@ const Paginator = ({
       </div>
 
       <div className="text-center">
-        <span className={darkBackground === undefined ? 'text-muted' : ""}>
-          총 {totalPages} 페이지 중 {currPage} 번째 페이지 
+        <span className={darkBackground === undefined ? "text-muted" : ""}>
+          총 {totalPages} 페이지 중 {currPage} 번째 페이지
         </span>
       </div>
     </Container>
