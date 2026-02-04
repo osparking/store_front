@@ -9,6 +9,7 @@ import {
 import Paginator from "../../common/Paginator";
 import "../../pay_toss/MyOrdersPage.css";
 import ReviewModal from "../../review/ReviewModal";
+import "./MyReviewsPage.css";
 import MyReviewsTable from "./MyReviewsTable";
 
 const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
@@ -64,7 +65,7 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
 
   return (
     <Row className="justify-content-center mt-3">
-      <Col>
+      <Col id="myReviewPage">
         <Card>
           <Card.Body>
             <ReviewModal

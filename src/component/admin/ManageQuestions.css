@@ -37,3 +37,7 @@ table tr th {
 .col {
   max-width: 850px;
 }
+
+#questionsTable {
+  max-width: 800px;
+}

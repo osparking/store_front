@@ -1,3 +1,7 @@
 .card-body {
   overflow:auto;
 }
+
+#myOrderTable {
+  max-width: 900px;
+}

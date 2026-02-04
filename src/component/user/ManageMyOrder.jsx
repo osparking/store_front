@@ -12,7 +12,7 @@ const ManageMyOrder = () => {
   return (
     <Container fluid className="home-container mt-5">
       <Row className="justify-content-center mt-3">
-        <Col>
+        <Col id="myOrderTable">
           <Card>
             <Card.Body>
               <div>
