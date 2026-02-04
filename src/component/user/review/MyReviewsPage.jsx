@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import {
   fetchReview,
@@ -9,7 +9,7 @@ import {
 import Paginator from "../../common/Paginator";
 import "../../pay_toss/MyOrdersPage.css";
 import ReviewModal from "../../review/ReviewModal";
-import ReviewsTable from "./MyReviewsTable";
+import MyReviewsTable from "./MyReviewsTable";
 
 const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
   const [totalPages, setTotalPages] = useState(1);
@@ -63,51 +63,57 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
   };
 
   return (
-    <div className="box_section orders_table_div">
-      <ReviewModal
-        show={showReviewModal}
-        handleClose={() => setShowReviewModal(false)}
-        title={"후기 관리"}
-        review={review}
-        saveReview={saveReview}
-        editable={true}
-      />
-      <div className="d-flex justify-content-center align-items-center">
-        <h3>나의 후기 목록</h3>
-      </div>
-      <div className="d-flex justify-content-center align-items-center">
-        <p className="text-center text-muted mb-4">
-          후기 총 {reviewPage.totalElements} 건 중, {indexOfFirst + 1} ~{" "}
-          {Math.min(idxLastPlus1, reviewPage.totalElements)}번째 후기
-        </p>
-      </div>
-      <div
-        id="orderTable"
-        style={{ whiteSpace: "initial" }}
-        className="d-flex justify-content-center align-items-center"
-      >
-        {ReviewsTable(reviews, manageReview)}
-      </div>
-      {searchResult && reviewPage && (
-        <Paginator
-          q
-          pageSize={pageSize}
-          totalItems={reviewPage.totalElements}
-          totalPages={totalPages}
-          currPage={currentPage}
-          setCurrPage={(pageNo) => setCurrentPage(pageNo)}
-        />
-      )}
-      <div className="d-flex justify-content-center align-items-center">
-        <Button
-          variant="info"
-          onClick={() => goHome()}
-          style={{ marginTop: "30px" }}
-        >
-          범이비누
-        </Button>
-      </div>
-    </div>
+    <Row className="justify-content-center mt-3">
+      <Col>
+        <Card>
+          <Card.Body>
+            <ReviewModal
+              show={showReviewModal}
+              handleClose={() => setShowReviewModal(false)}
+              title={"후기 관리"}
+              review={review}
+              saveReview={saveReview}
+              editable={true}
+            />
+            <h2 className="mb-1 ps-0">
+              <strong>나의 후기 목록</strong>
+            </h2>
+            <div className="d-flex justify-content-center align-items-center">
+              <p className="text-center text-muted mb-4">
+                (총 {reviewPage.totalElements} 건 중, 제 {indexOfFirst + 1} ~{" "}
+                {Math.min(idxLastPlus1, reviewPage.totalElements)}번 후기)
+              </p>
+            </div>
+            <div
+              id="orderTable"
+              style={{ whiteSpace: "initial", overflow: "auto" }}
+              className="justify-content-center align-items-center"
+            >
+              {MyReviewsTable(reviews, manageReview)}
+            </div>
+            {searchResult && reviewPage && (
+              <Paginator
+                q
+                pageSize={pageSize}
+                totalItems={reviewPage.totalElements}
+                totalPages={totalPages}
+                currPage={currentPage}
+                setCurrPage={(pageNo) => setCurrentPage(pageNo)}
+              />
+            )}
+            <div className="d-flex justify-content-center align-items-center">
+              <Button
+                variant="info"
+                onClick={() => goHome()}
+                style={{ marginTop: "30px" }}
+              >
+                범이비누
+              </Button>
+            </div>
+          </Card.Body>
+        </Card>
+      </Col>
+    </Row>
   );
 };
 
