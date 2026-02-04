@@ -5,12 +5,12 @@ const MyReviewsTable = (reviews, manageReview) => {
   return (
     <Table striped bordered hover>
       <thead>
-        <tr>
+        <tr className="userTableHeader">
           <th>주문명</th>
-          <th>주문일시</th>
+          <th className="minDateWidth">주문일시</th>
           <th>별점</th>
           <th>후기 시작 부분</th>
-          <th>후기 작성일시</th>
+          <th className="minDateWidth">후기 작성일시</th>
           <th>주문ID</th>
         </tr>
       </thead>
