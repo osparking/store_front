@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Table } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import {
   fetchReview,
@@ -8,8 +8,8 @@ import {
 } from "../../buy/orderService";
 import Paginator from "../../common/Paginator";
 import "../../pay_toss/MyOrdersPage.css";
-import { formatDate } from "../../util/utilities";
 import ReviewModal from "../../review/ReviewModal";
+import ReviewsTable from "./ReviewsTable";
 
 const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
   const [totalPages, setTotalPages] = useState(1);
@@ -86,38 +86,11 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
         style={{ whiteSpace: "initial" }}
         className="d-flex justify-content-center align-items-center"
       >
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>주문명</th>
-              <th>주문일시</th>
-              <th>별점</th>
-              <th>후기 시작 부분</th>
-              <th>후기 작성일시</th>
-              <th>주문ID</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reviews &&
-              reviews.map((review, idx) => (
-                <tr key={idx}>
-                  <td>{review.orderName}</td>
-                  <td>{formatDate(review.orderTime)}</td>
-                  <td>{review.stars}</td>
-                  <td className="text-start">
-                    <a href="#" onClick={() => manageReview(review)}>
-                      {review.reviewPreview}
-                    </a>
-                  </td>
-                  <td>{formatDate(review.reviewTime)}</td>
-                  <td className="text-center">{review.id}</td>
-                </tr>
-              ))}
-          </tbody>
-        </Table>
+        {ReviewsTable(reviews, manageReview)}
       </div>
       {searchResult && reviewPage && (
         <Paginator
+          q
           pageSize={pageSize}
           totalItems={reviewPage.totalElements}
           totalPages={totalPages}
