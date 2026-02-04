@@ -11,6 +11,7 @@ import "./UserDashboard.css";
 import UserProfile from "./UserProfile";
 import { getUserDtoById } from "./UserService";
 import ManageMyReviews from "./review/ManageMyReviews";
+import "../../index.css";
 
 const UserDashboard = () => {
   const location = useLocation();
