@@ -231,3 +231,7 @@ h6 {
 .minDateWidth {
   min-width: 105px;
 }
+
+tr.userTableHeader > th {
+  background-color: lightblue;
+}

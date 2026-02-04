@@ -64,7 +64,7 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
       >
         <Table striped bordered hover>
           <thead>
-            <tr>
+            <tr className="userTableHeader">
               <th>식별자</th>
               <th>주문명</th>
               <th>현상태</th>

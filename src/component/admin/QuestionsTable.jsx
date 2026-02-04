@@ -11,7 +11,7 @@ const QuestionsTable = (questions) => {
       style={{ overflow: "auto" }}
     >
       <thead>
-        <tr>
+        <tr className="userTableHeader">
           <th>질문 제목(서두 15자)</th>
           <th>질문 내용(서두 20자)</th>
           <th className="minDateWidth">질문 일시</th>
