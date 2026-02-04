@@ -1,7 +1,7 @@
 import { Table } from "react-bootstrap";
 import "../../index.css";
 
-const QuestionsTable = (questions) => {
+const QuestionsTable = (questions, answerQuestion) => {
   return (
     <Table
       striped

@@ -105,7 +105,7 @@ const ManageQuestions = ({ mine }) => {
                 style={{ whiteSpace: "initial", overflow: "auto" }}
                 className="justify-content-center align-items-center"
               >
-                {QuestionsTable(questions)}
+                {QuestionsTable(questions, answerQuestion)}
               </div>
               {searchResult && questionPage && (
                 <Paginator
