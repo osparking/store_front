@@ -116,15 +116,6 @@ const ManageQuestions = ({ mine }) => {
                   setCurrPage={(pageNo) => setCurrentPage(pageNo)}
                 />
               )}
-              <div className="d-flex justify-content-center align-items-center">
-                <Button
-                  variant="info"
-                  onClick={() => goHome()}
-                  style={{ marginTop: "30px" }}
-                >
-                  범이비누
-                </Button>
-              </div>
             </Card.Body>
           </Card>
         </Col>
