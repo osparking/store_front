@@ -1,5 +1,4 @@
 import { Table } from "react-bootstrap";
-import "../../index.css";
 
 const QuestionsTable = (questions, answerQuestion) => {
   return (
@@ -12,8 +11,8 @@ const QuestionsTable = (questions, answerQuestion) => {
     >
       <thead>
         <tr className="userTableHeader">
-          <th>질문 제목(서두 15자)</th>
-          <th>질문 내용(서두 20자)</th>
+          <th>제목 15 자</th>
+          <th>내용 20 자</th>
           <th className="minDateWidth">질문 일시</th>
           <th>댓글</th>
           <th>답변</th>
