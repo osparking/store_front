@@ -1,7 +1,7 @@
 import { Table } from "react-bootstrap";
 import { formatDate } from "../../util/utilities";
 
-const ReviewsTable = (reviews, manageReview) => {
+const MyReviewsTable = (reviews, manageReview) => {
   return (
     <Table striped bordered hover>
       <thead>
@@ -35,4 +35,4 @@ const ReviewsTable = (reviews, manageReview) => {
   );
 };
 
-export default ReviewsTable;
+export default MyReviewsTable;
