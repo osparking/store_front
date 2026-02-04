@@ -2,21 +2,22 @@ table {
   margin-top: 20px;
 }
 
-th, .text-center{
+th,
+.text-center {
   text-align: center;
 }
 
 table.questions {
-  min-width: 700px;
-  width: 800px;
-  max-width: 900px;
+  min-width: 550px;
   text-align: left;
 }
 
 .smaller-amp {
-  font-size: 12px; /* Adjust as needed */
+  font-size: 12px;
+  /* Adjust as needed */
   /* Or use specific pixel size: font-size: 12px; 0.75em*/
-  vertical-align:middle; /* Ensures proper alignment */
+  vertical-align: middle;
+  /* Ensures proper alignment */
 }
 
 table td.attention {
@@ -30,9 +31,9 @@ div.w-900plus {
 }
 
 table tr th {
-  font-weight: bold;  
+  font-weight: bold;
 }
 
-th.lightBlue {
-  background-color: lightblue;
+.col {
+  max-width: 850px;
 }
