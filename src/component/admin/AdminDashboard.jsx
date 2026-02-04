@@ -3,7 +3,7 @@ import { LuPanelLeftOpen } from "react-icons/lu";
 import AdminSideBar from "./AdminSideBar";
 import Customer from "./CustomerTable";
 import Overview from "./Overview";
-import Questions from "./Questions";
+import ManageQuestions from "./ManageQuestions";
 import WorkerTable from "./WorkerTable";
 
 const AdminDashboard = () => {
@@ -41,7 +41,7 @@ const AdminDashboard = () => {
           {adminTab === "Overview" && <Overview />}
           {adminTab === "Employee" && <WorkerTable />}
           {adminTab === "Customer" && <Customer />}
-          {adminTab === "Questions" && <Questions />}
+          {adminTab === "Questions" && <ManageQuestions />}
         </div>
       </div>
     </main>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import Questions from "../admin/Questions";
+import ManageQuestions from "../admin/ManageQuestions";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import { deleteUserPhoto } from "../modal/ImageService";
@@ -95,7 +95,7 @@ const UserDashboard = () => {
           <ManageMyOrder />
         </Tab>
         <Tab eventKey="my_question" title={<h5>나의 질문</h5>}>
-          <Questions mine />
+          <ManageQuestions mine />
         </Tab>
         <Tab eventKey="my_review" title={<h5>나의 리뷰</h5>}>
           <ManageMyReviews />
