@@ -9,7 +9,7 @@ import {
 import Paginator from "../../common/Paginator";
 import "../../pay_toss/MyOrdersPage.css";
 import ReviewModal from "../../review/ReviewModal";
-import ReviewsTable from "./ReviewsTable";
+import ReviewsTable from "./MyReviewsTable";
 
 const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
   const [totalPages, setTotalPages] = useState(1);
