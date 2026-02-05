@@ -27,7 +27,7 @@ const SoapCarousel = ({ soapImages, bgColor, indColor, slide, setSlide }) => {
     color: selColor,
   };
 
-  const imageRoot = "/src/assets/images/soap";
+  const imageRoot = "/soap";
 
   const nextSlide = (lOrR) => {
     if (arrowDisabled) {

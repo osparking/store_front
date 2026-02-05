@@ -35,7 +35,7 @@ const IngredTabAccord = ({ ingAllData, keepOthersOpen }) => {
     ]);
   }
 
-  const imageRoot = "/src/assets/images/ingred";
+  const imageRoot = "/ingred";
 
   function getStore(ingred) {
     if (ingred.storeUrl) {

@@ -250,7 +250,7 @@ const ProduceSteps = () => {
     const clickedItem = { id: 4 };
     handleAccordionToggle(clickedItem);
   };
-  const imageRoot = "/src/assets/images/ingred";
+  const imageRoot = "/ingred";
 
   return (
     <Container fluid className="home-container mt-5">

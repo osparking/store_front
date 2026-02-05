@@ -7,7 +7,7 @@ import { ingredients } from "./data.js";
 import "./effect.css";
 
 export default function Effect() {
-  const imageRoot = "/src/assets/images/ingred";
+  const imageRoot = "/ingred";
   function ingredColor(ingredName) {
     let color = undefined;
     if (ingredName.indexOf("올리브") !== -1) {

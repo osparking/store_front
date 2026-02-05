@@ -23,7 +23,7 @@ const SoapImages = ({ soapImages, bgColor, indColor, heading }) => {
     color: selColor,
   };
 
-  const imageRoot = "/src/assets/images/soap";
+  const imageRoot = "/soap";
   const [slide, setSlide] = useState(0);
 
   return (
