@@ -7,6 +7,11 @@ import "./home.css";
 const Home = () => {
   const navigate = useNavigate();
 
+  const gotoIngredients = () => {
+    localStorage.setItem("SOAP_INTRO_TAB", "ingredient");
+    navigate("/soap_intro");
+  };
+
   const gotoReviews = () => {
     navigate("/reviews");
   };
@@ -72,7 +77,9 @@ const Home = () => {
             <Card.Body>
               <Card.Title>관련 정보 목록</Card.Title>
               <ListGroup className="services-list">
-                <ListGroup.Item>비누 재료</ListGroup.Item>
+                <ListGroup.Item action onClick={gotoIngredients}>
+                  비누 재료
+                </ListGroup.Item>
                 <ListGroup.Item>비누 제조 절차</ListGroup.Item>
                 <ListGroup.Item>비누 영상</ListGroup.Item>
                 <ListGroup.Item action onClick={gotoReviews}>
