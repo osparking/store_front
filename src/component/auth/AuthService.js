@@ -14,21 +14,21 @@ export const loginUser = async (email, password) => {
 
 const clearLoginUserInfo = () => {
   const items = [
-    "USER",
-    "LOGIN_ID",
-    "TOKEN",
-    "IS_ADMIN",
-    "ORDER_PAGE_고객",
-    "REVIEW_PAGE_고객",
-    "ORDER_PAGE_WORKER",
-    "REVIEW_PAGE_CUSTOMER",
-    "WORKER_TAB",
-    "SOAP_SHAPE_TAB",
-    "SOAP_INTRO_TAB",
     "ADMIN_TAB",
     "DASHBOARD_TAB",
-    "QUESTION_PAGE",
+    "IS_ADMIN",
+    "LOGIN_ID",
+    "ORDER_PAGE_고객",
+    "ORDER_PAGE_WORKER",
     "QUESTION_PAGE_관리",
+    "QUESTION_PAGE",
+    "REVIEW_PAGE_고객",
+    "REVIEW_PAGE_CUSTOMER",
+    "SOAP_INTRO_TAB",
+    "SOAP_SHAPE_TAB",
+    "TOKEN",
+    "USER",
+    "WORKER_TAB",
   ];
 
   items.push("IS_WORKER");
