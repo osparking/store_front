@@ -15,7 +15,9 @@ export const loginUser = async (email, password) => {
 const clearLoginUserInfo = () => {
   const items = [
     "ADMIN_TAB",
+    "CURR_INGRE_PAGE",
     "DASHBOARD_TAB",
+    "INGRE_NAME",
     "IS_ADMIN",
     "LOGIN_ID",
     "ORDER_PAGE_고객",
