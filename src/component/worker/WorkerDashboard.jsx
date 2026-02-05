@@ -5,7 +5,10 @@ import ManageIngredient from "./ManageIngredient";
 import WorkerSideBar from "./WorkerSideBar";
 
 const WorkerDashboard = () => {
-  const [workerTab, setWorkerTab] = useState("manageOrder");
+  const [workerTab, setWorkerTab] = useState(
+    localStorage.getItem("WORKER_TAB") || "manageOrder",
+  );
+  
   const tabClicked = (tab) => {
     setWorkerTab(tab);
     localStorage.setItem("WORKER_TAB", tab);
