@@ -1,8 +1,9 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Card, Col, Container, Row, Tab, Tabs } from "react-bootstrap";
 import "./bumShapes.css";
 import { bgColor, indColor, soapImages } from "./soapImages.js";
 import SoapImages from "./SoapImages.jsx";
+import { useLocation } from "react-router-dom";
 
 const BumShapes = () => {
   const normalSoaps = soapImages.filter((soap) => soap.shape === "normal");
@@ -27,6 +28,19 @@ const BumShapes = () => {
     });
     handleSoapShapeSelect(shape);
   };
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.scrollTo) {
+      const element = document.getElementById(location.state.scrollTo);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      }
+    }
+  }, [location.state]);
 
   return (
     <Container fluid className="home-container mt-5">
@@ -117,6 +131,7 @@ const BumShapes = () => {
                 </tbody>
               </table>
               <Tabs
+                id="soapImages"
                 ref={imageRowRef}
                 defaultActiveKey={currTabKey}
                 activeKey={currTabKey}
