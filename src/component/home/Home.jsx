@@ -14,7 +14,7 @@ const Home = () => {
 
   const gotoSoapImages = () => {
     localStorage.setItem("SOAP_INTRO_TAB", "shapes");
-    navigate("/soap_intro");
+    navigate("/soap_intro", { state: { scrollTo: "soapImages" } });
   };
 
   const gotoReviews = () => {
