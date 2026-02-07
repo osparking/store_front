@@ -413,11 +413,6 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
           </Row>
         </div>
       )}
-      <div className="d-flex justify-content-center align-items-center mt-3">
-        <Button variant="success" onClick={() => setShowDetail(false)}>
-          주문 목록
-        </Button>
-      </div>
     </>
   );
 };
