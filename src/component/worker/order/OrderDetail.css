@@ -15,7 +15,11 @@ td.oText {
 }
 
 Table.tabWidth {
-  min-width: 280px;
+  width: 300px;
+  max-width: 300px;
+  min-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 p.shapeCount {
@@ -54,6 +58,7 @@ div.orderSummaryCol {
   margin: 0 !important;
   align-items: center;
   overflow: auto;
+  min-width: 315px;
   padding: 0 !important;
   width: fit-content;
 }
@@ -69,4 +74,8 @@ td.addressCell {
   max-width: 270px;
   width: 270px;
   min-width: 270px;
+}
+
+.box_section.orders_table_div {
+  padding: 1rem !important;
 }
