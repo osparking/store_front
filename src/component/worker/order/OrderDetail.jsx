@@ -387,8 +387,8 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                       <td className="oText">{orderDetails.order.zipcode}</td>
                     </tr>
                     <tr>
-                      <th className="aLabel">도로주소</th>
-                      <td className="oText">
+                      <th className="aLabel addressCell">도로주소</th>
+                      <td className="oText addressCell text-wrap">
                         {orderDetails.order.roadAddress}
                       </td>
                     </tr>
