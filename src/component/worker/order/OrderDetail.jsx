@@ -253,7 +253,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         <div className="box_section orders_table_div darkBack">
           <Row className="d-flex justify-content-center align-items-center">
             <p className="shapeCount darkFont">주문 개요</p>
-            <Col lg={6} md={7} xs={12}>
+            <Col lg={4} md={4} xs={8} className="orderSummaryCol">
               <Table className="tabWidth">
                 <tbody>
                   <tr>
@@ -277,7 +277,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                 </tbody>
               </Table>
             </Col>
-            <Col lg={6} md={7} xs={12}>
+            <Col lg={4} md={4} xs={8} className="orderSummaryCol">
               <Table className="tabWidth">
                 <tbody>
                   <tr>

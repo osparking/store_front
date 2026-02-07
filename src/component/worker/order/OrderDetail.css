@@ -49,3 +49,9 @@ td.hidden {
 div.darkBack {
   background-color: rgb(224, 224, 145);
 }
+
+div.orderSummaryCol {
+  margin: 0 2rem !important;
+  justify-content: center;
+  align-items: center;
+}
