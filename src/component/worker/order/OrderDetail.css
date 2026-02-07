@@ -51,9 +51,11 @@ div.darkBack {
 }
 
 div.orderSummaryCol {
-  margin: 0 2rem !important;
-  justify-content: center;
+  margin: 0 !important;
   align-items: center;
+  overflow: auto;
+  padding: 0 !important;
+  width: fit-content;
 }
 
 table#shapeCountTable {
