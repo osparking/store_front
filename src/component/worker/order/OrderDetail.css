@@ -36,7 +36,7 @@ th.center {
   text-align: center;
 }
 
-td.centered {  
+td.centered {
   text-align: center;
   padding-top: 6px;
   padding-bottom: 6px;
@@ -54,4 +54,11 @@ div.orderSummaryCol {
   margin: 0 2rem !important;
   justify-content: center;
   align-items: center;
+}
+
+table#shapeCountTable {
+  max-width: 150px;
+  width: 140px;
+  margin-left: auto;
+  margin-right: auto;
 }

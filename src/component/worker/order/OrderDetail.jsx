@@ -359,7 +359,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
           <Row className="d-flex justify-content-center align-items-center">
             <Col lg={4} md={4} xs={12}>
               <p className="shapeCount darkFont">외형별 개수</p>
-              <Table style={{ marginTop: 0 }}>
+              <Table id="shapeCountTable" style={{ marginTop: 0 }}>
                 <tbody>
                   {orderDetails.items.map((item, index) => (
                     <tr key={index}>
