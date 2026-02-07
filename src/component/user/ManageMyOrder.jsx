@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import "../../App.css";
 import MyOrdersPage from "../pay_toss/MyOrdersPage";
 import OrderDetail from "../worker/order/OrderDetail";
@@ -33,6 +33,13 @@ const ManageMyOrder = () => {
                 )}
               </div>
             </Card.Body>
+            {showDetail && (
+              <div className="d-flex justify-content-center align-items-center mt-3">
+                <Button variant="success" onClick={() => setShowDetail(false)}>
+                  주문 목록
+                </Button>
+              </div>
+            )}
           </Card>
         </Col>
       </Row>
