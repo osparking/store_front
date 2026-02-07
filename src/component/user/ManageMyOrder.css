@@ -5,3 +5,7 @@
 #myOrderTable {
   max-width: 900px;
 }
+
+.col {
+  min-width: auto;
+}
