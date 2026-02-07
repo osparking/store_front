@@ -72,7 +72,6 @@ const ReviewTable = () => {
         review={review}
         editable={false}
       />
-      {/* <h5 className="chart-title pinkBack">고객 구매 후기</h5> */}
       <Row className="justify-content-center mt-3">
         <Col id="reviewTable">
           <Card>

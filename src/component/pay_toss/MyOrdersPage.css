@@ -7,8 +7,6 @@ th, .text-center{
 }
 
 .orders_table_div {
-  min-width: 800px;
-  width: 950px;
-  max-width: 1150px;
+  width: fit-content;
   text-align: left;
 }
