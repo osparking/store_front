@@ -28,7 +28,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         userId: response.order.userId,
         id: response.order.id,
         reviewTime: response.order.reviewTime,
-      }
+      },
     );
     setOrderStatus(response.order.orderStatus);
   };
@@ -253,7 +253,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         <div className="box_section orders_table_div darkBack">
           <Row className="d-flex justify-content-center align-items-center">
             <p className="shapeCount darkFont">주문 개요</p>
-            <Col xs={12} md={4}>
+            <Col lg={6} md={7} xs={12}>
               <Table className="tabWidth">
                 <tbody>
                   <tr>
@@ -277,7 +277,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                 </tbody>
               </Table>
             </Col>
-            <Col xs={12} md={4}>
+            <Col lg={6} md={7} xs={12}>
               <Table className="tabWidth">
                 <tbody>
                   <tr>
@@ -357,7 +357,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
             </Col>
           </Row>
           <Row className="d-flex justify-content-center align-items-center">
-            <Col xs={12} md={2}>
+            <Col lg={4} md={4} xs={12}>
               <p className="shapeCount darkFont">외형별 개수</p>
               <Table style={{ marginTop: 0 }}>
                 <tbody>
@@ -374,7 +374,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                 </tbody>
               </Table>
             </Col>
-            <Col xs={12} md={8}>
+            <Col lg={7} md={8} xs={12}>
               <p className="shapeCount darkFont">배송지</p>
               <Table className="tabWidth" style={{ marginTop: 0 }}>
                 <tbody>
