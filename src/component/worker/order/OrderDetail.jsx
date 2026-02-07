@@ -254,7 +254,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
           <Row className="d-flex justify-content-center align-items-center">
             <p className="shapeCount darkFont">주문 개요</p>
             <Col lg={4} md={4} xs={8} className="orderSummaryCol">
-              <Table className="tabWidth">
+              <Table className="tabWidth mt-0">
                 <tbody>
                   <tr>
                     <th className="iLabel">주문ID</th>
@@ -278,7 +278,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
               </Table>
             </Col>
             <Col lg={4} md={4} xs={8} className="orderSummaryCol">
-              <Table className="tabWidth">
+              <Table className="tabWidth mt-0">
                 <tbody>
                   <tr>
                     <th className="iLabel">주문자명</th>
