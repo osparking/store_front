@@ -376,32 +376,39 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
             </Col>
             <Col lg={7} md={8} xs={12}>
               <p className="shapeCount darkFont">배송지</p>
-              <Table className="tabWidth" style={{ marginTop: 0 }}>
-                <tbody>
-                  <tr>
-                    <th className="aLabel">우편번호</th>
-                    <td className="oText">{orderDetails.order.zipcode}</td>
-                  </tr>
-                  <tr>
-                    <th className="aLabel">도로주소</th>
-                    <td className="oText">{orderDetails.order.roadAddress}</td>
-                  </tr>
-                  <tr>
-                    <th className="aLabel">상세주소</th>
-                    <td className="oText">
-                      {orderDetails.order.addressDetail}
-                    </td>
-                  </tr>
-                  <tr>
-                    <th className="aLabel">받는 분</th>
-                    <td className="oText">{orderDetails.order.recipient}</td>
-                  </tr>
-                  <tr>
-                    <th className="aLabel">휴대폰</th>
-                    <td className="oText">{orderDetails.order.mbPhone}</td>
-                  </tr>
-                </tbody>
-              </Table>
+              <div
+                className="mb-2"
+                style={{ width: "100%", marginTop: 0, overflowX: "auto" }}
+              >
+                <Table className="tabWidth" style={{ marginTop: 0 }}>
+                  <tbody>
+                    <tr>
+                      <th className="aLabel">우편번호</th>
+                      <td className="oText">{orderDetails.order.zipcode}</td>
+                    </tr>
+                    <tr>
+                      <th className="aLabel">도로주소</th>
+                      <td className="oText">
+                        {orderDetails.order.roadAddress}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className="aLabel">상세주소</th>
+                      <td className="oText">
+                        {orderDetails.order.addressDetail}
+                      </td>
+                    </tr>
+                    <tr>
+                      <th className="aLabel">받는 분</th>
+                      <td className="oText">{orderDetails.order.recipient}</td>
+                    </tr>
+                    <tr>
+                      <th className="aLabel">휴대폰</th>
+                      <td className="oText">{orderDetails.order.mbPhone}</td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div>
             </Col>
           </Row>
         </div>
