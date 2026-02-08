@@ -22,7 +22,6 @@ const ManageMyOrder = () => {
                 {showDetail ? (
                   <OrderDetail
                     detailId={detailId}
-                    setShowDetail={setShowDetail}
                     isHouse={false}
                   />
                 ) : (

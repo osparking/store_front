@@ -10,7 +10,7 @@ import ReviewModal from "../../review/ReviewModal";
 import { formatDate } from "../../util/utilities";
 import "./OrderDetail.css";
 
-const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
+const OrderDetail = ({ detailId, isHouse }) => {
   const [orderDetails, setOrderDetails] = useState(undefined);
   const [orderStatus, setOrderStatus] = useState(undefined);
   const [showModal, setShowModal] = useState(false);
