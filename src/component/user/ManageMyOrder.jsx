@@ -13,7 +13,7 @@ const ManageMyOrder = () => {
     <Container fluid className="home-container mt-5">
       <Row className="justify-content-center mt-3">
         <Col id="myOrderTable">
-          <Card id="userOrderCard" style={{height: "80vh"}}>
+          <Card id="userOrderCard" style={{ height: "75vh" }}>
             <Card.Body>
               <div>
                 <h2 className="mb-1 ps-0">
@@ -35,7 +35,11 @@ const ManageMyOrder = () => {
             </Card.Body>
             {showDetail && (
               <div className="d-flex justify-content-center align-items-center mt-3">
-                <Button variant="success" onClick={() => setShowDetail(false)}>
+                <Button
+                  variant="success"
+                  className="showAlways"
+                  onClick={() => setShowDetail(false)}
+                >
                   주문 목록
                 </Button>
               </div>
