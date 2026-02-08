@@ -17,7 +17,7 @@ const ManageMyOrder = () => {
             <Card.Body>
               <div>
                 <h2 className="mb-1 ps-0">
-                  <strong>나의 주문 목록</strong>
+                  <strong>{showDetail ? "주문 상세" : "나의 주문 목록"}</strong>
                 </h2>
                 {showDetail ? (
                   <OrderDetail
