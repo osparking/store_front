@@ -4,6 +4,8 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import { changePwd } from "../user/UserService";
+import toast from "react-hot-toast";
+import { logoutUser } from "../auth/AuthService";
 
 const ChangePassword = ({ userId, show, handleClose }) => {
   const [type, setType] = useState("password");
@@ -44,8 +46,9 @@ const ChangePassword = ({ userId, show, handleClose }) => {
     try {
       const response = await changePwd(userId, curPwd, newPwd, cnfPwd);
       handleReset();
-      setSuccessMsg(response.message);
-      setAlertSuccess(true);
+      toast.success("비밀번호 변경 성공. 새로 로그인 하세요.");
+      logoutUser();
+      handleClose();
     } catch (error) {
       setErrorMsg(error.response.data.message);
       setAlertError(true);
