@@ -13,7 +13,7 @@ const ManageMyOrder = () => {
     <Container fluid className="home-container mt-5">
       <Row className="justify-content-center mt-3">
         <Col id="myOrderTable">
-          <Card>
+          <Card id="userOrderCard">
             <Card.Body>
               <div>
                 <h2 className="mb-1 ps-0">
