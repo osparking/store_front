@@ -250,7 +250,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
       />
 
       {orderDetails && (
-        <div className="box_section orders_table_div darkBack">
+        <div className="box_section mt-3 orders_table_div darkBack">
           <Row className="d-flex justify-content-center align-items-center">
             <p className="shapeCount darkFont">주문 개요</p>
             <Col lg={4} md={4} xs={8} className="orderSummaryCol">
@@ -377,10 +377,10 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
             <Col lg={7} md={8} xs={12}>
               <p className="shapeCount darkFont">배송지</p>
               <div
-                className="mb-2"
+                className="mb-1"
                 style={{ width: "100%", marginTop: 0, overflowX: "auto" }}
               >
-                <Table className="tabWidth" style={{ marginTop: 0 }}>
+                <Table className="tabWidth mb-1" style={{ marginTop: 0 }}>
                   <tbody>
                     <tr>
                       <th className="aLabel">우편번호</th>
