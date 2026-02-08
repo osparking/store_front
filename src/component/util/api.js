@@ -37,11 +37,13 @@ export async function callWithToken(method, urlSuffix, data = null) {
           url: `${prefix}${urlSuffix}`,
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
           },
           data: data,
           withCredentials: true,
         };
+        if (!(data instanceof FormData)) {
+          config.headers["Content-Type"] = "application/json";
+        }
       }
       const result = await axios(config);
       return result;
