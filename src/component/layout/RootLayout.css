@@ -7,3 +7,16 @@
   margin-left: 10%;
   margin-right: 10%;
 }
+
+.container-top150-center {
+  top: 150px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  max-width: 500px;
+}
+
+.custom-toast {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 16px 20px;
+}

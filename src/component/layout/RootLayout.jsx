@@ -9,7 +9,20 @@ const RootLayout = () => {
   return (
     <main>
       <NavBar />
-      <Toaster position="bottom-center" reverseOrder={false} />
+      <Toaster
+        position="top-center"
+        containerClassName="container-top150-center"
+        toastOptions={{
+          className: "custom-toast",
+          duration: 4000, // Optional: set duration
+          style: {
+            background: "#363636",
+            color: "#fff",
+          },
+        }}
+        reverseOrder={false}
+      />
+
       <BackgroundImageSlider />
       <div className="main-content">
         <Outlet />

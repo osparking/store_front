@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Button, Form, InputGroup, Modal } from "react-bootstrap";
+import toast from "react-hot-toast";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { logoutUser } from "../auth/AuthService";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import { changePwd } from "../user/UserService";
-import toast from "react-hot-toast";
-import { logoutUser } from "../auth/AuthService";
 
 const ChangePassword = ({ userId, show, handleClose }) => {
   const [type, setType] = useState("password");
@@ -44,9 +44,8 @@ const ChangePassword = ({ userId, show, handleClose }) => {
     e.preventDefault();
     const { curPwd, newPwd, cnfPwd } = pwds;
     try {
-      const response = await changePwd(userId, curPwd, newPwd, cnfPwd);
-      handleReset();
-      toast.success("비밀번호 변경 성공. 새로 로그인 하세요.");
+      await changePwd(userId, curPwd, newPwd, cnfPwd);
+      toast.success("재 로그인이 필요합니다.");
       logoutUser();
       handleClose();
     } catch (error) {
