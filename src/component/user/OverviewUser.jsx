@@ -3,11 +3,23 @@ import { useEffect, useState } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { FaShapes } from "react-icons/fa6";
 import { LuPackageOpen } from "react-icons/lu";
+import { ResponsiveContainer } from "recharts";
 import CardCompo from "../card/CardCompo";
-import SoapsMonthUser from "../chart/SoapsMonthUser";
-import { getSoapsMonthUser } from "./UserService";
 import SoapShapeRatio from "../chart/SoapShapeRatio";
+import SoapsMonthUser from "../chart/SoapsMonthUser";
+import NoDataExists from "../common/NoDataExists";
 import "./OverviewUser.css";
+import { getSoapsMonthUser } from "./UserService";
+
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 const OverviewUser = () => {
   const [soapsMonth, setSoapsMonth] = useState([]);
@@ -85,10 +97,51 @@ const OverviewUser = () => {
               IconCompo={LuPackageOpen}
             />
             <div className="chart-container">
-              <SoapsMonthUser
-                soapsMonth={soapsMonth}
-                errorMessage={errorMessage}
-              />
+              {soapsMonth && soapsMonth.length > 0 && (
+                <div className="chartDiv">
+                  <ResponsiveContainer className="userChart">
+                    <h5
+                      className="chart-title mb-1 p-1"
+                      style={{
+                        backgroundColor: "hsl(83, 26%, 50%)",
+                        color: "ivory",
+                      }}
+                    >
+                      비누 구매 수량{" "}
+                    </h5>
+
+                    {totalSoaps > 0 ? (
+                      <BarChart
+                        data={soapsMonth}
+                        style={{ backgroundColor: "white" }}
+                      >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis
+                          dataKey="month"
+                          angle={-30}
+                          textAnchor="end"
+                          height={70}
+                        />
+                        <YAxis
+                          width={40}
+                          tick={{ fill: "#232a31ff", fontSize: 15 }}
+                          axisLine={{ stroke: "#495057" }}
+                        />
+                        <Tooltip />
+                        <Bar dataKey="월별 수량">
+                          {soapsMonth.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={entry.color} />
+                          ))}
+                        </Bar>
+                      </BarChart>
+                    ) : (
+                      <NoDataExists
+                        dataType={""}
+                      />
+                    )}
+                  </ResponsiveContainer>
+                </div>
+              )}
             </div>
           </Card>
         </Col>
