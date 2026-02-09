@@ -167,13 +167,24 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
             </Card>
           </Col>
           <Col md={8} style={{ maxWidth: "530px" }}>
-            <Card className="profileItems mb-3">
+            <Card
+              className="profileItems mb-3"
+              style={{ minWidth: "fit-content" }}
+            >
               {profileData.map((item, index) => (
-                <Card.Body key={index} className="d-flex align-items-center">
-                  <Col md={4} className="text-end">
+                <Card.Body
+                  key={index}
+                  className="d-flex align-items-center"
+                  style={{ minWidth: "400px" }}
+                >
+                  <Col
+                    md={4}
+                    className="text-end"
+                    style={{ minWidth: "145px" }}
+                  >
                     {item.label}:
                   </Col>
-                  <Col md={7}>
+                  <Col md={7} style={{ minWidth: "250px" }}>
                     <Card.Text>&nbsp;{item.value}</Card.Text>
                   </Col>
                 </Card.Body>
