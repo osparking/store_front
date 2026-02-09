@@ -3,7 +3,7 @@ import "./NoDataExists.css";
 const NoDataExists = ({ dataType }) => {
   return (
     <div className="center-container">
-      <h6>{dataType}가 없습니다.</h6>
+      <h6>{dataType} 자료 없음</h6>
     </div>
   );
 };
