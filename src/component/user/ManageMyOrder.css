@@ -1,7 +1,3 @@
-#userOrderCard>.card-body {
-  overflow: auto !important;
-}
-
 #myOrderTable {
   max-width: 900px;
 }
