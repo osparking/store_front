@@ -4,12 +4,11 @@ import { Card, Col, Container, Row } from "react-bootstrap";
 import { FaShapes } from "react-icons/fa6";
 import { LuPackageOpen } from "react-icons/lu";
 import CardCompo from "../card/CardCompo";
-import SoapShapeRatio from "../chart/SoapShapeRatio";
 import "./OverviewUser.css";
 import { getSoapsMonthUser } from "./UserService";
 
-import useColorMapping from "../hook/ColorMapping";
 import SoapsByMonth from "./charts/SoapsByMonth";
+import SoapsByShape from "./charts/SoapsByShape";
 
 const OverviewUser = () => {
   const [soapsMonth, setSoapsMonth] = useState([]);
@@ -106,7 +105,9 @@ const OverviewUser = () => {
               IconCompo={FaShapes}
             />
             <div className="chart-container">
-              <SoapShapeRatio />
+              <div className="chartDiv">
+                <SoapsByShape totalSoaps={totalSoaps} />
+              </div>
             </div>
           </Card>
         </Col>
