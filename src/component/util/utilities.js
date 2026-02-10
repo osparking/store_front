@@ -149,3 +149,14 @@ export const expiredTokenRemoved = () => {
     return true;
   }
 };
+
+export const getRecordRange = (thePage, idxFirst, idxLastPlus1, name) => {
+  const recordRange =
+    thePage.totalElements === 0
+      ? "(자료 없음)"
+      : `(총 ${thePage.totalElements} 건 중, 제 ${idxFirst + 1}` +
+        ` ~ ${Math.min(idxLastPlus1, thePage.totalElements)} 번 ` +
+        name +
+        ")";
+  return recordRange;
+};
