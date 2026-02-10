@@ -5,6 +5,7 @@ import { getOrderPage } from "../buy/orderService";
 import Paginator from "../common/Paginator";
 import { formatDate } from "../util/utilities";
 import "./MyOrdersPage.css";
+import { getRecordRange } from "../util/utilities";
 
 const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
   const [totalPages, setTotalPages] = useState(1);
@@ -53,8 +54,7 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
     <div>
       <div className="d-flex justify-content-center align-items-center">
         <p className="text-center text-muted mb-4">
-          (총 {orderPage.totalElements} 건 중, {indexOfFirst + 1} ~{" "}
-          {Math.min(idxLastPlus1, orderPage.totalElements)}번째 주문)
+          {getRecordRange(orderPage, indexOfFirst, idxLastPlus1, "주문")}
         </p>
       </div>
       <div

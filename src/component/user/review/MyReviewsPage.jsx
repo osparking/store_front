@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import {
   fetchReview,
@@ -9,6 +9,7 @@ import {
 import Paginator from "../../common/Paginator";
 import "../../pay_toss/MyOrdersPage.css";
 import ReviewModal from "../../review/ReviewModal";
+import { getRecordRange } from "../../util/utilities";
 import "./MyReviewsPage.css";
 import MyReviewsTable from "./MyReviewsTable";
 
@@ -81,8 +82,7 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
             </h2>
             <div className="d-flex justify-content-center align-items-center">
               <p className="text-center text-muted mb-4">
-                (총 {reviewPage.totalElements} 건 중, 제 {indexOfFirst + 1} ~{" "}
-                {Math.min(idxLastPlus1, reviewPage.totalElements)}번 후기)
+                {getRecordRange(reviewPage, indexOfFirst, idxLastPlus1, "후기")}
               </p>
             </div>
             <div

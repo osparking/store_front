@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Card, Col, Container, Row, Table } from "react-bootstrap";
+import { Card, Col, Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Paginator from "../common/Paginator";
 import {
@@ -8,8 +8,9 @@ import {
   getQuestionPage,
   saveAnswerAct,
 } from "../user/question/QuestionService";
-import QuestionFollowUpModal from "./QuestionFollowUpModal";
+import { getRecordRange } from "../util/utilities";
 import "./ManageQuestions.css";
+import QuestionFollowUpModal from "./QuestionFollowUpModal";
 import QuestionsTable from "./QuestionsTable";
 
 const ManageQuestions = ({ mine }) => {
@@ -96,8 +97,12 @@ const ManageQuestions = ({ mine }) => {
               </h2>
               <div className="justify-content-center align-items-center">
                 <p className="text-center text-muted mb-4">
-                  (총 {questionPage.totalElements} 건 중, 제 {indexOfFirst + 1}{" "}
-                  ~ {Math.min(idxLastPlus1, questionPage.totalElements)}번 질문)
+                  {getRecordRange(
+                    questionPage,
+                    indexOfFirst,
+                    idxLastPlus1,
+                    "질문",
+                  )}
                 </p>
               </div>
               <div
