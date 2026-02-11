@@ -99,7 +99,11 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
       />
       <React.Fragment>
         <Row className="justify-content-center">
-          <Col md={3} xs={6} style={{ minWidth: "200px" }}>
+          <Col
+            md={3}
+            xs={6}
+            style={{ minWidth: "200px", height: "fit-content" }}
+          >
             <Card className="text-center mb-3 shadow">
               <Card.Body>
                 <div>
