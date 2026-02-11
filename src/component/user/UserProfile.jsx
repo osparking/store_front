@@ -147,15 +147,6 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
               <Card.Body>
                 <div className="d-flex justify-content-center mt-2 mb-2">
                   <div className="mx-2">
-                    <Link
-                      to={`/user/${user.id}/update`}
-                      className="btn btn-warning btn-sm  w-100"
-                      style={{ minWidth: "60px" }}
-                    >
-                      프로필 수정
-                    </Link>
-                  </div>
-                  <div className="mx-2">
                     <Button
                       variant="danger"
                       size="sm"
@@ -165,6 +156,15 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                     >
                       계정 폐쇄
                     </Button>
+                  </div>
+                  <div className="mx-2">
+                    <Link
+                      to={`/user/${user.id}/update`}
+                      className="btn btn-warning btn-sm  w-100"
+                      style={{ minWidth: "60px" }}
+                    >
+                      정보 수정
+                    </Link>
                   </div>
                 </div>
               </Card.Body>
