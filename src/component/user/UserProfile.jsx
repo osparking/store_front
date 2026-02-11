@@ -226,7 +226,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
               ))}
 
               <Card.Body className="d-flex align-items-center">
-                <Col md={4} className="text-end">
+                <Col md={4} className="text-end" style={{ minWidth: "145px" }}>
                   구글 이중 인증(2FA):
                 </Col>
                 <Col md={7} className="setBorder ms-1">
