@@ -164,15 +164,6 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                       계정 폐쇄
                     </Button>
                   </div>
-                  <div className="mx-2">
-                    <Link
-                      to={`/user/${user.id}/update`}
-                      className="btn btn-warning btn-sm  w-100"
-                      style={{ minWidth: "60px" }}
-                    >
-                      정보 수정
-                    </Link>
-                  </div>
                 </div>
               </Card.Body>
             </Card>
@@ -186,19 +177,23 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                 className="d-flex align-items-center"
                 style={{ minWidth: "400px" }}
               >
+                <Col md={4} className="text-end">
+                  <Link
+                    to={`/user/${user.id}/update`}
+                    className="btn btn-warning btn-sm  w-60"
+                    style={{ minWidth: "60px" }}
+                  >
+                    정보 수정
+                  </Link>: 
+                </Col>
                 <Col
-                  md={4}
-                  className="text-end"
-                  style={{ minWidth: "145px" }}
-                ></Col>
-                <Col
-                  md={3}
+                  md={1}
                   className="setBorder ms-1"
-                  style={{ minWidth: "75px" }}
+                  style={{ width: "60px" }}
                 >
                   &nbsp;
                 </Col>
-                <Col md={4} className="ms-1">
+                <Col md={3} className="ms-1 fit-content">
                   (수정 가능)
                 </Col>
               </Card.Body>
