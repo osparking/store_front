@@ -168,28 +168,28 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
               </Card.Body>
             </Card>
           </Col>
-          <Col md={8} style={{ maxWidth: "530px" }}>
+          <Col md={8} style={{ maxWidth: "530px", overflow: "auto" }}>
             <Card
               className="profileItems mb-3"
               style={{ minWidth: "fit-content" }}
             >
               <Card.Body
-                className="d-flex align-items-center"
+                className="d-flex align-items-center justify-content-center"
                 style={{ minWidth: "400px" }}
               >
                 <Col md={4} className="text-end">
                   <Link
                     to={`/user/${user.id}/update`}
-                    className="btn btn-warning btn-sm  w-60"
-                    style={{ minWidth: "60px" }}
+                    className="btn btn-warning btn-sm w-70"
+                    style={{ minWidth: "60px", maxWidth: "fit-content" }}
                   >
                     정보 수정
-                  </Link>: 
+                  </Link> <span className="ms-2">범례 - </span>
                 </Col>
                 <Col
                   md={1}
                   className="setBorder ms-1"
-                  style={{ width: "60px" }}
+                  style={{ width: "50px" }}
                 >
                   &nbsp;
                 </Col>
@@ -224,7 +224,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                 <Col md={4} className="text-end">
                   구글 이중 인증(2FA):
                 </Col>
-                <Col md={7}>
+                <Col md={7} className="setBorder ms-1">
                   <div>
                     <Switch
                       disabled={switchDisabled}
@@ -237,6 +237,8 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                     <span
                       style={{
                         fontWeight: "bolder",
+                        fontSize: ".9rem",
+                        fontStretch: "expanded",
                         color: `${twoFaEnabled ? "green" : "slategrey"}`,
                       }}
                     >
