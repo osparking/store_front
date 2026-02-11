@@ -109,7 +109,11 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
           <Col
             md={3}
             xs={6}
-            style={{ minWidth: "200px", height: "fit-content" }}
+            style={{
+              width: "fit-content",
+              minWidth: "200px",
+              height: "fit-content",
+            }}
           >
             <Card className="text-center mb-3 shadow">
               <Card.Body>
@@ -184,7 +188,8 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                     style={{ minWidth: "60px", maxWidth: "fit-content" }}
                   >
                     정보 수정
-                  </Link> <span className="ms-2">범례 - </span>
+                  </Link>
+                  <span className="ms-2">범례 - </span>
                 </Col>
                 <Col
                   md={1}
