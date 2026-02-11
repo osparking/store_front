@@ -175,6 +175,26 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
               className="profileItems mb-3"
               style={{ minWidth: "fit-content" }}
             >
+              <Card.Body
+                className="d-flex align-items-center"
+                style={{ minWidth: "400px" }}
+              >
+                <Col
+                  md={4}
+                  className="text-end"
+                  style={{ minWidth: "145px" }}
+                ></Col>
+                <Col
+                  md={3}
+                  className="setBorder ms-1"
+                  style={{ minWidth: "75px" }}
+                >
+                  &nbsp;
+                </Col>
+                <Col md={4} className="ms-1">
+                  (수정 가능)
+                </Col>
+              </Card.Body>
               {profileData.map((item, index) => (
                 <Card.Body
                   key={index}
