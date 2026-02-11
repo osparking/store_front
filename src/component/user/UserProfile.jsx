@@ -106,7 +106,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
           >
             <Card className="text-center mb-3 shadow">
               <Card.Body>
-                <div className="d-flex justify-content-center">
+                <div className="d-flex flex-column align-items-center justify-content-center">
                   {!(user.userType === "고객") && (
                     <>
                       <EmpImage empPhoto={user.photoBytes} />
