@@ -88,6 +88,13 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
     profileData.push({ label: "소속 부서", value: userNew.dept });
   }
 
+  const isUpdatable = (label) => {
+    if (label === "성명" || label === "휴대폰" || label === "소속 부서") {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <Container fluid className="home-container mt-5">
       <DeleteConfirmModal
@@ -208,7 +215,11 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                   >
                     {item.label}:
                   </Col>
-                  <Col md={7} style={{ minWidth: "250px" }}>
+                  <Col
+                    md={7}
+                    className={`${isUpdatable(item.label) ? "setBorder ms-1" : "ms-1"}`}
+                    style={{ minWidth: "250px" }}
+                  >
                     <Card.Text>&nbsp;{item.value}</Card.Text>
                   </Col>
                 </Card.Body>
