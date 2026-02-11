@@ -6,7 +6,7 @@ const EmpImage = ({ empPhoto, altText = "직원 사진" }) => {
   return (
     <Fragment>
       {empPhoto ? (
-        <Card.Img
+        <Card.Img style={{width: "100px"}}
           src={`data:image/png;base64, ${empPhoto}`}
           className="user-image"
           alt={altText}
