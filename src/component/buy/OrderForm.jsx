@@ -248,29 +248,7 @@ const OrderForm = ({
               changeCarouselShape={changeCarouselShape}
               delSoapItem={delSoapItem}
             />
-            <Row className="justify-content-center mb-3">
-              <Col md={7} className="text-end">
-                <p
-                  style={{
-                    margin: "5px",
-                    textAlign: "right",
-                  }}
-                >
-                  범이비누 총액
-                </p>
-              </Col>
-              <Col md={3}>
-                <p
-                  style={{
-                    margin: "5px 10px",
-                    textAlign: "right",
-                  }}
-                >
-                  {soapPriceTotal()} 원
-                </p>
-              </Col>
-              <Col md={1}></Col>
-            </Row>
+
             <Row className="mt-5">
               <div
                 style={{ display: "flex", gap: "20px" }}
