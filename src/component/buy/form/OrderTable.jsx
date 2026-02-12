@@ -81,6 +81,7 @@ const OrderTable = ({
                 required
                 onChange={(e) => handleShapeChange(e, index)}
                 onFocus={(e) => changeCarouselShape(e.target.selectedIndex - 1)}
+                style={{paddingRight: 0}}
               >
                 <option value="">- 외형 선택 - </option>
                 {/* Populate options dynamically based on optionLabels */}
@@ -107,9 +108,12 @@ const OrderTable = ({
                 placeholder="수량"
                 onChange={(e) => handleCountChange(e, item, index)}
                 required
+                style={{paddingRight: 6}}
               />
             </td>
-            <td>{(item.price * item.count).toLocaleString()}원</td>
+            <td className="text-end" style={{ padding: "8px" }}>
+              {(item.price * item.count).toLocaleString()}원
+            </td>
             <td>
               {index > 0 && (
                 <div className="d-flex justify-content-end">
@@ -129,8 +133,8 @@ const OrderTable = ({
           </tr>
         ))}
         <tr>
-          <td className="text-end fw-bold">소계</td>
-          <td className="text-end fw-bold" style={{ paddingRight: "19px" }}>
+          <td className="text-center fw-bold">소계</td>
+          <td className="text-end fw-bold" style={{ paddingRight: "28px" }}>
             {soapPriceTotal().count}
           </td>
           <td className="fw-bold text-end">
