@@ -246,6 +246,7 @@ const OrderForm = ({
               optionLabels={optionLabels}
               handleInputChange={handlePropChange}
               changeCarouselShape={changeCarouselShape}
+              delSoapItem={delSoapItem}
             />
             <Row className="justify-content-center mb-3">
               <Col md={7} className="text-end">
