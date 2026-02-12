@@ -47,6 +47,19 @@ const OrderTable = ({
     handleInputChange(index, e);
   }
 
+  const soapPriceTotal = () => {
+    console.log(JSON.stringify(orderItems));
+    return orderItems.reduce(
+      (subTotal, item) => {
+        return {
+          count: subTotal.count + Number(item.count),
+          price: subTotal.price + item.price * item.count,
+        };
+      },
+      { count: 0, price: 0 },
+    );
+  };
+
   return (
     <Table striped bordered hover>
       <thead>
@@ -115,6 +128,16 @@ const OrderTable = ({
             </td>
           </tr>
         ))}
+        <tr>
+          <td className="text-end fw-bold">소계</td>
+          <td className="text-end fw-bold" style={{ paddingRight: "19px" }}>
+            {soapPriceTotal().count}
+          </td>
+          <td className="fw-bold text-end">
+            {soapPriceTotal().price.toLocaleString()}원
+          </td>
+          <td></td>
+        </tr>
       </tbody>
     </Table>
   );
