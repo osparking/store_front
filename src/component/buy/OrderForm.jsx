@@ -13,6 +13,7 @@ import { callWithToken } from "../util/api.js";
 import { labelsOver, setDifference } from "../util/utilities.js";
 import CartPutModal from "./CartPutModal.jsx";
 import OrderItemEntry from "./OrderItemEntry.jsx";
+import OrderTable from "./form/OrderTable.jsx";
 
 const OrderForm = ({
   optionLabels,
@@ -240,20 +241,12 @@ const OrderForm = ({
                 </OverlayTrigger>
               </Col>
             </Row>
-            {formData.items.map((item, index) => (
-              <OrderItemEntry
-                key={index}
-                index={index}
-                item={item}
-                formDataItems={formData.items}
-                optionLabels={optionLabels}
-                handleInputChange={(e) => handlePropChange(index, e)}
-                changeCarouselShape={changeCarouselShape}
-                setCarouselImages={setCarouselImages}
-                canRemove={index > 0}
-                delSoapItem={delSoapItem}
-              />
-            ))}
+            <hr style={{ marginTop: "-5px" }} />
+            <OrderTable
+              orderItems={formData.items}
+              optionLabels={optionLabels}
+              handleInputChange={handlePropChange}
+            />
             <Row className="justify-content-center mb-3">
               <Col md={7} className="text-end">
                 <p
