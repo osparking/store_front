@@ -92,7 +92,7 @@ const BuySoap = () => {
   const [slide, setSlide] = useState(0);
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ width: "100%", marginTop: "74px" }}>
       <div className="d-flex flex-wrap justify-content-center gap-3">
         <div className="col-md-5 order-card-width">
           <Card className="shadow mb-5">
