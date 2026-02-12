@@ -48,9 +48,9 @@ const OrderTable = ({
     <Table striped bordered hover>
       <thead>
         <tr>
-          <th>외형</th>
-          <th>수량</th>
-          <th>가격</th>
+          <th style={{ width: "180px" }}>외형</th>
+          <th style={{ width: "80px" }}>수량</th>
+          <th style={{ width: "105px" }}>가격</th>
         </tr>
       </thead>
       <tbody>
@@ -79,7 +79,6 @@ const OrderTable = ({
               </Form.Control>
             </td>
             <td>
-              {" "}
               <Form.Control
                 type="number"
                 className="text-end"
