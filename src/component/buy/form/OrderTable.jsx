@@ -59,7 +59,7 @@ const OrderTable = ({
       </thead>
       <tbody>
         {orderItems.map((item, index) => (
-          <tr key={index}>
+          <tr key={index} className="orderRow">
             <td>
               <Form.Control
                 as="select"

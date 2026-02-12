@@ -3,3 +3,7 @@ Button.order-button-width {
   display: inline;
   margin-left: 15px;
 }
+
+.orderRow td{
+  padding: 3px 6px;
+}

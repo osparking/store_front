@@ -220,7 +220,7 @@ const OrderForm = ({
   return (
     <div className="order-form">
       <Form onSubmit={handleSubmit}>
-        <fieldset className="field-set mb-4">
+        <fieldset className="field-set">
           <Form.Group className="mb-2">
             <Row className="justify-content-center mb-2">
               <Col md={2}></Col>
