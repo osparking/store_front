@@ -12,7 +12,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { callWithToken } from "../util/api.js";
 import { labelsOver, setDifference } from "../util/utilities.js";
 import CartPutModal from "./CartPutModal.jsx";
-import OrderItemEntry from "./OrderItemEntry.jsx";
 import OrderTable from "./form/OrderTable.jsx";
 
 const OrderForm = ({
@@ -246,6 +245,7 @@ const OrderForm = ({
               orderItems={formData.items}
               optionLabels={optionLabels}
               handleInputChange={handlePropChange}
+              changeCarouselShape={changeCarouselShape}
             />
             <Row className="justify-content-center mb-3">
               <Col md={7} className="text-end">
