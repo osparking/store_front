@@ -1,6 +1,11 @@
 import { Form, Table } from "react-bootstrap";
 
-const OrderTable = ({ orderItems, optionLabels, handleInputChange }) => {
+const OrderTable = ({
+  orderItems,
+  optionLabels,
+  handleInputChange,
+  changeCarouselShape,
+}) => {
   function handleShapeChange(e, index) {
     const currShapes = orderItems.map((item) => item.shape);
     if (currShapes.includes(e.target.value)) {
@@ -23,7 +28,22 @@ const OrderTable = ({ orderItems, optionLabels, handleInputChange }) => {
       handleInputChange(index, e);
       changeCarouselShape(idx - 1);
     }
-  }    
+  }
+
+  function handleCountChange(e, item, index) {
+    const inventory =
+      optionLabels.find((label) => label.optionLabel === item.shape)
+        ?.inventory || 1;
+    if (parseInt(e.target.value) > inventory) {
+      alert("재고를 초과할 수 없습니다.");
+      e.target.value = inventory;
+    } else if (parseInt(e.target.value) < 1) {
+      alert("최소 1개 이상 입력해주세요.");
+      e.target.value = 1;
+    }
+    handleInputChange(index, e);
+  }
+
   return (
     <Table striped bordered hover>
       <thead>
@@ -58,7 +78,21 @@ const OrderTable = ({ orderItems, optionLabels, handleInputChange }) => {
                 ))}
               </Form.Control>
             </td>
-            <td>{item.count}</td>
+            <td>
+              {" "}
+              <Form.Control
+                type="number"
+                className="text-end"
+                name="count"
+                id={`soapCount${index}`}
+                min="1"
+                max={item.inventory}
+                value={item.count}
+                placeholder="수량"
+                onChange={(e) => handleCountChange(e, item, index)}
+                required
+              />
+            </td>
             <td>{(item.price * item.count).toLocaleString()}원</td>
           </tr>
         ))}
