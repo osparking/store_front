@@ -1,10 +1,13 @@
-import { Form, Table } from "react-bootstrap";
+import { Button, Form, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
+import { FaMinusSquare } from "react-icons/fa";
+import "../orderForm.css";
 
 const OrderTable = ({
   orderItems,
   optionLabels,
   handleInputChange,
   changeCarouselShape,
+  delSoapItem,
 }) => {
   function handleShapeChange(e, index) {
     const currShapes = orderItems.map((item) => item.shape);
@@ -51,6 +54,7 @@ const OrderTable = ({
           <th style={{ width: "180px" }}>외형</th>
           <th style={{ width: "80px" }}>수량</th>
           <th style={{ width: "105px" }}>가격</th>
+          <th style={{ width: "40px" }}>삭제</th>
         </tr>
       </thead>
       <tbody>
@@ -93,6 +97,22 @@ const OrderTable = ({
               />
             </td>
             <td>{(item.price * item.count).toLocaleString()}원</td>
+            <td>
+              {index > 0 && (
+                <div className="d-flex justify-content-end">
+                  <OverlayTrigger overlay={<Tooltip>항목 제거</Tooltip>}>
+                    <Button
+                      style={{ padding: "0 .5rem .2rem" }}
+                      variant="danger"
+                      size="sm"
+                      onClick={() => delSoapItem(index)}
+                    >
+                      <FaMinusSquare />
+                    </Button>
+                  </OverlayTrigger>
+                </div>
+              )}
+            </td>
           </tr>
         ))}
       </tbody>
