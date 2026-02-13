@@ -7,12 +7,16 @@ const CheckoutCart = ({ productList, grandTotal }) => {
       className="justify-content-center pt-4 rowStyle"
       style={{ minWidth: "470px", width: "70%" }}
     >
-      <Col md={3} className="d-flex align-items-center listLeftLabel border-0">
+      <Col
+        xs={3}
+        md={3}
+        className="d-flex align-items-center listLeftLabel border-0"
+      >
         <div className="container">
           <p className="rightColumnParagraph">주문 상품 요약 ➡</p>
         </div>
       </Col>
-      <Col md={6} style={{ paddingRight: 0 }}>
+      <Col xs={6} md={6} style={{ paddingRight: 0 }}>
         <Table bordered hover striped>
           <thead>
             <tr>

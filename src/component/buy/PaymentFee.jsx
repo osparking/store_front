@@ -4,12 +4,12 @@ import "./paymentFee.css";
 const PaymentFee = ({ paymentFee }) => {
   return (
     <Row className="justify-content-center pt-0 rowStyle">
-      <Col md={3} className="d-flex align-items-center listLeftLabel border-0">
+      <Col xs={3} md={3} className="d-flex align-items-center listLeftLabel border-0">
         <div className="container">
           <p className="rightColumnParagraph bold">결제 금액</p>
         </div>
       </Col>
-      <Col md={5} style={{ paddingRight: 0 }}>
+      <Col xs={4} md={4} style={{ paddingRight: 0 }}>
         <Table
           className="mt-0"
           striped
