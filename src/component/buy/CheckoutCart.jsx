@@ -2,21 +2,23 @@ import { Col, Row, Table } from "react-bootstrap";
 import "./checkoutCart.css";
 
 const CheckoutCart = ({ productList, grandTotal }) => {
-
   return (
-    <Row className="justify-content-center pt-4 rowStyle">
+    <Row
+      className="justify-content-center pt-4 rowStyle"
+      style={{ minWidth: "470px", width: "70%" }}
+    >
       <Col md={3} className="d-flex align-items-center listLeftLabel border-0">
         <div className="container">
           <p className="rightColumnParagraph">주문 상품 요약 ➡</p>
         </div>
       </Col>
-      <Col md={5} style={{paddingRight: 0}}>
+      <Col md={6} style={{ paddingRight: 0 }}>
         <Table bordered hover striped>
           <thead>
             <tr>
               <th>외형명</th>
               <th>수량</th>
-              <th>소계</th>
+              <th style={{ width: "120px !important" }}>소계</th>
             </tr>
           </thead>
           <tbody>
@@ -30,9 +32,11 @@ const CheckoutCart = ({ productList, grandTotal }) => {
                   </td>
                 </tr>
               ))}
-              <tr>
-                <td colSpan={3} className="grandTotal">합계 : {grandTotal} 원</td>
-              </tr>
+            <tr>
+              <td colSpan={3} className="grandTotal">
+                합계 : {grandTotal} 원
+              </td>
+            </tr>
           </tbody>
         </Table>
       </Col>
