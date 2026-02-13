@@ -1,11 +1,10 @@
 .rowStyle {
   background-color: ivory;
-  width: 65%;
+  width: 70%;
 }
 
-.rowStyleDark {
+.rowStyle.dark {
   background-color: rgb(215, 215, 151);
-  width: 65%;
 }
 
 .rText {

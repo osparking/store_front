@@ -5,13 +5,13 @@ import { Form, useLocation, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import { getDefaultRecipient } from "../user/UserService.js";
+import { insertHyphens } from "../util/utilities.js";
 import CheckoutCart from "./CheckoutCart";
 import DeliveryFee from "./DeliveryFee";
 import { getDeliveryFee } from "./orderService";
 import PaymentFee from "./PaymentFee";
 import "./recipient.css";
 import RecipientInfo from "./RecipientInfo";
-import { insertHyphens } from "../util/utilities.js";
 
 const Recipient = () => {
   const {
@@ -106,7 +106,7 @@ const Recipient = () => {
   };
 
   const [formData, setFormData] = useState(
-    recipient || recipientDefault || recipientEmpty
+    recipient || recipientDefault || recipientEmpty,
   );
 
   useEffect(() => {
@@ -119,7 +119,7 @@ const Recipient = () => {
   const [isDefaultRecipient, setIsDefaultRecipient] = useState(
     wasDefaultRecipient === undefined
       ? recipientDefault !== null
-      : wasDefaultRecipient
+      : wasDefaultRecipient,
   );
   const [deliveryFee, setDeliveryFee] = useState(0);
 
@@ -204,7 +204,7 @@ const Recipient = () => {
   return (
     <div>
       <div className="d-flex justify-content-center ">
-        <Row className="pt-4 pb-2 mt-3 rowStyleDark">
+        <Row className="pt-4 pb-2 mt-3 rowStyle dark">
           <Col md={8}>
             <h5 className="centered">비누 주문서</h5>
           </Col>
@@ -223,7 +223,7 @@ const Recipient = () => {
         <PaymentFee paymentFee={grandTotal + deliveryFee} />
       </div>
       <div className="d-flex justify-content-center ">
-        <Row className="pt-4 pb-2 rowStyleDark">
+        <Row className="pt-4 pb-2 rowStyle dark">
           <Col md={8}>
             <h5 className="centered">수신처</h5>
           </Col>
