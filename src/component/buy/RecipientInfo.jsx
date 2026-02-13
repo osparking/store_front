@@ -83,7 +83,7 @@ const RecipientInfo = ({
           <tr>
             <th className="rText">성명</th>
             <td className="boxLeft">
-              <div className="d-flex align-items-center gap-5">
+              <div className="d-flex align-items-center gap-2">
                 <input
                   type="text"
                   name="fullName"
@@ -105,7 +105,7 @@ const RecipientInfo = ({
           <tr>
             <th className="rText">휴대폰</th>
             <td className="boxLeft">
-              <div className="d-flex align-items-center gap-5">
+              <div className="d-flex align-items-center gap-2">
                 <OverlayTrigger overlay={<Tooltip>숫자만 :-)</Tooltip>}>
                   <input
                     type="tel"
