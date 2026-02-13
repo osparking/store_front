@@ -1,6 +1,7 @@
 .main-content {
   justify-content: center;
   display: flex;
+  position: relative;
 }
 
 .main-content > .home-container {
