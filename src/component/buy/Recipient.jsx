@@ -202,7 +202,7 @@ const Recipient = () => {
   };
 
   return (
-    <div>
+    <div style={{ width: "95%", maxWidth: "950px", margin: "auto" }}>
       <div className="d-flex justify-content-center ">
         <Row className="pt-4 pb-2 mt-3 rowStyle dark">
           <Col md={8}>
@@ -211,10 +211,16 @@ const Recipient = () => {
         </Row>
       </div>
       <div className="d-flex justify-content-center">
-        <CheckoutCart
-          productList={productList}
-          grandTotal={grandTotal.toLocaleString()}
-        />
+        <Row className="justify-content-center pb-1 rowStyle">
+          <Col xs={11} md={9}>
+            <div className="table-container">
+              <CheckoutCart
+                productList={productList}
+                grandTotal={grandTotal.toLocaleString()}
+              />
+            </div>
+          </Col>
+        </Row>
       </div>
       <div className="d-flex justify-content-center">
         <DeliveryFee deliveryFee={deliveryFee} />
@@ -232,7 +238,7 @@ const Recipient = () => {
       <Form onSubmit={gotoCheckout}>
         <div className="d-flex justify-content-center ">
           <Row className="justify-content-center pb-5 rowStyle">
-            <Col md={9}>
+            <Col xs={11} md={9}>
               <div className="table-container">
                 <RecipientInfo
                   formData={formData}
