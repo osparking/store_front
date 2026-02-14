@@ -10,7 +10,7 @@ import {
 import { BsPlusSquareFill } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
 import { callWithToken } from "../util/api.js";
-import { labelsOver, setDifference } from "../util/utilities.js";
+import { getSubTotal, labelsOver, setDifference } from "../util/utilities.js";
 import CartPutModal from "./CartPutModal.jsx";
 import OrderTable from "./form/OrderTable.jsx";
 
@@ -34,6 +34,13 @@ const OrderForm = ({
     ],
     orderStatus: "결재대기",
   });
+
+  const [subTotal, setSubTotal] = useState({ count: 0, price: 0 });
+
+  useEffect(() => {
+    const newSubTotal = getSubTotal(formData.items);
+    setSubTotal(newSubTotal);
+  }, [formData.items]);
 
   const [disableButton, setDisableButton] = useState(false);
   const [defaultShape, setDefaultShape] = useState();
@@ -91,17 +98,6 @@ const OrderForm = ({
     const allLabels = labelsOver(optionLabels, 0);
     findDefaultShape(allLabels);
   }, [optionLabels, formData.items, defaultLabel]);
-
-  const soapPriceTotal = () => {
-    return formData.items
-      .reduce((total, item) => {
-        if (item.shape !== "") {
-          return total + item.price * item.count;
-        }
-        return total;
-      }, 0)
-      .toLocaleString();
-  };
 
   const handlePropChange = (index, e) => {
     const { name, value } = e.target;
@@ -210,6 +206,7 @@ const OrderForm = ({
     navigate("/recipient", {
       state: {
         formItems: formData.items,
+        subTotal: subTotal,
         source: "orderForm",
         recipient: recipient,
         wasDefaultRecipient: isDefaultRecipient,
@@ -243,6 +240,7 @@ const OrderForm = ({
             <hr style={{ marginTop: "-5px" }} />
             <OrderTable
               orderItems={formData.items}
+              subTotal={subTotal}
               optionLabels={optionLabels}
               handleInputChange={handlePropChange}
               changeCarouselShape={changeCarouselShape}
