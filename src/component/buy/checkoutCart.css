@@ -5,15 +5,6 @@
   text-align: right;
 }
 
-.listLeftLabel {
-  margin-bottom: 16px;
-  background-color: ivory;
-  opacity: 1;
-  width: 200px;
-  text-align: right;
-  border: 1px solid black;
-}
-
 .rightColumnParagraph {
   float: right;
   margin-left: 20px; /* Optional: Add space between columns */

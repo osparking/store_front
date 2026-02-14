@@ -1,44 +1,32 @@
 import { Col, Row, Table } from "react-bootstrap";
 import "./checkoutCart.css";
 
-const CheckoutCart = ({ productList, grandTotal }) => {
+const CheckoutCart = ({ subTotal, deliveryFee }) => {
   return (
-    <Row
-      className="justify-content-center pt-4 rowStyle"
-      style={{ minWidth: "470px", width: "70%" }}
-    >
-      <Col
-        xs={3}
-        md={3}
-        className="d-flex align-items-center listLeftLabel border-0"
-      >
-        <div className="container">
-          <p className="rightColumnParagraph">주문 상품 요약 ➡</p>
-        </div>
-      </Col>
-      <Col xs={6} md={6} style={{ paddingRight: 0 }}>
-        <Table bordered hover striped>
+    <Row className="justify-content-center pt-2">
+      <Col xs={8} md={8}>
+        <Table bordered striped style={{ minWidth: "200px" }}>
           <thead>
             <tr>
-              <th>외형명</th>
-              <th>수량</th>
-              <th style={{ width: "120px !important" }}>소계</th>
+              <th>항목</th>
+              <th>금액</th>
             </tr>
           </thead>
           <tbody>
-            {productList &&
-              productList.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.shapeLabel}</td>
-                  <td>{item.count}</td>
-                  <td className="cartItem">
-                    {item.subTotal.toLocaleString()} 원
-                  </td>
-                </tr>
-              ))}
             <tr>
-              <td colSpan={3} className="grandTotal">
-                합계 : {grandTotal} 원
+              <td>범이비누 {subTotal.count} 개</td>
+              <td className="grandTotal">
+                {subTotal.price.toLocaleString()}원
+              </td>
+            </tr>
+            <tr>
+              <td>배송비</td>
+              <td className="grandTotal">{deliveryFee.toLocaleString()}원</td>
+            </tr>
+            <tr style={{ fontWeight: "bold" }}>
+              <td>결제액</td>
+              <td className="grandTotal">
+                {(subTotal.price + deliveryFee).toLocaleString()}원
               </td>
             </tr>
           </tbody>
