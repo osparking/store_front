@@ -26,7 +26,7 @@ const Recipient = () => {
   } = BsAlertHook();
 
   const location = useLocation();
-  const { formItems, source, recipient, wasDefaultRecipient } =
+  const { formItems, subTotal, source, recipient, wasDefaultRecipient } =
     location.state || [];
   let productList = undefined;
 
@@ -127,7 +127,7 @@ const Recipient = () => {
     const callGetDeliveryFee = async () => {
       const result = await getDeliveryFee({
         zipcode: formData.addrBasisAddReq.zipcode,
-        grandTotal: grandTotal,
+        grandTotal: subTotal.price,
       });
       setDeliveryFee(result.data);
       console.log("delivery fee: ", result.data);
