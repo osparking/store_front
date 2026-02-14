@@ -4,6 +4,7 @@ import "../orderForm.css";
 
 const OrderTable = ({
   orderItems,
+  subTotal,
   optionLabels,
   handleInputChange,
   changeCarouselShape,
@@ -47,19 +48,6 @@ const OrderTable = ({
     handleInputChange(index, e);
   }
 
-  const soapPriceTotal = () => {
-    console.log(JSON.stringify(orderItems));
-    return orderItems.reduce(
-      (subTotal, item) => {
-        return {
-          count: subTotal.count + Number(item.count),
-          price: subTotal.price + item.price * item.count,
-        };
-      },
-      { count: 0, price: 0 },
-    );
-  };
-
   return (
     <Table striped bordered hover>
       <thead>
@@ -81,7 +69,7 @@ const OrderTable = ({
                 required
                 onChange={(e) => handleShapeChange(e, index)}
                 onFocus={(e) => changeCarouselShape(e.target.selectedIndex - 1)}
-                style={{paddingRight: 0}}
+                style={{ paddingRight: 0 }}
               >
                 <option value="">- 외형 선택 - </option>
                 {/* Populate options dynamically based on optionLabels */}
@@ -108,7 +96,7 @@ const OrderTable = ({
                 placeholder="수량"
                 onChange={(e) => handleCountChange(e, item, index)}
                 required
-                style={{paddingRight: 6}}
+                style={{ paddingRight: 6 }}
               />
             </td>
             <td className="text-end" style={{ padding: "8px" }}>
@@ -135,10 +123,10 @@ const OrderTable = ({
         <tr>
           <td className="text-center fw-bold">소계</td>
           <td className="text-end fw-bold" style={{ paddingRight: "28px" }}>
-            {soapPriceTotal().count}
+            {subTotal.count}
           </td>
           <td className="fw-bold text-end">
-            {soapPriceTotal().price.toLocaleString()}원
+            {subTotal.price.toLocaleString()}원
           </td>
           <td></td>
         </tr>
