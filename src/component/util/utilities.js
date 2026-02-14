@@ -160,3 +160,18 @@ export const getRecordRange = (thePage, idxFirst, idxLastPlus1, name) => {
         ")";
   return recordRange;
 };
+
+export const getSubTotal = (orderItems) => {
+  return (
+    orderItems &&
+    orderItems.reduce(
+      (subTotal, item) => {
+        return {
+          count: subTotal.count + Number(item.count),
+          price: subTotal.price + item.price * item.count,
+        };
+      },
+      { count: 0, price: 0 },
+    )
+  );
+};
