@@ -199,6 +199,10 @@ const Recipient = () => {
     }
   };
 
+  const mbPhoneOk = () => {
+    return formData.mbPhone.length === 13;
+  }
+
   return (
     <div style={{ width: "95%", maxWidth: "950px", margin: "auto" }}>
       <div className="d-flex justify-content-center ">
@@ -267,6 +271,11 @@ const Recipient = () => {
               type="submit"
               variant="success"
               className="pt-2 pb-2 order-button-width"
+              disabled={
+                !formData.fullName ||
+                !(formData.mbPhone && mbPhoneOk()) ||
+                !formData.addrBasisAddReq.zipcode
+              }
             >
               <span className="boldText">결제</span>
             </Button>
