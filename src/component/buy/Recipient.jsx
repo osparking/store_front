@@ -7,9 +7,7 @@ import BsAlertHook from "../hook/BsAlertHook";
 import { getDefaultRecipient } from "../user/UserService.js";
 import { insertHyphens } from "../util/utilities.js";
 import CheckoutCart from "./CheckoutCart";
-import DeliveryFee from "./DeliveryFee";
 import { getDeliveryFee } from "./orderService";
-import PaymentFee from "./PaymentFee";
 import "./recipient.css";
 import RecipientInfo from "./RecipientInfo";
 
@@ -206,27 +204,18 @@ const Recipient = () => {
       <div className="d-flex justify-content-center ">
         <Row className="pt-4 pb-2 mt-3 rowStyle dark">
           <Col md={8}>
-            <h5 className="centered">비누 주문서</h5>
+            <h5 className="centered">결제 내역</h5>
           </Col>
         </Row>
       </div>
       <div className="d-flex justify-content-center">
         <Row className="justify-content-center pb-1 rowStyle">
           <Col xs={11} md={9}>
-            <div className="table-container">
-              <CheckoutCart
-                productList={productList}
-                grandTotal={grandTotal.toLocaleString()}
-              />
+            <div>
+              <CheckoutCart subTotal={subTotal} deliveryFee={deliveryFee} />
             </div>
           </Col>
         </Row>
-      </div>
-      <div className="d-flex justify-content-center">
-        <DeliveryFee deliveryFee={deliveryFee} />
-      </div>
-      <div className="d-flex justify-content-center">
-        <PaymentFee paymentFee={grandTotal + deliveryFee} />
       </div>
       <div className="d-flex justify-content-center ">
         <Row className="pt-4 pb-2 rowStyle dark">
