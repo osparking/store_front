@@ -144,9 +144,10 @@ const RecipientInfo = ({
                 className="w-25 ddrSearchButton"
                 style={{
                   height: "30px",
+                  maxWidth: "75px",
+                  marginLeft: "10px",
                   paddingTop: "2px",
                   marginTop: "-5px",
-                  marginLeft: 0,
                 }}
                 onClick={openAddressModal}
               >
