@@ -6,6 +6,7 @@ import { saveOrderRecipient } from "../buy/orderService";
 import { callWithToken } from "../util/api";
 import { getSuffixAfterSpace } from "../util/utilities";
 import "./WidgetCheckoutPage.css";
+import { Button } from "react-bootstrap";
 
 // 전자결제 신청 및 가입 완료 후, clientKey 를 다음으로 수정할 것.
 // 개발자센터의 결제위젯 연동 키 > 클라이언트 키
@@ -35,13 +36,13 @@ function WidgetCheckoutPage() {
   useEffect(() => {
     async function saveOrderRecord() {
       let action = "";
-      // 유저의 기본 수신처 갱신 
+      // 유저의 기본 수신처 갱신
       if (toDefaultRecipient) {
         if (!isDefaultRecipient) {
           action = "remove";
         }
       } else if (isDefaultRecipient) {
-          action = "store";
+        action = "store";
       }
 
       const orderAction = { ...orderData, defaultRecipientAction: action };
@@ -117,7 +118,7 @@ function WidgetCheckoutPage() {
       const result = await callWithToken(
         "post",
         "/payments/saveAmount",
-        saveAmountReq
+        saveAmountReq,
       );
 
       if (result) {
@@ -170,6 +171,10 @@ function WidgetCheckoutPage() {
     });
   };
 
+  const toRecipient = () => {
+    goRecipient();
+  };
+
   return (
     <div className="wrapper">
       <div className="box_section">
@@ -177,7 +182,6 @@ function WidgetCheckoutPage() {
           name={orderData.orderName}
           amount={feeData.amount}
           address={address}
-          goRecipient={goRecipient}
         />
 
         {/* 결제 UI */}
@@ -186,17 +190,24 @@ function WidgetCheckoutPage() {
         {/* 이용약관 UI */}
         <div id="agreement" />
 
-        {/* 결제하기 버튼 */}
-        <button
-          className="button"
-          style={{ marginTop: "30px" }}
-          disabled={!ready}
-          // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
-          // @docs https://docs.tosspayments.com/sdk/v2/js#widgetsrequestpayment
-          onClick={handlePayment}
-        >
-          결제
-        </button>
+        <div id="checkout-buttons">
+          <Button
+            variant="info"
+            onClick={toRecipient} // Use the extracted function
+          >
+            뒤로
+          </Button>
+          {/* 결제하기 버튼 */}
+          <Button
+            variant="success"
+            disabled={!ready}
+            // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
+            // @docs https://docs.tosspayments.com/sdk/v2/js#widgetsrequestpayment
+            onClick={handlePayment}
+          >
+            결제
+          </Button>
+        </div>
       </div>
     </div>
   );
