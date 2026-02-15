@@ -25,8 +25,13 @@ const Recipient = () => {
   } = BsAlertHook();
 
   const location = useLocation();
-  const { formItems, subTotal, source, recipient, wasDefaultRecipient } =
-    location.state || [];
+  const {
+    formItems,
+    subTotal: shapeSummary,
+    source,
+    recipient,
+    wasDefaultRecipient,
+  } = location.state || [];
   let productList = undefined;
 
   const [recipientDefault, setRecipientDefault] = useState(null);
@@ -126,7 +131,7 @@ const Recipient = () => {
     const callGetDeliveryFee = async () => {
       const result = await getDeliveryFee({
         zipcode: formData.addrBasisAddReq.zipcode,
-        grandTotal: subTotal.price,
+        grandTotal: shapeSummary.price,
       });
       setDeliveryFee(result.data);
       console.log("delivery fee: ", result.data);
@@ -242,7 +247,7 @@ const Recipient = () => {
           <Row className="justify-content-center pb-1 rowStyle">
             <Col xs={11} md={9}>
               <div>
-                <CheckoutCart subTotal={subTotal} deliveryFee={deliveryFee} />
+                <CheckoutCart subTotal={shapeSummary} deliveryFee={deliveryFee} />
               </div>
             </Col>
           </Row>
