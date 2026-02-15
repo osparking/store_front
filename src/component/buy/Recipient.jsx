@@ -10,6 +10,7 @@ import CheckoutCart from "./CheckoutCart";
 import { getDeliveryFee } from "./orderService";
 import "./recipient.css";
 import RecipientInfo from "./RecipientInfo";
+import ConfirmationModal from "../modal/ConfirmationModal.jsx";
 
 const Recipient = () => {
   const {
@@ -135,15 +136,25 @@ const Recipient = () => {
     }
   }, [formData.addrBasisAddReq.zipcode]);
 
+  const [showAddressConfirm, setShowAddressConfirm] = useState(false);
   const gotoCheckout = async (e) => {
     e.preventDefault();
+
+    if (formData.addressDetail.trim() === "") {
+      setShowAddressConfirm(true);
+      return;
+    }
+    navigateToCheckout();
+  };
+
+  const navigateToCheckout = () => {
     // 현재까지 수집된 주문 정보를 일단 저장
     const userId = localStorage.getItem("LOGIN_ID");
     const items = productList.map((item) => ({
       shape: item.shapeLabel,
       count: item.count,
     }));
-
+    
     const orderData = {
       userId: userId,
       items: items,
@@ -167,8 +178,8 @@ const Recipient = () => {
         toDefaultRecipient: _.isEqual(recipientDefault, formData),
         isDefaultRecipient: isDefaultRecipient,
       },
-    });
-  };
+    });    
+  }
 
   const navigate = useNavigate();
 
@@ -201,88 +212,104 @@ const Recipient = () => {
 
   const mbPhoneOk = () => {
     return formData.mbPhone.length === 13;
-  }
+  };
+
+  const handleConfirm = async () => {
+    setShowAddressConfirm(false);
+      
+  }  
 
   return (
-    <div style={{ width: "95%", maxWidth: "950px", margin: "auto" }}>
-      <div className="d-flex justify-content-center ">
-        <Row className="pt-4 pb-2 mt-3 rowStyle dark">
-          <Col md={8}>
-            <h5 className="centered">결제 내역</h5>
-          </Col>
-        </Row>
-      </div>
-      <div className="d-flex justify-content-center">
-        <Row className="justify-content-center pb-1 rowStyle">
-          <Col xs={11} md={9}>
-            <div>
-              <CheckoutCart subTotal={subTotal} deliveryFee={deliveryFee} />
-            </div>
-          </Col>
-        </Row>
-      </div>
-      <div className="d-flex justify-content-center ">
-        <Row className="pt-4 pb-2 rowStyle dark">
-          <Col md={8}>
-            <h5 className="centered">수신처</h5>
-          </Col>
-        </Row>
-      </div>
-      <Form onSubmit={gotoCheckout}>
+    <>
+      <ConfirmationModal
+        show={showAddressConfirm}
+        handleClose={() => setShowAddressConfirm(false)}
+        handleConfirm={handleConfirm}
+        bodyMessage={"'상세 주소' 가 없습니다. 바른 주소입니까?"}
+        title={"주소 확인"}
+        noLabel={"수정할께요."}
+        yesLabel={"네, 그래요."}
+      />
+      <div style={{ width: "95%", maxWidth: "950px", margin: "auto" }}>
         <div className="d-flex justify-content-center ">
-          <Row className="justify-content-center pb-5 rowStyle">
+          <Row className="pt-4 pb-2 mt-3 rowStyle dark">
+            <Col md={8}>
+              <h5 className="centered">결제 내역</h5>
+            </Col>
+          </Row>
+        </div>
+        <div className="d-flex justify-content-center">
+          <Row className="justify-content-center pb-1 rowStyle">
             <Col xs={11} md={9}>
-              <div className="table-container">
-                <RecipientInfo
-                  formData={formData}
-                  setFormData={setFormData}
-                  isDefaultRecipient={isDefaultRecipient}
-                  setIsDefaultRecipient={setIsDefaultRecipient}
-                />
+              <div>
+                <CheckoutCart subTotal={subTotal} deliveryFee={deliveryFee} />
               </div>
             </Col>
           </Row>
         </div>
         <div className="d-flex justify-content-center ">
-          <Row className="justify-content-center rowStyle">
-            <Col md={4} style={{ minWidth: "350px" }}>
-              {alertSuccess && (
-                <AlertMessage type={"success"} message={successMsg} />
-              )}
-              {alertError && (
-                <AlertMessage type={"danger"} message={errorMsg} />
-              )}
+          <Row className="pt-4 pb-2 rowStyle dark">
+            <Col md={8}>
+              <h5 className="centered">수신처</h5>
             </Col>
           </Row>
         </div>
-        <div className="d-flex justify-content-center ">
-          <Row
-            className="justify-content-center pb-5 rowStyle"
-            style={{ display: "flex", gap: "20px" }}
-          >
-            <Button
-              variant="info"
-              className="pt-2 pb-2 order-button-width"
-              onClick={goBack}
+        <Form onSubmit={gotoCheckout}>
+          <div className="d-flex justify-content-center ">
+            <Row className="justify-content-center pb-5 rowStyle">
+              <Col xs={11} md={9}>
+                <div className="table-container">
+                  <RecipientInfo
+                    formData={formData}
+                    setFormData={setFormData}
+                    isDefaultRecipient={isDefaultRecipient}
+                    setIsDefaultRecipient={setIsDefaultRecipient}
+                  />
+                </div>
+              </Col>
+            </Row>
+          </div>
+          <div className="d-flex justify-content-center ">
+            <Row className="justify-content-center rowStyle">
+              <Col md={4} style={{ minWidth: "350px" }}>
+                {alertSuccess && (
+                  <AlertMessage type={"success"} message={successMsg} />
+                )}
+                {alertError && (
+                  <AlertMessage type={"danger"} message={errorMsg} />
+                )}
+              </Col>
+            </Row>
+          </div>
+          <div className="d-flex justify-content-center ">
+            <Row
+              className="justify-content-center pb-5 rowStyle"
+              style={{ display: "flex", gap: "20px" }}
             >
-              <span className="boldText">뒤로</span>
-            </Button>
-            <Button
-              type="submit"
-              variant="success"
-              className="pt-2 pb-2 order-button-width"
-              disabled={
-                !formData.fullName ||
-                !(formData.mbPhone && mbPhoneOk()) ||
-                !formData.addrBasisAddReq.zipcode
-              }
-            >
-              <span className="boldText">결제</span>
-            </Button>
-          </Row>
-        </div>
-      </Form>
-    </div>
+              <Button
+                variant="info"
+                className="pt-2 pb-2 order-button-width"
+                onClick={goBack}
+              >
+                <span className="boldText">뒤로</span>
+              </Button>
+              <Button
+                type="submit"
+                variant="success"
+                className="pt-2 pb-2 order-button-width"
+                disabled={
+                  !formData.fullName ||
+                  !(formData.mbPhone && mbPhoneOk()) ||
+                  !formData.addrBasisAddReq.zipcode
+                }
+              >
+                <span className="boldText">결제</span>
+              </Button>
+            </Row>
+          </div>
+        </Form>
+      </div>
+    </>
   );
 };
 
