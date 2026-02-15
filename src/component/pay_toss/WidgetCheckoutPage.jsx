@@ -22,6 +22,7 @@ function WidgetCheckoutPage() {
     orderData,
     feeData,
     formItems,
+    subTotal,
     source,
     toDefaultRecipient,
     isDefaultRecipient,
@@ -161,6 +162,7 @@ function WidgetCheckoutPage() {
     navigate("/recipient", {
       state: {
         formItems: formItems,
+        subTotal: subTotal,
         source: source,
         recipient: recipient,
         wasDefaultRecipient: isDefaultRecipient,

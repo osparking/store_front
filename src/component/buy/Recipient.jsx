@@ -179,6 +179,7 @@ const Recipient = () => {
         orderData: orderData,
         feeData: feeData,
         formItems: formItems,
+        subTotal: shapeSummary,
         source: source,
         toDefaultRecipient: _.isEqual(recipientDefault, formData),
         isDefaultRecipient: isDefaultRecipient,
