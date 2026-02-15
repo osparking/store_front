@@ -176,7 +176,7 @@ function WidgetCheckoutPage() {
   };
 
   return (
-    <div className="wrapper">
+    <div className="wrapper checkout-page">
       <div className="box_section">
         <OrderDigest
           name={orderData.orderName}

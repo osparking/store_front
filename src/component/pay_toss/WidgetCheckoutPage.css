@@ -587,3 +587,7 @@ textarea {
   width: 100px;
   margin-top: 0;
 }
+
+.checkout-page .box_section {
+  width: 550px;
+}
