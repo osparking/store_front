@@ -576,3 +576,14 @@ textarea {
   flex: 0 0 41.66667%;
   max-width: 41.66667%;
 }
+
+#checkout-buttons {
+  display: flex;
+  gap: 20px; /* Adjust the gap size as needed */
+  justify-content: center;
+}
+
+#checkout-buttons  button{
+  width: 100px;
+  margin-top: 0;
+}
