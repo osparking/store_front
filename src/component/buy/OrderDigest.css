@@ -5,3 +5,8 @@ li {
 li.mt_0 {
   margin-top: 0;
 }
+
+h5.orderDigest {
+  font-family: 'Toss Product Sans', 'Lucida Sans', Verdana;
+  font-weight: bold;
+}
