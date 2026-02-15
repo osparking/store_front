@@ -216,7 +216,7 @@ const Recipient = () => {
 
   const handleConfirm = async () => {
     setShowAddressConfirm(false);
-      
+    navigateToCheckout();  
   }  
 
   return (
