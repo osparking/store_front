@@ -152,6 +152,8 @@ function WidgetCheckoutPage() {
 
   if (address === "") {
     address = getSuffixAfterSpace(recipient.addrBasisAddReq.roadAddress, 20);
+  } else {
+    address = "..." + address;
   }
 
   const navigate = useNavigate();
@@ -191,7 +193,7 @@ function WidgetCheckoutPage() {
           // @docs https://docs.tosspayments.com/sdk/v2/js#widgetsrequestpayment
           onClick={handlePayment}
         >
-          결제 하기
+          결제
         </button>
       </div>
     </div>
