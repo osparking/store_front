@@ -8,18 +8,18 @@ const OrderDigest = ({ name, amount, address, goRecipient }) => {
 
   return (
     <Row className="d-flex justify-content-center">
-      <Col md={6}>
+      <Col xs={12} md={12}>
         {name && (
           <div
-            md={8}
-            className=" ms-5 me-5"
-            style={{ backgroundColor: "ivory" }}
+            md={6}
+            className="small-font rounded"
+            style={{ backgroundColor: "ivory", fontSize: "13px" }}
           >
-            <h5>주문 요약</h5>
-            <ul>
+            <h6>주문 요약</h6>
+            <ul className="ms-4">
               <li>주문 이름 : {name}</li>
               <li className="mt_0">결제 금액 : {amount.toLocaleString()} 원</li>
-              <li className="mt_0">상세 주소 : {address}</li>
+              <li className="mt_0">주소 : {address}</li>
             </ul>
           </div>
         )}
