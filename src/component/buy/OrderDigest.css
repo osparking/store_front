@@ -1,12 +1,18 @@
 li {
   text-align: start;
+  font-size: 15px;
+  font-weight: 400 !important;
 }
 
-li.mt_0 {
-  margin-top: 0;
+h5.orderDigest,
+li {
+  font-family: 'Toss Product Sans', 'Lucida Sans', Verdana !important;
 }
 
 h5.orderDigest {
-  font-family: 'Toss Product Sans', 'Lucida Sans', Verdana;
   font-weight: bold;
+}
+
+ul {
+  margin-left: 120px;
 }
