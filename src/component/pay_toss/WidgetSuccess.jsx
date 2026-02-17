@@ -21,7 +21,7 @@ export function WidgetSuccessPage() {
       const response = await callWithToken(
         "post",
         "/payments/checkAmount",
-        bsOrder
+        bsOrder,
       );
       console.log("response: ", JSON.stringify(response));
 
@@ -32,12 +32,16 @@ export function WidgetSuccessPage() {
         throw { message: "결제 금액 불일치 오류", code: 400 };
       }
 
-      await callWithToken("post", "/payments/confirm", bsOrder);
+      return await callWithToken("post", "/payments/confirm", bsOrder);
     }
 
     confirm()
-      .then(() => {
-        setIsModalOpen(true);
+      .then((response) => {
+        if (response?.status === 208) {
+          console.log("확인용 결제 컴펌입니다.");
+        } else if (response?.status === 200) {
+          setIsModalOpen(true);
+        }
       })
       .catch((error) => {
         navigate(`/fail?code=${error.code}&message=${error.message}`);
