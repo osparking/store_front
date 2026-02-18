@@ -10,7 +10,7 @@ const OrderTable = ({
   changeCarouselShape,
   delSoapItem,
 }) => {
-  function handleShapeChange(e, index) {
+  function handleShapeChange(e, item, index) {
     const currShapes = orderItems.map((item) => item.shape);
     if (currShapes.includes(e.target.value)) {
       alert("중복 선택은 안됩니다. 다른 외형을 선택해주세요.");
@@ -67,7 +67,7 @@ const OrderTable = ({
                 name="shape"
                 value={item.shape}
                 required
-                onChange={(e) => handleShapeChange(e, index)}
+                onChange={(e) => handleShapeChange(e, item, index)}
                 onFocus={(e) => changeCarouselShape(e.target.selectedIndex - 1)}
                 style={{ paddingRight: 0 }}
               >
