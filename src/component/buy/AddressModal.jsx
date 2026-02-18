@@ -204,9 +204,13 @@ const AddressModal = ({
                 <tbody>
                   {addresses &&
                     addresses.map((addr, index) => (
-                      <tr key={index}>
+                      <tr
+                        key={index}
+                        onClick={() => selectAddress(addr)}
+                        style={{ cursor: "pointer" }}
+                      >
                         <td className="small">{addr.zipcode}</td>
-                        <td onClick={() => selectAddress(addr)}>
+                        <td>
                           <p className="above">{addr.roadAddress}</p>
                           <p className="below">{addr.zbunAddress}</p>
                         </td>
