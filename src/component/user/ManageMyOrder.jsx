@@ -33,11 +33,12 @@ const ManageMyOrder = () => {
               </div>
             </Card.Body>
             {showDetail && (
-              <div className="d-flex justify-content-center align-items-center mt-3">
+              <div className="d-flex justify-content-center align-items-center">
                 <Button
                   variant="success"
                   className="showAlways"
                   onClick={() => setShowDetail(false)}
+                  style={{margin: "0 0 1em"}}
                 >
                   주문 목록
                 </Button>
