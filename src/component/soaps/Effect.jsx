@@ -42,6 +42,7 @@ export default function Effect() {
                 src={`${imageRoot}/${ingred.imageFile}`}
                 fluid
                 alt={ingred.name}
+                className="mx-auto d-block"
               />
             </Col>
             <Col xs={12} md={6}>
