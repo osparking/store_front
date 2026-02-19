@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaChevronDown, FaChevronRight } from "react-icons/fa";
 import "./OrderDigest.css";
+import { Col, Row } from "react-bootstrap";
 
 const OrderDigest = ({ name, amount, address }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,11 +29,15 @@ const OrderDigest = ({ name, amount, address }) => {
       </div>
 
       {isOpen && (
-        <ul className="mb-0">
-          <li>주문 이름 : {name}</li>
-          <li className="mt-0">결제 금액 : {amount.toLocaleString()} 원</li>
-          <li className="mt-0">주소 : {address}</li>
-        </ul>
+        <Row className="fit-content">
+          <Col xs={6} md={6} className="mx-auto">
+            <ul className="mb-0">
+              <li>주문 이름 : {name}</li>
+              <li className="mt-0">결제 금액 : {amount.toLocaleString()} 원</li>
+              <li className="mt-0">주소 : {address}</li>
+            </ul>
+          </Col>
+        </Row>
       )}
     </div>
   );
