@@ -390,13 +390,17 @@ input[type="radio"] {
 .service-card {
   flex: 1;
   min-width: 200px;
-  /* Additional styling for service cards */
 }
 
 .home-container {
   max-width: 1200px;
+  margin: auto;
   z-index: 1;
   position: relative;
+  top: 95px;
+  left: 0;
+  height: 85%;
+  overflow-y: auto;
 }
 
 .bumsoap-color-dark {
@@ -424,16 +428,17 @@ input[type="radio"] {
 html,
 body {
   height: 100%;
+  width: 100%;
+  display: flexbox;
 }
 
 #root {
   display: flex;
 }
 
-main {
+main.app {
   flex: 1 0 auto;
-  min-height: 80vh;
-  margin-bottom: 3rem !important;
+  margin-bottom: 1rem !important;
   width: 100%;
 }
 
