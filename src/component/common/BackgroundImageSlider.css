@@ -3,7 +3,8 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  overflow-y: hidden;
 }
 
 .carousel-item img {
@@ -28,13 +29,16 @@
 
 .carousel-control-prev {
   left: 0%;
+  height: 100vh;
 }
+
 .carousel-control-next {
   right: 0%;
+  height: 100%;
 }
 
 .carousel-indicators {
-  bottom: 25px;
+  bottom: 4%;
   z-index: 1 !important;
 }
 
