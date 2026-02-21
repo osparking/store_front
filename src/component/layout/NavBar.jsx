@@ -43,7 +43,7 @@ const NavBar = () => {
   }, []);
 
   return (
-    <Navbar expand="lg" sticky="top" className="nav-bg">
+    <Navbar expand="lg" sticky="top" className="nav-bg start-0 end-0">
       <Container>
         <Navbar.Brand
           to={"/"}

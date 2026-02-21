@@ -58,6 +58,9 @@ h6 {
 
 .nav-bg {
   background-color: var(--color-modal);
+  position: fixed;
+  height: 5%;
+  max-height: 52px;
 }
 
 .nav-link {
