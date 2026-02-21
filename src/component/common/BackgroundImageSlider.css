@@ -1,0 +1,44 @@
+.background-slider {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+.carousel-item img {
+  object-fit: cover;
+  width: 100%;
+  height: 100vh;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 10%;
+  opacity: 0.5 !important;
+  visibility: visible !important;
+
+  pointer-events: auto !important;
+
+  z-index: 1 !important;
+  position: absolute !important;
+
+  background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.carousel-control-prev {
+  left: 0%;
+}
+.carousel-control-next {
+  right: 0%;
+}
+
+.carousel-indicators {
+  bottom: 25px;
+  z-index: 1 !important;
+}
+
+.carousel-inner {
+  bottom: 25px;
+  z-index: -1 !important;
+}
