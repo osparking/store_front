@@ -101,7 +101,7 @@ function App() {
   );
 
   return (
-    <main>
+    <main className="app">
       <RouterProvider router={router} />
     </main>
   );
