@@ -3,7 +3,7 @@ h5 {
 }
 
 .nav-tabs .nav-link.active {
-  color: #FFFFFF;
+  color: #dbcaca;
   background-color: rgb(1, 58, 67);
   font-weight: bold;
 }
@@ -14,10 +14,6 @@ h5 {
 
 .nav-tabs .nav-link:hover {
   color: whitesmoke;
-}
-
-.card {
-  margin: 0 0 20px;
 }
 
 .table td,
