@@ -7,7 +7,7 @@ import "./RootLayout.css";
 
 const RootLayout = () => {
   return (
-    <main>
+    <main className="main-content">
       <NavBar />
       <Toaster
         position="top-center"
@@ -24,7 +24,7 @@ const RootLayout = () => {
       />
 
       <BackgroundImageSlider />
-      <div className="main-content">
+      <div>
         <Outlet />
       </div>
       <Footer />
