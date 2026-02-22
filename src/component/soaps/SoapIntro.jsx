@@ -4,8 +4,8 @@ import "../../index.css";
 import BumShapes from "./BumShapes";
 import Effect from "./Effect";
 import Ingredient from "./Ingredient";
-import "./soapIntro.css";
 import ProduceSteps from "./ProduceSteps";
+import "./soapIntro.css";
 
 const SoapIntro = () => {
   const handleSoapIntroTabSelect = (key) => {
@@ -17,7 +17,11 @@ const SoapIntro = () => {
   );
 
   return (
-    <Container fluid className="home-container soapIntroduction">
+    <Container
+      fluid
+      className="home-container"
+      style={{ top: "62px", height: "95%" }}
+    >
       <Tabs
         defaultActiveKey={currTabKey}
         className="tabBackgroundThick tabFix contentHolyCentered"
