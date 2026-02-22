@@ -1,7 +1,7 @@
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import "../../App.css";
-import "./ProduceSteps.css";
 import Produce14steps from "./Produce14steps";
+import "./ProduceSteps.css";
 
 const ProduceSteps = () => {
   const stepsInfo = [
@@ -253,59 +253,60 @@ const ProduceSteps = () => {
   const imageRoot = "/ingred";
 
   return (
-    <Container fluid className="home-container mt-5">
-      <Row className="justify-content-center mt-3 mb-5">
-        <Col md={8} className="mt">
-          <Card>
-            <Card.Body className="pb-0 mb-3">
-              <h2 className="mb-1">
-                <strong>제조 절차</strong>
-              </h2>
-              <table className="stepInfo mt-3">
-                <thead>
-                  <tr>
-                    <td className="WARNING h4">경고</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <div className="ms-2 me-2">
-                        작업자는 비누 생산 절차 중{" "}
-                        <span className="WARNING">가성소다수</span>
-                        (별칭 <span className="WARNING">양잿물</span>)를 만들어
-                        사용하므로, 작업 중 심한 화상 등 부작용 방지를 위하여,
-                        지정된 장비를 착용하고, 작업 지침을 준수해야 된다.
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <table className="stepInfo mt-3">
-                <thead>
-                  <tr>
-                    <td className="INFO h4">적용 범위</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="INFO">
-                      <div className="ms-2 me-2">
-                        여기서 설명하는 것은 범이비누 104 개를 48 시간 주기로
-                        제조하는 절차이다. <br />
-                        <span className="WARNING">주의</span>- 3~11 단계는
-                        비누의 어성초 및 율무씨 분말 층에 대하여 각각 수행한다.
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <Produce14steps stepsInfo={stepsInfo} keepOthersOpen={true} />
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+    <Row
+      className="justify-content-center mt-2 mb-2"
+      style={{ height: "80vh" }}
+    >
+      <Col md={8}>
+        <Card style={{ minWidth: "620px" }}>
+          <Card.Body className="pb-0 mb-3">
+            <h2 className="mb-1">
+              <strong>제조 절차</strong>
+            </h2>
+            <table className="stepInfo mt-3">
+              <thead>
+                <tr>
+                  <td className="WARNING h4">경고</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div className="ms-2 me-2">
+                      작업자는 비누 생산 절차 중{" "}
+                      <span className="WARNING">가성소다수</span>
+                      (별칭 <span className="WARNING">양잿물</span>)를 만들어
+                      사용하므로, 작업 중 심한 화상 등 부작용 방지를 위하여,
+                      지정된 장비를 착용하고, 작업 지침을 준수해야 된다.
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table className="stepInfo mt-3">
+              <thead>
+                <tr>
+                  <td className="INFO h4">적용 범위</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="INFO">
+                    <div className="ms-2 me-2">
+                      여기서 설명하는 것은 범이비누 104 개를 48 시간 주기로
+                      제조하는 절차이다. <br />
+                      <span className="WARNING">주의</span>- 3~11 단계는 비누의
+                      어성초 및 율무씨 분말 층에 대하여 각각 수행한다.
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <Produce14steps stepsInfo={stepsInfo} keepOthersOpen={true} />
+          </Card.Body>
+        </Card>
+      </Col>
+    </Row>
   );
 };
 
