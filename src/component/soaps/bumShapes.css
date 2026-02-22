@@ -103,7 +103,7 @@ button {
 .tabFixOver {
   position: sticky !important;
   z-index: 200;
-  top: 111px !important;
+  top: 50px !important;
   margin-left: auto;
   margin-right: auto;
   border-bottom: "2px solid #dee2e6";
