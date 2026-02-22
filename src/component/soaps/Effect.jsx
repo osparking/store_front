@@ -69,22 +69,23 @@ export default function Effect() {
   ));
 
   return (
-    <Container fluid className="home-container mt-5">
-      <Row className="justify-content-center mt-3 mb-5">
-        <Col md={8}>
-          <Card>
-            <Card.Body>
-              <h2 className="mb-1">
-                <strong> 비누 효능</strong>
-                <br />
-                <span style={{ fontSize: "0.6em" }}>(재료 유래 효능)</span>
-              </h2>
-              <hr />
-              <ul className="noBullet">{listItems}</ul>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+    <Row
+      className="justify-content-center mt-2 mb-2"
+      style={{ height: "80vh" }}
+    >
+      <Col md={8}>
+        <Card style={{ minWidth: "620px" }}>
+          <Card.Body>
+            <h2 className="mb-1">
+              <strong> 비누 효능</strong>
+              <br />
+              <span style={{ fontSize: "0.6em" }}>(재료 유래 효능)</span>
+            </h2>
+            <hr />
+            <ul className="noBullet">{listItems}</ul>
+          </Card.Body>
+        </Card>
+      </Col>
+    </Row>
   );
 }
