@@ -1,12 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Cell,
-  Legend,
-  Pie,
-  PieChart,
-  ResponsiveContainer,
-  Tooltip,
-} from "recharts";
+import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
 import NoDataExists from "../../common/NoDataExists";
 import useColorMapping from "../../hook/ColorMapping";
 import { getShapeCount } from "../../user/UserService";
@@ -38,38 +31,37 @@ const SoapsByShape = ({ totalSoaps }) => {
       >
         비누 외형 비중
       </h5>
-      {shapeCount && (
-        <ResponsiveContainer
-          className="userChart"
+
+      {totalSoaps === 0 ? (
+        <NoDataExists dataType={""} />
+      ) : (
+        <PieChart
+          width={328}
+          height={238}
+          className="p-3"
           style={{ backgroundColor: "#d8aab8ff" }}
         >
-          {totalSoaps === 0 ? (
-            <NoDataExists dataType={""} />
-          ) : (
-            <PieChart className="p-3" style={{ backgroundColor: "#d8aab8ff" }}>
-              <Pie
-                data={shapeCount}
-                dataKey="count"
-                nameKey="shapeLabel"
-                label={({ shapeLabel, count, percent }) =>
-                  `${shapeLabel}: ${Math.trunc(count)} (${(
-                    percent * 100
-                  ).toFixed(1)}%)`
-                }
-                outerRadius={45}
-                fill="#8884d8"
-              >
-                {shapeCount.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={colors[entry.shapeLabel]} />
-                ))}
-              </Pie>
-              <Tooltip
-                formatter={(value, name) => [`${Math.trunc(value)}개`, name]}
-              />
-              <Legend layout="horizontal" />
-            </PieChart>
-          )}
-        </ResponsiveContainer>
+          <Pie
+            data={shapeCount}
+            dataKey="count"
+            nameKey="shapeLabel"
+            label={({ shapeLabel, count, percent }) =>
+              `${shapeLabel}: ${Math.trunc(count)} (${(percent * 100).toFixed(
+                1,
+              )}%)`
+            }
+            outerRadius={45}
+            fill="#8884d8"
+          >
+            {shapeCount.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={colors[entry.shapeLabel]} />
+            ))}
+          </Pie>
+          <Tooltip
+            formatter={(value, name) => [`${Math.trunc(value)}개`, name]}
+          />
+          <Legend layout="horizontal" />
+        </PieChart>
       )}
     </>
   );
