@@ -74,7 +74,7 @@ export default function Effect() {
       style={{ height: "80vh" }}
     >
       <Col md={8}>
-        <Card style={{ minWidth: "620px" }}>
+        <Card>
           <Card.Body>
             <h2 className="mb-1">
               <strong> 비누 효능</strong>
