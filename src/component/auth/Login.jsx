@@ -52,7 +52,7 @@ const Login = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   const actLogin = async (e) => {
     e.preventDefault();
     if (!credentials.email || !credentials.password) {
@@ -170,7 +170,7 @@ const Login = () => {
   };
 
   return (
-    <Container fluid className="mt-5">
+    <Container fluid style={{ position: "relative", top: "110px" }}>
       {showCodeModal && (
         <CodeEntryModal
           show={showCodeModal}
@@ -180,9 +180,7 @@ const Login = () => {
         />
       )}
       <Row className="justify-content-center">
-        <Col style={{ minWidth: "500px", maxWidth: "500px" }}>
-          {loginEntryCard()}
-        </Col>
+        <Col style={{ maxWidth: "500px" }}>{loginEntryCard()}</Col>
       </Row>
     </Container>
   );
