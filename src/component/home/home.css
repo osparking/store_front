@@ -1,13 +1,27 @@
 .button-div {
-  bottom: 15px;
-  position:sticky;
+  bottom: 0;
+  position: sticky;
   align-items: center;
   width: 100%;
 }
 
-.button-div > button {
+.button-div>button {
   margin-top: auto;
-  background-color:#F5D463;
+  background-color: #F5D463;
   font-weight: bold;
   color: navy;
+}
+
+.homeRow.row {
+  height: 90%;
+}
+
+.homeRow .homeCol {
+  height: 90%;
+}
+
+.homeCol .card-body {
+  max-height: 350px;
+  height: 50vh;
+  overflow: auto !important;
 }
