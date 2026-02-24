@@ -24,7 +24,7 @@ const RootLayout = () => {
       />
 
       <BackgroundImageSlider />
-      <div>
+      <div className="content-container">
         <Outlet />
       </div>
       <Footer />
