@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
 import { Link } from "react-router-dom";
 import "../../index.css";
@@ -71,10 +71,13 @@ export default function Effect() {
   return (
     <Row
       className="justify-content-center mt-2 mb-2"
-      style={{ height: "80vh" }}
+      style={{ height: "77vh" }}
     >
-      <Col md={8}>
-        <Card>
+      <Col xs={12} md={10} lg={9} style={{ overflow: "auto", height: "100%" }}>
+        <Card
+          style={{ maxWidth: "1030px", height: "fit-content" }}
+          className="mx-auto"
+        >
           <Card.Body>
             <h2 className="mb-1">
               <strong> 비누 효능</strong>
