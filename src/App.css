@@ -397,10 +397,9 @@ input[type="radio"] {
   margin: auto;
   z-index: 1;
   position: relative;
-  top: 95px;
+  top: 80px;
   left: 0;
   height: 85%;
-  overflow-y: auto;
 }
 
 .bumsoap-color-dark {
@@ -427,9 +426,8 @@ input[type="radio"] {
 
 html,
 body {
-  height: 100%;
+  height: 100vh;
   width: 100%;
-  display: flexbox;
 }
 
 #root {
@@ -438,8 +436,8 @@ body {
 
 main.app {
   flex: 1 0 auto;
-  margin-bottom: 1rem !important;
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
 }
 
 footer {
