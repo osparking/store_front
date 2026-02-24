@@ -30,9 +30,9 @@ const Home = () => {
   };
 
   return (
-    <Container fluid className="home-container mt-2 mb-2">
-      <Row>
-        <Col md={6}>
+    <Container fluid className="home-container mb-2">
+      <Row className="justify-content-center homeRow">
+        <Col md={6} className="homeCol">
           <Card>
             <Card.Img
               variant="top"
@@ -60,7 +60,7 @@ const Home = () => {
                 수제비누와 마찬가지로 제 허벅지 피부 가려움증을 거의 해소시켜
                 주었습니다.
               </Card.Text>
-              <div className="text-center mt-3 button-div">
+              <div className="text-center mt-1 button-div">
                 <Button variant="outline-info" onClick={moveToSoapIntro}>
                   범이비누 소개 보기
                 </Button>
@@ -68,7 +68,7 @@ const Home = () => {
             </Card.Body>
           </Card>
         </Col>
-        <Col md={6}>
+        <Col md={6} className="homeCol">
           <Card>
             <Card.Img
               variant="top"
@@ -76,10 +76,10 @@ const Home = () => {
               alt="범이비누 정보"
               className="hero-image"
             />
-            <h6 className="text-center mb-3 bumsoap-color">
-              숙성 중인 범이비누
-            </h6>
             <Card.Body>
+              <h6 className="text-center mb-3 bumsoap-color">
+                숙성 중인 범이비누
+              </h6>
               <Card.Title>관련 정보 목록</Card.Title>
               <ListGroup className="services-list">
                 <ListGroup.Item action onClick={gotoIngredients}>
@@ -97,7 +97,7 @@ const Home = () => {
                 자동화 등을 통하여 비누 가격이 내려갈 수 있으며, 에센셜 향오일을
                 사용하는 등의 품질 고급화 및 다양화가 가능할 수 있습니다.
               </Card.Text>
-              <div className="text-center mt-3 button-div">
+              <div className="text-center mt-1 button-div">
                 <Button variant="outline-info" onClick={moveToBuySoap}>
                   범이비누 사러가기
                 </Button>
