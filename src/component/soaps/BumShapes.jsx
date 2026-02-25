@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { Card, Col, Container, Row, Tab, Tabs } from "react-bootstrap";
+import { Card, Col, Container, Row, Tab, Table, Tabs } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 import "./bumShapes.css";
 import { bgColor, indColor, soapImages } from "./soapImages.js";
 import SoapImages from "./SoapImages.jsx";
-import { useLocation } from "react-router-dom";
 
 const BumShapes = () => {
   const normalSoaps = soapImages.filter((soap) => soap.shape === "normal");
@@ -43,9 +43,14 @@ const BumShapes = () => {
   }, [location.state]);
 
   return (
-    <Row className="justify-content-center mt-3" style={{ height: "80vh" }}>
-      <Col md={8}>
-        <Card style={{ minWidth: "620px", height: "fit-content" }}>
+    <Row className="justify-content-center" style={{ height: "77vh" }}>
+      <Col
+        xs={12}
+        md={10}
+        lg={9}
+        style={{ maxWidth: "800px", overflow: "auto", height: "100%" }}
+      >
+        <Card style={{ height: "fit-content" }}>
           <Card.Body>
             <h2 className="mb-1">
               <strong>비누 외형</strong>
@@ -72,63 +77,84 @@ const BumShapes = () => {
                 있습니다.
               </li>
             </ul>
-            <table className="stepInfo mt-3">
-              <caption>
-                <ul className="billiard ms-3">
-                  <li className="mt-0">
-                    <strong>
-                      <small>
-                        변경형 향오일 비누에 소다회가 끼는 현상은 거의
-                        없었습니다. 이는 변경 향오일이 숙성 중의 비누 온도를
-                        다소 높여주는 것이 원인일 거라고 추정합니다.
-                      </small>
-                    </strong>
-                  </li>
-                </ul>
-              </caption>
-              <thead>
-                <tr>
-                  <th className="">구분</th>
-                  <th className="">비자나무 향오일</th>
-                  <th className="">소다회 생성 여부</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <strong>
-                      <button onClick={() => shapeClicked("normalSoap")}>
-                        보통비누
-                      </button>
-                    </strong>
-                  </td>
-                  <td>기본형</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>
-                      <button onClick={() => shapeClicked("sWhiteSoap")}>
-                        백설공주
-                      </button>
-                    </strong>
-                  </td>
-                  <td>기본형</td>
-                  <td>생성</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>
-                      <button onClick={() => shapeClicked("maejooSoap")}>
-                        메주비누
-                      </button>
-                    </strong>
-                  </td>
-                  <td>변경형</td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
+
+            <Container>
+              <Row style={{ justifyContent: "center" }}>
+                <Col xs={12} md={10} lg={9} xl={8}>
+                  <Table
+                    id="shapePropertTable"
+                    striped
+                    bordered
+                    hover
+                    className="stepInfo mt-3"
+                    responsive
+                    style={{ tableLayout: "fixed" }}
+                  >
+                    <colgroup>
+                      <col style={{ width: "28%" }} />
+                      <col style={{ width: "36%" }} />
+                      <col style={{ width: "36%" }} />
+                    </colgroup>
+                    <caption>
+                      <ul className="billiard ms-3">
+                        <li className="mt-0">
+                          <strong>
+                            <small>
+                              변경형 향오일 비누에 소다회가 끼는 현상은 거의
+                              없었습니다. 이는 변경 향오일이 숙성 중의 비누
+                              온도를 다소 높여주는 것이 원인일 거라고
+                              추정합니다.
+                            </small>
+                          </strong>
+                        </li>
+                      </ul>
+                    </caption>
+                    <thead>
+                      <tr>
+                        <th className="">구분</th>
+                        <th className="">비자나무 향오일</th>
+                        <th className="">소다회 생성 여부</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="shapeLink">
+                          <strong>
+                            <button onClick={() => shapeClicked("normalSoap")}>
+                              보통비누
+                            </button>
+                          </strong>
+                        </td>
+                        <td>기본형</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td className="shapeLink">
+                          <strong>
+                            <button onClick={() => shapeClicked("sWhiteSoap")}>
+                              백설공주
+                            </button>
+                          </strong>
+                        </td>
+                        <td>기본형</td>
+                        <td>생성</td>
+                      </tr>
+                      <tr>
+                        <td className="shapeLink">
+                          <strong>
+                            <button onClick={() => shapeClicked("maejooSoap")}>
+                              메주비누
+                            </button>
+                          </strong>
+                        </td>
+                        <td>변경형</td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </Col>
+              </Row>
+            </Container>
             <Tabs
               id="soapImages"
               ref={imageRowRef}
