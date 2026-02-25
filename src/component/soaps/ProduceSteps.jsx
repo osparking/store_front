@@ -255,10 +255,13 @@ const ProduceSteps = () => {
   return (
     <Row
       className="justify-content-center mt-2 mb-2"
-      style={{ height: "80vh" }}
+      style={{ height: "77vh" }}
     >
-      <Col md={8}>
-        <Card style={{ minWidth: "620px" }}>
+      <Col xs={12} md={12} lg={8} style={{ overflow: "auto", height: "100%" }}>
+        <Card
+          style={{ maxWidth: "1030px", height: "fit-content" }}
+          className="mx-auto"
+        >
           <Card.Body className="pb-0 mb-3">
             <h2 className="mb-1">
               <strong>제조 절차</strong>
