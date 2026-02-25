@@ -35,7 +35,6 @@
 .accordion-content td {
   height: 0;
   padding: 0 !important;
-  overflow: hidden;
   border: none !important;
 }
 
@@ -49,10 +48,6 @@ button {
   border: 0;
 }
 
-.titleCol {
-  width: 250px;
-}
-
 th {
   border: 1px solid black;
   color: #0000FF !important;
@@ -64,4 +59,8 @@ th {
 
 .sumRow td {
   color: #0000FF !important;
+}
+
+#ingredientTable img {
+  width: 175px;
 }
