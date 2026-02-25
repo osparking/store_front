@@ -24,7 +24,7 @@ const SoapIntro = () => {
     >
       <Tabs
         defaultActiveKey={currTabKey}
-        className="tabBackgroundThick tabFix contentHolyCentered"
+        className="tabBackgroundThick contentHolyCentered"
         onSelect={handleSoapIntroTabSelect}
       >
         <Tab eventKey="effect" title={<h5 className="tabLabel">효능 소개</h5>}>
