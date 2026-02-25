@@ -110,11 +110,11 @@ const IngredTabAccord = ({ ingAllData, keepOthersOpen }) => {
   });
 
   return (
-    <Table striped hover className="mt-0">
+    <Table striped hover className="mt-0" id="ingredientTable">
       <thead>
         <tr className="text-center">
           <th>#</th>
-          <th className="titleCol">재료명</th>
+          <th>재료명</th>
           <th>중량(g)</th>
           <th>비율(%)</th>
           <th>비고/효능</th>
