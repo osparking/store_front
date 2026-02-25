@@ -20,7 +20,7 @@ const SoapIntro = () => {
     <Container
       fluid
       className="home-container"
-      style={{ top: "62px", height: "95%" }}
+      style={{ top: "62px" }}
     >
       <Tabs
         defaultActiveKey={currTabKey}
