@@ -9,3 +9,9 @@ table td.status-confirmed {
 table td.status-default {
   background-color: white;
 }
+
+.order-table-container {
+  width: 100%;
+  height: 53vh;
+  overflow: auto;
+}
