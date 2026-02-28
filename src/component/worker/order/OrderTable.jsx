@@ -3,7 +3,7 @@ import { Table } from "react-bootstrap";
 import "../../../App.css";
 import { fetchOrderPage, getOrderStatusList } from "../../buy/orderService";
 import Paginator from "../../common/Paginator";
-import { formatDate } from "../../util/utilities";
+import { formatDate, getRecordRange } from "../../util/utilities";
 import OrderStatus from "./OrderStatus";
 import "./OrderTable.css";
 
@@ -66,17 +66,15 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
 
   return (
     <div className="mt-3">
-      <p className="text-center mb-4">
-        주문 총 {orderPage.totalElements} 건 중, {indexOfFirst + 1} ~{" "}
-        {Math.min(idxLastPlus1, orderPage.totalElements)}번째 주문
+      <p className="text-center mb-1">
+        {getRecordRange(orderPage, indexOfFirst, idxLastPlus1, "주문")}
       </p>
-
-      <div className="table-container">
-        <Table bordered hover striped>
+      <div className="order-table-container">
+        <Table bordered hover striped style={{ minWidth: "730px" }}>
           <thead>
             <tr>
-              <th>주문일시</th>
-              <th>상태</th>
+              <th className="minDateWidth">주문일시</th>
+              <th style={{ minWidth: "125px" }}>상태</th>
               <th>주문명칭</th>
               <th>고객명</th>
               <th>수신자</th>
