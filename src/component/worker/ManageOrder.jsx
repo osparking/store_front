@@ -8,8 +8,8 @@ const ManageOrder = () => {
   const [detailId, setDetailId] = useState(0);
 
   return (
-    <main>
-      <h5 className="chart-title">주문 관리</h5>
+    <>
+      <h5 className="chart-title" style={{color: "white"}}>주문 관리</h5>
       {showDetail ? (
         <OrderDetail
           detailId={detailId}
@@ -19,7 +19,7 @@ const ManageOrder = () => {
       ) : (
         <OrderTable setShowDetail={setShowDetail} setDetailId={setDetailId} />
       )}
-    </main>
+    </>
   );
 };
 
