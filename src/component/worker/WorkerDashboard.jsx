@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { LuPanelLeftOpen } from "react-icons/lu";
-import ManageOrder from "./ManageOrder";
+import { Container } from "react-bootstrap";
 import ManageIngredient from "./ManageIngredient";
+import ManageOrder from "./ManageOrder";
+import "./WorkerDashboard.css";
 import WorkerSideBar from "./WorkerSideBar";
 
 const WorkerDashboard = () => {
   const [workerTab, setWorkerTab] = useState(
     localStorage.getItem("WORKER_TAB") || "manageOrder",
   );
-  
+
   const tabClicked = (tab) => {
     setWorkerTab(tab);
     localStorage.setItem("WORKER_TAB", tab);
@@ -19,26 +20,19 @@ const WorkerDashboard = () => {
   };
 
   return (
-    <main className="admin-body">
+    <Container fluid className="home-container worker-dashboard">
       <div className="grid-container grid-columns">
-        {openSidebar ? (
-          <WorkerSideBar
-            openSidebar={openSidebar}
-            toggleSidebar={toggleSidebar}
-            tabClicked={tabClicked}
-          />
-        ) : (
-          <span className="icon-header" onClick={toggleSidebar}>
-            <LuPanelLeftOpen />
-          </span>
-        )}
-
-        <div className="main-container">
+        <WorkerSideBar
+          openSidebar={openSidebar}
+          toggleSidebar={toggleSidebar}
+          tabClicked={tabClicked}
+        />
+        <div className="main-container worker" style={{ paddingTop: 0 }}>
           {workerTab === "manageOrder" && <ManageOrder />}
           {workerTab === "manageIngredient" && <ManageIngredient />}
         </div>
       </div>
-    </main>
+    </Container>
   );
 };
 
