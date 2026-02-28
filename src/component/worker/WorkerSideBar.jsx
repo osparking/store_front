@@ -1,19 +1,18 @@
-import { BsX } from "react-icons/bs";
 import { GiOlive } from "react-icons/gi";
-import { LuComponent } from "react-icons/lu";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
+import { LuComponent } from "react-icons/lu";
 
 const WorkerSideBar = ({ openSidebar, toggleSidebar, tabClicked }) => {
   return (
-    <aside id="sidebar" className={openSidebar ? "sidebar-responsive" : ""}>
+    <aside
+      id="sidebar"
+      className={openSidebar ? "sidebar-responsive" : ""}
+    >
       <div className="sidebar-title">
         <div className="sidebar-brand">
           <GiOlive className="icon-header" />
           직원 직무
         </div>
-        <span className="icon close-icon" onClick={toggleSidebar}>
-          <BsX />
-        </span>
       </div>
       <ul className="sidebar-list">
         <li
