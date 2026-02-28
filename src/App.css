@@ -1,12 +1,12 @@
 /* Start Admin Dashboard */
 
-.admin-body {
-  margin: 0;
+.home-container.worker-dashboard {
   background-color: rgba(13, 14, 14, 0.947);
   color: var(--color-title);
   font-family: 'GmarketSans', 'Montserrat', sans-serif;
-  height: 100vh;
-
+  height: 81vh;
+  top: 62px;
+  padding: 0;
 }
 
 .wraper {
