@@ -126,8 +126,13 @@ const ManageIngredient = () => {
     }
   }, [filtered]);
 
+  const changePage = (pageNo) => {
+    localStorage.setItem("CURR_INGRE_PAGE", pageNo);
+    setCurrIngrePage(pageNo);
+  };
+
   useEffect(() => {
-    localStorage.setItem("CURR_INGRE_PAGE", currIngrePage);
+    console.log(selectedName || "전 재료", currIngrePage, "p쪽");
   }, [currIngrePage]);
 
   useEffect(() => {
@@ -340,7 +345,7 @@ const ManageIngredient = () => {
         totalItems={filtered.length}
         totalPages={totalPages}
         currPage={currIngrePage}
-        setCurrPage={(pageNo) => setCurrIngrePage(pageNo)}
+        setCurrPage={(pageNo) => changePage(pageNo)}
       />
     </div>
   );
