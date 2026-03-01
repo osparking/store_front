@@ -16,6 +16,7 @@ import BsAlertHook from "../hook/BsAlertHook";
 import DeleteConfirmModal from "../modal/DeleteConfirmModal";
 import IngreDataModal from "./IngreDataModal";
 import { deleteStoredIngre, getIngredientList } from "./WorkerService";
+import "./ManageIngredient.css";
 
 const ManageIngredient = () => {
   const [ingreList, setIngreList] = useState([]);
@@ -226,79 +227,81 @@ const ManageIngredient = () => {
           {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
         </Col>
       </Row>
-      <Table bordered hover striped>
-        <thead>
-          <tr>
-            <th>순번</th>
-            <th>재료명</th>
-            <th>입고일</th>
-            <th>구매처</th>
-            <th>용량</th>
-            <th>단위</th>
-            <th>수량</th>
-            <th>사용기한</th>
-            <th>입력일시</th>
-            <th>직원명</th>
-            <th colSpan={2}>작업</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currIngres.map((ingredient, index) => (
-            <tr key={index}>
-              <td>{index + 1}</td>
-              <td>{ingredient.ingreName}</td>
-              <td>{ingredient.storeDate}</td>
-              <td>
-                {isValidUrl(ingredient.buyPlace) ? (
-                  <Link to={ingredient.buyPlace} target="_blank">
-                    {getDomain(ingredient.buyPlace)}
-                  </Link>
-                ) : (
-                  ingredient.buyPlace
-                )}
-              </td>
-              <td>{ingredient.quantity}</td>
-              <td>{ingredient.packunit}</td>
-              <td>{ingredient.count}</td>
-              <td>{ingredient.expireDate}</td>
-              <td>{ingredient.addTime}</td>
-              <td>{ingredient.workerName}</td>
-              <td>
-                <OverlayTrigger
-                  overlay={
-                    <Tooltip id={`tooltip-view-${index}`}>정보 편집</Tooltip>
-                  }
-                >
-                  <Button
-                    size="sm"
-                    style={{ backgroundColor: "transparent", border: "none" }}
-                    onClick={() => openWithRow(ingredient)}
-                  >
-                    <BsPencilFill className="text-success" />
-                  </Button>
-                </OverlayTrigger>
-              </td>
-              <td>
-                <OverlayTrigger
-                  overlay={
-                    <Tooltip id={`tooltip-view-${index}`}>
-                      입고 기록 삭제
-                    </Tooltip>
-                  }
-                >
-                  <Link
-                    to={"#"}
-                    className="text-danger"
-                    onClick={() => handleShowDelModal(ingredient.id)}
-                  >
-                    <BsTrashFill />
-                  </Link>
-                </OverlayTrigger>
-              </td>
+      <div className="ingredient-table-container">
+        <Table bordered hover striped>
+          <thead>
+            <tr>
+              <th>순번</th>
+              <th>재료명</th>
+              <th>입고일</th>
+              <th>구매처</th>
+              <th>용량</th>
+              <th>단위</th>
+              <th>수량</th>
+              <th>사용기한</th>
+              <th>입력일시</th>
+              <th>직원명</th>
+              <th colSpan={2}>작업</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {currIngres.map((ingredient, index) => (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{ingredient.ingreName}</td>
+                <td>{ingredient.storeDate}</td>
+                <td>
+                  {isValidUrl(ingredient.buyPlace) ? (
+                    <Link to={ingredient.buyPlace} target="_blank">
+                      {getDomain(ingredient.buyPlace)}
+                    </Link>
+                  ) : (
+                    ingredient.buyPlace
+                  )}
+                </td>
+                <td>{ingredient.quantity}</td>
+                <td>{ingredient.packunit}</td>
+                <td>{ingredient.count}</td>
+                <td>{ingredient.expireDate}</td>
+                <td>{ingredient.addTime}</td>
+                <td>{ingredient.workerName}</td>
+                <td>
+                  <OverlayTrigger
+                    overlay={
+                      <Tooltip id={`tooltip-view-${index}`}>정보 편집</Tooltip>
+                    }
+                  >
+                    <Button
+                      size="sm"
+                      style={{ backgroundColor: "transparent", border: "none" }}
+                      onClick={() => openWithRow(ingredient)}
+                    >
+                      <BsPencilFill className="text-success" />
+                    </Button>
+                  </OverlayTrigger>
+                </td>
+                <td>
+                  <OverlayTrigger
+                    overlay={
+                      <Tooltip id={`tooltip-view-${index}`}>
+                        입고 기록 삭제
+                      </Tooltip>
+                    }
+                  >
+                    <Link
+                      to={"#"}
+                      className="text-danger"
+                      onClick={() => handleShowDelModal(ingredient.id)}
+                    >
+                      <BsTrashFill />
+                    </Link>
+                  </OverlayTrigger>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
       <IngreDataModal
         show={showModal}
         closer={() => setShowModal(false)}
