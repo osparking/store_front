@@ -187,7 +187,8 @@ const ManageIngredient = () => {
   };
 
   return (
-    <main>
+    <div>
+      <h5 className="chart-title">재료 관리</h5>
       <DeleteConfirmModal
         show={showDelModal}
         onHide={() => setShowDelModal(false)}
@@ -312,7 +313,7 @@ const ManageIngredient = () => {
         currPage={currIngrePage}
         setCurrPage={setCurrIngrePage}
       />
-    </main>
+    </div>
   );
 };
 
