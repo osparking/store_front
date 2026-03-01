@@ -93,7 +93,7 @@ const ManageIngredient = () => {
   const [filtered, setFiltered] = useState([]);
 
   const [currIngrePage, setCurrIngrePage] = useState(
-    localStorage.getItem("CURR_INGRE_PAGE") || 1,
+    parseInt(localStorage.getItem("CURR_INGRE_PAGE")) || 1,
   );
 
   useEffect(() => {
@@ -115,15 +115,14 @@ const ManageIngredient = () => {
 
     const totalPages = Math.ceil(filtered.length / ingresPerPage);
     setTotalPages(totalPages);
-    const currPage = localStorage.getItem("CURR_INGRE_PAGE");
     // 현재 페이지가 총 페이지를 초과해도, 총 페이지를 현재 페이지에 배정
-    if (ingreAdded || totalPages < currPage) {
+    if (ingreAdded || totalPages < currIngrePage) {
       setCurrIngrePage(totalPages > 0 ? totalPages : 1);
       if (ingreAdded) {
         setIngreAdded(false);
       }
     } else {
-      setCurrIngrePage(currPage);
+      setCurrIngrePage(currIngrePage);
     }
   }, [filtered]);
 
