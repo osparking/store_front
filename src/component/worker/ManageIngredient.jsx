@@ -228,7 +228,26 @@ const ManageIngredient = () => {
         </Col>
       </Row>
       <div className="ingredient-table-container">
-        <Table bordered hover striped>
+        <Table
+          bordered
+          hover
+          striped
+          style={{ tableLayout: "fixed", minWidth: "730px" }}
+        >
+          <colgroup>
+            <col style={{ width: "6%" }} />
+            <col style={{ width: "9%" }} />
+            <col style={{ width: "9%" }} />
+            <col style={{ width: "14%" }} />
+            <col style={{ width: "6%" }} />
+            <col style={{ width: "6%" }} />
+            <col style={{ width: "6%" }} />
+            <col style={{ width: "11%" }} />
+            <col style={{ width: "14%" }} />
+            <col style={{ width: "9%" }} />
+            <col style={{ width: "5%" }} />
+            <col style={{ width: "5%" }} />
+          </colgroup>
           <thead>
             <tr>
               <th>순번</th>
