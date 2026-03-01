@@ -34,6 +34,7 @@ const ManageIngredient = () => {
   );
 
   const changeSelectedName = (e) => {
+    localStorage.setItem("INGRE_NAME", e);
     setSelectedName(e);
   };
 
@@ -145,7 +146,7 @@ const ManageIngredient = () => {
     } else {
       setFiltered(ingreList);
     }
-  }, [ingreList, selectedName]);
+  }, [ingreList]);
 
   const [ingresPerPage] = useState(5);
   const indexOfLastIngre = currIngrePage * ingresPerPage;
@@ -216,7 +217,7 @@ const ManageIngredient = () => {
             label={"재료명"}
             options={ingreNames}
             selectedOption={selectedName}
-            onOptionSelection={(e) => setSelectedName(e)}
+            onOptionSelection={(e) => changeSelectedName(e)}
             onClearFilter={handleClearFilter}
           />
         </Col>
