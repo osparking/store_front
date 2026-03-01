@@ -15,8 +15,8 @@ import Paginator from "../common/Paginator";
 import BsAlertHook from "../hook/BsAlertHook";
 import DeleteConfirmModal from "../modal/DeleteConfirmModal";
 import IngreDataModal from "./IngreDataModal";
-import { deleteStoredIngre, getIngredientList } from "./WorkerService";
 import "./ManageIngredient.css";
+import { deleteStoredIngre, getIngredientList } from "./WorkerService";
 
 const ManageIngredient = () => {
   const [ingreList, setIngreList] = useState([]);
