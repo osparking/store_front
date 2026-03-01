@@ -25,11 +25,11 @@ const ManageIngredient = () => {
   const [ingreUpdated, setIngreUpdated] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const ingreNames = Array.from(
-    new Set(ingreList.map((ingre) => ingre.ingreName))
+    new Set(ingreList.map((ingre) => ingre.ingreName)),
   );
 
   const [selectedName, setSelectedName] = useState(
-    localStorage.getItem("INGRE_NAME") || ""
+    localStorage.getItem("INGRE_NAME") || "",
   );
 
   const changeSelectedName = (e) => {
@@ -92,7 +92,7 @@ const ManageIngredient = () => {
   const [filtered, setFiltered] = useState([]);
 
   const [currIngrePage, setCurrIngrePage] = useState(
-    localStorage.getItem("CURR_INGRE_PAGE") || 1
+    localStorage.getItem("CURR_INGRE_PAGE") || 1,
   );
 
   useEffect(() => {
@@ -126,7 +126,7 @@ const ManageIngredient = () => {
     localStorage.setItem("INGRE_NAME", selectedName);
     if (selectedName) {
       setFiltered(
-        ingreList.filter((ingre) => ingre.ingreName === selectedName)
+        ingreList.filter((ingre) => ingre.ingreName === selectedName),
       );
     } else {
       setFiltered(ingreList);
