@@ -117,12 +117,9 @@ const ManageIngredient = () => {
     setTotalPages(totalPages);
     // 현재 페이지가 총 페이지를 초과해도, 총 페이지를 현재 페이지에 배정
     if (ingreAdded || totalPages < currIngrePage) {
-      setCurrIngrePage(totalPages > 0 ? totalPages : 1);
       if (ingreAdded) {
         setIngreAdded(false);
       }
-    } else {
-      setCurrIngrePage(currIngrePage);
     }
   }, [filtered]);
 
@@ -134,6 +131,10 @@ const ManageIngredient = () => {
   useEffect(() => {
     console.log(selectedName || "전 재료", currIngrePage, "p쪽");
   }, [currIngrePage]);
+
+  useEffect(() => {
+    console.log(selectedName || "전 재료", currIngrePage, "n쪽");
+  }, [selectedName]);    
 
   useEffect(() => {
     localStorage.setItem("INGRE_NAME", selectedName);
@@ -215,8 +216,7 @@ const ManageIngredient = () => {
             label={"재료명"}
             options={ingreNames}
             selectedOption={selectedName}
-            onOptionSelection={changeSelectedName}
-            // onOptionSelection={(e) => setSelectedName(e)}
+            onOptionSelection={(e) => setSelectedName(e)}
             onClearFilter={handleClearFilter}
           />
         </Col>
