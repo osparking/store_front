@@ -35,6 +35,7 @@ const ManageIngredient = () => {
 
   const changeSelectedName = (e) => {
     localStorage.setItem("INGRE_NAME", e);
+    localStorage.setItem("CURR_INGRE_PAGE", 1);
     setSelectedName(e);
   };
 
