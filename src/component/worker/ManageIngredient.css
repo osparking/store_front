@@ -5,3 +5,7 @@
   margin: 0 auto;
   border-radius: 0.25rem;
 }
+
+.chart-title.worker {
+  color: white;
+}
