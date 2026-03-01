@@ -105,8 +105,16 @@ const ManageIngredient = () => {
     }
   }, [ingreAdded, ingreUpdated]);
 
+  const [currIngres, setCurrIngres] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
+
   useEffect(() => {
+    if (filtered) {
+      setCurrIngres(filtered.slice(indexOfFirstIngre, indexOfLastIngre));
+    }
+
     const totalPages = Math.ceil(filtered.length / ingresPerPage);
+    setTotalPages(totalPages);
     const currPage = localStorage.getItem("CURR_INGRE_PAGE");
     // 현재 페이지가 총 페이지를 초과해도, 총 페이지를 현재 페이지에 배정
     if (ingreAdded || totalPages < currPage) {
@@ -137,7 +145,6 @@ const ManageIngredient = () => {
   const [ingresPerPage] = useState(5);
   const indexOfLastIngre = currIngrePage * ingresPerPage;
   const indexOfFirstIngre = indexOfLastIngre - ingresPerPage;
-  const currIngres = filtered.slice(indexOfFirstIngre, indexOfLastIngre);
 
   const [ingredient, setIngredient] = useState({});
 
@@ -332,8 +339,9 @@ const ManageIngredient = () => {
       <Paginator
         pageSize={ingresPerPage}
         totalItems={filtered.length}
+        totalPages={totalPages}
         currPage={currIngrePage}
-        setCurrPage={setCurrIngrePage}
+        setCurrPage={(pageNo) => setCurrIngrePage(pageNo)}
       />
     </div>
   );
