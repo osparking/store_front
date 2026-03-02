@@ -26,10 +26,7 @@ const ManageIngredient = () => {
   const [ingreAdded, setIngreAdded] = useState(false);
   const [ingreUpdated, setIngreUpdated] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const ingreNames = Array.from(
-    new Set(ingreList.map((ingre) => ingre.ingreName)),
-  );
-
+  const [ingreNames, setIngreNames] = useState([]);
   const [selectedName, setSelectedName] = useState(
     localStorage.getItem("INGRE_NAME") || "",
   );
@@ -90,7 +87,7 @@ const ManageIngredient = () => {
   }
 
   useEffect(() => {
-    readIngredientList();
+    readIngredientPage(selectedName, currIngrePage, 5);
   }, []);
 
   const [filtered, setFiltered] = useState([]);
@@ -101,7 +98,7 @@ const ManageIngredient = () => {
 
   useEffect(() => {
     if (ingreAdded || ingreUpdated) {
-      readIngredientList();
+      readIngredientPage();
       if (ingreUpdated) {
         setIngreUpdated(false);
       }
@@ -140,6 +137,9 @@ const ManageIngredient = () => {
   }, [selectedName]);
 
   useEffect(() => {
+    setIngreNames(
+      Array.from(new Set(ingreList.map((ingre) => ingre.ingreName))),
+    );
     localStorage.setItem("INGRE_NAME", selectedName);
     if (selectedName) {
       setFiltered(
