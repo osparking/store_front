@@ -14,10 +14,10 @@ import ItemFilter from "../common/ItemFilter";
 import Paginator from "../common/Paginator";
 import BsAlertHook from "../hook/BsAlertHook";
 import DeleteConfirmModal from "../modal/DeleteConfirmModal";
+import { getRecordRange } from "../util/utilities";
 import IngreDataModal from "./IngreDataModal";
 import "./ManageIngredient.css";
-import { deleteStoredIngre, getIngredientList } from "./WorkerService";
-import { getRecordRange } from "../util/utilities";
+import { deleteStoredIngre, getIngredientPage } from "./WorkerService";
 
 const ManageIngredient = () => {
   const [ingreList, setIngreList] = useState([]);
@@ -57,12 +57,12 @@ const ManageIngredient = () => {
 
   const navigate = useNavigate();
 
-  const readIngredientList = () => {
-    getIngredientList()
-      .then((data) => {
-        if (data) {
-          console.log("입고 재료 목록: ", data.data);
-          setIngreList(data.data);
+  const readIngredientPage = (name, page, size) => {
+    getIngredientPage(name, page, size)
+      .then((response) => {
+        if (response) {
+          console.log("재료 목록: ", response.pageContent.content);
+          setIngreList(response.pageContent.content);
         } else {
           console.log("로그인 페이지로");
           navigate("/login");
@@ -191,7 +191,7 @@ const ManageIngredient = () => {
         setSuccessMsg(result.message);
         setAlertSuccess(true);
         setShowDelModal(false);
-        readIngredientList();
+        readIngredientPage();
       } catch (err) {
         console.error("err:", err);
         setErrorMsg(err.message);
