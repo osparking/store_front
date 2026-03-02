@@ -31,6 +31,8 @@ const ManageIngredient = () => {
     localStorage.getItem("INGRE_NAME") || "",
   );
 
+  const [ingrePage, setIngrePage] = useState({});
+
   const changeSelectedName = (e) => {
     localStorage.setItem("INGRE_NAME", e);
     localStorage.setItem("CURR_INGRE_PAGE", 1);
@@ -59,6 +61,7 @@ const ManageIngredient = () => {
       .then((response) => {
         if (response) {
           console.log("재료 목록: ", response.pageContent.content);
+          setIngrePage(response.pageContent);
           setIngreList(response.pageContent.content);
         } else {
           console.log("로그인 페이지로");
@@ -244,7 +247,7 @@ const ManageIngredient = () => {
       <div className="justify-content-center align-items-center">
         <p className="text-center mb-4" style={{ color: "pink !important" }}>
           {getRecordRange(
-            filtered.length,
+            ingrePage,
             indexOfFirstIngre,
             indexOfLastIngre,
             "재료",
