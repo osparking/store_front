@@ -1,5 +1,4 @@
-import { api } from "../util/api";
-import { callWithToken } from "../util/api";
+import { api, callWithToken } from "../util/api";
 
 const prefix = "http://localhost:9193/api/s1";
 
@@ -40,10 +39,16 @@ export async function getAllIngreNames() {
   }
 }
 
-export async function getIngredientList() {
+export async function getIngredientPage(name, page, size) {
+  //-- /store_ingred/get_page?page=2&size=5&name=가성소다
+  const urlPrefix = "/store_ingred/get_page?page=";
+
   try {
-    const result = await callWithToken("get", "/store_ingred/get_all");
-    return result ? result.data : result;
+    const result = await callWithToken(
+      "get",
+      `${urlPrefix}${page}&size=${size}&name=${name}`,
+    );
+    return result.data.data;
   } catch (err) {
     throw err;
   }
