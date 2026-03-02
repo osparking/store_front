@@ -17,6 +17,7 @@ import DeleteConfirmModal from "../modal/DeleteConfirmModal";
 import IngreDataModal from "./IngreDataModal";
 import "./ManageIngredient.css";
 import { deleteStoredIngre, getIngredientList } from "./WorkerService";
+import { getRecordRange } from "../util/utilities";
 
 const ManageIngredient = () => {
   const [ingreList, setIngreList] = useState([]);
@@ -136,7 +137,7 @@ const ManageIngredient = () => {
 
   useEffect(() => {
     console.log(selectedName || "전 재료", currIngrePage, "n쪽");
-  }, [selectedName]);    
+  }, [selectedName]);
 
   useEffect(() => {
     localStorage.setItem("INGRE_NAME", selectedName);
@@ -240,6 +241,16 @@ const ManageIngredient = () => {
           {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
         </Col>
       </Row>
+      <div className="justify-content-center align-items-center">
+        <p className="text-center mb-4" style={{ color: "pink !important" }}>
+          {getRecordRange(
+            filtered.length,
+            indexOfFirstIngre,
+            indexOfLastIngre,
+            "재료",
+          )}
+        </p>
+      </div>
       <div className="ingredient-table-container">
         <Table
           bordered
