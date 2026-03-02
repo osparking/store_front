@@ -17,7 +17,7 @@ import DeleteConfirmModal from "../modal/DeleteConfirmModal";
 import { getRecordRange } from "../util/utilities";
 import IngreDataModal from "./IngreDataModal";
 import "./ManageIngredient.css";
-import { deleteStoredIngre, getIngredientPage } from "./WorkerService";
+import { deleteStoredIngre, getAllIngreNames, getIngredientPage } from "./WorkerService";
 
 const ManageIngredient = () => {
   const [ingreList, setIngreList] = useState([]);
@@ -91,6 +91,16 @@ const ManageIngredient = () => {
 
   useEffect(() => {
     readIngredientPage(selectedName, currIngrePage, 5);
+    const readIngreNames = async () => {
+      try {
+        const response = await getAllIngreNames();
+        setIngreNames(response.data);
+        console.log("재료명 목록: ", response.data);
+      } catch (error) {
+        console.error(error.response.data.message);
+      }
+    };
+    readIngreNames();    
   }, []);
 
   const [filtered, setFiltered] = useState([]);
@@ -140,9 +150,6 @@ const ManageIngredient = () => {
   }, [selectedName]);
 
   useEffect(() => {
-    setIngreNames(
-      Array.from(new Set(ingreList.map((ingre) => ingre.ingreName))),
-    );
     localStorage.setItem("INGRE_NAME", selectedName);
     if (selectedName) {
       setFiltered(
