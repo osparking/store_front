@@ -146,7 +146,7 @@ const ManageIngredient = () => {
   }, [currIngrePage]);
 
   useEffect(() => {
-    console.log(selectedName || "전 재료", currIngrePage, "n쪽");
+    readIngredientPage(selectedName, currIngrePage, 5);    
   }, [selectedName]);
 
   useEffect(() => {
