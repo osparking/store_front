@@ -17,7 +17,11 @@ import DeleteConfirmModal from "../modal/DeleteConfirmModal";
 import { getRecordRange } from "../util/utilities";
 import IngreDataModal from "./IngreDataModal";
 import "./ManageIngredient.css";
-import { deleteStoredIngre, getAllIngreNames, getIngredientPage } from "./WorkerService";
+import {
+  deleteStoredIngre,
+  getAllIngreNames,
+  getIngredientPage,
+} from "./WorkerService";
 
 const ManageIngredient = () => {
   const [ingreList, setIngreList] = useState([]);
@@ -101,7 +105,7 @@ const ManageIngredient = () => {
         console.error(error.response.data.message);
       }
     };
-    readIngreNames();    
+    readIngreNames();
   }, []);
 
   const [filtered, setFiltered] = useState([]);
