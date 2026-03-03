@@ -63,6 +63,7 @@ const ManageIngredient = () => {
           console.log("재료 목록: ", response.pageContent.content);
           setIngrePage(response.pageContent);
           setIngreList(response.pageContent.content);
+          setTotalPages(response.totalPages);
         } else {
           console.log("로그인 페이지로");
           navigate("/login");
@@ -120,21 +121,6 @@ const ManageIngredient = () => {
 
   const [currIngres, setCurrIngres] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
-
-  useEffect(() => {
-    if (filtered) {
-      setCurrIngres(filtered.slice(indexOfFirstIngre, indexOfLastIngre));
-    }
-
-    const totalPages = Math.ceil(filtered.length / ingresPerPage);
-    setTotalPages(totalPages);
-    // 현재 페이지가 총 페이지를 초과해도, 총 페이지를 현재 페이지에 배정
-    if (ingreAdded || totalPages < currIngrePage) {
-      if (ingreAdded) {
-        setIngreAdded(false);
-      }
-    }
-  }, [filtered]);
 
   const changePage = (pageNo) => {
     localStorage.setItem("CURR_INGRE_PAGE", pageNo);
@@ -298,7 +284,7 @@ const ManageIngredient = () => {
             </tr>
           </thead>
           <tbody>
-            {currIngres.map((ingredient, index) => (
+            {ingreList.map((ingredient, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{ingredient.ingreName}</td>
@@ -363,13 +349,15 @@ const ManageIngredient = () => {
         ingredient={ingredient}
         setIngredient={setIngredient}
       />
-      <Paginator
-        pageSize={ingresPerPage}
-        totalItems={filtered.length}
-        totalPages={totalPages}
-        currPage={currIngrePage}
-        setCurrPage={(pageNo) => changePage(pageNo)}
-      />
+      <div className="pb-1" style={{ backgroundColor: "LemonChiffon" }}>
+        <Paginator
+          pageSize={ingresPerPage}
+          totalItems={ingrePage.totalElements}
+          totalPages={totalPages}
+          currPage={currIngrePage}
+          setCurrPage={(pageNo) => changePage(pageNo)}
+        />
+      </div>
     </div>
   );
 };
