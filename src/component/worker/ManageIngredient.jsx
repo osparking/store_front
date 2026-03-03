@@ -132,7 +132,8 @@ const ManageIngredient = () => {
   }, [currIngrePage]);
 
   useEffect(() => {
-    readIngredientPage(selectedName, currIngrePage, 5);    
+    readIngredientPage(selectedName, 1, 5);
+    setCurrIngrePage(1);
   }, [selectedName]);
 
   useEffect(() => {
