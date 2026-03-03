@@ -210,8 +210,8 @@ const ManageIngredient = () => {
         disabled={delBtnDisabled}
       />
 
-      <Row className="mb-2">
-        <Col md={6}>
+      <Row className="mt-5 mb-2">
+        <Col xs={9} md={6}>
           <ItemFilter
             label={"재료명"}
             options={ingreNames}
@@ -221,9 +221,11 @@ const ManageIngredient = () => {
           />
         </Col>
         <Col>
-          {" "}
-          <div className="d-flex justify-content-end">
-            <Button onClick={() => openWithRow(dummy)}>
+          <div className="d-flex justify-content-end mt-1">
+            <Button
+              onClick={() => openWithRow(dummy)}
+              className="d-inline-flex align-items-center"
+            >
               <BsPlusSquareFill />
             </Button>
           </div>
@@ -239,7 +241,7 @@ const ManageIngredient = () => {
         </Col>
       </Row>
       <div className="justify-content-center align-items-center">
-        <p className="text-center mb-4" style={{ color: "pink !important" }}>
+        <p className="text-center mb-0">
           {getRecordRange(
             ingrePage,
             indexOfFirstIngre,
