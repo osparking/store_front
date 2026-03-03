@@ -128,7 +128,7 @@ const ManageIngredient = () => {
   };
 
   useEffect(() => {
-    console.log(selectedName || "전 재료", currIngrePage, "p쪽");
+    readIngredientPage(selectedName, currIngrePage, 5);
   }, [currIngrePage]);
 
   useEffect(() => {
