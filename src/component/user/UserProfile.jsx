@@ -96,7 +96,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
   };
 
   return (
-    <Container fluid className="home-container mt-5">
+    <>
       <DeleteConfirmModal
         show={showDelModal}
         onHide={handleModalXButtonClick}
@@ -104,173 +104,163 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
         target={`${user.fullName} 계정의`}
         deleting={false}
       />
-      <React.Fragment>
-        <Row className="justify-content-center">
-          <Col
-            md={3}
-            xs={6}
-            style={{
-              width: "fit-content",
-              minWidth: "200px",
-              height: "fit-content",
-            }}
+      <Row className="justify-content-center mt-2">
+        <Col
+          md={3}
+          xs={6}
+          style={{
+            width: "fit-content",
+            minWidth: "200px",
+            height: "fit-content",
+          }}
+        >
+          <Card className="text-center mb-3 shadow">
+            <Card.Body>
+              <div className="d-flex flex-column align-items-center justify-content-center">
+                {!(user.userType === "고객") && (
+                  <>
+                    <EmpImage empPhoto={user.photoBytes} />
+                    <p className="mt-5">
+                      <Link to={"#"} onClick={() => setShowImageUp(true)}>
+                        사진 변경
+                      </Link>
+                    </p>
+                    <p>
+                      <Link
+                        to={"#"}
+                        {...(user.photoId
+                          ? { onClick: handleRemovePhoto }
+                          : { style: { cursor: "default", color: "grey" } })}
+                      >
+                        사진 제거
+                      </Link>
+                    </p>
+                    <ImageUp
+                      user={user}
+                      show={showImageUp}
+                      handleClose={() => setShowImageUp(false)}
+                    />
+                  </>
+                )}
+                <p>
+                  <Link to={"#"} onClick={() => setShowChangePassword(true)}>
+                    비밀번호 변경
+                  </Link>
+                </p>
+                <ChangePassword
+                  userId={user.id}
+                  show={showChangePassword}
+                  handleClose={() => setShowChangePassword(false)}
+                />
+              </div>
+            </Card.Body>
+            <Card.Body>
+              <div className="d-flex justify-content-center mt-2 mb-2">
+                <div className="mx-2">
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    onClick={handleCloseAccountButtonCLick}
+                    className="w-100"
+                    style={{ minWidth: "60px" }}
+                  >
+                    계정 폐쇄
+                  </Button>
+                </div>
+              </div>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={8} style={{ maxWidth: "530px", overflow: "auto" }}>
+          <Card
+            className="profileItems mb-3"
+            style={{ minWidth: "fit-content" }}
           >
-            <Card className="text-center mb-3 shadow">
-              <Card.Body>
-                <div className="d-flex flex-column align-items-center justify-content-center">
-                  {!(user.userType === "고객") && (
-                    <>
-                      <EmpImage empPhoto={user.photoBytes} />
-                      <p className="mt-5">
-                        <Link to={"#"} onClick={() => setShowImageUp(true)}>
-                          사진 변경
-                        </Link>
-                      </p>
-                      <p>
-                        <Link
-                          to={"#"}
-                          {...(user.photoId
-                            ? { onClick: handleRemovePhoto }
-                            : { style: { cursor: "default", color: "grey" } })}
-                        >
-                          사진 제거
-                        </Link>
-                      </p>
-                      <ImageUp
-                        user={user}
-                        show={showImageUp}
-                        handleClose={() => setShowImageUp(false)}
-                      />
-                    </>
-                  )}
-                  <p>
-                    <Link to={"#"} onClick={() => setShowChangePassword(true)}>
-                      비밀번호 변경
-                    </Link>
-                  </p>
-                  <ChangePassword
-                    userId={user.id}
-                    show={showChangePassword}
-                    handleClose={() => setShowChangePassword(false)}
-                  />
-                </div>
-              </Card.Body>
-              <Card.Body>
-                <div className="d-flex justify-content-center mt-2 mb-2">
-                  <div className="mx-2">
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      onClick={handleCloseAccountButtonCLick}
-                      className="w-100"
-                      style={{ minWidth: "60px" }}
-                    >
-                      계정 폐쇄
-                    </Button>
-                  </div>
-                </div>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col md={8} style={{ maxWidth: "530px", overflow: "auto" }}>
-            <Card
-              className="profileItems mb-3"
-              style={{ minWidth: "fit-content" }}
+            <Card.Body
+              className="d-flex align-items-center justify-content-center"
+              style={{ minWidth: "400px" }}
             >
+              <Col md={4} className="text-end">
+                <Link
+                  to={`/user/${user.id}/update`}
+                  className="btn btn-warning btn-sm w-70"
+                  style={{ minWidth: "60px", maxWidth: "fit-content" }}
+                >
+                  정보 수정
+                </Link>
+                <span className="ms-2">범례 - </span>
+              </Col>
+              <Col md={1} className="setBorder ms-1" style={{ width: "50px" }}>
+                &nbsp;
+              </Col>
+              <Col md={3} className="ms-1 fit-content">
+                (수정 가능)
+              </Col>
+            </Card.Body>
+            {profileData.map((item, index) => (
               <Card.Body
-                className="d-flex align-items-center justify-content-center"
+                key={index}
+                className="d-flex align-items-center"
                 style={{ minWidth: "400px" }}
               >
-                <Col md={4} className="text-end">
-                  <Link
-                    to={`/user/${user.id}/update`}
-                    className="btn btn-warning btn-sm w-70"
-                    style={{ minWidth: "60px", maxWidth: "fit-content" }}
-                  >
-                    정보 수정
-                  </Link>
-                  <span className="ms-2">범례 - </span>
+                <Col md={4} className="text-end" style={{ minWidth: "145px" }}>
+                  {item.label}:
                 </Col>
                 <Col
-                  md={1}
-                  className="setBorder ms-1"
-                  style={{ width: "50px" }}
+                  md={7}
+                  className={`${isUpdatable(item.label) ? "setBorder ms-1" : "ms-1"}`}
+                  style={{ minWidth: "250px" }}
                 >
-                  &nbsp;
-                </Col>
-                <Col md={3} className="ms-1 fit-content">
-                  (수정 가능)
+                  <Card.Text>&nbsp;{item.value}</Card.Text>
                 </Col>
               </Card.Body>
-              {profileData.map((item, index) => (
-                <Card.Body
-                  key={index}
-                  className="d-flex align-items-center"
-                  style={{ minWidth: "400px" }}
-                >
-                  <Col
-                    md={4}
-                    className="text-end"
-                    style={{ minWidth: "145px" }}
-                  >
-                    {item.label}:
-                  </Col>
-                  <Col
-                    md={7}
-                    className={`${isUpdatable(item.label) ? "setBorder ms-1" : "ms-1"}`}
-                    style={{ minWidth: "250px" }}
-                  >
-                    <Card.Text>&nbsp;{item.value}</Card.Text>
-                  </Col>
-                </Card.Body>
-              ))}
+            ))}
 
-              <Card.Body className="d-flex align-items-center">
-                <Col md={4} className="text-end" style={{ minWidth: "145px" }}>
-                  구글 이중 인증(2FA):
-                </Col>
-                <Col md={7} className="setBorder ms-1">
-                  <div>
-                    <Switch
-                      disabled={switchDisabled}
-                      checked={twoFaEnabled}
-                      onChange={twoFaEnabled ? disable2FA : enable2FA}
-                      slotProps={{
-                        input: { "aria-label": "이중 인증 활성화 상태 토글" },
-                      }}
-                    />
-                    <span
-                      style={{
-                        fontWeight: "bolder",
-                        fontSize: ".9rem",
-                        fontStretch: "expanded",
-                        color: `${twoFaEnabled ? "green" : "slategrey"}`,
-                      }}
-                    >
-                      {twoFaEnabled ? "활성화됨" : "비활성됨"}
-                    </span>
-                  </div>
-                  {showQrCode && (
-                    <QRcodeBox
-                      qrCodeUrl={qrCodeUrl}
-                      setTwoFaEnabled={setTwoFaEnabled}
-                      setShowQrCode={setShowQrCode}
-                    />
-                  )}
-                </Col>
-              </Card.Body>
-            </Card>
-          </Col>
+            <Card.Body className="d-flex align-items-center">
+              <Col md={4} className="text-end" style={{ minWidth: "145px" }}>
+                구글 이중 인증(2FA):
+              </Col>
+              <Col md={7} className="setBorder ms-1">
+                <div>
+                  <Switch
+                    disabled={switchDisabled}
+                    checked={twoFaEnabled}
+                    onChange={twoFaEnabled ? disable2FA : enable2FA}
+                    slotProps={{
+                      input: { "aria-label": "이중 인증 활성화 상태 토글" },
+                    }}
+                  />
+                  <span
+                    style={{
+                      fontWeight: "bolder",
+                      fontSize: ".9rem",
+                      fontStretch: "expanded",
+                      color: `${twoFaEnabled ? "green" : "slategrey"}`,
+                    }}
+                  >
+                    {twoFaEnabled ? "활성화됨" : "비활성됨"}
+                  </span>
+                </div>
+                {showQrCode && (
+                  <QRcodeBox
+                    qrCodeUrl={qrCodeUrl}
+                    setTwoFaEnabled={setTwoFaEnabled}
+                    setShowQrCode={setShowQrCode}
+                  />
+                )}
+              </Col>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+      {fromList && isAdmin && (
+        <Row>
+          <div className="returnLink">
+            <Link to="/dashboard/admin">목록</Link>
+          </div>
         </Row>
-        {fromList && isAdmin && (
-          <Row>
-            <div className="returnLink">
-              <Link to="/dashboard/admin">목록</Link>
-            </div>
-          </Row>
-        )}
-      </React.Fragment>
-    </Container>
+      )}
+    </>
   );
 };
 
