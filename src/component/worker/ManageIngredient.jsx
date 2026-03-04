@@ -95,7 +95,7 @@ const ManageIngredient = () => {
   }
 
   useEffect(() => {
-    readIngredientPage(selectedName, currIngrePage, 5);
+    readIngredientPage(selectedName, currIngrePage, ingresPerPage);
     const readIngreNames = async () => {
       try {
         const response = await getAllIngreNames();
@@ -132,11 +132,11 @@ const ManageIngredient = () => {
   };
 
   useEffect(() => {
-    readIngredientPage(selectedName, currIngrePage, 5);
+    readIngredientPage(selectedName, currIngrePage, ingresPerPage);
   }, [currIngrePage]);
 
   useEffect(() => {
-    readIngredientPage(selectedName, 1, 5);
+    readIngredientPage(selectedName, 1, ingresPerPage);
     setCurrIngrePage(1);
   }, [selectedName]);
 
@@ -151,7 +151,7 @@ const ManageIngredient = () => {
     }
   }, [ingreList]);
 
-  const [ingresPerPage] = useState(5);
+  const [ingresPerPage] = useState(10);
   const indexOfLastIngre = currIngrePage * ingresPerPage;
   const indexOfFirstIngre = indexOfLastIngre - ingresPerPage;
 
@@ -214,7 +214,7 @@ const ManageIngredient = () => {
         disabled={delBtnDisabled}
       />
 
-      <Row className="mt-5 mb-2">
+      <Row className="mt-3 mb-2">
         <Col
           xs={12}
           md={7}
@@ -266,6 +266,7 @@ const ManageIngredient = () => {
             tableLayout: "fixed",
             minWidth: "730px",
           }}
+          className="mb-0"
         >
           <colgroup>
             <col style={{ width: "5%" }} />
@@ -362,13 +363,14 @@ const ManageIngredient = () => {
         ingredient={ingredient}
         setIngredient={setIngredient}
       />
-      <div className="pb-1" style={{ backgroundColor: "LemonChiffon" }}>
+      <div className="pb-1">
         <Paginator
           pageSize={ingresPerPage}
           totalItems={ingrePage.totalElements}
           totalPages={totalPages}
           currPage={currIngrePage}
           setCurrPage={(pageNo) => changePage(pageNo)}
+          darkBackground="true"
         />
       </div>
     </div>
