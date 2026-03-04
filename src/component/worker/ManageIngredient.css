@@ -1,7 +1,6 @@
 .ingredient-table-container {
   width: 100%;
-  height: fit-content;
-  max-height: 450px;
+  height: 52vh;
   overflow: auto;
   margin: 0 auto;
   border-radius: 0.25rem;
