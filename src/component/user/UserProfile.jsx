@@ -104,7 +104,10 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
         target={`${user.fullName} 계정의`}
         deleting={false}
       />
-      <Row className="justify-content-center mt-2">
+      <Row
+        className="justify-content-center mt-2"
+        style={{ marginBottom: "85px" }}
+      >
         <Col
           md={3}
           xs={6}
@@ -171,86 +174,100 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
             </Card.Body>
           </Card>
         </Col>
-        <Col md={8} style={{ maxWidth: "530px", overflow: "auto" }}>
-          <Card
-            className="profileItems mb-3"
-            style={{ minWidth: "fit-content" }}
-          >
-            <Card.Body
-              className="d-flex align-items-center justify-content-center"
-              style={{ minWidth: "400px" }}
+        <Col md={8}>
+          <div style={{ overflow: "auto" }}>
+            <Card
+              className="profileItems"
+              style={{
+                width: "530px",
+                height: "60vh",
+                minWidth: "fit-content",
+              }}
             >
-              <Col md={4} className="text-end">
-                <Link
-                  to={`/user/${user.id}/update`}
-                  className="btn btn-warning btn-sm w-70"
-                  style={{ minWidth: "60px", maxWidth: "fit-content" }}
-                >
-                  정보 수정
-                </Link>
-                <span className="ms-2">범례 - </span>
-              </Col>
-              <Col md={1} className="setBorder ms-1" style={{ width: "50px" }}>
-                &nbsp;
-              </Col>
-              <Col md={3} className="ms-1 fit-content">
-                (수정 가능)
-              </Col>
-            </Card.Body>
-            {profileData.map((item, index) => (
               <Card.Body
-                key={index}
-                className="d-flex align-items-center"
+                className="d-flex align-items-center justify-content-center"
                 style={{ minWidth: "400px" }}
               >
-                <Col md={4} className="text-end" style={{ minWidth: "145px" }}>
-                  {item.label}:
+                <Col md={4} className="text-end">
+                  <Link
+                    to={`/user/${user.id}/update`}
+                    className="btn btn-warning btn-sm w-70"
+                    style={{ minWidth: "60px", maxWidth: "fit-content" }}
+                  >
+                    정보 수정
+                  </Link>
+                  <span className="ms-2">범례 - </span>
                 </Col>
                 <Col
-                  md={7}
-                  className={`${isUpdatable(item.label) ? "setBorder ms-1" : "ms-1"}`}
-                  style={{ minWidth: "250px" }}
+                  md={1}
+                  className="setBorder ms-1"
+                  style={{ width: "50px" }}
                 >
-                  <Card.Text>&nbsp;{item.value}</Card.Text>
+                  &nbsp;
+                </Col>
+                <Col md={3} className="ms-1 fit-content">
+                  (수정 가능)
                 </Col>
               </Card.Body>
-            ))}
-
-            <Card.Body className="d-flex align-items-center">
-              <Col md={4} className="text-end" style={{ minWidth: "145px" }}>
-                구글 이중 인증(2FA):
-              </Col>
-              <Col md={7} className="setBorder ms-1">
-                <div>
-                  <Switch
-                    disabled={switchDisabled}
-                    checked={twoFaEnabled}
-                    onChange={twoFaEnabled ? disable2FA : enable2FA}
-                    slotProps={{
-                      input: { "aria-label": "이중 인증 활성화 상태 토글" },
-                    }}
-                  />
-                  <span
-                    style={{
-                      fontWeight: "bolder",
-                      fontSize: ".9rem",
-                      fontStretch: "expanded",
-                      color: `${twoFaEnabled ? "green" : "slategrey"}`,
-                    }}
+              {profileData.map((item, index) => (
+                <Card.Body
+                  key={index}
+                  className="d-flex align-items-center"
+                  style={{ minWidth: "400px" }}
+                >
+                  <Col
+                    md={4}
+                    className="text-end"
+                    style={{ minWidth: "145px" }}
                   >
-                    {twoFaEnabled ? "활성화됨" : "비활성됨"}
-                  </span>
-                </div>
-                {showQrCode && (
-                  <QRcodeBox
-                    qrCodeUrl={qrCodeUrl}
-                    setTwoFaEnabled={setTwoFaEnabled}
-                    setShowQrCode={setShowQrCode}
-                  />
-                )}
-              </Col>
-            </Card.Body>
-          </Card>
+                    {item.label}:
+                  </Col>
+                  <Col
+                    md={7}
+                    className={`${isUpdatable(item.label) ? "setBorder ms-1" : "ms-1"}`}
+                    style={{ minWidth: "250px" }}
+                  >
+                    <Card.Text>&nbsp;{item.value}</Card.Text>
+                  </Col>
+                </Card.Body>
+              ))}
+
+              <Card.Body className="d-flex align-items-center">
+                <Col md={4} className="text-end" style={{ minWidth: "145px" }}>
+                  구글 이중 인증(2FA):
+                </Col>
+                <Col md={7} className="setBorder ms-1">
+                  <div>
+                    <Switch
+                      disabled={switchDisabled}
+                      checked={twoFaEnabled}
+                      onChange={twoFaEnabled ? disable2FA : enable2FA}
+                      slotProps={{
+                        input: { "aria-label": "이중 인증 활성화 상태 토글" },
+                      }}
+                    />
+                    <span
+                      style={{
+                        fontWeight: "bolder",
+                        fontSize: ".9rem",
+                        fontStretch: "expanded",
+                        color: `${twoFaEnabled ? "green" : "slategrey"}`,
+                      }}
+                    >
+                      {twoFaEnabled ? "활성화됨" : "비활성됨"}
+                    </span>
+                  </div>
+                  {showQrCode && (
+                    <QRcodeBox
+                      qrCodeUrl={qrCodeUrl}
+                      setTwoFaEnabled={setTwoFaEnabled}
+                      setShowQrCode={setShowQrCode}
+                    />
+                  )}
+                </Col>
+              </Card.Body>
+            </Card>
+          </div>
         </Col>
       </Row>
       {fromList && isAdmin && (
