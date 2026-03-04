@@ -215,7 +215,12 @@ const ManageIngredient = () => {
       />
 
       <Row className="mt-5 mb-2">
-        <Col xs={9} md={6}>
+        <Col
+          xs={12}
+          md={7}
+          className="d-flex justify-content-start"
+          style={{ maxWidth: "400px" }}
+        >
           <ItemFilter
             label={"재료명"}
             options={ingreNames}
@@ -223,9 +228,7 @@ const ManageIngredient = () => {
             onOptionSelection={(e) => changeSelectedName(e)}
             onClearFilter={handleClearFilter}
           />
-        </Col>
-        <Col>
-          <div className="d-flex justify-content-end mt-1">
+          <div className="ms-2 justify-content-end mt-1">
             <Button
               onClick={() => openWithRow(dummy)}
               className="d-inline-flex align-items-center"
