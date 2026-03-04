@@ -262,16 +262,19 @@ const ManageIngredient = () => {
           bordered
           hover
           striped
-          style={{ tableLayout: "fixed", minWidth: "730px" }}
+          style={{
+            tableLayout: "fixed",
+            minWidth: "730px",
+          }}
         >
           <colgroup>
-            <col style={{ width: "6%" }} />
-            <col style={{ width: "9%" }} />
+            <col style={{ width: "5%" }} />
+            <col style={{ width: "13%" }} />
             <col style={{ width: "9%" }} />
             <col style={{ width: "14%" }} />
-            <col style={{ width: "6%" }} />
-            <col style={{ width: "6%" }} />
-            <col style={{ width: "6%" }} />
+            <col style={{ width: "5%" }} />
+            <col style={{ width: "5%" }} />
+            <col style={{ width: "5%" }} />
             <col style={{ width: "11%" }} />
             <col style={{ width: "14%" }} />
             <col style={{ width: "9%" }} />
