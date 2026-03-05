@@ -1,6 +1,6 @@
 import Switch from "@mui/material/Switch";
-import React, { useState } from "react";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Card, Col, Row, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
 import QRcodeBox from "../auth/QRcodeBox";
@@ -11,6 +11,7 @@ import ImageUp from "../modal/ImageUp";
 import { callWithToken } from "../util/api";
 import "./UserProfile.css";
 import { deleteUserAccount } from "./UserService";
+import { MdCropSquare } from "react-icons/md";
 
 const UserProfile = ({ user, handleRemovePhoto }) => {
   const userNew = { ...user, enabled: user.enabled ? "가능" : "불가능" };
@@ -109,8 +110,8 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
         style={{ marginBottom: "85px" }}
       >
         <Col
-          md={3}
-          xs={6}
+          md={2}
+          xs={4}
           style={{
             width: "fit-content",
             minWidth: "200px",
@@ -174,99 +175,107 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
             </Card.Body>
           </Card>
         </Col>
-        <Col md={8}>
-          <div style={{ overflow: "auto" }}>
+        <Col xs={12} md={8}>
+          <div>
             <Card
               className="profileItems"
               style={{
-                width: "530px",
-                height: "60vh",
+                width: "500px",
+                height: "fit-content",
                 minWidth: "fit-content",
               }}
             >
               <Card.Body
                 className="d-flex align-items-center justify-content-center"
-                style={{ minWidth: "400px" }}
+                style={{ minWidth: "300px" }}
               >
-                <Col md={4} className="text-end">
-                  <Link
-                    to={`/user/${user.id}/update`}
-                    className="btn btn-warning btn-sm w-70"
-                    style={{ minWidth: "60px", maxWidth: "fit-content" }}
-                  >
-                    정보 수정
-                  </Link>
-                  <span className="ms-2">범례 - </span>
-                </Col>
-                <Col
-                  md={1}
-                  className="setBorder ms-1"
-                  style={{ width: "50px" }}
-                >
-                  &nbsp;
-                </Col>
-                <Col md={3} className="ms-1 fit-content">
-                  (수정 가능)
-                </Col>
-              </Card.Body>
-              {profileData.map((item, index) => (
-                <Card.Body
-                  key={index}
-                  className="d-flex align-items-center"
-                  style={{ minWidth: "400px" }}
-                >
-                  <Col
-                    md={4}
-                    className="text-end"
-                    style={{ minWidth: "145px" }}
-                  >
-                    {item.label}:
-                  </Col>
-                  <Col
-                    md={7}
-                    className={`${isUpdatable(item.label) ? "setBorder ms-1" : "ms-1"}`}
-                    style={{ minWidth: "250px" }}
-                  >
-                    <Card.Text>&nbsp;{item.value}</Card.Text>
-                  </Col>
-                </Card.Body>
-              ))}
+                <Table id="userProfile" className="my-0">
+                  <tr id="legendRow">
+                    <td className="text-end">
+                      <Link
+                        to={`/user/${user.id}/update`}
+                        className="btn btn-warning btn-sm w-70 py-0"
+                        style={{
+                          fontWeight: "bold",
+                          minWidth: "60px",
+                          maxWidth: "fit-content",
+                          borderWidth: "4px",
+                          borderStyle: "solid",
+                          borderColor: "#ffc107",
+                        }}
+                      >
+                        정보 수정
+                      </Link>
+                    </td>
+                    <td className="setBorder" style={{ width: "60px" }}>
+                      <Card.Text>&nbsp;</Card.Text>
+                    </td>
+                    <td className="text-start">: 수정 가능</td>
+                  </tr>
 
-              <Card.Body className="d-flex align-items-center">
-                <Col md={4} className="text-end" style={{ minWidth: "145px" }}>
-                  구글 이중 인증(2FA):
-                </Col>
-                <Col md={7} className="setBorder ms-1">
-                  <div>
-                    <Switch
-                      disabled={switchDisabled}
-                      checked={twoFaEnabled}
-                      onChange={twoFaEnabled ? disable2FA : enable2FA}
-                      slotProps={{
-                        input: { "aria-label": "이중 인증 활성화 상태 토글" },
-                      }}
-                    />
-                    <span
-                      style={{
-                        fontWeight: "bolder",
-                        fontSize: ".9rem",
-                        fontStretch: "expanded",
-                        color: `${twoFaEnabled ? "green" : "slategrey"}`,
-                      }}
+                  {profileData.map((item, index) => (
+                    <tr>
+                      <td
+                        md={4}
+                        className="text-end"
+                        style={{ minWidth: "145px" }}
+                      >
+                        {item.label}:
+                      </td>
+                      <td
+                        md={7}
+                        colSpan={2}
+                        className={`${isUpdatable(item.label) ? "setBorder ms-1" : "ms-1"}`}
+                        style={{ minWidth: "250px" }}
+                      >
+                        <Card.Text>{item.value}</Card.Text>
+                      </td>
+                    </tr>
+                  ))}
+
+                  <tr>
+                    <td
+                      md={4}
+                      className="text-end"
+                      style={{ minWidth: "145px" }}
                     >
-                      {twoFaEnabled ? "활성화됨" : "비활성됨"}
-                    </span>
-                  </div>
-                  {showQrCode && (
-                    <QRcodeBox
-                      qrCodeUrl={qrCodeUrl}
-                      setTwoFaEnabled={setTwoFaEnabled}
-                      setShowQrCode={setShowQrCode}
-                    />
-                  )}
-                </Col>
+                      구글 이중 인증(2FA):
+                    </td>
+                    <td md={7} colSpan={2} className="setBorder ms-1">
+                      <div className="py-0 text-start">
+                        <Switch
+                          disabled={switchDisabled}
+                          checked={twoFaEnabled}
+                          onChange={twoFaEnabled ? disable2FA : enable2FA}
+                          slotProps={{
+                            input: {
+                              "aria-label": "이중 인증 활성화 상태 토글",
+                            },
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: "bolder",
+                            fontSize: ".9rem",
+                            fontStretch: "expanded",
+                            color: `${twoFaEnabled ? "green" : "slategrey"}`,
+                          }}
+                        >
+                          {twoFaEnabled ? "활성화됨" : "비활성됨"}
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                </Table>
               </Card.Body>
             </Card>
+            {showQrCode && (
+              <QRcodeBox
+                qrCodeUrl={qrCodeUrl}
+                setTwoFaEnabled={setTwoFaEnabled}
+                setShowQrCode={setShowQrCode}
+              />
+            )}
           </div>
         </Col>
       </Row>
