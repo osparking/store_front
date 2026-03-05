@@ -76,43 +76,38 @@ const OverviewUser = () => {
   }, []);
 
   return (
-    <Container fluid className="home-container mt-5">
-      <Row className="justify-content-center chart-row">
-        <Col lg={5} md={6} xs={12} className="chartUserCol">
-          <Card className="chartUser h-100">
-            <CardCompo
-              label={"최근 6 개월 구매 합계"}
-              count={totalSoaps}
-              IconCompo={LuPackageOpen}
-            />
-            <div className="chart-container">
-              {soapsMonth && soapsMonth.length > 0 && (
-                <div className="chartDiv">
-                  <SoapsByMonth
-                    totalSoaps={totalSoaps}
-                    soapsMonth={soapsMonth}
-                  />
-                </div>
-              )}
-            </div>
-          </Card>
-        </Col>
-        <Col lg={5} md={6} xs={12} className="chartUserCol">
-          <Card className="chartUser h-100">
-            <CardCompo
-              label={"최근 6 개월 구매 외형 비중"}
-              count={totalSoaps}
-              IconCompo={FaShapes}
-            />
-            <div className="chart-container">
+    <Row className="justify-content-center chart-row mt-2">
+      <Col lg={5} md={6} xs={12} className="chartUserCol">
+        <Card className="chartUser h-100">
+          <CardCompo
+            label={"최근 6 개월 구매 합계"}
+            count={totalSoaps}
+            IconCompo={LuPackageOpen}
+          />
+          <div className="chart-container">
+            {soapsMonth && soapsMonth.length > 0 && (
               <div className="chartDiv">
-                <SoapsByShape totalSoaps={totalSoaps} />
+                <SoapsByMonth totalSoaps={totalSoaps} soapsMonth={soapsMonth} />
               </div>
+            )}
+          </div>
+        </Card>
+      </Col>
+      <Col lg={5} md={6} xs={12} className="chartUserCol">
+        <Card className="chartUser h-100">
+          <CardCompo
+            label={"최근 6 개월 구매 외형 비중"}
+            count={totalSoaps}
+            IconCompo={FaShapes}
+          />
+          <div className="chart-container">
+            <div className="chartDiv">
+              <SoapsByShape totalSoaps={totalSoaps} />
             </div>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+          </div>
+        </Card>
+      </Col>
+    </Row>
   );
 };
 
