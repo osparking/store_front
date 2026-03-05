@@ -20,3 +20,8 @@ h5 {
 .table th {
   vertical-align: middle;
 }
+
+.tab-content {
+  justify-content:center;
+  display: flex;
+}
