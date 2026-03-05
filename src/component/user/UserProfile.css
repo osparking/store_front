@@ -4,5 +4,22 @@
 }
 
 .setBorder {
-  border: 1px solid #6e767f;
+  border: 4px solid #ffc107;
+  background-color: #ffc107;
+}
+
+#userProfile td {
+  padding: 4px;
+}
+
+#userProfile td {
+  border: 6px solid white;
+}
+
+#userProfile p {
+  padding: 2px;
+}
+
+#userProfile #legendRow {
+  background-color: rgb(196, 228, 241);
 }
