@@ -65,7 +65,7 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
   };
 
   return (
-    <Row className="justify-content-center mt-3">
+    <Row className="justify-content-center mt-2">
       <Col id="myReviewPage">
         <Card>
           <Card.Body>
