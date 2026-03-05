@@ -108,8 +108,6 @@ const ManageIngredient = () => {
     readIngreNames();
   }, []);
 
-  const [filtered, setFiltered] = useState([]);
-
   const [currIngrePage, setCurrIngrePage] = useState(
     parseInt(localStorage.getItem("CURR_INGRE_PAGE")) || 1,
   );
@@ -123,7 +121,6 @@ const ManageIngredient = () => {
     }
   }, [ingreAdded, ingreUpdated]);
 
-  const [currIngres, setCurrIngres] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
 
   const changePage = (pageNo) => {
@@ -139,17 +136,6 @@ const ManageIngredient = () => {
     readIngredientPage(selectedName, 1, ingresPerPage);
     setCurrIngrePage(1);
   }, [selectedName]);
-
-  useEffect(() => {
-    localStorage.setItem("INGRE_NAME", selectedName);
-    if (selectedName) {
-      setFiltered(
-        ingreList.filter((ingre) => ingre.ingreName === selectedName),
-      );
-    } else {
-      setFiltered(ingreList);
-    }
-  }, [ingreList]);
 
   const [ingresPerPage] = useState(10);
   const indexOfLastIngre = currIngrePage * ingresPerPage;
