@@ -79,7 +79,7 @@ const ManageQuestions = ({ mine }) => {
   };
 
   return (
-    <Container fluid className="home-container mt-5">
+    <>
       <QuestionFollowUpModal
         show={showQuestionFollowUpModal}
         handleClose={() => setShowQuestionFollowUpModal(false)}
@@ -88,7 +88,7 @@ const ManageQuestions = ({ mine }) => {
         mine={mine}
         setReloadPage={setReloadPage}
       />
-      <Row className="justify-content-center mt-3">
+      <Row className="justify-content-center mt-2">
         <Col id="questionsTable">
           <Card>
             <Card.Body>
@@ -125,7 +125,7 @@ const ManageQuestions = ({ mine }) => {
           </Card>
         </Col>
       </Row>
-    </Container>
+    </>
   );
 };
 
