@@ -11,7 +11,6 @@ import ImageUp from "../modal/ImageUp";
 import { callWithToken } from "../util/api";
 import "./UserProfile.css";
 import { deleteUserAccount } from "./UserService";
-import { MdCropSquare } from "react-icons/md";
 
 const UserProfile = ({ user, handleRemovePhoto }) => {
   const userNew = { ...user, enabled: user.enabled ? "가능" : "불가능" };
@@ -75,6 +74,10 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
     }
   };
 
+  const getClasses = (flag) => {
+    return flag ? "setBorder ms-1 text-start" : "text-start ms-1";
+  };
+
   const profileData = [
     { label: "성명", value: userNew.fullName },
     { label: "휴대폰", value: userNew.mbPhone },
@@ -107,10 +110,11 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
       />
       <Row
         className="justify-content-center mt-2"
-        style={{ marginBottom: "85px" }}
+        style={{ marginBottom: "85px", width: "fit-content" }}
       >
         <Col
-          md={2}
+          lg={3}
+          md={3}
           xs={4}
           style={{
             width: "fit-content",
@@ -175,98 +179,106 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
             </Card.Body>
           </Card>
         </Col>
-        <Col xs={12} md={8}>
-          <div>
-            <Card
-              className="profileItems"
-              style={{
-                width: "500px",
-                height: "fit-content",
-                minWidth: "fit-content",
-              }}
-            >
-              <Card.Body
-                className="d-flex align-items-center justify-content-center"
-                style={{ minWidth: "300px" }}
-              >
-                <Table id="userProfile" className="my-0">
-                  <tr id="legendRow">
-                    <td className="text-end">
-                      <Link
-                        to={`/user/${user.id}/update`}
-                        className="btn btn-warning btn-sm w-70 py-0"
-                        style={{
-                          fontWeight: "bold",
-                          minWidth: "60px",
-                          maxWidth: "fit-content",
-                          borderWidth: "4px",
-                          borderStyle: "solid",
-                          borderColor: "#ffc107",
-                        }}
-                      >
-                        정보 수정
-                      </Link>
-                    </td>
-                    <td className="setBorder" style={{ width: "60px" }}>
-                      <Card.Text>&nbsp;</Card.Text>
-                    </td>
-                    <td className="text-start">: 수정 가능</td>
-                  </tr>
+        <Col
+          xs={12}
+          md={8}
+          lg={8}
+          style={{
+            width: "fit-content",
+            minWidth: "200px",
+            height: "fit-content",
+          }}
+        >
+          <div
+            style={{
+              width: "100%",
+              maxWidth: "90vw",
+              overflow: "auto",
+            }}
+          >
+            <Card className="profileItems">
+              <Card.Body className="d-flex align-items-center justify-content-center">
+                <div style={{ overflow: "auto" }}>
+                  <Table id="userProfile" className="my-0">
+                    <tr id="legendRow">
+                      <td className="text-end">
+                        <Link
+                          to={`/user/${user.id}/update`}
+                          className="btn btn-warning btn-sm w-70 py-0"
+                          style={{
+                            fontWeight: "bold",
+                            minWidth: "60px",
+                            maxWidth: "fit-content",
+                            borderWidth: "4px",
+                            borderStyle: "solid",
+                            borderColor: "#ffc107",
+                          }}
+                        >
+                          정보 수정
+                        </Link>
+                      </td>
+                      <td id="legendBlock" className="setBorder">
+                        &nbsp;
+                      </td>
+                      <td className="text-start">: 수정 가능</td>
+                    </tr>
 
-                  {profileData.map((item, index) => (
+                    {profileData.map((item, index) => (
+                      <tr>
+                        <td
+                          md={4}
+                          className="text-end"
+                          style={{ minWidth: "145px" }}
+                        >
+                          {item.label}:
+                        </td>
+                        <td
+                          md={7}
+                          colSpan={2}
+                          className={getClasses(isUpdatable(item.label))}
+                          //  ? "setBorder ms-1 text-start" : "text-start ms-1"}`}
+                          style={{ minWidth: "250px" }}
+                        >
+                          {item.value}
+                        </td>
+                      </tr>
+                    ))}
+
                     <tr>
                       <td
                         md={4}
                         className="text-end"
                         style={{ minWidth: "145px" }}
                       >
-                        {item.label}:
+                        구글 이중 인증(2FA):
                       </td>
-                      <td
-                        md={7}
-                        colSpan={2}
-                        className={`${isUpdatable(item.label) ? "setBorder ms-1" : "ms-1"}`}
-                        style={{ minWidth: "250px" }}
-                      >
-                        <Card.Text>{item.value}</Card.Text>
+                      <td md={7} colSpan={2} className="setBorder">
+                        <div id="switch-2FA">
+                          <Switch
+                            disabled={switchDisabled}
+                            checked={twoFaEnabled}
+                            onChange={twoFaEnabled ? disable2FA : enable2FA}
+                            slotProps={{
+                              input: {
+                                "aria-label": "이중 인증 활성화 상태 토글",
+                              },
+                            }}
+                          />
+                          <span
+                            style={{
+                              fontWeight: "bolder",
+                              fontSize: ".9rem",
+                              fontStretch: "expanded",
+                              color: `${twoFaEnabled ? "green" : "slategrey"}`,
+                            }}
+                          >
+                            {twoFaEnabled ? "활성화됨" : "비활성됨"}
+                          </span>
+                        </div>
                       </td>
                     </tr>
-                  ))}
-
-                  <tr>
-                    <td
-                      md={4}
-                      className="text-end"
-                      style={{ minWidth: "145px" }}
-                    >
-                      구글 이중 인증(2FA):
-                    </td>
-                    <td md={7} colSpan={2} className="setBorder ms-1">
-                      <div className="py-0 text-start">
-                        <Switch
-                          disabled={switchDisabled}
-                          checked={twoFaEnabled}
-                          onChange={twoFaEnabled ? disable2FA : enable2FA}
-                          slotProps={{
-                            input: {
-                              "aria-label": "이중 인증 활성화 상태 토글",
-                            },
-                          }}
-                        />
-                        <span
-                          style={{
-                            fontWeight: "bolder",
-                            fontSize: ".9rem",
-                            fontStretch: "expanded",
-                            color: `${twoFaEnabled ? "green" : "slategrey"}`,
-                          }}
-                        >
-                          {twoFaEnabled ? "활성화됨" : "비활성됨"}
-                        </span>
-                      </div>
-                    </td>
-                  </tr>
-                </Table>
+                  </Table>
+                </div>
               </Card.Body>
             </Card>
             {showQrCode && (
