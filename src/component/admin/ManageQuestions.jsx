@@ -88,7 +88,7 @@ const ManageQuestions = ({ mine }) => {
         mine={mine}
         setReloadPage={setReloadPage}
       />
-      <Row className="justify-content-center mt-2">
+      <Row className="justify-content-center mt-2 mb-4">
         <Col id="questionsTable">
           <Card>
             <Card.Body>
