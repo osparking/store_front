@@ -10,7 +10,7 @@ const ManageMyOrder = () => {
   const [detailId, setDetailId] = useState(0);
 
   return (
-    <Row className="justify-content-center mt-2">
+    <Row className="justify-content-center mt-2 mb-4">
       <Col id="myOrderTable">
         <Card>
           <Card.Body>
