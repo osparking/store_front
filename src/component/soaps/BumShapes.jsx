@@ -43,14 +43,17 @@ const BumShapes = () => {
   }, [location.state]);
 
   return (
-    <Row className="justify-content-center" style={{ height: "77vh" }}>
-      <Col
-        xs={12}
-        md={10}
-        lg={9}
-        style={{ maxWidth: "800px", overflow: "auto", height: "100%" }}
-      >
-        <Card style={{ height: "fit-content" }}>
+<Row className="justify-content-center mt-2" style={{ height: "77vh" }}>
+  <Col
+    xs={12}
+    md={10}
+    lg={9}
+    style={{ overflow: "auto", height: "100%" }}
+  >
+    <Card
+      style={{ maxWidth: "1030px", height: "fit-content" }}
+      className="mx-auto"
+    >
           <Card.Body>
             <h2 className="mb-1">
               <strong>비누 외형</strong>
