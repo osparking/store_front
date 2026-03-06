@@ -76,7 +76,7 @@ const OverviewUser = () => {
   }, []);
 
   return (
-    <Row className="justify-content-center chart-row mt-2">
+    <Row className="justify-content-center chart-row mt-2 mb-4">
       <Col lg={5} md={6} xs={12} className="chartUserCol">
         <Card className="chartUser h-100">
           <CardCompo
