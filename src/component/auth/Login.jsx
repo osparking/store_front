@@ -23,7 +23,7 @@ import "./Login.css";
 const Login = () => {
   const [showCodeModal, setShowCodeModal] = useState(false);
   const [credentials, setCredentials] = useState({
-    email: "jbpark103@hanmail.net",
+    email: "jbpark03@naver.com",
     password: "1234",
     save_login: true,
   });

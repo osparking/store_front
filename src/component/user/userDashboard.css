@@ -25,3 +25,8 @@ h5 {
   justify-content:center;
   display: flex;
 }
+
+.home-container.user-dashboard {
+  background-color: rgba(34, 28, 8, 0.7);
+  padding: 0;
+}

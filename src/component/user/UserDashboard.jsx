@@ -76,7 +76,7 @@ const UserDashboard = () => {
   };
 
   return (
-    <Container fluid className="home-container">
+    <Container fluid className="home-container user-dashboard">
       <Tabs
         activeKey={activeKey}
         onSelect={changeActiveKey}
