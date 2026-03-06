@@ -4,8 +4,7 @@
 }
 
 .setBorder {
-  border: 4px solid #ffc107;
-  background-color: #ffc107;
+  background-color:pink;
 }
 
 #userProfile td {
@@ -21,5 +20,19 @@
 }
 
 #userProfile #legendRow {
-  background-color: rgb(196, 228, 241);
+  height: 38px !important;
+}
+
+#legendRow td {
+  padding: 0;
+}
+
+#switch-2FA {
+  padding: 0;
+  text-align:start;
+  background-color: pink;
+}
+
+#legendBlock {
+  width: 38px !important;
 }
