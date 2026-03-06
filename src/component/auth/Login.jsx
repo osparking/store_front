@@ -18,6 +18,7 @@ import BsAlertHook from "../hook/BsAlertHook";
 import { storeLoginInfo } from "../util/utilities";
 import { loginUser } from "./AuthService";
 import CodeEntryModal from "./CodeEntryModal";
+import "./Login.css";
 
 const Login = () => {
   const [showCodeModal, setShowCodeModal] = useState(false);
