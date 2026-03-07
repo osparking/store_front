@@ -4,7 +4,7 @@
 }
 
 .setBorder {
-  background-color:pink;
+  background-color:pink !important;
 }
 
 #userProfile td {
