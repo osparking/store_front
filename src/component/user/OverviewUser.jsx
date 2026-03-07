@@ -76,9 +76,13 @@ const OverviewUser = () => {
   }, []);
 
   return (
-    <Row className="justify-content-center chart-row mt-2 mb-4">
+    <Row
+      id="overviewUser"
+      className="justify-content-center chart-row mt-2 mb-4"
+      style={{ height: "fit-content" }}
+    >
       <Col lg={5} md={6} xs={12} className="chartUserCol">
-        <Card className="chartUser h-100">
+        <Card className="chartUser">
           <CardCompo
             label={"최근 6 개월 구매 합계"}
             count={totalSoaps}
@@ -94,7 +98,7 @@ const OverviewUser = () => {
         </Card>
       </Col>
       <Col lg={5} md={6} xs={12} className="chartUserCol">
-        <Card className="chartUser h-100">
+        <Card className="chartUser">
           <CardCompo
             label={"최근 6 개월 구매 외형 비중"}
             count={totalSoaps}
