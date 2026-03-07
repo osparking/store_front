@@ -100,14 +100,15 @@ const UserUpdate = () => {
   };
 
   return (
-    <Container md={6} className="d-flex justify-content-center mt-5">
-      <Col md={6}>
+    <Container xs={12} md={6} className="d-flex justify-content-center mt-5">
+      <Col xs={12} md={6}>
         <Form className="mb-5" onSubmit={handleUpdate}>
           <Card className="shadow">
             <Card.Header className="text-center mb-2 h3">정보 수정</Card.Header>
-            <Card.Body className="mb-3">
+            <Card.Body>
+             
               <Row>
-                <Col>
+                <Col xs={12} md={6}>
                   <Form.Label className="legend">성명</Form.Label>
                   <Form.Control
                     type="text"
@@ -115,9 +116,10 @@ const UserUpdate = () => {
                     placeholder="(성명)"
                     value={user.fullName}
                     onChange={handleInputChange}
+                    style={{ backgroundColor: "pink" }}
                   />
                 </Col>
-                <Col>
+                <Col xs={12} md={6}>
                   <Form.Label className="legend">계정 상태</Form.Label>
                   <Form.Check
                     type="switch"
@@ -125,6 +127,7 @@ const UserUpdate = () => {
                     checked={user.enabled}
                     onChange={handleCheckChange}
                     label="활성화"
+                    style={{marginTop: "5px"}}
                   />
                 </Col>
               </Row>
@@ -132,7 +135,7 @@ const UserUpdate = () => {
               {/* 연락처 두 가지 */}
               <fieldset className="field-set mb-2 mt-2">
                 <Row>
-                  <Col>
+                  <Col xs={12} md={6}>
                     <Form.Label className="legend">이메일</Form.Label>
                     <Form.Control
                       type="email"
@@ -142,7 +145,7 @@ const UserUpdate = () => {
                       disabled
                     />
                   </Col>
-                  <Col>
+                  <Col xs={12} md={6}>
                     <Form.Label className="legend">휴대폰</Form.Label>
                     <Form.Control
                       type="text"
@@ -150,6 +153,7 @@ const UserUpdate = () => {
                       placeholder="(휴대폰 번호)"
                       value={user.mbPhone}
                       onChange={handleInputChange}
+                      style={{ backgroundColor: "pink" }}
                     />
                   </Col>
                 </Row>
@@ -189,13 +193,17 @@ const UserUpdate = () => {
                   </Row>
                 </fieldset>
               )}
-              <Form.Group as={Col} controlId="addDate" className="mb-2">
+              <Form.Group
+                controlId="addDate"
+                className="mb-2 d-flex flex-column"
+              >
                 <Form.Label>등록 일시</Form.Label>
                 <Form.Control
                   type="text"
                   name="addDate"
                   value={user.addDate}
                   disabled
+                  style={{ minWidth: "262px", width: "50%" }}
                 />
               </Form.Group>
 
@@ -206,7 +214,7 @@ const UserUpdate = () => {
                 <AlertMessage type={"success"} message={successMsg} />
               )}
 
-              <div className="d-flex justify-content-center">
+              <div className="d-flex justify-content-center char2button mt-4">
                 <div className="mx-2">
                   <Button
                     type="submit"
