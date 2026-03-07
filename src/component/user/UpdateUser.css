@@ -1,0 +1,5 @@
+@media (max-width: 768px) {
+  .email-field {
+    min-width: 251px !important;
+  }
+}
