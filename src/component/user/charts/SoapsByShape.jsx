@@ -37,7 +37,7 @@ const SoapsByShape = ({ totalSoaps }) => {
       ) : (
         <PieChart
           width={328}
-          height={238}
+          height={220}
           className="p-3"
           style={{ backgroundColor: "#d8aab8ff" }}
         >

@@ -200,83 +200,85 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
               <Card.Body className="d-flex align-items-center justify-content-center">
                 <div style={{ overflow: "auto" }}>
                   <Table id="userProfile" className="my-0">
-                    <tr id="legendRow">
-                      <td className="text-end">
-                        <Link
-                          to={`/user/${user.id}/update`}
-                          className="btn btn-warning btn-sm w-70 py-0"
-                          style={{
-                            fontWeight: "bold",
-                            minWidth: "60px",
-                            maxWidth: "fit-content",
-                            borderWidth: "4px",
-                            borderStyle: "solid",
-                            borderColor: "#ffc107",
-                          }}
-                        >
-                          정보 수정
-                        </Link>
-                      </td>
-                      <td id="legendBlock" className="setBorder">
-                        &nbsp;
-                      </td>
-                      <td className="text-start">: 수정 가능</td>
-                    </tr>
+                    <tbody>
+                      <tr id="legendRow">
+                        <td className="text-end">
+                          <Link
+                            to={`/user/${user.id}/update`}
+                            className="btn btn-warning btn-sm w-70 py-0"
+                            style={{
+                              fontWeight: "bold",
+                              minWidth: "60px",
+                              maxWidth: "fit-content",
+                              borderWidth: "4px",
+                              borderStyle: "solid",
+                              borderColor: "#ffc107",
+                            }}
+                          >
+                            정보 수정
+                          </Link>
+                        </td>
+                        <td id="legendBlock" className="setBorder">
+                          &nbsp;
+                        </td>
+                        <td className="text-start">: 수정 가능</td>
+                      </tr>
 
-                    {profileData.map((item, index) => (
+                      {profileData.map((item, index) => (
+                        <tr key={index}>
+                          <td
+                            md={4}
+                            className="text-end"
+                            style={{ minWidth: "145px" }}
+                          >
+                            {item.label}:
+                          </td>
+                          <td
+                            md={7}
+                            colSpan={2}
+                            className={getClasses(isUpdatable(item.label))}
+                            //  ? "setBorder ms-1 text-start" : "text-start ms-1"}`}
+                            style={{ minWidth: "250px" }}
+                          >
+                            {item.value}
+                          </td>
+                        </tr>
+                      ))}
+
                       <tr>
                         <td
                           md={4}
                           className="text-end"
                           style={{ minWidth: "145px" }}
                         >
-                          {item.label}:
+                          구글 이중 인증(2FA):
                         </td>
-                        <td
-                          md={7}
-                          colSpan={2}
-                          className={getClasses(isUpdatable(item.label))}
-                          //  ? "setBorder ms-1 text-start" : "text-start ms-1"}`}
-                          style={{ minWidth: "250px" }}
-                        >
-                          {item.value}
+                        <td md={7} colSpan={2} className="setBorder">
+                          <div id="switch-2FA">
+                            <Switch
+                              disabled={switchDisabled}
+                              checked={twoFaEnabled}
+                              onChange={twoFaEnabled ? disable2FA : enable2FA}
+                              slotProps={{
+                                input: {
+                                  "aria-label": "이중 인증 활성화 상태 토글",
+                                },
+                              }}
+                            />
+                            <span
+                              style={{
+                                fontWeight: "bolder",
+                                fontSize: ".9rem",
+                                fontStretch: "expanded",
+                                color: `${twoFaEnabled ? "green" : "slategrey"}`,
+                              }}
+                            >
+                              {twoFaEnabled ? "활성화됨" : "비활성됨"}
+                            </span>
+                          </div>
                         </td>
                       </tr>
-                    ))}
-
-                    <tr>
-                      <td
-                        md={4}
-                        className="text-end"
-                        style={{ minWidth: "145px" }}
-                      >
-                        구글 이중 인증(2FA):
-                      </td>
-                      <td md={7} colSpan={2} className="setBorder">
-                        <div id="switch-2FA">
-                          <Switch
-                            disabled={switchDisabled}
-                            checked={twoFaEnabled}
-                            onChange={twoFaEnabled ? disable2FA : enable2FA}
-                            slotProps={{
-                              input: {
-                                "aria-label": "이중 인증 활성화 상태 토글",
-                              },
-                            }}
-                          />
-                          <span
-                            style={{
-                              fontWeight: "bolder",
-                              fontSize: ".9rem",
-                              fontStretch: "expanded",
-                              color: `${twoFaEnabled ? "green" : "slategrey"}`,
-                            }}
-                          >
-                            {twoFaEnabled ? "활성화됨" : "비활성됨"}
-                          </span>
-                        </div>
-                      </td>
-                    </tr>
+                    </tbody>
                   </Table>
                 </div>
               </Card.Body>
