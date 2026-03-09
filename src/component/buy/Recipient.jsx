@@ -236,7 +236,7 @@ const Recipient = () => {
         noLabel={"수정할께요."}
         yesLabel={"네, 그래요."}
       />
-      <div style={{ width: "95%", maxWidth: "950px", margin: "auto" }}>
+      <div id="recipientDiv">
         <div className="d-flex justify-content-center ">
           <Row className="pt-4 pb-2 mt-3 rowStyle dark">
             <Col md={8}>
