@@ -1,5 +1,14 @@
 import { useEffect, useState } from "react";
-import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Form,
+  OverlayTrigger,
+  Row,
+  Tooltip,
+} from "react-bootstrap";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import ProcessSpinner from "../common/ProcessSpinner";
@@ -7,6 +16,7 @@ import BsAlertHook from "../hook/BsAlertHook";
 import WorkerDeptSelector from "../worker/WorkerDeptSelector";
 import "./UpdateUser.css";
 import { getUserDtoById, updateUser } from "./UserService";
+import { insertHyphens } from "../util/utilities";
 
 const UserUpdate = () => {
   const location = useLocation();
@@ -60,7 +70,17 @@ const UserUpdate = () => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setUser((prevState) => ({ ...prevState, [name]: value }));
+    const cleaned = value.replace(/\D/g, "");
+    let phoneNumber = undefined;
+
+    if (cleaned.length <= 3) {
+      phoneNumber = cleaned;
+    } else if (cleaned.length <= 7) {
+      phoneNumber = `${cleaned.slice(0, 3)}-${cleaned.slice(3)}`;
+    } else {
+      phoneNumber = insertHyphens(cleaned);
+    }
+    setUser((prevState) => ({ ...prevState, [name]: phoneNumber }));
   };
 
   const handleCheckChange = (e) => {
@@ -163,14 +183,16 @@ const UserUpdate = () => {
                   style={{ maxWidth: "60%", minWidth: "150px" }}
                 >
                   <Form.Label className="legend">휴대폰</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="mbPhone"
-                    placeholder="(휴대폰 번호)"
-                    value={user.mbPhone}
-                    onChange={handleInputChange}
-                    style={{ backgroundColor: "pink" }}
-                  />
+                  <OverlayTrigger overlay={<Tooltip>숫자만 :-)</Tooltip>}>
+                    <Form.Control
+                      type="text"
+                      name="mbPhone"
+                      placeholder="(휴대폰 번호)"
+                      value={user.mbPhone}
+                      onChange={handleInputChange}
+                      style={{ backgroundColor: "pink" }}
+                    />
+                  </OverlayTrigger>
                 </Col>
               </Row>
             </fieldset>

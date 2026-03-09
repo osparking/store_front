@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Button, Form, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
-import { handlePropChange, insertHyphens } from "../util/utilities";
 import AddressModal from "./AddressModal";
 import RecipientsModal from "../modal/RecipientsModal";
+import { handlePropChange, insertHyphens } from "../util/utilities.js";
 
 const RecipientInfo = ({
   formData,
@@ -197,7 +197,7 @@ const RecipientInfo = ({
         }}
         putFocus2detailedAddr={putFocus2detailedAddr}
       />
-      <RecipientsModal 
+      <RecipientsModal
         show={showRecipientsModal}
         formData={formData}
         setFormData={setFormData}
