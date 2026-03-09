@@ -102,156 +102,172 @@ const UserUpdate = () => {
 
   return (
     <Container className="d-flex justify-content-center">
-      <Col xs={12} md={9}>
-        <Form
-          className="mb-5"
-          onSubmit={handleUpdate}
-          style={{ marginTop: "88px" }}
-        >
-          <Card className="shadow" style={{ maxWidth: "580px" }}>
-            <Card.Header className="text-center mb-2 h3">
-              성명/휴대폰 수정
-            </Card.Header>
-            <Card.Body>
+      <Form
+        className="mb-5"
+        onSubmit={handleUpdate}
+        style={{ marginTop: "88px" }}
+      >
+        <Card className="shadow" style={{ maxWidth: "580px" }}>
+          <Card.Header className="text-center mb-2 h3">
+            성명/휴대폰 수정
+          </Card.Header>
+          <Card.Body>
+            <Row>
+              <Col
+                xs={12}
+                md={6}
+                lg={6}
+                style={{ maxWidth: "60%", minWidth: "150px" }}
+              >
+                <Form.Label className="legend">성명</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="fullName"
+                  placeholder="(성명)"
+                  value={user.fullName}
+                  onChange={handleInputChange}
+                  style={{ backgroundColor: "pink" }}
+                />
+              </Col>
+              <Col xs={12} md={6} lg={6}>
+                <Form.Label className="legend">계정 상태</Form.Label>
+                <Form.Check
+                  type="switch"
+                  name="enabled"
+                  checked={user.enabled}
+                  onChange={handleCheckChange}
+                  label="활성화"
+                  style={{ marginTop: "5px" }}
+                />
+              </Col>
+            </Row>
+
+            {/* 연락처 두 가지 */}
+            <fieldset className="field-set mb-2 mt-2">
               <Row>
                 <Col xs={12} md={6} lg={6}>
-                  <Form.Label className="legend">성명</Form.Label>
+                  <Form.Label className="legend">이메일</Form.Label>
+                  <Form.Control
+                    type="email"
+                    name="email"
+                    placeholder="(이메일)"
+                    value={user.email}
+                    disabled
+                    className="email-field"
+                  />
+                </Col>
+                <Col
+                  xs={6}
+                  md={6}
+                  lg={6}
+                  style={{ maxWidth: "60%", minWidth: "150px" }}
+                >
+                  <Form.Label className="legend">휴대폰</Form.Label>
                   <Form.Control
                     type="text"
-                    name="fullName"
-                    placeholder="(성명)"
-                    value={user.fullName}
+                    name="mbPhone"
+                    placeholder="(휴대폰 번호)"
+                    value={user.mbPhone}
                     onChange={handleInputChange}
                     style={{ backgroundColor: "pink" }}
                   />
                 </Col>
-                <Col xs={12} md={6} lg={6}>
-                  <Form.Label className="legend">계정 상태</Form.Label>
-                  <Form.Check
-                    type="switch"
-                    name="enabled"
-                    checked={user.enabled}
-                    onChange={handleCheckChange}
-                    label="활성화"
-                    style={{ marginTop: "5px" }}
-                  />
-                </Col>
               </Row>
+            </fieldset>
 
-              {/* 연락처 두 가지 */}
+            <Row>
+              <Col xs={5} md={5} lg={5}>
+                {/* 계정 유형 - 비활성 */}
+                <Form.Group as={Col} controlId="user-type" className="mb-2">
+                  <Form.Label>계정 유형</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="userType"
+                    value={user.userType}
+                    disabled
+                  />
+                </Form.Group>
+              </Col>
+              <Col xs={12} md={7} lg={7}>
+                <Form.Group
+                  controlId="addDate"
+                  className="mb-2 d-flex flex-column"
+                >
+                  <Form.Label>등록 일시</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="addDate"
+                    value={user.addDate}
+                    disabled
+                    style={{ minWidth: "262px" }}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            {user.userType === "노동자" && (
               <fieldset className="field-set mb-2 mt-2">
                 <Row>
-                  <Col xs={12} md={6} lg={6}>
-                    <Form.Label className="legend">이메일</Form.Label>
-                    <Form.Control
-                      type="email"
-                      name="email"
-                      placeholder="(이메일)"
-                      value={user.email}
-                      disabled
-                      className="email-field"
+                  <Col
+                    xs={12}
+                    md={6}
+                    lg={6}
+                    style={{ width: "50%", minWidth: "150px" }}
+                  >
+                    <Form.Label className="legend">소속 부서</Form.Label>
+                    <WorkerDeptSelector
+                      workerDept={user.dept}
+                      onChange={handleInputChange}
                     />
                   </Col>
                   <Col
-                    xs={6}
+                    xs={12}
                     md={6}
                     lg={6}
-                    style={{ maxWidth: "60%", minWidth: "150px" }}
+                    style={{ width: "50%", minWidth: "150px" }}
                   >
-                    <Form.Label className="legend">휴대폰</Form.Label>
+                    <Form.Label className="legend">사진 유무: </Form.Label>
                     <Form.Control
+                      className="ms-0"
                       type="text"
-                      name="mbPhone"
-                      placeholder="(휴대폰 번호)"
-                      value={user.mbPhone}
-                      onChange={handleInputChange}
-                      style={{ backgroundColor: "pink" }}
+                      name="photoYN"
+                      value={`${user.photoId ? "유" : "무"}`}
+                      disabled
                     />
                   </Col>
                 </Row>
               </fieldset>
+            )}
 
-              {/* 계정 유형 - 비활성 */}
-              <Form.Group as={Col} controlId="user-type" className="mb-2">
-                <Form.Label>계정 유형</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="userType"
-                  value={user.userType}
-                  disabled
-                />
-              </Form.Group>
+            {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
+            {alertSuccess && (
+              <AlertMessage type={"success"} message={successMsg} />
+            )}
 
-              {user.userType === "노동자" && (
-                <fieldset className="field-set mb-2 mt-2">
-                  <Row>
-                    <Col>
-                      <Form.Label className="legend">소속 부서</Form.Label>
-                      <WorkerDeptSelector
-                        workerDept={user.dept}
-                        onChange={handleInputChange}
-                      />
-                    </Col>
-                    <Col>
-                      <Form.Label className="legend">사진 유무: </Form.Label>
-                      <Form.Control
-                        className="ms-0"
-                        type="text"
-                        name="photoYN"
-                        value={`${user.photoId ? "유" : "무"}`}
-                        disabled
-                      />
-                    </Col>
-                  </Row>
-                </fieldset>
-              )}
-              <Form.Group
-                controlId="addDate"
-                className="mb-2 d-flex flex-column"
-              >
-                <Form.Label>등록 일시</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="addDate"
-                  value={user.addDate}
-                  disabled
-                  style={{ minWidth: "262px", width: "50%" }}
-                />
-              </Form.Group>
-
-              {alertError && (
-                <AlertMessage type={"danger"} message={errorMsg} />
-              )}
-              {alertSuccess && (
-                <AlertMessage type={"success"} message={successMsg} />
-              )}
-
-              <div className="d-flex justify-content-center char2button mt-4">
-                <div className="mx-2">
-                  <Button
-                    type="submit"
-                    variant="outline-primary"
-                    size="sm"
-                    className="me-2"
-                    disabled={isProcessing}
-                  >
-                    {isProcessing ? (
-                      <ProcessSpinner message="갱신 처리 중..." />
-                    ) : (
-                      "갱신"
-                    )}
-                  </Button>
-                </div>
-                <div className="mx-2">
-                  <Button variant="secondary" size="sm" onClick={cancelUpdate}>
-                    닫기
-                  </Button>
-                </div>
+            <div className="d-flex justify-content-center char2button mt-4">
+              <div className="mx-2">
+                <Button
+                  type="submit"
+                  variant="outline-primary"
+                  size="sm"
+                  className="me-2"
+                  disabled={isProcessing}
+                >
+                  {isProcessing ? (
+                    <ProcessSpinner message="갱신 처리 중..." />
+                  ) : (
+                    "갱신"
+                  )}
+                </Button>
               </div>
-            </Card.Body>
-          </Card>
-        </Form>
-      </Col>
+              <div className="mx-2">
+                <Button variant="secondary" size="sm" onClick={cancelUpdate}>
+                  닫기
+                </Button>
+              </div>
+            </div>
+          </Card.Body>
+        </Card>
+      </Form>
     </Container>
   );
 };
