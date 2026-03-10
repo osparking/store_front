@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card, Col, Row } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import {
   fetchReview,
@@ -65,48 +65,47 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
   };
 
   return (
-    <div
-      className="justify-content-center align-items-center"
-      style={{ display: "flex", overflow: "auto", width: "100vw" }}
-    >
-      <Card style={{ margin: "28px 0" }}>
-        <Card.Body>
-          <ReviewModal
-            show={showReviewModal}
-            handleClose={() => setShowReviewModal(false)}
-            title={"후기 관리"}
-            review={review}
-            saveReview={saveReview}
-            editable={true}
-          />
-          <h2 className="mb-1 ps-0">
-            <strong>나의 후기 목록</strong>
-          </h2>
-          <div className="d-flex justify-content-center align-items-center">
-            <p className="text-center text-muted mb-4">
-              {getRecordRange(reviewPage, indexOfFirst, idxLastPlus1, "후기")}
-            </p>
-          </div>
-          <div
-            id="orderTable"
-            style={{ whiteSpace: "initial", overflow: "auto" }}
-            className="justify-content-center align-items-center"
-          >
-            {MyReviewsTable(reviews, manageReview)}
-          </div>
-          {searchResult && reviewPage && (
-            <Paginator
-              q
-              pageSize={pageSize}
-              totalItems={reviewPage.totalElements}
-              totalPages={totalPages}
-              currPage={currentPage}
-              setCurrPage={(pageNo) => setCurrentPage(pageNo)}
-            />
-          )}
-        </Card.Body>
-      </Card>
-    </div>
+    <>
+      <ReviewModal
+        show={showReviewModal}
+        handleClose={() => setShowReviewModal(false)}
+        title={"후기 관리"}
+        review={review}
+        saveReview={saveReview}
+        editable={true}
+      />
+      <div className="tableNmodal">
+        <Card style={{ margin: "28px 0" }}>
+          <Card.Body>
+            <h2 className="mb-1 ps-0">
+              <strong>나의 후기 목록</strong>
+            </h2>
+            <div className="d-flex justify-content-center align-items-center">
+              <p className="text-center text-muted mb-4">
+                {getRecordRange(reviewPage, indexOfFirst, idxLastPlus1, "후기")}
+              </p>
+            </div>
+            <div
+              id="orderTable"
+              style={{ whiteSpace: "initial", overflow: "auto" }}
+              className="justify-content-center align-items-center"
+            >
+              {MyReviewsTable(reviews, manageReview)}
+            </div>
+            {searchResult && reviewPage && (
+              <Paginator
+                q
+                pageSize={pageSize}
+                totalItems={reviewPage.totalElements}
+                totalPages={totalPages}
+                currPage={currentPage}
+                setCurrPage={(pageNo) => setCurrentPage(pageNo)}
+              />
+            )}
+          </Card.Body>
+        </Card>
+      </div>
+    </>
   );
 };
 

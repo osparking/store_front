@@ -88,10 +88,7 @@ const ManageQuestions = ({ mine }) => {
         mine={mine}
         setReloadPage={setReloadPage}
       />
-      <div
-        className="justify-content-center align-items-center"
-        style={{ display: "flex", overflow: "auto", width: "100vw" }}
-      >
+      <div className="tableNmodal">
         <Card style={{ margin: "28px 0" }}>
           <Card.Body>
             <h2 className="mb-1 ps-0">
