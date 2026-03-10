@@ -125,13 +125,14 @@ const Login = () => {
                 />
               </InputGroup>
             </Form.Group>
-            <div className="ms-5">
+            <div className="d-flex justify-content-center">
               <Form.Check
                 type="switch"
                 name="save_login"
                 checked={credentials.save_login}
                 onChange={handleCheckChange}
                 label="로그인 유지"
+                reverse
               />
             </div>
             <div className="d-flex justify-content-center">
