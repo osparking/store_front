@@ -30,3 +30,11 @@ h5 {
   background-color: rgba(34, 28, 8, 0.7);
   padding: 0;
 }
+
+.tableNmodal {
+  display: flex;
+  overflow: auto;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+}
