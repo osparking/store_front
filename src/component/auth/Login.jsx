@@ -25,7 +25,7 @@ const Login = () => {
   const [credentials, setCredentials] = useState({
     email: "jbpark03@naver.com",
     password: "1234",
-    save_login: true,
+    save_login: false,
   });
   const [code, setCode] = useState("");
   const [codeNeeded, setCodeNeeded] = useState(false);
@@ -48,7 +48,7 @@ const Login = () => {
   };
 
   const handleCheckChange = (e) => {
-    // setCredentials({ ...credentials, [e.target.name]: e.target.checked });
+    setCredentials({ ...credentials, [e.target.name]: e.target.checked });
   };
 
   const navigate = useNavigate();
@@ -126,6 +126,11 @@ const Login = () => {
               </InputGroup>
             </Form.Group>
             <div className="d-flex justify-content-center">
+              <Button variant="outline-primary" type="submit" className="w-75">
+                로그인
+              </Button>
+            </div>
+            <div className="d-flex justify-content-center mt-3 mb-0">
               <Form.Check
                 type="switch"
                 name="save_login"
@@ -134,14 +139,10 @@ const Login = () => {
                 label="로그인 유지"
                 reverse
               />
-            </div>
-            <div className="d-flex justify-content-center">
-              <Button variant="outline-primary" type="submit" className="w-75">
-                로그인
-              </Button>
+              <p className="ms-2">[7일 간]</p>
             </div>
           </Form>
-          <div className="text-center mt-3 mb-3">
+          <div className="text-center mt-0 mb-3">
             <button
               className="button button-solid"
               onClick={() => handleOauth2Login("naver")}
