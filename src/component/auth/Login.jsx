@@ -95,19 +95,21 @@ const Login = () => {
         <Card.Body>
           <Card.Title className="text-center mb-4">로그인</Card.Title>
           <Form onSubmit={actLogin}>
-            <Form.Label>이메일</Form.Label>
-            <InputGroup>
-              <InputGroup.Text>
-                <BsPersonFill />
-              </InputGroup.Text>
-              <Form.Control
-                type="email"
-                name="email"
-                placeholder="(이메일)"
-                value={credentials.email}
-                onChange={handleChange}
-              />
-            </InputGroup>
+            <Form.Group className="mb-3" controlId="email">
+              <Form.Label>이메일</Form.Label>
+              <InputGroup>
+                <InputGroup.Text>
+                  <BsPersonFill />
+                </InputGroup.Text>
+                <Form.Control
+                  type="email"
+                  name="email"
+                  placeholder="(이메일)"
+                  value={credentials.email}
+                  onChange={handleChange}
+                />
+              </InputGroup>
+            </Form.Group>
             <Form.Group className="mb-3" controlId="password">
               <Form.Label>비밀번호</Form.Label>
               <InputGroup>
