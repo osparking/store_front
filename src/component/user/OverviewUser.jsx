@@ -78,7 +78,7 @@ const OverviewUser = () => {
   return (
     <Row
       id="overviewUser"
-      className="justify-content-center chart-row mt-2 mb-4"
+      className="justify-content-center chart-row mt-2 mb-1"
       style={{ height: "fit-content" }}
     >
       <Col lg={5} md={6} xs={12} className="chartUserCol">
