@@ -110,7 +110,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
       />
       <Row
         className="justify-content-center mt-2"
-        style={{ marginBottom: "85px", width: "fit-content" }}
+        style={{ marginBottom: "28px", width: "fit-content" }}
       >
         <Col
           lg={3}
