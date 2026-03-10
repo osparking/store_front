@@ -65,47 +65,48 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
   };
 
   return (
-    <Row className="justify-content-center mt-2 mb-4">
-      <Col id="myReviewPage">
-        <Card>
-          <Card.Body>
-            <ReviewModal
-              show={showReviewModal}
-              handleClose={() => setShowReviewModal(false)}
-              title={"후기 관리"}
-              review={review}
-              saveReview={saveReview}
-              editable={true}
+    <div
+      className="justify-content-center align-items-center"
+      style={{ display: "flex", overflow: "auto", width: "100vw" }}
+    >
+      <Card style={{ margin: "28px 0" }}>
+        <Card.Body>
+          <ReviewModal
+            show={showReviewModal}
+            handleClose={() => setShowReviewModal(false)}
+            title={"후기 관리"}
+            review={review}
+            saveReview={saveReview}
+            editable={true}
+          />
+          <h2 className="mb-1 ps-0">
+            <strong>나의 후기 목록</strong>
+          </h2>
+          <div className="d-flex justify-content-center align-items-center">
+            <p className="text-center text-muted mb-4">
+              {getRecordRange(reviewPage, indexOfFirst, idxLastPlus1, "후기")}
+            </p>
+          </div>
+          <div
+            id="orderTable"
+            style={{ whiteSpace: "initial", overflow: "auto" }}
+            className="justify-content-center align-items-center"
+          >
+            {MyReviewsTable(reviews, manageReview)}
+          </div>
+          {searchResult && reviewPage && (
+            <Paginator
+              q
+              pageSize={pageSize}
+              totalItems={reviewPage.totalElements}
+              totalPages={totalPages}
+              currPage={currentPage}
+              setCurrPage={(pageNo) => setCurrentPage(pageNo)}
             />
-            <h2 className="mb-1 ps-0">
-              <strong>나의 후기 목록</strong>
-            </h2>
-            <div className="d-flex justify-content-center align-items-center">
-              <p className="text-center text-muted mb-4">
-                {getRecordRange(reviewPage, indexOfFirst, idxLastPlus1, "후기")}
-              </p>
-            </div>
-            <div
-              id="orderTable"
-              style={{ whiteSpace: "initial", overflow: "auto" }}
-              className="justify-content-center align-items-center"
-            >
-              {MyReviewsTable(reviews, manageReview)}
-            </div>
-            {searchResult && reviewPage && (
-              <Paginator
-                q
-                pageSize={pageSize}
-                totalItems={reviewPage.totalElements}
-                totalPages={totalPages}
-                currPage={currentPage}
-                setCurrPage={(pageNo) => setCurrentPage(pageNo)}
-              />
-            )}
-          </Card.Body>
-        </Card>
-      </Col>
-    </Row>
+          )}
+        </Card.Body>
+      </Card>
+    </div>
   );
 };
 
