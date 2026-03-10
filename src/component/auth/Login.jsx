@@ -131,15 +131,14 @@ const Login = () => {
               </Button>
             </div>
             <div className="d-flex justify-content-center mt-3 mb-0">
+              <p className="me-2">[7일 간]</p>
               <Form.Check
                 type="switch"
                 name="save_login"
                 checked={credentials.save_login}
                 onChange={handleCheckChange}
                 label="로그인 유지"
-                reverse
               />
-              <p className="ms-2">[7일 간]</p>
             </div>
           </Form>
           <div className="text-center mt-0 mb-3">
