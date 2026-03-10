@@ -88,43 +88,44 @@ const ManageQuestions = ({ mine }) => {
         mine={mine}
         setReloadPage={setReloadPage}
       />
-      <Row className="justify-content-center mt-2 mb-4">
-        <Col id="questionsTable">
-          <Card>
-            <Card.Body>
-              <h2 className="mb-1 ps-0">
-                <strong>질문 목록</strong>
-              </h2>
-              <div className="justify-content-center align-items-center">
-                <p className="text-center text-muted mb-4">
-                  {getRecordRange(
-                    questionPage,
-                    indexOfFirst,
-                    idxLastPlus1,
-                    "질문",
-                  )}
-                </p>
-              </div>
-              <div
-                id="questionTableDiv"
-                style={{ whiteSpace: "initial", overflow: "auto" }}
-                className="justify-content-center align-items-center"
-              >
-                {QuestionsTable(questions, answerQuestion)}
-              </div>
-              {searchResult && questionPage && (
-                <Paginator
-                  pageSize={pageSize}
-                  totalItems={questionPage.totalElements}
-                  totalPages={totalPages}
-                  currPage={currentPage}
-                  setCurrPage={(pageNo) => setCurrentPage(pageNo)}
-                />
-              )}
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+      <div
+        className="justify-content-center align-items-center"
+        style={{ display: "flex", overflow: "auto", width: "100vw" }}
+      >
+        <Card style={{ margin: "28px 0" }}>
+          <Card.Body>
+            <h2 className="mb-1 ps-0">
+              <strong>질문 목록</strong>
+            </h2>
+            <div className="justify-content-center align-items-center">
+              <p className="text-center text-muted mb-4">
+                {getRecordRange(
+                  questionPage,
+                  indexOfFirst,
+                  idxLastPlus1,
+                  "질문",
+                )}
+              </p>
+            </div>
+            <div
+              id="questionTableDiv"
+              style={{ whiteSpace: "initial", overflow: "auto" }}
+              className="justify-content-center align-items-center"
+            >
+              {QuestionsTable(questions, answerQuestion)}
+            </div>
+            {searchResult && questionPage && (
+              <Paginator
+                pageSize={pageSize}
+                totalItems={questionPage.totalElements}
+                totalPages={totalPages}
+                currPage={currentPage}
+                setCurrPage={(pageNo) => setCurrentPage(pageNo)}
+              />
+            )}
+          </Card.Body>
+        </Card>
+      </div>
     </>
   );
 };
