@@ -38,6 +38,8 @@ const clearLoginUserInfo = () => {
   items.forEach((item) => {
     localStorage.removeItem(item);
   });
+
+  sessionStorage.removeItem("TOKEN");
 };
 
 export const logoutUser = () => {
