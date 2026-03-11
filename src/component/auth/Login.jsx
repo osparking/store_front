@@ -71,7 +71,7 @@ const Login = () => {
           setJwtToken(data.token);
           setShowCodeModal(true);
         } else {
-          storeLoginInfo(user, data.token);
+          storeLoginInfo(user);
           storeJWT(data.token, credentials.save_login);
           window.dispatchEvent(new Event("loginEvt"));
           navigate(location.state?.from || `/dashboard/${user.id}/user`, {

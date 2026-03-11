@@ -31,7 +31,7 @@ const CodeEntryModal = ({ show, handleHide, jwtToken, user }) => {
           "Content-Type": "application/x-www-form-urlencoded",
         },
       });
-      storeLoginInfo(user, jwtToken);
+      storeLoginInfo(user);
       window.dispatchEvent(new Event("loginEvt"));
       navigate(`/dashboard/${user.id}/user`);
     } catch (error) {
