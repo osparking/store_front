@@ -150,20 +150,24 @@ export const expiredTokenRemoved = () => {
       if (payload.exp > currentTime) {
         return false;
       } else {
-        if ("true" === localStorage.getItem("SAVE_LOGIN")) {
-          localStorage.removeItem("TOKEN"); // 토큰 제거됨
-        } else {
-          sessionStorage.removeItem("TOKEN");
-        }
+        removeStorageToken();
         return true;
       }
     } catch (error) {
-      localStorage.removeItem("TOKEN");
+      removeStorageToken();
       console.error("Error decoding token:", error);
       return true;
     }
   } else {
     return true;
+  }
+};
+
+const removeStorageToken = () => {
+  if ("true" === localStorage.getItem("SAVE_LOGIN")) {
+    localStorage.removeItem("TOKEN"); // 토큰 제거됨
+  } else {
+    sessionStorage.removeItem("TOKEN");
   }
 };
 
