@@ -55,6 +55,16 @@ export const storeLoginInfo = (user, token) => {
   localStorage.setItem("IS_WORKER", user.isWorker);
 };
 
+export const storeJWT = (token, save_login) => {
+  if (save_login) {
+    // ON: localStorage에 저장 (브라우저 종료 후에도 유지)
+    localStorage.setItem("TOKEN", token);
+  } else {
+    // OFF: sessionStorage에 저장 (브라우저/탭 종료 시 삭제)
+    sessionStorage.setItem("TOKEN", token);
+  }
+};
+
 export const setDifference = (arrA, arrB) => {
   const setB = new Set(arrB);
   return arrA.filter((item) => !setB.has(item));
