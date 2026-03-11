@@ -47,10 +47,9 @@ export const useAlertTimeout = (initialVisibility = false, duration = 9000) => {
   return [showAlert, setShowAlert];
 };
 
-export const storeLoginInfo = (user, token) => {
+export const storeLoginInfo = (user) => {
   localStorage.setItem("USER", JSON.stringify(user));
   localStorage.setItem("LOGIN_ID", user.id);
-  localStorage.setItem("TOKEN", token);
   localStorage.setItem("IS_ADMIN", user.isAdmin);
   localStorage.setItem("IS_WORKER", user.isWorker);
 };
