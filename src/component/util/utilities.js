@@ -150,7 +150,11 @@ export const expiredTokenRemoved = () => {
       if (payload.exp > currentTime) {
         return false;
       } else {
-        localStorage.removeItem("TOKEN"); // 토큰 제거됨
+        if ("true".localStorage("SAVE_LOGIN")) {
+          localStorage.removeItem("TOKEN"); // 토큰 제거됨
+        } else {
+          sessionStorage.removeItem("TOKEN");
+        }
         return true;
       }
     } catch (error) {
