@@ -15,7 +15,7 @@ import naverIcon from "../../assets/images/btnD_icon_square.png";
 import AlertMessage from "../common/AlertMessage";
 import { jwtToUser } from "../common/JwtUtils";
 import BsAlertHook from "../hook/BsAlertHook";
-import { storeLoginInfo } from "../util/utilities";
+import { storeJWT, storeLoginInfo } from "../util/utilities";
 import { loginUser } from "./AuthService";
 import CodeEntryModal from "./CodeEntryModal";
 import "./Login.css";
@@ -72,6 +72,7 @@ const Login = () => {
           setShowCodeModal(true);
         } else {
           storeLoginInfo(user, data.token);
+          storeJWT(data.token, credentials.save_login);
           window.dispatchEvent(new Event("loginEvt"));
           navigate(location.state?.from || `/dashboard/${user.id}/user`, {
             replace: true,
