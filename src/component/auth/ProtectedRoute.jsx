@@ -1,7 +1,8 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { getStorageToken } from "../util/utilities";
 
 const ProtectedRoute = ({ children, allowedRoles = [], useOutlet = false }) => {
-  const loggedIn = localStorage.getItem("TOKEN") ? true : false;
+  const loggedIn = getStorageToken() ? true : false;
   const user = JSON.parse(localStorage.getItem("USER")) || [];
   const userRoles = user.roles || [];
   const location = useLocation();
