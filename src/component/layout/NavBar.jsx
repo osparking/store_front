@@ -3,9 +3,10 @@ import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
 import "./navBar.css";
+import { getStorageToken } from "../util/utilities";
 
 const NavBar = () => {
-  const beforeLogin = localStorage.getItem("TOKEN") === null;
+  const beforeLogin = getStorageToken() === null;
 
   const [isAdmin, setIsAdmin] = useState(false);
   const [isWorker, setIsWorker] = useState(false);
