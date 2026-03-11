@@ -1,6 +1,6 @@
 import axios, { HttpStatusCode } from "axios";
 import toast from "react-hot-toast";
-import { expiredTokenRemoved, getqStorageToken, getStorageToken } from "./utilities";
+import { expiredTokenRemoved, getStorageToken } from "./utilities";
 
 const prefix = "http://localhost:9193/api/s1";
 
