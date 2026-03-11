@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -42,6 +42,10 @@ const Login = () => {
     alertError,
     setAlertError,
   } = BsAlertHook();
+
+  useEffect(() => {
+    localStorage.setItem("SAVE_LOGIN", credentials.save_login);
+  }, [credentials.save_login]);
 
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
