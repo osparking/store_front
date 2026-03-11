@@ -3,6 +3,7 @@ import { Container } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { jwtToUser } from "../common/JwtUtils";
 import CodeEntryModal from "./CodeEntryModal";
+import { storeJWT } from "../util/utilities";
 
 const OAuth2RedirectHandler = () => {
   const [showCodeModal, setShowCodeModal] = useState(false);
@@ -11,12 +12,10 @@ const OAuth2RedirectHandler = () => {
   const [user, setUser] = useState();
   const [jwtToken, setJwtToken] = useState("");
 
-  const loginAfterProcessing = (user, token) => {
+  const loginAfterProcessing = (user) => {
     localStorage.setItem("USER", JSON.stringify(user));
 
     localStorage.setItem("LOGIN_ID", user.id);
-    localStorage.setItem("TOKEN", token);
-
     localStorage.setItem("IS_ADMIN", user.isAdmin);
     localStorage.setItem("IS_WORKER", user.isWorker);
     window.dispatchEvent(new Event("loginEvt"));
@@ -47,7 +46,9 @@ const OAuth2RedirectHandler = () => {
           setJwtToken(token);
           setUser(user);
         } else {
-          loginAfterProcessing(user, token);
+          loginAfterProcessing(user);
+          const save_login = "true" === localStorage.getItem("SAVE_LOGIN");
+          storeJWT(token, save_login);
         }
       } catch (error) {
         console.error("토큰 해독 오류:", error);
