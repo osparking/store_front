@@ -34,6 +34,7 @@ const clearLoginUserInfo = () => {
   ];
 
   items.push("IS_WORKER");
+  items.push("SAVE_LOGIN");
 
   items.forEach((item) => {
     localStorage.removeItem(item);
