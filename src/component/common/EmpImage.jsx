@@ -1,12 +1,13 @@
 import React, { Fragment } from "react";
 import { Card } from "react-bootstrap";
 import placeholder from "../../assets/images/placeholder.png";
+import "./EmpImage.css";
 
 const EmpImage = ({ empPhoto, altText = "직원 사진" }) => {
   return (
     <Fragment>
       {empPhoto ? (
-        <Card.Img style={{width: "100px"}}
+        <Card.Img
           src={`data:image/png;base64, ${empPhoto}`}
           className="user-image"
           alt={altText}
