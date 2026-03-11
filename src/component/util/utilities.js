@@ -140,7 +140,7 @@ export function getPlainContent(htmlContent) {
 }
 
 export const expiredTokenRemoved = () => {
-  const token = localStorage.getItem("TOKEN");
+  const token = getStorageToken();
 
   if (token) {
     try {
