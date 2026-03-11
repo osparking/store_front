@@ -64,6 +64,10 @@ export const storeJWT = (token, save_login) => {
   }
 };
 
+export const getStorageToken = () => {
+  return localStorage.getItem("TOKEN") || sessionStorage.getItem("TOKEN");
+};
+
 export const setDifference = (arrA, arrB) => {
   const setB = new Set(arrB);
   return arrA.filter((item) => !setB.has(item));
