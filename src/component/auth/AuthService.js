@@ -1,8 +1,8 @@
 import { api } from "../util/api";
 
-export const loginUser = async (email, password) => {
+export const loginUser = async (credentials) => {
   try {
-    const response = await api.post("/autho/login", { email, password });
+    const response = await api.post("/autho/login", credentials);
     return response;
   } catch (error) {
     if (error.code === "ERR_NETWORK") {
