@@ -154,8 +154,8 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
   }, []);
 
   return (
-    <Container fluid className="home-container mt-5">
-      <Row className="justify-content-center mt-3">
+    <Container fluid className="home-container">
+      <Row className="justify-content-center mt-2">
         <Col md={9} className="mt">
           <Card>
             <Card.Body>
