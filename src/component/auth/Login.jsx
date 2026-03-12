@@ -66,7 +66,7 @@ const Login = () => {
       return;
     }
     try {
-      const response = await loginUser(credentials);
+      const response = await loginUser(credentials.email, credentials.password);
       const data = response.data.data;
       if (response.status === 200) {
         let user = jwtToUser(data.token);
