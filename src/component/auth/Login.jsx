@@ -25,7 +25,7 @@ const Login = () => {
   const [credentials, setCredentials] = useState({
     email: "jbpark103@hanmail.net",
     password: "1234",
-    save_login: false,
+    save_login: localStorage.getItem("SAVE_LOGIN") === "true",
   });
   const [code, setCode] = useState("");
   const [codeNeeded, setCodeNeeded] = useState(false);
