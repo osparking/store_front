@@ -186,18 +186,20 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
                         />
                       </Form.Label>
                     </Form.Group>
-                    <Form.Label className="mt-3">내용</Form.Label>
-                    <ReactQuill
-                      ref={quillRef}
-                      theme="snow"
-                      value={editorContent || placeholder}
-                      onChange={handleEditorChange}
-                      onFocus={clearPlaceholder}
-                      onBlur={handleEditorBlur}
-                      modules={modules}
-                      formats={formats}
-                      className="content-edit"
-                    />
+                    <Form.Label className="mt-3">
+                      내용
+                      <ReactQuill
+                        ref={quillRef}
+                        theme="snow"
+                        value={editorContent || placeholder}
+                        onChange={handleEditorChange}
+                        onFocus={clearPlaceholder}
+                        onBlur={handleEditorBlur}
+                        modules={modules}
+                        formats={formats}
+                        className="content-edit"
+                      />
+                    </Form.Label>
                   </Form.Group>
 
                   <div className="text-muted mb-3">
