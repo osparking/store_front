@@ -196,7 +196,7 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
                       onBlur={handleEditorBlur}
                       modules={modules}
                       formats={formats}
-                      className="content-edit"
+                      className="content-edit mt-2"
                     />
                   </Form.Label>
 
