@@ -1,7 +1,5 @@
 form.question-editor-window {
   max-width: 750px;
-  min-width: 450px;
-  width: 75%;
   background-color: ivory;
   margin: 16px;
   padding: 16px;
@@ -11,7 +9,16 @@ form.question-editor-window {
   background-color: ivory;
 }
 
-.content-edit {
-  height: 230px ;
-  margin-bottom: 70px;
+.ql-container {
+  background-color: white;
+  font-size: 16px;
+  height: 180px;
+}
+
+.customerQuestionCard {
+  margin-top: 28px;
+  width: 100vw;
+  max-width: 700px;
+  background-color: ivory;
+  border-radius: 6px;
 }
