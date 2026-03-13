@@ -167,11 +167,9 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
                   }
                 >
                   <Form.Group className="mb-3">
-                    <Form.Label>
-                      <h5 style={{ textAlign: "left" }}>
-                        {mine ? "나의 질문" : "고객 질문"}
-                      </h5>
-                    </Form.Label>
+                    <h5 style={{ textAlign: "left" }}>
+                      {mine ? "나의 질문" : "고객 질문"}
+                    </h5>
                     <Form.Group className="mb-0">
                       <Form.Label className="mt-3">
                         제목
