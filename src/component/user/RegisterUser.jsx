@@ -40,9 +40,7 @@ const RegisterUser = () => {
     e.preventDefault();
 
     if (loginId && !userRoles.includes("ROLE_ADMIN")) {
-      const confirmed = window.confirm(
-        "로그아웃하고 계정을 등록할까요?"
-      );
+      const confirmed = window.confirm("로그아웃하고 계정을 등록할까요?");
       if (confirmed) {
         logoutUser();
       } else {
@@ -180,7 +178,7 @@ const RegisterUser = () => {
                   </Form.Group>
                 )}
 
-                <div className="d-flex justify-content-center mb-3 mt-3">
+                <div className="d-flex justify-content-center mb-3 mt-3 char2button">
                   <Button
                     type="submit"
                     variant="outline-primary"
@@ -215,8 +213,10 @@ const RegisterUser = () => {
                 {alertSuccess && (
                   <>
                     <AlertMessage type="success" message={successMsg} />
-                    <p className="text-danger">*등록한 이메일에 로그인하여 메일 주소를 검증하십시오</p>
-                  </>                  
+                    <p className="text-danger">
+                      *등록한 이메일에 로그인하여 메일 주소를 검증하십시오
+                    </p>
+                  </>
                 )}
                 {alertError && (
                   <AlertMessage type="danger" message={errorMsg} />
