@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useRef, useState } from "react";
-import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Card, Container, Form } from "react-bootstrap";
 import toast from "react-hot-toast";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css"; // Import styles
@@ -155,8 +155,8 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
 
   return (
     <Container fluid className="home-container">
-      <Row className="justify-content-center mt-2">
-        <Col md={9} className="mt">
+      <div className="d-flex justify-content-center align-items-center">
+        <div>
           <Card className="p-0 customerQuestionCard">
             <Card.Body>
               <div className="d-flex justify-content-center align-items-center vh-67">
@@ -234,8 +234,8 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
               </div>
             </Card.Body>
           </Card>
-        </Col>
-      </Row>
+        </div>
+      </div>
     </Container>
   );
 }
