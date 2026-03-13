@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { logoutUser } from "../auth/AuthService";
 import AlertMessage from "../common/AlertMessage";
 import ProcessSpinner from "../common/ProcessSpinner";
 import BsAlertHook from "../hook/BsAlertHook";
 import WorkerDeptSelector from "../worker/WorkerDeptSelector";
 import { registerUser } from "./UserService";
-import { logoutUser } from "../auth/AuthService";
 
 const RegisterUser = () => {
   const loginId = localStorage.getItem("LOGIN_ID");
@@ -83,6 +83,8 @@ const RegisterUser = () => {
       dept: "생산부",
     });
   };
+
+  const isAdmin = localStorage.getItem("IS_ADMIN") === "true";
 
   return (
     <Container fluid className="home-container">
@@ -201,15 +203,17 @@ const RegisterUser = () => {
                   </Button>
                 </div>
 
-                <div className="d-flex justify-content-center mb-3 mt-3">
-                  <Button
-                    variant="outline-warning"
-                    size="sm"
-                    onClick={easyData}
-                  >
-                    입력 편의
-                  </Button>
-                </div>
+                {isAdmin && (
+                  <div className="d-flex justify-content-center mb-3 mt-3">
+                    <Button
+                      variant="outline-warning"
+                      size="sm"
+                      onClick={easyData}
+                    >
+                      입력 편의
+                    </Button>
+                  </div>
+                )}
                 {alertSuccess && (
                   <>
                     <AlertMessage type="success" message={successMsg} />
