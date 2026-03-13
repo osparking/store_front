@@ -85,8 +85,8 @@ const RegisterUser = () => {
   };
 
   return (
-    <Container className="mt-5">
-      <Row className="justify-content-center">
+    <Container fluid className="home-container">
+      <Row className="justify-content-center" style={{ marginTop: "8px" }}>
         <Col xs={12} md={8} lg={6}>
           <Form onSubmit={handleSubmit}>
             <Card className="shadow mb-5">
