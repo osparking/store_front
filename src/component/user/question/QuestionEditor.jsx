@@ -166,7 +166,7 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
                     mine ? "question-editor-modal" : "question-editor-window"
                   }
                 >
-                  <h5 style={{ textAlign: "left" }}>
+                  <h5>
                     {mine ? "나의 질문" : "고객 질문"}
                   </h5>
                   <Form.Group className="mb-0">
