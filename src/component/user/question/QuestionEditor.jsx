@@ -166,41 +166,39 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
                     mine ? "question-editor-modal" : "question-editor-window"
                   }
                 >
-                  <Form.Group>
-                    <h5 style={{ textAlign: "left" }}>
-                      {mine ? "나의 질문" : "고객 질문"}
-                    </h5>
-                    <Form.Group className="mb-0">
-                      <Form.Label className="mt-3">
-                        제목
-                        <Form.Text className="text-muted ms-2">
-                          (내용을 30 자 내외로 요약하세요.)
-                        </Form.Text>
-                        <Form.Control
-                          type="text"
-                          maxLength={40}
-                          name="title"
-                          defaultValue={question ? question.title : ""}
-                          placeholder="(제목 입력)"
-                          className="mt-2"
-                        />
-                      </Form.Label>
-                    </Form.Group>
+                  <h5 style={{ textAlign: "left" }}>
+                    {mine ? "나의 질문" : "고객 질문"}
+                  </h5>
+                  <Form.Group className="mb-0">
                     <Form.Label className="mt-3">
-                      내용
-                      <ReactQuill
-                        ref={quillRef}
-                        theme="snow"
-                        value={editorContent || placeholder}
-                        onChange={handleEditorChange}
-                        onFocus={clearPlaceholder}
-                        onBlur={handleEditorBlur}
-                        modules={modules}
-                        formats={formats}
-                        className="content-edit"
+                      제목
+                      <Form.Text className="text-muted ms-2">
+                        (내용을 30 자 내외로 요약하세요.)
+                      </Form.Text>
+                      <Form.Control
+                        type="text"
+                        maxLength={40}
+                        name="title"
+                        defaultValue={question ? question.title : ""}
+                        placeholder="(제목 입력)"
+                        className="mt-2"
                       />
                     </Form.Label>
                   </Form.Group>
+                  <Form.Label className="mt-3">
+                    내용
+                    <ReactQuill
+                      ref={quillRef}
+                      theme="snow"
+                      value={editorContent || placeholder}
+                      onChange={handleEditorChange}
+                      onFocus={clearPlaceholder}
+                      onBlur={handleEditorBlur}
+                      modules={modules}
+                      formats={formats}
+                      className="content-edit"
+                    />
+                  </Form.Label>
 
                   <div className="text-muted mb-3">
                     글자수: {getTextLength()} 자
