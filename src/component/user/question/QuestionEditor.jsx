@@ -158,7 +158,7 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
       <div className="d-flex justify-content-center align-items-center">
         <div>
           <Card className="p-0 customerQuestionCard">
-            <Card.Body>
+            <Card.Body className="p-0">
               <div className="d-flex justify-content-center align-items-center vh-67">
                 <Form
                   onSubmit={handleSubmit}
