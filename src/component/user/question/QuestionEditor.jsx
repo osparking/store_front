@@ -157,7 +157,7 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
     <Container fluid className="home-container">
       <Row className="justify-content-center mt-2">
         <Col md={9} className="mt">
-          <Card>
+          <Card className="p-0 customerQuestionCard">
             <Card.Body>
               <div className="d-flex justify-content-center align-items-center vh-67">
                 <Form
