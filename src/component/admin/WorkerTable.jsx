@@ -172,7 +172,6 @@ const WorkerTable = () => {
         target={`${delTarget.name} 계정의`}
         disabled={delBtnDisabled}
       />
-      <h5 className="mb-3">직원 관리</h5>
       <Row>
         <Col>
           {alertSuccess && (

@@ -30,7 +30,6 @@ const Overview = () => {
 
   return (
     <main>
-      <h5 className="chart-title">요약 정보</h5>
       <div className="main-cards">
         <CardCompo
           label={"유저 통계"}
