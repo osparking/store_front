@@ -5,7 +5,8 @@
   margin-bottom: 0;
 }
 
-.order-table-container, .ingredient-table-container {
+.order-table-container,
+.ingredient-table-container {
   background-color: lightblue;
   border-radius: 10px;
 }
@@ -22,7 +23,12 @@
 /* Medium <= 992px */
 @media screen and (max-width: 992px) {
   .grid-container {
-    grid-template-rows: 28px 3fr;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 62px 1fr;
+    grid-template-areas:
+      'header'
+      'main';
   }
 }
 
