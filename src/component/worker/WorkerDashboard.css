@@ -4,3 +4,13 @@
   height: 100%;
   margin-bottom: 0;
 }
+
+.order-table-container, .ingredient-table-container {
+  background-color: lightblue;
+  border-radius: 10px;
+}
+
+.worker tr th:first-child,
+.worker tr td:first-child {
+  border-left: none;
+}
