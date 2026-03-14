@@ -5,6 +5,7 @@ import Customer from "./CustomerTable";
 import Overview from "./Overview";
 import ManageQuestions from "./ManageQuestions";
 import WorkerTable from "./WorkerTable";
+import { Container } from "react-bootstrap";
 
 const AdminDashboard = () => {
   const [adminTab, setAdminTab] = useState("");
@@ -23,7 +24,7 @@ const AdminDashboard = () => {
   }, []);
 
   return (
-    <main className="admin-body">
+    <Container className="home-container admin-body">
       <div className="grid-container">
         {openSidebar ? (
           <AdminSideBar
@@ -37,14 +38,31 @@ const AdminDashboard = () => {
           </span>
         )}
 
+        <div className="header">
+          <h5 className="chart-title mb-1 ps-0" style={{ color: "white" }}>
+            {
+              {
+                Questions: "질문 및 답변",
+                Overview: "통계 및 챠트",
+                Employee: "직원 관리",
+                Customer: "고객 목록",
+              }[adminTab]
+            }
+          </h5>
+        </div>
+
         <div className="main-container">
-          {adminTab === "Overview" && <Overview />}
-          {adminTab === "Employee" && <WorkerTable />}
-          {adminTab === "Customer" && <Customer />}
-          {adminTab === "Questions" && <ManageQuestions />}
+          {
+            {
+              Questions: <ManageQuestions />,
+              Overview: <Overview />,
+              Employee: <WorkerTable />,
+              Customer: <Customer />,
+            }[adminTab]
+          }
         </div>
       </div>
-    </main>
+    </Container>
   );
 };
 
