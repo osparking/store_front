@@ -20,8 +20,8 @@ const WorkerDashboard = () => {
   };
 
   return (
-    <Container fluid className="home-container worker-dashboard">
-      <div className="grid-container grid-columns">
+    <Container fluid className="home-container worker-dashboard vw-100">
+      <div className="grid-container grid-columns vw-100 mw-100">
         <WorkerSideBar
           openSidebar={openSidebar}
           toggleSidebar={toggleSidebar}
