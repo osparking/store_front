@@ -252,7 +252,6 @@ const ManageIngredient = () => {
             tableLayout: "fixed",
             minWidth: "730px",
           }}
-          className="mb-0"
         >
           <colgroup>
             <col style={{ width: "5%" }} />
