@@ -97,7 +97,8 @@
 .sidebar-brand {
   margin-top: 15px;
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 500;
+  color: gray;
 }
 
 .sidebar-list {
@@ -221,7 +222,7 @@
 
 .chart-title {
   color: var(--color-title);
-  font-size: 20px
+  font-size: 20px;
 }
 
 .custom-tooltip {
