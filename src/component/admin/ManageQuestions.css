@@ -41,3 +41,7 @@ table tr th {
 #questionsTable {
   width: 800px;
 }
+
+.admin-body .tableNmodal {
+  display: contents;
+}

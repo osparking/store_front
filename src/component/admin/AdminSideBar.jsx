@@ -3,6 +3,7 @@ import { FaChartPie } from "react-icons/fa";
 import { FaQuestion } from "react-icons/fa6";
 import { GiOlive } from "react-icons/gi";
 import { MdOutlineFamilyRestroom } from "react-icons/md";
+import "./AdminDashboard.css";
 
 const AdminSideBar = ({ openSidebar, toggleSidebar, tabClicked }) => {
   return (
@@ -10,7 +11,7 @@ const AdminSideBar = ({ openSidebar, toggleSidebar, tabClicked }) => {
       <div className="sidebar-title">
         <div className="sidebar-brand">
           <GiOlive className="icon-header" />
-          범이비누 관리
+          관리자
         </div>
         <span className="icon close-icon" onClick={toggleSidebar}>
           <BsX />
@@ -50,7 +51,7 @@ const AdminSideBar = ({ openSidebar, toggleSidebar, tabClicked }) => {
         >
           <a href="#">
             <MdOutlineFamilyRestroom className="icon" />
-            고객 관리
+            고객 목록
           </a>
         </li>
       </ul>

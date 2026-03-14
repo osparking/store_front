@@ -89,11 +89,8 @@ const ManageQuestions = ({ mine }) => {
         setReloadPage={setReloadPage}
       />
       <div className="tableNmodal">
-        <Card style={{ margin: "28px 0" }}>
+        <Card style={{ margin: "8px 0" }}>
           <Card.Body>
-            <h2 className="mb-1 ps-0">
-              <strong>질문 목록</strong>
-            </h2>
             <div className="justify-content-center align-items-center">
               <p className="text-center text-muted mb-4">
                 {getRecordRange(
