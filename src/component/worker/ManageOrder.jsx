@@ -9,7 +9,6 @@ const ManageOrder = () => {
 
   return (
     <>
-      <h5 className="chart-title" style={{color: "white"}}>주문 관리</h5>
       {showDetail ? (
         <OrderDetail
           detailId={detailId}

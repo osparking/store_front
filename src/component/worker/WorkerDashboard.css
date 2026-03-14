@@ -25,3 +25,10 @@
     grid-template-rows: 28px 3fr;
   }
 }
+
+.worker-dashboard .header {
+  grid-area: header;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 6px 7px -3px rgba(155, 240, 246, 0.35);
+}

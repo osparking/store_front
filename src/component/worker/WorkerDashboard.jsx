@@ -27,6 +27,16 @@ const WorkerDashboard = () => {
           toggleSidebar={toggleSidebar}
           tabClicked={tabClicked}
         />
+        <div className="header">
+          <h5 className="chart-title worker" style={{ color: "white" }}>
+            {
+              {
+                manageOrder: "주문 관리",
+                manageIngredient: "재료 관리",
+              }[workerTab]
+            }
+          </h5>
+        </div>
         <div className="main-container worker" style={{ paddingTop: 0 }}>
           {workerTab === "manageOrder" && <ManageOrder />}
           {workerTab === "manageIngredient" && <ManageIngredient />}

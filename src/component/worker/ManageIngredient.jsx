@@ -191,7 +191,6 @@ const ManageIngredient = () => {
 
   return (
     <div>
-      <h5 className="chart-title worker">재료 관리</h5>
       <DeleteConfirmModal
         show={showDelModal}
         onHide={() => setShowDelModal(false)}
