@@ -14,3 +14,14 @@
 .worker tr td:first-child {
   border-left: none;
 }
+
+.worker-dashboard {
+  height: fit-content !important;
+}
+
+/* Medium <= 992px */
+@media screen and (max-width: 992px) {
+  .grid-container {
+    grid-template-rows: 28px 3fr;
+  }
+}
