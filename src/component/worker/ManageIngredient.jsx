@@ -199,7 +199,7 @@ const ManageIngredient = () => {
         disabled={delBtnDisabled}
       />
 
-      <Row className="mt-3 mb-2">
+      <Row className="mt-3 mb-2 justify-content-center">
         <Col
           xs={12}
           md={7}
