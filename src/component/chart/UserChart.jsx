@@ -11,6 +11,7 @@ import {
 } from "recharts";
 import NoDataExists from "../common/NoDataExists";
 import { callWithToken } from "../util/api";
+import "./Chart.css";
 
 const UserChart = () => {
   const [userStat, setUserStat] = useState([]);
@@ -51,7 +52,7 @@ const UserChart = () => {
       {userStat && userStat.length > 0 ? (
         <React.Fragment>
           <ResponsiveContainer width={"75%"} height={300}>
-            <h5 className="chart-title mb-5">등록 유저 통계</h5>
+            <h5 className="chart-title mb-3">등록 유저 통계</h5>
             <BarChart data={userStat}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" angle={-50} textAnchor="end" height={70} />

@@ -29,7 +29,7 @@ const Overview = () => {
   }, []);
 
   return (
-    <main>
+    <>
       <div className="main-cards">
         <CardCompo
           label={"유저 통계"}
@@ -54,7 +54,7 @@ const Overview = () => {
           <WorkerChart />
         </div>
       </div>
-    </main>
+    </>
   );
 };
 
