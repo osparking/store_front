@@ -32,7 +32,6 @@
   background-color: rgba(30, 19, 33, 0.947);
   color: var(--color-title);
   font-family: 'GmarketSans', 'Montserrat', sans-serif;
-  height: 83vh;
   top: 62px;
   padding: 0;
 }
@@ -40,4 +39,3 @@
 .admin-body .header {
   box-shadow: 0 6px 7px -3px rgba(229, 161, 207, 0.55);
 }
-
