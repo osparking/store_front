@@ -6,6 +6,7 @@ import Overview from "./Overview";
 import ManageQuestions from "./ManageQuestions";
 import WorkerTable from "./WorkerTable";
 import { Container } from "react-bootstrap";
+import "./AdminDashboard.css"
 
 const AdminDashboard = () => {
   const [adminTab, setAdminTab] = useState("");

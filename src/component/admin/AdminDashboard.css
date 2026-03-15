@@ -1,3 +1,7 @@
+.admin-body {
+  width: fit-content;
+}
+
 .admin-body .grid-container {
   display: grid;
   grid-template-columns: 160px 1fr;
