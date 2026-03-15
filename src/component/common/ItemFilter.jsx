@@ -6,7 +6,7 @@ const ItemFilter = ({
   options = [],
   onClearFilter,
   onOptionSelection,
-  selectedOption,
+  selectedOption = "",
 }) => {
   return (
     <InputGroup className='mb-2'>
