@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Paginator from "../common/Paginator";
 import {
@@ -88,37 +88,52 @@ const ManageQuestions = ({ mine }) => {
         mine={mine}
         setReloadPage={setReloadPage}
       />
-      <div className="tableNmodal">
-        <Card style={{ margin: "8px 0" }}>
-          <Card.Body>
-            <div className="justify-content-center align-items-center">
-              <p className="text-center text-muted mb-4">
-                {getRecordRange(
-                  questionPage,
-                  indexOfFirst,
-                  idxLastPlus1,
-                  "질문",
-                )}
-              </p>
-            </div>
-            <div
-              id="questionTableDiv"
-              style={{ whiteSpace: "initial", overflow: "auto" }}
-              className="justify-content-center align-items-center"
-            >
-              {QuestionsTable(questions, answerQuestion)}
-            </div>
-            {searchResult && questionPage && (
-              <Paginator
-                pageSize={pageSize}
-                totalItems={questionPage.totalElements}
-                totalPages={totalPages}
-                currPage={currentPage}
-                setCurrPage={(pageNo) => setCurrentPage(pageNo)}
-              />
-            )}
-          </Card.Body>
-        </Card>
+      <div className="justify-content-center">
+        <p className="text-center mb-1">
+          {getRecordRange(questionPage, indexOfFirst, idxLastPlus1, "질문")}
+        </p>
+
+        <div
+          style={{
+            overflow: "auto",
+            width: "100%",
+            alignItems: "center",
+          }}
+        >
+          <Card
+            className="p-0"
+            style={{
+              width: "fit-content",
+              margin: "auto",
+              alignItems: "center",
+            }}
+          >
+            <Card.Body className="p-0">
+              <div
+                id="questionTableDiv"
+                style={{
+                  whiteSpace: "initial",
+                  width: "fit-content",
+                  margin: "20px",
+                }}
+                className="justify-content-center align-items-center"
+              >
+                {QuestionsTable(questions, answerQuestion)}
+              </div>
+            </Card.Body>
+          </Card>
+        </div>
+
+        {searchResult && questionPage && (
+          <Paginator
+            pageSize={pageSize}
+            totalItems={questionPage.totalElements}
+            totalPages={totalPages}
+            currPage={currentPage}
+            setCurrPage={(pageNo) => setCurrentPage(pageNo)}  
+            darkBackground="true"
+          />
+        )}
       </div>
     </>
   );
