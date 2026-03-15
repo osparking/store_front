@@ -26,7 +26,9 @@ const AdminDashboard = () => {
 
   return (
     <Container className="home-container admin-body">
-      <div className="grid-container vw-100 mw-100">
+      <div className="grid-container vw-100 mw-100"
+      style={{height: "93vh"}}
+      >
         {openSidebar ? (
           <AdminSideBar
             openSidebar={openSidebar}
@@ -40,7 +42,7 @@ const AdminDashboard = () => {
         )}
 
         <div className="header">
-          <h5 className="chart-title mb-1 ps-0" style={{ color: "white" }}>
+          <h5 className="chart-title mb-0 ps-0" style={{ color: "white" }}>
             {
               {
                 Questions: "질문 및 답변",
