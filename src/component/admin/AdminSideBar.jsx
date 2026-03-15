@@ -33,7 +33,7 @@ const AdminSideBar = ({ openSidebar, toggleSidebar, tabClicked }) => {
         >
           <a href="#">
             <FaChartPie className="icon" />
-            통계 및 차트
+            통계 차트
           </a>
         </li>
         <li

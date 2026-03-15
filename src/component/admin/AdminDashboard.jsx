@@ -44,7 +44,7 @@ const AdminDashboard = () => {
             {
               {
                 Questions: "질문 및 답변",
-                Overview: "통계 및 챠트",
+                Overview: "통계 챠트",
                 Employee: "직원 관리",
                 Customer: "고객 목록",
               }[adminTab]
