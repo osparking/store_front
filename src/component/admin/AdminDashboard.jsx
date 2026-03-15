@@ -26,7 +26,7 @@ const AdminDashboard = () => {
 
   return (
     <Container className="home-container admin-body">
-      <div className="grid-container">
+      <div className="grid-container vw-100 mw-100">
         {openSidebar ? (
           <AdminSideBar
             openSidebar={openSidebar}
