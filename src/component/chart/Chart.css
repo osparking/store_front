@@ -5,3 +5,7 @@
 #adminUserChart .recharts-surface {
     padding-top: 5px;
 }
+
+.recharts-default-legend {
+    padding-bottom: 5px !important;
+}
