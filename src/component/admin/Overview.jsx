@@ -10,6 +10,7 @@ import { callWithToken } from "../util/api";
 
 const Overview = () => {
   const [userCount, setUserCount] = useState(0);
+  const [employeeCount, setEmployeeCount] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,7 +39,11 @@ const Overview = () => {
         />
         <CardCompo label={"생산 실적"} count={0} IconCompo={BsPeopleFill} />
         <CardCompo label={"판매 실적"} count={0} IconCompo={BsPeopleFill} />
-        <CardCompo label={"직원 현황"} count={0} IconCompo={BsPeopleFill} />
+        <CardCompo
+          label={"직원 현황"}
+          count={employeeCount}
+          IconCompo={BsPeopleFill}
+        />
       </div>
       <div className="charts">
         <div className="chart-container">
@@ -51,7 +56,7 @@ const Overview = () => {
           <SalesChart />
         </div>
         <div className="chart-container">
-          <WorkerChart />
+          <WorkerChart setEmployeeCount={setEmployeeCount} />
         </div>
       </div>
     </>
