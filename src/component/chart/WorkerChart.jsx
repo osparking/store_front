@@ -4,7 +4,7 @@ import NoDataExists from "../common/NoDataExists";
 import { callWithToken } from "../util/api";
 import "./Chart.css";
 
-const WorkerChart = ({ setEmployeeCount }) => {
+const WorkerChart = ({ setEmployeeCount, chartRef }) => {
   const [employeeStat, setEmployeeStat] = useState([]);
   const [errorMsg, setErrorMsg] = useState(null);
 
@@ -33,7 +33,11 @@ const WorkerChart = ({ setEmployeeCount }) => {
   const colors = ["pink", "skyblue", "green", "orange", "ivory"];
 
   return (
-    <section className="mb-5">
+    <section
+      className="mb-5"
+      ref={chartRef}
+      style={{ scrollMarginTop: "260px" }}
+    >
       {employeeStat && employeeStat.length > 0 ? (
         <>
           <h5 className="chart-title mb-3">직원 부서 통계</h5>
