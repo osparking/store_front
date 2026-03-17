@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Bar,
   BarChart,
@@ -22,7 +22,7 @@ const UserChart = () => {
       try {
         const userRegister = await callWithToken(
           "get",
-          "/admin/user/count_stat"
+          "/admin/user/count_stat",
         );
         const userStat = await userRegister.data.data;
         if (userRegister) {
@@ -33,7 +33,7 @@ const UserChart = () => {
                 노동자: userCount.노동자 || 0,
                 고객: userCount.고객 || 0,
               };
-            }
+            },
           );
           setUserStat(chartData);
           console.log("chartData:", chartData);
@@ -50,10 +50,10 @@ const UserChart = () => {
   return (
     <section className="mb-5">
       {userStat && userStat.length > 0 ? (
-        <React.Fragment>
-          <ResponsiveContainer width={"75%"} height={300}>
-            <h5 className="chart-title mb-3">등록 유저 통계</h5>
-            <BarChart data={userStat}>
+        <>
+          <h5 className="chart-title mb-3">등록 유저 통계</h5>
+          <ResponsiveContainer id="adminUserChart" height={300}>
+            <BarChart className="p-1" data={userStat}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" angle={-50} textAnchor="end" height={70} />
               <YAxis />
@@ -63,7 +63,7 @@ const UserChart = () => {
               <Bar dataKey={"고객"} fill="#82ca9d" />
             </BarChart>
           </ResponsiveContainer>
-        </React.Fragment>
+        </>
       ) : (
         <NoDataExists dataType={" (유저) 등록 자료 "} errorMessage={errorMsg} />
       )}

@@ -1,3 +1,7 @@
 .recharts-surface {
     background-color: rgb(13, 12, 36);
 }
+
+#adminUserChart .recharts-surface {
+    padding-top: 5px;
+}
