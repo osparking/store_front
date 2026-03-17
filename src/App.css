@@ -214,7 +214,6 @@
   grid-template-columns: 1fr 1fr;
   gap: 20px;
   margin-top: 30px;
-  height: 300px;
   margin-bottom: 20px;
 }
 
@@ -274,7 +273,7 @@
 @media screen and (max-width: 768px) {
   .main-cards {
     grid-template-columns: 1fr;
-    gap: 10px;
+    gap: 5px;
     margin-bottom: 0;
   }
 
@@ -289,6 +288,10 @@
   .chart-container {
     flex-basis: 100%;
     /* Full width on smaller screens */
+  }
+
+  .admin-card {
+    padding: 2px 15px;
   }
 }
 
