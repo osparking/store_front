@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BsPeopleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import CardCompo from "../card/CardCompo";
@@ -29,6 +29,15 @@ const Overview = () => {
     readCounts();
   }, []);
 
+  const chartWorkerRef = useRef(null);
+
+  const scrollToWorkerChart = () => {
+    chartWorkerRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   return (
     <>
       <div className="main-cards">
@@ -43,6 +52,7 @@ const Overview = () => {
           label={"직원 현황"}
           count={employeeCount}
           IconCompo={BsPeopleFill}
+          onClick={scrollToWorkerChart}
         />
       </div>
       <div className="charts">
@@ -56,7 +66,10 @@ const Overview = () => {
           <SalesChart />
         </div>
         <div className="chart-container">
-          <WorkerChart setEmployeeCount={setEmployeeCount} />
+          <WorkerChart
+            setEmployeeCount={setEmployeeCount}
+            chartRef={chartWorkerRef}
+          />
         </div>
       </div>
     </>
