@@ -9,3 +9,8 @@
 .recharts-default-legend {
     padding-bottom: 5px !important;
 }
+
+.charts .chart-title {
+    color: var(--color-title-ivory);
+    font-size: 20px;
+}
