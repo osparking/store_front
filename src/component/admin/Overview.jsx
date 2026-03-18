@@ -45,6 +45,8 @@ const Overview = () => {
           label={"유저 통계"}
           count={userCount}
           IconCompo={BsPeopleFill}
+          chartName={"user"}
+          scrollToChart={scrollToChart}
         />
         <CardCompo label={"생산 실적"} count={0} IconCompo={BsPeopleFill} />
         <CardCompo label={"판매 실적"} count={0} IconCompo={BsPeopleFill} />
@@ -58,7 +60,7 @@ const Overview = () => {
       </div>
       <div className="charts">
         <div className="chart-container">
-          <UserChart />
+          <UserChart chartRefs={chartRefs} />
         </div>
         <div className="chart-container">
           <SoapChart />
