@@ -13,7 +13,7 @@ import NoDataExists from "../common/NoDataExists";
 import { callWithToken } from "../util/api";
 import "./Chart.css";
 
-const UserChart = () => {
+const UserChart = ({ chartRefs }) => {
   const [userStat, setUserStat] = useState([]);
   const [errorMsg, setErrorMsg] = useState(null);
 
@@ -48,7 +48,11 @@ const UserChart = () => {
   }, []);
 
   return (
-    <section className="mb-5">
+    <section
+      className="mb-5"
+      ref={(el) => (chartRefs.current.user = el)}
+      style={{ scrollMarginTop: "260px" }}
+    >
       {userStat && userStat.length > 0 ? (
         <>
           <h5 className="chart-title mb-3">등록 유저 통계</h5>
