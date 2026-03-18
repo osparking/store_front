@@ -372,6 +372,7 @@ input[type="radio"] {
   --color-snow-white: #FFFFF0;
   --color-maejoo-soap: #463434;
   --color-normal-soap: #87a15e;
+  --color-chart-background: rgb(13, 12, 36);
   /* Default color */
 }
 
