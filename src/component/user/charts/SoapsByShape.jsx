@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Cell, Legend, Pie, PieChart, Tooltip } from "recharts";
+import { Cell, Legend, Pie, PieChart, Sector, Tooltip } from "recharts";
 import NoDataExists from "../../common/NoDataExists";
 import useColorMapping from "../../hook/ColorMapping";
 import { getShapeCount } from "../../user/UserService";
@@ -45,21 +45,24 @@ const SoapsByShape = ({ totalSoaps }) => {
             dataKey="count"
             nameKey="shapeLabel"
             label={({ shapeLabel, count, percent }) =>
-              `${shapeLabel}: ${Math.trunc(count)} (${(percent * 100).toFixed(
-                1,
-              )}%)`
+              `수량: ${Math.trunc(count)} (${(percent * 100).toFixed(0)}%)`
             }
-            outerRadius={45}
+            outerRadius={60}
             fill="#8884d8"
-          >
-            {shapeCount.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={colors[entry.shapeLabel]} />
-            ))}
-          </Pie>
+            shape={(props) => {
+              const { index, ...restProps } = props;
+              return <Sector {...restProps} fill={colors[props.shapeLabel]} />;
+            }}
+          ></Pie>
           <Tooltip
             formatter={(value, name) => [`${Math.trunc(value)}개`, name]}
           />
-          <Legend layout="horizontal" />
+          <Legend
+            layout="horizontal"
+            formatter={(value, entry) => {
+              return <span style={{ color: colors[value] }}>{value}</span>;
+            }}
+          />
         </PieChart>
       )}
     </>
