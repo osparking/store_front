@@ -43,3 +43,7 @@ tspan {
   height: 400px;
   overflow: auto;
 }
+
+.userSoapShapeChartBackground {
+    background-color: var(--color-chart-background) ;
+}
