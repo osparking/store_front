@@ -4,7 +4,7 @@ import NoDataExists from "../common/NoDataExists";
 import { callWithToken } from "../util/api";
 import "./Chart.css";
 
-const WorkerChart = ({ setEmployeeCount, chartRef }) => {
+const WorkerChart = ({ setEmployeeCount, chartRefs }) => {
   const [employeeStat, setEmployeeStat] = useState([]);
   const [errorMsg, setErrorMsg] = useState(null);
 
@@ -35,7 +35,7 @@ const WorkerChart = ({ setEmployeeCount, chartRef }) => {
   return (
     <section
       className="mb-5"
-      ref={chartRef}
+      ref={el => chartRefs.current.worker = el}
       style={{ scrollMarginTop: "260px" }}
     >
       {employeeStat && employeeStat.length > 0 ? (
