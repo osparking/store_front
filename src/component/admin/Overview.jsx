@@ -29,10 +29,10 @@ const Overview = () => {
     readCounts();
   }, []);
 
-  const chartWorkerRef = useRef(null);
+  const chartRefs = useRef({});
 
-  const scrollToWorkerChart = () => {
-    chartWorkerRef.current?.scrollIntoView({
+  const scrollToChart = (chartName) => {
+    chartRefs.current[chartName]?.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
@@ -52,7 +52,8 @@ const Overview = () => {
           label={"직원 현황"}
           count={employeeCount}
           IconCompo={BsPeopleFill}
-          onClick={scrollToWorkerChart}
+          chartName={"worker"}
+          scrollToChart={scrollToChart}
         />
       </div>
       <div className="charts">
@@ -68,7 +69,7 @@ const Overview = () => {
         <div className="chart-container">
           <WorkerChart
             setEmployeeCount={setEmployeeCount}
-            chartRef={chartWorkerRef}
+            chartRefs={chartRefs}
           />
         </div>
       </div>
