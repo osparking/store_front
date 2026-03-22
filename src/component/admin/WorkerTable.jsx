@@ -38,7 +38,6 @@ const WorkerTable = () => {
   const readWorkerList = async () => {
     try {
       const response = await callWithToken("get", "/admin/worker/get_all");
-      console.log("Data: " + JSON.stringify(response.data));
       if (response) {
         setWorkerList(response.data.data);
       } else {
@@ -54,7 +53,7 @@ const WorkerTable = () => {
     try {
       const result = await callWithToken(
         "put",
-        `/admin/worker/${worker.id}/toggle`
+        `/admin/worker/${worker.id}/toggle`,
       );
       console.log("result:" + JSON.stringify(result));
       setReloadFlag(!reloadFlag);
@@ -100,7 +99,7 @@ const WorkerTable = () => {
 
   const [filteredWorkers, setFilteredWorkers] = useState([]);
   const [selectedDept, setSelectedDept] = useState(
-    localStorage.getItem("SELECTED_DEPT") | ""
+    localStorage.getItem("SELECTED_DEPT") | "",
   );
 
   useEffect(() => {
@@ -113,7 +112,7 @@ const WorkerTable = () => {
      * 재방문 후에는 저장된 부서 검색 기준인 savedDept 가 우선이다.
      */
     // 일꾼 필터링 기준 부서명칭 식별하여 searchKey 에 저장.
-    if (selectedDept === 0 && savedDept !== "") {
+    if (selectedDept === 0 && savedDept) {
       setSelectedDept(savedDept);
       searchKey = savedDept;
     } else if (selectedDept !== 0 && selectedDept !== "") {
@@ -122,7 +121,7 @@ const WorkerTable = () => {
     // 검색키에 의미있는 값이 들어있으면, 이로써 일꾼을 걸러낸다.
     if (searchKey) {
       setFilteredWorkers(
-        workerList.filter((worker) => worker.dept === searchKey)
+        workerList.filter((worker) => worker.dept === searchKey),
       );
     } else {
       setFilteredWorkers(workerList);
@@ -134,7 +133,7 @@ const WorkerTable = () => {
   }, [workerList, selectedDept]);
 
   const departments = Array.from(
-    new Set(workerList.map((worker) => worker.dept))
+    new Set(workerList.map((worker) => worker.dept)),
   );
 
   const handleClearFilter = () => {
@@ -150,7 +149,7 @@ const WorkerTable = () => {
   };
 
   const [currWorkerPage, setCurrWorkerPage] = useState(
-    localStorage.getItem("CURR_WORKER_PAGE") || 1
+    localStorage.getItem("CURR_WORKER_PAGE") || 1,
   );
 
   const [pageSize] = useState(10);
