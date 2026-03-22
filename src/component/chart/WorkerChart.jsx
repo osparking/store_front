@@ -35,14 +35,14 @@ const WorkerChart = ({ setEmployeeCount, chartRefs }) => {
   return (
     <section
       className="mb-5"
-      ref={el => chartRefs.current.worker = el}
+      ref={(el) => (chartRefs.current.worker = el)}
       style={{ scrollMarginTop: "260px" }}
     >
       {employeeStat && employeeStat.length > 0 ? (
         <>
           <h5 className="chart-title mb-3">직원 부서 통계</h5>
           <ResponsiveContainer id="adminWorkerChart" height={300}>
-            <PieChart className="p-1" style={{ backgroundColor: "#0D0C24" }}>
+            <PieChart className="p-1 makeBackLookBig">
               <Pie
                 data={employeeStat}
                 dataKey="people"
