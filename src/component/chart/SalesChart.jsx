@@ -38,8 +38,8 @@ const SalesChart = () => {
     <section className="mb-5">
       <h5 className="chart-title mb-3">비누 판매 집계</h5>
       {salesChartData && salesChartData.length > 0 ? (
-        <ResponsiveContainer width={"100%"} height={300}>
-          <BarChart className="p-1" data={salesChartData}>
+        <ResponsiveContainer id="adminSalesChart" width={"100%"} height={300}>
+          <BarChart className="p-1 makeBackLookBig" data={salesChartData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="month" angle={-50} textAnchor="end" height={70} />
             <YAxis />
