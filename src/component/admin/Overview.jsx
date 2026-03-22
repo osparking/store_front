@@ -60,7 +60,11 @@ const Overview = () => {
           chartName={"user"}
           scrollToChart={scrollToChart}
         />
-        <CardCompo label={"생산 실적"} count={0} IconCompo={BsPeopleFill} />
+        <CardCompo
+          label={"생산 실적"}
+          count={0}
+          IconCompo={BsPeopleFill}
+        />
         <CardCompo
           label={"판매 실적"}
           count={0}
