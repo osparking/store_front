@@ -12,7 +12,7 @@ import {
   YAxis,
 } from "recharts";
 
-const SalesChart = () => {
+const SalesChart = ({chartRefs}) => {
   const [salesChartData, setSalesChartData] = useState([]);
   const [errorMsg, setErrorMsg] = useState(null);
 
@@ -35,7 +35,11 @@ const SalesChart = () => {
   }, []);
 
   return (
-    <section className="mb-5">
+    <section
+      className="mb-5"
+      ref={(el) => (chartRefs.current.sales = el)}
+      style={{ scrollMarginTop: "260px" }}
+    >
       <h5 className="chart-title mb-3">비누 판매 집계</h5>
       {salesChartData && salesChartData.length > 0 ? (
         <ResponsiveContainer id="adminSalesChart" width={"100%"} height={300}>
