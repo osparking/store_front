@@ -49,7 +49,13 @@ const Overview = () => {
           scrollToChart={scrollToChart}
         />
         <CardCompo label={"생산 실적"} count={0} IconCompo={BsPeopleFill} />
-        <CardCompo label={"판매 실적"} count={0} IconCompo={BsPeopleFill} />
+        <CardCompo
+          label={"판매 실적"}
+          count={0}
+          IconCompo={BsPeopleFill}
+          chartName={"sales"}
+          scrollToChart={scrollToChart}
+        />
         <CardCompo
           label={"직원 현황"}
           count={employeeCount}
@@ -66,7 +72,7 @@ const Overview = () => {
           <SoapChart />
         </div>
         <div className="chart-container">
-          <SalesChart />
+          <SalesChart chartRefs={chartRefs} />
         </div>
         <div className="chart-container">
           <WorkerChart
