@@ -2,8 +2,16 @@
     background-color: var(--color-chart-background);
 }
 
-#adminUserChart .recharts-surface {
-    padding-top: 5px;
+#adminSalesChart .recharts-surface {
+    padding: 0;
+}
+
+#adminSalesChart .recharts-default-legend {
+    padding-bottom: 5px !important;
+}
+
+.makeBackLookBig {
+    background-color: var(--color-chart-background);
 }
 
 .recharts-default-legend {
