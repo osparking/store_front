@@ -11,8 +11,9 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import useColorMapping from "../hook/ColorMapping";
 
-const SalesChart = ({chartRefs}) => {
+const SalesChart = ({ chartRefs }) => {
   const [salesChartData, setSalesChartData] = useState([]);
   const [errorMsg, setErrorMsg] = useState(null);
 
@@ -34,6 +35,11 @@ const SalesChart = ({chartRefs}) => {
     getSalesChartData();
   }, []);
 
+  const colors = useColorMapping();
+  const normal = "보통비누";
+  const snowWt = "백설공주";
+  const maeju = "메주비누";
+
   return (
     <section
       className="mb-5"
@@ -49,9 +55,9 @@ const SalesChart = ({chartRefs}) => {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey={"보통비누"} fill="#8884d8" />
-            <Bar dataKey={"백설공주"} fill="#84d8a4" />
-            <Bar dataKey={"메주비누"} fill="#a89256" />
+            <Bar dataKey={normal} fill={colors[normal]} />
+            <Bar dataKey={snowWt} fill={colors[snowWt]} />
+            <Bar dataKey={maeju} fill={colors[maeju]} />
           </BarChart>
         </ResponsiveContainer>
       ) : (
