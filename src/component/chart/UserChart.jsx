@@ -57,7 +57,7 @@ const UserChart = ({ chartRefs }) => {
         <>
           <h5 className="chart-title mb-3">등록 유저 통계</h5>
           <ResponsiveContainer id="adminUserChart" height={300}>
-            <BarChart className="p-1" data={userStat}>
+            <BarChart className="p-1 makeBackLookBig" data={userStat}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" angle={-50} textAnchor="end" height={70} />
               <YAxis />
