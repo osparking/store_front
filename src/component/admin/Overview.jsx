@@ -14,6 +14,12 @@ const Overview = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const containers = document.querySelectorAll(".main-container");
+
+    containers.forEach((container) => {
+      container.style.paddingTop = "0px";
+    });
+
     const readCounts = async () => {
       try {
         const userCount = await callWithToken("get", "/admin/user/count");
@@ -27,6 +33,12 @@ const Overview = () => {
       }
     };
     readCounts();
+    return () => {
+      // Reset styles when component unmounts
+      containers.forEach((container) => {
+        container.style.paddingTop = "";
+      });
+    };
   }, []);
 
   const chartRefs = useRef({});
