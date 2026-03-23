@@ -38,3 +38,7 @@
   justify-content: space-between;
   box-shadow: 0 6px 7px -3px rgba(155, 240, 246, 0.35);
 }
+
+#sidebar a {
+  margin-left: 17px;
+}
