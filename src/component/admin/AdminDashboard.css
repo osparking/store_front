@@ -4,7 +4,7 @@
 
 .admin-body .grid-container {
   display: grid;
-  grid-template-columns: 146px 1fr;
+  grid-template-columns: 180px 1fr;
   grid-template-rows: 62px 1fr;
   grid-template-areas:
     'sidebar header'
