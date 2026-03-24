@@ -47,7 +47,6 @@ const RegisterProduce = () => {
     setLoading(false);
 
     if (response && response.pageContent) {
-      console.log("response.pageContent: ", response.pageContent);
       setTotalPages(response.totalPages);
       setProducePage(response.pageContent);
       setProduceRows(response.pageContent.content);
@@ -99,6 +98,7 @@ const RegisterProduce = () => {
             <tr>
               <th>순번</th>
               <th>외형</th>
+              <th>수량(개)</th>
               <th>생산일</th>
               <th>생산자</th>
               <th>등록자</th>
@@ -111,6 +111,7 @@ const RegisterProduce = () => {
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{produce.shape}</td>
+                <td>{produce.quantity}</td>
                 <td>{produce.produceDate}</td>
                 <td>{produce.producerName}</td>
                 <td>{produce.registerName}</td>
