@@ -4,6 +4,7 @@ import ManageIngredient from "./ManageIngredient";
 import ManageOrder from "./ManageOrder";
 import "./WorkerDashboard.css";
 import WorkerSideBar from "./WorkerSideBar";
+import RegisterProduce from "./produce/RegisterProduce";
 
 const WorkerDashboard = () => {
   const [workerTab, setWorkerTab] = useState(
@@ -33,6 +34,7 @@ const WorkerDashboard = () => {
               {
                 manageOrder: "주문 관리",
                 manageIngredient: "재료 관리",
+                registerProduce: "생산 등록",
               }[workerTab]
             }
           </h5>
@@ -40,6 +42,7 @@ const WorkerDashboard = () => {
         <div className="main-container worker" style={{ paddingTop: 0 }}>
           {workerTab === "manageOrder" && <ManageOrder />}
           {workerTab === "manageIngredient" && <ManageIngredient />}
+          {workerTab === "registerProduce" && <RegisterProduce />}
         </div>
       </div>
     </Container>
