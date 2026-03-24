@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import {
-    Col,
-    Row
+  Button,
+  Col,
+  OverlayTrigger,
+  Row,
+  Table,
+  Tooltip,
 } from "react-bootstrap";
 import AlertMessage from "../../common/AlertMessage";
 import Paginator from "../../common/Paginator";
@@ -9,6 +13,8 @@ import BsAlertHook from "../../hook/BsAlertHook";
 import { getRecordRange } from "../../util/utilities";
 import { fetchProducePage } from "./ProduceService";
 import "./RegisterProduce.css";
+import { BsPencilFill, BsTrashFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 const RegisterProduce = () => {
   const {
@@ -75,11 +81,76 @@ const RegisterProduce = () => {
             producePage,
             indexOfFirstProduce,
             indexOfLastProduce,
-            "비누",
+            "생산 외형",
           )}
         </p>
       </div>
-      <div className="ingredient-table-container">
+      <div className="produce-table-container">
+        <Table
+          id="produceTable"
+          bordered
+          hover
+          striped
+          style={{
+            minWidth: "730px",
+          }}
+        >
+          <thead>
+            <tr>
+              <th>순번</th>
+              <th>외형</th>
+              <th>생산일</th>
+              <th>생산자</th>
+              <th>등록자</th>
+              <th>등록일시</th>
+              <th colSpan={2}>작업</th>
+            </tr>
+          </thead>
+          <tbody>
+            {produceRows.map((produce, index) => (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>{produce.shape}</td>
+                <td>{produce.produceDate}</td>
+                <td>{produce.producerName}</td>
+                <td>{produce.registerName}</td>
+                <td>{produce.registerTime}</td>
+                <td>
+                  <OverlayTrigger
+                    overlay={
+                      <Tooltip id={`tooltip-view-${index}`}>정보 편집</Tooltip>
+                    }
+                  >
+                    <Button
+                      size="sm"
+                      style={{ backgroundColor: "transparent", border: "none" }}
+                      onClick={() => openWithRow(produce)}
+                    >
+                      <BsPencilFill className="text-success" />
+                    </Button>
+                  </OverlayTrigger>
+                </td>
+                <td>
+                  <OverlayTrigger
+                    overlay={
+                      <Tooltip id={`tooltip-view-${index}`}>
+                        입고 기록 삭제
+                      </Tooltip>
+                    }
+                  >
+                    <Link
+                      to={"#"}
+                      className="text-danger"
+                      onClick={() => handleShowDelModal(produce.id)}
+                    >
+                      <BsTrashFill />
+                    </Link>
+                  </OverlayTrigger>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       </div>
       <div className="pb-1">
         <Paginator
