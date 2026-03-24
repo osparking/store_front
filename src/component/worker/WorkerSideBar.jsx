@@ -1,6 +1,7 @@
 import { GiOlive } from "react-icons/gi";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { LuComponent } from "react-icons/lu";
+import { HiOutlineRectangleGroup } from "react-icons/hi2";
 
 const WorkerSideBar = ({ openSidebar, toggleSidebar, tabClicked }) => {
   return (
@@ -30,7 +31,16 @@ const WorkerSideBar = ({ openSidebar, toggleSidebar, tabClicked }) => {
         >
           <a href="#">
             <LuComponent className="icon" />
-            재료 관리
+            재료 입고
+          </a>
+        </li>
+        <li
+          className="sidebar-list-item"
+          onClick={() => tabClicked("registerProduce")}
+        >
+          <a href="#">
+            <HiOutlineRectangleGroup className="icon" />
+            생산 등록
           </a>
         </li>
       </ul>
