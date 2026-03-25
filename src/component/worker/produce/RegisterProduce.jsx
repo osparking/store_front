@@ -7,16 +7,17 @@ import {
   Table,
   Tooltip,
 } from "react-bootstrap";
+import { BsPencilFill, BsPlusSquareFill, BsTrashFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 import AlertMessage from "../../common/AlertMessage";
 import Paginator from "../../common/Paginator";
 import BsAlertHook from "../../hook/BsAlertHook";
+import DeleteConfirmModal from "../../modal/DeleteConfirmModal";
 import { getRecordRange } from "../../util/utilities";
+import { deleteProduceRow } from "../WorkerService";
+import ProduceInfoModal from "./ProduceInfoModal";
 import { fetchProducePage } from "./ProduceService";
 import "./RegisterProduce.css";
-import { BsPencilFill, BsPlusSquareFill, BsTrashFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
-import { deleteProduceRow } from "../WorkerService";
-import DeleteConfirmModal from "../../modal/DeleteConfirmModal";
 
 const RegisterProduce = () => {
   const {
@@ -98,7 +99,14 @@ const RegisterProduce = () => {
 
   const dummyProduce = {};
 
-  const openWithRow = (row) => {};
+  const [produceAdded, setProduceAdded] = useState(false);
+  const [produceInfo, setProduceInfo] = useState({});
+  const [showInfoModal, setShowInfoModal] = useState(false);
+
+  const openWithRow = (produce) => {
+    setProduceInfo(produce);
+    setShowInfoModal(true);
+  };
 
   return (
     <div className="mt-3">
@@ -209,6 +217,14 @@ const RegisterProduce = () => {
           </tbody>
         </Table>
       </div>
+      
+      <ProduceInfoModal
+        show={showInfoModal}
+        closer={() => setShowInfoModal(false)}
+        setProduceAdded={setProduceAdded}
+        produceInfo={produceInfo}
+        setProduceInfo={setProduceInfo}
+      />
       <div className="pb-1">
         <Paginator
           pageSize={producePerPage}
