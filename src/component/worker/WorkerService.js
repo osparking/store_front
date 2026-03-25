@@ -2,6 +2,16 @@ import { api, callWithToken } from "../util/api";
 
 const prefix = "http://localhost:9193/api/s1";
 
+export async function deleteProduceRow(id) {
+  try {
+    var url = `/worker/produces/${id}/delete`;
+    const result = await callWithToken("delete", url);
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function deleteStoredIngre(ingId) {
   try {
     var url = `/store_ingred/${ingId}/delete`;
