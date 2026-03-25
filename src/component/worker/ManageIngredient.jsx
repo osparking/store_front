@@ -60,8 +60,8 @@ const ManageIngredient = () => {
 
   const navigate = useNavigate();
 
-  const readIngredientPage = (name, page, size) => {
-    getIngredientPage(name, page, size)
+  const readIngredientPage = () => {
+    getIngredientPage(selectedName, currIngrePage, ingresPerPage)
       .then((response) => {
         if (response) {
           console.log("재료 목록: ", response.pageContent.content);
@@ -95,7 +95,7 @@ const ManageIngredient = () => {
   }
 
   useEffect(() => {
-    readIngredientPage(selectedName, currIngrePage, ingresPerPage);
+    readIngredientPage();
     const readIngreNames = async () => {
       try {
         const response = await getAllIngreNames();
@@ -129,11 +129,11 @@ const ManageIngredient = () => {
   };
 
   useEffect(() => {
-    readIngredientPage(selectedName, currIngrePage, ingresPerPage);
+    readIngredientPage();
   }, [currIngrePage]);
 
   useEffect(() => {
-    readIngredientPage(selectedName, 1, ingresPerPage);
+    readIngredientPage();
     setCurrIngrePage(1);
   }, [selectedName]);
 
