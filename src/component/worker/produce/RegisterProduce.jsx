@@ -15,6 +15,8 @@ import { fetchProducePage } from "./ProduceService";
 import "./RegisterProduce.css";
 import { BsPencilFill, BsTrashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { deleteProduceRow } from "../WorkerService";
+import DeleteConfirmModal from "../../modal/DeleteConfirmModal";
 
 const RegisterProduce = () => {
   const {
@@ -64,8 +66,46 @@ const RegisterProduce = () => {
     loadProducePage();
   }, []);
 
+  const [showDelModal, setShowDelModal] = useState(false);
+  const [idToDelete, setIdToDelete] = useState(null);
+  const [delBtnDisabled, setDelBtnDisabled] = useState(false);
+  const [delRegTime, setDelRegTime] = useState("");
+
+  const handleShowDelModal = (produce) => {
+    setShowDelModal(true);
+    setIdToDelete(produce.id);
+    setDelRegTime(produce.registerTime.slice(-8))
+  };
+
+  const handleProduceDelete = async () => {
+    if (idToDelete) {
+      try {
+        setDelBtnDisabled(true);
+        const result = await deleteProduceRow(idToDelete);
+        setSuccessMsg(result.message);
+        setAlertSuccess(true);
+        setShowDelModal(false);
+        loadProducePage();
+      } catch (err) {
+        console.error("err:", err);
+        setErrorMsg(err.message);
+        setAlertError(true);
+      } finally {
+        setDelBtnDisabled(false);
+      }
+    }
+  };  
+
   return (
     <div className="mt-3">
+      <DeleteConfirmModal
+        show={showDelModal}
+        onHide={() => setShowDelModal(false)}
+        handleDeletion={handleProduceDelete}
+        target={`${delRegTime} 시분초 입력 생산 정보`}
+        disabled={delBtnDisabled}
+      />
+
       <Row>
         <Col>
           {alertSuccess && (
@@ -142,7 +182,7 @@ const RegisterProduce = () => {
                     <Link
                       to={"#"}
                       className="text-danger"
-                      onClick={() => handleShowDelModal(produce.id)}
+                      onClick={() => handleShowDelModal(produce)}
                     >
                       <BsTrashFill />
                     </Link>
