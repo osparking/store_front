@@ -13,7 +13,7 @@ import BsAlertHook from "../../hook/BsAlertHook";
 import { getRecordRange } from "../../util/utilities";
 import { fetchProducePage } from "./ProduceService";
 import "./RegisterProduce.css";
-import { BsPencilFill, BsTrashFill } from "react-icons/bs";
+import { BsPencilFill, BsPlusSquareFill, BsTrashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { deleteProduceRow } from "../WorkerService";
 import DeleteConfirmModal from "../../modal/DeleteConfirmModal";
@@ -74,7 +74,7 @@ const RegisterProduce = () => {
   const handleShowDelModal = (produce) => {
     setShowDelModal(true);
     setIdToDelete(produce.id);
-    setDelRegTime(produce.registerTime.slice(-8))
+    setDelRegTime(produce.registerTime.slice(-8));
   };
 
   const handleProduceDelete = async () => {
@@ -94,7 +94,11 @@ const RegisterProduce = () => {
         setDelBtnDisabled(false);
       }
     }
-  };  
+  };
+
+  const dummyProduce = {};
+
+  const openWithRow = (row) => {};
 
   return (
     <div className="mt-3">
@@ -114,16 +118,28 @@ const RegisterProduce = () => {
           {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
         </Col>
       </Row>
-      <div className="justify-content-center align-items-center">
-        <p className="text-center mb-0">
+      <Row className="justify-content-center align-items-center mb-2">
+        <Col xs={2}></Col>
+        <Col xs={8} className="text-center mb-0">
           {getRecordRange(
             producePage,
             indexOfFirstProduce,
             indexOfLastProduce,
             "생산 외형",
           )}
-        </p>
-      </div>
+        </Col>
+        <Col xs={2}>
+          <div className="justify-content-end mt-1 d-flex">
+            <Button
+              onClick={() => openWithRow(dummyProduce)}
+              className="d-inline-flex align-items-center"
+            >
+              <BsPlusSquareFill />
+            </Button>
+          </div>
+        </Col>
+      </Row>
+
       <div className="produce-table-container">
         <Table
           id="produceTable"
