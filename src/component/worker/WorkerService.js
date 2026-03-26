@@ -40,6 +40,15 @@ export async function getAllBuyLinks() {
   }
 }
 
+export async function getSoapShapeLabels() {
+  try {
+    const result = await callWithToken("get", "/soap/labels");
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function getAllIngreNames() {
   try {
     const result = await callWithToken("get", "/store_ingred/get_all_names");
