@@ -98,7 +98,8 @@ const RegisterProduce = () => {
   };
 
   const dummyProduce = {
-    shape: ""
+    shape: "",
+    quantity: 100,
   };
 
   const [produceAdded, setProduceAdded] = useState(false);
