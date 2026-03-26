@@ -98,7 +98,7 @@ const RegisterProduce = () => {
   };
 
   const dummyProduce = {
-    shape: "",
+    shapeLabel: "",
     quantity: 100,
   };
 
