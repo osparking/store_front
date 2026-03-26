@@ -41,7 +41,7 @@ const ProduceInfoModal = ({
       </Modal.Header>
       <Modal.Body>
         <Row className="justify-content-center">
-          <Col xs={8}>
+          <Col xs={5}>
             <Form onSubmit={handleSubmit}>
               <Form.Group>
                 <ShapeSelector
@@ -49,15 +49,34 @@ const ProduceInfoModal = ({
                   onChange={handleChange}
                 />
               </Form.Group>
+            </Form>
+          </Col>
+          <Col xs={3}>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group>
+                <Form.Label>수량</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="quantity"
+                  min="1"
+                  value={produceInfo.quantity}
+                  placeholder="숫자"
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+            </Form>
+          </Col>
+          <Row className="justify-content-center" style={{ margin: "auto" }}>
+            <Col xs={10} md={8}>
               {alertError && (
                 <AlertMessage type={"danger"} message={errorMsg} />
               )}
-
               {alertSuccess && (
                 <AlertMessage severity={"success"} message={successMsg} />
               )}
-            </Form>
-          </Col>
+            </Col>
+          </Row>
         </Row>
       </Modal.Body>
       <Modal.Footer>
