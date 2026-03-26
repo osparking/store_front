@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Form, Row } from "react-bootstrap";
 import { getSoapShapeLabels } from "../worker/WorkerService";
 
-const ShapeSelector = ({ shape, onChange }) => {
+const ShapeSelector = ({ shapeLabel, onChange }) => {
   const [shapeLabels, setShapeLabels] = useState([]);
 
   useEffect(() => {
@@ -27,8 +27,8 @@ const ShapeSelector = ({ shape, onChange }) => {
         <Form.Label>비누 외형</Form.Label>
         <Form.Control
           as="select"
-          name="shape"
-          value={shape}
+          name="shapeLabel"
+          value={shapeLabel}
           required
           onChange={handleShapeChange}
         >
