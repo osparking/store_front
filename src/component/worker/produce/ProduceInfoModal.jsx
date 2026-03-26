@@ -1,16 +1,57 @@
-import { Button, Modal } from "react-bootstrap";
+import { Button, Col, Form, Modal, Row } from "react-bootstrap";
+import BsAlertHook from "../../hook/BsAlertHook";
+import ShapeSelector from "../../soaps/ShapeSelector";
 
-const ProduceInfoModal = ({ show, closer }) => {
+const ProduceInfoModal = ({
+  show,
+  closer,
+  setProduceAdded,
+  produceInfo,
+  setProduceInfo,
+}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   };
+
+  const {
+    successMsg,
+    setSuccessMsg,
+    alertSuccess,
+    setAlertSuccess,
+    errorMsg,
+    setErrorMsg,
+    alertError,
+    setAlertError,
+  } = BsAlertHook();
+
+  const handleChange = (e) => {};
 
   return (
     <Modal show={show} onHide={closer}>
       <Modal.Header closeButton>
         <Modal.Title>비누 생산 정보</Modal.Title>
       </Modal.Header>
-      <Modal.Body></Modal.Body>
+      <Modal.Body>
+        <Row className="justify-content-center">
+          <Col xs={8}>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group>
+                <ShapeSelector
+                  shape={produceInfo.shape}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              {alertError && (
+                <AlertMessage type={"danger"} message={errorMsg} />
+              )}
+
+              {alertSuccess && (
+                <AlertMessage severity={"success"} message={successMsg} />
+              )}
+            </Form>
+          </Col>
+        </Row>
+      </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleSubmit}>
           저장
