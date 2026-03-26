@@ -97,13 +97,15 @@ const RegisterProduce = () => {
     }
   };
 
-  const dummyProduce = {};
+  const dummyProduce = {
+    shape: ""
+  };
 
   const [produceAdded, setProduceAdded] = useState(false);
   const [produceInfo, setProduceInfo] = useState({});
   const [showInfoModal, setShowInfoModal] = useState(false);
 
-  const openWithRow = (produce) => {
+  const openProduceModal = (produce) => {
     setProduceInfo(produce);
     setShowInfoModal(true);
   };
@@ -139,7 +141,7 @@ const RegisterProduce = () => {
         <Col xs={2}>
           <div className="justify-content-end mt-1 d-flex">
             <Button
-              onClick={() => openWithRow(dummyProduce)}
+              onClick={() => openProduceModal(dummyProduce)}
               className="d-inline-flex align-items-center"
             >
               <BsPlusSquareFill />
@@ -189,7 +191,7 @@ const RegisterProduce = () => {
                     <Button
                       size="sm"
                       style={{ backgroundColor: "transparent", border: "none" }}
-                      onClick={() => openWithRow(produce)}
+                      onClick={() => openProduceModal(produce)}
                     >
                       <BsPencilFill className="text-success" />
                     </Button>
