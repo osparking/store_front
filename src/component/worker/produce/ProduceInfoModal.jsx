@@ -1,4 +1,5 @@
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
+import AlertMessage from "../../common/AlertMessage";
 import BsAlertHook from "../../hook/BsAlertHook";
 import ShapeSelector from "../../soaps/ShapeSelector";
 
@@ -11,6 +12,11 @@ const ProduceInfoModal = ({
 }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (produceInfo.shape === "") {
+      setErrorMsg("비누 외형을 선택하세요!");
+      setAlertError(true);
+      return;
+    }
   };
 
   const {
