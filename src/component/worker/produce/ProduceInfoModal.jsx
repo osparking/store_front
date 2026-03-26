@@ -2,6 +2,7 @@ import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import AlertMessage from "../../common/AlertMessage";
 import BsAlertHook from "../../hook/BsAlertHook";
 import ShapeSelector from "../../soaps/ShapeSelector";
+import DatePicker from "react-datepicker";
 
 const ProduceInfoModal = ({
   show,
@@ -17,6 +18,7 @@ const ProduceInfoModal = ({
       setAlertError(true);
       return;
     }
+    console.log("produce info:", produceInfo);
   };
 
   const {
@@ -34,25 +36,58 @@ const ProduceInfoModal = ({
     setProduceInfo({ ...produceInfo, [e.target.name]: e.target.value });
   };
 
+  const changeProduceDate = (produceDate) => {
+    setProduceInfo({ ...produceInfo, produceDate: produceDate });
+  };
+
   return (
     <Modal show={show} onHide={closer}>
       <Modal.Header closeButton>
         <Modal.Title>비누 생산 정보</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Row className="justify-content-center">
-          <Col xs={5}>
-            <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
+          <Row className="justify-content-center mb-5">
+            <Col xs={3}>
+              <Form.Group>
+                <Form.Label>생산자</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="producerName"
+                  value={produceInfo.producerName}
+                  placeholder="숫자"
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+            </Col>
+            <Col xs={5}>
+              <Form.Group>
+                <Form.Label>생산 일자</Form.Label>
+                <DatePicker
+                  selected={produceInfo.produceDate}
+                  onChange={changeProduceDate}
+                  dateFormat="yyyy-MM-dd"
+                  className="form-control"
+                  maxDate={new Date()}
+                  placeholderText="(생산일)"
+                  defaultShow={true}
+                  required
+                  locale="ko"
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row className="justify-content-center">
+            <Col xs={5}>
               <Form.Group>
                 <ShapeSelector
-                  shape={produceInfo.shape}
+                  shapeLabel={produceInfo.shapeLabel}
                   onChange={handleChange}
                 />
               </Form.Group>
-            </Form>
-          </Col>
-          <Col xs={3}>
-            <Form onSubmit={handleSubmit}>
+            </Col>
+            <Col xs={3}>
               <Form.Group>
                 <Form.Label>수량</Form.Label>
                 <Form.Control
@@ -65,8 +100,9 @@ const ProduceInfoModal = ({
                   required
                 />
               </Form.Group>
-            </Form>
-          </Col>
+            </Col>
+          </Row>
+
           <Row className="justify-content-center" style={{ margin: "auto" }}>
             <Col xs={10} md={8}>
               {alertError && (
@@ -77,7 +113,7 @@ const ProduceInfoModal = ({
               )}
             </Col>
           </Row>
-        </Row>
+        </Form>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleSubmit}>
