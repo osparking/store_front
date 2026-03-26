@@ -17,7 +17,9 @@ const ShapeSelector = ({ shape, onChange }) => {
     readIngreNames();
   }, []);
 
-  const handleShapeChange = (event) => {};
+  const handleShapeChange = (event) => {
+    onChange(event);
+  };
 
   return (
     <React.Fragment>
@@ -25,7 +27,7 @@ const ShapeSelector = ({ shape, onChange }) => {
         <Form.Label>비누 외형</Form.Label>
         <Form.Control
           as="select"
-          name="soapShape"
+          name="shape"
           value={shape}
           required
           onChange={handleShapeChange}
