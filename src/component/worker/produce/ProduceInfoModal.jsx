@@ -24,7 +24,9 @@ const ProduceInfoModal = ({
     setAlertError,
   } = BsAlertHook();
 
-  const handleChange = (e) => {};
+  const handleChange = (e) => {
+    setProduceInfo({ ...produceInfo, [e.target.name]: e.target.value });
+  };
 
   return (
     <Modal show={show} onHide={closer}>
