@@ -11,15 +11,17 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import Paginator from "../../common/Paginator";
 import "./EmployeeNameModal.css";
 import { useDebounce } from "../../util/utilities";
+import { getEmployeeNamesPage } from "../WorkerService";
+import ProcessSpinner from "../../common/ProcessSpinner";
 
 const EmployeeNameModal = ({
   show,
-  empName,
+  producerName,
   setEmpName,
   closer,
   //   putFocus2detailedAddr,
 }) => {
-  const [nameKey, setNameKey] = useState("");
+  const [nameKey, setNameKey] = useState(producerName);
   const [names, setNames] = useState([]);
   const [namePage, setNamePage] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,6 +31,10 @@ const EmployeeNameModal = ({
   const [searchResult, setSearchResult] = useState({});
   const [totalPages, setTotalPages] = useState(1);
 
+  useEffect(() => {
+    setNameKey(producerName);
+  }, [producerName]);
+  
   //   useEffect(() => {
   //     if (searchResult && searchResult.pageContent) {
   //       setAddresses(searchResult.pageContent.content);
@@ -41,24 +47,27 @@ const EmployeeNameModal = ({
   const idxLastPlus1 = currentPage * pageSize;
   const indexOfFirst = idxLastPlus1 - pageSize;
 
-  const loadAddressPage = async (value) => {
+  const loadNamesPage = async (value) => {
     try {
       console.log("직원명 페이지 로딩 중");
-      // setLoading(true);
-      // const searchResult = await searchAddress(value, currentPage, pageSize);
-      // setLoading(false);
-      // setSearchResult(searchResult);
-      // if (searchResult && searchResult.pageContent) {
-      //   setAddresses(searchResult.pageContent.content);
-      //   setAddrPage(searchResult.pageContent);
-      //   setTotalPages(searchResult.totalPages);
-      // }
+      setLoading(true);
+      const searchResult = await getEmployeeNamesPage(
+        value,
+        currentPage,
+        pageSize,
+      );
+      setLoading(false);
+      setSearchResult(searchResult);
+      if (searchResult && searchResult.pageContent) {
+        console.log("names: ", searchResult.pageContent.content);
+        setNames(searchResult.pageContent.content);
+        setNamePage(searchResult.pageContent);
+        setTotalPages(searchResult.totalPages);
+      }
     } catch (error) {
       console.error("API call failed:", error);
     }
   };
-
-  //   const debouncedPageLoad = useDebounce(loadAddressPage, 200);
 
   //   useEffect(() => {
   //     loadAddressPage(nameKey);
@@ -88,9 +97,7 @@ const EmployeeNameModal = ({
   //     closer();
   //   };
 
-  const keyNotEnough = () => {
-    return nameKey.length === 0;
-  };
+  const keyNotEnough = () => !nameKey || nameKey.length === 0;
 
   function MyButton() {
     useEffect(() => {
@@ -137,7 +144,7 @@ const EmployeeNameModal = ({
     debouncedPageLoad(nameKey);
   };
 
-  const debouncedPageLoad = useDebounce(loadAddressPage, 200);
+  const debouncedPageLoad = useDebounce(loadNamesPage, 200);
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter" || event.key === "Process") {
