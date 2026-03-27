@@ -97,16 +97,20 @@ const RegisterProduce = () => {
     }
   };
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("USER"));
+    setProduceInfo({...produceInfo, producerName: user.fullName});
+  }, []);
+
   const dummyProduce = {
     shapeLabel: "",
     quantity: 100,
     produceDate: new Date(),
-    producerName: "홍길동",
     producerId: 8,
   };
 
   const [produceAdded, setProduceAdded] = useState(false);
-  const [produceInfo, setProduceInfo] = useState({});
+  const [produceInfo, setProduceInfo] = useState(dummyProduce);
   const [showInfoModal, setShowInfoModal] = useState(false);
 
   const openProduceModal = (produce) => {
@@ -145,7 +149,7 @@ const RegisterProduce = () => {
         <Col xs={2}>
           <div className="justify-content-end mt-1 d-flex">
             <Button
-              onClick={() => openProduceModal(dummyProduce)}
+              onClick={() => openProduceModal(produceInfo)}
               className="d-inline-flex align-items-center"
             >
               <BsPlusSquareFill />
@@ -223,7 +227,7 @@ const RegisterProduce = () => {
           </tbody>
         </Table>
       </div>
-      
+
       <ProduceInfoModal
         show={showInfoModal}
         closer={() => setShowInfoModal(false)}
