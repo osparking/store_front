@@ -16,7 +16,7 @@ const ProduceInfoModal = ({
   setProduceInfo,
 }) => {
   registerLocale("ko", ko);
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (produceInfo.shape === "") {
@@ -95,10 +95,11 @@ const ProduceInfoModal = ({
             </Col>
             <Col xs={3}>
               <Form.Group>
-                <Form.Label>수량</Form.Label>
+                <Form.Label htmlFor="producedQuantity">수량</Form.Label>
                 <Form.Control
                   type="number"
                   name="quantity"
+                  id="producedQuantity"
                   min="1"
                   value={produceInfo.quantity}
                   placeholder="숫자"
