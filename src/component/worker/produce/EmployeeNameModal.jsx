@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
 import {
   Button,
+  Col,
   Form,
   Modal,
   OverlayTrigger,
+  Row,
   Table,
   Tooltip,
 } from "react-bootstrap";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import Paginator from "../../common/Paginator";
-import "./EmployeeNameModal.css";
+import ProcessSpinner from "../../common/ProcessSpinner";
 import { useDebounce } from "../../util/utilities";
 import { getEmployeeNamesPage } from "../WorkerService";
-import ProcessSpinner from "../../common/ProcessSpinner";
+import "./EmployeeNameModal.css";
 
 const EmployeeNameModal = ({
   show,
@@ -34,7 +36,7 @@ const EmployeeNameModal = ({
   useEffect(() => {
     setNameKey(producerName);
   }, [producerName]);
-  
+
   //   useEffect(() => {
   //     if (searchResult && searchResult.pageContent) {
   //       setAddresses(searchResult.pageContent.content);
@@ -69,9 +71,9 @@ const EmployeeNameModal = ({
     }
   };
 
-  //   useEffect(() => {
-  //     loadAddressPage(nameKey);
-  //   }, [currentPage]);
+  useEffect(() => {
+    loadNamesPage(nameKey);
+  }, [currentPage]);
 
   //   const selectAddress = (addr) => {
   //     const addrBasisAddReq = {
@@ -193,32 +195,41 @@ const EmployeeNameModal = ({
               <MyButton />
             </div>
           </Form>
-          <div className="mt-5">
-            <p className="text-center text-muted mb-4">
-              직원 총 {namePage.totalElements} 명 중, {indexOfFirst + 1} ~{" "}
-              {Math.min(idxLastPlus1, namePage.totalElements)}번째 이름
-            </p>
-
-            <div className="table-container">
-              <Table bordered hover striped>
-                <thead>
-                  <tr>
-                    <th>직원명-ID</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {names &&
-                    names.map((name, index) => (
-                      <tr
-                        key={index}
-                        onClick={() => selectAddress(name)}
-                        style={{ cursor: "pointer" }}
-                      >
-                        <td className="small">{name.zipcode}</td>
-                      </tr>
-                    ))}
-                </tbody>
-              </Table>
+          <div className="mt-4">
+            {namePage.totalElements > 0 && (
+              <p className="text-center text-muted mb-2">
+                직원 {namePage.totalElements} 명 중, {indexOfFirst + 1} ~{" "}
+                {Math.min(idxLastPlus1, namePage.totalElements)}번째
+              </p>
+            )}
+            <div className="mt-0 justify-content-center">
+              {namePage.totalElements === 0 ? (
+                <p className="text-center text-muted mb-2">해당 직원 없음</p>
+              ) : (
+                <Row className="justify-content-center">
+                  <Col xs={8} md={5}>
+                    <Table bordered hover striped>
+                      <thead>
+                        <tr>
+                          <th>직원명-ID</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {names &&
+                          names.map((name, index) => (
+                            <tr
+                              key={index}
+                              onClick={() => selectAddress(name)}
+                              style={{ cursor: "pointer" }}
+                            >
+                              <td className="small">{name.uniqName}</td>
+                            </tr>
+                          ))}
+                      </tbody>
+                    </Table>
+                  </Col>
+                </Row>
+              )}
             </div>
             {searchResult && namePage && (
               <Paginator
