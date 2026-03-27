@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
+import DatePicker, { registerLocale } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import AlertMessage from "../../common/AlertMessage";
 import BsAlertHook from "../../hook/BsAlertHook";
 import ShapeSelector from "../../soaps/ShapeSelector";
-import DatePicker from "react-datepicker";
+import EmployeeNameModal from "./EmployeeNameModal";
+import { ko } from "date-fns/locale/ko";
 
 const ProduceInfoModal = ({
   show,
@@ -11,6 +15,8 @@ const ProduceInfoModal = ({
   produceInfo,
   setProduceInfo,
 }) => {
+  registerLocale("ko", ko);
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (produceInfo.shape === "") {
