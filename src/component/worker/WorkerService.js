@@ -91,3 +91,17 @@ export async function getAllDept() {
     throw err;
   }
 }
+
+export async function getEmployeeNamesPage(name, page, size) {
+  const urlPrefix = "/user/employee_name_page?page=";
+
+  try {
+    const result = await callWithToken(
+      "get",
+      `${urlPrefix}${page}&size=${size}&name=${name}`,
+    );
+    return result.data.data;
+  } catch (err) {
+    throw err;
+  }
+}
