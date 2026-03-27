@@ -52,7 +52,7 @@ const ProduceInfoModal = ({
     <>
       <EmployeeNameModal
         show={showNameModal}
-        empName={empName}
+        producerName={produceInfo.producerName}
         setEmpName={setEmpName}
         closer={() => {
           setShowNameModal(false);
