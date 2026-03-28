@@ -37,21 +37,12 @@ const ProducerModal = ({
     loadNamesPage(producer.name);
   }, [producer]);
 
-  //   useEffect(() => {
-  //     if (searchResult && searchResult.pageContent) {
-  //       setAddresses(searchResult.pageContent.content);
-  //       setAddrPage(searchResult.pageContent);
-  //       setPageSize(searchResult.pageSize);
-  //       setTotalPages(searchResult.totalPages);
-  //     }
-  //   }, [searchResult]);
-
   const idxLastPlus1 = currentPage * pageSize;
   const indexOfFirst = idxLastPlus1 - pageSize;
 
   const loadNamesPage = async (value) => {
+    if (!show) return; // 모달이 열려있지 않으면 API 호출하지 않음
     try {
-      console.log("직원명 페이지 로딩 중");
       setLoading(true);
       const searchResult = await getEmployeeNamesPage(
         value,
@@ -74,6 +65,10 @@ const ProducerModal = ({
   useEffect(() => {
     loadNamesPage(nameKey);
   }, [currentPage]);
+
+  useEffect(() => {
+    loadNamesPage(nameKey);
+  }, [show]);
 
   const selectProducer = (producer) => {
     console.log("producer: ", producer);
