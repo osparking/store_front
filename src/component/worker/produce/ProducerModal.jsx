@@ -14,9 +14,9 @@ import Paginator from "../../common/Paginator";
 import ProcessSpinner from "../../common/ProcessSpinner";
 import { useDebounce } from "../../util/utilities";
 import { getEmployeeNamesPage } from "../WorkerService";
-import "./EmployeeNameModal.css";
+import "./ProducerModal.css";
 
-const EmployeeNameModal = ({
+const ProducerModal = ({
   show,
   producer,
   setProducer,
@@ -230,4 +230,4 @@ const EmployeeNameModal = ({
   );
 };
 
-export default EmployeeNameModal;
+export default ProducerModal;
