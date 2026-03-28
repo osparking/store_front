@@ -1,5 +1,5 @@
 import { ko } from "date-fns/locale/ko";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -48,16 +48,24 @@ const ProduceInfoModal = ({
 
   const [showNameModal, setShowNameModal] = useState(false);
   const [empName, setEmpName] = useState("임걱정");
+
+  const setProducer = (producer) => {
+    setProduceInfo({...produceInfo, producer: producer})
+  }
+
+  const openNameModal = () => {
+    setShowNameModal(true);
+  }
+
   return (
     <>
       <EmployeeNameModal
         show={showNameModal}
-        producerName={produceInfo.producerName}
-        setEmpName={setEmpName}
+        producer={produceInfo.producer}
+        setProducer={setProducer}
         closer={() => {
           setShowNameModal(false);
         }}
-        // putFocus2detailedAddr={putFocus2detailedAddr}
       />
       <Modal show={show} onHide={closer}>
         <Modal.Header closeButton>
@@ -80,7 +88,7 @@ const ProduceInfoModal = ({
                       <Form.Control
                         type="text"
                         name="producerName"
-                        value={produceInfo.producerName}
+                        value={produceInfo.producer.name}
                         placeholder="(직원명)"
                         onChange={handleChange}
                         required
@@ -97,7 +105,7 @@ const ProduceInfoModal = ({
                           marginTop: "4px",
                           marginRight: "5px",
                         }}
-                        onClick={() => setShowNameModal(true)}
+                        onClick={openNameModal}
                       >
                         <span>수정</span>
                       </Button>
