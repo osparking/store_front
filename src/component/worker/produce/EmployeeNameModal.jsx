@@ -18,24 +18,24 @@ import "./EmployeeNameModal.css";
 
 const EmployeeNameModal = ({
   show,
-  producerName,
-  setEmpName,
+  producer,
+  setProducer,
   closer,
-  //   putFocus2detailedAddr,
 }) => {
-  const [nameKey, setNameKey] = useState(producerName);
-  const [names, setNames] = useState([]);
+  const [nameKey, setNameKey] = useState(producer.name);
+  const [employees, setEmployees] = useState([]);
   const [namePage, setNamePage] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(5); // itemsPerPage
   const [loading, setLoading] = useState(false);
-
+  
   const [searchResult, setSearchResult] = useState({});
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    setNameKey(producerName);
-  }, [producerName]);
+    setNameKey(producer.name);
+    loadNamesPage(producer.name);
+  }, [producer]);
 
   //   useEffect(() => {
   //     if (searchResult && searchResult.pageContent) {
@@ -62,7 +62,7 @@ const EmployeeNameModal = ({
       setSearchResult(searchResult);
       if (searchResult && searchResult.pageContent) {
         console.log("names: ", searchResult.pageContent.content);
-        setNames(searchResult.pageContent.content);
+        setEmployees(searchResult.pageContent.content);
         setNamePage(searchResult.pageContent);
         setTotalPages(searchResult.totalPages);
       }
@@ -75,29 +75,12 @@ const EmployeeNameModal = ({
     loadNamesPage(nameKey);
   }, [currentPage]);
 
-  //   const selectAddress = (addr) => {
-  //     const addrBasisAddReq = {
-  //       zipcode: addr.zipcode,
-  //       roadAddress: addr.roadAddress,
-  //       zbunAddress: addr.zbunAddress,
-  //     };
-  //     console.log("addrBasisAddReq: ", addrBasisAddReq);
-  //     setFormData((prevState) => ({
-  //       ...prevState,
-  //       addrBasisAddReq: addrBasisAddReq,
-  //     }));
-
-  //     if (formData.addrBasisAddReq.roadAddress !== addr.roadAddress) {
-  //       setFormData((prevState) => ({
-  //         ...prevState,
-  //         addressDetail: "",
-  //       }));
-
-  //       putFocus2detailedAddr();
-  //     }
-
-  //     closer();
-  //   };
+  const selectProducer = (producer) => {
+    console.log("producer: ", producer);
+    setProducer(producer);
+    setNameKey(producer.name);
+    closer();
+  };
 
   const keyNotEnough = () => !nameKey || nameKey.length === 0;
 
@@ -215,14 +198,14 @@ const EmployeeNameModal = ({
                         </tr>
                       </thead>
                       <tbody>
-                        {names &&
-                          names.map((name, index) => (
+                        {employees &&
+                          employees.map((employee, index) => (
                             <tr
                               key={index}
-                              onClick={() => selectAddress(name)}
+                              onClick={() => selectProducer(employee)}
                               style={{ cursor: "pointer" }}
                             >
-                              <td className="small">{name.uniqName}</td>
+                              <td className="small">{employee.name}</td>
                             </tr>
                           ))}
                       </tbody>
