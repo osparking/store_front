@@ -112,6 +112,10 @@ const RegisterProduce = () => {
     shapeLabel: "",
     quantity: 0,
     produceDate: new Date(),
+    producer: {
+      id: 0,
+      name: ""
+    }
   };
 
   const [produceAdded, setProduceAdded] = useState(false);
