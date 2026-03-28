@@ -66,21 +66,28 @@ const ProduceInfoModal = ({
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
             <Row className="justify-content-center mb-5">
-              <Col xs={4}>
+              <Col xs={5}>
                 <Form.Group>
-                  <Form.Label>생산자</Form.Label>
+                  <Form.Label>생산 직원명</Form.Label>
                   <Row>
-                    <Col style={{ paddingLeft: "5px", paddingRight: "2px" }}>
+                    <Col
+                      xs={8}
+                      style={{
+                        paddingLeft: "5px",
+                        paddingRight: "2px",
+                      }}
+                    >
                       <Form.Control
                         type="text"
                         name="producerName"
                         value={produceInfo.producerName}
-                        placeholder="숫자"
+                        placeholder="(직원명)"
                         onChange={handleChange}
                         required
+                        readOnly
                       />
                     </Col>
-                    <Col style={{ paddingLeft: "2px" }}>
+                    <Col xs={4} style={{ paddingLeft: "2px" }}>
                       <Button
                         variant="primary"
                         style={{
@@ -92,13 +99,13 @@ const ProduceInfoModal = ({
                         }}
                         onClick={() => setShowNameModal(true)}
                       >
-                        <span>검색</span>
+                        <span>수정</span>
                       </Button>
                     </Col>
                   </Row>
                 </Form.Group>
               </Col>
-              <Col xs={4}>
+              <Col xs={5} className="ms-3">
                 <Form.Group>
                   <Form.Label>생산 일자</Form.Label>
                   <DatePicker
