@@ -99,14 +99,19 @@ const RegisterProduce = () => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("USER"));
-    setProduceInfo({...produceInfo, producerName: user.fullName});
+    setProduceInfo({
+      ...produceInfo,
+      producer: {
+        id: user.id,
+        name: user.fullName,
+      },
+    });
   }, []);
 
   const dummyProduce = {
     shapeLabel: "",
-    quantity: 100,
+    quantity: 0,
     produceDate: new Date(),
-    producerId: 8,
   };
 
   const [produceAdded, setProduceAdded] = useState(false);
