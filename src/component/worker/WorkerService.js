@@ -105,3 +105,21 @@ export async function getEmployeeNamesPage(name, page, size) {
     throw err;
   }
 }
+
+export async function sendProduceInfo(produceInfo) {
+  try {
+    var url = "/worker/add_produce";
+    var produceData = {
+      shapeLabel: produceInfo.shapeLabel,
+      quantity: produceInfo.quantity,
+      produceDate: produceInfo.produceDate,
+      producerId: produceInfo.producer.id,
+    };
+
+    const result = await callWithToken("post", url, produceData);
+    
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
