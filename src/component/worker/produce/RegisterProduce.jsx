@@ -99,8 +99,9 @@ const RegisterProduce = () => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("USER"));
-    setProduceInfo({
-      ...produceInfo,
+
+    setDummyProduce({
+      ...dummyProduce,
       producer: {
         id: user.id,
         name: user.fullName,
@@ -108,21 +109,35 @@ const RegisterProduce = () => {
     });
   }, []);
 
-  const dummyProduce = {
+  const [dummyProduce, setDummyProduce] = useState({
     shapeLabel: "",
     quantity: 0,
     produceDate: new Date(),
     producer: {
       id: 0,
-      name: ""
-    }
+      name: "",
+    },
+  });
+
+  const editProduceInfo = (produce) => {
+    var produceInfo = {
+      id: produce.id,
+      shapeLabel: produce.shape,
+      quantity: produce.quantity,
+      produceDate: produce.produceDate,
+      producer: {
+        id: produce.producerId,
+        name: produce.producerName,
+      },
+    };
+    openProduceModal(produceInfo);
   };
 
   const [produceInfo, setProduceInfo] = useState(dummyProduce);
   const [showInfoModal, setShowInfoModal] = useState(false);
 
-  const openProduceModal = (produce) => {
-    setProduceInfo(produce);
+  const openProduceModal = (produceInfo) => {
+    setProduceInfo(produceInfo);
     setShowInfoModal(true);
   };
 
@@ -157,7 +172,7 @@ const RegisterProduce = () => {
         <Col xs={2}>
           <div className="justify-content-end mt-1 d-flex">
             <Button
-              onClick={() => openProduceModal(produceInfo)}
+              onClick={() => openProduceModal(dummyProduce)}
               className="d-inline-flex align-items-center"
             >
               <BsPlusSquareFill />
@@ -207,7 +222,7 @@ const RegisterProduce = () => {
                     <Button
                       size="sm"
                       style={{ backgroundColor: "transparent", border: "none" }}
-                      onClick={() => openProduceModal(produce)}
+                      onClick={() => editProduceInfo(produce)}
                     >
                       <BsPencilFill className="text-success" />
                     </Button>
@@ -236,15 +251,15 @@ const RegisterProduce = () => {
         </Table>
       </div>
 
-    <ProduceInfoModal
-      show={showInfoModal}
-      closer={() => setShowInfoModal(false)}
-      produceInfo={produceInfo}
-      setProduceInfo={setProduceInfo}
-      setParentSuccessMsg={setSuccessMsg}
-      setParentAlertSuccess={setAlertSuccess}
-      loadProducePage={loadProducePage}
-    />
+      <ProduceInfoModal
+        show={showInfoModal}
+        closer={() => setShowInfoModal(false)}
+        produceInfo={produceInfo}
+        setProduceInfo={setProduceInfo}
+        setParentSuccessMsg={setSuccessMsg}
+        setParentAlertSuccess={setAlertSuccess}
+        loadProducePage={loadProducePage}
+      />
       <div className="pb-1">
         <Paginator
           pageSize={producePerPage}
