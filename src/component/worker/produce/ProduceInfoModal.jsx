@@ -19,14 +19,27 @@ const ProduceInfoModal = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (produceInfo.shape === "") {
-      setErrorMsg("비누 외형을 선택하세요!");
-      setAlertError(true);
-      return;
+
+    if (readyToSubmit()) {
+      console.log("produce info:", produceInfo);
+      setProduceAdded(true);
+      closer();
     }
-    console.log("produce info:", produceInfo);
   };
 
+  const readyToSubmit = () => {
+    if (produceInfo.shapeLabel === "") {
+      setErrorMsg("비누 외형을 선택하세요!");
+      setAlertError(true);
+      return false;
+    } else if (produceInfo.quantity <= 0) {
+      setErrorMsg("수량은 1 이상이어야 합니다!");
+      setAlertError(true);
+      return false;
+    } 
+    return true;
+  };
+  
   const {
     successMsg,
     setSuccessMsg,
