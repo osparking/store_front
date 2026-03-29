@@ -118,7 +118,6 @@ const RegisterProduce = () => {
     }
   };
 
-  const [produceAdded, setProduceAdded] = useState(false);
   const [produceInfo, setProduceInfo] = useState(dummyProduce);
   const [showInfoModal, setShowInfoModal] = useState(false);
 
@@ -237,13 +236,15 @@ const RegisterProduce = () => {
         </Table>
       </div>
 
-      <ProduceInfoModal
-        show={showInfoModal}
-        closer={() => setShowInfoModal(false)}
-        setProduceAdded={setProduceAdded}
-        produceInfo={produceInfo}
-        setProduceInfo={setProduceInfo}
-      />
+    <ProduceInfoModal
+      show={showInfoModal}
+      closer={() => setShowInfoModal(false)}
+      produceInfo={produceInfo}
+      setProduceInfo={setProduceInfo}
+      setParentSuccessMsg={setSuccessMsg}
+      setParentAlertSuccess={setAlertSuccess}
+      loadProducePage={loadProducePage}
+    />
       <div className="pb-1">
         <Paginator
           pageSize={producePerPage}
