@@ -16,19 +16,14 @@ import { useDebounce } from "../../util/utilities";
 import { getEmployeeNamesPage } from "../WorkerService";
 import "./ProducerModal.css";
 
-const ProducerModal = ({
-  show,
-  producer,
-  setProducer,
-  closer,
-}) => {
+const ProducerModal = ({ show, producer, setProducer, closer }) => {
   const [nameKey, setNameKey] = useState(producer.name);
   const [employees, setEmployees] = useState([]);
   const [namePage, setNamePage] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(5); // itemsPerPage
   const [loading, setLoading] = useState(false);
-  
+
   const [searchResult, setSearchResult] = useState({});
   const [totalPages, setTotalPages] = useState(1);
 
@@ -185,11 +180,12 @@ const ProducerModal = ({
                 <p className="text-center text-muted mb-2">해당 직원 없음</p>
               ) : (
                 <Row className="justify-content-center">
-                  <Col xs={8} md={5}>
+                  <Col xs={8} md={7} lg={7}>
                     <Table bordered hover striped>
                       <thead>
                         <tr>
-                          <th>직원명-ID</th>
+                          <th>직원명</th>
+                          <th>ID</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -200,7 +196,8 @@ const ProducerModal = ({
                               onClick={() => selectProducer(employee)}
                               style={{ cursor: "pointer" }}
                             >
-                              <td className="small">{employee.name}</td>
+                              <td>{employee.name}</td>
+                              <td>{employee.id}</td>
                             </tr>
                           ))}
                       </tbody>
