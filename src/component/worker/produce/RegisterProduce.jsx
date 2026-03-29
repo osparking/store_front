@@ -251,7 +251,7 @@ const RegisterProduce = () => {
           totalItems={producePage.totalElements}
           totalPages={totalPages}
           currPage={currentPage}
-          setCurrPage={(pageNo) => changePage(pageNo)}
+          setCurrPage={(pageNo) => setCurrentPage(pageNo)}
           darkBackground="true"
         />
       </div>
