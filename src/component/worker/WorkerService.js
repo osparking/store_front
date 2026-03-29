@@ -110,6 +110,7 @@ export async function sendProduceInfo(produceInfo) {
   try {
     var url = "/worker/add_produce";
     var produceData = {
+      id: produceInfo.id,
       shapeLabel: produceInfo.shapeLabel,
       quantity: produceInfo.quantity,
       produceDate: produceInfo.produceDate,
