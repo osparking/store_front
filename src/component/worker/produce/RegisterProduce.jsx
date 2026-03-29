@@ -197,8 +197,8 @@ const RegisterProduce = () => {
               <th>외형</th>
               <th>수량(개)</th>
               <th>생산일</th>
-              <th>생산자</th>
-              <th>등록자</th>
+              <th>생산자 (ID)</th>
+              <th>등록자 (ID)</th>
               <th>등록일시</th>
               <th colSpan={2}>작업</th>
             </tr>
@@ -210,8 +210,8 @@ const RegisterProduce = () => {
                 <td>{produce.shape}</td>
                 <td>{produce.quantity}</td>
                 <td>{produce.produceDate}</td>
-                <td>{produce.producerName}</td>
-                <td>{produce.registerName}</td>
+                <td>{produce.producerName} ({produce.producerId})</td>
+                <td>{produce.registerName} ({produce.registerId})</td>
                 <td>{produce.registerTime}</td>
                 <td>
                   <OverlayTrigger
