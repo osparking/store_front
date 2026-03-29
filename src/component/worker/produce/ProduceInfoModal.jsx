@@ -7,13 +7,16 @@ import AlertMessage from "../../common/AlertMessage";
 import BsAlertHook from "../../hook/BsAlertHook";
 import ShapeSelector from "../../soaps/ShapeSelector";
 import ProducerModal from "./ProducerModal";
+import { sendProduceInfo } from "../WorkerService";
 
 const ProduceInfoModal = ({
   show,
   closer,
-  setProduceAdded,
   produceInfo,
   setProduceInfo,
+  setParentSuccessMsg,
+  setParentAlertSuccess,
+  loadProducePage,
 }) => {
   registerLocale("ko", ko);
 
@@ -21,8 +24,11 @@ const ProduceInfoModal = ({
     e.preventDefault();
 
     if (readyToSubmit()) {
-      console.log("produce info:", produceInfo);
-      setProduceAdded(true);
+      var result = await sendProduceInfo(produceInfo);
+      
+      setParentSuccessMsg(result.message);
+      setParentAlertSuccess(true);
+      loadProducePage();
       closer();
     }
   };
@@ -39,7 +45,7 @@ const ProduceInfoModal = ({
     } 
     return true;
   };
-  
+
   const {
     successMsg,
     setSuccessMsg,
