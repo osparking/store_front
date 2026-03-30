@@ -213,7 +213,7 @@ const RegisterProduce = () => {
                 <td>{produce.producerName} ({produce.producerId})</td>
                 <td>{produce.registerName} ({produce.registerId})</td>
                 <td>{produce.registerTime}</td>
-                <td>
+                <td style={{ width: "50px" }}>
                   <OverlayTrigger
                     overlay={
                       <Tooltip id={`tooltip-view-${index}`}>정보 편집</Tooltip>
@@ -228,7 +228,7 @@ const RegisterProduce = () => {
                     </Button>
                   </OverlayTrigger>
                 </td>
-                <td>
+                <td style={{ width: "50px" }}>
                   <OverlayTrigger
                     overlay={
                       <Tooltip id={`tooltip-view-${index}`}>
