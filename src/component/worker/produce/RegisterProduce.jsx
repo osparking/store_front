@@ -37,9 +37,10 @@ const RegisterProduce = () => {
   const [producePage, setProducePage] = useState({});
   const [produceRows, setProduceRows] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
-  const [pageSize, setPageSize] = useState(5); // itemsPerPage
+  const itemsPerPage = 5;
+  const [pageSize, setPageSize] = useState(itemsPerPage);
 
-  const [producePerPage] = useState(10);
+  const [producePerPage] = useState(itemsPerPage);
   const indexOfLastProduce = currentPage * producePerPage;
   const indexOfFirstProduce = indexOfLastProduce - producePerPage;
   const [loading, setLoading] = useState(false);
