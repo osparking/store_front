@@ -17,6 +17,7 @@ const ProduceInfoModal = ({
   setParentSuccessMsg,
   setParentAlertSuccess,
   loadProducePage,
+  setCurrentPage,
 }) => {
   registerLocale("ko", ko);
 
@@ -28,7 +29,7 @@ const ProduceInfoModal = ({
       
       setParentSuccessMsg(result.message);
       setParentAlertSuccess(true);
-      loadProducePage();
+      !produceInfo.id ? setCurrentPage(1) : loadProducePage();
       closer();
     }
   };
