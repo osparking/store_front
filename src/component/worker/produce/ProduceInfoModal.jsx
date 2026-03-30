@@ -107,7 +107,7 @@ const ProduceInfoModal = ({
                       <Form.Control
                         type="text"
                         name="producerName"
-                        value={produceInfo.producer.name}
+                        value={`${produceInfo.producer.name} (${produceInfo.producer.id})`}
                         placeholder="(직원명)"
                         onChange={handleChange}
                         required
