@@ -5,8 +5,8 @@ import Customer from "./CustomerTable";
 import Overview from "./Overview";
 import ManageQuestions from "./ManageQuestions";
 import WorkerTable from "./WorkerTable";
-import { Container } from "react-bootstrap";
-import "./AdminDashboard.css"
+import { Button, Container, OverlayTrigger, Tooltip } from "react-bootstrap";
+import "./AdminDashboard.css";
 
 const AdminDashboard = () => {
   const [adminTab, setAdminTab] = useState("");
@@ -15,6 +15,9 @@ const AdminDashboard = () => {
     localStorage.setItem("ADMIN_TAB", tab);
   };
   const [openSidebar, setOpenSidebar] = useState(true);
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
+  const handleShowOffcanvas = () => setShowOffcanvas(true);
+
   const toggleSidebar = () => {
     setOpenSidebar(!openSidebar);
   };
@@ -26,22 +29,27 @@ const AdminDashboard = () => {
 
   return (
     <Container className="home-container admin-body">
-      <div className="grid-container vw-100 mw-100"
-      style={{height: "93vh"}}
-      >
-        {openSidebar ? (
+      <div className="grid-container vw-100 mw-100" style={{ height: "93vh" }}>
+        {openSidebar && (
           <AdminSideBar
             openSidebar={openSidebar}
             toggleSidebar={toggleSidebar}
             tabClicked={tabClicked}
           />
-        ) : (
-          <span className="icon-header" onClick={toggleSidebar}>
-            <LuPanelLeftOpen />
-          </span>
         )}
 
         <div className="header">
+          <div className="sideDiv">
+            <OverlayTrigger overlay={<Tooltip>측면바</Tooltip>}>
+              <Button
+                variant="outline-secondary"
+                onClick={handleShowOffcanvas}
+                className="d-lg-none"
+              >
+                <LuPanelLeftOpen size={24} />
+              </Button>
+            </OverlayTrigger>
+          </div>
           <h5 className="chart-title mb-0 ps-0" style={{ color: "white" }}>
             {
               {
@@ -52,6 +60,7 @@ const AdminDashboard = () => {
               }[adminTab]
             }
           </h5>
+          <div className="sideDiv"></div>
         </div>
 
         <div className="main-container">
