@@ -11,8 +11,8 @@ import { deleteUserAccount } from "../user/UserService";
 import { callWithToken } from "../util/api";
 import { getRecordRange } from "../util/utilities";
 import "./AdminCanvas.css";
-import "./WorkersTable.css";
 import WorkersTable from "./WorkersTable";
+import "./WorkersTable.css";
 
 const ManageWorkers = () => {
   const [workerList, setWorkerList] = useState([]);
@@ -159,7 +159,7 @@ const ManageWorkers = () => {
   };
 
   const [currWorkerPage, setCurrWorkerPage] = useState(
-    localStorage.getItem("CURR_WORKER_PAGE") || 1,
+    Number(localStorage.getItem("CURR_WORKER_PAGE")) || 1,
   );
 
   const idxLastPlus1 = currWorkerPage * pageSize;
