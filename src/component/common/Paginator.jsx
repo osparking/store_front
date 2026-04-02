@@ -8,6 +8,12 @@ const Paginator = ({
   setCurrPage,
   darkBackground,
 }) => {
+  console.log("Paginator rendered with:", {
+    pageSize,
+    totalItems,
+    totalPages,
+    currPage,
+  });
   let active = currPage;
   let items = [];
   for (let i = 1; i <= Math.ceil(totalItems / pageSize); i++) {
