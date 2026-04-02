@@ -113,7 +113,7 @@ button {
 .allIngred,
 .card,
 .card-body {
-  overflow: visible !important;
+  overflow: auto !important;
 }
 
 #shapePropertTable td.shapeLink {
