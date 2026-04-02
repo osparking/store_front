@@ -70,6 +70,7 @@
 
 /* Sidebar  */
 #sidebar {
+  display: grid;
   grid-area: sidebar;
   height: 100%;
   background-color: #263043;
@@ -107,7 +108,7 @@
 }
 
 .sidebar-list-item {
-  padding: 20px 20px 20px 20px;
+  padding: 30px 10px;
   font-size: 18px;
 }
 
@@ -137,11 +138,9 @@
 
 /* Main  */
 .main-container {
-  grid-area: main;
   overflow-y: auto;
   padding: 20px;
   color: rgba(255, 255, 255, 0.95);
-  margin-bottom: 20px;
 }
 
 .main-title {
@@ -155,7 +154,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 20px;
-  padding: 15px 0;
+  padding: 15px;
   position: sticky;
   top: -10px;
   z-index: 10;

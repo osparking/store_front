@@ -7,7 +7,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import "./App.css";
-import AdminDashboard from "./component/admin/AdminDashboard";
+import AdminCanvas from "./component/admin/AdminCanvas";
 import EmailVerifin from "./component/auth/EmailVerifin";
 import Login from "./component/auth/Login";
 import OAuth2RedirectHandler from "./component/auth/OAuth2RedirectHandler";
@@ -61,7 +61,7 @@ function App() {
         <Route path="/email_verifin" element={<EmailVerifin />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard/:id/user" element={<UserDashboard />} />
-        <Route path="/dashboard/admin" element={<AdminDashboard />} />
+        <Route path="/dashboard/admin" element={<AdminCanvas />} />
         <Route path="/user/:id/update" element={<UserUpdate />} />
         <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
         <Route path="/soap_intro" element={<SoapIntro />} />
