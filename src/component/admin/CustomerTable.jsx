@@ -118,8 +118,11 @@ const CustomerTable = () => {
           {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
         </Col>
       </Row>
-      <Row className="mb-2">
-        <Col md={6}>
+      <Row
+        className="mb-2"
+        style={{ justifyContent: "center", alignItems: "center" }}
+      >
+        <Col md={6} style={{ maxWidth: "400px" }}>
           <ItemFilter
             itemType={"이메일"}
             options={emails}
@@ -128,8 +131,8 @@ const CustomerTable = () => {
             selectedOption={selectedEmail}
           />
         </Col>
-        <Col md={3}>
-          <InputGroup>
+        <Col md={3} style={{ maxWidth: "200px" }}>
+          <InputGroup className="mb-2">
             <Form.Control
               type="text"
               value={emailSubstr}
