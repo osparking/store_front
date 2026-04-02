@@ -10,6 +10,7 @@ import { callWithToken } from "../util/api";
 
 const Overview = () => {
   const [userCount, setUserCount] = useState(0);
+  const [soldCount, setSoldCount] = useState(0);
   const [employeeCount, setEmployeeCount] = useState(0);
   const navigate = useNavigate();
 
@@ -67,7 +68,7 @@ const Overview = () => {
         />
         <CardCompo
           label={"판매 실적"}
-          count={0}
+          count={soldCount}
           IconCompo={BsPeopleFill}
           chartName={"sales"}
           scrollToChart={scrollToChart}
@@ -88,7 +89,7 @@ const Overview = () => {
           <SoapChart />
         </div>
         <div className="chart-container">
-          <SalesChart chartRefs={chartRefs} />
+          <SalesChart chartRefs={chartRefs} setSoldCount={setSoldCount} />
         </div>
         <div className="chart-container">
           <WorkerChart

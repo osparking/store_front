@@ -13,7 +13,7 @@ import {
 } from "recharts";
 import useColorMapping from "../hook/ColorMapping";
 
-const SalesChart = ({ chartRefs }) => {
+const SalesChart = ({ chartRefs, setSoldCount }) => {
   const [salesChartData, setSalesChartData] = useState([]);
   const [errorMsg, setErrorMsg] = useState(null);
 
@@ -22,8 +22,12 @@ const SalesChart = ({ chartRefs }) => {
       try {
         const response = await callWithToken("get", "/admin/soap_sale_chart");
         const responseData = await response.data.data;
+
         if (responseData) {
-          console.log("responseData:", responseData);
+          const total = responseData.reduce((sum, item) => {
+            return sum + item["보통비누"] + item["백설공주"] + item["메주비누"];
+          }, 0);
+          setSoldCount(total);
           setSalesChartData(responseData);
         } else {
           navigate("/login");
@@ -42,7 +46,7 @@ const SalesChart = ({ chartRefs }) => {
 
   return (
     <section
-      className="mb-5"
+      className="mb-2"
       ref={(el) => (chartRefs.current.sales = el)}
       style={{ scrollMarginTop: "260px" }}
     >

@@ -49,7 +49,7 @@ const UserChart = ({ chartRefs }) => {
 
   return (
     <section
-      className="mb-5"
+      className="mb-2"
       ref={(el) => (chartRefs.current.user = el)}
       style={{ scrollMarginTop: "260px" }}
     >
