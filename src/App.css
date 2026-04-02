@@ -364,6 +364,7 @@ input[type="radio"] {
   --color-title: #778899;
   --color-title-ivory: ivory;
   --color-modal: #a0cdd4;
+  --color-modal-2nd: rgb(160, 205, 212, 0.5);
   --color-nav-home: #463434;
   --color-white: #ffffff;
   --color-primary: #87cefa;
