@@ -7,6 +7,8 @@ import SoapChart from "../chart/SoapChart";
 import UserChart from "../chart/UserChart";
 import WorkerChart from "../chart/WorkerChart";
 import { callWithToken } from "../util/api";
+import { Card } from "react-bootstrap";
+import "./Overview.css";
 
 const Overview = () => {
   const [userCount, setUserCount] = useState(0);
@@ -61,11 +63,7 @@ const Overview = () => {
           chartName={"user"}
           scrollToChart={scrollToChart}
         />
-        <CardCompo
-          label={"생산 실적"}
-          count={0}
-          IconCompo={BsPeopleFill}
-        />
+        <CardCompo label={"생산 실적"} count={0} IconCompo={BsPeopleFill} />
         <CardCompo
           label={"판매 실적"}
           count={soldCount}
@@ -81,23 +79,31 @@ const Overview = () => {
           scrollToChart={scrollToChart}
         />
       </div>
-      <div className="charts">
-        <div className="chart-container">
-          <UserChart chartRefs={chartRefs} />
-        </div>
-        <div className="chart-container">
-          <SoapChart />
-        </div>
-        <div className="chart-container">
-          <SalesChart chartRefs={chartRefs} setSoldCount={setSoldCount} />
-        </div>
-        <div className="chart-container">
-          <WorkerChart
-            setEmployeeCount={setEmployeeCount}
-            chartRefs={chartRefs}
-          />
-        </div>
-      </div>
+      <Card
+        id="admin-overview-charts-card"
+        className="mt-3 p-0"
+        style={{ overflowY: "auto" }}
+      >
+        <Card.Body className="p-0">
+          <div className="charts">
+            <div className="chart-container">
+              <UserChart chartRefs={chartRefs} />
+            </div>
+            <div className="chart-container">
+              <SoapChart />
+            </div>
+            <div className="chart-container">
+              <SalesChart chartRefs={chartRefs} setSoldCount={setSoldCount} />
+            </div>
+            <div className="chart-container">
+              <WorkerChart
+                setEmployeeCount={setEmployeeCount}
+                chartRefs={chartRefs}
+              />
+            </div>
+          </div>
+        </Card.Body>
+      </Card>
     </>
   );
 };
