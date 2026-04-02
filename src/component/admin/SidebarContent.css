@@ -1,0 +1,14 @@
+.sidebar-list-item {
+    justify-content: center;
+    display: flex;
+}
+
+.offcanvas {
+    width: 200px !important;
+    background-color: ivory !important;
+    color: crimson !important;
+}
+
+.collapsed .icon {
+    margin-right: 0;
+}
