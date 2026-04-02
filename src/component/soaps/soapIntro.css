@@ -6,3 +6,7 @@
   height: fit-content;  
   margin: 0;
 }
+
+#soap-intro-container .card{
+  height: calc(100% - 20px) !important;
+}
