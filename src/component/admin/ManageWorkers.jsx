@@ -188,7 +188,7 @@ const ManageWorkers = () => {
           {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
         </Col>
       </Row>
-      <Row className="justify-content-between">
+      <Row className="justify-content-between mb-2">
         <Col md={1}>
           <div></div>
         </Col>

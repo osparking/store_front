@@ -5,7 +5,6 @@ import {
 } from "react-bootstrap";
 import { BsEyeFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import CustomersTable from "./CustomersTable";
 import "./ManageCustomers.css";
 
 const CustomersTable = (displayCustomers) => {

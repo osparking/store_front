@@ -16,6 +16,7 @@
 }
 
 #worker-table-card {
+    margin-top: 0;
     width: 100%;
     height: calc(100% - 177px);
     overflow: auto;

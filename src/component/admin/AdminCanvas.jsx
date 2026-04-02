@@ -15,11 +15,11 @@ import { GiOlive } from "react-icons/gi";
 import { LuPanelLeftOpen } from "react-icons/lu";
 import { MdOutlineFamilyRestroom } from "react-icons/md";
 import "./AdminCanvas.css";
-import Customer from "./CustomerTable";
 import ManageQuestions from "./ManageQuestions";
+import ManageWorkers from "./ManageWorkers";
 import Overview from "./Overview";
 import SidebarContent from "./SidebarContent";
-import ManageWorkers from "./ManageWorkers";
+import ManageCustomers from "./ManageCustomers";
 
 const AdminCanvas = () => {
   const [showOffcanvas, setShowOffcanvas] = useState(false);
@@ -174,7 +174,7 @@ const AdminCanvas = () => {
                   Questions: <ManageQuestions />,
                   Overview: <Overview />,
                   Employee: <ManageWorkers />,
-                  Customer: <Customer />,
+                  Customer: <ManageCustomers />,
                 }[adminTab]
               }
             </div>
