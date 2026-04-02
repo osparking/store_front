@@ -36,7 +36,7 @@ const WorkerChart = ({ setEmployeeCount, chartRefs }) => {
     <section
       className="mb-2"
       ref={(el) => (chartRefs.current.worker = el)}
-      style={{ scrollMarginTop: "260px" }}
+      style={{ scrollMarginTop: "10px" }}
     >
       {employeeStat && employeeStat.length > 0 ? (
         <>

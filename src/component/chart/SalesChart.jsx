@@ -48,7 +48,7 @@ const SalesChart = ({ chartRefs, setSoldCount }) => {
     <section
       className="mb-2"
       ref={(el) => (chartRefs.current.sales = el)}
-      style={{ scrollMarginTop: "260px" }}
+      style={{ scrollMarginTop: "10px" }}
     >
       <h5 className="chart-title mb-3">비누 판매 집계</h5>
       {salesChartData && salesChartData.length > 0 ? (
