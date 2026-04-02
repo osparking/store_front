@@ -1,6 +1,6 @@
 .admin-body {
   top: 62px;
-  background-color: salmon;
+  background-color: rgba(56, 7, 2, 0.5);
   position: relative;
   height: calc(100vh - 62px);
 }
@@ -53,7 +53,7 @@
 }
 
 .sideDiv {
-  width: 25%;
+  width: 50px;
 }
 
 .admin-main {
@@ -61,5 +61,71 @@
   background-color: rgba(30, 19, 33, 0.85);
   color: var(--color-title);
   font-family: 'GmarketSans', 'Montserrat', sans-serif;
-  height: calc(100% - 134px);
+  height: calc(100% - 100px);
+}
+
+.admin-main-content {
+  height: 100% !important;
+  /* overflow: auto; */
+  padding: 1.5rem;
+}
+
+.admin-main .main-container {
+  height: 615px;
+}
+
+.sidebar-list-item svg {
+  color: rgb(49, 47, 47);
+  font-size: 1.2rem;
+}
+
+.admin-body .main-container {
+  background-color: rgba(44, 29, 29, 0.9);
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.main-container-div .main-container {
+  overflow-y: initial !important;
+}
+
+.main-container {
+  height: 100% !important;
+}
+
+.main-container-div {
+  height: calc(100% - 48px) !important;
+  padding: 0 !important;
+}
+
+/* Medium <= 992px */
+
+@media screen and (max-width: 992px) {
+  .main-content {
+    margin: 0 !important;
+  }
+
+  .admin-body {
+    width: 100vw;
+    padding: 0;
+  }
+
+  .main-container {
+    padding: 0;
+    overflow-y: initial;
+  }
+
+  .admin-main-content {
+    padding: 0 !important;
+  }
+
+  .main-container-div {
+    height: calc(100% - 96px) !important;
+    padding: 0 !important;
+  }
+
+  .header {
+    padding: 0;
+  }
+
 }
