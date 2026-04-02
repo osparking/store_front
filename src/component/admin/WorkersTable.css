@@ -1,0 +1,36 @@
+.admin-worker-table-container {
+    margin: 20px;
+    max-height: 420px; /* 원하는 최대 높이 설정 */
+    width: calc(100% - 200px);
+    overflow: auto; /* 내용이 최대 높이를 초과할 때 스크롤바 표시 */
+}
+
+.admin-worker-table {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.worker-add-link {
+    font-size: 1.35rem;
+    color: blue;
+}
+
+#worker-table-card {
+    width: 100%;
+    height: calc(100% - 177px);
+    overflow: auto;
+}
+
+#worker-table-card.card {
+    overflow-y: auto !important;
+}
+
+.admin-main-content .main-container {
+    height: calc(100vh - 345px);
+}
+
+@media screen and (max-width: 992px) {
+    .main-container {
+        padding: 0 !important; 
+    }
+}
