@@ -15,13 +15,6 @@
     color: blue;
 }
 
-#worker-table-card {
-    margin-top: 0;
-    width: 100%;
-    height: calc(100% - 177px);
-    overflow: auto;
-}
-
 #worker-table-card.card {
     overflow-y: auto !important;
 }

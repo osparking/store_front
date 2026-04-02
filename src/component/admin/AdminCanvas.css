@@ -12,6 +12,14 @@
 .admin-body h3 {
   color: var(--color-nav-home) !important;
 }
+
+#user-table-card {
+  margin-top: 0;
+  width: 100%;
+  height: calc(100% - 177px) !important;
+  overflow: auto;
+}
+
 /* .admin-body .grid-container {
   display: grid;
   grid-template-columns: 180px 1fr;
