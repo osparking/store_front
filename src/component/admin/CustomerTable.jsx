@@ -16,6 +16,7 @@ import Paginator from "../common/Paginator";
 import { getCustomerList } from "../customer/CustomerService";
 import BsAlertHook from "../hook/BsAlertHook";
 import "./CustomerTable.css";
+import { getRecordRange } from "../util/utilities";
 
 const CustomerTable = () => {
   const [customers, setCustomers] = useState([]);
@@ -139,6 +140,14 @@ const CustomerTable = () => {
           </InputGroup>
         </Col>
       </Row>
+      <p className="text-center mb-1">
+        {getRecordRange(
+          { totalElements: filteredOnes.length },
+          indexOfFirst,
+          idxLastPlus1,
+          "고객",
+        )}
+      </p>
       <div className="table-responsive admin-customer-table-container">
         <Table bordered hover striped className="admin-customer-table">
           <thead>

@@ -10,7 +10,7 @@ const ItemFilter = ({
 }) => {
   return (
     <InputGroup className='mb-2'>
-      <InputGroup.Text>{itemType} 검색</InputGroup.Text>
+      <InputGroup.Text>검색</InputGroup.Text>
       <Form.Select
         className="form-control"
         value={selectedOption}
