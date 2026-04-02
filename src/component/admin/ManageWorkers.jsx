@@ -192,7 +192,7 @@ const ManageWorkers = () => {
         <Col md={1}>
           <div></div>
         </Col>
-        <Col md={6} xs={10}style={{maxWidth: "350px"}}>
+        <Col md={6} xs={10} style={{ maxWidth: "350px" }}>
           <ItemFilter
             itemType={"소속"}
             options={departments}
@@ -210,7 +210,12 @@ const ManageWorkers = () => {
         </Col>
       </Row>
       <p className="text-center mb-1">
-        {getRecordRange(filteredWorkers, indexOfFirst, idxLastPlus1, "직원")}
+        {getRecordRange(
+          { totalElements: filteredWorkers.length },
+          indexOfFirst,
+          idxLastPlus1,
+          "직원",
+        )}
       </p>
       <Card
         id="worker-table-card"
