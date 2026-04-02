@@ -217,14 +217,9 @@ const ManageWorkers = () => {
           "직원",
         )}
       </p>
-      <Card
-        id="worker-table-card"
-        className="p-0"
-        style={{ overflowY: "auto" }}
-      >
+      <Card id="user-table-card" className="p-0" style={{ overflowY: "auto" }}>
         <Card.Body className="p-0">
           <div
-            id="worker-table-div"
             style={{
               whiteSpace: "initial",
               margin: "20px",
