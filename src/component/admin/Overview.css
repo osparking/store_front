@@ -8,8 +8,8 @@
     overflow: auto;
 }
 
-.card .card-body {
-    overflow: default !important;
+.card-body {
+    overflow: auto !important;
 }
 
 #admin-overview-charts-card .chart-title{
