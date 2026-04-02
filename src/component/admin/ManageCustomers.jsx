@@ -1,10 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Col,
-  Form,
-  InputGroup,
-  Row
-} from "react-bootstrap";
+import { Card, Col, Form, InputGroup, Row } from "react-bootstrap";
 import AlertMessage from "../common/AlertMessage";
 import ItemFilter from "../common/ItemFilter";
 import Paginator from "../common/Paginator";
@@ -14,7 +9,7 @@ import { getRecordRange } from "../util/utilities";
 import CustomersTable from "./CustomersTable";
 import "./ManageCustomers.css";
 
-const CustomerTable = () => {
+const ManageCustomers = () => {
   const [customers, setCustomers] = useState([]);
   const {
     successMsg,
@@ -91,7 +86,7 @@ const CustomerTable = () => {
   }, []);
 
   const [currCustomerPage, setCurrCustomerPage] = useState(
-    localStorage.getItem("CURR_CUST_PAGE") || 1,
+    Number(localStorage.getItem("CURR_CUST_PAGE")) || 1,
   );
 
   const [pageSize] = useState(10);
@@ -147,9 +142,26 @@ const CustomerTable = () => {
           "고객",
         )}
       </p>
-      <div className="table-responsive admin-customer-table-container">
-        {CustomersTable(displayCustomers)}
-      </div>
+
+      <Card
+        id="customer-table-card"
+        className="p-0"
+        style={{ overflowY: "auto" }}
+      >
+        <Card.Body className="p-0">
+          <div
+            // id="worker-table-div"
+            style={{
+              whiteSpace: "initial",
+              margin: "20px",
+            }}
+            className="justify-content-center align-items-center"
+          >
+            {CustomersTable(displayCustomers)}
+          </div>
+        </Card.Body>
+      </Card>
+
       <Paginator
         pageSize={pageSize}
         totalItems={filteredOnes.length}
@@ -162,5 +174,4 @@ const CustomerTable = () => {
   );
 };
 
-export default CustomerTable;
-a;
+export default ManageCustomers;
