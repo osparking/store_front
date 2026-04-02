@@ -1,0 +1,18 @@
+.overview-charts-card {
+    width: 100%;
+    overflow: auto;
+}
+
+.card {
+    height: calc(100% - 106px) !important;
+    overflow: auto;
+}
+
+.card .card-body {
+    overflow: default !important;
+}
+
+#admin-overview-charts-card .chart-title{
+  color: var(--color-nav-home);
+  font-weight: 900 !important;
+}
