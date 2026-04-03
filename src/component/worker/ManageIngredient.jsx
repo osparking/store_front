@@ -244,6 +244,7 @@ const ManageIngredient = () => {
       </div>
       <div className="ingredient-table-container">
         <Table
+          id="workerJobTable"
           bordered
           hover
           striped

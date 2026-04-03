@@ -184,7 +184,7 @@ const RegisterProduce = () => {
 
       <div className="produce-table-container">
         <Table
-          id="produceTable"
+          id="workerJobTable"
           bordered
           hover
           striped
