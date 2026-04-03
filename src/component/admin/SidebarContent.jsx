@@ -4,9 +4,16 @@ import { FaChartPie, FaQuestion } from "react-icons/fa";
 import { MdOutlineFamilyRestroom } from "react-icons/md";
 import "./AdminCanvas.css";
 import "./SidebarContent.css";
+import { GiOlive } from "react-icons/gi";
 
 const SidebarContent = ({ tabClicked }) => (
   <div className="sidebar-content">
+    <div className="sidebar-title">
+      <div className="sidebar-brand">
+        <GiOlive className="icon-header" />
+        관리자
+      </div>
+    </div>
     <ul className="sidebar-list">
       <li className="sidebar-list-item" onClick={() => tabClicked("Questions")}>
         <a href="#">

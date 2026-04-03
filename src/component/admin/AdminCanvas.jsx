@@ -7,7 +7,7 @@ import {
   Offcanvas,
   OverlayTrigger,
   Row,
-  Tooltip
+  Tooltip,
 } from "react-bootstrap";
 import { BsPeopleFill } from "react-icons/bs";
 import { FaChartPie, FaQuestion } from "react-icons/fa";
@@ -48,25 +48,6 @@ const AdminCanvas = () => {
     <Container fluid className="admin-body">
       {/* Header with toggle button for mobile */}
       {/* 헤더 (측면바 개방 버튼 포함) */}
-      <div className="header">
-        <div className="sideDiv">
-          <OverlayTrigger overlay={<Tooltip>탭 메뉴</Tooltip>}>
-            <Button
-              variant="outline-secondary"
-              onClick={handleShowOffcanvas}
-              className="d-lg-none"
-            >
-              <LuPanelLeftOpen size={24} />
-            </Button>
-          </OverlayTrigger>
-        </div>
-        <h3 className="mb-0 ps-0" style={{ fontWeight: "bold", fontSize: "22px"  }}>
-          <GiOlive className="icon-header" />
-          관리자
-        </h3>
-        <div className="sideDiv"></div>
-      </div>
-
       {/* Main layout */}
       <Row className="admin-main g-0">
         {/* Sidebar for wide screens */}
@@ -75,7 +56,7 @@ const AdminCanvas = () => {
           className={`d-none d-lg-block border-end bg-light ${sidebarCollapsed ? "collapsed" : ""}`}
           style={{
             transition: "all 0.3s ease",
-            width: sidebarCollapsed ? "60px" : "16.6667%",
+            width: sidebarCollapsed ? "60px" : "20%",
             zIndex: 1000,
             backgroundColor: "ivory",
           }}
@@ -92,7 +73,7 @@ const AdminCanvas = () => {
           {!sidebarCollapsed ? (
             <SidebarContent tabClicked={tabClicked} />
           ) : (
-            <div className="text-center mt-3" >
+            <div className="text-center mt-3">
               <ul className="sidebar-list">
                 <li
                   className="sidebar-list-item"
@@ -137,20 +118,38 @@ const AdminCanvas = () => {
           className="admin-main-content"
           style={{
             transition: "all 0.3s ease",
-            width: sidebarCollapsed ? "90%" : "83.3333%",
+            width: sidebarCollapsed ? "90%" : "80%",
             zIndex: 1000,
           }}
         >
-          <h5 className="chart-title mb-4 ps-0" style={{ color: "white" }}>
-            {
+          <div
+            className="header mb-3"
+            style={{ backgroundColor: "#263043", color: "white" }}
+          >
+            <div className="sideDiv">
+              <OverlayTrigger overlay={<Tooltip>탭 메뉴</Tooltip>}>
+                <Button
+                  variant="outline-secondary"
+                  onClick={handleShowOffcanvas}
+                  className="d-lg-none"
+                >
+                  <LuPanelLeftOpen size={24} />
+                </Button>
+              </OverlayTrigger>
+            </div>
+            <h5 className="chart-title ps-0" style={{ color: "white" }}>
               {
-                Questions: "질문 및 답변",
-                Overview: "통계 챠트",
-                Employee: "직원 관리",
-                Customer: "고객 목록",
-              }[adminTab]
-            }
-          </h5>
+                {
+                  Questions: "질문 및 답변",
+                  Overview: "통계 챠트",
+                  Employee: "직원 관리",
+                  Customer: "고객 목록",
+                }[adminTab]
+              }
+            </h5>
+            <div className="sideDiv"></div>
+          </div>
+
           <div className="bg-white p-4 rounded shadow-sm main-container-div">
             {/* 메인 컨텐츠 영역 */}
             <div className="main-container">
