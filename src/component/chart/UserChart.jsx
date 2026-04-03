@@ -49,14 +49,16 @@ const UserChart = ({ chartRefs }) => {
 
   return (
     <section
-      className="mb-2"
+      className="mb-2 centerChart"
       ref={(el) => (chartRefs.current.user = el)}
-      style={{ scrollMarginTop: "260px" }}
+      style={{
+        scrollMarginTop: "260px",
+      }}
     >
       {userStat && userStat.length > 0 ? (
         <>
           <h5 className="chart-title mb-3">등록 유저 통계</h5>
-          <ResponsiveContainer id="adminUserChart" height={300}>
+          <ResponsiveContainer height={300}>
             <BarChart className="p-1 makeBackLookBig" data={userStat}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" angle={-50} textAnchor="end" height={70} />

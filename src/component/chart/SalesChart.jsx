@@ -46,7 +46,7 @@ const SalesChart = ({ chartRefs, setSoldCount }) => {
 
   return (
     <section
-      className="mb-2"
+      className="mb-2 centerChart"
       ref={(el) => (chartRefs.current.sales = el)}
       style={{ scrollMarginTop: "10px" }}
     >

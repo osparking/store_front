@@ -24,7 +24,7 @@ const Login = () => {
   const [showCodeModal, setShowCodeModal] = useState(false);
   const [credentials, setCredentials] = useState({
     email: "jbpark103@hanmail.net",
-    password: "1234",
+    password: "abcd",
     save_login: localStorage.getItem("SAVE_LOGIN") === "true",
   });
   const [code, setCode] = useState("");
