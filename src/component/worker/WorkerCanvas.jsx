@@ -7,19 +7,15 @@ import WorkerSideBar from "./WorkerSideBar";
 import RegisterProduce from "./produce/RegisterProduce";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect } from "react";
 import {
   Button,
   Col,
-  Offcanvas,
   OverlayTrigger,
   Row,
-  Tooltip,
+  Tooltip
 } from "react-bootstrap";
-import { BsPeopleFill } from "react-icons/bs";
-import { FaChartPie, FaQuestion } from "react-icons/fa";
-import { GiOlive } from "react-icons/gi";
-import { LuPanelLeftOpen } from "react-icons/lu";
+import { HiOutlinePencilSquare, HiOutlineRectangleGroup } from "react-icons/hi2";
+import { LuComponent, LuPanelLeftOpen } from "react-icons/lu";
 import { MdOutlineFamilyRestroom } from "react-icons/md";
 
 const WorkerCanvas = () => {
@@ -47,13 +43,14 @@ const WorkerCanvas = () => {
       <Row className="admin-main g-0">
         {/* Sidebar for wide screens */}
         <Col
-          lg={2}
+          md={2} lg={2}
           className={`d-none d-lg-block border-end bg-light ${sidebarCollapsed ? "collapsed" : ""}`}
           style={{
             transition: "all 0.3s ease",
             width: sidebarCollapsed ? "60px" : "16.6667%",
             zIndex: 1000,
             backgroundColor: "#263043",
+            minWidth: "160px",
           }}
         >
           <div
@@ -63,7 +60,7 @@ const WorkerCanvas = () => {
             <Button
               variant="link"
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              style={{ color: "ivory" }}
+              style={{ color: "ivory", marginBottom: "6px" }}
             >
               {sidebarCollapsed ? "→" : "←"}
             </Button>
@@ -76,7 +73,7 @@ const WorkerCanvas = () => {
                   onClick={() => tabClicked("Questions")}
                 >
                   <a href="#">
-                    <FaQuestion className="icon" />
+                    <HiOutlinePencilSquare className="icon" />
                   </a>
                 </li>
                 <li
@@ -84,7 +81,7 @@ const WorkerCanvas = () => {
                   onClick={() => tabClicked("Overview")}
                 >
                   <a href="#">
-                    <FaChartPie className="icon" />
+                    <LuComponent className="icon" />
                   </a>
                 </li>
                 <li
@@ -92,15 +89,7 @@ const WorkerCanvas = () => {
                   onClick={() => tabClicked("Employee")}
                 >
                   <a href="#">
-                    <BsPeopleFill className="icon" />
-                  </a>
-                </li>
-                <li
-                  className="sidebar-list-item"
-                  onClick={() => tabClicked("Customer")}
-                >
-                  <a href="#">
-                    <MdOutlineFamilyRestroom className="icon" />
+                    <HiOutlineRectangleGroup className="icon" />
                   </a>
                 </li>
               </ul>
