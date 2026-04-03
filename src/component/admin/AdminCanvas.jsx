@@ -66,21 +66,6 @@ const AdminCanvas = () => {
         </h3>
         <div className="sideDiv"></div>
       </div>
-      {/* <div
-        className="bg-light p-3 mb-3 border-bottom"
-        style={{ backgroundColor: "#e4e6e8" }}
-      >
-        <OverlayTrigger overlay={<Tooltip>측면바</Tooltip>}>
-          <Button
-            variant="outline-secondary"
-            onClick={handleShowOffcanvas}
-            className="d-lg-none"
-          >
-            <LuPanelLeftOpen size={24} />
-          </Button>
-        </OverlayTrigger>
-        <h2 className="d-inline-block ms-3">관리자 대시보드</h2>
-      </div> */}
 
       {/* Main layout */}
       <Row className="admin-main g-0">
