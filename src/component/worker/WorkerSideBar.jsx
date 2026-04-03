@@ -4,14 +4,9 @@ import { LuComponent } from "react-icons/lu";
 import { HiOutlineRectangleGroup } from "react-icons/hi2";
 import { Button } from "react-bootstrap";
 
-const WorkerSideBar = ({
-  openSidebar,
-  sidebarCollapsed,
-  setSidebarCollapsed,
-  tabClicked,
-}) => {
+const WorkerSideBar = ({ tabClicked }) => {
   return (
-    <div className={openSidebar ? "sidebar-responsive" : ""}>
+    <div className="sidebar-content">
       <div className="sidebar-title">
         <div className="sidebar-brand">
           <GiOlive className="icon-header" />
