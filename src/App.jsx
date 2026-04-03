@@ -27,7 +27,7 @@ import QuestionEditor from "./component/user/question/QuestionEditor";
 import RegisterUser from "./component/user/RegisterUser";
 import UserUpdate from "./component/user/UpdateUser";
 import UserDashboard from "./component/user/UserDashboard";
-import WorkerDashboard from "./component/worker/WorkerDashboard";
+import WorkerCanvas from "./component/worker/WorkerCanvas";
 
 function App() {
   useEffect(() => {
@@ -93,7 +93,7 @@ function App() {
             />
           }
         >
-          <Route path="/work_item" element={<WorkerDashboard />} />
+          <Route path="/work_item" element={<WorkerCanvas />} />
         </Route>
         <Route path="/unauthorized" element={<Unauthorized />} />
       </Route>,

@@ -63,7 +63,7 @@ const WorkerCanvas = () => {
             <Button
               variant="link"
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              style={{color: "ivory"}}
+              style={{ color: "ivory" }}
             >
               {sidebarCollapsed ? "→" : "←"}
             </Button>
