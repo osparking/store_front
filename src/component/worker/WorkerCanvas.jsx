@@ -7,16 +7,12 @@ import WorkerSideBar from "./WorkerSideBar";
 import RegisterProduce from "./produce/RegisterProduce";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Button, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import {
-  Button,
-  Col,
-  OverlayTrigger,
-  Row,
-  Tooltip
-} from "react-bootstrap";
-import { HiOutlinePencilSquare, HiOutlineRectangleGroup } from "react-icons/hi2";
+  HiOutlinePencilSquare,
+  HiOutlineRectangleGroup,
+} from "react-icons/hi2";
 import { LuComponent, LuPanelLeftOpen } from "react-icons/lu";
-import { MdOutlineFamilyRestroom } from "react-icons/md";
 
 const WorkerCanvas = () => {
   const [showOffcanvas, setShowOffcanvas] = useState(false);
@@ -43,24 +39,20 @@ const WorkerCanvas = () => {
       <Row className="admin-main g-0">
         {/* Sidebar for wide screens */}
         <Col
-          md={2} lg={2}
+          md={2}
+          lg={2}
           className={`d-none d-lg-block border-end bg-light ${sidebarCollapsed ? "collapsed" : ""}`}
           style={{
             transition: "all 0.3s ease",
-            width: sidebarCollapsed ? "60px" : "16.6667%",
+            width: sidebarCollapsed ? "60px" : "20%",
             zIndex: 1000,
-            backgroundColor: "#263043",
-            minWidth: "160px",
           }}
         >
-          <div
-            className="d-flex justify-content-end p-2"
-            style={{ backgroundColor: "#263043", color: "white" }}
-          >
+          <div className="d-flex justify-content-end p-2">
             <Button
               variant="link"
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              style={{ color: "ivory", marginBottom: "6px" }}
+              style={{ color: "navy" }}
             >
               {sidebarCollapsed ? "→" : "←"}
             </Button>
@@ -103,38 +95,49 @@ const WorkerCanvas = () => {
             />
           )}
         </Col>
-        <Col lg={10} className="p-0">
-          <div className="vw-100 mw-100 mb-3">
-            <div className="header">
-              <div className="sideDiv">
-                <OverlayTrigger overlay={<Tooltip>탭 메뉴</Tooltip>}>
-                  <Button
-                    variant="outline-secondary"
-                    onClick={handleShowOffcanvas}
-                    className="d-lg-none"
-                  >
-                    <LuPanelLeftOpen size={24} />
-                  </Button>
-                </OverlayTrigger>
-              </div>
-              <h4
-                className="mb-0 ps-0"
-                style={{ fontWeight: "bold", fontSize: "22px" }}
-              >
-                {
-                  {
-                    manageOrder: "주문 관리",
-                    manageIngredient: "재료 관리",
-                    registerProduce: "생산 등록",
-                  }[workerTab]
-                }
-              </h4>
-              <div className="sideDiv"></div>
+        <Col
+          lg={10}
+          className="worker-main-content"
+          style={{
+            width: sidebarCollapsed ? "90%" : "80%",
+          }}
+        >
+          <div
+            className="header mb-3"
+            style={{ backgroundColor: "#263043", color: "white" }}
+          >
+            <div className="sideDiv">
+              <OverlayTrigger overlay={<Tooltip>탭 메뉴</Tooltip>}>
+                <Button
+                  variant="outline-secondary"
+                  onClick={handleShowOffcanvas}
+                  className="d-lg-none"
+                >
+                  <LuPanelLeftOpen size={24} />
+                </Button>
+              </OverlayTrigger>
             </div>
-            <div className="main-container worker" style={{ paddingTop: 0 }}>
-              {workerTab === "manageOrder" && <ManageOrder />}
-              {workerTab === "manageIngredient" && <ManageIngredient />}
-              {workerTab === "registerProduce" && <RegisterProduce />}
+            <h5 className="chart-title ps-0" style={{ color: "white" }}>
+              {
+                {
+                  manageOrder: "주문 관리",
+                  manageIngredient: "재료 관리",
+                  registerProduce: "생산 등록",
+                }[workerTab]
+              }
+            </h5>
+            <div className="sideDiv"></div>
+          </div>
+
+          <div className="bg-white p-4 rounded shadow-sm main-container-div">
+            <div className="main-container">
+              {
+                {
+                  manageOrder: <ManageOrder />,
+                  manageIngredient: <ManageIngredient />,
+                  registerProduce: <RegisterProduce />,
+                }[workerTab]
+              }
             </div>
           </div>
         </Col>

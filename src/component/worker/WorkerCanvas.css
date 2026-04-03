@@ -53,3 +53,16 @@
 #sidebar a {
   margin-left: 17px;
 }
+
+.worker-main-content {
+  height: 100% !important;
+  padding: 1.5rem;
+  transition: "all 0.3s ease";
+  z-index: 1000;
+}
+
+.worker-body .main-container {
+  background-color: rgba(44, 29, 29, 0.9);
+  border-radius: 5px;
+  padding: 20px;
+}
