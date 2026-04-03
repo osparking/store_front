@@ -143,7 +143,7 @@ const RegisterProduce = () => {
   };
 
   return (
-    <div className="mt-3">
+    <div>
       <DeleteConfirmModal
         show={showDelModal}
         onHide={() => setShowDelModal(false)}
