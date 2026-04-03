@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Card } from "react-bootstrap";
 import { BsPeopleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import CardCompo from "../card/CardCompo";
@@ -7,7 +8,6 @@ import SoapChart from "../chart/SoapChart";
 import UserChart from "../chart/UserChart";
 import WorkerChart from "../chart/WorkerChart";
 import { callWithToken } from "../util/api";
-import { Card } from "react-bootstrap";
 import "./Overview.css";
 
 const Overview = () => {
@@ -80,7 +80,7 @@ const Overview = () => {
         />
       </div>
       <Card
-        id="admin-overview-charts-card"
+        id="admin-overview"
         className="mt-3 p-0"
         style={{ overflowY: "auto" }}
       >
