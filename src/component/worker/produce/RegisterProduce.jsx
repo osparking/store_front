@@ -160,7 +160,7 @@ const RegisterProduce = () => {
           {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
         </Col>
       </Row>
-      <Row className="justify-content-center align-items-center mb-2">
+      <Row className="justify-content-center align-items-center">
         <Col xs={2}></Col>
         <Col xs={8} className="text-center mb-0">
           {getRecordRange(
@@ -171,7 +171,7 @@ const RegisterProduce = () => {
           )}
         </Col>
         <Col xs={2}>
-          <div className="justify-content-end mt-1 d-flex">
+          <div className="justify-content-end d-flex mb-1">
             <Button
               onClick={() => openProduceModal(dummyProduce)}
               className="d-inline-flex align-items-center"
