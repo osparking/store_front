@@ -7,3 +7,14 @@
     color: var(--color-nav-home);
     font-weight: 900 !important;
 }
+
+#admin-overview .recharts-responsive-container {
+    width: 100% !important;
+    max-width: 350px !important;
+}
+
+#admin-overview .centerChart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
