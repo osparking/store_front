@@ -2,13 +2,16 @@ import { GiOlive } from "react-icons/gi";
 import { HiOutlinePencilSquare } from "react-icons/hi2";
 import { LuComponent } from "react-icons/lu";
 import { HiOutlineRectangleGroup } from "react-icons/hi2";
+import { Button } from "react-bootstrap";
 
-const WorkerSideBar = ({ openSidebar, toggleSidebar, tabClicked }) => {
+const WorkerSideBar = ({
+  openSidebar,
+  sidebarCollapsed,
+  setSidebarCollapsed,
+  tabClicked,
+}) => {
   return (
-    <aside
-      id="sidebar"
-      className={openSidebar ? "sidebar-responsive" : ""}
-    >
+    <div className={openSidebar ? "sidebar-responsive" : ""}>
       <div className="sidebar-title">
         <div className="sidebar-brand">
           <GiOlive className="icon-header" />
@@ -44,7 +47,7 @@ const WorkerSideBar = ({ openSidebar, toggleSidebar, tabClicked }) => {
           </a>
         </li>
       </ul>
-    </aside>
+    </div>
   );
 };
 
