@@ -71,3 +71,9 @@
     width: calc(100% - 30px);
     margin: 15px;
 }
+
+.sidebar-list-item svg {
+  color: rgb(49, 47, 47);
+  font-size: 1.2rem;
+  fill: currentColor
+}
