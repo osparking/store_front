@@ -62,7 +62,7 @@ const WorkerCanvas = () => {
               <ul className="sidebar-list">
                 <li
                   className="sidebar-list-item"
-                  onClick={() => tabClicked("Questions")}
+                  onClick={() => tabClicked("manageOrder")}
                 >
                   <a href="#">
                     <HiOutlinePencilSquare className="icon" />
@@ -70,7 +70,7 @@ const WorkerCanvas = () => {
                 </li>
                 <li
                   className="sidebar-list-item"
-                  onClick={() => tabClicked("Overview")}
+                  onClick={() => tabClicked("manageIngredient")}
                 >
                   <a href="#">
                     <LuComponent className="icon" />
@@ -78,7 +78,7 @@ const WorkerCanvas = () => {
                 </li>
                 <li
                   className="sidebar-list-item"
-                  onClick={() => tabClicked("Employee")}
+                  onClick={() => tabClicked("registerProduce")}
                 >
                   <a href="#">
                     <HiOutlineRectangleGroup className="icon" />
