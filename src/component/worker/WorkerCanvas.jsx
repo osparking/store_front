@@ -8,12 +8,12 @@ import RegisterProduce from "./produce/RegisterProduce";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
+import { HiOutlinePencilAlt } from "react-icons/hi";
 import {
-  HiOutlinePencilSquare,
-  HiOutlineRectangleGroup,
+  HiOutlineRectangleGroup
 } from "react-icons/hi2";
+
 import { LuComponent, LuPanelLeftOpen } from "react-icons/lu";
-import SidebarContent from "../admin/SidebarContent";
 
 const WorkerCanvas = () => {
   const [showOffcanvas, setShowOffcanvas] = useState(false);
@@ -66,7 +66,7 @@ const WorkerCanvas = () => {
                   onClick={() => tabClicked("manageOrder")}
                 >
                   <a href="#">
-                    <HiOutlinePencilSquare className="icon" />
+                    <HiOutlinePencilAlt className="icon" style={{fill: "none"}}/>
                   </a>
                 </li>
                 <li

@@ -1,4 +1,5 @@
 import { GiOlive } from "react-icons/gi";
+import { HiOutlinePencilAlt } from "react-icons/hi";
 import {
   HiOutlinePencilSquare,
   HiOutlineRectangleGroup,
@@ -20,7 +21,7 @@ const WorkerSideBar = ({ tabClicked }) => {
           onClick={() => tabClicked("manageOrder")}
         >
           <a href="#">
-            <HiOutlinePencilSquare className="icon" />
+            <HiOutlinePencilAlt className="icon" style={{fill: "none"}}/>
             주문 관리
           </a>
         </li>
