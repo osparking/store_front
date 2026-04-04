@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
 import { getStorageToken } from "../util/utilities";
 import "./navBar.css";
@@ -56,19 +56,35 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link to={"/soap_intro"} as={Link}>
+            <Nav.Link
+              to={"/soap_intro"}
+              as={NavLink}
+              activeClassName="active-link"
+            >
               비누 소개
             </Nav.Link>
-            <Nav.Link to={"/buy_soap"} as={Link}>
+            <Nav.Link
+              to={"/buy_soap"}
+              as={NavLink}
+              activeClassName="active-link"
+            >
               비누 주문
             </Nav.Link>
             {isAdmin && (
-              <Nav.Link to={`/dashboard/admin`} as={Link}>
+              <Nav.Link
+                to={`/dashboard/admin`}
+                as={NavLink}
+                activeClassName="active-link"
+              >
                 관리 업무
               </Nav.Link>
             )}
             {(isAdmin || isWorker) && (
-              <Nav.Link to={"/work_item"} as={Link}>
+              <Nav.Link
+                to={"/work_item"}
+                as={NavLink}
+                activeClassName="active-link"
+              >
                 직원 직무
               </Nav.Link>
             )}
