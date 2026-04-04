@@ -11,7 +11,7 @@ const SidebarContent = ({ tabClicked }) => (
     <div className="sidebar-title" >
       <div className="sidebar-brand">
         <GiOlive className="icon-header" />
-        관리자
+        관리 업무
       </div>
     </div>
     <ul className="sidebar-list">

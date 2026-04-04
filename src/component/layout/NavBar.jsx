@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
-import "./navBar.css";
 import { getStorageToken } from "../util/utilities";
+import "./navBar.css";
 
 const NavBar = () => {
   const beforeLogin = getStorageToken() === null;
@@ -25,7 +25,7 @@ const NavBar = () => {
       if (user.loginMethod === "이메일") {
         setIdentity(user.fullName);
       } else {
-        setIdentity("(" + user.loginMethod + ")");
+        setIdentity("<" + user.loginMethod + ">");
       }
     }
   };
@@ -56,25 +56,25 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link to={"/soap_intro"} as={Link} className="bold">
+            <Nav.Link to={"/soap_intro"} as={Link}>
               비누 소개
             </Nav.Link>
-            <Nav.Link to={"/buy_soap"} as={Link} className="bold serif">
-              <span style={{ color: "deeppink" }}> 비누 주문</span>
+            <Nav.Link to={"/buy_soap"} as={Link}>
+              비누 주문
             </Nav.Link>
             {isAdmin && (
               <Nav.Link to={`/dashboard/admin`} as={Link}>
-                관리자
+                관리 업무
               </Nav.Link>
             )}
             {(isAdmin || isWorker) && (
-              <Nav.Link to={"/work_item"} as={Link} className="bold">
+              <Nav.Link to={"/work_item"} as={Link}>
                 직원 직무
               </Nav.Link>
             )}
           </Nav>
           <Nav className="me-2 identity">
-            {beforeLogin ? "(로그인 전)" : `${identity}`}
+            {beforeLogin ? "(로그인 전)" : `[${identity}]`}
           </Nav>
           <Nav>
             <NavDropdown title="계정" id="basic-nav-dropdown" className="me-2">
@@ -97,7 +97,7 @@ const NavBar = () => {
                     <>
                       <NavDropdown.Divider />
                       <NavDropdown.Item to={`/dashboard/admin`} as={Link}>
-                        관리자
+                        관리 업무
                       </NavDropdown.Item>
                     </>
                   )}
@@ -114,11 +114,7 @@ const NavBar = () => {
             </NavDropdown>
           </Nav>
           <Nav.Link className="identity" to={"/question"} as={Link}>
-            <span
-              style={{ fontSize: "0.9em", color: "blue", fontWeight: "bold" }}
-            >
-              질문하기
-            </span>
+            <span style={{ color: "blue", fontWeight: "bold" }}>질문하기</span>
           </Nav.Link>
         </Navbar.Collapse>
       </Container>
