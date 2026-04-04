@@ -9,3 +9,12 @@
 .me-auto .nav-link {
   font-weight: bold;
 }
+
+.navbar {
+  --bs-navbar-active-color: var(--color-nav-home);
+  --color-nav-link-hover: crimson;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--color-nav-link-hover) !important;
+}
