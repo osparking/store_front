@@ -68,12 +68,55 @@
 }
 
 #workerJobTable {
-    width: calc(100% - 30px);
-    margin: 15px;
+  width: calc(100% - 30px);
+  margin: 15px;
 }
 
 .sidebar-list-item svg {
   color: rgb(49, 47, 47);
   font-size: 1.2rem;
   fill: currentColor
+}
+
+/* Medium <= 992px */
+
+@media screen and (max-width: 992px) {
+  .worker-main-content {
+    margin: 0 !important;
+  }
+
+  .worker-body {
+    width: 100vw;
+    padding: 0;
+  }
+
+  .main-container {
+    padding: 0;
+    overflow-y: initial;
+  }
+
+  .worker-main-content {
+    padding: 0 !important;
+  }
+
+  .main-container-div {
+    height: calc(100% - 101px) !important;
+    padding: 0 !important;
+  }
+
+  .header {
+    padding: 0;
+  }
+
+  #order-table-container {
+    height: calc(100vh - 300px);
+  }
+
+  #ingredient-table-container {
+    height: calc(100vh - 350px);
+  }
+
+  #produce-table-container {
+    height: calc(100vh - 320px) !important;
+  }
 }
