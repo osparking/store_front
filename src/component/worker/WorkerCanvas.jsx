@@ -42,7 +42,7 @@ const WorkerCanvas = () => {
         <Col
           md={2}
           lg={2}
-          className={`d-none d-lg-block border-end bg-light ${sidebarCollapsed ? "collapsed" : ""}`}
+          className={`d-none d-lg-block border-end bg-lightblue ${sidebarCollapsed ? "collapsed" : ""}`}
           style={{
             transition: "all 0.3s ease",
             width: sidebarCollapsed ? "60px" : "20%",

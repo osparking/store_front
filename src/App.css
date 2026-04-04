@@ -458,4 +458,8 @@ footer {
   font-weight: bold;
 }
 
+.bg-lightblue {
+  background-color: rgba(230, 248, 248, 0.966);
+}
+
 /* End home page*/

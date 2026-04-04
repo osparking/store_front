@@ -53,12 +53,11 @@ const AdminCanvas = () => {
         {/* Sidebar for wide screens */}
         <Col
           lg={2}
-          className={`d-none d-lg-block border-end bg-light ${sidebarCollapsed ? "collapsed" : ""}`}
+          className={`d-none d-lg-block border-end bg-lightblue ${sidebarCollapsed ? "collapsed" : ""}`}
           style={{
             transition: "all 0.3s ease",
             width: sidebarCollapsed ? "60px" : "20%",
             zIndex: 1000,
-            backgroundColor: "ivory",
           }}
         >
           <div className="d-flex justify-content-end p-2">
