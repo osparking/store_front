@@ -1,13 +1,14 @@
 import { GiOlive } from "react-icons/gi";
-import { HiOutlinePencilSquare } from "react-icons/hi2";
+import {
+  HiOutlinePencilSquare,
+  HiOutlineRectangleGroup,
+} from "react-icons/hi2";
 import { LuComponent } from "react-icons/lu";
-import { HiOutlineRectangleGroup } from "react-icons/hi2";
-import { Button } from "react-bootstrap";
 
 const WorkerSideBar = ({ tabClicked }) => {
   return (
     <div className="sidebar-content">
-      <div className="sidebar-title">
+      <div className="sidebar-title" style={{ padding: "10px 15px" }}>
         <div className="sidebar-brand">
           <GiOlive className="icon-header" />
           직원 직무
