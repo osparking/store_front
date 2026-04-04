@@ -5,3 +5,7 @@
 .serif {
   font-family: "Noto Serif KR", "Noto Sans Korean", Cambria, Cochin, Georgia, Times;
 }
+
+.me-auto .nav-link {
+  font-weight: bold;
+}
