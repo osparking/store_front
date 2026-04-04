@@ -8,7 +8,7 @@ import { GiOlive } from "react-icons/gi";
 
 const SidebarContent = ({ tabClicked }) => (
   <div className="sidebar-content">
-    <div className="sidebar-title">
+    <div className="sidebar-title" >
       <div className="sidebar-brand">
         <GiOlive className="icon-header" />
         관리자

@@ -8,7 +8,7 @@ import { LuComponent } from "react-icons/lu";
 const WorkerSideBar = ({ tabClicked }) => {
   return (
     <div className="sidebar-content">
-      <div className="sidebar-title" style={{ padding: "10px 15px" }}>
+      <div className="sidebar-title" style={{ padding: "15px 15px 0px" }}>
         <div className="sidebar-brand">
           <GiOlive className="icon-header" />
           직원 직무
