@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Offcanvas } from "react-bootstrap";
 import ManageIngredient from "./ManageIngredient";
 import ManageOrder from "./ManageOrder";
 import "./WorkerCanvas.css";
@@ -13,6 +13,7 @@ import {
   HiOutlineRectangleGroup,
 } from "react-icons/hi2";
 import { LuComponent, LuPanelLeftOpen } from "react-icons/lu";
+import SidebarContent from "../admin/SidebarContent";
 
 const WorkerCanvas = () => {
   const [showOffcanvas, setShowOffcanvas] = useState(false);
@@ -88,9 +89,6 @@ const WorkerCanvas = () => {
             </div>
           ) : (
             <WorkerSideBar
-              openSidebar={openSidebar}
-              sidebarCollapsed={sidebarCollapsed}
-              setSidebarCollapsed={setSidebarCollapsed}
               tabClicked={tabClicked}
             />
           )}
@@ -142,6 +140,19 @@ const WorkerCanvas = () => {
           </div>
         </Col>
       </Row>
+      {/* Offcanvas for mobile screens */}
+      <Offcanvas
+        show={showOffcanvas}
+        onHide={handleCloseOffcanvas}
+        placement="start"
+      >
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>탭 메뉴</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          <WorkerSideBar tabClicked={tabClicked} />
+        </Offcanvas.Body>
+      </Offcanvas>      
     </Container>
   );
 };
