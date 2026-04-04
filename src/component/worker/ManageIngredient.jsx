@@ -242,7 +242,7 @@ const ManageIngredient = () => {
           )}
         </p>
       </div>
-      <div className="ingredient-table-container">
+      <div id="ingredient-table-container">
         <Table
           id="workerJobTable"
           bordered

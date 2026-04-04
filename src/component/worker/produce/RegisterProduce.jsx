@@ -182,7 +182,7 @@ const RegisterProduce = () => {
         </Col>
       </Row>
 
-      <div className="produce-table-container">
+      <div id="produce-table-container">
         <Table
           id="workerJobTable"
           bordered

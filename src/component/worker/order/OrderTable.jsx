@@ -69,7 +69,7 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
       <p className="text-center mb-1">
         {getRecordRange(orderPage, indexOfFirst, idxLastPlus1, "주문")}
       </p>
-      <div className="order-table-container">
+      <div id="order-table-container">
         <Table id="workerJobTable" bordered hover striped style={{ minWidth: "730px" }}>
           <thead>
             <tr>

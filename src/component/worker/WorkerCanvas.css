@@ -16,8 +16,8 @@
   margin-bottom: 0;
 }
 
-.order-table-container,
-.ingredient-table-container {
+#order-table-container,
+#ingredient-table-container {
   background-color: lightblue;
   border-radius: 10px;
 }
