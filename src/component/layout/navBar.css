@@ -18,3 +18,8 @@
 .navbar-nav .nav-link:hover {
   color: var(--color-nav-link-hover) !important;
 }
+
+.dropdown-item:hover {
+  color: crimson !important;
+  font-weight: bold;
+}
