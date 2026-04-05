@@ -26,7 +26,7 @@ h5 {
 }
 
 .tab-content {
-  justify-content:center;
+  justify-content: center;
   display: flex;
   height: calc(100vh - 113px);
 }
@@ -46,4 +46,91 @@ h5 {
 
 .user-dashboard .tableCard {
   height: calc(100vh - 168.5px);
+}
+
+.mobile-tab-header {
+  padding: 1rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.hamburger-menu {
+  width: 100%;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mobile-tab-content {
+  padding: 1rem 0;
+}
+
+/* For React-Bootstrap Tabs */
+.scrollable-tabs.nav-tabs {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  /* Smooth scrolling on iOS */
+  scrollbar-width: thin;
+  /* For Firefox - thinner scrollbar */
+}
+
+.scrollable-tabs.nav-tabs .nav-item {
+  float: none;
+  display: inline-block;
+}
+
+.scrollable-tabs.nav-tabs .nav-link {
+  white-space: nowrap;
+}
+
+/* Optional: Hide scrollbar on Webkit browsers but keep functionality */
+.scrollable-tabs .nav-tabs::-webkit-scrollbar {
+  height: 4px;
+}
+
+.scrollable-tabs .nav-tabs::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.scrollable-tabs .nav-tabs::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.hamburger-menu.btn {
+  /* background: none; */
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: yellow;
+}
+
+.hamburger-menu.btn:hover {
+  color: pink;
+}
+
+.scrollable-tabs.nav-tabs {
+  margin-left: 3px;
+  font-size: 0.9rem;
+}
+
+.scrollable-tabs .nav-link h5 {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.scrollable-tabs .nav-link {
+  padding: 0.5rem 0.5rem;
+}
+
+.mobile-tab-header {
+  padding: 3px;
+}
+
+.mobile-tab-content {
+  padding: 0;
 }
