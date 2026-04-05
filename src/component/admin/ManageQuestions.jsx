@@ -88,53 +88,47 @@ const ManageQuestions = ({ mine }) => {
         mine={mine}
         setReloadPage={setReloadPage}
       />
-      <div className="justify-content-center">
-        <p className="text-center mb-1">
-          {getRecordRange(questionPage, indexOfFirst, idxLastPlus1, "질문")}
-        </p>
-
-        <div
-          style={{
-            overflow: "auto",
-            width: "100%",
-            alignItems: "center",
-          }}
-        >
-          <Card
-            className="p-0"
-            style={{
-              width: "fit-content",
-              margin: "auto",
-              alignItems: "center",
-            }}
-          >
-            <Card.Body className="p-0">
+    <div
+      className="justify-content-center align-items-center"
+      style={{ display: "flex", overflow: "auto", width: "100vw" }}
+    >
+          <Card className="tableCard" style={{ margin: "28px 0" }}>
+            <Card.Body  style={{ width: "100%" }}>
+              <h2 className="mb-1 ps-0">
+                <strong>나의 질문</strong>
+              </h2>
+              <p className="text-center text-muted mt-3 mb-1">
+                {getRecordRange(
+                  questionPage,
+                  indexOfFirst,
+                  idxLastPlus1,
+                  "질문",
+                )}
+              </p>
               <div
                 id="questionTableDiv"
                 style={{
                   whiteSpace: "initial",
-                  width: "fit-content",
-                  margin: "20px",
+                  overflow: "auto",
                 }}
                 className="justify-content-center align-items-center"
               >
                 {QuestionsTable(questions, answerQuestion)}
               </div>
+              {searchResult && questionPage && (
+                <Paginator
+                  pageSize={pageSize}
+                  totalItems={questionPage.totalElements}
+                  totalPages={totalPages}
+                  currPage={currentPage}
+                  setCurrPage={(pageNo) => setCurrentPage(pageNo)}
+                  darkBackground="true"
+                />
+              )}
             </Card.Body>
           </Card>
         </div>
-
-        {searchResult && questionPage && (
-          <Paginator
-            pageSize={pageSize}
-            totalItems={questionPage.totalElements}
-            totalPages={totalPages}
-            currPage={currentPage}
-            setCurrPage={(pageNo) => setCurrentPage(pageNo)}  
-            darkBackground="true"
-          />
-        )}
-      </div>
+      {/* </div> */}
     </>
   );
 };
