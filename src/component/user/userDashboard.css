@@ -28,6 +28,7 @@ h5 {
 .tab-content {
   justify-content:center;
   display: flex;
+  height: calc(100vh - 113px);
 }
 
 .home-container.user-dashboard {
