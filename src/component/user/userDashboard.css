@@ -43,3 +43,7 @@ h5 {
   align-items: center;
   justify-content: center;
 }
+
+.user-dashboard .tableCard {
+  height: calc(100vh - 168.5px);
+}
