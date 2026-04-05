@@ -2,6 +2,10 @@ h5 {
   font-family: "Noto Serif KR", "Noto Sans Korean", Cambria, Cochin, Georgia, Times;
 }
 
+.nav-tabs {
+  border-bottom: 2px solid #dbcaca;
+}
+
 .nav-tabs .nav-link.active {
   color: #dbcaca;
   background-color: rgb(1, 58, 67);
