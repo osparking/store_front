@@ -51,12 +51,10 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
   }
 
   return (
-    <div>
-      <div className="d-flex justify-content-center align-items-center">
-        <p className="text-center text-muted mb-4">
-          {getRecordRange(orderPage, indexOfFirst, idxLastPlus1, "주문")}
-        </p>
-      </div>
+    <>
+      <p className="text-center text-muted mt-3 mb-1">
+        {getRecordRange(orderPage, indexOfFirst, idxLastPlus1, "주문")}
+      </p>
       <div
         id="orderTable"
         style={{
@@ -110,7 +108,7 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
           setCurrPage={(pageNo) => setCurrentPage(pageNo)}
         />
       )}
-    </div>
+    </>
   );
 };
 
