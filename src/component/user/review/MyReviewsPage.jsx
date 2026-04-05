@@ -75,7 +75,7 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
         editable={true}
       />
       <div className="tableNmodal">
-        <Card style={{ margin: "28px 0" }}>
+        <Card className="tableCard" style={{ margin: "28px 0" }}>
           <Card.Body>
             <h2 className="mb-1 ps-0">
               <strong>나의 후기 목록</strong>
