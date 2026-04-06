@@ -93,9 +93,9 @@ const ManageQuestions = ({ mine }) => {
         style={{ display: "flex", overflow: "auto" }}
       >
         <Card className="tableCard" style={{ margin: "28px 0" }}>
-          <Card.Body style={{ width: "100%" }}>
+          <Card.Body>
             <h2 className="mb-1 ps-0">
-              <strong>나의 질문</strong>
+              <strong>{mine ? "나의 질문" : "질문 처리 현황"}</strong>
             </h2>
             <p className="text-center text-muted mt-3 mb-1">
               {getRecordRange(questionPage, indexOfFirst, idxLastPlus1, "질문")}

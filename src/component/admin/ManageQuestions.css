@@ -44,3 +44,7 @@ table tr th {
 .admin-body .tableNmodal {
   display: contents;
 }
+
+.tableCard {
+  width: 100%;
+}
