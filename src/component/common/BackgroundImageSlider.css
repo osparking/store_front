@@ -38,7 +38,7 @@
 }
 
 .carousel-indicators {
-  bottom: 4%;
+  bottom: 17px !important;
   z-index: 1 !important;
 }
 
