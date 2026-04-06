@@ -402,6 +402,7 @@ input[type="radio"] {
 
 .home-container {
   max-width: 1200px;
+  height: calc(100vh - 124px);
   margin: auto;
   z-index: 1;
   position: relative;
