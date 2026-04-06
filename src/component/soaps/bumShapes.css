@@ -42,6 +42,10 @@ ul li {
   max-width: 500px;
 }
 
+.carousel .button {
+  width: fit-content !important;
+}
+
 .slide-hidden {
   display: none;
 }
