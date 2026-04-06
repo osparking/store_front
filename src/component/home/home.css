@@ -13,16 +13,37 @@
 }
 
 .homeRow.row {
-  height: 90%;
+  height: calc(100vh - 140px);
   margin-top: 8px;
-}
-
-.homeRow .homeCol {
-  height: 90%;
+  margin-bottom: 8px;
+  overflow: auto;
 }
 
 .homeCol .card-body {
   max-height: 350px;
   height: 50vh;
   overflow: auto !important;
+}
+
+@media screen and (min-width: 577px) and (max-width: 992px) {
+  .homeCol {
+    width: 80vw;
+    max-width: 500px;
+    padding: 0;
+  }
+}
+
+/* Extra Small <= 576px */
+@media screen and (max-width: 576px) {
+  .homeRow .homeCol {
+    width: 100vw;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .homeRow .card {
+    margin: 0 !important;
+    padding: 5px !important;
+    width: 100vw !important;
+  }
 }
