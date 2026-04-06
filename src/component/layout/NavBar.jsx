@@ -89,14 +89,14 @@ const NavBar = () => {
             <Nav.Link
               to={"/soap_intro"}
               as={NavLink}
-              activeClassName="active-link"
+              activeclassname="active-link"
             >
               비누 소개
             </Nav.Link>
             <Nav.Link
               to={"/buy_soap"}
               as={NavLink}
-              activeClassName="active-link"
+              activeclassname="active-link"
             >
               비누 주문
             </Nav.Link>
@@ -104,7 +104,7 @@ const NavBar = () => {
               <Nav.Link
                 to={`/dashboard/admin`}
                 as={NavLink}
-                activeClassName="active-link"
+                activeclassname="active-link"
               >
                 관리 업무
               </Nav.Link>
@@ -113,7 +113,7 @@ const NavBar = () => {
               <Nav.Link
                 to={"/work_item"}
                 as={NavLink}
-                activeClassName="active-link"
+                activeclassname="active-link"
               >
                 직원 직무
               </Nav.Link>
