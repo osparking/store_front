@@ -23,3 +23,32 @@
   color: crimson !important;
   font-weight: bold;
 }
+
+/* Hide active link text on desktop (screens larger than lg breakpoint) */
+@media (min-width: 992px) {
+  .active-link-text-mobile {
+    display: none;
+  }
+}
+
+/* Optional: Adjust spacing on mobile */
+@media (max-width: 991.98px) {
+  .navbar-toggler {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .active-link-text-mobile {
+    text-decoration: none !important;
+    font-size: smaller;
+    font-weight: bold;
+    margin-right: 5px;
+    /* Add any mobile-specific styling here */
+    color: #000; /* or whatever color matches your design */
+  }
+
+  button#mainHamburger {
+    text-decoration: none !important;
+  }
+}
