@@ -13,14 +13,14 @@
 }
 
 .homeRow.row {
-  height: calc(100vh - 140px);
+  height: calc(100vh - 115px);
   margin-top: 8px;
   margin-bottom: 8px;
   overflow: auto;
 }
 
 .homeCol .card-body {
-  max-height: 350px;
+  max-height: 360px;
   height: 50vh;
   overflow: auto !important;
 }
