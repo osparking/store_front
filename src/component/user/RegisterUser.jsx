@@ -127,7 +127,7 @@ const RegisterUser = () => {
                     </Form.Control>
                   </Form.Label>
                 </Col>
-                <Col xs={3}>
+                <Col xs={3} className="employeeAffiliation">
                   <Form.Label>
                     부서
                     <WorkerDeptSelector
