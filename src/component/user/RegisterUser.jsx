@@ -37,19 +37,34 @@ const RegisterUser = () => {
   };
 
   const [isProcessing, setIsProcessing] = useState(false);
+
+  const checkIfPasswordsMatch = () => {
+    if (user.password !== user.confirmPassword) {
+      console.error("두 패스워드가 일치하지 않습니다.");
+      throw new Error("두 패스워드가 일치하지 않습니다.");
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (loginId && !userRoles.includes("ROLE_ADMIN")) {
-      const confirmed = window.confirm("로그아웃하고 계정을 등록할까요?");
-      if (confirmed) {
-        logoutUser();
-      } else {
-        return;
-      }
+    try {
+      checkIfPasswordsMatch();
+    } catch (error) {
+      setErrorMsg(error.message);
+      setAlertError(true);
+      return;
     }
+
     try {
       setIsProcessing(true);
+      if (loginId && !userRoles.includes("ROLE_ADMIN")) {
+        const confirmed = window.confirm("로그아웃하고 계정을 등록할까요?");
+        if (confirmed) {
+          logoutUser();
+        } else {
+          return;
+        }
+      }
       const response = await registerUser(user);
       console.log("response: ", response);
       setSuccessMsg(response.message);
