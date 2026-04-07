@@ -118,7 +118,7 @@ const NavBar = () => {
           </Nav>
           <Nav className="me-2 identity">
             {beforeLogin ? "(로그인 전)" : `${identity}`}
-            <span className="spaceBeforeNim">&nbsp;</span>님
+            {!beforeLogin && <span className="narrow-left-space">님</span>}
           </Nav>
           <Nav>
             <NavDropdown
