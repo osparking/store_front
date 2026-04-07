@@ -24,6 +24,10 @@
   font-weight: bold;
 }
 
+.spaceBeforeNim {
+  font-size: 0.5em; /* Reduces the space proportionally */
+}
+
 /* Hide active link text on desktop (screens larger than lg breakpoint) */
 @media (min-width: 992px) {
   .active-link-text-mobile {
