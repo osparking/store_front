@@ -80,6 +80,7 @@ const RegisterUser = () => {
       mbPhone: "010-1234-1223",
       email: "jbpark03@email.com",
       password: "1234",
+      confirmPassword: "1234",
       userType: "CUSTOMER",
       dept: "생산부",
     });
@@ -116,6 +117,7 @@ const RegisterUser = () => {
                   <Form.Control
                     type="email"
                     name="email"
+                    autoComplete="email"
                     placeholder="(이메일)"
                     value={user.email}
                     onChange={handleChange}
@@ -126,6 +128,7 @@ const RegisterUser = () => {
                   <Form.Control
                     type="text"
                     name="mbPhone"
+                    autoComplete="tel"
                     placeholder="(휴대폰 번호)"
                     value={user.mbPhone}
                     onChange={handleChange}
@@ -136,14 +139,27 @@ const RegisterUser = () => {
             </fieldset>
 
             <Form.Group as={Row} controlId="password" className="mb-4">
-              <Col>
+              <Col xs={6}>
                 <Form.Label>패스워드</Form.Label>
                 <Form.Control
                   type="password"
                   name="password"
+                  autoComplete="new-password"
                   required
                   placeholder="(비밀번호)"
                   value={user.password}
+                  onChange={handleChange}
+                />
+              </Col>
+              <Col xs={6}>
+                <Form.Label>패스워드 확인</Form.Label>
+                <Form.Control
+                  type="password"
+                  name="confirmPassword"
+                  autoComplete="new-password"
+                  required
+                  placeholder="(비밀번호 확인)"
+                  value={user.confirmPassword || ""}
                   onChange={handleChange}
                 />
               </Col>
