@@ -6,8 +6,8 @@ import AlertMessage from "../common/AlertMessage";
 import ProcessSpinner from "../common/ProcessSpinner";
 import BsAlertHook from "../hook/BsAlertHook";
 import WorkerDeptSelector from "../worker/WorkerDeptSelector";
-import { registerUser } from "./UserService";
 import "./RegisterUser.css";
+import { registerUser } from "./UserService";
 
 const RegisterUser = () => {
   const loginId = localStorage.getItem("LOGIN_ID");
@@ -96,106 +96,115 @@ const RegisterUser = () => {
             <legend>사용자 등록</legend>
           </Card.Header>
           <Card.Body>
-            <Form.Group as={Row} controlId="full-name" className="mb-4">
-              <Col xs={6} className="mb-2 mb-sm-0">
-                <Form.Label>성명</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="fullName"
-                  placeholder="(성명)"
-                  value={user.fullName}
-                  onChange={handleChange}
-                  required
-                />
-              </Col>
-            </Form.Group>
-
             <fieldset className="mb-4">
-              <Form.Label>연락처</Form.Label>
               <Row>
                 <Col xs={6} className="mb-2 mb-sm-0">
-                  <Form.Control
-                    type="email"
-                    name="email"
-                    autoComplete="email"
-                    placeholder="(이메일)"
-                    value={user.email}
-                    onChange={handleChange}
-                    required
-                  />
+                  <Form.Label>
+                    성명
+                    <Form.Control
+                      type="text"
+                      name="fullName"
+                      placeholder="(성명)"
+                      value={user.fullName}
+                      onChange={handleChange}
+                      required
+                    />
+                  </Form.Label>
+                </Col>
+                <Col xs={3}>
+                  <Form.Label>
+                    계정 유형
+                    <Form.Control
+                      as="select"
+                      name="userType"
+                      required
+                      value={user.userType}
+                      onChange={handleChange}
+                    >
+                      <option value="">(계정 타입)</option>
+                      <option value="CUSTOMER">고객</option>
+                      <option value="WORKER">직원</option>
+                    </Form.Control>
+                  </Form.Label>
+                </Col>
+                <Col xs={3}>
+                  <Form.Label>
+                    부서
+                    <WorkerDeptSelector
+                      disabled={user.userType !== "WORKER"}
+                      workerDept={user.dept}
+                      onChange={handleChange}
+                    />
+                  </Form.Label>
+                </Col>
+              </Row>
+            </fieldset>
+
+            <fieldset className="mb-4">
+              <Row>
+                <Col xs={6} className="mb-2 mb-sm-0">
+                  <Form.Label>
+                    이메일
+                    <Form.Control
+                      type="email"
+                      name="email"
+                      autoComplete="email"
+                      placeholder="(이메일)"
+                      value={user.email}
+                      onChange={handleChange}
+                      required
+                    />
+                  </Form.Label>
                 </Col>
                 <Col xs={6}>
-                  <Form.Control
-                    type="text"
-                    name="mbPhone"
-                    autoComplete="tel"
-                    placeholder="(휴대폰 번호)"
-                    value={user.mbPhone}
-                    onChange={handleChange}
-                    required
-                  />
+                  <Form.Label>
+                    휴대폰 번호
+                    <Form.Control
+                      type="text"
+                      name="mbPhone"
+                      autoComplete="tel"
+                      placeholder="(휴대폰 번호)"
+                      value={user.mbPhone}
+                      onChange={handleChange}
+                      required
+                    />
+                  </Form.Label>
                 </Col>
               </Row>
             </fieldset>
 
             <Form.Group as={Row} className="mb-4">
               <Col xs={6}>
-                <Form.Label>패스워드</Form.Label>
-                <Form.Control
-                  type="password"
-                  name="password"
-                  id="password"
-                  autoComplete="new-password"
-                  required
-                  placeholder="(비밀번호)"
-                  value={user.password || ""}
-                  onChange={handleChange}
-                />
+                <Form.Label>
+                  패스워드
+                  <Form.Control
+                    type="password"
+                    name="password"
+                    id="password"
+                    autoComplete="new-password"
+                    required
+                    placeholder="(비밀번호)"
+                    value={user.password || ""}
+                    onChange={handleChange}
+                  />
+                </Form.Label>
               </Col>
               <Col xs={6}>
-                <Form.Label>패스워드 확인</Form.Label>
-                <Form.Control
-                  type="password"
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  autoComplete="new-password-confirm"
-                  required
-                  placeholder="(비밀번호 확인)"
-                  value={user.confirmPassword || ""}
-                  onChange={handleChange}
-                />
+                <Form.Label>
+                  패스워드 확인
+                  <Form.Control
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    autoComplete="new-password-confirm"
+                    required
+                    placeholder="(비밀번호 확인)"
+                    value={user.confirmPassword || ""}
+                    onChange={handleChange}
+                  />
+                </Form.Label>
               </Col>
             </Form.Group>
-
-            <Form.Group as={Row} controlId="user-type" className="mb-4">
-              <Col>
-                <Form.Label>계정 유형</Form.Label>
-                <Form.Control
-                  as="select"
-                  name="userType"
-                  required
-                  value={user.userType}
-                  onChange={handleChange}
-                >
-                  <option value="">(계정 타입)</option>
-                  <option value="CUSTOMER">고객</option>
-                  <option value="WORKER">직원</option>
-                </Form.Control>
-              </Col>
-            </Form.Group>
-
-            {user.userType === "WORKER" && (
-              <Form.Group>
-                <Row>
-                  <Col>
-                    <WorkerDeptSelector
-                      workerDept={user.dept}
-                      onChange={handleChange}
-                    />
-                  </Col>
-                </Row>
-              </Form.Group>
-            )}
 
             <div className="d-flex justify-content-center mb-3 mt-3 char2button">
               <Button
