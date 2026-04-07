@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import AdderModal from "../modal/AdderModal";
 import { getAllDept } from "./WorkerService";
 
-const WorkerDeptSelector = ({ workerDept, onChange }) => {
+const WorkerDeptSelector = ({ disabled, workerDept, onChange }) => {
   const [workerDepts, setWorkerDepts] = useState([]);
   const [showDeptAdder, setShowDeptAdder] = useState(false);
 
@@ -43,6 +43,7 @@ const WorkerDeptSelector = ({ workerDept, onChange }) => {
           value={workerDept}
           required
           onChange={handleDept}
+          disabled={disabled}
           style={{ backgroundColor: "pink" }}
         >
           <option value="">- 소속 부서 -</option>
