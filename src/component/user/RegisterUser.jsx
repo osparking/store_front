@@ -138,16 +138,17 @@ const RegisterUser = () => {
               </Row>
             </fieldset>
 
-            <Form.Group as={Row} controlId="password" className="mb-4">
+            <Form.Group as={Row} className="mb-4">
               <Col xs={6}>
                 <Form.Label>패스워드</Form.Label>
                 <Form.Control
                   type="password"
                   name="password"
+                  id="password"
                   autoComplete="new-password"
                   required
                   placeholder="(비밀번호)"
-                  value={user.password}
+                  value={user.password || ""}
                   onChange={handleChange}
                 />
               </Col>
@@ -155,8 +156,9 @@ const RegisterUser = () => {
                 <Form.Label>패스워드 확인</Form.Label>
                 <Form.Control
                   type="password"
+                  id="confirmPassword"
                   name="confirmPassword"
-                  autoComplete="new-password"
+                  autoComplete="new-password-confirm"
                   required
                   placeholder="(비밀번호 확인)"
                   value={user.confirmPassword || ""}
