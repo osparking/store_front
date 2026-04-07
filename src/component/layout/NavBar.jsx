@@ -76,10 +76,7 @@ const NavBar = () => {
           범이비누
         </Navbar.Brand>
 
-        <Navbar.Toggle
-          id="mainHamburger"
-          aria-controls="responsive-navbar-nav"
-        >
+        <Navbar.Toggle id="mainHamburger" aria-controls="responsive-navbar-nav">
           <div className="active-link-text-mobile">{activeLinkText}</div>
           <span className="navbar-toggler-icon"></span>
         </Navbar.Toggle>
@@ -123,7 +120,12 @@ const NavBar = () => {
             {beforeLogin ? "(로그인 전)" : `[${identity}]`}
           </Nav>
           <Nav>
-            <NavDropdown title="계정" id="basic-nav-dropdown" className="me-2">
+            <NavDropdown
+              title="계정"
+              style={{ fontWeight: "bold" }}
+              id="basic-nav-dropdown"
+              className="me-2"
+            >
               {beforeLogin ? (
                 <>
                   <NavDropdown.Item to={"/login"} as={Link}>
@@ -159,8 +161,8 @@ const NavBar = () => {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          <Nav.Link className="identity" to={"/question"} as={Link}>
-            <span style={{ color: "blue", fontWeight: "bold" }}>질문하기</span>
+          <Nav.Link to={"/question"} as={Link}>
+            <span style={{ fontWeight: "bold" }}>질문 등록</span>
           </Nav.Link>
         </Navbar.Collapse>
       </Container>
