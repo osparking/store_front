@@ -46,7 +46,7 @@ const WorkerDeptSelector = ({ disabled, workerDept, onChange }) => {
           disabled={disabled}
           style={{ backgroundColor: "pink" }}
         >
-          <option value="">- 소속 부서 -</option>
+          <option value="">(소속 부서)</option>
           {workerDepts.map((dept, index) => (
             <option value={dept} key={index}>
               {dept}
