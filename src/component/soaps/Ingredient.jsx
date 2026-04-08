@@ -7,8 +7,11 @@ import IngredTabAccord from "./IngredTabAccord";
 const Ingredient = () => {
   return (
     <Row className="justify-content-center mt-2">
-      <Col xs={12} md={10} lg={8} style={{ height: "fit-content" }}>
-        <Card>
+      <Col xs={12} md={10} lg={9} style={{ height: "fit-content" }}>
+        <Card
+          style={{ maxWidth: "1030px", height: "fit-content" }}
+          className="mx-auto"
+        >
           <Card.Body className="pb-0">
             <h2 className="mb-3" style={{ paddingLeft: 0 }}>
               <strong>재료 함량</strong>
