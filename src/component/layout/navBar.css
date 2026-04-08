@@ -28,6 +28,11 @@
   margin-left: 4px;
 }
 
+.navbar-nav {
+  color: white;
+  font-weight: bold;
+}
+
 /* Hide active link text on desktop (screens larger than lg breakpoint) */
 @media (min-width: 992px) {
   .active-link-text-mobile {
