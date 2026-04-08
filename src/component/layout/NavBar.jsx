@@ -116,8 +116,10 @@ const NavBar = () => {
               </Nav.Link>
             )}
           </Nav>
-          <Nav className="me-2 identity">
-            {beforeLogin ? "(로그인 전)" : `${identity}`}
+          <Nav className="me-2">
+            <span className="bumsoap-color-dark">
+              {beforeLogin ? "(로그인 전)" : `${identity}`}
+            </span>
             {!beforeLogin && <span className="narrow-left-space">님</span>}
           </Nav>
           <Nav>
