@@ -69,7 +69,6 @@ const IngredTabAccord = ({ ingAllData, keepOthersOpen }) => {
             {ingredient.id ? (
               <div style={{ display: "flex", alignItems: "center" }}>
                 <button
-                  style={{ width: "100%" }}
                   className="toggle text-end"
                   onClick={() => handleAccordionToggle(ingredient)}
                 >
@@ -114,10 +113,10 @@ const IngredTabAccord = ({ ingAllData, keepOthersOpen }) => {
       <thead>
         <tr className="text-center">
           <th>#</th>
-          <th>재료명</th>
-          <th>중량(g)</th>
-          <th>비율(%)</th>
-          <th>비고/효능</th>
+          <th style={{ minWidth: "250px" }}>재료명</th>
+          <th style={{ minWidth: "75px" }}>중량(g)</th>
+          <th style={{ minWidth: "75px" }}>비율(%)</th>
+          <th style={{ minWidth: "225px" }}>비고/효능</th>
         </tr>
       </thead>
       <tbody>{ingAllRows}</tbody>
