@@ -50,8 +50,14 @@ h5 {
   height: calc(100vh - 168.5px);
 }
 
+@media screen and (max-width: 480px) {
+  .user-dashboard .table-div {
+    height: calc(100vh - 377px);
+  }
+}
+
 .mobile-tab-header {
-  padding: 1rem;
+  padding: 3px;
   border-bottom: 1px solid #dee2e6;
 }
 
@@ -127,10 +133,6 @@ h5 {
 
 .scrollable-tabs .nav-link {
   padding: 0.5rem 0.5rem;
-}
-
-.mobile-tab-header {
-  padding: 3px;
 }
 
 .mobile-tab-content {
