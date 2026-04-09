@@ -292,12 +292,27 @@
   .admin-card {
     padding: 2px 15px;
   }
+
+.table {
+  margin-bottom: 0;
+}
+
+.table-div {
+  overflow: auto;
 }
 
 /* Extra Small <= 576px */
 @media screen and (max-width: 576px) {
   .hedaer-left {
     display: none;
+  }
+
+  .card-body {
+    padding: 0;
+  }
+
+  .pagination {
+    margin-bottom: 3px;
   }
 }
 
