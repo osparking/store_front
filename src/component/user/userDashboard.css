@@ -45,6 +45,8 @@ h5 {
 }
 
 .user-dashboard .tableCard {
+  width: 100vw;
+  max-width: 950px;
   height: calc(100vh - 168.5px);
 }
 
