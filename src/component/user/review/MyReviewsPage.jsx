@@ -12,6 +12,7 @@ import ReviewModal from "../../review/ReviewModal";
 import { getRecordRange } from "../../util/utilities";
 import "./MyReviewsPage.css";
 import MyReviewsTable from "./MyReviewsTable";
+import "../../home/home.css";
 
 const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
   const [totalPages, setTotalPages] = useState(1);
@@ -74,7 +75,7 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
         saveReview={saveReview}
         editable={true}
       />
-      <Card className="tableCard" style={{ margin: "28px 0" }}>
+      <Card className="tableCard">
         <Card.Body>
           <h2 className="mb-1 ps-0">
             <strong>나의 후기 목록</strong>
