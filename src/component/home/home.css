@@ -31,6 +31,10 @@
   max-height: fit-content;
 }
 
+.home-container .card {
+  margin-top: 20px;
+}
+
 /* 중형폭 미디어 */
 @media screen and (min-width: 577px) and (max-width: 992px) {
   .homeCol {
@@ -72,6 +76,14 @@
   }
 
   .homeRow.row {
+    margin-top: 0;
+  }
+
+  .home-contaner .tableCard {
+    margin-top: 0;
+  }
+
+  .home-container .card {
     margin-top: 0;
   }
 }
