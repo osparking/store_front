@@ -13,7 +13,7 @@
 }
 
 .homeRow.row {
-  height: calc(100vh - 130px);
+  height: calc(100vh - 78px);
   margin-top: 8px;
   margin-bottom: 8px;
   overflow: auto;
@@ -27,12 +27,13 @@
 }
 
 .homeRow .card {
-  height: calc(100vh - 150px);
+  height: calc(100vh - 118px);
   max-height: fit-content;
 }
 
 .home-container .card {
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 /* 중형폭 미디어 */
