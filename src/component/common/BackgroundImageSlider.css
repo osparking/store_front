@@ -38,12 +38,12 @@
 }
 
 .carousel-indicators {
-  bottom: 17px !important;
+  display: none;
+  bottom: 10px !important;
   z-index: 1 !important;
   margin-bottom: 14px;
 }
 
 .carousel-inner {
-  bottom: 25px;
   z-index: -1 !important;
 }
