@@ -69,7 +69,7 @@ const Home = () => {
           </Card>
         </Col>
         <Col md={6} className="homeCol">
-          <Card>
+          <Card id="homeRightCard">
             <Card.Img
               variant="top"
               src={soap_rack}
