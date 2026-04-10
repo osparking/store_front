@@ -21,6 +21,7 @@
 
 .homeCol .card-body {
   height: 100%;
+  min-height: 225px;
   overflow: auto !important;
   margin-top: 1em;
 }
