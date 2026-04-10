@@ -47,7 +47,7 @@
   }
   
   .homeRow.row {
-    max-height: calc(100vh - 200px);
+    max-height: none;
     height: calc(100vh - 130px);
     margin-top: 8px;
     margin-bottom: 8px;
@@ -64,7 +64,6 @@
   }
 
   .homeRow .card {
-    margin: 0 !important;
     padding: 5px !important;
     width: 100vw !important;
     height: calc(100vh - 144px);
