@@ -14,7 +14,7 @@ function Footer() {
     >
       {isVisible && (
         <footer className="text-white bottomBar mt-auto me-0">
-          <Container fluid className="px-5 ">
+          <Container fluid className="px-5 " style={{marginTop: "-6px"}}>
             <Row>
               <Col md={1}>
                 <h6></h6>
