@@ -1,5 +1,5 @@
 .button-div {
-  bottom: 0;
+  bottom: -16px;
   position: sticky;
   align-items: center;
   width: 100%;
@@ -13,16 +13,20 @@
 }
 
 .homeRow.row {
-  height: calc(100vh - 115px);
+  height: calc(100vh - 130px);
   margin-top: 8px;
   margin-bottom: 8px;
   overflow: auto;
 }
 
 .homeCol .card-body {
-  max-height: 360px;
-  height: 50vh;
+  height: 100%;
   overflow: auto !important;
+  margin-top: 1em;
+}
+
+.homeRow .card {
+  height: calc(100vh - 150px);
 }
 
 @media screen and (min-width: 577px) and (max-width: 992px) {
@@ -30,6 +34,23 @@
     width: 80vw;
     max-width: 500px;
     padding: 0;
+  }
+
+  .homeRow .card {
+    height: calc(100vh - 150px) !important;
+  }
+  
+  .homeCol .card-body {
+    height: calc(100vh - 505px);
+    max-height: fit-content
+  }
+  
+  .homeRow.row {
+    max-height: calc(100vh - 200px);
+    height: calc(100vh - 130px);
+    margin-top: 8px;
+    margin-bottom: 8px;
+    overflow: auto;
   }
 }
 
@@ -45,5 +66,6 @@
     margin: 0 !important;
     padding: 5px !important;
     width: 100vw !important;
+    height: calc(100vh - 144px);
   }
 }
