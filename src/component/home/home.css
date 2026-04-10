@@ -77,6 +77,8 @@
 
   .homeRow.row {
     margin-top: 0;
+    height: 100%;
+    margin-bottom: 1em;
   }
 
   .home-contaner .tableCard {
@@ -85,5 +87,19 @@
 
   .home-container .card {
     margin-top: 0;
+  }
+
+  .home-container {
+    margin-top: 0 !important;
+    height: 100%;
+    margin-bottom: 1em;
+  }
+
+  .homeRow .card {
+    margin-top: 1em;
+  }
+
+  #homeRightCard {
+    margin-bottom: 25px;
   }
 }
