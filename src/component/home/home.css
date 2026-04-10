@@ -27,6 +27,7 @@
 
 .homeRow .card {
   height: calc(100vh - 150px);
+  max-height: fit-content;
 }
 
 @media screen and (min-width: 577px) and (max-width: 992px) {
