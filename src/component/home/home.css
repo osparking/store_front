@@ -30,6 +30,7 @@
   max-height: fit-content;
 }
 
+/* 중형폭 미디어 */
 @media screen and (min-width: 577px) and (max-width: 992px) {
   .homeCol {
     width: 80vw;
@@ -40,22 +41,22 @@
   .homeRow .card {
     height: calc(100vh - 150px) !important;
   }
-  
+
   .homeCol .card-body {
     height: calc(100vh - 505px);
     max-height: fit-content
   }
-  
+
   .homeRow.row {
     max-height: none;
     height: calc(100vh - 130px);
-    margin-top: 8px;
+    margin-top: 0;
     margin-bottom: 8px;
     overflow: auto;
   }
 }
 
-/* Extra Small <= 576px */
+/* 소형폭 미디어 */
 @media screen and (max-width: 576px) {
   .homeRow .homeCol {
     width: 100vw;
@@ -67,5 +68,9 @@
     padding: 5px !important;
     width: 100vw !important;
     height: calc(100vh - 144px);
+  }
+
+  .homeRow.row {
+    margin-top: 0;
   }
 }
