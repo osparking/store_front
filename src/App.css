@@ -245,7 +245,7 @@
 
 /* Medium <= 992px */
 
-@media screen and (max-width: 992px) {
+/* @media screen and (max-width: 992px) {
   .grid-container {
     grid-template-columns: 1fr;
     grid-template-rows: 62px 3fr;
@@ -265,11 +265,11 @@
   .sidebar-title>span {
     display: inline;
   }
-}
+} */
 
 /* Small <= 768px */
 
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
   .main-cards {
     grid-template-columns: 1fr;
     gap: 5px;
@@ -280,10 +280,10 @@
     grid-template-columns: 1fr;
     margin-top: 30px;
   }
-}
+} */
 
 
-@media (max-width: 768px) {
+@media (max-width: 930px) {
   .chart-container {
     flex-basis: 100%;
     /* Full width on smaller screens */
