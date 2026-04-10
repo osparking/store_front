@@ -48,11 +48,28 @@ h5 {
   width: 100vw;
   max-width: 950px;
   height: calc(100vh - 168.5px);
+  margin-top: 28px;
 }
 
-@media screen and (max-width: 480px) {
-  .user-dashboard .table-div {
-    height: calc(100vh - 377px);
+/* 소형폭 미디어 */
+@media screen and (max-width: 576px) {
+  .main-content {
+    height: 100%;
+  }
+
+  .home-container.user-dashboard {
+    height: calc(100vh - 62px) !important;
+    margin: 0;
+  }
+
+  .mobile-tab-content {
+    padding: 0 !important;
+    height: calc(100% - 45px) !important;
+  }
+
+  .user-dashboard .tableCard {
+    height: 100%;
+    margin-top: 0;
   }
 }
 
@@ -133,8 +150,4 @@ h5 {
 
 .scrollable-tabs .nav-link {
   padding: 0.5rem 0.5rem;
-}
-
-.mobile-tab-content {
-  padding: 0;
 }
