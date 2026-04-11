@@ -67,6 +67,7 @@
   }
 
   #homeRightCard {
+    margin-top: 0;
     margin-bottom: 0;
   }
 }
@@ -80,7 +81,7 @@
   }
 
   .homeRow .card {
-    padding: 5px !important;
+    padding: 1em !important;
     width: 100vw !important;
     height: calc(100vh - 144px);
   }
@@ -110,6 +111,7 @@
   }
 
   #homeRightCard {
-    margin-bottom: 25px;
+    margin-bottom: 1em;
+    margin-top: 0;
   }
 }
