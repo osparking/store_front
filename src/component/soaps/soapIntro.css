@@ -21,3 +21,9 @@
 #soap-intro-container .row {
   height: 100%;
 }
+
+@media (max-width: 768px) {
+  .scrollable-tabs.nav-tabs {
+    margin-left: 0 !important;
+  }
+}
