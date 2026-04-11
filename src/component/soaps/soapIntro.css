@@ -3,10 +3,21 @@
 }
 
 .soapIntroduction .card {
-  height: fit-content;  
+  height: fit-content;
   margin: 0;
 }
 
-#soap-intro-container .card{
+#soap-intro-container .card {
   height: calc(100% - 20px) !important;
+}
+
+#soap-intro-container {
+  height: calc(100vh - 82px);
+  position: relative;
+  top: 62px;
+  margin-bottom: 20px;
+}
+
+#soap-intro-container .row {
+  height: 100%;
 }
