@@ -69,10 +69,7 @@ export default function Effect() {
   ));
 
   return (
-    <Row
-      className="justify-content-center mt-2 mb-2"
-      style={{ height: "77vh" }}
-    >
+    <Row className="justify-content-center">
       <Col xs={12} md={10} lg={9} style={{ overflow: "auto", height: "100%" }}>
         <Card
           style={{ maxWidth: "1030px", height: "fit-content" }}
