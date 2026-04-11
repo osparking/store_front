@@ -20,7 +20,6 @@ const SoapIntro = () => {
     <Container
       id="soap-intro-container"
       fluid
-      className="home-container"
       style={{ top: "62px" }}
     >
       <Tabs
