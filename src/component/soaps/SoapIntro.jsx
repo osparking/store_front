@@ -6,6 +6,8 @@ import Effect from "./Effect";
 import Ingredient from "./Ingredient";
 import ProduceSteps from "./ProduceSteps";
 import "./soapIntro.css";
+import "../user/userDashboard.css";
+import { useMediaQuery } from "react-responsive";
 
 const SoapIntro = () => {
   const handleSoapIntroTabSelect = (key) => {
@@ -16,35 +18,63 @@ const SoapIntro = () => {
     localStorage.getItem("SOAP_INTRO_TAB") || "effect",
   );
 
-  return (
-    <Container
-      id="soap-intro-container"
-      fluid
-      style={{ top: "62px" }}
-    >
-      <Tabs
-        defaultActiveKey={currTabKey}
-        className="tabBackgroundThick contentHolyCentered"
-        onSelect={handleSoapIntroTabSelect}
-      >
-        <Tab eventKey="effect" title={<h5 className="tabLabel">효능 소개</h5>}>
-          <Effect />
-        </Tab>
-        <Tab
-          eventKey="ingredient"
-          title={<h5 className="tabLabel">비누 재료</h5>}
+  const isMedium = useMediaQuery({ maxWidth: 768 });
+  const tabItems = [
+    {
+      key: "effect",
+      title: "효능 소개",
+      component: <Effect />,
+    },
+    { key: "ingredient", title: "비누 재료", component: <Ingredient /> },
+    {
+      key: "steps",
+      title: "제조 절차",
+      component: <ProduceSteps />,
+    },
+    { key: "shapes", title: "비누 외형", component: <BumShapes /> },
+  ];
+
+  if (isMedium) {
+    return (
+      <Container id="soap-intro-container" fluid style={{ top: "62px" }}>
+        <Tabs
+          defaultActiveKey={currTabKey}
+          className="tabBackgroundThick contentHolyCentered scrollable-tabs"
+          onSelect={handleSoapIntroTabSelect}
         >
-          <Ingredient />
-        </Tab>
-        <Tab eventKey="steps" title={<h5 className="tabLabel">제조 절차</h5>}>
-          <ProduceSteps />
-        </Tab>
-        <Tab eventKey="shapes" title={<h5 className="tabLabel">비누 외형</h5>}>
-          <BumShapes />
-        </Tab>
-      </Tabs>
-    </Container>
-  );
+          {tabItems.map((item) => (
+            <Tab
+              key={item.key}
+              eventKey={item.key}
+              title={<h5>{item.title}</h5>}
+            >
+              {item.component}
+            </Tab>
+          ))}
+        </Tabs>
+      </Container>
+    );
+  } else {
+    return (
+      <Container id="soap-intro-container" fluid style={{ top: "62px" }}>
+        <Tabs
+          defaultActiveKey={currTabKey}
+          className="tabBackgroundThick contentHolyCentered"
+          onSelect={handleSoapIntroTabSelect}
+        >
+          {tabItems.map((item) => (
+            <Tab
+              key={item.key}
+              eventKey={item.key}
+              title={<h5>{item.title}</h5>}
+            >
+              {item.component}
+            </Tab>
+          ))}
+        </Tabs>
+      </Container>
+    );
+  }
 };
 
 export default SoapIntro;
