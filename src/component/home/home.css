@@ -38,6 +38,11 @@
 
 /* 중형폭 미디어 */
 @media screen and (min-width: 577px) and (max-width: 992px) {
+  .home-container {
+    width: 80%;
+    padding: 0;
+  }
+
   .homeCol {
     width: 80vw;
     max-width: 500px;
@@ -45,20 +50,24 @@
   }
 
   .homeRow .card {
-    height: calc(100vh - 150px) !important;
+    height: 100% !important;
   }
 
   .homeCol .card-body {
-    height: calc(100vh - 505px);
+    height: calc(100vh - 200px);
     max-height: fit-content
   }
 
   .homeRow.row {
     max-height: none;
-    height: calc(100vh - 130px);
+    height: calc(100vh - 82px);
     margin-top: 0;
     margin-bottom: 8px;
     overflow: auto;
+  }
+
+  #homeRightCard {
+    margin-bottom: 0;
   }
 }
 
