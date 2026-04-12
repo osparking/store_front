@@ -14,21 +14,28 @@ function Footer() {
     >
       {isVisible && (
         <footer className="text-white bottomBar mt-auto me-0">
-          <Container fluid className="px-5 " style={{marginTop: "-6px"}}>
-            <Row>
-              <Col md={1}>
-                <h6></h6>
-              </Col>
-              <Col md={4}>
-                <h6>©{new Date().getFullYear()} 범이비누 - All rights reserved.</h6>
-              </Col>
-              <Col md={4}>
-                <h6>이메일 - jbpark03@gmail.com</h6>
-              </Col>
-              <Col md={3}>
-                <h6>휴대폰 - (010) 2899-9168</h6>
-              </Col>
-            </Row>
+          <Container fluid style={{ marginTop: "-6px" }}>
+            <div
+              style={{
+                overflowX: "auto",
+                whiteSpace: "nowrap",
+                height: "fit-content",
+              }}
+            >
+              <Row style={{ minWidth: "790px", flexWrap: "nowrap" }}>
+                <Col xs={5} md={5}>
+                  <h6>
+                    ©{new Date().getFullYear()} 범이비누 - All rights reserved.
+                  </h6>
+                </Col>
+                <Col xs={4} md={4}>
+                  <h6>이메일 - jbpark03@gmail.com</h6>
+                </Col>
+                <Col xs={3} md={3}>
+                  <h6>휴대폰 - (010) 2899-9168</h6>
+                </Col>
+              </Row>
+            </div>
           </Container>
         </footer>
       )}
