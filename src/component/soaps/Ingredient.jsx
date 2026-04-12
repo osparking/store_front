@@ -6,14 +6,15 @@ import IngredTabAccord from "./IngredTabAccord";
 
 const Ingredient = () => {
   return (
-    <Row className="justify-content-center mt-2">
-      <Col xs={12} md={10} lg={9} style={{ height: "fit-content" }}>
+    <Row className="justify-content-center">
+      <Col xs={12} md={10} lg={9} style={{ overflow: "auto", height: "100%" }}>
         <Card
-          style={{ maxWidth: "1030px", height: "fit-content" }}
+          id="ingredCard"
+          style={{ maxWidth: "1030px" }}
           className="mx-auto"
         >
-          <Card.Body className="pb-0">
-            <h2 className="mb-3" style={{ paddingLeft: 0 }}>
+          <Card.Body>
+            <h2 className="mb-1">
               <strong>재료 함량</strong>
               <br />
             </h2>
@@ -22,13 +23,12 @@ const Ingredient = () => {
             </p>
             <div
               style={{
-                maxHeight: "61vh",
                 maxWidth: "100%",
                 overflow: "auto",
               }}
               className="mx-auto"
             >
-              <IngredTabAccord ingAllData={ingAllData} keepOthersOpen={false} />
+              <IngredTabAccord ingAllData={ingAllData} keepOthersOpen={true} />
             </div>
           </Card.Body>
         </Card>
