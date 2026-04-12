@@ -1,6 +1,5 @@
-import { Col, Container, Row } from "react-bootstrap";
-import "./Footer.css";
 import { useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import "./Footer.css";
 
 function Footer() {
@@ -14,27 +13,41 @@ function Footer() {
     >
       {isVisible && (
         <footer className="text-white bottomBar mt-auto me-0">
-          <Container fluid style={{ marginTop: "-6px" }}>
+          <Container
+            fluid
+            style={{ display: "flex", justifyContent: "center" }}
+          >
             <div
               style={{
                 overflowX: "auto",
                 whiteSpace: "nowrap",
                 height: "fit-content",
+                scrollbarWidth: "thin",
+                scrollbarColor: "#888 #f1f1f1",
+                paddingBottom: "15px",
               }}
+              className="custom-scrollbar"
             >
-              <Row style={{ minWidth: "790px", flexWrap: "nowrap" }}>
-                <Col xs={5} md={5}>
-                  <h6>
-                    ©{new Date().getFullYear()} 범이비누 - All rights reserved.
-                  </h6>
-                </Col>
-                <Col xs={4} md={4}>
-                  <h6>이메일 - jbpark03@gmail.com</h6>
-                </Col>
-                <Col xs={3} md={3}>
-                  <h6>휴대폰 - (010) 2899-9168</h6>
-                </Col>
-              </Row>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(3, auto)",
+                  justifyContent: "center",
+                  gap: "clamp(30px, 10vw, 100px)", // Minimum 30px, grows with viewport
+                  fontSize: "13px",
+                  color: "#888",
+                  fontWeight: "bold",
+                  alignItems: "center",
+                  padding: "0 20px 1px", // Optional: add padding for edges
+                  minWidth: "max-content",
+                }}
+              >
+                <span>
+                  ©{new Date().getFullYear()} 범이비누 - All rights reserved
+                </span>
+                <span>이메일 - jbpark03@gmail.com</span>
+                <span>휴대폰 - (010) 2899-9168</span>
+              </div>
             </div>
           </Container>
         </footer>
