@@ -1,10 +1,6 @@
 .bottomBar {
-  padding-top: 10px;
-  background-color: rgb(61, 42, 42);
-}
-
-p {
-  margin-bottom: 8px;
+  padding-top: 3px;
+  background-color: var(--color-nav-home)
 }
 
 .bottom-bar-container {
@@ -36,4 +32,22 @@ p {
 .bottom-bar.visible {
   /* Target state: visible in the viewport */
   transform: translateY(0);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
