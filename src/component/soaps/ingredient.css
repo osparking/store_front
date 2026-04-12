@@ -19,3 +19,9 @@ h2.details {
   font-family: "Noto sans KR", Cambria, Cochin, Georgia, Times;
   font-size: 0.85em;
 }
+
+#soap-intro-container #ingredCard {
+  background-color: #fdf6e3;
+  max-height: calc(100% - 20px);
+  height: fit-content !important;
+}
