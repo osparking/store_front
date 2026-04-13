@@ -64,3 +64,7 @@ th {
 #ingredientTable img {
   width: 175px;
 }
+
+#ingredientTable {
+  margin-bottom: 0;
+}
