@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
+import { useMediaQuery } from "react-responsive";
 import "../../index.css";
+import "../user/userDashboard.css";
 import BumShapes from "./BumShapes";
 import Effect from "./Effect";
 import Ingredient from "./Ingredient";
 import ProduceSteps from "./ProduceSteps";
 import "./soapIntro.css";
-import "../user/userDashboard.css";
-import { useMediaQuery } from "react-responsive";
 
 const SoapIntro = () => {
   const handleSoapIntroTabSelect = (key) => {
@@ -18,7 +18,7 @@ const SoapIntro = () => {
     localStorage.getItem("SOAP_INTRO_TAB") || "effect",
   );
 
-  const isMedium = useMediaQuery({ maxWidth: 768 });
+  const isMedium = useMediaQuery({ maxWidth: 992 });
   const tabItems = [
     {
       key: "effect",
