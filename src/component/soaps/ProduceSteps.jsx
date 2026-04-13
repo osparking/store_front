@@ -253,16 +253,10 @@ const ProduceSteps = () => {
   const imageRoot = "/ingred";
 
   return (
-    <Row
-      className="justify-content-center mt-2 mb-2"
-      style={{ height: "77vh" }}
-    >
-      <Col xs={12} md={12} lg={8} style={{ overflow: "auto", height: "100%" }}>
-        <Card
-          style={{ maxWidth: "1030px", height: "fit-content" }}
-          className="mx-auto"
-        >
-          <Card.Body className="pb-0 mb-3">
+    <Row className="justify-content-center">
+      <Col xs={12} md={10} lg={9} style={{ overflow: "auto", height: "100%" }}>
+        <Card id="stepsCard" style={{ maxWidth: "1030px" }}>
+          <Card.Body>
             <h2 className="mb-1">
               <strong>제조 절차</strong>
             </h2>
@@ -299,7 +293,7 @@ const ProduceSteps = () => {
                       여기서 설명하는 것은 범이비누 104 개를 48 시간 주기로
                       제조하는 절차이다. <br />
                       <span className="WARNING">주의</span>- 3~11 단계는 비누의
-                      어성초 및 율무씨 분말 층에 대하여 각각 수행한다.
+                      어성초층 및 율무씨분말층에 대하여 반복 수행한다.
                     </div>
                   </td>
                 </tr>
