@@ -36,7 +36,7 @@ const SoapIntro = () => {
 
   if (isMedium) {
     return (
-      <Container id="soap-intro-container" fluid style={{ top: "62px" }}>
+      <Container id="soap-intro-container" fluid>
         <Tabs
           defaultActiveKey={currTabKey}
           className="tabBackgroundThick contentHolyCentered scrollable-tabs"
@@ -56,7 +56,7 @@ const SoapIntro = () => {
     );
   } else {
     return (
-      <Container id="soap-intro-container" fluid style={{ top: "62px" }}>
+      <Container id="soap-intro-container" fluid>
         <Tabs
           defaultActiveKey={currTabKey}
           className="tabBackgroundThick contentHolyCentered"
