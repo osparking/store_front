@@ -61,3 +61,21 @@ li img {
   width: 100%;
 }
 
+#stepsCard {
+  background-color: #fdf6e3;
+  max-height: calc(100vh - 155px) !important;
+  height: fit-content !important;
+}
+
+.stepInfo .h4.WARNING, .stepInfo .h4.INFO {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.stepInfo .h4.WARNING {  
+  background-color: pink;
+}
+
+.stepInfo .h4.INFO {
+  background-color: lightblue;
+}
