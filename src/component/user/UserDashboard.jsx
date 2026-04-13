@@ -76,8 +76,8 @@ const UserDashboard = () => {
     }
   };
 
-  const isVeryNarrow = useMediaQuery({ maxWidth: 480 });
-  const isMedium = useMediaQuery({ minWidth: 481, maxWidth: 768 });
+  const isVeryNarrow = useMediaQuery({ maxWidth: 576 });
+  const isMedium = useMediaQuery({ minWidth: 577, maxWidth: 992 });
   const tabItems = [
     {
       key: "profile",
