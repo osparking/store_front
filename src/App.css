@@ -283,7 +283,7 @@
 } */
 
 
-@media (max-width: 930px) {
+@media (max-width: 992px) {
   .chart-container {
     flex-basis: 100%;
     /* Full width on smaller screens */
