@@ -22,6 +22,21 @@ h2.details {
 
 #soap-intro-container #ingredCard {
   background-color: #fdf6e3;
-  max-height: calc(100% - 20px);
+  max-height: calc(100vh - 155px) !important;
   height: fit-content !important;
+}
+
+@media (max-width: 576px) or (orientation: portrait) {
+  #soap-intro-container #ingredCard {
+    width: calc(100vw - 24px);
+  }
+}
+
+@media (max-width: 576px) or (max-height: 576px) {
+  #soap-intro-container #ingredCard {
+    height: fit-content !important;
+    max-height: calc(100vh - 113px) !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
 }
