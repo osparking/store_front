@@ -35,7 +35,7 @@ export default function Effect() {
           <Row className="align-items-center">
             {" "}
             {/* Use align-items-center for vertical alignment */}
-            <Col xs={12} md={6}>
+            <Col xs={12} md={6} lg={6} className="effect-image">
               {" "}
               {/* Column for the image */}
               <Image
@@ -45,10 +45,10 @@ export default function Effect() {
                 className="mx-auto d-block"
               />
             </Col>
-            <Col xs={12} md={6}>
+            <Col xs={12} md={6} lg={6}>
               {" "}
               {/* Column for the paragraph */}
-              <p className="inline">
+              <p className="inline effect-ingred-text">
                 <b>{ingred.name}:</b>
                 <span style={ingredColor(ingred.name)}>
                   {" " + ingred.effect}
@@ -73,7 +73,7 @@ export default function Effect() {
       <Col xs={12} md={10} lg={9} style={{ overflow: "auto", height: "100%" }}>
         <Card
           style={{ maxWidth: "1030px", height: "fit-content" }}
-          className="mx-auto"
+          className="mx-auto effect-card"
         >
           <Card.Body>
             <h2 className="mb-1">
