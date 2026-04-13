@@ -22,7 +22,6 @@ li {
 }
 
 li p {
-  margin-left: 20px;
   display: inline-block;
   text-align: left;
 }
@@ -63,4 +62,28 @@ h2 {
 span.toTop {
   vertical-align: top;
   top: -10px;
+}
+
+@media (max-width: 992px) {  
+  .effect-card hr {
+    margin-top: 0;
+  }
+  #soap-intro-container .effect-image {
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 576px) or (max-height: 576px) {
+
+  #soap-intro-container .effect-card p.effect-ingred-text {
+    margin-left: 15px;
+  }
+
+  .effect-card ul {
+    padding-left: 0 !important;
+  }
+
+  .effect-card {
+    margin-top: 0 !important;
+  }
 }
