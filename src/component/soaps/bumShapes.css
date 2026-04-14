@@ -107,14 +107,13 @@ button {
 .tabFixOver {
   position: sticky !important;
   z-index: 200;
-  top: 0 !important;
+  top: -16px !important;
   margin-left: auto;
   margin-right: auto;
   border-bottom: "2px solid #dee2e6";
   background-color: lightgrey; 
 }
 
-.allIngred,
 .card,
 .card-body {
   overflow: auto !important;
