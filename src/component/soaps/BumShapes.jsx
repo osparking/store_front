@@ -43,17 +43,12 @@ const BumShapes = () => {
   }, [location.state]);
 
   return (
-<Row className="justify-content-center mt-2" style={{ height: "77vh" }}>
-  <Col
-    xs={12}
-    md={10}
-    lg={9}
-    style={{ overflow: "auto", height: "100%" }}
-  >
-    <Card
-      style={{ maxWidth: "1030px", height: "fit-content" }}
-      className="mx-auto"
-    >
+    <Row className="justify-content-center">
+      <Col xs={12} md={10} lg={9} style={{ overflow: "auto", height: "100%" }}>
+        <Card
+          style={{ maxWidth: "1030px", height: "fit-content" }}
+          className="mx-auto"
+        >
           <Card.Body>
             <h2 className="mb-1">
               <strong>비누 외형</strong>
@@ -165,13 +160,11 @@ const BumShapes = () => {
               activeKey={currTabKey}
               className="tabBackground tabHead tabFixOver contentHolyCentered"
               onSelect={handleSoapShapeSelect}
-              style={{ position: "sticky", top: "115px", zIndex: 2 }}
             >
               <Tab
                 eventKey="normalSoap"
                 className="carousel-container"
                 title={<h5>보통비누</h5>}
-                style={{ backgroundColor: "lightBlue" }}
               >
                 <SoapImages
                   soapImages={normalSoaps}
