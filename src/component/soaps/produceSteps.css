@@ -1,4 +1,6 @@
-table.stepInfo, tr, td {  
+table.stepInfo,
+tr,
+td {
   border: 1px solid black;
   border-collapse: collapse;
   margin-left: auto;
@@ -6,19 +8,23 @@ table.stepInfo, tr, td {
   position: relative;
 }
 
-td.WARNING, span.WARNING {
+td.WARNING,
+span.WARNING {
   color: red;
 }
 
-tbody tr, thead, li.stress {
+tbody tr,
+thead,
+li.stress {
   color: blue;
   margin: 0 .5em;
-  font-family: "Noto sans KR", Cambria, Cochin, Georgia, Times; 
+  font-family: "Noto sans KR", Cambria, Cochin, Georgia, Times;
 }
 
 thead {
   text-align: center;
 }
+
 td {
   padding: 0.5em;
   text-align: center;
@@ -39,14 +45,14 @@ img.ingredTabImg {
 
 tbody td.INFO {
   color: black;
-}q
+}
 
 ol ul {
   font-size: 0.9em;
   color: darkgreen;
 }
 
-ol > li {
+ol>li {
   margin-top: 1em;
   margin-bottom: .7em;
   font-size: 16px;
@@ -57,25 +63,57 @@ li img {
   border-radius: 10px;
 }
 
-.stepInfo, tr {  
+.stepInfo,
+tr {
   width: 100%;
 }
 
 #stepsCard {
   background-color: #fdf6e3;
-  max-height: calc(100vh - 155px) !important;
+  max-height: calc(100vh - 150px) !important;
   height: fit-content !important;
 }
 
-.stepInfo .h4.WARNING, .stepInfo .h4.INFO {
+.stepInfo .h4.WARNING,
+.stepInfo .h4.INFO {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-.stepInfo .h4.WARNING {  
+.stepInfo .h4.WARNING {
   background-color: pink;
 }
 
 .stepInfo .h4.INFO {
   background-color: lightblue;
+}
+
+#stepsCard .accordion-parent .accordion {
+  background-color: rgb(237, 245, 247);
+  padding: 0.35em 1em !important;
+}
+
+.accordion-parent {
+  border: 1px solid grey;
+}
+
+@media (max-width: 576px) or (orientation: portrait) {
+  #stepsCard {
+    width: calc(100vw - 24px);
+  }
+}
+
+@media (max-width: 576px) {
+  #stepsContainer {
+    overflow: auto;
+    width: calc(100vw - 58px);
+  }
+}
+
+@media (max-height: 576px) {
+  #stepsCard {
+    margin-top: 0 !important;
+    height: calc(100vh - 113px) !important;
+    max-height: calc(100vh - 113px) !important;
+  }
 }
