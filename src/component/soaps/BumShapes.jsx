@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Card, Col, Container, Row, Tab, Table, Tabs } from "react-bootstrap";
+import { useMediaQuery } from "react-responsive";
 import { useLocation } from "react-router-dom";
 import "./bumShapes.css";
 import { bgColor, indColor, soapImages } from "./soapImages.js";
@@ -41,6 +42,62 @@ const BumShapes = () => {
       }
     }
   }, [location.state]);
+
+  const isMedium = useMediaQuery({ maxWidth: 992 });
+  const tabItems = [
+    {
+      eventKey: "normalSoap",
+      title: "보통비누",
+      soapImages: normalSoaps,
+      bgColor: bgColor.normal,
+      indColor: indColor.normal,
+      heading: "보통비누",
+    },
+    {
+      eventKey: "sWhiteSoap",
+      title: "백설공주",
+      soapImages: sWhiteSoaps,
+      bgColor: bgColor.sWhite,
+      indColor: indColor.sWhite,
+      heading: "백설공주",
+    },
+    {
+      eventKey: "maejooSoap",
+      title: "메주비누",
+      soapImages: maejooSoaps,
+      bgColor: bgColor.maejoo,
+      indColor: "#a9b2bfff",
+      heading: "메주비누",
+    },
+    {
+      eventKey: "manage",
+      title: "사용방법",
+      soapImages: manageSoaps,
+      bgColor: "#4e5c80",
+      indColor: "#99a4c0ff",
+      heading: "사용 방법",
+    },
+  ];
+
+  const TabContents = () => {
+    return tabItems.map((item) => (
+      <Tab
+        key={item.key}
+        eventKey={item.eventKey}
+        // className="carousel-container"
+        title={<h5>{item.title}</h5>}
+      >
+        <SoapImages
+          soapImages={item.soapImages}
+          bgColor={item.bgColor}
+          indColor={item.indColor}
+          heading={item.heading}
+        />
+      </Tab>
+    ));
+  };
+
+  const classes = "tabBackground tabHead tabFixOver contentHolyCentered";
 
   return (
     <Row className="justify-content-center">
@@ -154,49 +211,14 @@ const BumShapes = () => {
               </Row>
             </Container>
             <Tabs
-              id="soapImages"
+              id="scrollable-tabs"
               ref={imageRowRef}
               defaultActiveKey={currTabKey}
               activeKey={currTabKey}
-              className="tabBackground tabHead tabFixOver contentHolyCentered"
+              className={`${classes} ${isMedium ? "scrollable-tabs" : ""}`}
               onSelect={handleSoapShapeSelect}
             >
-              <Tab
-                eventKey="normalSoap"
-                className="carousel-container"
-                title={<h5>보통비누</h5>}
-              >
-                <SoapImages
-                  soapImages={normalSoaps}
-                  bgColor={bgColor.normal}
-                  indColor={indColor.normal}
-                  heading="보통비누"
-                />
-              </Tab>
-              <Tab eventKey="sWhiteSoap" title={<h5>백설공주</h5>}>
-                <SoapImages
-                  soapImages={sWhiteSoaps}
-                  bgColor={bgColor.sWhite}
-                  indColor={indColor.sWhite}
-                  heading="백설공주"
-                />
-              </Tab>
-              <Tab eventKey="maejooSoap" title={<h5>메주비누</h5>}>
-                <SoapImages
-                  soapImages={maejooSoaps}
-                  bgColor={bgColor.maejoo}
-                  indColor="#a9b2bfff"
-                  heading="메주비누"
-                />
-              </Tab>
-              <Tab eventKey="manage" title={<h5>사용방법</h5>}>
-                <SoapImages
-                  soapImages={manageSoaps}
-                  bgColor="#4e5c80"
-                  indColor="#99a4c0ff"
-                  heading="사용 방법"
-                />
-              </Tab>
+              {TabContents()}
             </Tabs>
           </Card.Body>
         </Card>
