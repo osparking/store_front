@@ -27,13 +27,8 @@ const SoapImages = ({ soapImages, bgColor, indColor, heading }) => {
   const [slide, setSlide] = useState(0);
 
   return (
-    <Row className="justify-content-center allIngred pt-3 m-0">
-      <Col md={8}>
-        <h5 className="ps-0 mb-4" id="normal-soap">
-          <strong>
-            {heading} 영상 - {soapImages.length} 개
-          </strong>
-        </h5>
+    <Row className="justify-content-center pt-3 m-0">
+      <Col md={10}>
         <SoapCarousel
           soapImages={soapImages}
           bgColor={bgColor}
