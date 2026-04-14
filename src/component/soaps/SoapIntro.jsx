@@ -34,47 +34,23 @@ const SoapIntro = () => {
     { key: "shapes", title: "비누 외형", component: <BumShapes /> },
   ];
 
-  if (isMedium) {
-    return (
-      <Container id="soap-intro-container" fluid>
-        <Tabs
-          defaultActiveKey={currTabKey}
-          className="tabBackgroundThick contentHolyCentered scrollable-tabs"
-          onSelect={handleSoapIntroTabSelect}
-        >
-          {tabItems.map((item) => (
-            <Tab
-              key={item.key}
-              eventKey={item.key}
-              title={<h5>{item.title}</h5>}
-            >
-              {item.component}
-            </Tab>
-          ))}
-        </Tabs>
-      </Container>
-    );
-  } else {
-    return (
-      <Container id="soap-intro-container" fluid>
-        <Tabs
-          defaultActiveKey={currTabKey}
-          className="tabBackgroundThick contentHolyCentered"
-          onSelect={handleSoapIntroTabSelect}
-        >
-          {tabItems.map((item) => (
-            <Tab
-              key={item.key}
-              eventKey={item.key}
-              title={<h5>{item.title}</h5>}
-            >
-              {item.component}
-            </Tab>
-          ))}
-        </Tabs>
-      </Container>
-    );
-  }
+  const classes = "tabBackgroundThick contentHolyCentered";
+
+  return (
+    <Container id="soap-intro-container" fluid>
+      <Tabs
+        defaultActiveKey={currTabKey}
+        className={`${classes} ${isMedium ? "scrollable-tabs" : ""}`}
+        onSelect={handleSoapIntroTabSelect}
+      >
+        {tabItems.map((item) => (
+          <Tab key={item.key} eventKey={item.key} title={<h5>{item.title}</h5>}>
+            {item.component}
+          </Tab>
+        ))}
+      </Tabs>
+    </Container>
+  );
 };
 
 export default SoapIntro;
