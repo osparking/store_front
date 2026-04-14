@@ -260,46 +260,50 @@ const ProduceSteps = () => {
             <h2 className="mb-1">
               <strong>제조 절차</strong>
             </h2>
-            <table className="stepInfo mt-3">
-              <thead>
-                <tr>
-                  <td className="WARNING h4">경고</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <div className="ms-2 me-2">
-                      작업자는 비누 생산 절차 중{" "}
-                      <span className="WARNING">가성소다수</span>
-                      (별칭 <span className="WARNING">양잿물</span>)를 만들어
-                      사용하므로, 작업 중 심한 화상 등 부작용 방지를 위하여,
-                      지정된 장비를 착용하고, 작업 지침을 준수해야 된다.
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <table className="stepInfo mt-3">
-              <thead>
-                <tr>
-                  <td className="INFO h4">적용 범위</td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="INFO">
-                    <div className="ms-2 me-2">
-                      여기서 설명하는 것은 범이비누 104 개를 48 시간 주기로
-                      제조하는 절차이다. <br />
-                      <span className="WARNING">주의</span>- 3~11 단계는 비누의
-                      어성초층 및 율무씨분말층에 대하여 반복 수행한다.
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <Produce14steps stepsInfo={stepsInfo} keepOthersOpen={true} />
+            <div id="stepsContainer">
+              <table className="stepInfo mt-3">
+                <thead>
+                  <tr>
+                    <td className="WARNING h4">경고</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div className="ms-2 me-2">
+                        작업자는 비누 생산 절차 중{" "}
+                        <span className="WARNING">가성소다수</span>
+                        (별칭 <span className="WARNING">양잿물</span>)를 만들어
+                        사용하므로, 작업 중 심한 화상 등 부작용 방지를 위하여,
+                        지정된 장비를 착용하고, 작업 지침을 준수해야 된다.
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table className="stepInfo mt-3">
+                <thead>
+                  <tr>
+                    <td className="INFO h4">적용 범위</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="INFO">
+                      <div className="ms-2 me-2">
+                        여기서 설명하는 것은 범이비누 104 개를 48 시간 주기로
+                        제조하는 절차이다. <br />
+                        <span className="WARNING">주의</span>- 3~11 단계는
+                        비누의 어성초층 및 율무씨분말층에 대하여 반복 수행한다.
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div style={{ width: "100%", overflow: "auto" }}>
+                <Produce14steps stepsInfo={stepsInfo} keepOthersOpen={true} />
+              </div>
+            </div>
           </Card.Body>
         </Card>
       </Col>
