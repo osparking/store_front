@@ -1,5 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { Card, Col, Container, Row, Tab, Table, Tabs } from "react-bootstrap";
+import {
+  Card,
+  Col,
+  Container,
+  Dropdown,
+  Row,
+  Tab,
+  Table,
+  Tabs,
+} from "react-bootstrap";
 import { useMediaQuery } from "react-responsive";
 import { useLocation } from "react-router-dom";
 import "./bumShapes.css";
@@ -12,12 +21,12 @@ const BumShapes = () => {
   const maejooSoaps = soapImages.filter((soap) => soap.shape === "maejoo");
   const manageSoaps = soapImages.filter((soap) => soap.shape === "manage");
 
-  const handleSoapShapeSelect = (key) => {
-    setCurrTabKey(key);
-    localStorage.setItem("SOAP_SHAPE_TAB", key);
+  const handleSoapShapeSelect = (eventKey) => {
+    localStorage.setItem("SOAP_SHAPE_TAB", eventKey);
+    setShapeKey(eventKey);
   };
 
-  const [currTabKey, setCurrTabKey] = useState(
+  const [shapeKey, setShapeKey] = useState(
     localStorage.getItem("SOAP_SHAPE_TAB") || "normalSoap",
   );
 
@@ -44,60 +53,109 @@ const BumShapes = () => {
   }, [location.state]);
 
   const isMedium = useMediaQuery({ maxWidth: 992 });
-  const tabItems = [
+  const shapeProps = [
     {
       eventKey: "normalSoap",
       title: "보통비누",
-      soapImages: normalSoaps,
-      bgColor: bgColor.normal,
-      indColor: indColor.normal,
-      heading: "보통비누",
+      component: (
+        <SoapImages
+          soapImages={normalSoaps}
+          bgColor={bgColor.normal}
+          indColor={indColor.normal}
+          heading="보통비누"
+        />
+      ),
     },
     {
       eventKey: "sWhiteSoap",
       title: "백설공주",
-      soapImages: sWhiteSoaps,
-      bgColor: bgColor.sWhite,
-      indColor: indColor.sWhite,
-      heading: "백설공주",
+      component: (
+        <SoapImages
+          soapImages={sWhiteSoaps}
+          bgColor={bgColor.sWhite}
+          indColor={indColor.sWhite}
+          heading="백설공주"
+        />
+      ),
     },
     {
       eventKey: "maejooSoap",
       title: "메주비누",
-      soapImages: maejooSoaps,
-      bgColor: bgColor.maejoo,
-      indColor: "#a9b2bfff",
-      heading: "메주비누",
+      component: (
+        <SoapImages
+          soapImages={maejooSoaps}
+          bgColor={bgColor.maejoo}
+          indColor="#a9b2bfff"
+          heading="메주비누"
+        />
+      ),
     },
     {
       eventKey: "manage",
       title: "사용방법",
-      soapImages: manageSoaps,
-      bgColor: "#4e5c80",
-      indColor: "#99a4c0ff",
-      heading: "사용 방법",
+      component: (
+        <SoapImages
+          soapImages={manageSoaps}
+          bgColor="#4e5c80"
+          indColor="#99a4c0ff"
+          heading="사용 방법"
+        />
+      ),
     },
   ];
 
-  const TabContents = () => {
-    return tabItems.map((item) => (
+  const isVeryShort = useMediaQuery({ maxHeight: 576 });
+
+  const currentShape = shapeProps.find(
+    (shapeProp) => shapeProp.eventKey === shapeKey,
+  )?.component;
+
+  const getImageTabContent = (shape) => {
+    return (
       <Tab
-        key={item.key}
-        eventKey={item.eventKey}
-        // className="carousel-container"
-        title={<h5>{item.title}</h5>}
+        key={shape.eventKey}
+        eventKey={shape.eventKey}
+        title={<h5>{shape.title}</h5>}
       >
-        <SoapImages
-          soapImages={item.soapImages}
-          bgColor={item.bgColor}
-          indColor={item.indColor}
-          heading={item.heading}
-        />
+        {shape.component}
       </Tab>
-    ));
+    );
   };
 
   const classes = "tabBackground tabHead tabFixOver contentHolyCentered";
+
+  const SoapShapeCarouselWithHamburger = () => {
+    return (
+      <>
+        <div
+          className="mobile-tab-header"
+          style={{ position: "sticky", top: 0 }}
+        >
+          <Dropdown>
+            <Dropdown.Toggle
+              variant="outline-primary"
+              className="hamburger-menu"
+            >
+              ☰{" "}
+              {shapeProps.find((shape) => shape.eventKey === shapeKey)?.title}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {shapeProps.map((shape) => (
+                <Dropdown.Item
+                  key={shape.eventKey}
+                  active={shapeKey === shape.eventKey}
+                  onClick={() => handleSoapShapeSelect(shape.eventKey)}
+                >
+                  {shape.title}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+        <div className="mobile-tab-content">{currentShape}</div>
+      </>
+    );
+  };
 
   return (
     <Row className="justify-content-center">
@@ -132,7 +190,6 @@ const BumShapes = () => {
                 있습니다.
               </li>
             </ul>
-
             <Container>
               <Row style={{ justifyContent: "center" }}>
                 <Col xs={12} md={10} lg={9} xl={8}>
@@ -210,16 +267,21 @@ const BumShapes = () => {
                 </Col>
               </Row>
             </Container>
-            <Tabs
-              id="scrollable-tabs"
-              ref={imageRowRef}
-              defaultActiveKey={currTabKey}
-              activeKey={currTabKey}
-              className={`${classes} ${isMedium ? "scrollable-tabs" : ""}`}
-              onSelect={handleSoapShapeSelect}
-            >
-              {TabContents()}
-            </Tabs>
+
+            {isVeryShort ? (
+              <SoapShapeCarouselWithHamburger />
+            ) : (
+              <Tabs
+                id="scrollable-tabs"
+                ref={imageRowRef}
+                defaultActiveKey={shapeKey}
+                activeKey={shapeKey}
+                className={`${classes} ${isMedium ? "scrollable-tabs" : ""}`}
+                onSelect={handleSoapShapeSelect}
+              >
+                {shapeProps.map((shape) => getImageTabContent(shape))}
+              </Tabs>
+            )}
           </Card.Body>
         </Card>
       </Col>
