@@ -132,4 +132,9 @@ figure,
   .card {
     margin-top: 0;
   }
+
+  .dropdown {
+    color: yellow;
+    background-color: darkslategray;
+  }
 }
