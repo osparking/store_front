@@ -131,10 +131,21 @@ figure,
 @media screen and (max-height: 576px) {
   .card {
     margin-top: 0;
+    margin-bottom: 8px !important;
   }
 
   .dropdown {
     color: yellow;
     background-color: darkslategray;
+  }
+
+  .col-md-10 {
+    width: 100% !important;
+    margin: 0 100px;
+  }
+
+  .mobile-tab-header {
+    width: 150px;
+    z-index: 200;
   }
 }
