@@ -28,7 +28,7 @@
   }
 }
 
-@media (max-width: 576px) or (max-height: 576px) {
+@media (max-height: 576px) {
   .scrollable-tabs.nav-tabs {
     margin-left: 0 !important;
   }
