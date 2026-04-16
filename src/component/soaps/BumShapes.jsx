@@ -159,11 +159,15 @@ const BumShapes = () => {
 
   return (
     <Row className="justify-content-center">
-      <Col xs={12} md={10} lg={9} style={{ overflow: "auto", height: "100%" }}>
-        <Card
-          style={{ maxWidth: "1030px", height: "fit-content" }}
-          className="mx-auto"
-        >
+      <Col
+        xs={12}
+        md={10}
+        lg={9}
+        style={{
+          height: "100%",
+        }}
+      >
+        <Card style={{ maxWidth: "1030px", height: "fit-content" }}>
           <Card.Body>
             <h2 className="mb-1">
               <strong>비누 외형</strong>
