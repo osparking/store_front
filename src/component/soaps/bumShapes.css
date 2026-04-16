@@ -148,4 +148,35 @@ figure,
     width: 150px;
     z-index: 200;
   }
+
+  .navbar {
+    padding: 0;
+  }
+
+  .mobile-tab-content {
+    padding: 0;
+    overflow-y: unset !important;
+  }
+
+  .slide.carousel {
+    height: 280px !important;
+  }
+
+  .card {
+    padding: 0;
+  }
+
+  .carousel-container {
+    position: sticky;
+    top: 0;
+  }
+
+  .soapIntro.dropdown {
+    background-color: var(--color-modal);
+  }
+
+  .soapIntro .hamburger-menu.btn {
+    color: rgb(0, 0, 0);
+    font-weight: bold !important;
+  }
 }
