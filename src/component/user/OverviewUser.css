@@ -40,7 +40,6 @@ tspan {
   margin: 0 0 1.5rem !important;
   width: 100vw;
   max-width: fit-content;
-  height: 400px;
   overflow: auto;
 }
 
