@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Container, Tab, Tabs } from "react-bootstrap";
+import { Container, Dropdown, Tab, Tabs } from "react-bootstrap";
 import { useMediaQuery } from "react-responsive";
 import "../../index.css";
 import "../user/userDashboard.css";
@@ -35,6 +35,44 @@ const SoapIntro = () => {
   ];
 
   const classes = "tabBackgroundThick contentHolyCentered";
+    
+  const isVeryShort = useMediaQuery({ maxHeight: 576 });
+  const currentComponent = tabItems.find(
+    (item) => item.key === currTabKey,
+  )?.component;
+
+  if (isVeryShort) {
+    return (
+      <Container id="soap-intro-container" fluid>
+        <div
+          className="mobile-tab-header"
+          style={{ position: "fixed", top: "44px", right: "40px" }}
+        >
+          <Dropdown className="soapIntro">
+            <Dropdown.Toggle
+              variant="outline-primary"
+              className="hamburger-menu"
+            >
+              ☰ {tabItems.find((item) => item.key === currTabKey)?.title}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {tabItems.map((item) => (
+                <Dropdown.Item
+                  key={item.key}
+                  active={currTabKey === item.key}
+                  onClick={() => setCurrTabKey(item.key)}
+                >
+                  {item.title}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+
+        <div className="mobile-tab-content">{currentComponent}</div>
+      </Container>
+    );
+  }
 
   return (
     <Container id="soap-intro-container" fluid>
