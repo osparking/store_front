@@ -77,6 +77,7 @@ const UserDashboard = () => {
   };
 
   const isVeryNarrow = useMediaQuery({ maxWidth: 576 });
+  const isVeryShort = useMediaQuery({ maxHeight: 576 });
   const isMedium = useMediaQuery({ minWidth: 577, maxWidth: 992 });
   const tabItems = [
     {
@@ -100,7 +101,7 @@ const UserDashboard = () => {
     (item) => item.key === activeKey,
   )?.component;
 
-  if (isVeryNarrow) {
+  if (isVeryNarrow || isVeryShort) {
     return (
       <Container fluid className="home-container user-dashboard">
         <div className="mobile-tab-header">
