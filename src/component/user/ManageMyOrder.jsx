@@ -12,9 +12,9 @@ const ManageMyOrder = () => {
   return (
     <div
       className="justify-content-center align-items-center"
-      style={{ display: "flex", overflow: "auto", width: "100vw" }}
+      style={{ display: "flex", overflow: "auto", width: "100%" }}
     >
-      <Card className="tableCard" style={{ margin: "28px 0" }}>
+      <Card className="tableCard">
         <Card.Body style={{ width: "100%" }}>
           <h2 className="mb-1 ps-0">
             <strong>{showDetail ? "주문 상세" : "나의 주문"}</strong>

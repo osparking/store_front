@@ -7,12 +7,12 @@ import {
   patchOrderReview,
 } from "../../buy/orderService";
 import Paginator from "../../common/Paginator";
+import "../../home/home.css";
 import "../../pay_toss/MyOrdersPage.css";
 import ReviewModal from "../../review/ReviewModal";
 import { getRecordRange } from "../../util/utilities";
 import "./MyReviewsPage.css";
 import MyReviewsTable from "./MyReviewsTable";
-import "../../home/home.css";
 
 const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
   const [totalPages, setTotalPages] = useState(1);
