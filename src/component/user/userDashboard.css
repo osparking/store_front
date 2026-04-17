@@ -73,6 +73,86 @@ div.home-container.user-dashboard {
     height: 100%;
     margin-top: 0;
   }
+  
+  .tableCard.card {
+    margin: 40px 0 !important;
+  }
+}
+
+.dropdown {
+  color: yellow;
+  background-color: darkslategray;
+}
+
+.mobile-tab-header {
+  position: absolute;
+  top: -2px;
+  right: 0;
+  width: 150px;
+  z-index: 200;
+}
+
+@media screen and (max-height: 576px) {
+  div.home-container.user-dashboard {
+    width: 100%;
+    padding: 0 12px;
+    top: 46px;
+    height: calc(100vh - 46px) !important;
+  }
+
+  .card {
+    margin-top: 5px !important;
+    margin-bottom: 8px !important;
+    padding: 0;
+    width: calc(100vw - 24px) !important;
+    height: calc(100vh - 56px) !important;
+  }
+
+  .dropdown {
+    color: yellow;
+    background-color: darkslategray;
+  }
+
+  .col-md-10 {
+    width: 100% !important;
+    margin: 0 100px;
+  }
+
+  .mobile-tab-header {
+    position: absolute;
+    top: -2px;
+    right: 40px;
+    width: 150px;
+    z-index: 200;
+  }
+
+  .navbar {
+    padding: 0;
+  }
+
+  .mobile-tab-content {
+    padding: 0;
+    overflow-y: unset !important;
+    height: calc(100% - 50px) !important;
+  }
+
+  .slide.carousel {
+    height: 280px !important;
+  }
+
+  .carousel-container {
+    position: sticky;
+    top: 0;
+  }
+
+  .soapIntro.dropdown {
+    background-color: var(--color-modal);
+  }
+
+  .soapIntro .hamburger-menu.btn {
+    color: rgb(0, 0, 0);
+    font-weight: bold !important;
+  }
 }
 
 .mobile-tab-header {
