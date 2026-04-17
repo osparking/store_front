@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Cell, Legend, Pie, PieChart, Sector, Tooltip } from "recharts";
+import { Legend, Pie, PieChart, Sector, Tooltip } from "recharts";
 import NoDataExists from "../../common/NoDataExists";
 import useColorMapping from "../../hook/ColorMapping";
 import { getShapeCount } from "../../user/UserService";
@@ -36,8 +36,8 @@ const SoapsByShape = ({ totalSoaps }) => {
         <NoDataExists dataType={""} />
       ) : (
         <PieChart
-          width={328}
-          height={220}
+          width={"100%"}
+          height={"250px"}
           className="p-3 userSoapShapeChartBackground"
         >
           <Pie

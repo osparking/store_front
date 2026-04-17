@@ -24,8 +24,8 @@ const SoapsByMonth = ({ totalSoaps, soapsMonth }) => {
       </h5>
       {totalSoaps > 0 ? (
         <BarChart
-          width={328}
-          height={220}
+          width={"100%"}
+          height={"250px"}
           data={soapsMonth}
           style={{ backgroundColor: "white" }}
         >
