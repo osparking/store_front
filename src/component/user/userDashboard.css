@@ -31,9 +31,11 @@ h5 {
   height: calc(100% - 51px);
 }
 
-.home-container.user-dashboard {
+div.home-container.user-dashboard {
   background-color: rgba(34, 28, 8, 0.7);
   padding: 0;
+  min-height: calc(100vh - 62px) !important;
+  height: fit-content !important;
 }
 
 .tableNmodal {
