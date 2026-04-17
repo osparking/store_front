@@ -132,6 +132,7 @@ figure,
   .card {
     margin-top: 0;
     margin-bottom: 8px !important;
+    padding: 0;
   }
 
   .dropdown {
@@ -160,10 +161,6 @@ figure,
 
   .slide.carousel {
     height: 280px !important;
-  }
-
-  .card {
-    padding: 0;
   }
 
   .carousel-container {
