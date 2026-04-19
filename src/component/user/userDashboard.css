@@ -92,15 +92,19 @@ div.home-container.user-dashboard {
     width: 100%;
     padding: 0 12px;
     top: 46px;
-    height: calc(100vh - 46px) !important;
+    height: fit-content !important;
+    min-height: calc(100vh - 46px) !important;    
   }
-
+  
+  .chartUser.card {
+    height: fit-content !important;
+  }
+  
   .card {
     margin-top: 5px !important;
     margin-bottom: 8px !important;
     padding: 0;
-    width: calc(100vw - 24px) !important;
-    height: calc(100vh - 56px) !important;
+    height: calc(100vh - 76px) !important;
   }
 
   .dropdown {
@@ -167,8 +171,16 @@ div.home-container.user-dashboard {
   padding: 1rem 0;
 }
 
+.MuiGrid-root {
+  justify-content: center;
+  display: flex;
+}
+
 /* For React-Bootstrap Tabs */
 .scrollable-tabs.nav-tabs {
+  position: sticky;
+  top: 62px;
+  z-index: 1;
   flex-wrap: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
