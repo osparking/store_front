@@ -34,16 +34,46 @@ tspan {
 }
 
 .chartUser {
-  min-width: 370px !important;
+  min-width: 350px !important;
+  max-width: 350px !important;
 }
 
 .chartUserCol {
   margin: 0 0 1.5rem !important;
   width: 100vw;
   max-width: fit-content;
-  overflow: auto;
 }
 
-.userSoapShapeChartBackground {
-    background-color: var(--color-chart-background) ;
+.chartUser .chart-container {
+  margin: 10px 0 0 0 !important;
+}
+
+.userChartBackground {
+  background-color: var(--color-chart-background);
+}
+
+
+@media screen and (max-width: 576px) or (max-height: 576px) {
+  .chartUserCol {
+    width: 350px;
+    max-width: 90%;
+  }
+
+  .mobile-tab-header {
+    position: sticky;
+    top: 62px;
+    left: calc(100vw - 155px);
+    z-index: 1;
+  }
+
+  #chartMonth {
+    margin-top: 0 !important;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  #chartShape {
+    margin-top: 10px !important;
+    margin-bottom: 20px !important;
+  }
 }
