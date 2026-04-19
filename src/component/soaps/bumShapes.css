@@ -128,6 +128,26 @@ figure,
   margin-bottom: 10px !important;
 }
 
+@media screen and (max-width: 576px) {
+  .dropdown {
+    color: yellow;
+    background-color: darkslategray;
+  }
+
+  .chartUser.card {
+    margin-top: 40px !important;
+    margin-bottom: 0;
+  }
+
+  .chartUserCol:first-of-type {
+    margin-bottom: 0 !important;
+  }
+
+  .carousel-container-prev, .carousel-container-next {
+    display: none;
+  }
+}
+
 @media screen and (max-height: 576px) {
   .card {
     margin-top: 0;
