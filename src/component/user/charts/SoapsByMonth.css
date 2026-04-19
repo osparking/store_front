@@ -1,0 +1,29 @@
+.recharts-legend-wrapper {
+    width: 100%;
+}
+
+.byMonth .recharts-legend-icon {
+    color: #ccec99;
+    fill: #ccec99;
+}
+
+.byMonth .recharts-rectangle {
+    fill: #ccec99;
+}
+
+@media screen and (max-height: 576px) {
+    .recharts-legend-wrapper {
+        width: 100%;
+        height: 30px;
+    }
+
+    .recharts-wrapper {
+        height: 250px !important;
+    }
+
+    .chartUser.card {
+        padding: 1em;
+        width: 350px;
+        margin: 2em;
+    }
+}
