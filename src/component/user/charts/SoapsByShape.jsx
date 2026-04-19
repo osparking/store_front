@@ -38,7 +38,7 @@ const SoapsByShape = ({ totalSoaps }) => {
         <PieChart
           width={"100%"}
           height={"250px"}
-          className="p-3 userSoapShapeChartBackground"
+          className="p-1 userChartBackground"
         >
           <Pie
             data={shapeCount}
@@ -47,7 +47,7 @@ const SoapsByShape = ({ totalSoaps }) => {
             label={({ shapeLabel, count, percent }) =>
               `수량: ${Math.trunc(count)} (${(percent * 100).toFixed(0)}%)`
             }
-            outerRadius={60}
+            outerRadius={45}
             fill="#8884d8"
             shape={(props) => {
               const { index, ...restProps } = props;
