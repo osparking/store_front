@@ -9,6 +9,7 @@ import { getSoapsMonthUser } from "./UserService";
 
 import SoapsByMonth from "./charts/SoapsByMonth";
 import SoapsByShape from "./charts/SoapsByShape";
+import Grid from "@mui/material/Grid";
 
 const OverviewUser = () => {
   const [soapsMonth, setSoapsMonth] = useState([]);
@@ -76,13 +77,9 @@ const OverviewUser = () => {
   }, []);
 
   return (
-    <Row
-      id="overviewUser"
-      className="justify-content-center chart-row mt-2 mb-1"
-      style={{ height: "fit-content" }}
-    >
-      <Col lg={5} md={6} xs={12} className="chartUserCol">
-        <Card className="chartUser">
+    <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+      <Grid size={{ xs: 12, sm: 12, md: 6 }}>
+        <Card id="chartMonth" className="chartUser">
           <CardCompo
             label={"최근 6 개월 구매 합계"}
             count={totalSoaps}
@@ -90,15 +87,15 @@ const OverviewUser = () => {
           />
           <div className="chart-container">
             {soapsMonth && soapsMonth.length > 0 && (
-              <div className="chartDiv">
+              <div className="chartDiv byMonth">
                 <SoapsByMonth totalSoaps={totalSoaps} soapsMonth={soapsMonth} />
               </div>
             )}
           </div>
         </Card>
-      </Col>
-      <Col lg={5} md={6} xs={12} className="chartUserCol">
-        <Card className="chartUser">
+      </Grid>
+      <Grid size={{ xs: 12, sm: 12, md: 6 }}>
+        <Card id="chartShape" className="chartUser">
           <CardCompo
             label={"최근 6 개월 구매 외형 비중"}
             count={totalSoaps}
@@ -110,8 +107,8 @@ const OverviewUser = () => {
             </div>
           </div>
         </Card>
-      </Col>
-    </Row>
+      </Grid>
+    </Grid>
   );
 };
 
