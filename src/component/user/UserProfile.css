@@ -1,10 +1,10 @@
-.profileItems > .card-body {
+.profileItems>.card-body {
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
 .setBorder {
-  background-color:pink !important;
+  background-color: pink !important;
 }
 
 #userProfile td {
@@ -29,10 +29,17 @@
 
 #switch-2FA {
   padding: 0;
-  text-align:start;
+  text-align: start;
   background-color: pink;
 }
 
 #legendBlock {
   width: 38px !important;
+}
+
+@media (max-width: 575px) {
+  .home-container .card {
+    margin-top: 40px !important;
+    margin-bottom: 0 !important;
+  }
 }
