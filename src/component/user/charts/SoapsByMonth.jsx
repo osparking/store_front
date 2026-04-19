@@ -9,6 +9,8 @@ import {
   YAxis,
 } from "recharts";
 import NoDataExists from "../../common/NoDataExists";
+import "./SoapsByMonth.css";
+import "../../user/OverviewUser.css";
 
 const SoapsByMonth = ({ totalSoaps, soapsMonth }) => {
   return (
@@ -27,7 +29,7 @@ const SoapsByMonth = ({ totalSoaps, soapsMonth }) => {
           width={"100%"}
           height={"250px"}
           data={soapsMonth}
-          style={{ backgroundColor: "white" }}
+          className="p-3 userChartBackground"
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="month" angle={-30} textAnchor="end" height={70} />
