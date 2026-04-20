@@ -53,8 +53,31 @@ div.home-container.user-dashboard {
   margin-top: 28px;
 }
 
+/* 소형높이 미디어 */
+@media screen and (max-height: 576px) {
+  .mobile-tab-header {
+    position: sticky !important;
+    top: 46px !important;
+    margin-left: calc(100vw - 200px) !important;
+    width: 150px;
+    z-index: 200;
+  }
+
+  #chartMonth, #chartShape, #passwordCard, #userInfoCard {
+    top: -41px !important;
+  }
+}
+
 /* 소형폭 미디어 */
 @media screen and (max-width: 576px) {
+  .mobile-tab-header {
+    position: sticky !important;
+    top: 62px !important;
+    margin-left: calc(100vw - 150px) !important;
+    width: 150px;
+    z-index: 200;
+  }
+
   .main-content {
     height: 100%;
   }
@@ -71,9 +94,9 @@ div.home-container.user-dashboard {
 
   .user-dashboard .tableCard {
     height: 100%;
-    margin-top: 0;
+    margin-top: 0 !important;
   }
-  
+
   .tableCard.card {
     margin: 40px 0 !important;
   }
@@ -93,18 +116,18 @@ div.home-container.user-dashboard {
     padding: 0 12px;
     top: 46px;
     height: fit-content !important;
-    min-height: calc(100vh - 46px) !important;    
+    min-height: calc(100vh - 46px) !important;
   }
-  
+
   .chartUser.card {
     height: fit-content !important;
   }
-  
+
   .card {
     margin-top: 5px !important;
     margin-bottom: 8px !important;
     padding: 0;
-    height: calc(100vh - 76px) !important;
+    height: fit-content !important;
   }
 
   .dropdown {
