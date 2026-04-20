@@ -261,9 +261,9 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
         deleting={false}
       />
       <div style={{ width: "100%", maxWidth: "90vw", margin: "0 auto" }}>
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          <Grid size={{ xs: 12, sm: 12, md: 3, lg: 3 }}>{PasswordCard()}</Grid>
-          <Grid size={{ xs: 12, sm: 12, md: 9, lg: 9 }}>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, md: 2 }}>
+          <Grid size={{ xs: 12, md: 3 }}>{PasswordCard()}</Grid>
+          <Grid size={{ xs: 12, md: 9 }}>
             {UserInfoCard()}
             {showQrCode && (
               <QRcodeBox
