@@ -38,10 +38,10 @@ const Home = () => {
               variant="top"
               src={olive_label}
               alt="엑스트라 버진 올리브 오일"
-              className="hero-image"
+              className="hero-image mb-3"
             />
-            <Card.Body>
-              <Card.Title>소중한 피부의 친구~</Card.Title>
+            <Card.Title className="mt-2">소중한 피부의 친구~</Card.Title>
+            <Card.Body className="pt-0">
               <Card.Text>
                 제가 어떤 수제비누를 관광지 해변 휴게실 근처 좌판대에서 만난
                 것은 2019년 봄이었을 겁니다. 평소 피부 가려움증으로 매해 가을의
@@ -76,11 +76,13 @@ const Home = () => {
               alt="범이비누 정보"
               className="hero-image"
             />
-            <Card.Body>
+            <Card.Text className="mb-0">
               <h6 className="text-center mb-3 bumsoap-color">
                 숙성 중인 범이비누
               </h6>
-              <Card.Title>관련 정보 목록</Card.Title>
+            </Card.Text>
+            <Card.Title>관련 정보 목록</Card.Title>
+            <Card.Body className="mt-0 pt-0">
               <ListGroup className="services-list">
                 <ListGroup.Item action onClick={gotoIngredients}>
                   비누 재료
