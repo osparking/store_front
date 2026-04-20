@@ -134,7 +134,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                 />
               </>
             )}
-            <p>
+            <p id="changePasswordLink">
               <Link to={"#"} onClick={() => setShowChangePassword(true)}>
                 비밀번호 변경
               </Link>

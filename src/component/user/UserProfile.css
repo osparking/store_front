@@ -41,6 +41,10 @@
   overflow: auto;
 }
 
+#changePasswordLink {
+  min-width: 100px;
+}
+
 @media (max-width: 575px) {
   .home-container .card {
     margin-top: 0 !important;
