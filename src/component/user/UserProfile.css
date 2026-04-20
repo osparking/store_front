@@ -37,9 +37,13 @@
   width: 38px !important;
 }
 
+#userInfoCard {
+  overflow: auto;
+}
+
 @media (max-width: 575px) {
   .home-container .card {
-    margin-top: 40px !important;
+    margin-top: 0 !important;
     margin-bottom: 0 !important;
   }
 }
