@@ -98,7 +98,9 @@ const Login = () => {
       <Card className="mt-0" style={{ height: "fit-content" }}>
         {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
         <Card.Body>
-          <Card.Title className="text-center mb-4">로그인</Card.Title>
+          <Card.Title id="login-title" className="text-center mb-4">
+            로그인
+          </Card.Title>
           <Form onSubmit={actLogin}>
             <Form.Group className="mb-3" controlId="email">
               <Form.Label>이메일</Form.Label>
@@ -135,7 +137,10 @@ const Login = () => {
                 로그인(엔터)
               </Button>
             </div>
-            <div className="d-flex justify-content-center mt-3 mb-0">
+            <div
+              id="save-login-container"
+              className="d-flex justify-content-center mt-3 mb-0"
+            >
               <p className="me-2">[7일 간]</p>
               <Form.Check
                 type="switch"
@@ -188,8 +193,13 @@ const Login = () => {
           user={user}
         />
       )}
-      <Row className="justify-content-center">
-        <Col style={{ maxWidth: "500px" }}>{loginEntryCard()}</Col>
+      <Row id="login-row" className="justify-content-center">
+        <Col
+          id="login-col"
+          style={{ maxWidth: "500px", minHeight: "450px", overflow: "auto" }}
+        >
+          {loginEntryCard()}
+        </Col>
       </Row>
     </Container>
   );
