@@ -95,7 +95,7 @@ const Login = () => {
 
   const loginEntryCard = () => {
     return (
-      <Card style={{ height: "fit-content" }}>
+      <Card className="mt-0" style={{ height: "fit-content" }}>
         {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
         <Card.Body>
           <Card.Title className="text-center mb-4">로그인</Card.Title>
@@ -132,7 +132,7 @@ const Login = () => {
             </Form.Group>
             <div className="d-flex justify-content-center">
               <Button variant="outline-primary" type="submit" className="w-75">
-                로그인
+                로그인(엔터)
               </Button>
             </div>
             <div className="d-flex justify-content-center mt-3 mb-0">
@@ -179,7 +179,7 @@ const Login = () => {
   };
 
   return (
-    <Container fluid style={{ position: "relative", top: "110px" }}>
+    <Container fluid id="login-container" style={{ position: "relative" }}>
       {showCodeModal && (
         <CodeEntryModal
           show={showCodeModal}
