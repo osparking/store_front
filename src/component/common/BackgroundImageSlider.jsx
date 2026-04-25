@@ -15,6 +15,7 @@ const BackgroundImageSlider = () => {
   return (
     <div className="background-slider">
       <Carousel
+        id="background-carousel"
         activeIndex={index}
         onSelect={handleSelect}
         interval={20000}

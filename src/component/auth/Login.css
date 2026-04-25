@@ -13,6 +13,10 @@
 
 /* MUI small <= 599px */
 @media screen and (max-height: 599px) {
+    #background-carousel {
+        height: fit-content !important;
+    }
+
     #login-container {
         top: 46px;
         height: calc(100vh - 46px);
