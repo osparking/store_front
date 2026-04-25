@@ -54,7 +54,7 @@ div.home-container.user-dashboard {
 }
 
 /* 소형높이 미디어 */
-@media screen and (max-height: 576px) {
+@media screen and (max-height: 599px) {
   .mobile-tab-header {
     position: sticky !important;
     top: 46px !important;
@@ -63,13 +63,16 @@ div.home-container.user-dashboard {
     z-index: 200;
   }
 
-  #chartMonth, #chartShape, #passwordCard, #userInfoCard {
+  #chartMonth,
+  #chartShape,
+  #passwordCard,
+  #userInfoCard {
     top: -41px !important;
   }
 }
 
 /* 소형폭 미디어 */
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 599px) {
   .mobile-tab-header {
     position: sticky !important;
     top: 62px !important;
@@ -110,7 +113,7 @@ div.home-container.user-dashboard {
   z-index: 200;
 }
 
-@media screen and (max-height: 576px) {
+@media screen and (max-height: 599px) {
   div.home-container.user-dashboard {
     width: 100%;
     padding: 0 12px;
@@ -124,8 +127,6 @@ div.home-container.user-dashboard {
   }
 
   .card {
-    margin-top: 5px !important;
-    margin-bottom: 8px !important;
     padding: 0;
     height: fit-content !important;
   }
