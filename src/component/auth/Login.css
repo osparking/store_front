@@ -17,6 +17,10 @@
         height: fit-content !important;
     }
 
+    .card {
+        margin: auto 0 !important;
+    }
+
     #login-container {
         top: 46px;
         height: calc(100vh - 46px);
@@ -25,17 +29,16 @@
     #login-col {
         min-height: unset !important;
     }
-    
+
     #login-row {
         overflow: auto;
-        margin-top: 0 !important;
-        position: relative;
+        height: 100%;
     }
-    
+
     #login-title {
         margin-bottom: 0 !important;
     }
-    
+
     #save-login-container {
         margin-top: 0 !important;
     }

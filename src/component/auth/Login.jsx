@@ -95,7 +95,7 @@ const Login = () => {
 
   const loginEntryCard = () => {
     return (
-      <Card className="mt-0" style={{ height: "fit-content" }}>
+      <Card style={{ height: "fit-content" }}>
         {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
         <Card.Body>
           <Card.Title id="login-title" className="text-center mb-4">
@@ -198,7 +198,9 @@ const Login = () => {
           id="login-col"
           style={{ maxWidth: "500px", minHeight: "450px", overflow: "auto" }}
         >
-          {loginEntryCard()}
+          <Container className="d-flex justify-content-center align-items-center h-100">
+            {loginEntryCard()}
+          </Container>
         </Col>
       </Row>
     </Container>
