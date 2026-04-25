@@ -26,7 +26,6 @@
         overflow: auto;
         margin-top: 0 !important;
         position: relative;
-        height: calc(100vh - 62px);
     }
     
     #login-title {
