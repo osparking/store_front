@@ -72,38 +72,40 @@ const Paginator = ({
 
   return (
     <Container className="my-1">
-      <div className="d-flex justify-content-center mt-1">
-        <Pagination>
-          <Pagination.Prev
-            onClick={() => paginate(Math.max(1, currPage - 1))}
-            disabled={currPage === 1}
-          />
+      {totalPages > 0 && (
+        <div className="d-flex justify-content-center mt-1">
+          <Pagination>
+            <Pagination.Prev
+              onClick={() => paginate(Math.max(1, currPage - 1))}
+              disabled={currPage === 1}
+            />
 
-          {getPageNumbers().map((pageNumber, index) => {
-            if (
-              pageNumber === "ellipsis-left" ||
-              pageNumber === "ellipsis-right"
-            ) {
-              return <Pagination.Ellipsis key={index} />;
-            }
+            {getPageNumbers().map((pageNumber, index) => {
+              if (
+                pageNumber === "ellipsis-left" ||
+                pageNumber === "ellipsis-right"
+              ) {
+                return <Pagination.Ellipsis key={index} />;
+              }
 
-            return (
-              <Pagination.Item
-                key={index}
-                active={pageNumber === currPage}
-                onClick={() => paginate(pageNumber)}
-              >
-                {pageNumber}
-              </Pagination.Item>
-            );
-          })}
+              return (
+                <Pagination.Item
+                  key={index}
+                  active={pageNumber === currPage}
+                  onClick={() => paginate(pageNumber)}
+                >
+                  {pageNumber}
+                </Pagination.Item>
+              );
+            })}
 
-          <Pagination.Next
-            onClick={() => paginate(Math.min(totalPages, currPage + 1))}
-            disabled={currPage === totalPages}
-          />
-        </Pagination>
-      </div>
+            <Pagination.Next
+              onClick={() => paginate(Math.min(totalPages, currPage + 1))}
+              disabled={currPage === totalPages}
+            />
+          </Pagination>
+        </div>
+      )}
 
       <div className="text-center">
         <span className={darkBackground === undefined ? "text-muted" : ""}>
