@@ -47,7 +47,7 @@ const SoapsByMonth = ({ totalSoaps, soapsMonth }) => {
           />
         </BarChart>
       ) : (
-        <NoDataExists dataType={""} />
+        <NoDataExists width={316} height={250} dataType={""} />
       )}
     </>
   );

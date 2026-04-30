@@ -33,7 +33,7 @@ const SoapsByShape = ({ totalSoaps }) => {
       </h5>
 
       {totalSoaps === 0 ? (
-        <NoDataExists dataType={""} />
+        <NoDataExists width={316} height={250} dataType={""} />
       ) : (
         <PieChart
           width={"316px"}
