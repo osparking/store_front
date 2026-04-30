@@ -26,7 +26,7 @@ const SoapsByMonth = ({ totalSoaps, soapsMonth }) => {
       </h5>
       {totalSoaps > 0 ? (
         <BarChart
-          width={"100%"}
+          width={"316px"}
           height={"250px"}
           data={soapsMonth}
           className="p-3 userChartBackground"

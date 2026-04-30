@@ -36,7 +36,7 @@ const SoapsByShape = ({ totalSoaps }) => {
         <NoDataExists dataType={""} />
       ) : (
         <PieChart
-          width={"100%"}
+          width={"316px"}
           height={"250px"}
           className="p-1 userChartBackground"
         >
