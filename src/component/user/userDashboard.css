@@ -251,16 +251,18 @@ div.home-container.user-dashboard {
   color: pink;
 }
 
-.scrollable-tabs.nav-tabs {
-  margin-left: 3px;
-  font-size: 0.9rem;
-}
-
-.scrollable-tabs .nav-link h5 {
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.scrollable-tabs .nav-link {
-  padding: 0.5rem 0.5rem;
+@media screen and (max-width: 992px) and (min-width: 577px) {
+  .scrollable-tabs.nav-tabs {
+    font-size: 0.9rem;
+    top: 46px;
+  }
+  
+  .scrollable-tabs .nav-link h5 {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .scrollable-tabs .nav-link {
+    padding: 0.5rem 0.5rem;
+  }
 }
