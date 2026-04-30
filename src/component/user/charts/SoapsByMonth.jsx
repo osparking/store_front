@@ -9,8 +9,8 @@ import {
   YAxis,
 } from "recharts";
 import NoDataExists from "../../common/NoDataExists";
-import "./SoapsByMonth.css";
 import "../../user/OverviewUser.css";
+import "./SoapsByMonth.css";
 
 const SoapsByMonth = ({ totalSoaps, soapsMonth }) => {
   return (
@@ -33,11 +33,7 @@ const SoapsByMonth = ({ totalSoaps, soapsMonth }) => {
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="month" angle={-30} textAnchor="end" height={70} />
-          <YAxis
-            width={40}
-            tick={{ fill: "#232a31ff", fontSize: 15 }}
-            axisLine={{ stroke: "#495057" }}
-          />
+          <YAxis width={40} axisLine={{ stroke: "#495057" }} />
           <Tooltip />
           <Bar dataKey="월별 수량">
             {soapsMonth.map((entry, index) => (

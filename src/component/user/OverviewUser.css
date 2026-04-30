@@ -52,8 +52,15 @@ tspan {
   background-color: var(--color-chart-background);
 }
 
-#chartMonth, #chartShape {
+#chartMonth,
+#chartShape {
   height: fit-content !important;
+}
+
+#userOverview .recharts-text {
+  fill: ivory;
+  font-size: 15px;
+  font-weight: 300;
 }
 
 @media screen and (max-width: 576px) or (max-height: 576px) {
@@ -78,6 +85,7 @@ tspan {
   #chartMonth {
     margin-top: 0 !important;
   }
+
   #chartShape {
     margin-top: 10px !important;
     margin-bottom: 20px !important;
