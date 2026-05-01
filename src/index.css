@@ -154,12 +154,16 @@ h6 {
 
 .returnLink {
   font-size: 1.2em;
-  font-weight: bolder;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 10px;
   margin-bottom: 10px;
+  font-family: 'Noto Serif KR', 'NanumGothicCoding', Georgia, Times;
+}
+
+.returnLink>a {
+  text-decoration: none !important;
 }
 
 .identity {
@@ -183,6 +187,6 @@ h6 {
   min-width: 155px;
 }
 
-tr.userTableHeader > th {
+tr.userTableHeader>th {
   background-color: lightblue;
 }
