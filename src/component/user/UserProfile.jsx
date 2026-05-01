@@ -278,7 +278,9 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
       {fromList && isAdmin && (
         <Row>
           <div className="returnLink">
-            <Link to="/dashboard/admin">목록</Link>
+            <Link className="text-white" to="/dashboard/admin">
+              프로필 목록
+            </Link>
           </div>
         </Row>
       )}
