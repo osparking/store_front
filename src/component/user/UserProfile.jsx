@@ -2,7 +2,7 @@ import Grid from "@mui/material/Grid";
 import Switch from "@mui/material/Switch";
 import { useState } from "react";
 import { Button, Card, Row, Table } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
 import QRcodeBox from "../auth/QRcodeBox";
 import EmpImage from "../common/EmpImage";
@@ -22,9 +22,8 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
   const [showQrCode, setShowQrCode] = useState(false);
 
   const loginId = localStorage.getItem("LOGIN_ID");
-  const fromList = loginId !== user.id;
+  const fromList = Number(loginId) !== user.id;
   const isAdmin = JSON.parse(localStorage.getItem("IS_ADMIN"));
-  console.log("is admin: " + isAdmin);
 
   const handleCloseAccountButtonCLick = () => {
     setShowDelModal(true);
