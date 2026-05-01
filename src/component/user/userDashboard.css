@@ -62,13 +62,6 @@ div.home-container.user-dashboard {
     width: 150px;
     z-index: 200;
   }
-
-  #chartMonth,
-  #chartShape,
-  #passwordCard,
-  #userInfoCard {
-    top: -41px !important;
-  }
 }
 
 /* 소형폭 미디어 */
