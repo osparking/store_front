@@ -50,7 +50,7 @@ div.home-container.user-dashboard {
   width: 100vw;
   max-width: 950px;
   height: calc(100vh - 168.5px);
-  margin-top: 28px;
+  margin-top: 20px;
 }
 
 /* 소형높이 미디어 */
