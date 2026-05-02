@@ -150,10 +150,6 @@ figure,
 }
 
 @media screen and (max-height: 599px) {
-  .card {
-    padding: 0;
-  }
-
   .dropdown {
     color: yellow;
     background-color: darkslategray;
