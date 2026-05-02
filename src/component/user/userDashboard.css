@@ -53,27 +53,8 @@ div.home-container.user-dashboard {
   margin-top: 20px;
 }
 
-/* 소형높이 미디어 */
-@media screen and (max-height: 599px) {
-  .mobile-tab-header {
-    position: sticky !important;
-    top: 46px !important;
-    margin-left: calc(100vw - 200px) !important;
-    width: 150px;
-    z-index: 200;
-  }
-}
-
 /* 소형폭 미디어 */
 @media screen and (max-width: 599px) {
-  .mobile-tab-header {
-    position: sticky !important;
-    top: 62px !important;
-    margin-left: calc(100vw - 150px) !important;
-    width: 150px;
-    z-index: 200;
-  }
-
   .main-content {
     height: 100%;
   }
@@ -103,6 +84,7 @@ div.home-container.user-dashboard {
 }
 
 @media screen and ((max-height: 599px) or (max-width: 599px)) {
+  
   .user-dashboard .tableCard {
     position: fixed !important;
     top: 46px !important;
@@ -119,33 +101,33 @@ div.home-container.user-dashboard {
     max-height: calc(100vh - 46px) !important;
     min-height: calc(100vh - 46px) !important;
   }
-
+  
   .chartUser.card {
     height: fit-content !important;
   }
-
+  
   .dropdown {
     color: yellow;
     background-color: darkslategray;
   }
-
+  
   .col-md-10 {
     width: 100% !important;
     margin: 0 100px;
   }
-
+  
   .mobile-tab-header {
-    position: absolute;
-    top: -2px;
-    right: 40px;
-    width: 150px;
+    position: fixed !important;
+    top: 46px !important;
+    right: 10px !important;
+    width: 135px;
     z-index: 200;
   }
-
+  
   .navbar {
     padding: 0;
   }
-
+  
   .mobile-tab-content {
     padding: 0;
     overflow-y: unset !important;
@@ -249,12 +231,12 @@ div.home-container.user-dashboard {
     font-size: 0.9rem;
     top: 46px;
   }
-  
+
   .scrollable-tabs .nav-link h5 {
     font-size: 16px;
     font-weight: bold;
   }
-  
+
   .scrollable-tabs .nav-link {
     padding: 0.5rem 0.5rem;
   }
