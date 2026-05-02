@@ -92,10 +92,6 @@ div.home-container.user-dashboard {
     height: 100%;
     margin-top: 0 !important;
   }
-
-  .tableCard.card {
-    margin: 40px 0 !important;
-  }
 }
 
 .mobile-tab-header {
@@ -107,19 +103,24 @@ div.home-container.user-dashboard {
 }
 
 @media screen and ((max-height: 599px) or (max-width: 599px)) {
+  .user-dashboard .tableCard {
+    position: fixed !important;
+    top: 46px !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: calc(100vh - 46px) !important;
+  }
+  
   div.home-container.user-dashboard {
-    width: 100%;
+    width: 100vw;
     padding: 0 12px;
     top: 46px;
-    height: fit-content !important;
+    height: calc(100vh - 46px) !important;
+    max-height: calc(100vh - 46px) !important;
     min-height: calc(100vh - 46px) !important;
   }
 
   .chartUser.card {
-    height: fit-content !important;
-  }
-
-  .card {
     height: fit-content !important;
   }
 
