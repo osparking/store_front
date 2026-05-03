@@ -86,7 +86,8 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
             </p>
           </div>
           <div
-            style={{ whiteSpace: "initial" }}
+            id="userDashboardTableDiv"
+            style={{ whiteSpace: "initial", overflow: "auto" }}
             className="justify-content-center align-items-center table-div"
           >
             {MyReviewsTable(reviews, manageReview)}
