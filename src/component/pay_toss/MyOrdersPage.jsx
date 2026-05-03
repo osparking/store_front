@@ -56,7 +56,7 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
         {getRecordRange(orderPage, indexOfFirst, idxLastPlus1, "주문")}
       </p>
       <div
-        id="orderTable"
+        id="userDashboardTableDiv"
         style={{
           whiteSpace: "initial",
           overflow: "auto",
