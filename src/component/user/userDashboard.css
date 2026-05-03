@@ -226,6 +226,10 @@ div.home-container.user-dashboard {
   color: pink;
 }
 
+#userDashboardTableDiv {
+  max-height: calc(100% - 176px);
+}
+
 @media screen and (max-width: 992px) and (min-width: 577px) {
   .scrollable-tabs.nav-tabs {
     font-size: 0.9rem;

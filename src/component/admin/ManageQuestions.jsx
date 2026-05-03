@@ -101,7 +101,7 @@ const ManageQuestions = ({ mine }) => {
               {getRecordRange(questionPage, indexOfFirst, idxLastPlus1, "질문")}
             </p>
             <div
-              id="questionTableDiv"
+              id="userDashboardTableDiv"
               style={{
                 whiteSpace: "initial",
                 overflow: "auto",
