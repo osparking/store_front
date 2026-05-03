@@ -76,10 +76,8 @@ const Home = () => {
               alt="범이비누 정보"
               className="hero-image"
             />
-            <Card.Text className="mb-0">
-              <h6 className="text-center mb-3 bumsoap-color">
-                숙성 중인 범이비누
-              </h6>
+            <Card.Text id="homeImageLabel" className="bumsoap-color-dark">
+              숙성 중인 범이비누
             </Card.Text>
             <Card.Title>관련 정보 목록</Card.Title>
             <Card.Body className="mt-0 pt-0">
