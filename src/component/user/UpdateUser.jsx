@@ -150,14 +150,18 @@ const UserUpdate = () => {
                 />
               </Col>
               <Col xs={12} md={6} lg={6}>
-                <Form.Label className="legend">계정 상태</Form.Label>
+                <Form.Label className="legend" for="accountEnabled">
+                  계정 상태
+                </Form.Label>
                 <Form.Check
+                  id="accountEnabled"
                   type="switch"
                   name="enabled"
                   checked={user.enabled}
                   onChange={handleCheckChange}
-                  label="활성화"
+                  label={user.enabled ? "비활성화" : "활성화" }
                   style={{ marginTop: "5px" }}
+                  className="pink-label"
                 />
               </Col>
             </Row>
