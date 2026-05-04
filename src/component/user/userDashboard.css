@@ -134,10 +134,6 @@ div.home-container.user-dashboard {
     height: calc(100% - 50px) !important;
   }
 
-  .slide.carousel {
-    height: 280px !important;
-  }
-
   .carousel-container {
     position: sticky;
     top: 0;
