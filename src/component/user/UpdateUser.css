@@ -3,3 +3,14 @@
     min-width: 251px !important;
   }
 }
+
+.form-check-input:checked {
+  background-color: pink;
+  border-width: 2px;
+}
+
+.pink-label .form-check-label {
+  background-color: pink;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
