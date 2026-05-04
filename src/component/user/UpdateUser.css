@@ -1,6 +1,18 @@
-@media (max-width: 576px) {
+@media (max-width: 599px) {
   .email-field {
     min-width: 251px !important;
+  }
+}
+
+@media ((max-width: 599px) or (max-height: 599px)) {
+  #userUpdateFormContainer {
+    top: 46px !important;
+    height: calc(100vh - 46px) !important;
+  }
+
+  #userUpdateCard {
+    max-width: 580px;
+    max-height: calc(100vh - 46px) !important;
   }
 }
 
@@ -13,4 +25,28 @@
   background-color: pink;
   padding: 2px 6px;
   border-radius: 4px;
+}
+
+#userUpdateFormContainer {
+  position: relative;
+  top: 62px;
+  height: calc(100vh - 62px);
+  align-items: center;
+}
+
+#userUpdateForm {
+  height: fit-content;
+}
+
+#userUpdateForm>.card {
+  margin-top: 0;
+}
+
+#userUpdateCard {
+  max-width: 580px;
+  max-height: calc(100vh - 62px);
+}
+
+#dataSectionDiv {
+  height: calc(100% - 80px) !important;
 }
