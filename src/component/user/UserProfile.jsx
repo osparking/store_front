@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
 import Switch from "@mui/material/Switch";
 import { useState } from "react";
-import { Button, Card, Row, Table } from "react-bootstrap";
+import { Button, Card, Form, Row, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
 import QRcodeBox from "../auth/QRcodeBox";
@@ -225,6 +225,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                   <td md={7} colSpan={2} className="setBorder">
                     <div id="switch-2FA">
                       <Switch
+                        id="twoFAswitch"
                         disabled={switchDisabled}
                         checked={twoFaEnabled}
                         onChange={twoFaEnabled ? disable2FA : enable2FA}
@@ -234,16 +235,18 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                           },
                         }}
                       />
-                      <span
-                        style={{
-                          fontWeight: "bolder",
-                          fontSize: ".9rem",
-                          fontStretch: "expanded",
-                          color: `${twoFaEnabled ? "green" : "slategrey"}`,
-                        }}
-                      >
-                        {twoFaEnabled ? "활성화됨" : "비활성됨"}
-                      </span>
+                      <Form.Label for="twoFAswitch">
+                        <span
+                          style={{
+                            fontWeight: "bolder",
+                            fontSize: ".9rem",
+                            fontStretch: "expanded",
+                            color: `${twoFaEnabled ? "green" : "slategrey"}`,
+                          }}
+                        >
+                          {twoFaEnabled ? "활성화됨" : "비활성됨"}
+                        </span>
+                      </Form.Label>
                     </div>
                     {showQrCode && (
                       <QRcodeBox
