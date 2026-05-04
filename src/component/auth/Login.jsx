@@ -95,7 +95,7 @@ const Login = () => {
 
   const loginEntryCard = () => {
     return (
-      <Card style={{ height: "fit-content" }}>
+      <Card style={{ height: "fit-content", marginTop: 0 }}>
         {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
         <Card.Body>
           <Card.Title id="login-title" className="text-center mb-4">
