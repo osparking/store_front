@@ -48,6 +48,11 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
   const [twoFaEnabled, setTwoFaEnabled] = useState(user.twoFaEnabled);
 
   const enable2FA = async () => {
+    if (showQrCode) {
+      setShowQrCode(false);
+      return;
+    }
+
     setSwitchDisabled(true);
     try {
       const result = await callWithToken("post", "/autho/enable-2fa", user);
