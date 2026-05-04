@@ -2,7 +2,7 @@ import Grid from "@mui/material/Grid";
 import Switch from "@mui/material/Switch";
 import { useState } from "react";
 import { Button, Card, Row, Table } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
 import QRcodeBox from "../auth/QRcodeBox";
 import EmpImage from "../common/EmpImage";
@@ -240,6 +240,13 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                         {twoFaEnabled ? "활성화됨" : "비활성됨"}
                       </span>
                     </div>
+                    {showQrCode && (
+                      <QRcodeBox
+                        qrCodeUrl={qrCodeUrl}
+                        setTwoFaEnabled={setTwoFaEnabled}
+                        setShowQrCode={setShowQrCode}
+                      />
+                    )}
                   </td>
                 </tr>
               </tbody>
@@ -262,16 +269,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
       <div style={{ width: "100%", maxWidth: "90vw", margin: "0 auto" }}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, md: 2 }}>
           <Grid size={{ xs: 12, md: 3 }}>{PasswordCard()}</Grid>
-          <Grid size={{ xs: 12, md: 9 }}>
-            {UserInfoCard()}
-            {showQrCode && (
-              <QRcodeBox
-                qrCodeUrl={qrCodeUrl}
-                setTwoFaEnabled={setTwoFaEnabled}
-                setShowQrCode={setShowQrCode}
-              />
-            )}
-          </Grid>
+          <Grid size={{ xs: 12, md: 9 }}>{UserInfoCard()}</Grid>
         </Grid>
       </div>
       {fromList && isAdmin && (
