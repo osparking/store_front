@@ -36,9 +36,9 @@ const QRcodeBox = ({ qrCodeUrl, setTwoFaEnabled, setShowQrCode }) => {
   };
 
   return (
-    <div className="py-3">
+    <div className="py-2">
       <h5 className="font-bold text-slate-700">
-        <button onClick={revealQRcode}>
+        <button id="QRcodeButton" onClick={revealQRcode}>
           QR 코드 -{" "}
           {qrRevealed ? (
             "스캔할 것"
