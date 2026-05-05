@@ -177,16 +177,9 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                 <tr id="legendRow">
                   <td className="text-end">
                     <Link
+                      id="profileChangeLink"
                       to={`/user/${user.id}/update`}
                       className="btn btn-warning btn-sm w-70 py-0"
-                      style={{
-                        fontWeight: "bold",
-                        minWidth: "60px",
-                        maxWidth: "fit-content",
-                        borderWidth: "4px",
-                        borderStyle: "solid",
-                        borderColor: "#ffc107",
-                      }}
                     >
                       정보 수정
                     </Link>
@@ -222,7 +215,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                   <td md={4} className="text-end" style={{ minWidth: "145px" }}>
                     구글 이중 인증(2FA):
                   </td>
-                  <td md={7} colSpan={2} className="setBorder">
+                  <td md={7} colSpan={2}>
                     <div id="switch-2FA">
                       <Switch
                         id="twoFAswitch"
