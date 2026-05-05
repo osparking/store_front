@@ -64,6 +64,10 @@
   top: 2px;
 }
 
+#box-2FA {
+  border: 1px solid black;
+}
+
 @media (max-width: 575px) {
   .home-container .card {
     margin-top: 0 !important;
