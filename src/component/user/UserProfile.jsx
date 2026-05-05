@@ -228,7 +228,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                           },
                         }}
                       />
-                      <Form.Label for="twoFAswitch">
+                      <Form.Label htmlFor="twoFAswitch">
                         <span
                           style={{
                             fontWeight: "bolder",
