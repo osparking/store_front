@@ -36,7 +36,7 @@ const QRcodeBox = ({ qrCodeUrl, setTwoFaEnabled, setShowQrCode }) => {
   };
 
   return (
-    <div className="py-2">
+    <div className="py-2" id="box-2FA">
       <h5 className="font-bold text-slate-700">
         <button id="QRcodeButton" onClick={revealQRcode}>
           QR 코드 -{" "}
