@@ -53,21 +53,22 @@ const QRcodeBox = ({ qrCodeUrl, setTwoFaEnabled, setShowQrCode }) => {
         {qrRevealed && (
           <div id="twoFA-QR-div">
             <img src={qrCodeUrl} alt="QR 코드" />
-            <div className="flex items-center  gap-1  mt-4">
+            <div className="flex items-center gap-1">
               <input
+                id="googleAuthenticatorCode"
                 type="text"
                 placeholder="(구글 인증자 코드 입력)"
                 value={code}
                 required
-                className="mt-4 border px-2 py-1 border-slate-800 rounded-md"
                 onChange={(e) => setCode(e.target.value)}
               />
               <button
+                id="googleCodeVerifyButton"
                 disabled={beingVerified}
-                className="bg-btnColor text-red  px-3 h-10 rounded-md mt-4"
+                className="px-3 h-10 rounded-md mt-3 mb-3"
                 onClick={verify2FA}
               >
-                인증 코드 검증
+                입력한 코드 검증
               </button>
             </div>
           </div>
