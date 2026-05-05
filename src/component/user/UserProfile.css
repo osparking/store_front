@@ -73,6 +73,22 @@
   margin-top: .5em;
 }
 
+#googleAuthenticatorCode {
+  border: 1px solid blue;
+  border-radius: 3px;
+  width: 200px;
+  background-color: pink;
+  margin-top: 1em;
+  padding: 1px 5px;
+}
+
+#googleCodeVerifyButton {
+  background-color: var(--color-act-change);
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
 @media (max-width: 575px) {
   .home-container .card {
     margin-top: 0 !important;
