@@ -51,7 +51,7 @@ const QRcodeBox = ({ qrCodeUrl, setTwoFaEnabled, setShowQrCode }) => {
       </h5>
       <div>
         {qrRevealed && (
-          <div>
+          <div id="twoFA-QR-div">
             <img src={qrCodeUrl} alt="QR 코드" />
             <div className="flex items-center  gap-1  mt-4">
               <input

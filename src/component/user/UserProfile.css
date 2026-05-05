@@ -69,6 +69,10 @@
   border: 1px solid black;
 }
 
+#twoFA-QR-div > img {
+  margin-top: .5em;
+}
+
 @media (max-width: 575px) {
   .home-container .card {
     margin-top: 0 !important;
