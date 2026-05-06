@@ -19,9 +19,10 @@ const QRcodeBox = ({ qrCodeUrl, setTwoFaEnabled, setShowQrCode }) => {
     setBeingVerified(true);
 
     try {
-      const formData = new URLSearchParams();
-      formData.append("code", code);
-      const result = await callWithToken("post", "/autho/verify-2fa", formData);
+      const result = await callWithToken(
+        "post",
+        `/autho/verify-2fa?code=${code}`,
+      );
 
       toast.success(result?.message);
       setQrRevealed(false);
