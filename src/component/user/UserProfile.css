@@ -89,6 +89,10 @@
   font-weight: 600;
 }
 
+.twoFAmodal .modal-content {
+  width: 70%;
+}
+
 @media (max-width: 575px) {
   .home-container .card {
     margin-top: 0 !important;
