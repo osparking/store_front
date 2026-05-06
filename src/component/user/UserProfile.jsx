@@ -225,7 +225,9 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                         disabled={switchDisabled}
                         checked={twoFaEnabled}
                         onChange={
-                          twoFaEnabled ? () => setShow2FA_modal(true) : enable2FA
+                          twoFaEnabled
+                            ? () => setShow2FA_modal(true)
+                            : enable2FA
                         }
                         slotProps={{
                           input: {
@@ -235,11 +237,12 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                       />
                       <Form.Label htmlFor="twoFAswitch">
                         <span
+                          className="serif"
                           style={{
                             fontWeight: "bolder",
                             fontSize: ".9rem",
                             fontStretch: "expanded",
-                            color: `${twoFaEnabled ? "green" : "slategrey"}`,
+                            color: `${twoFaEnabled ? "darkgreen" : "slategrey"}`,
                           }}
                         >
                           {twoFaEnabled ? "활성화됨" : "비활성됨"}
