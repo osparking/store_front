@@ -245,7 +245,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                             color: `${twoFaEnabled ? "darkgreen" : "slategrey"}`,
                           }}
                         >
-                          {twoFaEnabled ? "활성화됨" : "비활성됨"}
+                          {twoFaEnabled ? "활성화됨" : "비활성임"}
                         </span>
                       </Form.Label>
                     </div>

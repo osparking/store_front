@@ -150,8 +150,8 @@ const UserUpdate = () => {
               name="enabled"
               checked={user.enabled}
               onChange={handleCheckChange}
-              label={user.enabled ? "비활성화" : "활성화"}
-              style={{ marginTop: "5px" }}
+              label={user.enabled ? "활성화됨" : "비활성임"}
+              style={{ marginTop: "5px", opacity: user.enabled ? 1 : 0.5 }}
               className="pink-label"
             />
           </Col>
