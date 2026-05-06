@@ -7,6 +7,7 @@ import { logoutUser } from "../auth/AuthService";
 import QRcodeBox from "../auth/QRcodeBox";
 import EmpImage from "../common/EmpImage";
 import ChangePassword from "../modal/ChangePassword";
+import ConfirmationModal from "../modal/ConfirmationModal";
 import DeleteConfirmModal from "../modal/DeleteConfirmModal";
 import ImageUp from "../modal/ImageUp";
 import { callWithToken } from "../util/api";
@@ -29,6 +30,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
     setShowDelModal(true);
   };
 
+  const [show2FA_modal, setShow2FA_modal] = useState(false);
   const [showDelModal, setShowDelModal] = useState(false);
   const handleModalXButtonClick = () => {
     setShowDelModal(false);
@@ -76,6 +78,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
       toast.error("오류 - 2FA 비활성화 실패");
     } finally {
       setSwitchDisabled(false);
+      setShow2FA_modal(false);
     }
   };
 
@@ -221,7 +224,9 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                         id="twoFAswitch"
                         disabled={switchDisabled}
                         checked={twoFaEnabled}
-                        onChange={twoFaEnabled ? disable2FA : enable2FA}
+                        onChange={
+                          twoFaEnabled ? () => setShow2FA_modal(true) : enable2FA
+                        }
                         slotProps={{
                           input: {
                             "aria-label": "이중 인증 활성화 상태 토글",
@@ -266,6 +271,17 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
         handleDeletion={handleDeleteOrder}
         target={`${user.fullName} 계정의`}
         deleting={false}
+      />
+      <ConfirmationModal
+        show={show2FA_modal}
+        handleClose={() => setShow2FA_modal(false)}
+        handleConfirm={disable2FA}
+        bodyMessage="구글 이중 인증을 생략할까요?"
+        title="구글 이중 인증"
+        noLabel="인증 유지"
+        yesLabel="인증 생략"
+        headerBgColor="bg-warning"
+        modelClassName="twoFAmodal"
       />
       <div style={{ width: "100%", maxWidth: "90vw", margin: "0 auto" }}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, md: 2 }}>
