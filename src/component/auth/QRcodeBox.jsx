@@ -23,8 +23,7 @@ const QRcodeBox = ({ qrCodeUrl, setTwoFaEnabled, setShowQrCode }) => {
         "post",
         `/autho/verify-2fa?code=${code}`,
       );
-
-      toast.success(result?.message);
+      toast.success(result?.data);
       setQrRevealed(false);
       setShowQrCode(false);
       setTwoFaEnabled(true);
