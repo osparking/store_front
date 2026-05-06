@@ -141,7 +141,7 @@ const UserUpdate = () => {
             />
           </Col>
           <Col /* 계정 상태 */ xs={12} md={6} lg={6}>
-            <Form.Label className="legend" for="accountEnabled">
+            <Form.Label className="legend" htmlFor="accountEnabled">
               계정 상태
             </Form.Label>
             <Form.Check
