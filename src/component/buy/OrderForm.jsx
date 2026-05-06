@@ -139,18 +139,18 @@ const OrderForm = ({
   async function saveCart(items, userId) {
     for (const item of items) {
       try {
-        const formData = new FormData();
+        const payload = {
+          userId: userId,
+          shape: item.shape,
+          count: item.count,
+        };
 
-        formData.append("userId", userId);
-        formData.append("shape", item.shape);
-        formData.append("count", item.count);
-
-        const result = await callWithToken("post", "/cart/item/add", formData);
+        const result = await callWithToken("post", "/cart/item/add", payload);
 
         if (result) {
           cartAddResultMap.set(
             result.data.message,
-            (cartAddResultMap.get(result.data.message) || 0) + 1
+            (cartAddResultMap.get(result.data.message) || 0) + 1,
           );
         } else {
           navigate("/login");
@@ -164,7 +164,7 @@ const OrderForm = ({
   function getResultString() {
     const resultString = Array.from(
       cartAddResultMap,
-      ([key, value]) => `${key}: ${value} 건`
+      ([key, value]) => `${key}: ${value} 건`,
     );
     return resultString;
   }
