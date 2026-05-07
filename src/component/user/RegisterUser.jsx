@@ -104,9 +104,9 @@ const RegisterUser = () => {
   const isAdmin = localStorage.getItem("IS_ADMIN") === "true";
 
   return (
-    <Container className="d-flex justify-content-center">
-      <Form onSubmit={handleSubmit}>
-        <Card className="shadow mb-5 registerCard">
+    <Container id="registerContainer" className="d-flex justify-content-center">
+      <Form onSubmit={handleSubmit} className="d-flex justify-content-center">
+        <Card className="shadow registerCard">
           <Card.Header className="text-center">
             <legend>사용자 등록</legend>
           </Card.Header>
