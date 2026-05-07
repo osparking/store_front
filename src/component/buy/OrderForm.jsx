@@ -212,7 +212,7 @@ const OrderForm = ({
         wasDefaultRecipient: isDefaultRecipient,
       },
     });
-  }
+  } 
 
   return (
     <div className="order-form">
@@ -253,12 +253,22 @@ const OrderForm = ({
                 className="justify-content-center"
               >
                 <Button
+                  variant="primary"
+                  size="sm"
+                  className="pt-2 pb-2 order-button-width"
+                  onClick={() =>
+                    navigate("/shopping_cart", { state: { showCart: true } })
+                  }
+                >
+                  바구니 보기
+                </Button>
+                <Button
                   variant="info"
                   size="sm"
                   className="pt-2 pb-2 order-button-width"
                   onClick={putToCart}
                 >
-                  장바구니 담기
+                  바구니 담기
                 </Button>
                 <Button
                   variant="success"
