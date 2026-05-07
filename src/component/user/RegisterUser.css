@@ -30,3 +30,9 @@
     padding: 0;
   }
 }
+
+@media screen and (max-height: 599px) {
+  .registerCard {
+    max-height: calc(100vh - 46px);
+  }
+}
