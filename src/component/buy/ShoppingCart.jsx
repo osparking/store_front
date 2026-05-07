@@ -86,7 +86,7 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
       setCartInDB(
         userCart.map((item) => {
           return { count: item.count };
-        })
+        }),
       );
 
       // 각 요소에 isChecked 멤버 추가
@@ -138,11 +138,11 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
         <fieldset className="field-set mb-4">
           <Form.Group className="mb-2">
             <Row className="justify-content-center mb-2">
-              <Col md={2}></Col>
-              <Col md={5}>
+              <Col xs={2} md={2}></Col>
+              <Col xs={5} md={5}>
                 <legend className="legend text-center">외형별 수량</legend>
               </Col>
-              <Col md={2}></Col>
+              <Col xs={2} md={2}></Col>
             </Row>
             {formData.items.length > 0 ? (
               formData.items.map((item, index) => (
