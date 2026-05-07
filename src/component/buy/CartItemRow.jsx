@@ -18,10 +18,10 @@ const CartItemRow = ({
   delSoapItem,
 }) => {
   function handleCountChange(e) {
-    setCarouselImages(item.shapeLabel.substring(0, 2))
+    setCarouselImages(item.shapeLabel.substring(0, 2));
     const inventory =
       optionLabels.find((label) =>
-        label.optionLabel.startsWith(item.shapeLabel)
+        label.optionLabel.startsWith(item.shapeLabel),
       )?.inventory || 1;
     if (parseInt(e.target.value) > inventory) {
       alert("재고를 초과할 수 없습니다.");
@@ -32,15 +32,15 @@ const CartItemRow = ({
     }
     handleInputChange(e);
   }
-  
+
   function handleCheckChange(e) {
-    setCarouselImages(item.shapeLabel.substring(0, 2))
+    setCarouselImages(item.shapeLabel.substring(0, 2));
     handleInputChange(e);
   }
 
   return (
     <Row className="justify-content-center mb-3">
-      <Col md={3}>
+      <Col xs={4} md={4}>
         <OverlayTrigger overlay={<Tooltip>주문 선택</Tooltip>}>
           <Form.Check
             className="cartItem"
@@ -53,7 +53,7 @@ const CartItemRow = ({
           />
         </OverlayTrigger>
       </Col>
-      <Col md={2}>
+      <Col xs={2} md={2}>
         <Form.Control
           className="shapeCount"
           type="number"
@@ -67,10 +67,10 @@ const CartItemRow = ({
           required
         />
       </Col>
-      <Col md={3}>
+      <Col xs={3} md={3} id="cartItemPrice">
         <p className="cartItem">{item.subTotal.toLocaleString()} 원</p>
       </Col>
-      <Col md={2}>
+      <Col xs={2} md={2}>
         <div className="d-flex justify-content-end mt-1">
           <OverlayTrigger overlay={<Tooltip>항목 제거</Tooltip>}>
             <Button
