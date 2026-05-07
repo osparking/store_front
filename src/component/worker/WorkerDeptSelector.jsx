@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import AdderModal from "../modal/AdderModal";
 import { getAllDept } from "./WorkerService";
+import "./WorkerDeptSelector.css";
 
 const WorkerDeptSelector = ({ disabled, workerDept, onChange }) => {
   const [workerDepts, setWorkerDepts] = useState([]);
@@ -60,6 +61,7 @@ const WorkerDeptSelector = ({ disabled, workerDept, onChange }) => {
         closer={() => setShowDeptAdder(false)}
         label={"부서"}
         saver={handleNewDept}
+        dialogClass="modal-50w"
       />
     </React.Fragment>
   );
