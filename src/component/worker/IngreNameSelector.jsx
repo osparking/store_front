@@ -63,6 +63,7 @@ const IngreNameSelector = ({ingreName, onChange}) => {
         }}
         label={"재료 이름"}
         saver={handleNewName}
+        dialogClass="modal-50w"
       />
     </React.Fragment>
   );  
