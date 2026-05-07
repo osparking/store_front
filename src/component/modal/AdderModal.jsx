@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
+import "../worker/WorkerDeptSelector.css";
 
-const AdderModal = ({ show, closer, label, saver }) => {
+const AdderModal = ({ show, closer, label, saver, dialogClass }) => {
   const [itemValue, setItemValue] = useState("");
   const contentChanged = (e) => {
     setItemValue(e.target.value);
@@ -13,7 +14,7 @@ const AdderModal = ({ show, closer, label, saver }) => {
   };
 
   return (
-    <Modal show={show} onHide={closer}>
+    <Modal show={show} onHide={closer} dialogClassName={dialogClass}>
       <Modal.Header closeButton>
         <Modal.Title>새 {label} 추가</Modal.Title>
       </Modal.Header>
