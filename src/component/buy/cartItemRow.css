@@ -7,3 +7,9 @@
   padding: 5px;
   text-align: right;
 }
+
+@media screen and (max-width: 599px) {
+  #cartItemPrice {
+    padding: 0 !important;
+  }
+}
