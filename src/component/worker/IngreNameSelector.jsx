@@ -3,7 +3,7 @@ import { getAllIngreNames } from "./WorkerService";
 import { Form, Row } from "react-bootstrap";
 import AdderModal from "../modal/AdderModal";
 
-const IngreNameSelector = ({ingreName, onChange}) => {
+const IngreNameSelector = ({ ingreName, onChange }) => {
   const [ingreNames, setIngreNames] = useState([]);
   const [showNameAdder, setShowNameAdder] = useState(false);
 
@@ -19,7 +19,7 @@ const IngreNameSelector = ({ingreName, onChange}) => {
     };
     readIngreNames();
   }, []);
-  
+
   const handleIngreName = (event) => {
     if (event.target.value === "add_name") {
       setShowNameAdder(true);
@@ -33,7 +33,7 @@ const IngreNameSelector = ({ingreName, onChange}) => {
       setIngreNames([...ingreNames, newName]);
       onChange({ target: { name: "ingreName", value: newName } });
     }
-  };  
+  };
 
   return (
     <React.Fragment>
@@ -65,8 +65,24 @@ const IngreNameSelector = ({ingreName, onChange}) => {
         saver={handleNewName}
         dialogClass="modal-50w"
       />
+
+      {/* Gray backdrop overlay when child modal is open */}
+      {showNameAdder && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            zIndex: 1040,
+            pointerEvents: "none", // Allows clicks to pass through if needed
+          }}
+        />
+      )}
     </React.Fragment>
-  );  
+  );
 };
 
 export default IngreNameSelector;
