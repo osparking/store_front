@@ -114,7 +114,7 @@ const RegisterUser = () => {
             <div style={{ width: "475px" }}>
               <fieldset className="mb-4">
                 <Row>
-                  <Col xs={5}>
+                  <Col xs={4} md={4}>
                     <Form.Label>
                       성명
                       <Form.Control
@@ -124,10 +124,11 @@ const RegisterUser = () => {
                         value={user.fullName}
                         onChange={handleChange}
                         required
+                        style={{ width: "71%" }}
                       />
                     </Form.Label>
                   </Col>
-                  <Col xs={3}>
+                  <Col xs={4} md={4} className="d-flex justify-content-center">
                     <Form.Label>
                       계정 유형
                       <Form.Control
@@ -143,7 +144,11 @@ const RegisterUser = () => {
                       </Form.Control>
                     </Form.Label>
                   </Col>
-                  <Col xs={4} className="employeeAffiliation">
+                  <Col
+                    xs={4}
+                    md={4}
+                    className="employeeAffiliation d-flex justify-content-end"
+                  >
                     <Form.Label>
                       부서
                       <WorkerDeptSelector
