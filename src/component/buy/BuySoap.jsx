@@ -98,7 +98,7 @@ const BuySoap = () => {
         style={{ marginTop: "8px" }}
       >
         <div className="col-md-5 order-card-width">
-          <Card className="shadow mb-5">
+          <Card className="shadow mb-3">
             <Card.Body>
               <SoapCarousel
                 soapImages={images2show}
@@ -112,7 +112,7 @@ const BuySoap = () => {
         </div>
         <div className="col-md-5 order-card-width">
           {showCart ? (
-            <Card className="shadow mb-5">
+            <Card className="shadow mb-3">
               <Card.Header as="h5" className="text-center form-header">
                 장바구니
               </Card.Header>
@@ -124,7 +124,7 @@ const BuySoap = () => {
               </Card.Body>
             </Card>
           ) : (
-            <Card className="shadow mb-5">
+            <Card className="shadow mb-3">
               <Card.Header as="h5" className="text-center form-header">
                 비누 주문
               </Card.Header>
