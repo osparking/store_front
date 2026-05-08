@@ -43,6 +43,13 @@
   }
 }
 
+@media screen and ((max-width: 599px) or (max-height: 599px)) {
+  .worker-body {
+    top: 46px;
+    height: calc(100vh - 46px);
+  }
+}
+
 .worker-dashboard .header {
   grid-area: header;
   display: flex;
