@@ -24,7 +24,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   /* Set your desired max height */
-  max-height: calc(100vh - 465px);
+  max-height: calc(100vh - 520px);
   scrollbar-gutter: stable;
 }
 
