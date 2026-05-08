@@ -63,3 +63,23 @@
 .table-header {
   scrollbar-width: thin;
 }
+
+@media screen and ((max-width: 599px) or (max-height: 599px)) {
+  .table-body {
+    /* Set your desired max height */
+    max-height: calc(100vh - 345px);
+  }
+
+  .ingredient-table-wrapper {
+    min-width: 980px;
+    padding: 0;
+  }
+
+  .worker-main-content>.header {
+    margin-bottom: 0 !important;
+  }
+
+  .worker-main-content>.main-container-div {
+    height: calc(100% - 80px) !important;
+  }
+}
