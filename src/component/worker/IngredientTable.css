@@ -1,0 +1,65 @@
+/* Add this to your CSS file */
+.ingredient-table-wrapper {
+  position: relative;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  padding: 1em;
+  background-color: lightblue;
+  min-width: 780px;
+}
+
+.table-header {
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* Hide scrollbar for header when body scrolls */
+  scrollbar-gutter: stable;
+}
+
+.table-header table {
+  margin-bottom: 0;
+  table-layout: fixed;
+}
+
+.table-body {
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* Set your desired max height */
+  max-height: calc(100vh - 465px);
+  scrollbar-gutter: stable;
+}
+
+.table-body table {
+  margin-bottom: 0;
+  table-layout: fixed;
+}
+
+/* Optional: Fix scrollbar alignment issue */
+.table-header::-webkit-scrollbar,
+.table-body::-webkit-scrollbar {
+  width: 10px;
+  /* Match browser default scrollbar width */
+}
+
+.table-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.table-body::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 8px;
+}
+
+.table-body::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Ensure columns align perfectly */
+.table-header table,
+.table-body table {
+  width: 100%;
+}
+
+/* Hide header scrollbar when not needed */
+.table-header {
+  scrollbar-width: thin;
+}
