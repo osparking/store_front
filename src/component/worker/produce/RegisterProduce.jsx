@@ -37,7 +37,7 @@ const RegisterProduce = () => {
   const [producePage, setProducePage] = useState({});
   const [produceRows, setProduceRows] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
   const [pageSize, setPageSize] = useState(itemsPerPage);
 
   const [producePerPage] = useState(itemsPerPage);
