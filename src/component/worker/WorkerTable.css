@@ -30,7 +30,12 @@
 
 .table-body.order {
   /* Set your desired max height */
-  max-height: calc(100vh - 425px);
+  max-height: calc(100vh - 445px);
+}
+
+.table-body.produce {
+  /* Set your desired max height */
+  max-height: calc(100vh - 451px);
 }
 
 .table-body table {
