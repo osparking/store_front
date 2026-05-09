@@ -6,6 +6,7 @@ import Paginator from "../../common/Paginator";
 import { formatDate, getRecordRange } from "../../util/utilities";
 import OrderStatus from "./OrderStatus";
 import "./OrderTable.css";
+import "../WorkerTable.css";
 
 const OrderTable = ({ setShowDetail, setDetailId }) => {
   const [totalPages, setTotalPages] = useState(1);
@@ -69,8 +70,14 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
       <p className="text-center mb-1">
         {getRecordRange(orderPage, indexOfFirst, idxLastPlus1, "주문")}
       </p>
-      <div id="order-table-container">
-        <Table id="workerJobTable" bordered hover striped style={{ minWidth: "730px" }}>
+      <div className="table-header">
+        <table
+          className="table table-bordered table-hover table-striped"
+          style={{
+            tableLayout: "fixed",
+            minWidth: "730px",
+          }}
+        >
           <thead>
             <tr>
               <th className="minDateWidth">주문일시</th>
@@ -83,6 +90,16 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
               <th>유저ID</th>
             </tr>
           </thead>
+        </table>
+      </div>
+      <div className="table-body">
+        <table
+          className="table table-bordered table-hover table-striped"
+          style={{
+            tableLayout: "fixed",
+            minWidth: "730px",
+          }}
+        >
           <tbody>
             {soapOrders &&
               soapOrders.map((order, index) => (
@@ -108,7 +125,7 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
                 </tr>
               ))}
           </tbody>
-        </Table>
+        </table>
       </div>
       {fetchResult && orderPage && (
         <Paginator
