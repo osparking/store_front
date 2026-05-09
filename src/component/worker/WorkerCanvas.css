@@ -31,18 +31,6 @@
   height: fit-content !important;
 }
 
-/* Medium <= 992px */
-@media screen and (max-width: 992px) {
-  .grid-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 62px 1fr;
-    grid-template-areas:
-      'header'
-      'main';
-  }
-}
-
 @media screen and ((max-width: 599px) or (max-height: 599px)) {
   .worker-body {
     top: 46px;
@@ -85,9 +73,8 @@
   fill: currentColor
 }
 
-/* Medium <= 992px */
-
-@media screen and (max-width: 992px) {
+/* Below MUI MD <= 899px */
+@media screen and (max-width: 899px) {
   .worker-main-content {
     margin: 0 !important;
   }
