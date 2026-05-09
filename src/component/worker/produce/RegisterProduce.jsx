@@ -195,7 +195,7 @@ const RegisterProduce = () => {
         loadProducePage={loadProducePage}
         setCurrentPage={setCurrentPage}
       />
-      <div className="pb-1">
+      <div>
         <Paginator
           pageSize={producePerPage}
           totalItems={producePage.totalElements}
