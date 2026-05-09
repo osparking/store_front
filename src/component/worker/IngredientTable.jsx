@@ -19,6 +19,25 @@ const IngredientTable = (ingreList) => {
     return domain;
   }
 
+  const ingredientTableColumnGroup = () => {
+    return (
+      <colgroup>
+        <col style={{ width: "5%" }} />
+        <col style={{ width: "13%" }} />
+        <col style={{ width: "9%" }} />
+        <col style={{ width: "14%" }} />
+        <col style={{ width: "5%" }} />
+        <col style={{ width: "5%" }} />
+        <col style={{ width: "5%" }} />
+        <col style={{ width: "11%" }} />
+        <col style={{ width: "14%" }} />
+        <col style={{ width: "9%" }} />
+        <col style={{ width: "5%" }} />
+        <col style={{ width: "5%" }} />
+      </colgroup>
+    );
+  };
+
   return (
     <div className="ingredient-table-wrapper">
       {/* Fixed Header Section */}
@@ -30,20 +49,7 @@ const IngredientTable = (ingreList) => {
             minWidth: "730px",
           }}
         >
-          <colgroup>
-            <col style={{ width: "5%" }} />
-            <col style={{ width: "13%" }} />
-            <col style={{ width: "9%" }} />
-            <col style={{ width: "14%" }} />
-            <col style={{ width: "5%" }} />
-            <col style={{ width: "5%" }} />
-            <col style={{ width: "5%" }} />
-            <col style={{ width: "11%" }} />
-            <col style={{ width: "14%" }} />
-            <col style={{ width: "9%" }} />
-            <col style={{ width: "5%" }} />
-            <col style={{ width: "5%" }} />
-          </colgroup>
+          {ingredientTableColumnGroup()}
           <thead>
             <tr>
               <th>순번</th>
@@ -71,20 +77,7 @@ const IngredientTable = (ingreList) => {
             minWidth: "730px",
           }}
         >
-          <colgroup>
-            <col style={{ width: "5%" }} />
-            <col style={{ width: "13%" }} />
-            <col style={{ width: "9%" }} />
-            <col style={{ width: "14%" }} />
-            <col style={{ width: "5%" }} />
-            <col style={{ width: "5%" }} />
-            <col style={{ width: "5%" }} />
-            <col style={{ width: "11%" }} />
-            <col style={{ width: "14%" }} />
-            <col style={{ width: "9%" }} />
-            <col style={{ width: "5%" }} />
-            <col style={{ width: "5%" }} />
-          </colgroup>
+          {ingredientTableColumnGroup()}
           <tbody>
             {ingreList.map((ingredient, index) => (
               <tr key={index}>
