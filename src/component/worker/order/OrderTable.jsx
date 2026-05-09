@@ -70,62 +70,64 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
       <p className="text-center mb-1">
         {getRecordRange(orderPage, indexOfFirst, idxLastPlus1, "주문")}
       </p>
-      <div className="table-header">
-        <table
-          className="table table-bordered table-hover table-striped"
-          style={{
-            tableLayout: "fixed",
-            minWidth: "730px",
-          }}
-        >
-          <thead>
-            <tr>
-              <th className="minDateWidth">주문일시</th>
-              <th style={{ minWidth: "125px" }}>상태</th>
-              <th>주문명칭</th>
-              <th>고객명</th>
-              <th>수신자</th>
-              <th>지불액</th>
-              <th>주문ID</th>
-              <th>유저ID</th>
-            </tr>
-          </thead>
-        </table>
-      </div>
-      <div className="table-body">
-        <table
-          className="table table-bordered table-hover table-striped"
-          style={{
-            tableLayout: "fixed",
-            minWidth: "730px",
-          }}
-        >
-          <tbody>
-            {soapOrders &&
-              soapOrders.map((order, index) => (
-                <tr key={index}>
-                  <td>{formatDate(order.orderTime)}</td>
-                  <td className={getStatusClass(order.orderStatus)}>
-                    <OrderStatus
-                      statusLabels={statusLabels}
-                      order={order}
-                      loadOrderPage={loadOrderPage}
-                    />
-                  </td>
-                  <td>
-                    <a href="#" onClick={() => viewOrderDetail(order.id)}>
-                      {order.orderName}
-                    </a>
-                  </td>
-                  <td>{order.customer}</td>
-                  <td>{order.recipient}</td>
-                  <td>{Number(order.payment).toLocaleString()}원</td>
-                  <td>{order.orderId}</td>
-                  <td>{order.user_id}</td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+      <div className="worker-table-wrapper">
+        <div className="table-header">
+          <table
+            className="table table-bordered table-hover table-striped"
+            style={{
+              tableLayout: "fixed",
+              minWidth: "730px",
+            }}
+          >
+            <thead>
+              <tr>
+                <th className="minDateWidth">주문일시</th>
+                <th style={{ minWidth: "125px" }}>상태</th>
+                <th>주문명칭</th>
+                <th>고객명</th>
+                <th>수신자</th>
+                <th>지불액</th>
+                <th>주문ID</th>
+                <th>유저ID</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div className="table-body order">
+          <table
+            className="table table-bordered table-hover table-striped"
+            style={{
+              tableLayout: "fixed",
+              minWidth: "730px",
+            }}
+          >
+            <tbody>
+              {soapOrders &&
+                soapOrders.map((order, index) => (
+                  <tr key={index}>
+                    <td>{formatDate(order.orderTime)}</td>
+                    <td className={getStatusClass(order.orderStatus)}>
+                      <OrderStatus
+                        statusLabels={statusLabels}
+                        order={order}
+                        loadOrderPage={loadOrderPage}
+                      />
+                    </td>
+                    <td>
+                      <a href="#" onClick={() => viewOrderDetail(order.id)}>
+                        {order.orderName}
+                      </a>
+                    </td>
+                    <td>{order.customer}</td>
+                    <td>{order.recipient}</td>
+                    <td>{Number(order.payment).toLocaleString()}원</td>
+                    <td>{order.orderId}</td>
+                    <td>{order.user_id}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
       </div>
       {fetchResult && orderPage && (
         <Paginator

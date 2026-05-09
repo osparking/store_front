@@ -24,8 +24,13 @@
   overflow-y: auto;
   overflow-x: hidden;
   /* Set your desired max height */
-  max-height: calc(100vh - 520px);
+  max-height: calc(100vh - 499px);
   scrollbar-gutter: stable;
+}
+
+.table-body.order {
+  /* Set your desired max height */
+  max-height: calc(100vh - 425px);
 }
 
 .table-body table {
