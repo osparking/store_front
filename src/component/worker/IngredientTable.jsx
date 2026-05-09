@@ -69,7 +69,7 @@ const IngredientTable = (ingreList) => {
       </div>
 
       {/* Scrollable Body Section */}
-      <div className="table-body">
+      <div className="table-body ingredient">
         <table
           className="table table-bordered table-hover table-striped"
           style={{
