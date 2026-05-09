@@ -1,7 +1,7 @@
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { BsPencilFill, BsTrashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import "./IngredientTable.css";
+import "./WorkerTable.css";
 
 const IngredientTable = (ingreList) => {
   function isValidUrl(string) {
