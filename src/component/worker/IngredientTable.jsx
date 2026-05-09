@@ -39,7 +39,7 @@ const IngredientTable = (ingreList) => {
   };
 
   return (
-    <div className="ingredient-table-wrapper">
+    <div className="worker-table-wrapper">
       {/* Fixed Header Section */}
       <div className="table-header">
         <table

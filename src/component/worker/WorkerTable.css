@@ -1,5 +1,5 @@
 /* Add this to your CSS file */
-.ingredient-table-wrapper {
+.worker-table-wrapper {
   position: relative;
   border: 1px solid #dee2e6;
   border-radius: 0.25rem;
@@ -72,7 +72,7 @@
     max-height: calc(100vh - 345px);
   }
 
-  .ingredient-table-wrapper {
+  .worker-table-wrapper {
     min-width: 980px;
     padding: 0;
   }
