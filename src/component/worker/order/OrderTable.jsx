@@ -65,6 +65,21 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
     }
   };
 
+  const orderTableColumnGroup = () => {
+    return (
+      <colgroup>
+        <col style={{ width: "15%" }} />
+        <col style={{ width: "12%" }} />
+        <col style={{ width: "12%" }} />
+        <col style={{ width: "8%" }} />
+        <col style={{ width: "8%" }} />
+        <col style={{ width: "9%" }} />
+        <col style={{ width: "12%" }} />
+        <col style={{ width: "7%" }} />
+      </colgroup>
+    );
+  };
+
   return (
     <div>
       <p className="text-center mb-1">
@@ -80,6 +95,7 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
                 minWidth: "730px",
               }}
             >
+              {orderTableColumnGroup()}
               <thead>
                 <tr>
                   <th className="minDateWidth">주문일시</th>
@@ -102,6 +118,7 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
                 minWidth: "730px",
               }}
             >
+              {orderTableColumnGroup()}
               <tbody>
                 {soapOrders &&
                   soapOrders.map((order, index) => (
