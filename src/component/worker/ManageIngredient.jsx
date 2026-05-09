@@ -38,6 +38,7 @@ const ManageIngredient = () => {
 
   const handleClearFilter = () => {
     setSelectedName("");
+    localStorage.removeItem("INGRE_NAME");
   };
 
   const {
