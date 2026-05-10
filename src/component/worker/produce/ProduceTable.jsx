@@ -5,6 +5,39 @@ import "../WorkerCanvas.css";
 import "../WorkerTable.css";
 
 const ProduceTable = (produceRows) => {
+  const produceTable7columns = () => {
+    return (
+      <>
+        <col style={{ width: "07%" }} />
+        <col style={{ width: "12%" }} />
+        <col style={{ width: "10%" }} />
+        <col style={{ width: "10%" }} />
+        <col style={{ width: "14%" }} />
+        <col style={{ width: "14%" }} />
+        <col style={{ width: "17%" }} />
+      </>
+    );
+  };
+
+  const produceTableHeaderColumns = () => {
+    return (
+      <colgroup>
+        {produceTable7columns()}
+        <col style={{ width: "16%" }} />
+      </colgroup>
+    );
+  };
+
+  const produceTableBodyColumns = () => {
+    return (
+      <colgroup>
+        {produceTable7columns()}
+        <col style={{ width: "8%" }} />
+        <col style={{ width: "8%" }} />
+      </colgroup>
+    );
+  };
+
   return (
     <div className="worker-table-wrapper">
       <div className="table-header">
@@ -15,6 +48,7 @@ const ProduceTable = (produceRows) => {
             minWidth: "730px",
           }}
         >
+          {produceTableHeaderColumns()}
           <thead>
             <tr>
               <th>순번</th>
@@ -37,6 +71,7 @@ const ProduceTable = (produceRows) => {
             minWidth: "730px",
           }}
         >
+          {produceTableBodyColumns()}
           <tbody>
             {produceRows.map((produce, index) => (
               <tr key={index}>
