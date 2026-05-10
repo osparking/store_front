@@ -102,11 +102,15 @@
 
 @media screen and (max-width: 599px) {
   .table-body.ingredient {
-    max-height: calc(100vh - 350px);
+    max-height: calc(100vh - 343px);
   }
 
   .table-body.order {
-    max-height: calc(100vh - 300px);
+    max-height: calc(100vh - 293px);
+  }
+
+  .table-body.produce {
+    max-height: calc(100vh - 299px);
   }
 
   .worker-table-wrapper {
