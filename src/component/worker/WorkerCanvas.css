@@ -36,6 +36,11 @@
     top: 46px;
     height: calc(100vh - 46px);
   }
+
+  .main-container {
+    padding: 0 !important;
+    overflow-y: initial;
+  }
 }
 
 .worker-dashboard .header {
@@ -69,7 +74,7 @@
 }
 
 /* Below MUI MD <= 899px */
-@media screen and (max-width: 899px) {
+@media screen and ((max-width: 899px) or (max-height: 899px)) {
   .worker-main-content {
     margin: 0 !important;
   }
