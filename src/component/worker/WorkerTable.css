@@ -76,6 +76,10 @@
   scrollbar-width: thin;
 }
 
+.styled-data-table {
+  min-width: 930px;
+}
+
 @media screen and (max-width: 899px) {
   .table-body.ingredient {
     max-height: calc(100vh - 440px);
