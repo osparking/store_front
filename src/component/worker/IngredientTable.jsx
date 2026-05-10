@@ -42,13 +42,7 @@ const IngredientTable = (ingreList) => {
     <div className="worker-table-wrapper">
       {/* Fixed Header Section */}
       <div className="table-header">
-        <table
-          className="table table-bordered table-hover table-striped"
-          style={{
-            tableLayout: "fixed",
-            minWidth: "730px",
-          }}
-        >
+        <table className="table table-bordered table-hover table-striped styled-data-table">
           {ingredientTableColumnGroup()}
           <thead>
             <tr>
@@ -70,13 +64,7 @@ const IngredientTable = (ingreList) => {
 
       {/* Scrollable Body Section */}
       <div className="table-body ingredient">
-        <table
-          className="table table-bordered table-hover table-striped"
-          style={{
-            tableLayout: "fixed",
-            minWidth: "730px",
-          }}
-        >
+        <table className="table table-bordered table-hover table-striped styled-data-table">
           {ingredientTableColumnGroup()}
           <tbody>
             {ingreList.map((ingredient, index) => (
