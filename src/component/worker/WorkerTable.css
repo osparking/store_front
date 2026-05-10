@@ -35,7 +35,7 @@
 
 .table-body.produce {
   /* Set your desired max height */
-  max-height: calc(100vh - 451px);
+  max-height: calc(100vh - 425px);
 }
 
 .table-body table {
@@ -80,10 +80,14 @@
   .table-body.ingredient {
     max-height: calc(100vh - 440px);
   }
-  
+
   .table-body.order {
     max-height: calc(100vh - 365px);
-  }  
+  }
+
+  .table-body.produce {
+    max-height: calc(100vh - 370px);
+  }
 }
 
 @media screen and (max-height: 599px) {
