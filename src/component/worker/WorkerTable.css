@@ -92,11 +92,15 @@
 
 @media screen and (max-height: 599px) {
   .table-body.ingredient {
-    max-height: calc(100vh - 462px);
+    max-height: calc(100vh - 415px);
   }
 
   .table-body.order {
-    max-height: calc(100vh - 388px);
+    max-height: calc(100vh - 365px);
+  }
+
+  .table-body.produce {
+    max-height: calc(100vh - 347px);
   }
 }
 
