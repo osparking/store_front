@@ -140,7 +140,7 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
                       <td>{order.recipient}</td>
                       <td>{Number(order.payment).toLocaleString()}원</td>
                       <td>{order.orderId}</td>
-                      <td>{order.user_id}</td>
+                      <td>{order.userId}</td>
                     </tr>
                   ))}
               </tbody>
