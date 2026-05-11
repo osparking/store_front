@@ -182,7 +182,9 @@ const RegisterProduce = () => {
           </div>
         </Col>
       </Row>
-      <div style={{ overflow: "auto" }}>{ProduceTable(produceRows)}</div>
+      <div style={{ overflow: "auto" }}>
+        {ProduceTable(produceRows, currentPage)}
+      </div>
       <ProduceInfoModal
         show={showInfoModal}
         closer={() => setShowInfoModal(false)}
