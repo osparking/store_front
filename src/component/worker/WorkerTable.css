@@ -81,17 +81,17 @@
   min-width: 930px;
 }
 
-@media screen and (max-width: 899px) {
-  .table-body.ingredient {
-    max-height: calc(100vh - 440px);
+@media screen and (max-height: 899px) {
+  .table-body.order {
+    max-height: calc(100vh - 382px);
   }
 
-  .table-body.order {
-    max-height: calc(100vh - 365px);
+  .table-body.ingredient {
+    max-height: calc(100vh - 432px);
   }
 
   .table-body.produce {
-    max-height: calc(100vh - 370px);
+    max-height: calc(100vh - 388px);
   }
 }
 
