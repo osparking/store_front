@@ -23,19 +23,20 @@
 .table-body {
   overflow-y: auto;
   overflow-x: hidden;
-  /* Set your desired max height */
   max-height: calc(100vh - 499px);
   scrollbar-gutter: stable;
 }
 
 .table-body.order {
-  /* Set your desired max height */
-  max-height: calc(100vh - 445px);
+  max-height: calc(100vh - 420px);
+}
+
+.table-body.ingredient {
+  max-height: calc(100vh - 470px);
 }
 
 .table-body.produce {
-  /* Set your desired max height */
-  max-height: calc(100vh - 425px);
+  max-height: calc(100vh - 426px);
 }
 
 .table-body table {
