@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { BsPlusSquareFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
@@ -58,12 +58,10 @@ const ManageIngredient = () => {
     getIngredientPage(selectedName, currIngrePage, ingresPerPage)
       .then((response) => {
         if (response) {
-          console.log("재료 목록: ", response.pageContent.content);
           setIngrePage(response.pageContent);
           setIngreList(response.pageContent.content);
           setTotalPages(response.totalPages);
         } else {
-          console.log("로그인 페이지로");
           navigate("/login");
         }
       })
@@ -112,8 +110,13 @@ const ManageIngredient = () => {
   }, [currIngrePage]);
 
   useEffect(() => {
-    readIngredientPage();
-    setCurrIngrePage(1);
+    if (
+      selectedName !== localStorage.getItem("INGRE_NAME") &&
+      selectedName !== ""
+    ) {
+      readIngredientPage();
+      setCurrIngrePage(1);
+    }
   }, [selectedName]);
 
   const [ingresPerPage] = useState(10);
