@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { BsPlusSquareFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
@@ -54,8 +54,8 @@ const ManageIngredient = () => {
 
   const navigate = useNavigate();
 
-  const readIngredientPage = () => {
-    getIngredientPage(selectedName, currIngrePage, ingresPerPage)
+  const readIngredientPage = (pageNo) => {
+    getIngredientPage(selectedName, pageNo, ingresPerPage)
       .then((response) => {
         if (response) {
           setIngrePage(response.pageContent);
@@ -72,7 +72,7 @@ const ManageIngredient = () => {
   };
 
   useEffect(() => {
-    readIngredientPage();
+    readIngredientPage(currIngrePage);
     const readIngreNames = async () => {
       try {
         const response = await getAllIngreNames();
@@ -91,7 +91,7 @@ const ManageIngredient = () => {
 
   useEffect(() => {
     if (ingreAdded || ingreUpdated) {
-      readIngredientPage();
+      readIngredientPage(currIngrePage);
       if (ingreUpdated) {
         setIngreUpdated(false);
       }
@@ -103,18 +103,15 @@ const ManageIngredient = () => {
   const changePage = (pageNo) => {
     localStorage.setItem("CURR_INGRE_PAGE", pageNo);
     setCurrIngrePage(pageNo);
+    readIngredientPage(pageNo);
   };
-
-  useEffect(() => {
-    readIngredientPage();
-  }, [currIngrePage]);
 
   useEffect(() => {
     if (
       selectedName !== localStorage.getItem("INGRE_NAME") &&
       selectedName !== ""
     ) {
-      readIngredientPage();
+      readIngredientPage(currIngrePage);
       setCurrIngrePage(1);
     }
   }, [selectedName]);
