@@ -122,6 +122,18 @@
 }
 
 @media screen and (max-width: 599px) {
+  .table-body.order {
+    max-height: calc(100vh - 292px);
+  }
+
+  .table-body.ingredient {
+    max-height: calc(100vh - 342px);
+  }
+
+  .table-body.produce {
+    max-height: calc(100vh - 298px);
+  }
+
   .worker-table-wrapper {
     min-width: 980px;
     padding: 0;
