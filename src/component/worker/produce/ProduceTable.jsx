@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "../WorkerCanvas.css";
 import "../WorkerTable.css";
 
-const ProduceTable = (produceRows) => {
+const ProduceTable = (produceRows, currentPage) => {
   const produceTable7columns = () => {
     return (
       <>
@@ -75,7 +75,7 @@ const ProduceTable = (produceRows) => {
           <tbody>
             {produceRows.map((produce, index) => (
               <tr key={index}>
-                <td>{index + 1}</td>
+                <td>{(currentPage - 1) * 10 + index + 1}</td>
                 <td>{produce.shape}</td>
                 <td>{produce.quantity}</td>
                 <td>{produce.produceDate}</td>
