@@ -3,7 +3,7 @@ import { BsPencilFill, BsTrashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import "./WorkerTable.css";
 
-const IngredientTable = (ingreList) => {
+const IngredientTable = (ingreList, currIngrePage) => {
   function isValidUrl(string) {
     try {
       new URL(string);
@@ -69,7 +69,7 @@ const IngredientTable = (ingreList) => {
           <tbody>
             {ingreList.map((ingredient, index) => (
               <tr key={index}>
-                <td>{index + 1}</td>
+                <td>{(currIngrePage - 1) * 10 + index + 1}</td>
                 <td>{ingredient.ingreName}</td>
                 <td>{ingredient.storeDate}</td>
                 <td>

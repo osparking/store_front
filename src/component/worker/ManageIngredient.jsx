@@ -221,7 +221,9 @@ const ManageIngredient = () => {
           )}
         </p>
       </div>
-      <div style={{ overflow: "auto" }}>{IngredientTable(ingreList)}</div>
+      <div style={{ overflow: "auto" }}>
+        {IngredientTable(ingreList, currIngrePage)}
+      </div>
       <IngreDataModal
         show={showModal}
         closer={() => setShowModal(false)}
