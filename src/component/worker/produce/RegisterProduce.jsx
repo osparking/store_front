@@ -46,9 +46,9 @@ const RegisterProduce = () => {
   const indexOfFirstProduce = indexOfLastProduce - producePerPage;
   const [loading, setLoading] = useState(false);
 
-  const loadProducePage = async () => {
+  const loadProducePage = async (pageNo = currentPage) => {
     setLoading(true);
-    const response = await fetchProducePage(currentPage, pageSize);
+    const response = await fetchProducePage(pageNo, pageSize);
     setLoading(false);
 
     if (response && response.pageContent) {
@@ -61,13 +61,14 @@ const RegisterProduce = () => {
   };
 
   useEffect(() => {
-    localStorage.setItem("PRODUCE_PAGE", currentPage);
-    loadProducePage();
-  }, [currentPage]);
-
-  useEffect(() => {
     loadProducePage();
   }, []);
+
+  const changePage = (pageNo) => {
+    localStorage.setItem("PRODUCE_PAGE", pageNo);
+    setCurrentPage(pageNo);
+    loadProducePage(pageNo);
+  };
 
   const [showDelModal, setShowDelModal] = useState(false);
   const [idToDelete, setIdToDelete] = useState(null);
@@ -201,7 +202,7 @@ const RegisterProduce = () => {
           totalItems={producePage.totalElements}
           totalPages={totalPages}
           currPage={currentPage}
-          setCurrPage={(pageNo) => setCurrentPage(pageNo)}
+          setCurrPage={(pageNo) => changePage(pageNo)}
           darkBackground="true"
         />
       </div>
