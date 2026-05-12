@@ -85,6 +85,7 @@ td.addressCell {
 #order_detail_container {
   align-items: center;
   height: calc(100vh - 339px);
+  max-height: fit-content !important;
   overflow-y: auto;
 }
 
