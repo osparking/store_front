@@ -9,6 +9,7 @@ import ConfirmationModal from "../../modal/ConfirmationModal";
 import ReviewModal from "../../review/ReviewModal";
 import { formatDate } from "../../util/utilities";
 import "./OrderDetail.css";
+import { set } from "lodash";
 
 const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   const [orderDetails, setOrderDetails] = useState(undefined);
@@ -248,7 +249,6 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         saveReview={saveReview}
         editable={!isHouse}
       />
-
       {orderDetails && (
         <div className="box_section mt-0 orders_table_div darkBack">
           <div id="order_detail_container">
@@ -418,24 +418,28 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
               </Col>
             </Row>
           </div>
-          <hr />
-          <Row>
-            <Col
-              lg={12}
-              md={12}
-              xs={12}
-              className="d-flex justify-content-center align-items-center"
-            >
-              <Button
-                variant="success"
-                className="showAlways"
-                onClick={() => setShowDetail(false)}
-                style={{ margin: "0 auto .5rem" }}
-              >
-                주문 목록
-              </Button>
-            </Col>
-          </Row>
+          {setShowDetail && (
+            <>
+              <hr />
+              <Row>
+                <Col
+                  lg={12}
+                  md={12}
+                  xs={12}
+                  className="d-flex justify-content-center align-items-center"
+                >
+                  <Button
+                    variant="success"
+                    className="showAlways"
+                    onClick={() => setShowDetail(false)}
+                    style={{ margin: "0 auto .5rem" }}
+                  >
+                    주문 목록
+                  </Button>
+                </Col>
+              </Row>
+            </>
+          )}
         </div>
       )}
     </>
