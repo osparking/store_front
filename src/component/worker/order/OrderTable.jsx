@@ -24,9 +24,9 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
 
   const [statusLabels, setStatusLabels] = useState([]);
 
-  const loadOrderPage = async () => {
+  const loadOrderPage = async (pageNo = currentPage) => {
     setLoading(true);
-    const response = await fetchOrderPage(currentPage, pageSize);
+    const response = await fetchOrderPage(pageNo, pageSize);
     setLoading(false);
     setFetchResult(response);
 
@@ -43,9 +43,14 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
   };
 
   useEffect(() => {
-    localStorage.setItem("ORDER_PAGE_WORKER", currentPage);
     loadOrderPage();
-  }, [currentPage]);
+  }, []);
+
+  const changePage = (pageNo) => {
+    localStorage.setItem("ORDER_PAGE_WORKER", pageNo);
+    setCurrentPage(pageNo);
+    loadOrderPage(pageNo);
+  };
 
   function viewOrderDetail(id) {
     console.log("Clicked order ID:", id);
@@ -154,7 +159,7 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
           totalItems={orderPage.totalElements}
           totalPages={totalPages}
           currPage={fetchResult.currentPage}
-          setCurrPage={(pageNo) => setCurrentPage(pageNo)}
+          setCurrPage={(pageNo) => changePage(pageNo)}
           darkBackground="true"
         />
       )}
