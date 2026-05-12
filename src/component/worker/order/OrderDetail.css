@@ -57,8 +57,6 @@ div.darkBack {
 div.orderSummaryCol {
   margin: 0 !important;
   align-items: center;
-  overflow: auto;
-  min-width: 315px;
   padding: 0 !important;
   width: fit-content;
 }
@@ -78,4 +76,40 @@ td.addressCell {
 
 .box_section.orders_table_div {
   padding: 1rem !important;
+}
+
+.gap-10 {
+  gap: 10px;
+}
+
+#order_detail_container {
+  align-items: center;
+  height: calc(100vh - 339px);
+  overflow-y: auto;
+}
+
+#order_detail_container .row {
+  margin-left: none;
+  margin-right: none;
+}
+
+@media screen and (max-height: 899px) {
+  #order_detail_container {
+    align-items: center;
+    height: calc(100vh - 315px);
+  }
+}
+
+@media screen and (max-height: 599px) {
+  #order_detail_container {
+    align-items: center;
+    height: calc(100vh - 221px);
+  }
+}
+
+@media screen and ((max-width: 999px) and (min-height: 600px)) {
+  #order_detail_container {
+    align-items: center;
+    height: calc(100vh - 275px);
+  }
 }
