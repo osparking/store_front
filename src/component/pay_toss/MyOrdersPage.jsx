@@ -11,7 +11,7 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [orderPage, setOrderPage] = useState({});
   const [orderArray, setOrderArray] = useState([]);
-  const [pageSize, setPageSize] = useState(5); // itemsPerPage
+  const [pageSize, setPageSize] = useState(10); // itemsPerPage
 
   const savedPageNo = localStorage.getItem("ORDER_PAGE_고객");
   const [currentPage, setCurrentPage] = useState(savedPageNo || 1);
