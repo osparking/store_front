@@ -20,7 +20,19 @@ const ManageMyOrder = () => {
             <strong>{showDetail ? "주문 상세" : "나의 주문"}</strong>
           </h2>
           {showDetail ? (
-            <OrderDetail detailId={detailId} isHouse={false} />
+            <>
+              <OrderDetail detailId={detailId} isHouse={false} />
+              <div className="d-flex justify-content-center align-items-center">
+                <Button
+                  variant="success"
+                  className="showAlways mt-3"
+                  onClick={() => setShowDetail(false)}
+                  style={{ margin: "0 0 1em" }}
+                >
+                  주문 목록
+                </Button>
+              </div>
+            </>
           ) : (
             <MyOrdersPage
               setShowDetail={setShowDetail}
@@ -28,18 +40,6 @@ const ManageMyOrder = () => {
             />
           )}
         </Card.Body>
-        {showDetail && (
-          <div className="d-flex justify-content-center align-items-center">
-            <Button
-              variant="success"
-              className="showAlways"
-              onClick={() => setShowDetail(false)}
-              style={{ margin: "0 0 1em" }}
-            >
-              주문 목록
-            </Button>
-          </div>
-        )}
       </Card>
     </div>
   );
