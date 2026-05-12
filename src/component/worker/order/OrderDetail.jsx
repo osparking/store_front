@@ -10,7 +10,7 @@ import ReviewModal from "../../review/ReviewModal";
 import { formatDate } from "../../util/utilities";
 import "./OrderDetail.css";
 
-const OrderDetail = ({ detailId, isHouse }) => {
+const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   const [orderDetails, setOrderDetails] = useState(undefined);
   const [orderStatus, setOrderStatus] = useState(undefined);
   const [showModal, setShowModal] = useState(false);
@@ -409,6 +409,24 @@ const OrderDetail = ({ detailId, isHouse }) => {
                   </tbody>
                 </Table>
               </div>
+            </Col>
+          </Row>
+          <hr />
+          <Row>
+            <Col
+              lg={12}
+              md={12}
+              xs={12}
+              className="d-flex justify-content-center align-items-center"
+            >
+              <Button
+                variant="success"
+                className="showAlways"
+                onClick={() => setShowDetail(false)}
+                style={{ margin: ".5rem auto" }}
+              >
+                주문 목록
+              </Button>
             </Col>
           </Row>
         </div>
