@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import MyQuillEditor from "../util/MyQuillEditor";
 import Rating from "./Rating";
+import { ReviewsContext } from "../user/UserDashboard";
 
 export default function ReviewModal({
   show,
@@ -10,8 +11,8 @@ export default function ReviewModal({
   review,
   saveReview,
   editable,
-  refreshReviews,
 }) {
+  const { refreshReviews } = useContext(ReviewsContext);
   const [stars, setStars] = useState(0);
   const saveEdit = (editorText) => {
     const reviewData = { stars: stars, ...editorText };
