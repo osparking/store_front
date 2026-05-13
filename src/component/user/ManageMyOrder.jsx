@@ -11,8 +11,8 @@ const ManageMyOrder = () => {
 
   return (
     <div
-      className="justify-content-center align-items-center"
-      style={{ display: "flex", overflow: "auto", width: "100%" }}
+      className="justify-content-center align-items-center my-card-container"
+      style={{ display: "flex", width: "100%" }}
     >
       <Card className="tableCard">
         <Card.Body style={{ width: "100%" }}>
@@ -21,10 +21,7 @@ const ManageMyOrder = () => {
           </h2>
           {showDetail ? (
             <>
-              <OrderDetail
-                detailId={detailId}
-                isHouse={false}
-              />
+              <OrderDetail detailId={detailId} isHouse={false} />
               <div className="d-flex justify-content-center align-items-center">
                 <Button
                   variant="success"
