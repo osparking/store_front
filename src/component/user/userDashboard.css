@@ -47,10 +47,10 @@ div.home-container.user-dashboard {
 }
 
 .user-dashboard .tableCard {
-  width: 100vw;
+  min-width: 780px;
   max-width: 950px;
-  height: calc(100vh - 168.5px);
-  margin-top: 20px;
+  height: calc(100vh - 164.5px);
+  margin-top: 26px;
 }
 
 /* 소형폭 미디어 */
@@ -182,7 +182,7 @@ div.home-container.user-dashboard {
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
   /* Smooth scrolling on iOS */
-  scrollbar-width: thin;
+  scrollbar-width: auto;
   /* For Firefox - thinner scrollbar */
 }
 
@@ -224,6 +224,50 @@ div.home-container.user-dashboard {
 
 #userDashboardTableDiv {
   max-height: calc(100% - 176px);
+}
+
+.user-table-wrapper {
+  position: relative;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  padding: 0;
+  background-color: lightpink;
+  min-width: 780px;
+}
+
+.table-header table {
+  margin-bottom: 0;
+  table-layout: fixed;
+}
+
+.user-table-wrapper .table {
+  margin-top: 0;
+}
+
+.user-table-wrapper thead th {
+  background-color: rgb(252, 222, 227);
+}
+
+.user-table-wrapper thead tr {
+  border-bottom: 2px solid #323334;
+}
+
+.user-table-wrapper tbody tr {
+  border-top: 0;
+}
+
+.my-card-container > .tableCard.card {
+  background-color: lightpink;
+  overflow: none;
+}
+
+.my-card-container .card-body {
+  padding: 0;
+  background-color: lightpink;
+}
+
+.my-card-container ul {
+  margin-bottom: 0;
 }
 
 @media screen and (max-width: 992px) and (min-width: 577px) {
