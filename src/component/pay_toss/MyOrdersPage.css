@@ -10,3 +10,13 @@ th, .text-center{
   width: fit-content;
   text-align: left;
 }
+
+.table-body.my-order {
+  max-height: calc(100vh - 386px);
+}
+
+@media screen and (max-height: 899px) {
+  .table-body.my-order {
+    max-height: calc(100vh - 390px);
+  }
+}
