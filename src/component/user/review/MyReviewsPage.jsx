@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import "../../../App.css";
@@ -13,10 +13,12 @@ import "../../pay_toss/MyOrdersPage.css";
 import ReviewModal from "../../review/ReviewModal";
 import { getRecordRange } from "../../util/utilities";
 import OrderDetail from "../../worker/order/OrderDetail";
+import { ReviewsContext } from "../UserDashboard";
 import "./MyReviewsPage.css";
 import MyReviewsTable from "./MyReviewsTable";
 
-const MyReviewsPage = ({ reviewsVersion }) => {
+const MyReviewsPage = () => {
+  const { reviewsVersion } = useContext(ReviewsContext);
   const [totalPages, setTotalPages] = useState(1);
   const [reviewPage, setReviewPage] = useState({});
   const [reviews, setReviews] = useState([]);
