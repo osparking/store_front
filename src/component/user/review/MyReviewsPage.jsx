@@ -14,7 +14,7 @@ import { getRecordRange } from "../../util/utilities";
 import "./MyReviewsPage.css";
 import MyReviewsTable from "./MyReviewsTable";
 
-const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
+const MyReviewsPage = ({ setShowDetail, setDetailId, reviewsVersion }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [reviewPage, setReviewPage] = useState({});
   const [reviews, setReviews] = useState([]);
@@ -38,6 +38,10 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
       setCurrentPage(searchResult.currentPage);
     }
   };
+
+  useEffect(() => {
+    loadReviewPage();
+  }, [reviewsVersion]);
 
   useEffect(() => {
     localStorage.setItem("REVIEW_PAGE_고객", currentPage);
@@ -94,7 +98,6 @@ const MyReviewsPage = ({ setShowDetail, setDetailId }) => {
           </div>
           {searchResult && reviewPage && (
             <Paginator
-              q
               pageSize={pageSize}
               totalItems={reviewPage.totalElements}
               totalPages={totalPages}
