@@ -123,7 +123,6 @@ const ManageQuestions = ({ mine }) => {
           </Card.Body>
         </Card>
       </div>
-      {/* </div> */}
     </>
   );
 };
