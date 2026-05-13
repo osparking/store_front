@@ -10,11 +10,13 @@ export default function ReviewModal({
   review,
   saveReview,
   editable,
+  refreshReviews,
 }) {
   const [stars, setStars] = useState(0);
   const saveEdit = (editorText) => {
     const reviewData = { stars: stars, ...editorText };
     saveReview(reviewData);
+    refreshReviews && refreshReviews();
   };
 
   useEffect(() => {
