@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
 import {
   changeOrderStatus,
@@ -10,13 +10,14 @@ import ReviewModal from "../../review/ReviewModal";
 import { formatDate } from "../../util/utilities";
 import "./OrderDetail.css";
 import { set } from "lodash";
+import { ReviewsContext } from "../../user/UserDashboard";
 
 const OrderDetail = ({
   detailId,
   setShowDetail,
   isHouse,
-  refreshReviews,
 }) => {
+  const { refreshReviews } = useContext(ReviewsContext);
   const [orderDetails, setOrderDetails] = useState(undefined);
   const [orderStatus, setOrderStatus] = useState(undefined);
   const [showModal, setShowModal] = useState(false);
@@ -254,7 +255,6 @@ const OrderDetail = ({
         review={review}
         saveReview={saveReview}
         editable={!isHouse}
-        refreshReviews={refreshReviews}
       />
       {orderDetails && (
         <div className="box_section mt-0 orders_table_div darkBack">
