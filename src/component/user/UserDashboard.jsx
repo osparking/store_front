@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Container, Dropdown, Tab, Tabs } from "react-bootstrap";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ManageQuestions from "../admin/ManageQuestions";
@@ -79,6 +79,12 @@ const UserDashboard = () => {
   const isVeryNarrow = useMediaQuery({ maxWidth: 599 });
   const isVeryShort = useMediaQuery({ maxHeight: 599 });
   const isMedium = useMediaQuery({ minWidth: 600, maxWidth: 1199 });
+  const [reviewsVersion, setReviewsVersion] = useState(1);
+  
+  const refreshReviews = useCallback(() => {
+    setReviewsVersion((prev) => prev + 1);
+  }, []);
+  
   const tabItems = [
     {
       key: "profile",
@@ -88,13 +94,21 @@ const UserDashboard = () => {
       ),
     },
     { key: "purchase_stat", title: "구매 통계", component: <OverviewUser /> },
-    { key: "purchase_list", title: "나의 주문", component: <ManageMyOrder /> },
+    {
+      key: "purchase_list",
+      title: "나의 주문",
+      component: <ManageMyOrder refreshReviews={refreshReviews} />,
+    },
     {
       key: "my_question",
       title: "나의 질문",
       component: <ManageQuestions mine />,
     },
-    { key: "my_review", title: "나의 리뷰", component: <ManageMyReviews /> },
+    {
+      key: "my_review",
+      title: "나의 리뷰",
+      component: <ManageMyReviews reviewsVersion={reviewsVersion} />,
+    },
   ];
 
   const currentComponent = tabItems.find(
