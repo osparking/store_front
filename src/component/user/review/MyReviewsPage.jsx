@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import "../../../App.css";
 import {
   fetchReview,
   getReviewPage,
@@ -11,10 +12,11 @@ import "../../home/home.css";
 import "../../pay_toss/MyOrdersPage.css";
 import ReviewModal from "../../review/ReviewModal";
 import { getRecordRange } from "../../util/utilities";
+import OrderDetail from "../../worker/order/OrderDetail";
 import "./MyReviewsPage.css";
 import MyReviewsTable from "./MyReviewsTable";
 
-const MyReviewsPage = ({ setShowDetail, setDetailId, reviewsVersion }) => {
+const MyReviewsPage = ({ reviewsVersion }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [reviewPage, setReviewPage] = useState({});
   const [reviews, setReviews] = useState([]);
@@ -69,44 +71,62 @@ const MyReviewsPage = ({ setShowDetail, setDetailId, reviewsVersion }) => {
     loadReviewPage();
   };
 
+  const [showDetail, setShowDetail] = useState(false);
+  const [detailId, setDetailId] = useState(0);
+
   return (
     <>
-      <ReviewModal
-        show={showReviewModal}
-        handleClose={() => setShowReviewModal(false)}
-        title={"후기 관리"}
-        review={review}
-        saveReview={saveReview}
-        editable={true}
-      />
-      <Card className="tableCard">
-        <Card.Body>
-          <h2 className="mb-1 ps-0">
-            <strong>나의 후기 목록</strong>
-          </h2>
-          <div className="d-flex justify-content-center align-items-center">
-            <p className="text-center text-muted mb-4">
-              {getRecordRange(reviewPage, indexOfFirst, idxLastPlus1, "후기")}
-            </p>
-          </div>
-          <div
-            id="userDashboardTableDiv"
-            style={{ whiteSpace: "initial", overflow: "auto" }}
-            className="justify-content-center align-items-center table-div"
-          >
-            {MyReviewsTable(reviews, manageReview)}
-          </div>
-          {searchResult && reviewPage && (
-            <Paginator
-              pageSize={pageSize}
-              totalItems={reviewPage.totalElements}
-              totalPages={totalPages}
-              currPage={currentPage}
-              setCurrPage={(pageNo) => setCurrentPage(pageNo)}
-            />
-          )}
-        </Card.Body>
-      </Card>
+      {showDetail ? (
+        <OrderDetail
+          detailId={detailId}
+          setShowDetail={setShowDetail}
+          isHouse={false}
+        />
+      ) : (
+        <>
+          <ReviewModal
+            show={showReviewModal}
+            handleClose={() => setShowReviewModal(false)}
+            title={"후기 관리"}
+            review={review}
+            saveReview={saveReview}
+            editable={true}
+          />
+          <Card className="tableCard">
+            <Card.Body>
+              <h2 className="mb-1 ps-0">
+                <strong>나의 후기 목록</strong>
+              </h2>
+              <div className="d-flex justify-content-center align-items-center">
+                <p className="text-center text-muted mb-4">
+                  {getRecordRange(
+                    reviewPage,
+                    indexOfFirst,
+                    idxLastPlus1,
+                    "후기",
+                  )}
+                </p>
+              </div>
+              <div
+                id="userDashboardTableDiv"
+                style={{ whiteSpace: "initial", overflow: "auto" }}
+                className="justify-content-center align-items-center table-div"
+              >
+                {MyReviewsTable(reviews, manageReview)}
+              </div>
+              {searchResult && reviewPage && (
+                <Paginator
+                  pageSize={pageSize}
+                  totalItems={reviewPage.totalElements}
+                  totalPages={totalPages}
+                  currPage={currentPage}
+                  setCurrPage={(pageNo) => setCurrentPage(pageNo)}
+                />
+              )}
+            </Card.Body>
+          </Card>
+        </>
+      )}
     </>
   );
 };
