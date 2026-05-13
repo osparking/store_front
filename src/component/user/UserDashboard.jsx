@@ -1,18 +1,18 @@
 import { useCallback, useEffect, useState } from "react";
 import { Container, Dropdown, Tab, Tabs } from "react-bootstrap";
+import { useMediaQuery } from "react-responsive";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import "../../index.css";
 import ManageQuestions from "../admin/ManageQuestions";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import { deleteUserPhoto } from "../modal/ImageService";
 import ManageMyOrder from "./ManageMyOrder";
 import OverviewUser from "./OverviewUser";
+import MyReviewsPage from "./review/MyReviewsPage";
 import "./userDashboard.css";
 import UserProfile from "./UserProfile";
 import { getUserDtoById } from "./UserService";
-import ManageMyReviews from "./review/ManageMyReviews";
-import "../../index.css";
-import { useMediaQuery } from "react-responsive";
 
 const UserDashboard = () => {
   const location = useLocation();
@@ -107,7 +107,7 @@ const UserDashboard = () => {
     {
       key: "my_review",
       title: "나의 리뷰",
-      component: <ManageMyReviews reviewsVersion={reviewsVersion} />,
+      component: <MyReviewsPage reviewsVersion={reviewsVersion} />,
     },
   ];
 
