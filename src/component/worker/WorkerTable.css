@@ -16,6 +16,13 @@
 }
 
 .table-header table {
+  margin-top: 0;
+  margin-bottom: 0;
+  table-layout: fixed;
+}
+
+.table-body table {
+  margin-top: 0;
   margin-bottom: 0;
   table-layout: fixed;
 }
@@ -74,7 +81,7 @@
 
 /* Hide header scrollbar when not needed */
 .table-header {
-  scrollbar-width: thin;
+  scrollbar-width: auto;
 }
 
 .styled-data-table {
