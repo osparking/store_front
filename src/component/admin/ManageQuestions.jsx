@@ -17,7 +17,7 @@ const ManageQuestions = ({ mine }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [questionPage, setQuestionPage] = useState({});
   const [questions, setQuestioins] = useState([]);
-  const [pageSize, setPageSize] = useState(5); // itemsPerPage
+  const [pageSize, setPageSize] = useState(10); // itemsPerPage
 
   const savedPageNo = localStorage.getItem("QUESTION_PAGE_관리");
   const [currentPage, setCurrentPage] = useState(savedPageNo || 1);

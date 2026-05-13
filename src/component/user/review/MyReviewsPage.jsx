@@ -18,7 +18,7 @@ const MyReviewsPage = ({ setShowDetail, setDetailId, reviewsVersion }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [reviewPage, setReviewPage] = useState({});
   const [reviews, setReviews] = useState([]);
-  const [pageSize, setPageSize] = useState(5); // itemsPerPage
+  const [pageSize, setPageSize] = useState(10); // itemsPerPage
 
   const savedPageNo = localStorage.getItem("REVIEW_PAGE_고객");
   const [currentPage, setCurrentPage] = useState(savedPageNo || 1);
