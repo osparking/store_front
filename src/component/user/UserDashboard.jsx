@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { Container, Dropdown, Tab, Tabs } from "react-bootstrap";
 import { useMediaQuery } from "react-responsive";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -13,6 +13,8 @@ import MyReviewsPage from "./review/MyReviewsPage";
 import "./userDashboard.css";
 import UserProfile from "./UserProfile";
 import { getUserDtoById } from "./UserService";
+
+export const ReviewsContext = createContext();
 
 const UserDashboard = () => {
   const location = useLocation();
@@ -80,11 +82,8 @@ const UserDashboard = () => {
   const isVeryShort = useMediaQuery({ maxHeight: 599 });
   const isMedium = useMediaQuery({ minWidth: 600, maxWidth: 1199 });
   const [reviewsVersion, setReviewsVersion] = useState(1);
-  
-  const refreshReviews = useCallback(() => {
-    setReviewsVersion((prev) => prev + 1);
-  }, []);
-  
+  const refreshReviews = () => setReviewsVersion((prev) => prev + 1);
+
   const tabItems = [
     {
       key: "profile",
@@ -97,7 +96,7 @@ const UserDashboard = () => {
     {
       key: "purchase_list",
       title: "나의 주문",
-      component: <ManageMyOrder refreshReviews={refreshReviews} />,
+      component: <ManageMyOrder />,
     },
     {
       key: "my_question",
@@ -107,7 +106,7 @@ const UserDashboard = () => {
     {
       key: "my_review",
       title: "나의 리뷰",
-      component: <MyReviewsPage reviewsVersion={reviewsVersion} />,
+      component: <MyReviewsPage />,
     },
   ];
 
@@ -150,51 +149,59 @@ const UserDashboard = () => {
   } else if (isMedium) {
     return (
       <Container fluid className="home-container user-dashboard">
-        <Tabs
-          activeKey={activeKey}
-          onSelect={changeActiveKey}
-          className="tabBackgroundThick contentHolyCentered scrollable-tabs"
-          id="scrollable-tabs"
-        >
-          {tabItems.map((item) => (
-            <Tab
-              className="mediumWindowDashboardTab"
-              key={item.key}
-              eventKey={item.key}
-              title={<h5>{item.title}</h5>}
-            >
-              {alertError && <AlertMessage type="danger" message={errorMsg} />}
-              {alertSuccess && (
-                <AlertMessage type="success" message={successMsg} />
-              )}
-              {item.component}
-            </Tab>
-          ))}
-        </Tabs>
+        <ReviewsContext.Provider value={{ reviewsVersion, refreshReviews }}>
+          <Tabs
+            activeKey={activeKey}
+            onSelect={changeActiveKey}
+            className="tabBackgroundThick contentHolyCentered scrollable-tabs"
+            id="scrollable-tabs"
+          >
+            {tabItems.map((item) => (
+              <Tab
+                className="mediumWindowDashboardTab"
+                key={item.key}
+                eventKey={item.key}
+                title={<h5>{item.title}</h5>}
+              >
+                {alertError && (
+                  <AlertMessage type="danger" message={errorMsg} />
+                )}
+                {alertSuccess && (
+                  <AlertMessage type="success" message={successMsg} />
+                )}
+                {item.component}
+              </Tab>
+            ))}
+          </Tabs>
+        </ReviewsContext.Provider>
       </Container>
     );
   } else {
     return (
       <Container fluid className="home-container user-dashboard">
-        <Tabs
-          activeKey={activeKey}
-          onSelect={changeActiveKey}
-          className="tabBackgroundThick contentHolyCentered"
-        >
-          {tabItems.map((item) => (
-            <Tab
-              key={item.key}
-              eventKey={item.key}
-              title={<h5>{item.title}</h5>}
-            >
-              {alertError && <AlertMessage type="danger" message={errorMsg} />}
-              {alertSuccess && (
-                <AlertMessage type="success" message={successMsg} />
-              )}
-              {item.component}
-            </Tab>
-          ))}
-        </Tabs>
+        <ReviewsContext.Provider value={{ reviewsVersion, refreshReviews }}>
+          <Tabs
+            activeKey={activeKey}
+            onSelect={changeActiveKey}
+            className="tabBackgroundThick contentHolyCentered"
+          >
+            {tabItems.map((item) => (
+              <Tab
+                key={item.key}
+                eventKey={item.key}
+                title={<h5>{item.title}</h5>}
+              >
+                {alertError && (
+                  <AlertMessage type="danger" message={errorMsg} />
+                )}
+                {alertSuccess && (
+                  <AlertMessage type="success" message={successMsg} />
+                )}
+                {item.component}
+              </Tab>
+            ))}
+          </Tabs>
+        </ReviewsContext.Provider>
       </Container>
     );
   }
