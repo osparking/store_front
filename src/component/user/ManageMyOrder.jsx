@@ -5,7 +5,7 @@ import MyOrdersPage from "../pay_toss/MyOrdersPage";
 import OrderDetail from "../worker/order/OrderDetail";
 import "./ManageMyOrder.css";
 
-const ManageMyOrder = ({ refreshReviews }) => {
+const ManageMyOrder = () => {
   const [showDetail, setShowDetail] = useState(false);
   const [detailId, setDetailId] = useState(0);
 
@@ -24,7 +24,6 @@ const ManageMyOrder = ({ refreshReviews }) => {
               <OrderDetail
                 detailId={detailId}
                 isHouse={false}
-                refreshReviews={refreshReviews}
               />
               <div className="d-flex justify-content-center align-items-center">
                 <Button
