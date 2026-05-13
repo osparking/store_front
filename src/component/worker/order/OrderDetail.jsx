@@ -11,7 +11,12 @@ import { formatDate } from "../../util/utilities";
 import "./OrderDetail.css";
 import { set } from "lodash";
 
-const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
+const OrderDetail = ({
+  detailId,
+  setShowDetail,
+  isHouse,
+  refreshReviews,
+}) => {
   const [orderDetails, setOrderDetails] = useState(undefined);
   const [orderStatus, setOrderStatus] = useState(undefined);
   const [showModal, setShowModal] = useState(false);
@@ -105,6 +110,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     await patchOrderReview(reviewData);
     setOrderStatus(nextStatus);
     readOrderDetail();
+    refreshReviews();
   };
 
   const getBodyMessage = (status) => {
@@ -248,6 +254,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         review={review}
         saveReview={saveReview}
         editable={!isHouse}
+        refreshReviews={refreshReviews}
       />
       {orderDetails && (
         <div className="box_section mt-0 orders_table_div darkBack">
