@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getOrderPage } from "../buy/orderService";
 import Paginator from "../common/Paginator";
+import "../user/userDashboard.css";
 import { formatDate, getRecordRange } from "../util/utilities";
 import "./MyOrdersPage.css";
-import "../user/userDashboard.css";
 
 const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
   const [totalPages, setTotalPages] = useState(1);
@@ -52,30 +52,34 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
   const orderTableColumnGroup = () => {
     return (
       <colgroup>
-        <col style={{ width: "15%" }} />
-        <col style={{ width: "15%" }} />
+        <col style={{ width: "17%" }} />
+        <col style={{ width: "14%" }} />
+        <col style={{ width: "10%" }} />
         <col style={{ width: "08%" }} />
+        <col style={{ width: "10%" }} />
+        <col style={{ width: "19%" }} />
         <col style={{ width: "07%" }} />
-        <col style={{ width: "08%" }} />
-        <col style={{ width: "15%" }} />
-        <col style={{ width: "06%" }} />
       </colgroup>
     );
   };
+
+  const orderTableWidth = "780px";
 
   return (
     <>
       <p className="text-center mb-1">
         {getRecordRange(orderPage, indexOfFirst, idxLastPlus1, "주문")}
       </p>
-      <div style={{ overflow: "auto" }}>
+      <div style={{ overflow: "auto" }} className="d-flex align-items-center">
         <div className="user-table-wrapper">
           <div className="table-header">
             <table
               className="table table-bordered table-hover table-striped"
               style={{
                 tableLayout: "fixed",
-                minWidth: "730px",
+                width: "100%",
+                minWidth: orderTableWidth,
+                width: orderTableWidth,
               }}
             >
               {orderTableColumnGroup()}
@@ -98,7 +102,8 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
               className="table table-bordered table-hover table-striped"
               style={{
                 tableLayout: "fixed",
-                minWidth: "730px",
+                minWidth: orderTableWidth,
+                width: orderTableWidth,
               }}
             >
               {orderTableColumnGroup()}
