@@ -94,13 +94,16 @@ const MyReviewsPage = () => {
             saveReview={saveReview}
             editable={true}
           />
-          <Card className="tableCard">
-            <Card.Body>
-              <h2 className="mb-1 ps-0">
-                <strong>나의 후기 목록</strong>
-              </h2>
-              <div className="d-flex justify-content-center align-items-center">
-                <p className="text-center text-muted mb-4">
+          <div
+            className="justify-content-center align-items-center my-card-container"
+            style={{ display: "flex", width: "100%" }}
+          >
+            <Card className="tableCard">
+              <Card.Body style={{ width: "100%" }}>
+                <h2 className="mb-1 ps-0">
+                  <strong>나의 후기 목록</strong>
+                </h2>
+                <p className="text-center text-muted mb-2">
                   {getRecordRange(
                     reviewPage,
                     indexOfFirst,
@@ -108,25 +111,24 @@ const MyReviewsPage = () => {
                     "후기",
                   )}
                 </p>
-              </div>
-              <div
-                id="userDashboardTableDiv"
-                style={{ whiteSpace: "initial", overflow: "auto" }}
-                className="justify-content-center align-items-center table-div"
-              >
-                {MyReviewsTable(reviews, manageReview)}
-              </div>
-              {searchResult && reviewPage && (
-                <Paginator
-                  pageSize={pageSize}
-                  totalItems={reviewPage.totalElements}
-                  totalPages={totalPages}
-                  currPage={currentPage}
-                  setCurrPage={(pageNo) => setCurrentPage(pageNo)}
-                />
-              )}
-            </Card.Body>
-          </Card>
+                <div
+                  style={{ overflow: "auto" }}
+                  className="align-items-center justify-content-center"
+                >
+                  {MyReviewsTable(reviews, manageReview)}
+                </div>
+                {searchResult && reviewPage && (
+                  <Paginator
+                    pageSize={pageSize}
+                    totalItems={reviewPage.totalElements}
+                    totalPages={totalPages}
+                    currPage={currentPage}
+                    setCurrPage={(pageNo) => setCurrentPage(pageNo)}
+                  />
+                )}
+              </Card.Body>
+            </Card>
+          </div>
         </>
       )}
     </>
