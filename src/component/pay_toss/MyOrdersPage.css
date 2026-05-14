@@ -12,7 +12,19 @@ th, .text-center{
 }
 
 .table-body.my-order {
-  max-height: calc(100vh - 386px);
+  max-height: calc(100vh - 393px);
+}
+
+@media screen and (max-width: 599px) {
+  .table-body.my-order {
+    max-height: calc(100vh - 271px) !important;
+  }
+}
+
+@media screen and (max-height: 599px) {
+  .table-body.my-order {
+    max-height: calc(100vh - 270px) !important;
+  }
 }
 
 @media screen and (max-height: 899px) {
