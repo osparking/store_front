@@ -47,8 +47,9 @@ div.home-container.user-dashboard {
 }
 
 .user-dashboard .tableCard {
-  min-width: 780px;
-  max-width: 950px;
+  width: fit-content;
+  background-color: lightpink;
+  max-width: 100vw;
   height: calc(100vh - 164.5px);
   margin-top: 26px;
 }
@@ -84,7 +85,7 @@ div.home-container.user-dashboard {
 }
 
 @media screen and ((max-height: 599px) or (max-width: 599px)) {
-  
+
   .user-dashboard .tableCard {
     position: fixed !important;
     top: 46px !important;
@@ -92,7 +93,7 @@ div.home-container.user-dashboard {
     width: 100vw !important;
     height: calc(100vh - 46px) !important;
   }
-  
+
   div.home-container.user-dashboard {
     width: 100vw;
     padding: 0 12px;
@@ -101,21 +102,21 @@ div.home-container.user-dashboard {
     max-height: calc(100vh - 46px) !important;
     min-height: calc(100vh - 46px) !important;
   }
-  
+
   .chartUser.card {
     height: fit-content !important;
   }
-  
+
   .dropdown {
     color: yellow;
     background-color: darkslategray;
   }
-  
+
   .col-md-10 {
     width: 100% !important;
     margin: 0 100px;
   }
-  
+
   .mobile-tab-header {
     position: fixed !important;
     top: 46px !important;
@@ -123,11 +124,11 @@ div.home-container.user-dashboard {
     width: 135px;
     z-index: 200;
   }
-  
+
   .navbar {
     padding: 0;
   }
-  
+
   .mobile-tab-content {
     padding: 0;
     overflow-y: unset !important;
@@ -227,12 +228,12 @@ div.home-container.user-dashboard {
 }
 
 .user-table-wrapper {
+  justify-content: center;
+  width: fit-content;
   position: relative;
-  border: 1px solid #dee2e6;
   border-radius: 0.25rem;
   padding: 0;
   background-color: lightpink;
-  min-width: 780px;
 }
 
 .table-header table {
@@ -256,7 +257,7 @@ div.home-container.user-dashboard {
   border-top: 0;
 }
 
-.my-card-container > .tableCard.card {
+.my-card-container>.tableCard.card {
   background-color: lightpink;
   overflow: none;
 }
