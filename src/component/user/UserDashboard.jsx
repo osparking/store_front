@@ -117,33 +117,37 @@ const UserDashboard = () => {
   if (isVeryNarrow || isVeryShort) {
     return (
       <Container fluid className="home-container user-dashboard">
-        <div className="mobile-tab-header">
-          <Dropdown>
-            <Dropdown.Toggle
-              variant="outline-primary"
-              className="hamburger-menu"
-            >
-              ☰ {tabItems.find((item) => item.key === activeKey)?.title}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              {tabItems.map((item) => (
-                <Dropdown.Item
-                  key={item.key}
-                  active={activeKey === item.key}
-                  onClick={() => changeActiveKey(item.key)}
-                >
-                  {item.title}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
-        </div>
+        <ReviewsContext.Provider value={{ reviewsVersion, refreshReviews }}>
+          <div className="mobile-tab-header">
+            <Dropdown>
+              <Dropdown.Toggle
+                variant="outline-primary"
+                className="hamburger-menu"
+              >
+                ☰ {tabItems.find((item) => item.key === activeKey)?.title}
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                {tabItems.map((item) => (
+                  <Dropdown.Item
+                    key={item.key}
+                    active={activeKey === item.key}
+                    onClick={() => changeActiveKey(item.key)}
+                  >
+                    {item.title}
+                  </Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
 
-        <div className="mobile-tab-content">
-          {alertError && <AlertMessage type="danger" message={errorMsg} />}
-          {alertSuccess && <AlertMessage type="success" message={successMsg} />}
-          {currentComponent}
-        </div>
+          <div className="mobile-tab-content">
+            {alertError && <AlertMessage type="danger" message={errorMsg} />}
+            {alertSuccess && (
+              <AlertMessage type="success" message={successMsg} />
+            )}
+            {currentComponent}
+          </div>
+        </ReviewsContext.Provider>
       </Container>
     );
   } else if (isMedium) {
