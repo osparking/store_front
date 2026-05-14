@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { Button, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { getOrderPage } from "../buy/orderService";
 import Paginator from "../common/Paginator";
-import { formatDate } from "../util/utilities";
+import { formatDate, getRecordRange } from "../util/utilities";
 import "./MyOrdersPage.css";
-import { getRecordRange } from "../util/utilities";
+import "../user/userDashboard.css";
 
 const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
   const [totalPages, setTotalPages] = useState(1);
@@ -50,54 +49,84 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
     return false; // Prevent default
   }
 
+  const orderTableColumnGroup = () => {
+    return (
+      <colgroup>
+        <col style={{ width: "15%" }} />
+        <col style={{ width: "15%" }} />
+        <col style={{ width: "08%" }} />
+        <col style={{ width: "07%" }} />
+        <col style={{ width: "08%" }} />
+        <col style={{ width: "15%" }} />
+        <col style={{ width: "06%" }} />
+      </colgroup>
+    );
+  };
+
   return (
     <>
-      <p className="text-center text-muted mt-3 mb-1">
+      <p className="text-center mb-1">
         {getRecordRange(orderPage, indexOfFirst, idxLastPlus1, "주문")}
       </p>
-      <div
-        id="userDashboardTableDiv"
-        style={{
-          whiteSpace: "initial",
-          overflow: "auto",
-        }}
-        className="justify-content-center align-items-center"
-      >
-        <Table striped bordered hover>
-          <thead>
-            <tr className="userTableHeader">
-              <th>식별자</th>
-              <th>주문명</th>
-              <th>현상태</th>
-              <th>수신인</th>
-              <th>결제액</th>
-              <th className="minDateWidth">결제일</th>
-              <th>영수증</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orderArray &&
-              orderArray.map((order, idx) => (
-                <tr key={idx}>
-                  <td>{order.orderId}</td>
-                  <td>
-                    <a href="#" onClick={() => viewOrderDetail(order.id)}>
-                      {order.orderName}
-                    </a>
-                  </td>
-                  <td>{order.orderStatus}</td>
-                  <td>{order.recipientName}</td>
-                  <td>{Number(order.paymentAmount).toLocaleString()}원</td>
-                  <td>{formatDate(order.paymentTime)}</td>
-                  <td className="text-center">
-                    <a href={order.receiptUrl} target="_blank">
-                      보기
-                    </a>
-                  </td>
+      <div style={{ overflow: "auto" }}>
+        <div className="user-table-wrapper">
+          <div className="table-header">
+            <table
+              className="table table-bordered table-hover table-striped"
+              style={{
+                tableLayout: "fixed",
+                minWidth: "730px",
+              }}
+            >
+              {orderTableColumnGroup()}
+              <thead>
+                <tr>
+                  <th>식별자</th>
+                  <th>주문명</th>
+                  <th>현상태</th>
+                  <th>수신인</th>
+                  <th>결제액</th>
+                  <th className="minDateWidth">결제일</th>
+                  <th>영수증</th>
                 </tr>
-              ))}
-          </tbody>
-        </Table>
+              </thead>
+            </table>
+          </div>
+
+          <div className="table-body my-order">
+            <table
+              className="table table-bordered table-hover table-striped"
+              style={{
+                tableLayout: "fixed",
+                minWidth: "730px",
+              }}
+            >
+              {orderTableColumnGroup()}
+              <tbody>
+                {orderArray &&
+                  orderArray.map((order, idx) => (
+                    <tr key={idx}>
+                      <td>{order.orderId}</td>
+                      <td>
+                        <a href="#" onClick={() => viewOrderDetail(order.id)}>
+                          {order.orderName}
+                        </a>
+                      </td>
+                      <td>{order.orderStatus}</td>
+                      <td>{order.recipientName}</td>
+                      <td>{Number(order.paymentAmount).toLocaleString()}원</td>
+                      <td>{formatDate(order.paymentTime)}</td>
+                      <td className="text-center">
+                        <a href={order.receiptUrl} target="_blank">
+                          보기
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
       {searchResult && orderPage && (
         <Paginator
