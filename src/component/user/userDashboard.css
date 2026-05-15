@@ -223,10 +223,6 @@ div.home-container.user-dashboard {
   color: pink;
 }
 
-#userDashboardTableDiv {
-  max-height: calc(100% - 176px);
-}
-
 .user-table-wrapper {
   justify-content: center;
   width: fit-content;
