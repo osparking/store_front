@@ -26,6 +26,9 @@ const UserUpdate = () => {
     mbPhone: "",
     email: "",
     dept: "",
+    enabled: false,
+    addDate: "",
+    photoId: null,    
   });
 
   const {
@@ -50,6 +53,7 @@ const UserUpdate = () => {
           console.log("나의 정보 갱신");
           const result = await getUserDtoById(id);
           if (result) {
+            console.log("user:", result.data);
             setUser(result.data);
           } else {
             navigate("/login");
