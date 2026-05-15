@@ -129,10 +129,10 @@ figure,
 }
 
 @media screen and (max-width: 599px) {
-  .dropdown {
-    color: yellow;
-    background-color: darkslategray;
-  }
+  /* .dropdown {
+    color: black;
+    background-color: skyblue;
+  } */
 
   .chartUser.card {
     margin-top: 40px !important;
@@ -150,19 +150,10 @@ figure,
 }
 
 @media screen and (max-height: 599px) {
-  .dropdown {
-    color: yellow;
-    background-color: darkslategray;
-  }
 
   .col-md-10 {
     width: 100% !important;
     margin: 0 100px;
-  }
-
-  .mobile-tab-header {
-    width: 150px;
-    z-index: 200;
   }
 
   .navbar {
