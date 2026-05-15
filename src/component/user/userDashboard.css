@@ -76,14 +76,6 @@ div.home-container.user-dashboard {
   }
 }
 
-.mobile-tab-header {
-  position: absolute;
-  top: -2px;
-  right: 0;
-  width: 150px;
-  z-index: 200;
-}
-
 @media screen and ((max-height: 599px) or (max-width: 599px)) {
 
   .user-dashboard .tableCard {
@@ -108,8 +100,8 @@ div.home-container.user-dashboard {
   }
 
   .dropdown {
-    color: yellow;
-    background-color: darkslategray;
+    color: black;
+    background-color: skyblue;
   }
 
   .col-md-10 {
@@ -119,9 +111,10 @@ div.home-container.user-dashboard {
 
   .mobile-tab-header {
     position: fixed !important;
+    padding: 3px;
     top: 46px !important;
-    right: 10px !important;
-    width: 135px;
+    right: 15px !important;
+    width: 120px;
     z-index: 200;
   }
 
@@ -148,11 +141,6 @@ div.home-container.user-dashboard {
     color: rgb(0, 0, 0);
     font-weight: bold !important;
   }
-}
-
-.mobile-tab-header {
-  padding: 3px;
-  border-bottom: 1px solid #dee2e6;
 }
 
 .hamburger-menu {
@@ -212,11 +200,11 @@ div.home-container.user-dashboard {
 }
 
 .hamburger-menu.btn {
-  /* background: none; */
   border: none;
   font-size: 1.1rem;
   cursor: pointer;
-  color: yellow;
+  color: rgb(10, 10, 10);
+  font-weight: bold;
 }
 
 .hamburger-menu.btn:hover {
