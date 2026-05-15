@@ -26,7 +26,6 @@ const MyReviewsTable = (reviews, manageReview) => {
           className="table table-bordered table-hover table-striped"
           style={{
             tableLayout: "fixed",
-            width: "100%",
             minWidth: reviewTableWidth,
             width: reviewTableWidth,
           }}

@@ -77,7 +77,6 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
               className="table table-bordered table-hover table-striped"
               style={{
                 tableLayout: "fixed",
-                width: "100%",
                 minWidth: orderTableWidth,
                 width: orderTableWidth,
               }}

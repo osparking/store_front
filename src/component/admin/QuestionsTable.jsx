@@ -21,7 +21,6 @@ const QuestionsTable = (questions, answerQuestion) => {
           className="table table-bordered table-hover table-striped"
           style={{
             tableLayout: "fixed",
-            width: "100%",
             minWidth: questionsTableWidth,
             width: questionsTableWidth,
           }}
