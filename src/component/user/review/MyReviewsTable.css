@@ -4,7 +4,7 @@
 
 @media screen and (max-width: 599px) {
   .table-body.my-review {
-    max-height: calc(100vh - 261px) !important;
+    max-height: calc(100vh - 270px) !important;
   }
 }
 
@@ -16,6 +16,6 @@
 
 @media screen and (max-height: 899px) {
   .table-body.my-review {
-    max-height: calc(100vh - 387px);
+    max-height: calc(100vh - 396px);
   }
 }
