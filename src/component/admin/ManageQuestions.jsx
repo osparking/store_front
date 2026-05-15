@@ -89,23 +89,19 @@ const ManageQuestions = ({ mine }) => {
         setReloadPage={setReloadPage}
       />
       <div
-        className="justify-content-center align-items-center"
-        style={{ display: "flex", overflow: "auto" }}
+        className="justify-content-center align-items-center my-card-container"
+        style={{ display: "flex", width: "100%" }}
       >
         <Card className="tableCard">
-          <Card.Body>
+          <Card.Body style={{ width: "100%" }}>
             <h2 className="mb-1 ps-0">
               <strong>{mine ? "나의 질문" : "질문 처리 현황"}</strong>
             </h2>
-            <p className="text-center text-muted mt-3 mb-1">
+            <p className="text-center text-muted mb-2">
               {getRecordRange(questionPage, indexOfFirst, idxLastPlus1, "질문")}
             </p>
             <div
-              id="userDashboardTableDiv"
-              style={{
-                whiteSpace: "initial",
-                overflow: "auto",
-              }}
+              style={{ overflow: "auto" }}
               className="justify-content-center align-items-center"
             >
               {QuestionsTable(questions, answerQuestion)}
