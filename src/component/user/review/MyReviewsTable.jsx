@@ -4,7 +4,20 @@ import "../userDashboard.css";
 import "./MyReviewsTable.css";
 
 const MyReviewsTable = (reviews, manageReview) => {
-  const reviewTableWidth = "730px";
+  const reviewTableWidth = "820px";
+
+  const reviewTableColumnGroup = () => {
+    return (
+      <colgroup>
+        <col style={{ width: "07%" }} />
+        <col style={{ width: "15%" }} />
+        <col style={{ width: "20%" }} />
+        <col style={{ width: "06%" }} />
+        <col style={{ width: "22%" }} />
+        <col style={{ width: "20%" }} />
+      </colgroup>
+    );
+  };
 
   return (
     <div className="user-table-wrapper">
@@ -18,14 +31,15 @@ const MyReviewsTable = (reviews, manageReview) => {
             width: reviewTableWidth,
           }}
         >
+          {reviewTableColumnGroup()}
           <thead>
             <tr>
+              <th>주문ID</th>
               <th>주문명</th>
               <th>주문일시</th>
               <th>별점</th>
               <th>후기 시작 부분</th>
               <th>후기 작성일시</th>
-              <th>주문ID</th>
             </tr>
           </thead>
         </table>
@@ -39,10 +53,12 @@ const MyReviewsTable = (reviews, manageReview) => {
             width: reviewTableWidth,
           }}
         >
+          {reviewTableColumnGroup()}
           <tbody>
             {reviews &&
               reviews.map((review, idx) => (
                 <tr key={idx}>
+                  <td className="text-center">{review.id}</td>
                   <td>{review.orderName}</td>
                   <td>{formatDate(review.orderTime)}</td>
                   <td>{review.stars}</td>
@@ -52,7 +68,6 @@ const MyReviewsTable = (reviews, manageReview) => {
                     </a>
                   </td>
                   <td>{formatDate(review.reviewTime)}</td>
-                  <td className="text-center">{review.id}</td>
                 </tr>
               ))}
           </tbody>
