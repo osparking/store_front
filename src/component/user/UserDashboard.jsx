@@ -119,12 +119,13 @@ const UserDashboard = () => {
       <Container fluid className="home-container user-dashboard">
         <ReviewsContext.Provider value={{ reviewsVersion, refreshReviews }}>
           <div className="mobile-tab-header">
-            <Dropdown>
+            <Dropdown style={{borderRadius: "0.4rem"}}>
               <Dropdown.Toggle
                 variant="outline-primary"
                 className="hamburger-menu"
+                style={{fontSize: "16px"}}
               >
-                ☰ {tabItems.find((item) => item.key === activeKey)?.title}
+                {tabItems.find((item) => item.key === activeKey)?.title}
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 {tabItems.map((item) => (
