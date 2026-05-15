@@ -198,7 +198,7 @@ const UserUpdate = () => {
         <Row>
           <Col xs={5} md={5} lg={5}>
             {/* 계정 유형 - 비활성 */}
-            <Form.Group as={Col} controlId="user-type" className="mb-2">
+            <Form.Group controlId="user-type" className="mb-2">
               <Form.Label>계정 유형</Form.Label>
               <Form.Control
                 type="text"
