@@ -6,8 +6,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import AlertMessage from "../../common/AlertMessage";
 import BsAlertHook from "../../hook/BsAlertHook";
 import ShapeSelector from "../../soaps/ShapeSelector";
-import ProducerModal from "./ProducerModal";
 import { sendProduceInfo } from "../WorkerService";
+import ProducerModal from "./ProducerModal";
 
 const ProduceInfoModal = ({
   show,
@@ -26,7 +26,7 @@ const ProduceInfoModal = ({
 
     if (readyToSubmit()) {
       var result = await sendProduceInfo(produceInfo);
-      
+
       setParentSuccessMsg(result.message);
       setParentAlertSuccess(true);
       !produceInfo.id ? setCurrentPage(1) : loadProducePage();
@@ -43,7 +43,7 @@ const ProduceInfoModal = ({
       setErrorMsg("수량은 1 이상이어야 합니다!");
       setAlertError(true);
       return false;
-    } 
+    }
     return true;
   };
 
@@ -70,12 +70,12 @@ const ProduceInfoModal = ({
   const [empName, setEmpName] = useState("임걱정");
 
   const setProducer = (producer) => {
-    setProduceInfo({...produceInfo, producer: producer})
-  }
+    setProduceInfo({ ...produceInfo, producer: producer });
+  };
 
   const openNameModal = () => {
     setShowNameModal(true);
-  }
+  };
 
   return (
     <>
@@ -93,50 +93,43 @@ const ProduceInfoModal = ({
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
-            <Row className="justify-content-center mb-5">
-              <Col xs={5}>
-                <Form.Group>
+            <Row className="justify-content-center mb-4">
+              <Col xs={8} md={5}>
+                <Form.Group controlId="producerName">
                   <Form.Label>생산 직원명</Form.Label>
-                  <Row>
-                    <Col
-                      xs={8}
+                  <div style={{ display: "flex" }}>
+                    <Form.Control
+                      type="text"
+                      name="producerName"
+                      value={`${produceInfo.producer.name} (${produceInfo.producer.id})`}
+                      placeholder="(직원명)"
+                      onChange={handleChange}
+                      required
+                      readOnly
+                      style={{ width: "115px" }}
+                    />
+                    <Button
+                      variant="primary"
                       style={{
-                        paddingLeft: "5px",
-                        paddingRight: "2px",
+                        height: "30px",
+                        maxWidth: "75px",
+                        paddingTop: "1px",
+                        marginTop: "4px",
+                        marginRight: "5px",
                       }}
+                      onClick={openNameModal}
+                      style={{ width: "80px", marginLeft: "10px" }}
                     >
-                      <Form.Control
-                        type="text"
-                        name="producerName"
-                        value={`${produceInfo.producer.name} (${produceInfo.producer.id})`}
-                        placeholder="(직원명)"
-                        onChange={handleChange}
-                        required
-                        readOnly
-                      />
-                    </Col>
-                    <Col xs={4} style={{ paddingLeft: "2px" }}>
-                      <Button
-                        variant="primary"
-                        style={{
-                          height: "30px",
-                          maxWidth: "75px",
-                          paddingTop: "1px",
-                          marginTop: "4px",
-                          marginRight: "5px",
-                        }}
-                        onClick={openNameModal}
-                      >
-                        <span>수정</span>
-                      </Button>
-                    </Col>
-                  </Row>
+                      <span>수정</span>
+                    </Button>
+                  </div>
                 </Form.Group>
               </Col>
-              <Col xs={5} className="ms-3">
-                <Form.Group>
+              <Col xs={5} md={4} className="ms-3">
+                <Form.Group controlId="produceDate">
                   <Form.Label>생산 일자</Form.Label>
                   <DatePicker
+                    id="produceDate"
                     selected={produceInfo.produceDate}
                     onChange={changeProduceDate}
                     dateFormat="yyyy-MM-dd"
@@ -152,20 +145,17 @@ const ProduceInfoModal = ({
             </Row>
             <Row className="justify-content-center">
               <Col xs={5}>
-                <Form.Group>
-                  <ShapeSelector
-                    shapeLabel={produceInfo.shapeLabel}
-                    onChange={handleChange}
-                  />
-                </Form.Group>
+                <ShapeSelector
+                  shapeLabel={produceInfo.shapeLabel}
+                  onChange={handleChange}
+                />
               </Col>
               <Col xs={3}>
-                <Form.Group>
-                  <Form.Label htmlFor="producedQuantity">수량</Form.Label>
+                <Form.Group controlId="producedQuantity">
+                  <Form.Label>수량</Form.Label>
                   <Form.Control
                     type="number"
                     name="quantity"
-                    id="producedQuantity"
                     min="1"
                     value={produceInfo.quantity}
                     placeholder="숫자"
