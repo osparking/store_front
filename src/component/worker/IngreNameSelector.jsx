@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 import { getAllIngreNames } from "./WorkerService";
 import { Form, Row } from "react-bootstrap";
 import AdderModal from "../modal/AdderModal";
 
-const IngreNameSelector = ({ ingreName, onChange }) => {
+const IngreNameSelector = forwardRef(({ ingreName, onChange }, ref) => {
   const [ingreNames, setIngreNames] = useState([]);
   const [showNameAdder, setShowNameAdder] = useState(false);
 
@@ -45,8 +45,9 @@ const IngreNameSelector = ({ ingreName, onChange }) => {
           value={ingreName}
           required
           onChange={handleIngreName}
+          ref={ref}
         >
-          <option value="">- 재료 명칭 -</option>
+          <option value="">(재료명 선택)</option>
           {ingreNames.map((name, index) => (
             <option value={name} key={index}>
               {name}
@@ -83,6 +84,6 @@ const IngreNameSelector = ({ ingreName, onChange }) => {
       )}
     </React.Fragment>
   );
-};
+});
 
 export default IngreNameSelector;
