@@ -94,7 +94,7 @@ const ProduceInfoModal = ({
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
             <Row className="justify-content-center mb-4">
-              <Col xs={8} md={5}>
+              <Col xs={6} md={6}>
                 <Form.Group controlId="producerName">
                   <Form.Label>생산 직원명</Form.Label>
                   <div style={{ display: "flex" }}>
@@ -124,7 +124,7 @@ const ProduceInfoModal = ({
                   </div>
                 </Form.Group>
               </Col>
-              <Col xs={5} md={4} className="ms-3">
+              <Col xs={3} md={4} className="ms-0">
                 <Form.Group controlId="produceDate">
                   <Form.Label>생산 일자</Form.Label>
                   <DatePicker
