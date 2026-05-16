@@ -131,7 +131,7 @@ const ManageIngredient = () => {
     packunit: "kg",
     count: "1",
     storeDate: new Date(),
-    buyPlace: "https://smartstore.naver.com/vase_shop/",
+    buyPlace: "",
     expireDate: expireDate,
   };
 
