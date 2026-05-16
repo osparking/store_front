@@ -126,7 +126,7 @@ const ManageIngredient = () => {
   expireDate.setFullYear(expireDate.getFullYear() + 1);
 
   const dummy = {
-    ingreName: "가성소다",
+    ingreName: "",
     quantity: "1",
     packunit: "kg",
     count: "1",
