@@ -111,14 +111,13 @@ const ProduceInfoModal = ({
                     <Button
                       variant="primary"
                       style={{
+                        minWidth: "60px",
+                        width: "60px",
                         height: "30px",
-                        maxWidth: "75px",
                         paddingTop: "1px",
-                        marginTop: "4px",
-                        marginRight: "5px",
+                        margin: "4px 5px 0 5px",
                       }}
                       onClick={openNameModal}
-                      style={{ width: "80px", marginLeft: "10px" }}
                     >
                       <span>수정</span>
                     </Button>
