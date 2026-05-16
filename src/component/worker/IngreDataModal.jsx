@@ -24,7 +24,7 @@ const IngreDataModal = ({
   const [expireDate, setExpireDate] = useState(endDate);
 
   registerLocale("ko", ko);
-  
+
   const ingreNameRef = useRef(null);
 
   const handleReset = () => {
@@ -186,12 +186,13 @@ const IngreDataModal = ({
                   <Col xs={4} className="mb-3 mb-sm-0">
                     <Form.Label>수량</Form.Label>
                     <Form.Control
-                      type="text" // Use "text" to gain more control over input
+                      type="number"
                       name="count"
+                      min="1"
                       value={ingredient.count}
+                      placeholder="(숫자)"
                       onChange={handleChange}
-                      inputMode="numeric" // Suggest numeric keyboard on mobile devices
-                      pattern="[0-9]*" // HTML5 pattern for basic browser validation
+                      required
                     />
                   </Col>
                 </Row>
@@ -215,10 +216,7 @@ const IngreDataModal = ({
         </Row>
       </Modal.Body>
       <Modal.Footer>
-        <Button
-          variant="primary"
-          onClick={handleSubmit}
-        >
+        <Button variant="primary" onClick={handleSubmit}>
           저장
         </Button>
         <Button variant="danger" onClick={closer}>
