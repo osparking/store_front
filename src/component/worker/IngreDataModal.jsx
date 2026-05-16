@@ -168,9 +168,9 @@ const IngreDataModal = ({
                 </Col>
               </Row>
 
-              <Form.Group as={Row} className="mb-1">
-                <Row>
-                  <Col xs={4} className="mb-3 mb-sm-0">
+              <Row style={{ display: "flex", gap: "23px" }}>
+                <Col xs={3} className="mb-3 mb-sm-0">
+                  <Form.Group as={Row} className="mb-1" controlId="quantity">
                     <Form.Label>용량</Form.Label>
                     <Form.Control
                       type="text" // Use "text" to gain more control over input
@@ -179,15 +179,18 @@ const IngreDataModal = ({
                       onChange={handleChange}
                       inputMode="numeric" // Suggest numeric keyboard on mobile devices
                       pattern="[0-9]*" // HTML5 pattern for basic browser validation
+                      style={{ flex: "1" }}
                     />
-                  </Col>
-                  <Col xs={4} className="mb-3 mb-sm-0">
-                    <UnitSelector
-                      packunit={ingredient.packunit}
-                      onChange={handleChange}
-                    />
-                  </Col>
-                  <Col xs={4} className="mb-3 mb-sm-0">
+                  </Form.Group>
+                </Col>
+                <Col xs={4} className="mb-3 mb-sm-0">
+                  <UnitSelector
+                    packunit={ingredient.packunit}
+                    onChange={handleChange}
+                  />
+                </Col>
+                <Col xs={3} className="mb-3 mb-sm-0">
+                  <Form.Group as={Row} className="mb-1" controlId="count">
                     <Form.Label>수량</Form.Label>
                     <Form.Control
                       type="number"
@@ -197,10 +200,11 @@ const IngreDataModal = ({
                       placeholder="(숫자)"
                       onChange={handleChange}
                       required
+                      style={{ flex: "1" }}
                     />
-                  </Col>
-                </Row>
-              </Form.Group>
+                  </Form.Group>
+                </Col>
+              </Row>
 
               {alertError && (
                 <AlertMessage type={"danger"} message={errorMsg} />
