@@ -131,11 +131,12 @@ const IngreDataModal = ({
                   />
                 </Col>
               </Form.Group>
-              <Form.Group as={Row} controlId="twoDates" className="mb-4">
-                <Row>
-                  <Col xs={6} className="mb-3 mb-sm-0">
+              <Row className="mb-4">
+                <Col xs={6} className="mb-3 mb-sm-0">
+                  <Form.Group controlId="storeDate">
                     <Form.Label>입고 일자</Form.Label>
                     <DatePicker
+                      id="storeDate"
                       selected={ingredient.storeDate}
                       onChange={handleStoreDate}
                       dateFormat="yyyy-MM-dd"
@@ -146,10 +147,13 @@ const IngreDataModal = ({
                       required
                       locale="ko"
                     />
-                  </Col>
-                  <Col xs={6} className="mb-3 mb-sm-0">
+                  </Form.Group>
+                </Col>
+                <Col xs={6} className="mb-3 mb-sm-0">
+                  <Form.Group controlId="expireDate">
                     <Form.Label>사용 기한</Form.Label>
                     <DatePicker
+                      id="expireDate"
                       selected={ingredient.expireDate}
                       onChange={handleExpireDate}
                       dateFormat="yyyy-MM-dd"
@@ -160,9 +164,9 @@ const IngreDataModal = ({
                       required
                       locale="ko"
                     />
-                  </Col>
-                </Row>
-              </Form.Group>
+                  </Form.Group>
+                </Col>
+              </Row>
 
               <Form.Group as={Row} className="mb-1">
                 <Row>
