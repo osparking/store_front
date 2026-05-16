@@ -1,5 +1,5 @@
 import ko from "date-fns/locale/ko";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -24,6 +24,8 @@ const IngreDataModal = ({
   const [expireDate, setExpireDate] = useState(endDate);
 
   registerLocale("ko", ko);
+  
+  const ingreNameRef = useRef(null);
 
   const handleReset = () => {
     setIngredient({
@@ -71,6 +73,19 @@ const IngreDataModal = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!ingredient.ingreName || ingredient.ingreName === "") {
+      // alert("[재료 명칭]을 선택하세요!");
+      setErrorMsg("[재료 명칭]을 선택하세요!");
+      setAlertError(true);
+
+      if (ingreNameRef.current) {
+        ingreNameRef.current.focus();
+      }
+
+      return;
+    }
+
     try {
       const response = await sendStoIngInfo(ingredient);
       console.log("response: ", response);
@@ -103,6 +118,7 @@ const IngreDataModal = ({
                     <IngreNameSelector
                       ingreName={ingredient.ingreName}
                       onChange={handleChange}
+                      ref={ingreNameRef}
                     />
                   </Col>
                 </Row>
@@ -199,7 +215,10 @@ const IngreDataModal = ({
         </Row>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleSubmit}>
+        <Button
+          variant="primary"
+          onClick={handleSubmit}
+        >
           저장
         </Button>
         <Button variant="danger" onClick={closer}>
