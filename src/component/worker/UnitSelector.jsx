@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Form } from "react-bootstrap";
+import { Form, Row } from "react-bootstrap";
 import { getAllPackUnits } from "./WorkerService";
 
 const UnitSelector = ({ packunit, onChange }) => {
@@ -18,7 +18,7 @@ const UnitSelector = ({ packunit, onChange }) => {
   }, []);
 
   return (
-    <>
+    <Form.Group as={Row} className="mb-1" controlId="packunit">
       <Form.Label>포장 단위</Form.Label>
       <Form.Control
         as="select"
@@ -26,6 +26,7 @@ const UnitSelector = ({ packunit, onChange }) => {
         value={packunit}
         required
         onChange={onChange}
+        style={{ flex: "1" }}
       >
         <option value="">-단위-</option>
         {packunits.map((name, index) => (
@@ -34,7 +35,7 @@ const UnitSelector = ({ packunit, onChange }) => {
           </option>
         ))}
       </Form.Control>
-    </>
+    </Form.Group>
   );
 };
 
