@@ -46,6 +46,7 @@ const BuyPlaceSelector = ({ buyPlace, onChange }) => {
           value={buyPlace}
           required
           onChange={handleBuyPlace}
+          style={{width: "65vw", maxWidth: "340px"}}
         >
           <option value="">- 구매 링크 -</option>
           {buyLinks.map((name, index) => (
