@@ -157,7 +157,7 @@ const ManageIngredient = () => {
         setSuccessMsg(result.message);
         setAlertSuccess(true);
         setShowDelModal(false);
-        readIngredientPage();
+        readIngredientPage(currIngrePage);
       } catch (err) {
         console.error("err:", err);
         setErrorMsg(err.message);
