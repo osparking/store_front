@@ -3,7 +3,12 @@ import { BsPencilFill, BsTrashFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import "./WorkerTable.css";
 
-const IngredientTable = (ingreList, currIngrePage) => {
+const IngredientTable = (
+  ingreList,
+  currIngrePage,
+  openWithRow,
+  handleShowDelModal,
+) => {
   function isValidUrl(string) {
     try {
       new URL(string);

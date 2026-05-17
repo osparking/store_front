@@ -222,7 +222,12 @@ const ManageIngredient = () => {
         </p>
       </div>
       <div style={{ overflow: "auto" }}>
-        {IngredientTable(ingreList, currIngrePage)}
+        {IngredientTable(
+          ingreList,
+          currIngrePage,
+          openWithRow,
+          handleShowDelModal,
+        )}
       </div>
       <IngreDataModal
         show={showModal}
