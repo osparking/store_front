@@ -23,7 +23,7 @@ const ShapeSelector = ({ shapeLabel, onChange }) => {
 
   return (
     <React.Fragment>
-      <Form.Group controlId="shapeLabel" className="mb-4 me-3">
+      <Form.Group controlId="shapeLabel" className="mb-0 me-3">
         <Form.Label>비누 외형</Form.Label>
         <Form.Control
           as="select"
