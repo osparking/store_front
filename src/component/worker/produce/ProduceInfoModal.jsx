@@ -5,10 +5,11 @@ import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import AlertMessage from "../../common/AlertMessage";
 import BsAlertHook from "../../hook/BsAlertHook";
+import "../../modal/BumModal.css";
 import ShapeSelector from "../../soaps/ShapeSelector";
 import { sendProduceInfo } from "../WorkerService";
+import styles from "./ProduceInfoModal.module.css";
 import ProducerModal from "./ProducerModal";
-import "../../modal/BumModal.css";
 
 const ProduceInfoModal = ({
   show,
@@ -78,41 +79,6 @@ const ProduceInfoModal = ({
     setShowNameModal(true);
   };
 
-  // Grid styles
-  const gridStyles = {
-    formContainer: {
-      display: "grid",
-      gap: "1.5rem",
-    },
-    firstRow: {
-      display: "grid",
-      gridTemplateColumns: "1.4fr 1fr",
-      gap: "2rem",
-    },
-    secondRow: {
-      display: "grid",
-      gridTemplateColumns: "1.4fr 1fr",
-      gap: "2rem",
-    },
-    buttonWrapper: {
-      display: "flex",
-      gap: "0.5rem",
-      alignItems: "flex-start",
-    },
-    producerInput: {
-      flex: 1,
-    },
-    alertRow: {
-      display: "flex",
-      justifyContent: "center",
-      marginTop: "1rem",
-    },
-    alertContent: {
-      width: "100%",
-      maxWidth: "400px",
-    },
-  };
-
   return (
     <>
       <ProducerModal
@@ -134,12 +100,12 @@ const ProduceInfoModal = ({
         </Modal.Header>
         <Modal.Body style={{ padding: "2em" }}>
           <Form onSubmit={handleSubmit}>
-            <div style={gridStyles.formContainer}>
+            <div className={styles.formContainer}>
               {/* First Row: Producer Name + Produce Date */}
-              <div style={gridStyles.firstRow}>
+              <div className={styles.firstRow}>
                 <Form.Group controlId="producerName">
                   <Form.Label>생산 직원명</Form.Label>
-                  <div style={gridStyles.buttonWrapper}>
+                  <div className={styles.buttonWrapper}>
                     <Form.Control
                       type="text"
                       name="producerName"
@@ -148,17 +114,11 @@ const ProduceInfoModal = ({
                       onChange={handleChange}
                       required
                       readOnly
-                      style={gridStyles.producerInput}
+                      className={styles.producerInput}
                     />
                     <Button
                       variant="primary"
-                      style={{
-                        minWidth: "60px",
-                        width: "60px",
-                        height: "30px",
-                        paddingTop: "1px",
-                        marginTop: "4px",
-                      }}
+                      className={styles.editButton}
                       onClick={openNameModal}
                     >
                       <span>수정</span>
@@ -184,7 +144,7 @@ const ProduceInfoModal = ({
               </div>
 
               {/* Second Row: Shape Selector + Quantity */}
-              <div style={gridStyles.secondRow} className="mb-0">
+              <div className={styles.secondRow} style={{ marginBottom: "0" }}>
                 <ShapeSelector
                   shapeLabel={produceInfo.shapeLabel}
                   onChange={handleChange}
@@ -200,14 +160,17 @@ const ProduceInfoModal = ({
                     placeholder="숫자"
                     onChange={handleChange}
                     required
-                    style={{width: "5em"}}
+                    className={styles.quantityInput}
                   />
                 </Form.Group>
               </div>
 
               {/* Alert Messages Row */}
-              <div style={gridStyles.alertRow} className="mt-0">
-                <div style={gridStyles.alertContent} className="mb-0">
+              <div className={styles.alertRow} style={{ marginTop: "0" }}>
+                <div
+                  className={styles.alertContent}
+                  style={{ marginBottom: "0" }}
+                >
                   {alertError && (
                     <AlertMessage type={"danger"} message={errorMsg} />
                   )}
