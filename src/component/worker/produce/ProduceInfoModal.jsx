@@ -19,7 +19,7 @@ const ProduceInfoModal = ({
   setParentSuccessMsg,
   setParentAlertSuccess,
   loadProducePage,
-  setCurrentPage,
+  changePage,
 }) => {
   registerLocale("ko", ko);
 
@@ -31,7 +31,7 @@ const ProduceInfoModal = ({
 
       setParentSuccessMsg(result.message);
       setParentAlertSuccess(true);
-      !produceInfo.id ? setCurrentPage(1) : loadProducePage();
+      !produceInfo.id ? changePage(1) : loadProducePage();
       closer();
     }
   };
@@ -42,7 +42,7 @@ const ProduceInfoModal = ({
       setAlertError(true);
       return false;
     } else if (produceInfo.quantity <= 0) {
-      setErrorMsg("수량은 1 이상이어야 합니다!");
+      setErrorMsg("수량은 0 보다 커야 됩니다!");
       setAlertError(true);
       return false;
     }
