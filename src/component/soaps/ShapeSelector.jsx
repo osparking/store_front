@@ -23,7 +23,7 @@ const ShapeSelector = ({ shapeLabel, onChange }) => {
 
   return (
     <React.Fragment>
-      <Form.Group as={Row} controlId="password" className="mb-4">
+      <Form.Group controlId="shapeLabel" className="mb-4 me-3">
         <Form.Label>비누 외형</Form.Label>
         <Form.Control
           as="select"
@@ -31,6 +31,7 @@ const ShapeSelector = ({ shapeLabel, onChange }) => {
           value={shapeLabel}
           required
           onChange={handleShapeChange}
+          style={{width: "8em"}}
         >
           <option value="">- 외형 선택 -</option>
           {shapeLabels.map((name, index) => (
