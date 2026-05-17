@@ -194,7 +194,7 @@ const RegisterProduce = () => {
         setParentSuccessMsg={setSuccessMsg}
         setParentAlertSuccess={setAlertSuccess}
         loadProducePage={loadProducePage}
-        setCurrentPage={setCurrentPage}
+        changePage={changePage}
       />
       <div>
         <Paginator
