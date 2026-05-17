@@ -1,6 +1,6 @@
 import { ko } from "date-fns/locale/ko";
 import { useState } from "react";
-import { Button, Col, Form, Modal, Row } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import AlertMessage from "../../common/AlertMessage";
@@ -8,6 +8,7 @@ import BsAlertHook from "../../hook/BsAlertHook";
 import ShapeSelector from "../../soaps/ShapeSelector";
 import { sendProduceInfo } from "../WorkerService";
 import ProducerModal from "./ProducerModal";
+import "../../modal/BumModal.css";
 
 const ProduceInfoModal = ({
   show,
@@ -77,6 +78,41 @@ const ProduceInfoModal = ({
     setShowNameModal(true);
   };
 
+  // Grid styles
+  const gridStyles = {
+    formContainer: {
+      display: "grid",
+      gap: "1.5rem",
+    },
+    firstRow: {
+      display: "grid",
+      gridTemplateColumns: "1.4fr 1fr",
+      gap: "2rem",
+    },
+    secondRow: {
+      display: "grid",
+      gridTemplateColumns: "1.4fr 1fr",
+      gap: "2rem",
+    },
+    buttonWrapper: {
+      display: "flex",
+      gap: "0.5rem",
+      alignItems: "flex-start",
+    },
+    producerInput: {
+      flex: 1,
+    },
+    alertRow: {
+      display: "flex",
+      justifyContent: "center",
+      marginTop: "1rem",
+    },
+    alertContent: {
+      width: "100%",
+      maxWidth: "400px",
+    },
+  };
+
   return (
     <>
       <ProducerModal
@@ -87,17 +123,23 @@ const ProduceInfoModal = ({
           setShowNameModal(false);
         }}
       />
-      <Modal show={show} onHide={closer}>
+      <Modal
+        show={show}
+        onHide={closer}
+        id="new-produce"
+        dialogClassName="bum-modal-size"
+      >
         <Modal.Header closeButton>
-          <Modal.Title>비누 생산 정보</Modal.Title>
+          <Modal.Title>생산 정보 입력</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{ padding: "2em" }}>
           <Form onSubmit={handleSubmit}>
-            <Row className="justify-content-center mb-4">
-              <Col xs={6} md={6}>
+            <div style={gridStyles.formContainer}>
+              {/* First Row: Producer Name + Produce Date */}
+              <div style={gridStyles.firstRow}>
                 <Form.Group controlId="producerName">
                   <Form.Label>생산 직원명</Form.Label>
-                  <div style={{ display: "flex" }}>
+                  <div style={gridStyles.buttonWrapper}>
                     <Form.Control
                       type="text"
                       name="producerName"
@@ -106,7 +148,7 @@ const ProduceInfoModal = ({
                       onChange={handleChange}
                       required
                       readOnly
-                      style={{ width: "115px" }}
+                      style={gridStyles.producerInput}
                     />
                     <Button
                       variant="primary"
@@ -115,7 +157,7 @@ const ProduceInfoModal = ({
                         width: "60px",
                         height: "30px",
                         paddingTop: "1px",
-                        margin: "4px 5px 0 5px",
+                        marginTop: "4px",
                       }}
                       onClick={openNameModal}
                     >
@@ -123,8 +165,7 @@ const ProduceInfoModal = ({
                     </Button>
                   </div>
                 </Form.Group>
-              </Col>
-              <Col xs={3} md={4} className="ms-0">
+
                 <Form.Group controlId="produceDate">
                   <Form.Label>생산 일자</Form.Label>
                   <DatePicker
@@ -140,17 +181,16 @@ const ProduceInfoModal = ({
                     locale="ko"
                   />
                 </Form.Group>
-              </Col>
-            </Row>
-            <Row className="justify-content-center">
-              <Col xs={5}>
+              </div>
+
+              {/* Second Row: Shape Selector + Quantity */}
+              <div style={gridStyles.secondRow} className="mb-0">
                 <ShapeSelector
                   shapeLabel={produceInfo.shapeLabel}
                   onChange={handleChange}
                 />
-              </Col>
-              <Col xs={3}>
-                <Form.Group controlId="producedQuantity">
+
+                <Form.Group controlId="producedQuantity" className="me-3">
                   <Form.Label>수량</Form.Label>
                   <Form.Control
                     type="number"
@@ -160,21 +200,23 @@ const ProduceInfoModal = ({
                     placeholder="숫자"
                     onChange={handleChange}
                     required
+                    style={{width: "5em"}}
                   />
                 </Form.Group>
-              </Col>
-            </Row>
+              </div>
 
-            <Row className="justify-content-center" style={{ margin: "auto" }}>
-              <Col xs={10} md={8}>
-                {alertError && (
-                  <AlertMessage type={"danger"} message={errorMsg} />
-                )}
-                {alertSuccess && (
-                  <AlertMessage severity={"success"} message={successMsg} />
-                )}
-              </Col>
-            </Row>
+              {/* Alert Messages Row */}
+              <div style={gridStyles.alertRow} className="mt-0">
+                <div style={gridStyles.alertContent} className="mb-0">
+                  {alertError && (
+                    <AlertMessage type={"danger"} message={errorMsg} />
+                  )}
+                  {alertSuccess && (
+                    <AlertMessage severity={"success"} message={successMsg} />
+                  )}
+                </div>
+              </div>
+            </div>
           </Form>
         </Modal.Body>
         <Modal.Footer>
