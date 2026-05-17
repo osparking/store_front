@@ -1,0 +1,45 @@
+.formContainer {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.firstRow {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 2rem;
+}
+
+.secondRow {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 2rem;
+}
+
+.buttonWrapper {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.producerInput {
+  flex: 1;
+}
+
+.alertRow {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.alertContent {
+  width: 100%;
+  max-width: 400px;
+}
+
+.editButton {
+  min-width: 60px;
+  width: 60px;
+  height: 30px;
+  padding-top: 1px;
+  margin-top: 4px;
+}
