@@ -3,7 +3,7 @@ import { Alert } from "react-bootstrap";
 export default function AlertMessage({ type, message, severity }) {
   if (!message) return null;
   return (
-    <Alert variant={type} severity={severity} dismissible>
+    <Alert variant={type} severity={severity} dismissible className="mb-0">
       {message}
     </Alert>
   );
