@@ -32,7 +32,7 @@ const ManageIngredient = () => {
 
   const handleClearFilter = () => {
     setSelectedName("");
-    setCurrIngrePage(1);
+    changePage(1);
     localStorage.removeItem("INGRE_NAME");
   };
 
