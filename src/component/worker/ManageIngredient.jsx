@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { BsPlusSquareFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
@@ -32,6 +32,7 @@ const ManageIngredient = () => {
 
   const handleClearFilter = () => {
     setSelectedName("");
+    setCurrIngrePage(1);
     localStorage.removeItem("INGRE_NAME");
   };
 
@@ -66,6 +67,11 @@ const ManageIngredient = () => {
   };
 
   useEffect(() => {
+    if (selectedName) {
+      localStorage.setItem("INGRE_NAME", selectedName);
+    } else {
+      localStorage.removeItem("INGRE_NAME");
+    }
     readIngredientPage(currIngrePage);
     const readIngreNames = async () => {
       try {
@@ -76,7 +82,7 @@ const ManageIngredient = () => {
       }
     };
     readIngreNames();
-  }, []);
+  }, [selectedName]);
 
   const [currIngrePage, setCurrIngrePage] = useState(
     parseInt(localStorage.getItem("CURR_INGRE_PAGE")) || 1,
@@ -101,11 +107,10 @@ const ManageIngredient = () => {
     readIngredientPage(pageNo);
   };
 
-  useEffect(() => {
+  const handleFilterChange = (name) => {
+    setSelectedName(name);
     changePage(1);
-    readIngredientPage(1);
-    localStorage.setItem("INGRE_NAME", selectedName);
-  }, [selectedName]);
+  };
 
   const [ingresPerPage] = useState(10);
   const indexOfLastIngre = currIngrePage * ingresPerPage;
@@ -180,7 +185,7 @@ const ManageIngredient = () => {
             label={"재료명"}
             options={ingreNames}
             selectedOption={selectedName}
-            onOptionSelection={setSelectedName}
+            onOptionSelection={handleFilterChange}
             onClearFilter={handleClearFilter}
           />
           <div className="ms-2 justify-content-end mt-1">
