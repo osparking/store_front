@@ -77,7 +77,6 @@ const ManageIngredient = () => {
       try {
         const response = await getAllIngreNames();
         setIngreNames(response.data);
-        console.log("재료명 목록: ", response.data);
       } catch (error) {
         console.error(error.response.data.message);
       }

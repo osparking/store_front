@@ -12,7 +12,6 @@ const BuyPlaceSelector = ({ buyPlace, onChange }) => {
       try {
         const response = await getAllBuyLinks();
         setBuyLinks(response.data);
-        console.log("구매 링크 목록: ", response.data);
       } catch (error) {
         console.error(error.response.data.message);
       }
