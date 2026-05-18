@@ -110,7 +110,7 @@ const IngreDataModal = ({
       </Modal.Header>
       <Modal.Body>
         <Row className="justify-content-center">
-          <Col xs={8}>
+          <Col xs={10}>
             <Form onSubmit={handleSubmit}>
               <Form.Group>
                 <Row>
@@ -183,13 +183,13 @@ const IngreDataModal = ({
                     />
                   </Form.Group>
                 </Col>
-                <Col xs={4} className="mb-3 mb-sm-0">
+                <Col xs={3} className="mb-3 mb-sm-0">
                   <UnitSelector
                     packunit={ingredient.packunit}
                     onChange={handleChange}
                   />
                 </Col>
-                <Col xs={3} className="mb-3 mb-sm-0">
+                <Col xs={2} className="mb-3 mb-sm-0">
                   <Form.Group as={Row} className="mb-1" controlId="count">
                     <Form.Label>수량</Form.Label>
                     <Form.Control
@@ -205,6 +205,35 @@ const IngreDataModal = ({
                   </Form.Group>
                 </Col>
               </Row>
+              {ingredient.addTime && (
+                <>
+                  <hr style={{ marginBottom: "0" }} />
+                  <Form.Group
+                    as={Row}
+                    className="mt-2 mb-2"
+                    controlId="addTime"
+                    style={{ width: "fit-content", margin: "0 auto" }}
+                  >
+                    <Form.Label column xs="auto" className="mb-0">
+                      입력 시간 :
+                    </Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="addTime"
+                      value={ingredient.addTime}
+                      onChange={handleChange}
+                      readOnly
+                      plaintext
+                      style={{
+                        width: "168px",
+                        backgroundColor: "lightgray",
+                        borderRadius: "6px",
+                        textAlign: "center",
+                      }}
+                    />
+                  </Form.Group>
+                </>
+              )}
 
               {alertError && (
                 <AlertMessage type={"danger"} message={errorMsg} />
