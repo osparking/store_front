@@ -43,7 +43,10 @@ const IngredientTable = (
   };
 
   return (
-    <div className="worker-table-wrapper ingredient">
+    <div
+      className="worker-table-wrapper ingredient"
+      style={{ width: "fit-content" }}
+    >
       {/* Fixed Header Section */}
       <div className="table-header">
         <table className="table table-bordered table-hover table-striped styled-data-table">
