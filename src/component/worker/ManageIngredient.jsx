@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { BsPlusSquareFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
@@ -29,12 +29,6 @@ const ManageIngredient = () => {
   );
 
   const [ingrePage, setIngrePage] = useState({});
-
-  const changeSelectedName = (e) => {
-    localStorage.setItem("INGRE_NAME", e);
-    localStorage.setItem("CURR_INGRE_PAGE", 1);
-    setSelectedName(e);
-  };
 
   const handleClearFilter = () => {
     setSelectedName("");
@@ -93,6 +87,8 @@ const ManageIngredient = () => {
       readIngredientPage(currIngrePage);
       if (ingreUpdated) {
         setIngreUpdated(false);
+      } else {
+        setIngreAdded(false);
       }
     }
   }, [ingreAdded, ingreUpdated]);
@@ -106,13 +102,9 @@ const ManageIngredient = () => {
   };
 
   useEffect(() => {
-    if (
-      selectedName !== localStorage.getItem("INGRE_NAME") &&
-      selectedName !== ""
-    ) {
-      readIngredientPage(currIngrePage);
-      setCurrIngrePage(1);
-    }
+    changePage(1);
+    readIngredientPage(1);
+    localStorage.setItem("INGRE_NAME", selectedName);
   }, [selectedName]);
 
   const [ingresPerPage] = useState(10);
@@ -188,7 +180,7 @@ const ManageIngredient = () => {
             label={"재료명"}
             options={ingreNames}
             selectedOption={selectedName}
-            onOptionSelection={(e) => changeSelectedName(e)}
+            onOptionSelection={setSelectedName}
             onClearFilter={handleClearFilter}
           />
           <div className="ms-2 justify-content-end mt-1">
