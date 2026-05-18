@@ -29,13 +29,12 @@ const IngredientTable = (
       <colgroup>
         <col style={{ width: "5%" }} />
         <col style={{ width: "13%" }} />
-        <col style={{ width: "9%" }} />
         <col style={{ width: "14%" }} />
         <col style={{ width: "5%" }} />
         <col style={{ width: "5%" }} />
         <col style={{ width: "5%" }} />
         <col style={{ width: "11%" }} />
-        <col style={{ width: "14%" }} />
+        <col style={{ width: "11%" }} />
         <col style={{ width: "9%" }} />
         <col style={{ width: "5%" }} />
         <col style={{ width: "5%" }} />
@@ -53,13 +52,12 @@ const IngredientTable = (
             <tr>
               <th>순번</th>
               <th>재료명</th>
-              <th>입고일</th>
               <th>구매처</th>
               <th>용량</th>
               <th>단위</th>
               <th>수량</th>
+              <th>입고일</th>
               <th>사용기한</th>
-              <th>입력일시</th>
               <th>직원명</th>
               <th colSpan={2}>작업</th>
             </tr>
@@ -76,7 +74,6 @@ const IngredientTable = (
               <tr key={index}>
                 <td>{(currIngrePage - 1) * 10 + index + 1}</td>
                 <td>{ingredient.ingreName}</td>
-                <td>{ingredient.storeDate}</td>
                 <td>
                   {isValidUrl(ingredient.buyPlace) ? (
                     <Link to={ingredient.buyPlace} target="_blank">
@@ -89,8 +86,8 @@ const IngredientTable = (
                 <td>{ingredient.quantity}</td>
                 <td>{ingredient.packunit}</td>
                 <td>{ingredient.count}</td>
+                <td>{ingredient.storeDate}</td>
                 <td>{ingredient.expireDate}</td>
-                <td>{ingredient.addTime}</td>
                 <td>{ingredient.workerName}</td>
                 <td>
                   <OverlayTrigger
