@@ -8,7 +8,7 @@ import BsAlertHook from "../hook/BsAlertHook";
 import BuyPlaceSelector from "./BuyPlaceSelector";
 import IngreNameSelector from "./IngreNameSelector";
 import UnitSelector from "./UnitSelector";
-import { sendStoIngInfo } from "./WorkerService";
+import { sendStoIngInfo, updateStoredIngre } from "./WorkerService";
 
 const IngreDataModal = ({
   show,
@@ -87,15 +87,17 @@ const IngreDataModal = ({
     }
 
     try {
-      const response = await sendStoIngInfo(ingredient);
-      console.log("response: ", response);
-      setSuccessMsg(response.message);
-      setAlertSuccess(true);
+      let response = undefined;
+
       if (ingredient.id) {
+        response = await updateStoredIngre(ingredient);
         setIngreUpdated(true);
       } else {
+        response = await sendStoIngInfo(ingredient);
         setIngreAdded(true);
       }
+      setSuccessMsg(response.message);
+      setAlertSuccess(true);
     } catch (error) {
       console.log("error.response: ", error.response);
       setErrorMsg(error.response.data.message);
