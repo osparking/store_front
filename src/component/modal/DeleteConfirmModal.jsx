@@ -1,5 +1,5 @@
-import React from 'react'
-import { Button, Modal } from 'react-bootstrap';
+import React from "react";
+import { Button, Modal } from "react-bootstrap";
 
 const DeleteConfirmModal = ({
   show,
@@ -7,6 +7,7 @@ const DeleteConfirmModal = ({
   handleDeletion,
   target,
   disabled,
+  isPageLastItem = false,
 }) => {
   return (
     <Modal show={show} onHide={onHide}>
@@ -18,12 +19,16 @@ const DeleteConfirmModal = ({
         <Button variant="secondary" onClick={onHide}>
           삭제 취소
         </Button>
-        <Button variant="danger" onClick={handleDeletion} disabled={disabled}>
+        <Button
+          variant="danger"
+          onClick={() => handleDeletion(isPageLastItem)}
+          disabled={disabled}
+        >
           {disabled ? "진행 중~" : "삭제 진행"}
         </Button>
       </Modal.Footer>
     </Modal>
   );
-}
+};
 
-export default DeleteConfirmModal
+export default DeleteConfirmModal;
