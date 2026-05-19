@@ -83,6 +83,16 @@ export async function sendStoIngInfo(ingredient) {
   }
 }
 
+export async function updateStoredIngre(ingredient) {
+  try {
+    var url = `/store_ingred/${ingredient.id}/update`;
+    const result = await callWithToken("put", url, ingredient);
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function getAllDept() {
   try {
     const result = await api.get("/worker/get_all_dept");
