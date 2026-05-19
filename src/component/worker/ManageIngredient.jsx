@@ -149,7 +149,7 @@ const ManageIngredient = () => {
     setIngIdToDel(ingId);
   };
 
-  const handleIngreDelete = async () => {
+  const handleIngreDelete = async (isPageLastItem) => {
     if (ingIdToDel) {
       try {
         setDelBtnDisabled(true);
@@ -157,7 +157,11 @@ const ManageIngredient = () => {
         setSuccessMsg(result.message);
         setAlertSuccess(true);
         setShowDelModal(false);
-        readIngredientPage(currIngrePage);
+        if (isPageLastItem && currIngrePage > 1) {
+          changePage(currIngrePage - 1);
+        } else {
+          readIngredientPage(currIngrePage);
+        }
       } catch (err) {
         console.error("err:", err);
         setErrorMsg(err.message);
@@ -176,6 +180,7 @@ const ManageIngredient = () => {
         handleDeletion={handleIngreDelete}
         target="입고 재료 정보의"
         disabled={delBtnDisabled}
+        isPageLastItem={ingreList.length === 1}
       />
 
       <Row className="mb-2 justify-content-center">
