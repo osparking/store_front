@@ -89,6 +89,10 @@ const ManageIngredient = () => {
   );
 
   useEffect(() => {
+    if (ingreAdded) {
+      handleClearFilter();
+    }
+
     if (ingreAdded || ingreUpdated) {
       readIngredientPage(currIngrePage);
       if (ingreUpdated) {
