@@ -4,7 +4,12 @@ import { Link } from "react-router-dom";
 import "../WorkerCanvas.css";
 import "../WorkerTable.css";
 
-const ProduceTable = (produceRows, currentPage) => {
+const ProduceTable = (
+  produceRows,
+  currentPage,
+  editProduceInfo,
+  handleShowDelModal,
+) => {
   const produceTable7columns = () => {
     return (
       <>
