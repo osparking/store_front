@@ -12,12 +12,17 @@ export default function ReviewModal({
   saveReview,
   editable,
 }) {
-  const { refreshReviews } = useContext(ReviewsContext);
+  let refreshReviews = () => {};
+
+  if (editable) {
+    const context = useContext(ReviewsContext);
+    refreshReviews = context?.refreshReviews || (() => {});
+  }
   const [stars, setStars] = useState(0);
   const saveEdit = (editorText) => {
     const reviewData = { stars: stars, ...editorText };
     saveReview(reviewData);
-    refreshReviews && refreshReviews();
+    refreshReviews();
   };
 
   useEffect(() => {
