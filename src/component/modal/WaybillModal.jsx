@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Button, Form, InputGroup, Modal } from "react-bootstrap";
+import AlertMessage from "../common/AlertMessage";
+import BsAlertHook from "../hook/BsAlertHook";
 
 export default function WaybillModal({
   show,
@@ -10,10 +12,30 @@ export default function WaybillModal({
 }) {
   const [waybillNo, setWaybillNo] = useState("3631317740");
   const inputRef = useRef(null);
-  const saveWaybillNo = (event) => {
+
+  const {
+    successMsg,
+    setSuccessMsg,
+    alertSuccess,
+    setAlertSuccess,
+    errorMsg,
+    setErrorMsg,
+    alertError,
+    setAlertError,
+  } = BsAlertHook();
+
+  const saveWaybillNo = async (event) => {
     event.preventDefault();
-    handleSubmit(waybillNo);
-  }
+    try {
+      await handleSubmit(waybillNo);
+      setAlertSuccess(true);
+    } catch (error) {
+      const message = error.message + "(오류코드: " + error.code + ")";
+      setErrorMsg(message);
+      console.error(message);
+      setAlertError(true);
+    }
+  };
 
   useEffect(() => {
     if (show) {
@@ -53,6 +75,10 @@ export default function WaybillModal({
               />
             </InputGroup>
           </Form.Group>
+
+          <div className="d-flex justify-content-center mt-4">
+            {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
+          </div>
 
           <div className="d-flex justify-content-center mt-4">
             <div className="mx-2">
