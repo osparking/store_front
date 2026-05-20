@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
+import toast from "react-hot-toast";
 import { changeOrderStatus, storeWaybillNo } from "../../buy/orderService";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import WaybillModal from "../../modal/WaybillModal";
@@ -46,7 +47,6 @@ const OrderStatus = ({ statusLabels, order, loadOrderPage }) => {
 
   const handleWaybillConfirm = async (waybillNo) => {
     try {
-      setShowWaybillModal(false);
       const data = {
         id: order.id,
         status: toState,
@@ -54,10 +54,16 @@ const OrderStatus = ({ statusLabels, order, loadOrderPage }) => {
       };
 
       const result = await storeWaybillNo(data);
+
+      if (result) {
+        toast.success("운송장번호가 저장되었습니다: " + waybillNo);
+      }
+      setShowWaybillModal(false);
       loadOrderPage();
-      console.log("운송장번호 저장 결과: ", JSON.stringify(result));
     } catch (error) {
-      console.error("운송장번호 저장 에러:", error);
+      // 에러 처리 로직 추가 (예: 사용자에게 알림)
+      var errorMessage = error.response?.data.message + waybillNo;
+      throw { message: errorMessage, code: error.response?.status };
     }
   };
 
