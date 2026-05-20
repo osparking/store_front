@@ -12,12 +12,14 @@ import "./OrderDetail.css";
 import { set } from "lodash";
 import { ReviewsContext } from "../../user/UserDashboard";
 
-const OrderDetail = ({
-  detailId,
-  setShowDetail,
-  isHouse,
-}) => {
-  const { refreshReviews } = useContext(ReviewsContext);
+const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
+  let refreshReviews = () => {};
+
+  if (!isHouse) {
+    const context = useContext(ReviewsContext);
+    refreshReviews = context?.refreshReviews || (() => {});
+  }
+
   const [orderDetails, setOrderDetails] = useState(undefined);
   const [orderStatus, setOrderStatus] = useState(undefined);
   const [showModal, setShowModal] = useState(false);
@@ -111,7 +113,9 @@ const OrderDetail = ({
     await patchOrderReview(reviewData);
     setOrderStatus(nextStatus);
     readOrderDetail();
-    refreshReviews();
+    if (!isHouse) {
+      refreshReviews();
+    }
   };
 
   const getBodyMessage = (status) => {
