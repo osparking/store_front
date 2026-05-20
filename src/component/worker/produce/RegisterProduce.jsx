@@ -81,7 +81,7 @@ const RegisterProduce = () => {
     setDelRegTime(produce.registerTime.slice(-8));
   };
 
-  const handleProduceDelete = async () => {
+  const handleProduceDelete = async (isPageLastItem) => {
     if (idToDelete) {
       try {
         setDelBtnDisabled(true);
@@ -89,7 +89,12 @@ const RegisterProduce = () => {
         setSuccessMsg(result.message);
         setAlertSuccess(true);
         setShowDelModal(false);
-        loadProducePage();
+
+        if (isPageLastItem && currentPage > 1) {
+          changePage(currentPage - 1);
+        } else {
+          loadProducePage();
+        }
       } catch (err) {
         console.error("err:", err);
         setErrorMsg(err.message);
@@ -152,6 +157,7 @@ const RegisterProduce = () => {
         handleDeletion={handleProduceDelete}
         target={`${delRegTime} 시분초 입력 생산 정보`}
         disabled={delBtnDisabled}
+        isPageLastItem={produceRows.length === 1}
       />
 
       <Row>
