@@ -59,8 +59,10 @@ export function WidgetSuccessPage() {
   ];
 
   function closeModal() {
+    localStorage.setItem("DASHBOARD_TAB", "purchase_list");
+    const userId = localStorage.getItem("LOGIN_ID");
     setIsModalOpen(false);
-    navigate("/myorders");
+    navigate(`/dashboard/${userId}/user`);
   }
 
   return (
