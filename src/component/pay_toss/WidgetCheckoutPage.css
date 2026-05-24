@@ -23,17 +23,18 @@ body {
   color: #4e5968;
 }
 .box_section {
+  position: relative;
+  top: 62px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 10px 20px rgb(0 0 0 / 1%), 0 6px 6px rgb(0 0 0 / 6%);
   padding: 50px 50px 50px 50px;
-  margin-top: 30px;
   margin-right: auto;
   margin-left: auto;
   color: #333d4b;
   align-items: center;
   text-align: center;
-  overflow-x: auto; /* Add this property for horizontal scrolling */
+  height: calc(100vh - 124px);
   white-space: nowrap; /* Prevent text wrapping */
 }
 :root {
@@ -578,8 +579,10 @@ textarea {
 }
 
 #checkout-buttons {
+  position:sticky;
+  bottom: 70px;
   display: flex;
-  gap: 20px; /* Adjust the gap size as needed */
+  gap: 20px;
   justify-content: center;
 }
 
@@ -589,5 +592,26 @@ textarea {
 }
 
 .checkout-page .box_section {
-  width: 550px;
+  width: 750px;
+}
+
+.order-summary {
+  text-align: left;
+  margin-bottom: 20px;
+  height: fit-content;
+  overflow-y: auto
+}
+
+#payment-method {
+  
+  gap: 20px;
+  justify-content: center;
+  border: 1px solid #e0e0e0;
+  height: calc(100% - 195px);
+  overflow-y: auto;
+}
+
+.payment-widget-cache-1wfyq9i {
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
 }
