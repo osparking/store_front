@@ -1,12 +1,13 @@
 import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
 import { useEffect, useRef, useState } from "react";
+import { Button } from "react-bootstrap";
+import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 import OrderDigest from "../buy/OrderDigest";
 import { saveOrderRecipient } from "../buy/orderService";
 import { callWithToken } from "../util/api";
 import { getSuffixAfterSpace } from "../util/utilities";
 import "./WidgetCheckoutPage.css";
-import { Button } from "react-bootstrap";
 
 // 전자결제 신청 및 가입 완료 후, clientKey 를 다음으로 수정할 것.
 // 개발자센터의 결제위젯 연동 키 > 클라이언트 키
@@ -191,11 +192,13 @@ function WidgetCheckoutPage() {
   return (
     <div className="wrapper checkout-page">
       <div className="box_section">
-        <OrderDigest
-          name={orderData.orderName}
-          amount={feeData.amount}
-          address={address}
-        />
+        <div className="order-summary">
+          <OrderDigest
+            name={orderData.orderName}
+            amount={feeData.amount}
+            address={address}
+          />
+        </div>
 
         {/* 결제 UI */}
         <div id="payment-method" />
