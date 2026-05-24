@@ -9,7 +9,7 @@ const OrderDigest = ({ name, amount, address }) => {
   if (!name) return null;
 
   return (
-    <div md={6} className="rounded">
+    <div md={6} className="rounded order-digest p-3">
       <div className="justify-content-center">
         <h5
           className="orderDigest"
@@ -19,7 +19,6 @@ const OrderDigest = ({ name, amount, address }) => {
             alignItems: "center",
             justifyContent: "center",
             gap: "12px",
-            marginBottom: isOpen ? "1rem" : "0",
           }}
           onClick={() => setIsOpen(!isOpen)}
         >
