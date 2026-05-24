@@ -1,5 +1,5 @@
 import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import OrderDigest from "../buy/OrderDigest";
 import { saveOrderRecipient } from "../buy/orderService";
@@ -32,24 +32,37 @@ function WidgetCheckoutPage() {
   const [widgets, setWidgets] = useState(null);
   const [ready, setReady] = useState(false);
   const [orderId, setOrderId] = useState("");
+  const isSubmittingRef = useRef(false);
 
   useEffect(() => {
     async function saveOrderRecord() {
       let action = "";
-      // 유저의 기본 수신처 갱신
       if (toDefaultRecipient) {
-        if (!isDefaultRecipient) {
-          action = "remove";
-        }
+        if (!isDefaultRecipient) action = "remove";
       } else if (isDefaultRecipient) {
         action = "store";
       }
 
       const orderAction = { ...orderData, defaultRecipientAction: action };
-      const response = await saveOrderRecipient(orderAction);
 
-      setOrderId(response.data?.orderId);
+      // 1. 이미 요청 중이면 즉시 차단 (동기적으로 즉시 확인 가능)
+      if (isSubmittingRef.current) return;
+
+      // 2. 요청 시작하자마자 락(Lock)을 걸어둠
+      isSubmittingRef.current = true;
+
+      try {
+        const response = await saveOrderRecipient(orderAction);
+        setOrderId(response.data?.orderId);
+      } catch (error) {
+        toast.error("주문 저장 오류 - 개발자 콘솔 확인 필요.");
+        console.error("주문 저장 실패:", error);
+      } finally {
+        // 3. 완료 후 락 해제
+        isSubmittingRef.current = false;
+      }
     }
+
     saveOrderRecord();
 
     async function getTossWidgets() {
