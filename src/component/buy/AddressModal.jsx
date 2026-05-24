@@ -21,7 +21,7 @@ const AddressModal = ({
   closer,
   putFocus2detailedAddr,
 }) => {
-  const [addressKey, setAddressKey] = useState("");
+  const [addressKey, setAddressKey] = useState("태평로445");
   const [addresses, setAddresses] = useState([]);
   const [addrPage, setAddrPage] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
