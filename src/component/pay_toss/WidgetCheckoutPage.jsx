@@ -35,52 +35,52 @@ function WidgetCheckoutPage() {
   const [orderId, setOrderId] = useState("");
   const isSubmittingRef = useRef(false);
 
+  async function saveOrderRecord() {
+    let action = "";
+    if (toDefaultRecipient) {
+      if (!isDefaultRecipient) action = "remove";
+    } else if (isDefaultRecipient) {
+      action = "store";
+    }
+
+    const orderAction = { ...orderData, defaultRecipientAction: action };
+
+    // 1. 이미 요청 중이면 즉시 차단 (동기적으로 즉시 확인 가능)
+    if (isSubmittingRef.current) return;
+
+    // 2. 요청 시작하자마자 락(Lock)을 걸어둠
+    isSubmittingRef.current = true;
+
+    try {
+      const response = await saveOrderRecipient(orderAction);
+      setOrderId(response.data?.orderId);
+    } catch (error) {
+      toast.error("주문 저장 오류 - 개발자 콘솔 확인 필요.");
+      console.error("주문 저장 실패:", error);
+    } finally {
+      // 3. 완료 후 락 해제
+      isSubmittingRef.current = false;
+    }
+  }
+
+  async function getTossWidgets() {
+    try {
+      const tossPayments = await loadTossPayments(clientKey);
+      // 회원 결제
+      // @docs https://docs.tosspayments.com/sdk/v2/js#tosspaymentswidgets
+      const widgets = tossPayments.widgets({ customerKey });
+
+      // 비회원 결제
+      // const widgets = tossPayments.widgets({ customerKey: ANONYMOUS });
+
+      setWidgets(widgets);
+    } catch (error) {
+      console.error("토스페이먼츠 위젯 오류:", error);
+    }
+  }
+
   useEffect(() => {
-    async function saveOrderRecord() {
-      let action = "";
-      if (toDefaultRecipient) {
-        if (!isDefaultRecipient) action = "remove";
-      } else if (isDefaultRecipient) {
-        action = "store";
-      }
-
-      const orderAction = { ...orderData, defaultRecipientAction: action };
-
-      // 1. 이미 요청 중이면 즉시 차단 (동기적으로 즉시 확인 가능)
-      if (isSubmittingRef.current) return;
-
-      // 2. 요청 시작하자마자 락(Lock)을 걸어둠
-      isSubmittingRef.current = true;
-
-      try {
-        const response = await saveOrderRecipient(orderAction);
-        setOrderId(response.data?.orderId);
-      } catch (error) {
-        toast.error("주문 저장 오류 - 개발자 콘솔 확인 필요.");
-        console.error("주문 저장 실패:", error);
-      } finally {
-        // 3. 완료 후 락 해제
-        isSubmittingRef.current = false;
-      }
-    }
-
     saveOrderRecord();
-
-    async function getTossWidgets() {
-      try {
-        const tossPayments = await loadTossPayments(clientKey);
-        // 회원 결제
-        // @docs https://docs.tosspayments.com/sdk/v2/js#tosspaymentswidgets
-        const widgets = tossPayments.widgets({ customerKey });
-
-        // 비회원 결제
-        // const widgets = tossPayments.widgets({ customerKey: ANONYMOUS });
-
-        setWidgets(widgets);
-      } catch (error) {
-        console.error("토스페이먼츠 위젯 오류:", error);
-      }
-    }
     getTossWidgets();
   }, []); // 마운트 때 1회 실행
 
