@@ -261,7 +261,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         editable={!isHouse}
       />
       {orderDetails && (
-        <div className="box_section mt-0 orders_table_div darkBack">
+        <div className="mt-4 orders_table_div darkBack">
           <div id="order_detail_container">
             <Row className="d-flex justify-content-center align-items-center gap-10">
               <p className="shapeCount darkFont">주문 개요</p>
