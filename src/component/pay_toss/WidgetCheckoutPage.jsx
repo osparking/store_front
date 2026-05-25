@@ -61,8 +61,11 @@ function WidgetCheckoutPage() {
         try {
           // 후단에 저장되었을 갱신 전 주문 정보의 삭제를 요청한다.
           // 로컬에서 주문 ID를 확보한다
-          // await callWithToken("post", `/order/{id}/delete`);
-          console.log("취소된 주문 정보 삭제 완료.");
+          const order_id = localStorage.getItem("ORDER_ID");
+
+          if (order_id) {
+            await callWithToken("delete", `/order/${order_id}/delete`);
+          }
         } catch (error) {
           console.error("취소된 주문 정보 삭제 실패: ", error);
         }
