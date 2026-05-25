@@ -44,38 +44,49 @@ function WidgetCheckoutPage() {
     }
 
     const orderAction = { ...orderData, defaultRecipientAction: action };
-    
+
     // 로컬에 저장된 주문 정보를 찾는다.
     const localOrder = localStorage.getItem("ORDER_ACTION");
-    
+
     if (localOrder && localOrder === JSON.stringify(orderAction)) {
       // 존재하고, 새 주문과 일치하면, 일치 표시 후 함수 종료한다.
       console.log("주문 정보가 일치합니다. 주문 저장을 건너뜁니다.");
       return;
     } else {
-      // 부재하거나, 불일치하면, 불일치 표시 후 새 주문을 로컬에 저장한다.
-      console.log("주문 정보가 불일치하여, 새 주문 정보 로컬 저장한다.");
+      // 새 주문을 로컬에 저장한다.
+      console.log("새 주문 정보 로컬 저장한다.");
       localStorage.setItem("ORDER_ACTION", JSON.stringify(orderAction));
+      
+      if (localOrder) { // 로컬에 주문 정보가 있었으므로,
+        try {
+          // 후단에 저장되었을 갱신 전 주문 정보의 삭제를 요청한다.
+          // 로컬에서 주문 ID를 확보한다
+          // await callWithToken("post", `/order/{id}/delete`);
+          console.log("취소된 주문 정보 삭제 완료.");
+        } catch (error) {
+          console.error("취소된 주문 정보 삭제 실패: ", error);
+        }
+      }
+      // 새 주문 정보 후단 저장 네 단계:
+      // 1. 락(Lock) 체크: 이미 저장 중이면, 중복 저장 방지 위해 함수 종료.
+      if (isSubmittingRef.current) return;
+  
+      // 2. 락 설정: 저장 시작 전, 락을 설정하여 중복 저장 방지.
+      isSubmittingRef.current = true;
+      
+      // 3. 주문 정보 후단 저장.
+      try {
+        const response = await saveOrderRecipient(orderAction);
+        setOrderId(response.data?.orderId);
+      } catch (error) {
+        toast.error("주문 저장 오류 - 개발자 콘솔 확인 필요.");
+        console.error("주문 저장 실패:", error);
+      } finally {
+        // 4.  성공 여부 무관, 락 해제.
+        isSubmittingRef.current = false;
+      }
     }
-    // 개발 중이므로, 여기서 함수를 멈춘다.
-    return;
 
-    // 1. 이미 요청 중이면 즉시 차단 (동기적으로 즉시 확인 가능)
-    if (isSubmittingRef.current) return;
-
-    // 2. 요청 시작하자마자 락(Lock)을 걸어둠
-    isSubmittingRef.current = true;
-
-    try {
-      const response = await saveOrderRecipient(orderAction);
-      setOrderId(response.data?.orderId);
-    } catch (error) {
-      toast.error("주문 저장 오류 - 개발자 콘솔 확인 필요.");
-      console.error("주문 저장 실패:", error);
-    } finally {
-      // 3. 완료 후 락 해제
-      isSubmittingRef.current = false;
-    }
   }
 
   async function getTossWidgets() {
