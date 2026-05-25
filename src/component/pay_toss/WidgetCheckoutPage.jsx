@@ -56,8 +56,9 @@ function WidgetCheckoutPage() {
       // 새 주문을 로컬에 저장한다.
       console.log("새 주문 정보 로컬 저장한다.");
       localStorage.setItem("ORDER_ACTION", JSON.stringify(orderAction));
-      
-      if (localOrder) { // 로컬에 주문 정보가 있었으므로,
+
+      if (localOrder) {
+        // 로컬에 주문 정보가 있었으므로,
         try {
           // 후단에 저장되었을 갱신 전 주문 정보의 삭제를 요청한다.
           // 로컬에서 주문 ID를 확보한다
@@ -73,10 +74,10 @@ function WidgetCheckoutPage() {
       // 새 주문 정보 후단 저장 네 단계:
       // 1. 락(Lock) 체크: 이미 저장 중이면, 중복 저장 방지 위해 함수 종료.
       if (isSubmittingRef.current) return;
-  
+
       // 2. 락 설정: 저장 시작 전, 락을 설정하여 중복 저장 방지.
       isSubmittingRef.current = true;
-      
+
       // 3. 주문 정보 후단 저장.
       try {
         const response = await saveOrderRecipient(orderAction);
@@ -89,7 +90,6 @@ function WidgetCheckoutPage() {
         isSubmittingRef.current = false;
       }
     }
-
   }
 
   async function getTossWidgets() {
@@ -204,6 +204,7 @@ function WidgetCheckoutPage() {
   }
 
   const navigate = useNavigate();
+
   const goRecipient = () => {
     navigate("/recipient", {
       state: {
@@ -214,6 +215,12 @@ function WidgetCheckoutPage() {
         wasDefaultRecipient: isDefaultRecipient,
       },
     });
+  };
+
+  const cancelPayment = () => {
+    localStorage.removeItem("ORDER_ID");
+    localStorage.removeItem("ORDER_ACTION");
+    navigate("/buy_soap");
   };
 
   const toRecipient = () => {
@@ -238,6 +245,12 @@ function WidgetCheckoutPage() {
         <div id="agreement" />
 
         <div id="checkout-buttons">
+          <Button
+            variant="secondary"
+            onClick={cancelPayment} // Use the extracted function
+          >
+            취소
+          </Button>
           <Button
             variant="info"
             onClick={toRecipient} // Use the extracted function
