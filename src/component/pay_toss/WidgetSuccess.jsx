@@ -59,6 +59,8 @@ export function WidgetSuccessPage() {
   ];
 
   function closeModal() {
+    localStorage.removeItem("ORDER_ID");
+    localStorage.removeItem("ORDER_ACTION");
     localStorage.setItem("DASHBOARD_TAB", "purchase_list");
     const userId = localStorage.getItem("LOGIN_ID");
     setIsModalOpen(false);
