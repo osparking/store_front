@@ -44,6 +44,21 @@ function WidgetCheckoutPage() {
     }
 
     const orderAction = { ...orderData, defaultRecipientAction: action };
+    
+    // 로컬에 저장된 주문 정보를 찾는다.
+    const localOrder = localStorage.getItem("ORDER_ACTION");
+    
+    if (localOrder && localOrder === JSON.stringify(orderAction)) {
+      // 존재하고, 새 주문과 일치하면, 일치 표시 후 함수 종료한다.
+      console.log("주문 정보가 일치합니다. 주문 저장을 건너뜁니다.");
+      return;
+    } else {
+      // 부재하거나, 불일치하면, 불일치 표시 후 새 주문을 로컬에 저장한다.
+      console.log("주문 정보가 불일치하여, 새 주문 정보 로컬 저장한다.");
+      localStorage.setItem("ORDER_ACTION", JSON.stringify(orderAction));
+    }
+    // 개발 중이므로, 여기서 함수를 멈춘다.
+    return;
 
     // 1. 이미 요청 중이면 즉시 차단 (동기적으로 즉시 확인 가능)
     if (isSubmittingRef.current) return;
@@ -81,7 +96,9 @@ function WidgetCheckoutPage() {
 
   useEffect(() => {
     saveOrderRecord();
-    getTossWidgets();
+    if (!widgets) {
+      getTossWidgets();
+    }
   }, []); // 마운트 때 1회 실행
 
   useEffect(() => {

@@ -42,7 +42,7 @@ const RecipientsModal = ({
         pageSize
       );
 
-      console.log("recipients: ", JSON.stringify(myRecipients));
+      // console.log("recipients: ", JSON.stringify(myRecipients));
       setFetchResult(myRecipients);
       if (myRecipients && myRecipients.pageContent) {
         setRecipients(myRecipients.pageContent.content);
