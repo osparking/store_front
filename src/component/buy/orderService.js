@@ -43,7 +43,7 @@ export async function searchAddress(addressKey, page, size) {
   try {
     const result = await callWithToken(
       "get",
-      `${urlPrefix}${addressKey}&page=${page}&size=${size}`
+      `${urlPrefix}${addressKey}&page=${page}&size=${size}`,
     );
     return result.data.data;
   } catch (err) {
@@ -57,7 +57,7 @@ export async function fetchOrderPage(page, size) {
   try {
     const result = await callWithToken(
       "get",
-      `${urlPrefix}${page}&size=${size}`
+      `${urlPrefix}${page}&size=${size}`,
     );
     return result.data.data;
   } catch (err) {
@@ -89,7 +89,7 @@ export async function getReviewPage(page, size) {
   try {
     const result = await callWithToken(
       "get",
-      `${urlPrefix}${page}&size=${size}`
+      `${urlPrefix}${page}&size=${size}`,
     );
     return result?.data.data;
   } catch (err) {
@@ -103,7 +103,7 @@ export async function getOrderPage(userId, page, size) {
   try {
     const result = await callWithToken(
       "get",
-      `${urlPrefix}${userId}&page=${page}&size=${size}`
+      `${urlPrefix}${userId}&page=${page}&size=${size}`,
     );
     return result?.data.data;
   } catch (err) {
@@ -145,7 +145,7 @@ export async function storeWaybillNo(data) {
     const result = await callWithToken(
       "patch",
       "/order/update_waybill_no",
-      data
+      data,
     );
     return result.data.data;
   } catch (err) {
@@ -156,6 +156,10 @@ export async function storeWaybillNo(data) {
 export async function saveOrderRecipient(data) {
   try {
     const result = await callWithToken("post", "/order/add", data);
+
+    // 주문 수신처쪽과 결제쪽 간을 반복방문 때 과거 주문정보 삭제용.
+    localStorage.setItem("ORDER_ID", JSON.stringify(result.data.data.id));
+
     return result.data;
   } catch (err) {
     throw err;
