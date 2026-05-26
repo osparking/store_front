@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import OrderDigest from "../buy/OrderDigest";
 import { saveOrderRecipient } from "../buy/orderService";
 import { callWithToken } from "../util/api";
-import { getSuffixAfterSpace } from "../util/utilities";
+import { clearLocalOrderData, getSuffixAfterSpace } from "../util/utilities";
 import "./WidgetCheckoutPage.css";
 
 // 전자결제 신청 및 가입 완료 후, clientKey 를 다음으로 수정할 것.
@@ -32,7 +32,9 @@ function WidgetCheckoutPage() {
 
   const [widgets, setWidgets] = useState(null);
   const [ready, setReady] = useState(false);
-  const [orderId, setOrderId] = useState("");
+  const [orderIdToss, setOrderIdToss] = useState(
+    localStorage.getItem("ORDER_ID_TOSS") || null,
+  );
   const isSubmittingRef = useRef(false);
 
   async function saveOrderRecord() {
@@ -81,7 +83,9 @@ function WidgetCheckoutPage() {
       // 3. 주문 정보 후단 저장.
       try {
         const response = await saveOrderRecipient(orderAction);
-        setOrderId(response.data?.orderId);
+        setOrderIdToss(response.data?.orderId);
+        localStorage.setItem("ORDER_ID_TOSS", response.data?.orderId);
+        console.log("주문 저장 성공: ", response);
       } catch (error) {
         toast.error("주문 저장 오류 - 개발자 콘솔 확인 필요.");
         console.error("주문 저장 실패:", error);
@@ -148,13 +152,14 @@ function WidgetCheckoutPage() {
 
   // Reset ready state before payment to prevent warning
   const handlePayment = async () => {
-    if (!orderId) {
+    if (!orderIdToss) {
+      console.error("주문 ID가 없습니다. 결제를 진행할 수 없습니다.");
       return; // 주문 후단 저장 후, 반응에서 얻은 ID orderId 상태에 배정 전.
     }
 
     try {
       const saveAmountReq = {
-        orderId: orderId,
+        orderId: orderIdToss,
         amount: feeData?.amount,
         orderName: orderData?.orderName,
       };
@@ -180,7 +185,7 @@ function WidgetCheckoutPage() {
       setReady(false);
 
       await widgets.requestPayment({
-        orderId: orderId,
+        orderId: orderIdToss,
         orderName: orderData?.orderName,
         successUrl: window.location.origin + "/success",
         failUrl: window.location.origin + "/fail",
@@ -218,8 +223,7 @@ function WidgetCheckoutPage() {
   };
 
   const cancelPayment = () => {
-    localStorage.removeItem("ORDER_ID");
-    localStorage.removeItem("ORDER_ACTION");
+    clearLocalOrderData();
     navigate("/buy_soap");
   };
 
