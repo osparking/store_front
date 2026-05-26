@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import PaymentDoneModal from "../modal/PaymentDone";
 import { callWithToken } from "../util/api";
+import { clearLocalOrderData } from "../util/utilities";
 
 export function WidgetSuccessPage() {
   const navigate = useNavigate();
@@ -59,8 +60,7 @@ export function WidgetSuccessPage() {
   ];
 
   function closeModal() {
-    localStorage.removeItem("ORDER_ID");
-    localStorage.removeItem("ORDER_ACTION");
+    clearLocalOrderData();
     localStorage.setItem("DASHBOARD_TAB", "purchase_list");
     const userId = localStorage.getItem("LOGIN_ID");
     setIsModalOpen(false);

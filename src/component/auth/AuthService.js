@@ -22,6 +22,7 @@ const clearLoginUserInfo = () => {
     "LOGIN_ID",
     "ORDER_ACTION",
     "ORDER_ID",
+    "ORDER_ID_TOSS",
     "ORDER_PAGE_고객",
     "ORDER_PAGE_WORKER",
     "QUESTION_PAGE_관리",
