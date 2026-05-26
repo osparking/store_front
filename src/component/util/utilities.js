@@ -196,3 +196,9 @@ export const getSubTotal = (orderItems) => {
     )
   );
 };
+
+export const clearLocalOrderData = () => {
+  localStorage.removeItem("ORDER_ID");
+  localStorage.removeItem("ORDER_ACTION");
+  localStorage.removeItem("ORDER_ID_TOSS");
+}
