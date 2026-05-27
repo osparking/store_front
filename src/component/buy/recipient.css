@@ -79,3 +79,12 @@ Button.order-button-width {
   max-width: 950px;
   margin: auto;
 }
+
+.boxShadow {
+  box-shadow: var(--bs-btn-focus-box-shadow);
+}
+
+.order-button-width:focus {
+  box-shadow: var(--bs-btn-focus-box-shadow);
+  outline: none; /* 선택사항 */
+}
