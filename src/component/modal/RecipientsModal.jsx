@@ -70,16 +70,6 @@ const RecipientsModal = ({
       mbPhone: recipient.mbPhone,
       fullName: recipient.fullName,
     });
-
-    if (formData.addrBasisAddReq.roadAddress !== recipient.roadAddress) {
-      setFormData((prevState) => ({
-        ...prevState,
-        addressDetail: "",
-      }));
-
-      putFocus2detailedAddr();
-    }
-
     closer();
   };
 
