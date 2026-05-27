@@ -76,7 +76,7 @@ const RecipientsModal = ({ show, formData, setFormData, closer }) => {
   };
 
   return (
-    <Modal show={show} onHide={closer} dialogClassName="custom-modal">
+    <Modal show={show} onHide={closer} dialogClassName="recipients-modal">
       <div className="custom-modal-width">
         <Modal.Header closeButton>
           <Modal.Title>나의 수신처</Modal.Title>

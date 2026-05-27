@@ -13,6 +13,11 @@ span.shourcut {
   max-width: 900px;
 }
 
+.recipients-modal {
+  width: 700px;
+  max-width: 700px;
+}
+
 p {  
   text-align: start;
 }
