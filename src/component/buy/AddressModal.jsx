@@ -163,7 +163,7 @@ const AddressModal = ({
   };
 
   return (
-    <Modal show={show} onHide={closer} dialogClassName="custom-modal">
+    <Modal show={show} onHide={closer} dialogClassName="address-search-modal">
       <div className="custom-modal-width">
         <Modal.Header closeButton>
           <Modal.Title>주소 검색</Modal.Title>
