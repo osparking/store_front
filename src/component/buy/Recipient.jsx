@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { Form, useLocation, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
@@ -11,6 +11,8 @@ import { getDeliveryFee } from "./orderService";
 import "./recipient.css";
 import RecipientInfo from "./RecipientInfo";
 import ConfirmationModal from "../modal/ConfirmationModal.jsx";
+
+export const PayButtonContext = React.createContext();
 
 const Recipient = () => {
   const {
@@ -159,7 +161,7 @@ const Recipient = () => {
       shape: item.shapeLabel,
       count: item.count,
     }));
-    
+
     const orderData = {
       userId: userId,
       items: items,
@@ -184,8 +186,8 @@ const Recipient = () => {
         toDefaultRecipient: _.isEqual(recipientDefault, formData),
         isDefaultRecipient: isDefaultRecipient,
       },
-    });    
-  }
+    });
+  };
 
   const navigate = useNavigate();
 
@@ -222,8 +224,25 @@ const Recipient = () => {
 
   const handleConfirm = async () => {
     setShowAddressConfirm(false);
-    navigateToCheckout();  
-  }  
+    navigateToCheckout();
+  };
+
+  const payButtonRef = useRef(null);
+  const [focusPayButton, setFocusPayButton] = useState(false);
+
+  useEffect(() => {
+    if (focusPayButton && payButtonRef.current) {
+      setTimeout(() => {
+        payButtonRef.current.classList.add("boxShadow");
+        payButtonRef.current.focus();
+      }, 200);
+      setFocusPayButton(false);
+    }
+  }, [focusPayButton]);
+
+  const putFocus2PayButton = () => {
+    setFocusPayButton(true);
+  };
 
   return (
     <>
@@ -248,7 +267,10 @@ const Recipient = () => {
           <Row className="justify-content-center pb-1 rowStyle">
             <Col xs={11} md={9}>
               <div>
-                <CheckoutCart subTotal={shapeSummary} deliveryFee={deliveryFee} />
+                <CheckoutCart
+                  subTotal={shapeSummary}
+                  deliveryFee={deliveryFee}
+                />
               </div>
             </Col>
           </Row>
@@ -265,12 +287,14 @@ const Recipient = () => {
             <Row className="justify-content-center pb-5 rowStyle">
               <Col xs={11} md={9}>
                 <div className="table-container">
-                  <RecipientInfo
-                    formData={formData}
-                    setFormData={setFormData}
-                    isDefaultRecipient={isDefaultRecipient}
-                    setIsDefaultRecipient={setIsDefaultRecipient}
-                  />
+                  <PayButtonContext.Provider value={{ putFocus2PayButton }}>
+                    <RecipientInfo
+                      formData={formData}
+                      setFormData={setFormData}
+                      isDefaultRecipient={isDefaultRecipient}
+                      setIsDefaultRecipient={setIsDefaultRecipient}
+                    />
+                  </PayButtonContext.Provider>
                 </div>
               </Col>
             </Row>
@@ -308,6 +332,10 @@ const Recipient = () => {
                   !(formData.mbPhone && mbPhoneOk()) ||
                   !formData.addrBasisAddReq.zipcode
                 }
+                ref={payButtonRef}
+                onBlur={() => {
+                  payButtonRef.current?.classList.remove("boxShadow");
+                }}
               >
                 <span className="boldText">결제</span>
               </Button>
