@@ -1,16 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Modal, Table } from "react-bootstrap";
+import { PayButtonContext } from "../buy/Recipient";
 import Paginator from "../common/Paginator";
-import "./RecipientsModal.css";
 import { getMyRecipients } from "../user/UserService";
+import "./RecipientsModal.css";
 
-const RecipientsModal = ({
-  show,
-  formData,
-  setFormData,
-  closer,
-  putFocus2detailedAddr,
-}) => {
+const RecipientsModal = ({ show, formData, setFormData, closer }) => {
   const [recipients, setRecipients] = useState([]);
   const [recipientPage, setRecipientPage] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -39,7 +34,7 @@ const RecipientsModal = ({
       const myRecipients = await getMyRecipients(
         user.id,
         currentPage,
-        pageSize
+        pageSize,
       );
 
       // console.log("recipients: ", JSON.stringify(myRecipients));
@@ -58,6 +53,7 @@ const RecipientsModal = ({
     loadRecipientPage();
   }, [currentPage]);
 
+  const { putFocus2PayButton } = useContext(PayButtonContext) || {};
   const selectRecipient = (recipient) => {
     setFormData({
       addressDetail: recipient.addressDetail,
@@ -71,6 +67,12 @@ const RecipientsModal = ({
       fullName: recipient.fullName,
     });
     closer();
+
+    setTimeout(() => {
+      if (putFocus2PayButton) {
+        putFocus2PayButton();
+      }
+    }, 200);
   };
 
   return (
