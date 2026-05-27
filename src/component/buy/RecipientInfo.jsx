@@ -9,6 +9,7 @@ const RecipientInfo = ({
   setFormData,
   isDefaultRecipient,
   setIsDefaultRecipient,
+  putFocus2PayButton,
 }) => {
   const [phoneNumber, setPhoneNumber] = useState(formData.mbPhone);
   const handleKeyDown = (e) => {
@@ -53,7 +54,6 @@ const RecipientInfo = ({
   const [showRecipientsModal, setShowRecipientsModal] = useState(false);
   const [focusDetailedAddr, setFocusDetailedAddr] = useState(false);
   const addressDetailInputRef = useRef(null);
-
   const putFocus2detailedAddr = () => {
     setFocusDetailedAddr(true);
   };
@@ -204,7 +204,6 @@ const RecipientInfo = ({
         closer={() => {
           setShowRecipientsModal(false);
         }}
-        putFocus2detailedAddr={putFocus2detailedAddr}
       />
     </div>
   );
