@@ -7,7 +7,12 @@ span.shourcut {
   font-weight: 600;
 }
 
-.custom-modal {
+.address-search-modal.modal-dialog {
+  display: flex;
+  justify-content: center;
+}
+
+.address-search-modal .modal-content {
   /* Important for overriding default max-width */
   width: 700px;
   max-width: 700px;
