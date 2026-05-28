@@ -14,22 +14,20 @@ span.shourcut {
 }
 
 .recipients-modal {
-  width: 700px;
-  max-width: 700px;
+  width: 650px;
+  max-width: 650px;
 }
 
-p {  
+p {
   text-align: start;
 }
 
-p.above {
+#recipients p.roadAddress {
   font-weight: 700;
   font-size: small;
   margin-bottom: 0;
-}
-
-.w400 {
-  max-width: 400px;
+  width: 330px;
+  overflow-x: auto;
 }
 
 p.below {
@@ -61,4 +59,24 @@ tbody p {
 
 td {
   margin-bottom: 0;
+}
+
+.table-container.recipients {
+  width: 100%;
+  height: fit-content;
+  max-height: 300px;
+  overflow: auto;
+}
+
+#recipients {
+  width: fit-content;
+}
+
+#my-recipients .pagination {
+  margin-bottom: 4px;
+}
+
+.table td,
+.table th {
+  width: fit-content;
 }
