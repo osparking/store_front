@@ -101,7 +101,7 @@ const RecipientsModal = ({ show, formData, setFormData, closer }) => {
                 <tbody>
                   {recipients &&
                     recipients.map((recipient, index) => (
-                      <tr key={index}>
+                      <tr key={index} style={{ cursor: "pointer" }}>
                         <td onClick={() => selectRecipient(recipient)}>
                           <p className="roadAddress">{recipient.roadAddress}</p>
                         </td>
