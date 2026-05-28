@@ -79,20 +79,20 @@ const RecipientsModal = ({ show, formData, setFormData, closer }) => {
     <Modal show={show} onHide={closer} dialogClassName="recipients-modal">
       <div className="custom-modal-width">
         <Modal.Header closeButton>
-          <Modal.Title>나의 수신처</Modal.Title>
+          <Modal.Title>최근 수신처</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="mt-5">
-            <p className="text-center text-muted mb-4">
+          <div className="mt-3" id="my-recipients">
+            <p className="text-center text-muted mb-2">
               수신처 총 {recipientPage.totalElements} 건 중, {indexOfFirst + 1}{" "}
               ~ {Math.min(idxLastPlus1, recipientPage.totalElements)}번째 수신처
             </p>
 
-            <div className="table-container">
-              <Table bordered hover striped>
+            <div className="table-container recipients">
+              <Table id="recipients" bordered hover striped>
                 <thead>
                   <tr>
-                    <th className="w400">주소(도로명)</th>
+                    <th>주소(도로명)</th>
                     <th>상세주소</th>
                     <th>성명</th>
                     <th>휴대폰</th>
@@ -102,11 +102,8 @@ const RecipientsModal = ({ show, formData, setFormData, closer }) => {
                   {recipients &&
                     recipients.map((recipient, index) => (
                       <tr key={index}>
-                        <td
-                          className="small w400"
-                          onClick={() => selectRecipient(recipient)}
-                        >
-                          <p className="above">{recipient.roadAddress}</p>
+                        <td onClick={() => selectRecipient(recipient)}>
+                          <p className="roadAddress">{recipient.roadAddress}</p>
                         </td>
                         <td className="small">{recipient.addressDetail}</td>
                         <td className="small">{recipient.fullName}</td>
