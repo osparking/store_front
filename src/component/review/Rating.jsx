@@ -49,7 +49,7 @@ const Rating = ({ stars, setStars, editable, review }) => {
         </Col>
         <Col className="text-end" xs={3} md={3}>
           {!editable && (
-            <span className="me-2">작성자: {review.customerName}</span>
+            <span className="me-2">작성자: {review.customer}</span>
           )}
         </Col>
       </Row>

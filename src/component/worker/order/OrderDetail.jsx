@@ -37,6 +37,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         userId: response.order.userId,
         id: response.order.id,
         reviewTime: response.order.reviewTime,
+        customer: response.order.customer,
       },
     );
     setOrderStatus(response.order.orderStatus);
