@@ -42,7 +42,7 @@ export default function ReviewModal({
         `/order/${orderId}/delete_review`,
       );
       toast.success("후기 삭제 완료");
-      handleClose();
+      handleClose(true);
     } finally {
       setLoading(false);
     }
