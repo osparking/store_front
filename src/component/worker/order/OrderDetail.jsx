@@ -242,6 +242,11 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     }
   };
 
+  const closeReviewModal = (reloadOrder) => {
+    reloadOrder && readOrderDetail();
+    setShowReviewModal(false);
+  }
+
   return (
     <>
       <ConfirmationModal
@@ -255,7 +260,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
       />
       <ReviewModal
         show={showReviewModal}
-        handleClose={() => setShowReviewModal(false)}
+        handleClose={closeReviewModal}
         title={getModalTitle(orderStatus)}
         review={review}
         saveReview={saveReview}
