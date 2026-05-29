@@ -10,6 +10,8 @@ const Rating = ({ stars, setStars, editable, review }) => {
     if (editable) setStars(value);
   };
 
+  const wroteTime = review.reviewTime ? review.reviewTime : new Date();
+
   return (
     <Container>
       <Row className="align-items-center">
@@ -43,7 +45,7 @@ const Rating = ({ stars, setStars, editable, review }) => {
           </div>
         </Col>
         <Col className="text-center" xs={6} md={6}>
-          <span>작성 일시 : {formatDate(review.reviewTime)}</span>
+          <span>작성 일시 : {formatDate(wroteTime)}</span>
         </Col>
         <Col className="text-end" xs={3} md={3}>
           {!editable && (
