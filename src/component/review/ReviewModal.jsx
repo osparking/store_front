@@ -1,8 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
-import MyQuillEditor from "../util/MyQuillEditor";
-import Rating from "./Rating";
+import toast from "react-hot-toast";
 import { ReviewsContext } from "../user/UserDashboard";
+import MyQuillEditor from "../util/MyQuillEditor";
+import { callWithToken } from "../util/api";
+import Rating from "./Rating";
 import "./ReviewModal.css";
 
 export default function ReviewModal({
@@ -30,6 +32,22 @@ export default function ReviewModal({
     setStars(review && review.stars);
   }, [review]);
 
+  const [loading, setLoading] = useState(false);
+
+  const performDeletion = async (orderId) => {
+    try {
+      setLoading(true);
+      const result = await callWithToken(
+        "patch",
+        `/order/${orderId}/delete_review`,
+      );
+      toast.success("후기 삭제 완료");
+      handleClose();
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Modal
       show={show}
@@ -55,6 +73,7 @@ export default function ReviewModal({
           handleClose={handleClose}
           saveEdit={saveEdit}
           editable={editable}
+          performDeletion={performDeletion}
         />
       </Modal.Body>
     </Modal>
