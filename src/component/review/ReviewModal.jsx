@@ -3,6 +3,7 @@ import { Modal } from "react-bootstrap";
 import MyQuillEditor from "../util/MyQuillEditor";
 import Rating from "./Rating";
 import { ReviewsContext } from "../user/UserDashboard";
+import "./ReviewModal.css";
 
 export default function ReviewModal({
   show,
@@ -41,7 +42,7 @@ export default function ReviewModal({
       <Modal.Header closeButton>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body id="review-modal-body">
         <h5>주문명: {review && review.orderName}</h5>
         <Rating
           stars={stars}
