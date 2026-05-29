@@ -1,3 +1,27 @@
 .no-cursor {
   cursor: default !important;
 }
+
+.starRating {
+  margin-right: -8px;;
+}
+
+@media screen and (max-width: 899px) {
+  .starRating {
+    margin-right: -15px;
+  }
+
+  h5 {
+    font-size: 16px;
+  }
+
+  .star {
+    width: 18px;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .star {
+    width: 15px;
+  }
+}
