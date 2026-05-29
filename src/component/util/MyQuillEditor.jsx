@@ -109,7 +109,7 @@ function MyQuillEditor({ order, handleClose, saveEdit, editable }) {
         modelClassName="modal-slide-down"
       />
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3">
+        <Form.Group className="mb-0">
           <Form.Label>
             <h5 style={{ textAlign: "left" }}>구매 후기</h5>
           </Form.Label>
@@ -122,7 +122,6 @@ function MyQuillEditor({ order, handleClose, saveEdit, editable }) {
             formats={formats}
             placeholder="여기에 후기를 작성하세요 :-)"
             style={{
-              height: "250px",
               marginBottom: "50px",
               borderRadius: "4px",
             }}
@@ -130,9 +129,9 @@ function MyQuillEditor({ order, handleClose, saveEdit, editable }) {
         </Form.Group>
 
         {/* Character count (optional) */}
-        <div className="text-muted mb-3">글자수: {getTextLength()} 자</div>
+        <div className="text-muted mb-2">글자수: {getTextLength()} 자</div>
 
-        <div className="d-flex gap-2 justify-content-center">
+        <div className="d-flex gap-2 justify-content-center quill-buttons">
           <Button
             variant="secondary"
             type="button"
