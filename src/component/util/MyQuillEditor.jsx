@@ -9,7 +9,13 @@ import ConfirmationModal from "../modal/ConfirmationModal";
 import "./MyQuillEditor.css";
 import { getPlainContent } from "./utilities";
 
-function MyQuillEditor({ order, handleClose, saveEdit, editable }) {
+function MyQuillEditor({
+  order,
+  handleClose,
+  saveEdit,
+  editable,
+  performDeletion,
+}) {
   const [editorContent, setEditorContent] = useState(order.review);
   const [loading, setLoading] = useState(false);
 
@@ -74,24 +80,13 @@ function MyQuillEditor({ order, handleClose, saveEdit, editable }) {
 
   const [showModal, setShowModal] = useState(false);
 
-  const confirmDeletion = () => {
-    setShowModal(true);
-  };
-
-  const performDeletion = async () => {
+  const confirmDeletion = async () => {
     try {
-      setLoading(true);
-      const reviewData = { id: order.id, review: null };
-
-      await saveEdit(reviewData);
-
-      toast.success("후기 삭제 완료");
+      await performDeletion(order.id);
       handleClose();
     } catch (err) {
       console.error("err: ", err);
       toast.error("후기 삭제 실패!");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -100,7 +95,7 @@ function MyQuillEditor({ order, handleClose, saveEdit, editable }) {
       <ConfirmationModal
         show={showModal}
         handleClose={() => setShowModal(false)}
-        handleConfirm={performDeletion}
+        handleConfirm={confirmDeletion}
         bodyMessage="후기를 삭제하려면, 삭제 버튼을 누르십시오!"
         title="후기 삭제 확인"
         noLabel="취소"
@@ -167,7 +162,7 @@ function MyQuillEditor({ order, handleClose, saveEdit, editable }) {
               type="button"
               className="px-4"
               disabled={loading}
-              onClick={confirmDeletion}
+              onClick={() => setShowModal(true)}
             >
               삭제
             </Button>
