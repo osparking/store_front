@@ -13,13 +13,13 @@ const Rating = ({ stars, setStars, editable, review }) => {
   return (
     <Container>
       <Row className="align-items-center">
-        <Col xs={4} md={4}>
+        <Col xs={3} md={3}>
           <h5 style={{ textAlign: "left" }}>별점 평가</h5>
           <div>
             {[...Array(5)].map((_, index) => {
               const starCount = index + 1;
               return (
-                <Form.Label key={index} style={{marginRight: '-8px'}}>
+                <Form.Label key={index} className="starRating">
                   <Form.Check
                     type="radio"
                     name="rating"
@@ -42,10 +42,10 @@ const Rating = ({ stars, setStars, editable, review }) => {
             })}
           </div>
         </Col>
-        <Col className="text-center" xs={4} md={4}>
+        <Col className="text-center" xs={6} md={6}>
           <span>작성 일시 : {formatDate(review.reviewTime)}</span>
         </Col>
-        <Col className="text-end" xs={4} md={4}>
+        <Col className="text-end" xs={3} md={3}>
           {!editable && (
             <span className="me-2">작성자: {review.customerName}</span>
           )}
