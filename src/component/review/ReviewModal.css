@@ -1,0 +1,13 @@
+#review-modal-body .ql-container {
+    background-color: ivory;
+    font-size: 16px;
+    height: 200px;
+}
+
+#review-modal-body .quill {
+    margin-bottom: 0 !important;
+}
+
+#review-modal-body .quill-buttons {
+    margin-bottom: 1em;
+}
