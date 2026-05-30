@@ -16,16 +16,19 @@ export default function ReviewModal({
   editable,
 }) {
   let refreshReviews = () => {};
+  let refreshOrders = () => {};
 
   if (editable) {
     const context = useContext(ReviewsContext);
     refreshReviews = context?.refreshReviews || (() => {});
+    refreshOrders = context?.refreshOrders || (() => {});
   }
   const [stars, setStars] = useState(0);
   const saveEdit = (editorText) => {
     const reviewData = { stars: stars, ...editorText };
     saveReview(reviewData);
     refreshReviews();
+    refreshOrders();
   };
 
   useEffect(() => {
@@ -43,6 +46,7 @@ export default function ReviewModal({
       );
       toast.success("후기 삭제 완료");
       refreshReviews();
+      refreshOrders();
       handleClose(true);
     } finally {
       setLoading(false);
