@@ -97,7 +97,7 @@ td.addressCell {
 @media screen and (max-height: 899px) {
   #order_detail_container {
     align-items: center;
-    height: calc(100vh - 315px);
+    height: calc(100vh - 330px);
   }
 }
 

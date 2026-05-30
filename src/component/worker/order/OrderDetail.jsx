@@ -247,7 +247,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   const closeReviewModal = (reloadOrder) => {
     reloadOrder && readOrderDetail();
     setShowReviewModal(false);
-  }
+  };
 
   return (
     <>
@@ -376,7 +376,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                 </Table>
               </Col>
             </Row>
-            <Row className="d-flex justify-content-center align-items-center">
+            <Row className="d-flex justify-content-center align-items-center p-2">
               <Col lg={4} md={4} xs={12}>
                 <p className="shapeCount darkFont">외형별 개수</p>
                 <Table id="shapeCountTable" style={{ marginTop: 0 }}>
