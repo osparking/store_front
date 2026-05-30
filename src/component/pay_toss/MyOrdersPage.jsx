@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getOrderPage } from "../buy/orderService";
 import Paginator from "../common/Paginator";
 import "../user/userDashboard.css";
 import { formatDate, getRecordRange } from "../util/utilities";
 import "./MyOrdersPage.css";
+import { ReviewsContext } from "../user/UserDashboard";
 
 const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
   const [totalPages, setTotalPages] = useState(1);
@@ -18,10 +19,12 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
   const [searchResult, setSearchResult] = useState();
   const idxLastPlus1 = currentPage * pageSize;
   const indexOfFirst = idxLastPlus1 - pageSize;
+  const { ordersVersion } = useContext(ReviewsContext);
+  const loginId = localStorage.getItem("LOGIN_ID");
 
   useEffect(() => {
     localStorage.setItem("ORDER_PAGE_고객", currentPage);
-    const loadOrderPage = async (loginId) => {
+    const loadOrderPage = async () => { // 인자 제거됨
       const searchResult = await getOrderPage(loginId, currentPage, pageSize);
       setSearchResult(searchResult);
       if (searchResult) {
@@ -32,9 +35,8 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
         setCurrentPage(searchResult.currentPage);
       }
     };
-    const loginId = localStorage.getItem("LOGIN_ID");
-    loadOrderPage(loginId);
-  }, [currentPage]);
+    loadOrderPage();
+  }, [currentPage, ordersVersion]);
 
   const navigate = useNavigate();
 
