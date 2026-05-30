@@ -83,6 +83,8 @@ const UserDashboard = () => {
   const isMedium = useMediaQuery({ minWidth: 600, maxWidth: 1199 });
   const [reviewsVersion, setReviewsVersion] = useState(1);
   const refreshReviews = () => setReviewsVersion((prev) => prev + 1);
+  const [ordersVersion, setOrdersVersion] = useState(1);
+  const refreshOrders = () => setOrdersVersion((prev) => prev + 1);
 
   const tabItems = [
     {
@@ -198,10 +200,12 @@ const UserDashboard = () => {
       );
     }
   };
-  
+
   return (
     <Container fluid className="home-container user-dashboard">
-      <ReviewsContext.Provider value={{ reviewsVersion, refreshReviews }}>
+      <ReviewsContext.Provider
+        value={{ reviewsVersion, refreshReviews, ordersVersion, refreshOrders }}
+      >
         {dashBoardContent()}
       </ReviewsContext.Provider>
     </Container>
