@@ -114,16 +114,16 @@ const UserDashboard = () => {
     (item) => item.key === activeKey,
   )?.component;
 
-  if (isVeryNarrow || isVeryShort) {
-    return (
-      <Container fluid className="home-container user-dashboard">
-        <ReviewsContext.Provider value={{ reviewsVersion, refreshReviews }}>
+  const dashBoardContent = () => {
+    if (isVeryNarrow || isVeryShort) {
+      return (
+        <>
           <div className="mobile-tab-header">
-            <Dropdown style={{borderRadius: "0.4rem"}}>
+            <Dropdown style={{ borderRadius: "0.4rem" }}>
               <Dropdown.Toggle
                 variant="outline-primary"
                 className="hamburger-menu"
-                style={{fontSize: "16px"}}
+                style={{ fontSize: "16px" }}
               >
                 {tabItems.find((item) => item.key === activeKey)?.title}
               </Dropdown.Toggle>
@@ -148,68 +148,64 @@ const UserDashboard = () => {
             )}
             {currentComponent}
           </div>
-        </ReviewsContext.Provider>
-      </Container>
-    );
-  } else if (isMedium) {
-    return (
-      <Container fluid className="home-container user-dashboard">
-        <ReviewsContext.Provider value={{ reviewsVersion, refreshReviews }}>
-          <Tabs
-            activeKey={activeKey}
-            onSelect={changeActiveKey}
-            className="tabBackgroundThick contentHolyCentered scrollable-tabs"
-            id="scrollable-tabs"
-          >
-            {tabItems.map((item) => (
-              <Tab
-                className="mediumWindowDashboardTab"
-                key={item.key}
-                eventKey={item.key}
-                title={<h5>{item.title}</h5>}
-              >
-                {alertError && (
-                  <AlertMessage type="danger" message={errorMsg} />
-                )}
-                {alertSuccess && (
-                  <AlertMessage type="success" message={successMsg} />
-                )}
-                {item.component}
-              </Tab>
-            ))}
-          </Tabs>
-        </ReviewsContext.Provider>
-      </Container>
-    );
-  } else {
-    return (
-      <Container fluid className="home-container user-dashboard">
-        <ReviewsContext.Provider value={{ reviewsVersion, refreshReviews }}>
-          <Tabs
-            activeKey={activeKey}
-            onSelect={changeActiveKey}
-            className="tabBackgroundThick contentHolyCentered"
-          >
-            {tabItems.map((item) => (
-              <Tab
-                key={item.key}
-                eventKey={item.key}
-                title={<h5>{item.title}</h5>}
-              >
-                {alertError && (
-                  <AlertMessage type="danger" message={errorMsg} />
-                )}
-                {alertSuccess && (
-                  <AlertMessage type="success" message={successMsg} />
-                )}
-                {item.component}
-              </Tab>
-            ))}
-          </Tabs>
-        </ReviewsContext.Provider>
-      </Container>
-    );
-  }
+        </>
+      );
+    } else if (isMedium) {
+      return (
+        <Tabs
+          activeKey={activeKey}
+          onSelect={changeActiveKey}
+          className="tabBackgroundThick contentHolyCentered scrollable-tabs"
+          id="scrollable-tabs"
+        >
+          {tabItems.map((item) => (
+            <Tab
+              className="mediumWindowDashboardTab"
+              key={item.key}
+              eventKey={item.key}
+              title={<h5>{item.title}</h5>}
+            >
+              {alertError && <AlertMessage type="danger" message={errorMsg} />}
+              {alertSuccess && (
+                <AlertMessage type="success" message={successMsg} />
+              )}
+              {item.component}
+            </Tab>
+          ))}
+        </Tabs>
+      );
+    } else {
+      return (
+        <Tabs
+          activeKey={activeKey}
+          onSelect={changeActiveKey}
+          className="tabBackgroundThick contentHolyCentered"
+        >
+          {tabItems.map((item) => (
+            <Tab
+              key={item.key}
+              eventKey={item.key}
+              title={<h5>{item.title}</h5>}
+            >
+              {alertError && <AlertMessage type="danger" message={errorMsg} />}
+              {alertSuccess && (
+                <AlertMessage type="success" message={successMsg} />
+              )}
+              {item.component}
+            </Tab>
+          ))}
+        </Tabs>
+      );
+    }
+  };
+  
+  return (
+    <Container fluid className="home-container user-dashboard">
+      <ReviewsContext.Provider value={{ reviewsVersion, refreshReviews }}>
+        {dashBoardContent()}
+      </ReviewsContext.Provider>
+    </Container>
+  );
 };
 
 export default UserDashboard;
