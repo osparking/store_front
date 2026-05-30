@@ -76,6 +76,11 @@ const MyReviewsPage = () => {
   const [showDetail, setShowDetail] = useState(false);
   const [detailId, setDetailId] = useState(0);
 
+  const closeMyReviewModal = (reloadReviews) => {
+    reloadReviews && loadReviewPage();
+    setShowReviewModal(false);
+  };
+
   return (
     <>
       {showDetail ? (
@@ -88,7 +93,7 @@ const MyReviewsPage = () => {
         <>
           <ReviewModal
             show={showReviewModal}
-            handleClose={() => setShowReviewModal(false)}
+            handleClose={closeMyReviewModal}
             title={"후기 관리"}
             review={review}
             saveReview={saveReview}
