@@ -14,10 +14,12 @@ import { ReviewsContext } from "../../user/UserDashboard";
 
 const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   let refreshReviews = () => {};
+  let ordersVersion = undefined;
 
   if (!isHouse) {
     const context = useContext(ReviewsContext);
     refreshReviews = context?.refreshReviews || (() => {});
+    ordersVersion = context?.ordersVersion || undefined;
   }
 
   const [orderDetails, setOrderDetails] = useState(undefined);
@@ -45,7 +47,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
 
   useEffect(() => {
     readOrderDetail();
-  }, []);
+  }, [ordersVersion]);
 
   const getStatusLabel = () => {
     if (orderDetails.order.orderStatus !== "GS25 접수") {
