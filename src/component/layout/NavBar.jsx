@@ -30,14 +30,14 @@ const NavBar = () => {
     }
   };
   const navigate = useNavigate();
-  const navigateHome = () => {
-    setIsAdmin(false);
+  const handleLogout = () => {
+    checkIfAdmin();
     navigate("/");
   };
   const loginId = localStorage.getItem("LOGIN_ID");
 
   window.addEventListener("loginEvt", checkIfAdmin);
-  window.addEventListener("logoutEvt", navigateHome);
+  window.addEventListener("logoutEvt", handleLogout);
 
   useEffect(() => {
     checkIfAdmin();
