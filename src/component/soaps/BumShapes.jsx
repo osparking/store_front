@@ -128,10 +128,10 @@ const BumShapes = () => {
     return (
       <>
         <div
-          className="mobile-tab-header"
-          style={{ position: "sticky", top: 0 }}
+          className="mobile-tab-header soapShapes"
+          style={{ position: "sticky", top: "40px" }}
         >
-          <Dropdown>
+          <Dropdown className="soapShapes">
             <Dropdown.Toggle
               variant="outline-primary"
               className="hamburger-menu"
