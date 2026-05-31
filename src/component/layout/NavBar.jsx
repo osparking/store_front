@@ -67,7 +67,7 @@ const NavBar = () => {
 
   return (
     <Navbar expand="lg" sticky="top" className="nav-bg start-0 end-0">
-      <Container>
+      <Container className="navbar">
         <Navbar.Brand
           to={"/"}
           as={Link}
