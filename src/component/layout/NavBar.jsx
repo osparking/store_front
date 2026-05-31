@@ -116,7 +116,7 @@ const NavBar = () => {
               </Nav.Link>
             )}
           </Nav>
-          <Nav className="me-2">
+          <Nav className="me-2 userTitle">
             <span className={beforeLogin ? "" : "bumsoap-color-dark"}>
               {beforeLogin ? "(로그인 전)" : `${identity}`}
             </span>

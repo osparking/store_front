@@ -33,6 +33,10 @@
   font-weight: bold;
 }
 
+.userTitle {
+  flex-direction: row;
+}
+
 /* Hide active link text on desktop (screens larger than lg breakpoint) */
 @media (min-width: 993px) {
   .active-link-text-mobile {
