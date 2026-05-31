@@ -116,6 +116,10 @@ div.home-container.user-dashboard {
     width: 120px;
     z-index: 200;
   }
+  
+  .mobile-tab-header.soapShapes {
+    top: 86px !important;
+  }
 
   .navbar {
     padding: 0;
