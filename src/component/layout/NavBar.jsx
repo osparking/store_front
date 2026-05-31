@@ -87,6 +87,7 @@ const NavBar = () => {
               to={"/soap_intro"}
               as={NavLink}
               activeclassname="active-link"
+              className="pb-0"
             >
               비누 소개
             </Nav.Link>

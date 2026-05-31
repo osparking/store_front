@@ -44,6 +44,10 @@
   min-width: calc(100vw - 120px);
 }
 
+#responsive-navbar-nav {
+  margin-bottom: 8px;
+}
+
 @media (max-width: 599px) {
   #responsive-navbar-nav {
     padding-left: calc(100vw - 215px);
