@@ -129,10 +129,6 @@ figure,
 }
 
 @media screen and (max-width: 599px) {
-  /* .dropdown {
-    color: black;
-    background-color: skyblue;
-  } */
 
   .chartUser.card {
     margin-top: 40px !important;

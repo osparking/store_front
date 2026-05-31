@@ -37,6 +37,19 @@
   flex-direction: row;
 }
 
+.navbar.container {
+  margin-left: 60px;
+  margin-right: 60px;
+  width: calc(100vw - 120px);
+  min-width: calc(100vw - 120px);
+}
+
+@media (max-width: 599px) {
+  #responsive-navbar-nav {
+    padding-left: calc(100vw - 215px);
+  }
+}
+
 /* Hide active link text on desktop (screens larger than lg breakpoint) */
 @media (min-width: 993px) {
   .active-link-text-mobile {
@@ -45,20 +58,27 @@
 }
 
 /* Optional: Adjust spacing on mobile */
-@media (max-width: 992px) {
+@media (min-width: 600px) and (max-width: 992px) {
+  #responsive-navbar-nav {
+    padding-left: calc(100vw - 215px);
+  }
+}
+
+@media screen and (max-width: 992px) {
   .navbar-toggler {
     display: flex;
     align-items: center;
     gap: 8px;
   }
-  
+
   .active-link-text-mobile {
     text-decoration: none !important;
     font-size: smaller;
     font-weight: bold;
     margin-right: 5px;
     /* Add any mobile-specific styling here */
-    color: #000; /* or whatever color matches your design */
+    color: #000;
+    /* or whatever color matches your design */
   }
 
   button#mainHamburger {
