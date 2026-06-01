@@ -70,10 +70,10 @@ export default function Effect() {
 
   return (
     <Row className="justify-content-center">
-      <Col xs={12} md={10} lg={9} style={{ overflow: "auto", height: "100%" }}>
+      <Col xs={12} md={10} lg={9} style={{ height: "100%" }}>
         <Card
           style={{ maxWidth: "1030px", height: "fit-content" }}
-          className="mx-auto effect-card"
+          className="mx-auto"
         >
           <Card.Body>
             <h2 className="mb-1">
