@@ -42,11 +42,11 @@ ul li {
   max-width: 500px;
 }
 
-.carousel .button {
+#soapShapesBody .carousel .button {
   width: fit-content !important;
 }
 
-.slide-hidden {
+#soapShapesBody .slide-hidden {
   display: none;
 }
 
