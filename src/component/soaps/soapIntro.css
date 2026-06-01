@@ -28,6 +28,16 @@
   }
 }
 
+@media (max-width: 599px) {
+  #soap-intro-container {
+    top: 45px !important;
+  }
+
+  #soap-intro-container .card {
+    height: calc(100vh - 138px) !important;
+  }
+}
+
 @media (max-height: 599px) {
   .scrollable-tabs.nav-tabs {
     margin-left: 0 !important;
