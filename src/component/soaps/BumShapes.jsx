@@ -161,8 +161,6 @@ const BumShapes = () => {
     <Row className="justify-content-center">
       <Col
         xs={12}
-        md={10}
-        lg={9}
         style={{
           height: "100%",
         }}
