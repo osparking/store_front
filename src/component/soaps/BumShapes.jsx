@@ -168,7 +168,7 @@ const BumShapes = () => {
         }}
       >
         <Card style={{ maxWidth: "1030px", height: "fit-content" }}>
-          <Card.Body>
+          <Card.Body id="soapShapesBody">
             <h2 className="mb-1">
               <strong>비누 외형</strong>
             </h2>

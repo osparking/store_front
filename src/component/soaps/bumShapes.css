@@ -50,7 +50,7 @@ ul li {
   display: none;
 }
 
-.slide {
+#soapShapesBody .slide {
   border-radius: 0.5rem;
   box-shadow: 0 0 7px #666;
   width: 500px;
@@ -170,7 +170,8 @@ figure,
     top: 0;
   }
 
-  .soapIntro.dropdown, .soapShapes.dropdown {
+  .soapIntro.dropdown,
+  .soapShapes.dropdown {
     background-color: var(--color-modal);
   }
 
