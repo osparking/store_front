@@ -34,7 +34,7 @@ ul li {
   margin: 0 auto;
 }
 
-.carousel {
+#soapShapesBody .carousel {
   position: relative;
   display: flex;
   justify-content: center;
