@@ -8,7 +8,7 @@
 }
 
 #soap-intro-container .card {
-  height: calc(100% - 20px) !important;
+  height: calc(100vh - 153px) !important;
 }
 
 #soap-intro-container {

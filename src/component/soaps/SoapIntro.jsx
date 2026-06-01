@@ -35,7 +35,7 @@ const SoapIntro = () => {
   ];
 
   const classes = "tabBackgroundThick contentHolyCentered";
-    
+
   const isVeryShort = useMediaQuery({ maxHeight: 576 });
   const currentComponent = tabItems.find(
     (item) => item.key === currTabKey,
