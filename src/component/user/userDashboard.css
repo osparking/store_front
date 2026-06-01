@@ -112,12 +112,14 @@ div.home-container.user-dashboard {
     position: fixed !important;
     padding: 3px;
     top: 46px !important;
-    right: 15px !important;
-    width: 120px;
+    right: 35px !important;
+    width: 135px;
     z-index: 200;
   }
-  
+
   .mobile-tab-header.soapShapes {
+    right: 15px !important;
+    width: 130px;
     top: 86px !important;
   }
 
