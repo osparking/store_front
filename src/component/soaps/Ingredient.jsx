@@ -8,7 +8,7 @@ const Ingredient = () => {
   return (
     <Row className="justify-content-center">
       <Col xs={12} md={10} lg={9}>
-        <Card id="ingredCard" style={{ maxWidth: "1030px" }}>
+        <Card style={{ maxWidth: "1030px" }}>
           <Card.Body>
             <h2 className="mb-1">
               <strong>재료 함량</strong>
