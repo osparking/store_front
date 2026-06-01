@@ -34,14 +34,12 @@
   }
 
   #soap-intro-container .card {
-    height: 100% !important;
-    margin-bottom: 20px;
+    height: calc(100vh - 47px) !important;
   }
 
   #soap-intro-container {
     height: calc(100vh - 46px);
     top: 46px;
-    margin-bottom: 0 !important;
   }
 
   .mobile-tab-content {
