@@ -19,7 +19,7 @@ const BackgroundImageSlider = () => {
         activeIndex={index}
         onSelect={handleSelect}
         interval={20000}
-        style={{ width: "100%", maxWidth: "100%", height: "100vh" }}
+        style={{ width: "100%", maxWidth: "100%" }}
       >
         {images.map((background, index) => (
           <Carousel.Item key={index} className="carousel-item">
