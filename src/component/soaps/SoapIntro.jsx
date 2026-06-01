@@ -18,7 +18,7 @@ const SoapIntro = () => {
     localStorage.getItem("SOAP_INTRO_TAB") || "effect",
   );
 
-  const isMedium = useMediaQuery({ maxWidth: 992 });
+  const isMediumWide = useMediaQuery({ maxWidth: 1199 });
   const tabItems = [
     {
       key: "effect",
@@ -36,7 +36,7 @@ const SoapIntro = () => {
 
   const classes = "tabBackgroundThick contentHolyCentered";
 
-  const isVeryShort = useMediaQuery({ maxHeight: 576 });
+  const isVeryShort = useMediaQuery({ maxHeight: 599 });
   const currentComponent = tabItems.find(
     (item) => item.key === currTabKey,
   )?.component;
@@ -78,7 +78,7 @@ const SoapIntro = () => {
     <Container id="soap-intro-container" fluid>
       <Tabs
         defaultActiveKey={currTabKey}
-        className={`${classes} ${isMedium ? "scrollable-tabs" : ""}`}
+        className={`${classes} ${isMediumWide ? "scrollable-tabs" : ""}`}
         onSelect={handleSoapIntroTabSelect}
       >
         {tabItems.map((item) => (
