@@ -262,7 +262,7 @@ div.home-container.user-dashboard {
   margin-bottom: 0;
 }
 
-@media screen and (max-width: 992px) and (min-width: 577px) {
+@media screen and (max-width: 992px) and (min-width: 600px) {
   .scrollable-tabs.nav-tabs {
     font-size: 0.9rem;
     top: 46px;
@@ -275,5 +275,16 @@ div.home-container.user-dashboard {
 
   .scrollable-tabs .nav-link {
     padding: 0.5rem 0.5rem;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .scrollable-tabs.nav-tabs {
+    position: relative;
+    top: 0;
+  }
+
+  #soap-intro-container {
+    top: 46px;
   }
 }
