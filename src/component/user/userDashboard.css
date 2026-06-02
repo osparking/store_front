@@ -112,7 +112,7 @@ div.home-container.user-dashboard {
     padding: 3px;
     top: 46px !important;
     right: 35px !important;
-    width: 135px;
+    width: 120px;
     z-index: 200;
   }
 
@@ -257,6 +257,16 @@ div.home-container.user-dashboard {
 
 .my-card-container ul {
   margin-bottom: 0;
+}
+
+#user-dashboard {
+  border-radius: .4rem;
+}
+
+#user-dashboard>.dropdown {
+  border-radius: .4rem;
+  background-color: var(--color-modal);
+  font-size: 16px;
 }
 
 @media screen and (max-width: 992px) and (min-width: 600px) {
