@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
+import "./SoapCarousel.css";
 
 const SoapCarousel = ({ soapImages, bgColor, indColor, slide, setSlide }) => {
   const arrowSz = 1.8; // in rem
@@ -18,6 +19,7 @@ const SoapCarousel = ({ soapImages, bgColor, indColor, slide, setSlide }) => {
     padding: 0,
     position: "absolute",
     width: "fit-content",
+    top: "50%",
     zIndex: "1",
   };
 
@@ -47,7 +49,7 @@ const SoapCarousel = ({ soapImages, bgColor, indColor, slide, setSlide }) => {
   };
 
   return (
-    <div className="carousel-container">
+    <div className="buy-soap carousel-container">
       <div className="carousel">
         <button
           className="button button-left"
