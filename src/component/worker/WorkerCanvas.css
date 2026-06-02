@@ -54,6 +54,15 @@
   margin-left: 17px;
 }
 
+.worker-main-content .main-container .orders_table_div {
+  margin-top: 0 !important;
+}
+.worker-main-content .main-container {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
 .worker-main-content {
   height: 100% !important;
   padding: 1.5rem;
