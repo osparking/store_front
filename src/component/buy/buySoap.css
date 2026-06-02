@@ -3,6 +3,17 @@
 }
 
 .order-card-width {
-  width: 100vw;
-  max-width: 520px;
+  width: 60%;
+  max-width: 500px;
+  min-width: 300px;
+}
+
+.soap-image .card-body {
+  width: 100%;
+}
+
+@media screen and (max-height: 599px) {
+  .soap-image .card-body {
+    padding: 0;
+  }
 }
