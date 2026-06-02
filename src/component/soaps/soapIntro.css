@@ -34,7 +34,8 @@
   }
 
   #soap-intro-container .card {
-    height: calc(100vh - 138px) !important;
+    height: fit-content !important;
+    max-height: calc(100vh - 86px) !important;
   }
 }
 
