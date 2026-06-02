@@ -2,6 +2,10 @@
   min-width: 95%;
 }
 
+.order-card-width .card {
+  overflow: unset !important;
+}
+
 .order-card-width {
   width: 60%;
   max-width: 500px;
