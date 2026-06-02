@@ -67,7 +67,6 @@ div.home-container.user-dashboard {
 
   .mobile-tab-content {
     padding: 0 !important;
-    height: calc(100% - 45px) !important;
   }
 
   .user-dashboard .tableCard {
@@ -130,7 +129,6 @@ div.home-container.user-dashboard {
   .mobile-tab-content {
     padding: 0;
     overflow-y: unset !important;
-    height: calc(100% - 50px) !important;
   }
 
   .carousel-container {
@@ -250,7 +248,6 @@ div.home-container.user-dashboard {
 
 .my-card-container>.tableCard.card {
   background-color: lightpink;
-  overflow: none;
 }
 
 .my-card-container .card-body {
