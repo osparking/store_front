@@ -1,0 +1,19 @@
+.buy-soap .slide-hidden {
+  display: none;
+}
+
+.buy-soap .button-left {
+  left: -15% !important;
+}
+
+.buy-soap .button-right {
+  right: -15% !important;
+}
+
+.buy-soap .indicators {
+  width: 100%;  
+}
+
+.buy-soap .button-left, .buy-soap .button-right {
+  height: 30px !important;
+}
