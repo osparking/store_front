@@ -98,7 +98,7 @@ const BuySoap = () => {
         style={{ marginTop: "8px" }}
       >
         <div className="col-md-5 order-card-width">
-          <Card className="shadow mb-3">
+          <Card className="shadow mb-3 soap-image">
             <Card.Body>
               <SoapCarousel
                 soapImages={images2show}
