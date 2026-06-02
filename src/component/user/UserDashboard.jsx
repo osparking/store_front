@@ -120,12 +120,11 @@ const UserDashboard = () => {
     if (isVeryNarrow || isVeryShort) {
       return (
         <>
-          <div className="mobile-tab-header">
-            <Dropdown style={{ borderRadius: "0.4rem" }}>
+          <div id="user-dashboard" className="mobile-tab-header">
+            <Dropdown>
               <Dropdown.Toggle
                 variant="outline-primary"
                 className="hamburger-menu"
-                style={{ fontSize: "16px" }}
               >
                 {tabItems.find((item) => item.key === activeKey)?.title}
               </Dropdown.Toggle>
