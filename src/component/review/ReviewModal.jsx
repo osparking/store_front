@@ -60,7 +60,7 @@ export default function ReviewModal({
       backdrop="static"
       keyboard={false}
       size="xl"
-      dialogClassName="quill-editor-modal"
+      dialogClassName="review-editor-modal"
     >
       <Modal.Header closeButton>
         <Modal.Title>{title}</Modal.Title>

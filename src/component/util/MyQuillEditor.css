@@ -3,3 +3,8 @@
   min-width: 450px;
   width: 75%;
 }
+
+.review-editor-modal {
+  max-width: calc(100vw - 2 * var(--bs-modal-margin));
+  width: 700px;
+}
