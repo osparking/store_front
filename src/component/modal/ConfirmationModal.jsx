@@ -11,6 +11,7 @@ export default function ConfirmationModal({
   yesLabel,
   headerBgColor = "",
   modelClassName = "",
+  dialogClassName = "",
 }) {
   return (
     <Modal
@@ -19,6 +20,7 @@ export default function ConfirmationModal({
       backdrop="static"
       keyboard={false}
       className={`${modelClassName}`}
+      dialogClassName={dialogClassName}
     >
       <Modal.Header closeButton className={`${headerBgColor}`}>
         <Modal.Title>{title}</Modal.Title>
