@@ -59,7 +59,7 @@ const ImageUp = ({ user, show, handleClose }) => {
           <h6>프로필 사진을 선택하세요:</h6>
           <InputGroup>
             <Form.Control type="file" onChange={handleFileChange} />
-            <Button variant="secondary" onClick={handleImageUp}>
+            <Button variant="primary" disabled={!file} onClick={handleImageUp}>
               올리기
             </Button>
           </InputGroup>
