@@ -6,6 +6,7 @@ import { logoutUser } from "../auth/AuthService";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import { changePwd } from "../user/UserService";
+import "./ConfirmationModal.css";
 
 const ChangePassword = ({ userId, show, handleClose }) => {
   const [type, setType] = useState("password");
@@ -60,7 +61,11 @@ const ChangePassword = ({ userId, show, handleClose }) => {
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal
+      show={show}
+      onHide={handleClose}
+      dialogClassName={"change-pwd-modal"}
+    >
       <Modal.Header closeButton={true}>
         <Modal.Title>비밀번호 변경</Modal.Title>
       </Modal.Header>

@@ -18,3 +18,11 @@
   margin-top: 80px !important;
   animation: slideDown 0.3s ease-out;
 }
+
+.change-pwd-modal {
+  max-width: 360px;
+}
+
+.change-pwd-modal .modal-body {
+  padding: 1em 3em;
+}
