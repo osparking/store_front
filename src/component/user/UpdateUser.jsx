@@ -28,7 +28,7 @@ const UserUpdate = () => {
     dept: "",
     enabled: false,
     addDate: "",
-    photoId: null,    
+    photoId: null,
   });
 
   const {
@@ -72,7 +72,7 @@ const UserUpdate = () => {
     getUser();
   }, [id]);
 
-  const handleInputChange = (event) => {
+  const handlePhoneChange = (event) => {
     const { name, value } = event.target;
     const cleaned = value.replace(/\D/g, "");
     let phoneNumber = undefined;
@@ -85,6 +85,11 @@ const UserUpdate = () => {
       phoneNumber = insertHyphens(cleaned);
     }
     setUser((prevState) => ({ ...prevState, [name]: phoneNumber }));
+  };
+
+  const handleTextChange = (event) => {
+    const { name, value } = event.target;
+    setUser((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const handleCheckChange = (e) => {
@@ -140,7 +145,7 @@ const UserUpdate = () => {
               name="fullName"
               placeholder="(성명)"
               value={user.fullName}
-              onChange={handleInputChange}
+              onChange={handleTextChange}
               style={{ backgroundColor: "pink" }}
             />
           </Col>
@@ -187,7 +192,7 @@ const UserUpdate = () => {
                   name="mbPhone"
                   placeholder="(휴대폰 번호)"
                   value={user.mbPhone}
-                  onChange={handleInputChange}
+                  onChange={handlePhoneChange}
                   style={{ backgroundColor: "pink" }}
                 />
               </OverlayTrigger>
@@ -233,7 +238,7 @@ const UserUpdate = () => {
                 <Form.Label className="legend">소속 부서</Form.Label>
                 <WorkerDeptSelector
                   workerDept={user.dept}
-                  onChange={handleInputChange}
+                  onChange={handleTextChange}
                 />
               </Col>
               <Col
