@@ -3,6 +3,7 @@ import { Button, Form, InputGroup, Modal } from "react-bootstrap";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import { updatePhoto, uploadEmpPhoto } from "./ImageService";
+import "./ImageUp.css";
 
 const ImageUp = ({ user, show, handleClose }) => {
   console.log("유저: ", user);
@@ -39,15 +40,15 @@ const ImageUp = ({ user, show, handleClose }) => {
       setErrorMsg(error.response.data.message);
       setAlertError(true);
     }
-  }
-  
+  };
+
   const handleFileChange = (e) => {
     console.log("file changed: ");
     setFile(e.target.files[0]);
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose} dialogClassName="w-400">
       <Modal.Header>
         <Modal.Title>프로필 사진</Modal.Title>
       </Modal.Header>
@@ -57,7 +58,7 @@ const ImageUp = ({ user, show, handleClose }) => {
         <Form>
           <h6>프로필 사진을 선택하세요:</h6>
           <InputGroup>
-            <Form.Control type="file" onChange={handleFileChange}/>
+            <Form.Control type="file" onChange={handleFileChange} />
             <Button variant="secondary" onClick={handleImageUp}>
               올리기
             </Button>
