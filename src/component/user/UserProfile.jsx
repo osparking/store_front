@@ -272,8 +272,9 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
         show={showDelModal}
         onHide={handleModalXButtonClick}
         handleDeletion={handleDeleteOrder}
-        target={`${user.fullName} 계정의`}
+        target={`${user.fullName} 계정`}
         deleting={false}
+        modalClass={"account-delete-confirm"}
       />
       <ConfirmationModal
         show={show2FA_modal}

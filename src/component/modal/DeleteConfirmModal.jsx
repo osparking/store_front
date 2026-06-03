@@ -8,9 +8,10 @@ const DeleteConfirmModal = ({
   target,
   disabled,
   isPageLastItem = false,
+  modalClass = "",
 }) => {
   return (
-    <Modal show={show} onHide={onHide}>
+    <Modal show={show} onHide={onHide} dialogClassName={modalClass}>
       <Modal.Header closeButton>
         <Modal.Title>삭제 후 복구 불가</Modal.Title>
       </Modal.Header>

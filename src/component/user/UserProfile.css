@@ -93,6 +93,10 @@
   width: 70%;
 }
 
+.account-delete-confirm {
+  width: 360px;
+}
+
 @media (max-width: 575px) {
   .home-container .card {
     margin-top: 0 !important;
