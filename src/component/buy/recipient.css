@@ -88,3 +88,7 @@ Button.order-button-width {
   box-shadow: var(--bs-btn-focus-box-shadow);
   outline: none; /* 선택사항 */
 }
+
+.no-detail-address-confirm {
+  width: 400px;
+}

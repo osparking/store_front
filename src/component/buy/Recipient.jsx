@@ -254,6 +254,7 @@ const Recipient = () => {
         title={"주소 확인"}
         noLabel={"수정할께요."}
         yesLabel={"네, 그래요."}
+        dialogClassName={"no-detail-address-confirm"}
       />
       <div id="recipientDiv">
         <div className="d-flex justify-content-center ">
