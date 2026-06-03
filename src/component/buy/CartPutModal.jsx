@@ -1,5 +1,6 @@
 import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import "./CartPutModal.css";
 
 const CartPutModal = ({ show, closer, getResultString = [] }) => {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ const CartPutModal = ({ show, closer, getResultString = [] }) => {
   };
 
   return (
-    <Modal show={show} onHide={closer}>
+    <Modal show={show} onHide={closer} dialogClassName={"cart-put-modal"}>
       <Modal.Header closeButton>
         <Modal.Title>장바구니 담은 결과</Modal.Title>
       </Modal.Header>
@@ -39,7 +40,7 @@ const CartPutModal = ({ show, closer, getResultString = [] }) => {
             size="sm"
             className="pt-2 pb-2 order-button-width"
             onClick={closer}
-            style={{minWidth: '95px'}}
+            style={{ minWidth: "95px" }}
           >
             비누 주문
           </Button>
