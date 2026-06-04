@@ -14,23 +14,30 @@ const NavBar = () => {
   const [isWorker, setIsWorker] = useState(false);
 
   const [identity, setIdentity] = useState();
+  
   const checkIfAdmin = () => {
     const isAdminJson = localStorage.getItem("IS_ADMIN");
     setIsAdmin(isAdminJson ? JSON.parse(isAdminJson) : false);
-
+    
     const isWorkerJson = localStorage.getItem("IS_WORKER");
     setIsWorker(isWorkerJson ? JSON.parse(isWorkerJson) : false);
+    displayIdentity();
+  };
 
-    const userJson = localStorage.getItem("USER");
-    const user = JSON.parse(userJson);
+  const displayIdentity = () => {
+    const user = JSON.parse(localStorage.getItem("USER"));
+
     if (user) {
       if (user.loginMethod === "이메일") {
         setIdentity(user.fullName);
       } else {
         setIdentity("<" + user.loginMethod + ">");
       }
+    } else {
+      setIdentity("(로그인 前)");
     }
   };
+  
   const navigate = useNavigate();
   const handleLogout = () => {
     checkIfAdmin();
@@ -42,16 +49,7 @@ const NavBar = () => {
   window.addEventListener("logoutEvt", handleLogout);
 
   useEffect(() => {
-    const userJson = localStorage.getItem("USER");
-    const user = JSON.parse(userJson);
-
-    if (user) {
-      if (user.loginMethod === "이메일") {
-        setIdentity(user.fullName);
-      } else {
-        setIdentity("<" + user.loginMethod + ">");
-      }
-    }
+    displayIdentity();
   }, [userVersion]);
 
   const [activeLinkText, setActiveLinkText] = useState("");
