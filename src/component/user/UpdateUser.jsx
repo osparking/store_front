@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -13,12 +13,15 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import ProcessSpinner from "../common/ProcessSpinner";
 import BsAlertHook from "../hook/BsAlertHook";
+import { RootContext } from "../layout/RootLayout";
+import { insertHyphens } from "../util/utilities";
 import WorkerDeptSelector from "../worker/WorkerDeptSelector";
 import "./UpdateUser.css";
 import { getUserDtoById, updateUser } from "./UserService";
-import { insertHyphens } from "../util/utilities";
 
 const UserUpdate = () => {
+  const rootContext = useContext(RootContext);
+
   const location = useLocation();
   const [user, setUser] = useState({
     userType: "",
@@ -50,16 +53,13 @@ const UserUpdate = () => {
     const getUser = async () => {
       try {
         if (id === loginId) {
-          console.log("나의 정보 갱신");
           const result = await getUserDtoById(id);
           if (result) {
-            console.log("user:", result.data);
             setUser(result.data);
           } else {
             navigate("/login");
           }
         } else if (location.state) {
-          console.log("남 정보 갱신");
           const { userState } = location.state;
           setUser(userState);
         }
@@ -96,9 +96,14 @@ const UserUpdate = () => {
     setUser({ ...user, [e.target.name]: e.target.checked });
   };
 
+  const refreshUser =
+    useContext(RootContext)?.refreshUser ||
+    (() => {
+      console.warn("refreshUser 함수 부재");
+    });
+
   const handleUpdate = async (event) => {
     event.preventDefault();
-    console.log(user);
     const updatedUser = {
       userType: user.userType,
       fullName: user.fullName,
@@ -112,6 +117,14 @@ const UserUpdate = () => {
       const response = await updateUser(id, updatedUser);
       setSuccessMsg(response.message);
       setAlertSuccess(true);
+
+      const localUser = JSON.parse(localStorage.getItem("USER"));
+
+      localUser.fullName = response.data.fullName;
+      localUser.mbPhone = response.data.mbPhone;
+      localStorage.setItem("USER", JSON.stringify(localUser));
+      
+      refreshUser();
     } catch (error) {
       setErrorMsg(error.response.data.message);
       setAlertError(true);
