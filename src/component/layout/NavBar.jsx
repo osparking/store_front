@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
 import { getStorageToken } from "../util/utilities";
 import "./navBar.css";
+import { RootContext } from "./RootLayout";
 
 const NavBar = () => {
+  const { userVersion } = useContext(RootContext);
   const beforeLogin = getStorageToken() === null;
 
   const [isAdmin, setIsAdmin] = useState(false);
@@ -40,8 +42,17 @@ const NavBar = () => {
   window.addEventListener("logoutEvt", handleLogout);
 
   useEffect(() => {
-    checkIfAdmin();
-  }, []);
+    const userJson = localStorage.getItem("USER");
+    const user = JSON.parse(userJson);
+
+    if (user) {
+      if (user.loginMethod === "이메일") {
+        setIdentity(user.fullName);
+      } else {
+        setIdentity("<" + user.loginMethod + ">");
+      }
+    }
+  }, [userVersion]);
 
   const [activeLinkText, setActiveLinkText] = useState("");
   const location = useLocation();
