@@ -96,11 +96,7 @@ const UserUpdate = () => {
     setUser({ ...user, [e.target.name]: e.target.checked });
   };
 
-  const refreshUser =
-    useContext(RootContext)?.refreshUser ||
-    (() => {
-      console.warn("refreshUser 함수 부재");
-    });
+  const refreshUser = rootContext.refreshUser;
 
   const handleUpdate = async (event) => {
     event.preventDefault();
@@ -123,7 +119,7 @@ const UserUpdate = () => {
       localUser.fullName = response.data.fullName;
       localUser.mbPhone = response.data.mbPhone;
       localStorage.setItem("USER", JSON.stringify(localUser));
-      
+
       refreshUser();
     } catch (error) {
       setErrorMsg(error.response.data.message);
