@@ -26,11 +26,12 @@ export default function QuestionFollowUpModal({
       backdrop="static"
       keyboard={false}
       dialogClassName="quill-editor-modal"
+      style={{ borderRadius: "8px" }}
     >
       <Modal.Header closeButton>
         <Modal.Title>질문 및 답변</Modal.Title>
       </Modal.Header>
-      <Modal.Body style={{ paddingTop: 0 }}>
+      <Modal.Body style={{ paddingTop: 0 }} className="h-limited-body">
         {showFollowUpEditor && (
           <FollowUpEditor
             questionId={question.id}

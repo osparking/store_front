@@ -2,3 +2,9 @@
   max-width: calc(100vw - 2 * var(--bs-modal-margin));
   width: 700px;
 }
+
+.quill-editor-modal .h-limited-body {
+  max-height: calc(100vh - 5 * var(--bs-modal-margin));
+  overflow-y: auto;
+  height: fit-content;
+}
