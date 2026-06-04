@@ -7,6 +7,7 @@ import "../../../App.css";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import { getPlainContent } from "../../util/utilities";
 import { deleteFollowUp } from "./QuestionService";
+import "./FollowUpEditor.css";
 
 function FollowUpEditor({
   questionId,
@@ -167,6 +168,7 @@ function FollowUpEditor({
         yesLabel="삭제"
         headerBgColor="bg-danger"
         modelClassName="modal-slide-down"
+        dialogClassName="reply-deletion-confirmation-modal"
       />
       <Form className="mt-3 ms-3 mb-3" onSubmit={handleSubmit}>
         <Form.Group className="mb-3 me-3">
