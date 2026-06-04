@@ -8,3 +8,7 @@
   overflow-y: auto;
   height: fit-content;
 }
+
+.review-deletion-confirmation-modal {
+    width: 360px;
+}

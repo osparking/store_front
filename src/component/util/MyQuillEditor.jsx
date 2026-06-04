@@ -102,6 +102,7 @@ function MyQuillEditor({
         yesLabel="삭제"
         headerBgColor="bg-danger"
         modelClassName="modal-slide-down"
+        dialogClassName="review-deletion-confirmation-modal"
       />
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-0">
