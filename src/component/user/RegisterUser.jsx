@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
@@ -122,6 +122,16 @@ const RegisterUser = () => {
     setShowConfirmEmailModal(false);
     window.location.href = "/login";
   };
+
+  useEffect(() => {
+    if (loginId && !isAdmin) {
+      const confirmed = window.confirm("로그아웃하고 계정을 등록할까요?");
+      if (!confirmed) {
+        window.history.back();
+        return;
+      }
+    }
+  }, []);
 
   return (
     <>
