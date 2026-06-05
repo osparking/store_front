@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { logoutUser } from "../auth/AuthService";
 import AlertMessage from "../common/AlertMessage";
 import ProcessSpinner from "../common/ProcessSpinner";
 import BsAlertHook from "../hook/BsAlertHook";
@@ -12,8 +11,6 @@ import "./RegisterUser.css";
 import { registerUser } from "./UserService";
 
 const RegisterUser = () => {
-  const loginId = localStorage.getItem("LOGIN_ID");
-  const userRoles = localStorage.getItem("userRoles") || [];
   const [user, setUser] = useState({
     fullName: "",
     mbPhone: "",
@@ -66,14 +63,7 @@ const RegisterUser = () => {
 
     try {
       setIsProcessing(true);
-      if (loginId && !userRoles.includes("ROLE_ADMIN")) {
-        const confirmed = window.confirm("로그아웃하고 계정을 등록할까요?");
-        if (confirmed) {
-          logoutUser();
-        } else {
-          return;
-        }
-      }
+
       const response = await registerUser(user);
       const expireTime = response.data.tokenExpireTime;
 
