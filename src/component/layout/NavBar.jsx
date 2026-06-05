@@ -77,7 +77,7 @@ const NavBar = () => {
   const handleRegisterClick = (e) => {
     e.preventDefault(); // 기본 이동 막음
 
-    if (loginId && !isAdmin) {
+    if (loginId) {
       const confirmed = window.confirm("로그아웃하고 계정을 등록할까요?");
       if (confirmed) {
         // 로그아웃 후 등록 페이지로 이동
