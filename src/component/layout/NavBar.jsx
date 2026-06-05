@@ -14,11 +14,11 @@ const NavBar = () => {
   const [isWorker, setIsWorker] = useState(false);
 
   const [identity, setIdentity] = useState();
-  
+
   const checkIfAdmin = () => {
     const isAdminJson = localStorage.getItem("IS_ADMIN");
     setIsAdmin(isAdminJson ? JSON.parse(isAdminJson) : false);
-    
+
     const isWorkerJson = localStorage.getItem("IS_WORKER");
     setIsWorker(isWorkerJson ? JSON.parse(isWorkerJson) : false);
     displayIdentity();
@@ -37,7 +37,7 @@ const NavBar = () => {
       setIdentity("(로그인 前)");
     }
   };
-  
+
   const navigate = useNavigate();
   const handleLogout = () => {
     checkIfAdmin();
@@ -73,6 +73,25 @@ const NavBar = () => {
   useEffect(() => {
     setActiveLinkText(getActiveLinkText(location.pathname));
   }, [location]);
+
+  const handleRegisterClick = (e) => {
+    e.preventDefault(); // 기본 이동 막음
+
+    if (loginId && !isAdmin) {
+      const confirmed = window.confirm("로그아웃하고 계정을 등록할까요?");
+      if (confirmed) {
+        // 로그아웃 후 등록 페이지로 이동
+        logoutUser(); // 로그아웃 처리 (예: 상태 초기화, localStorage 제거 등)
+        navigate("/register_user");
+      } else {
+        // 아무것도 하지 않음 (현재 페이지 유지)
+        return;
+      }
+    } else {
+      // 이미 로그아웃 상태거나 관리자면 바로 등록 페이지로
+      navigate("/register_user");
+    }
+  };
 
   return (
     <Navbar expand="lg" sticky="top" className="nav-bg start-0 end-0">
@@ -169,7 +188,7 @@ const NavBar = () => {
                 </>
               )}
               <NavDropdown.Divider />
-              <NavDropdown.Item to={"/register_user"} as={Link}>
+              <NavDropdown.Item onClick={handleRegisterClick} as="button">
                 등록
               </NavDropdown.Item>
             </NavDropdown>
