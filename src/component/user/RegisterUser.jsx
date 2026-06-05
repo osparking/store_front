@@ -9,6 +9,7 @@ import WorkerDeptSelector from "../worker/WorkerDeptSelector";
 import "./RegisterUser.css";
 import { registerUser } from "./UserService";
 import { formatTime, maskEmail } from "../util/utilities";
+import ConfirmEmailModal from "../modal/ConfirmEmailModal";
 
 const RegisterUser = () => {
   const loginId = localStorage.getItem("LOGIN_ID");
@@ -45,6 +46,13 @@ const RegisterUser = () => {
       throw new Error("두 패스워드가 일치하지 않습니다.");
     }
   };
+
+  const [confirmData, setConfirmData] = useState({
+    result: "",
+    email: "",
+    expireTime: "",
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -67,14 +75,15 @@ const RegisterUser = () => {
         }
       }
       const response = await registerUser(user);
-      console.log("등록 결과: ", response.message);
-
       const expireTime = response.data.tokenExpireTime;
-      console.log("만료시간: ", formatTime(expireTime));
-      console.log("-", maskEmail(response.data.email));
-      
-      setSuccessMsg(response.message);
-      setAlertSuccess(true);
+
+      setConfirmData({
+        result: response.message,
+        email: maskEmail(response.data.email),
+        expireTime: formatTime(expireTime),
+      });
+
+      setShowConfirmEmailModal(true);
     } catch (error) {
       console.error("에러:", error);
       setErrorMsg(error.response.data.message);
@@ -108,175 +117,199 @@ const RegisterUser = () => {
   };
 
   const isAdmin = localStorage.getItem("IS_ADMIN") === "true";
+  const [showConfirmEmailModal, setShowConfirmEmailModal] = useState(false);
 
   return (
-    <Container id="registerContainer" className="d-flex justify-content-center">
-      <Form onSubmit={handleSubmit} className="d-flex justify-content-center">
-        <Card className="shadow registerCard">
-          <Card.Header className="text-center">
-            <legend>사용자 등록</legend>
-          </Card.Header>
-          <Card.Body style={{ overflow: "auto" }}>
-            <div style={{ width: "475px" }}>
-              <fieldset className="mb-4">
-                <Row>
-                  <Col xs={4} md={4}>
-                    <Form.Label>
-                      성명
-                      <Form.Control
-                        type="text"
-                        name="fullName"
-                        placeholder="(성명)"
-                        value={user.fullName}
-                        onChange={handleChange}
-                        required
-                        style={{ width: "71%" }}
-                      />
-                    </Form.Label>
-                  </Col>
-                  <Col xs={4} md={4} className="d-flex justify-content-center">
-                    <Form.Label>
-                      계정 유형
-                      <Form.Control
-                        as="select"
-                        name="userType"
-                        required
-                        value={user.userType}
-                        onChange={handleChange}
-                      >
-                        <option value="">(계정 타입)</option>
-                        <option value="CUSTOMER">고객</option>
-                        <option value="WORKER">직원</option>
-                      </Form.Control>
-                    </Form.Label>
-                  </Col>
-                  <Col
-                    xs={4}
-                    md={4}
-                    className="employeeAffiliation d-flex justify-content-end"
-                  >
-                    <Form.Label>
-                      부서
-                      <WorkerDeptSelector
-                        disabled={user.userType !== "WORKER"}
-                        workerDept={user.dept}
-                        onChange={handleChange}
-                      />
-                    </Form.Label>
-                  </Col>
-                </Row>
-              </fieldset>
+    <>
+      <ConfirmEmailModal
+        show={showConfirmEmailModal}
+        closer={() => setShowConfirmEmailModal(false)}
+        confirmData={confirmData}
+        dialogClass="confirm-email-modal"
+      />
+      <Container
+        id="registerContainer"
+        className="d-flex justify-content-center"
+      >
+        <Form onSubmit={handleSubmit} className="d-flex justify-content-center">
+          <Card className="shadow registerCard">
+            <Card.Header className="text-center">
+              <legend>사용자 등록</legend>
+            </Card.Header>
+            <Card.Body style={{ overflow: "auto" }}>
+              <div style={{ width: "475px" }}>
+                <fieldset className="mb-4">
+                  <Row>
+                    <Col xs={4} md={4}>
+                      <Form.Label>
+                        성명
+                        <Form.Control
+                          type="text"
+                          name="fullName"
+                          placeholder="(성명)"
+                          value={user.fullName}
+                          onChange={handleChange}
+                          required
+                          style={{ width: "71%" }}
+                        />
+                      </Form.Label>
+                    </Col>
+                    <Col
+                      xs={4}
+                      md={4}
+                      className="d-flex justify-content-center"
+                    >
+                      <Form.Label>
+                        계정 유형
+                        <Form.Control
+                          as="select"
+                          name="userType"
+                          required
+                          value={user.userType}
+                          onChange={handleChange}
+                        >
+                          <option value="">(계정 타입)</option>
+                          <option value="CUSTOMER">고객</option>
+                          <option value="WORKER">직원</option>
+                        </Form.Control>
+                      </Form.Label>
+                    </Col>
+                    <Col
+                      xs={4}
+                      md={4}
+                      className="employeeAffiliation d-flex justify-content-end"
+                    >
+                      <Form.Label>
+                        부서
+                        <WorkerDeptSelector
+                          disabled={user.userType !== "WORKER"}
+                          workerDept={user.dept}
+                          onChange={handleChange}
+                        />
+                      </Form.Label>
+                    </Col>
+                  </Row>
+                </fieldset>
 
-              <fieldset className="mb-4">
-                <Row>
-                  <Col xs={6} className="mb-2 mb-sm-0">
+                <fieldset className="mb-4">
+                  <Row>
+                    <Col xs={6} className="mb-2 mb-sm-0">
+                      <Form.Label>
+                        이메일
+                        <Form.Control
+                          type="email"
+                          name="email"
+                          autoComplete="email"
+                          placeholder="(이메일)"
+                          value={user.email}
+                          onChange={handleChange}
+                          required
+                        />
+                      </Form.Label>
+                    </Col>
+                    <Col xs={6}>
+                      <Form.Label>
+                        휴대폰 번호
+                        <Form.Control
+                          type="text"
+                          name="mbPhone"
+                          autoComplete="tel"
+                          placeholder="(휴대폰 번호)"
+                          value={user.mbPhone}
+                          onChange={handleChange}
+                          required
+                        />
+                      </Form.Label>
+                    </Col>
+                  </Row>
+                </fieldset>
+
+                <Form.Group as={Row} className="mb-2">
+                  <Col xs={6}>
                     <Form.Label>
-                      이메일
+                      패스워드
                       <Form.Control
-                        type="email"
-                        name="email"
-                        autoComplete="email"
-                        placeholder="(이메일)"
-                        value={user.email}
-                        onChange={handleChange}
+                        type="password"
+                        name="password"
+                        id="password"
+                        autoComplete="new-password"
                         required
+                        placeholder="(비밀번호)"
+                        value={user.password || ""}
+                        onChange={handleChange}
                       />
                     </Form.Label>
                   </Col>
                   <Col xs={6}>
                     <Form.Label>
-                      휴대폰 번호
+                      패스워드 확인
                       <Form.Control
-                        type="text"
-                        name="mbPhone"
-                        autoComplete="tel"
-                        placeholder="(휴대폰 번호)"
-                        value={user.mbPhone}
-                        onChange={handleChange}
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        autoComplete="new-password-confirm"
                         required
+                        placeholder="(비밀번호 확인)"
+                        value={user.confirmPassword || ""}
+                        onChange={handleChange}
                       />
                     </Form.Label>
                   </Col>
-                </Row>
-              </fieldset>
+                </Form.Group>
+              </div>
+            </Card.Body>
 
-              <Form.Group as={Row} className="mb-2">
-                <Col xs={6}>
-                  <Form.Label>
-                    패스워드
-                    <Form.Control
-                      type="password"
-                      name="password"
-                      id="password"
-                      autoComplete="new-password"
-                      required
-                      placeholder="(비밀번호)"
-                      value={user.password || ""}
-                      onChange={handleChange}
-                    />
-                  </Form.Label>
-                </Col>
-                <Col xs={6}>
-                  <Form.Label>
-                    패스워드 확인
-                    <Form.Control
-                      type="password"
-                      id="confirmPassword"
-                      name="confirmPassword"
-                      autoComplete="new-password-confirm"
-                      required
-                      placeholder="(비밀번호 확인)"
-                      value={user.confirmPassword || ""}
-                      onChange={handleChange}
-                    />
-                  </Form.Label>
-                </Col>
-              </Form.Group>
-            </div>
-          </Card.Body>
-
-          <Card.Footer className="text-center">
-            <div className="d-flex justify-content-center mb-3 mt-3 char2button">
-              <Button
-                type="submit"
-                variant="outline-primary"
-                size="sm"
-                className="me-2"
-                disabled={isProcessing}
-              >
-                {isProcessing ? <ProcessSpinner message="유저 등록" /> : "등록"}
-              </Button>
-              <Button variant="outline-info" size="sm" onClick={handleReset}>
-                리셋
-              </Button>
-            </div>
-
-            {isAdmin && (
-              <div className="d-flex justify-content-center mb-3 mt-3">
-                <Button variant="outline-warning" size="sm" onClick={easyData}>
-                  입력 편의
+            <Card.Footer className="text-center">
+              <div className="d-flex justify-content-center mb-3 mt-3 char2button">
+                <Button
+                  type="submit"
+                  variant="outline-primary"
+                  size="sm"
+                  className="me-2"
+                  disabled={isProcessing}
+                >
+                  {isProcessing ? (
+                    <ProcessSpinner message="유저 등록" />
+                  ) : (
+                    "등록"
+                  )}
+                </Button>
+                <Button variant="outline-info" size="sm" onClick={handleReset}>
+                  리셋
                 </Button>
               </div>
-            )}
-            {alertSuccess && (
-              <>
-                <AlertMessage type="success" message={successMsg} />
-                <p className="text-danger">
-                  *등록한 이메일에 로그인하여 메일 주소를 검증하십시오
-                </p>
-              </>
-            )}
-            {alertError && <AlertMessage type="danger" message={errorMsg} />}
-            <div className="text-center">
-              이미 등록한 경우:{" "}
-              <Link to={"/login"} style={{ textDecoration: "none" }}>
-                로그인
-              </Link>
-            </div>
-          </Card.Footer>
-        </Card>
-      </Form>
-    </Container>
+
+              {isAdmin && (
+                <div className="d-flex justify-content-center mb-3 mt-3">
+                  <Button
+                    variant="outline-warning"
+                    size="sm"
+                    onClick={easyData}
+                  >
+                    입력 편의
+                  </Button>
+                </div>
+              )}
+              {alertSuccess && (
+                <>
+                  <AlertMessage type="success" message={successMsg} />
+                  <p className="text-danger">
+                    *등록한 이메일에 로그인하여 메일 주소를 검증하십시오
+                  </p>
+                </>
+              )}
+              {alertError && <AlertMessage type="danger" message={errorMsg} />}
+              <div className="text-center">
+                이미 등록한 경우:{" "}
+                <Link to={"/login"} style={{ textDecoration: "none" }}>
+                  로그인
+                </Link>
+              </div>
+            </Card.Footer>
+          </Card>
+        </Form>
+      </Container>
+    </>
   );
 };
 
