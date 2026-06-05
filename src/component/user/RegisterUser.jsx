@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
 import AlertMessage from "../common/AlertMessage";
 import ProcessSpinner from "../common/ProcessSpinner";
 import BsAlertHook from "../hook/BsAlertHook";
+import ConfirmEmailModal from "../modal/ConfirmEmailModal";
+import { formatTime, maskEmail } from "../util/utilities";
 import WorkerDeptSelector from "../worker/WorkerDeptSelector";
 import "./RegisterUser.css";
 import { registerUser } from "./UserService";
-import { formatTime, maskEmail } from "../util/utilities";
-import ConfirmEmailModal from "../modal/ConfirmEmailModal";
 
 const RegisterUser = () => {
   const loginId = localStorage.getItem("LOGIN_ID");
@@ -122,16 +122,6 @@ const RegisterUser = () => {
     setShowConfirmEmailModal(false);
     window.location.href = "/login";
   };
-
-  useEffect(() => {
-    if (loginId && !isAdmin) {
-      const confirmed = window.confirm("로그아웃하고 계정을 등록할까요?");
-      if (!confirmed) {
-        window.history.back();
-        return;
-      }
-    }
-  }, []);
 
   return (
     <>
