@@ -8,6 +8,7 @@ import BsAlertHook from "../hook/BsAlertHook";
 import WorkerDeptSelector from "../worker/WorkerDeptSelector";
 import "./RegisterUser.css";
 import { registerUser } from "./UserService";
+import { formatTime, maskEmail } from "../util/utilities";
 
 const RegisterUser = () => {
   const loginId = localStorage.getItem("LOGIN_ID");
@@ -66,7 +67,12 @@ const RegisterUser = () => {
         }
       }
       const response = await registerUser(user);
-      console.log("response: ", response);
+      console.log("등록 결과: ", response.message);
+
+      const expireTime = response.data.tokenExpireTime;
+      console.log("만료시간: ", formatTime(expireTime));
+      console.log("-", maskEmail(response.data.email));
+      
       setSuccessMsg(response.message);
       setAlertSuccess(true);
     } catch (error) {
