@@ -93,7 +93,7 @@ const RegisterUser = () => {
     setUser({
       fullName: "김성훈",
       mbPhone: "010-1234-1223",
-      email: "jbpark03@email.com",
+      email: "jbpark103@hanmail.net",
       password: "1234",
       confirmPassword: "1234",
       userType: "CUSTOMER",
