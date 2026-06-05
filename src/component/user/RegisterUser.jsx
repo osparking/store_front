@@ -118,12 +118,16 @@ const RegisterUser = () => {
 
   const isAdmin = localStorage.getItem("IS_ADMIN") === "true";
   const [showConfirmEmailModal, setShowConfirmEmailModal] = useState(false);
+  const moveToLoginPage = () => {
+    setShowConfirmEmailModal(false);
+    window.location.href = "/login";
+  };
 
   return (
     <>
       <ConfirmEmailModal
         show={showConfirmEmailModal}
-        closer={() => setShowConfirmEmailModal(false)}
+        closer={() => moveToLoginPage()}
         confirmData={confirmData}
         dialogClass="confirm-email-modal"
       />
