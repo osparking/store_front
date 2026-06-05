@@ -203,3 +203,16 @@ export const clearLocalOrderData = () => {
   localStorage.removeItem("ORDER_ACTION");
   localStorage.removeItem("ORDER_ID_TOSS");
 }
+
+export const formatTime = (isoString) => {
+  const date = new Date(isoString);
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  return `${hours}시 ${minutes.toString().padStart(2, '0')}분`;
+}
+
+export const maskEmail = (email) => {
+  return email.replace(/^(.{3})(.*)@/, (match, firstThree, rest) => {
+    return firstThree + '*'.repeat(rest.length) + '@';
+  });
+}
