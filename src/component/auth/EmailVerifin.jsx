@@ -23,6 +23,10 @@ const EmailVerifin = () => {
           setVerifyMsg("이메일 검증이 이미 완료된 바 있습니다.");
           setAlertType("alert-info");
           break;
+        case "토큰 재발급됨":
+          setVerifyMsg("새로 전송된 메일을 확인해주세요.");
+          setAlertType("alert-info");
+          break;
         default:
           setVerifyMsg("이메일 검증 중 오류가 발생하였습니다.");
           setAlertType("alert-danger");
