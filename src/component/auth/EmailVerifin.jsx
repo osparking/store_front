@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import { verifyEmail } from './AuthService';
-import ProcessSpinner from '../common/ProcessSpinner';
+import React, { useEffect, useState } from "react";
+import ProcessSpinner from "../common/ProcessSpinner";
+import ConfirmResultModal from "../modal/ConfirmResultModal";
+import { verifyEmail } from "./AuthService";
 
 const EmailVerifin = () => {
   const [isProcessing, setIsProcessing] = useState(false);
@@ -10,10 +11,13 @@ const EmailVerifin = () => {
   const [email, setEmail] = useState("");
 
   const callVerifyEmail = async (token) => {
+
     setIsProcessing(true);
     try {
       const response = await verifyEmail(token);
       console.log("response.message", response.message);
+      setSwitchLabel(response.message);
+
       switch (response.message) {
         case "계정 활성화":
           setVerifyMsg("이메일 검증이 성공하여 로그인이 가능합니다.");
@@ -68,19 +72,34 @@ const EmailVerifin = () => {
     }
   }, []);
 
-  return (
-    <div className="d-flex justify-content-center mt-lg-5">
-      {isProcessing ? (
-        <ProcessSpinner message="이메일 검증 처리" />
-      ) : (
-        <div className="col-12 col-md-6">
-          <div className={`alert ${alertType}`} role="alert">
-            {verifyMsg}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
+  const [showEmailModal, setShowEmailModal] = useState(true);
+  const moveToLoginPage = () => {
+    setShowEmailModal(false);
+    window.location.href = "/login";
+  };  
+  const [switchLabel, setSwitchLabel] = useState("계정 활성화");
 
-export default EmailVerifin
+  return (
+    <>
+      <ConfirmResultModal
+        show={showEmailModal}
+        closer={() => moveToLoginPage()}
+        switchLabel={switchLabel}
+        dialogClass="email-sent-modal"
+      />
+      <div className="d-flex justify-content-center mt-lg-5">
+        {isProcessing ? (
+          <ProcessSpinner message="이메일 검증 처리" />
+        ) : (
+          <div className="col-12 col-md-6">
+            <div className={`alert ${alertType}`} role="alert">
+              {verifyMsg}
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
+};
+
+export default EmailVerifin;
