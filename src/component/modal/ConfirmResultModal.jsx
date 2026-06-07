@@ -4,13 +4,26 @@ import "./ConfirmResultModal.css";
 const ConfirmResultModal = ({ show, closer, switchLabel, dialogClass }) => {
   const getModalMessage = () => {
     switch (switchLabel) {
+      case "계정 활성화":
+        return (
+          <>
+            <p className="text-success mb-3" style={{ textAlign: "center" }}>
+              *이메일 주소 검증 성공*
+            </p>
+            <p style={{ textAlign: "center" }}>
+              귀하께서는 이제 <b>로그인이 가능</b>합니다.
+            </p>
+          </>
+        );
       case "토큰 재발급됨":
         return (
           <>
             <p className="text-success mb-3" style={{ textAlign: "center" }}>
               회원의 이메일 주소 검증을 위하여...
             </p>
-            <p>귀하께 <b>새 이메일이 발송</b>되었으니,</p>
+            <p>
+              귀하께 <b>새 이메일이 발송</b>되었으니,
+            </p>
             <p>
               이메일에 포함된 <b>링크를 클릭</b>하여 계정을 활성화하십시오.
             </p>
