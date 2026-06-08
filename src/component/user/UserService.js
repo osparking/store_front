@@ -73,7 +73,7 @@ export async function getMyRecipients(userId, page, size) {
   try {
     const result = await callWithToken(
       "get",
-      `/user/get_recipients?id=${userId}&page=${page}&size=${size}`
+      `/user/get_recipients?id=${userId}&page=${page}&size=${size}`,
     );
     return result.data.data;
   } catch (err) {
@@ -105,7 +105,7 @@ export async function changePwd(userId, curPwd, newPwd, cnfPwd) {
     const result = await callWithToken(
       "put",
       `/user/change_pwd/${userId}`,
-      request
+      request,
     );
     return result ? result.data : result;
   } catch (err) {
