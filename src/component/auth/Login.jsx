@@ -15,7 +15,7 @@ import naverIcon from "../../assets/images/btnD_icon_square.png";
 import AlertMessage from "../common/AlertMessage";
 import { jwtToUser } from "../common/JwtUtils";
 import BsAlertHook from "../hook/BsAlertHook";
-import { storeJWT, storeLoginInfo } from "../util/utilities";
+import { HTTP_STATUS, storeJWT, storeLoginInfo } from "../util/utilities";
 import { loginUser } from "./AuthService";
 import CodeEntryModal from "./CodeEntryModal";
 import "./Login.css";
@@ -68,7 +68,7 @@ const Login = () => {
     try {
       const response = await loginUser(credentials.email, credentials.password);
       const data = response.data.data;
-      if (response.status === 200) {
+      if (response.status === HTTP_STATUS.OK) {
         let user = jwtToUser(data.token);
         if (user.twoFaEnabled) {
           setUser(user);
@@ -82,9 +82,13 @@ const Login = () => {
             replace: true,
           });
         }
+      } else if (response.status === HTTP_STATUS.ACCEPTED) {
+        setErrorMsg("모달을 사용하여 계정 활성화를 진행해주세요.");
+        setAlertError(true);
       }
     } catch (error) {
-      setErrorMsg(error.response.data.message);
+      console.error("로그인 실패:", error);
+      setErrorMsg("이메일 또는 비밀번호 오류입니다.");
       setAlertError(true);
     }
   };
