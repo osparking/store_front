@@ -3,16 +3,14 @@ import Switch from "@mui/material/Switch";
 import { useState } from "react";
 import { Button, Card, Form, Row, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { logoutUser } from "../auth/AuthService";
 import QRcodeBox from "../auth/QRcodeBox";
 import EmpImage from "../common/EmpImage";
 import ChangePassword from "../modal/ChangePassword";
 import ConfirmationModal from "../modal/ConfirmationModal";
-import DeleteConfirmModal from "../modal/DeleteConfirmModal";
+import DisableAccountModal from "../modal/DisableAccountModal";
 import ImageUp from "../modal/ImageUp";
 import { callWithToken } from "../util/api";
 import "./UserProfile.css";
-import { deleteUserAccount } from "./UserService";
 
 const UserProfile = ({ user, handleRemovePhoto }) => {
   const userNew = { ...user, enabled: user.enabled ? "가능" : "불가능" };
@@ -34,17 +32,6 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
   const [showDelModal, setShowDelModal] = useState(false);
   const handleModalXButtonClick = () => {
     setShowDelModal(false);
-    setUserToDel(null);
-  };
-
-  const handleDeleteOrder = async () => {
-    try {
-      await deleteUserAccount(user.id);
-      setShowDelModal(false);
-      logoutUser();
-    } catch (error) {
-      console.error(error.message);
-    }
   };
 
   const [twoFaEnabled, setTwoFaEnabled] = useState(user.twoFaEnabled);
@@ -268,13 +255,13 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
 
   return (
     <>
-      <DeleteConfirmModal
+      <DisableAccountModal
         show={showDelModal}
         onHide={handleModalXButtonClick}
-        handleDeletion={handleDeleteOrder}
+        userId={loginId}
         target={`${user.fullName} 계정`}
-        deleting={false}
-        modalClass={"account-delete-confirm"}
+        disabled={false}
+        modalClass={"disable-account-confirm"}
       />
       <ConfirmationModal
         show={show2FA_modal}
