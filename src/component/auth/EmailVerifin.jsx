@@ -11,31 +11,10 @@ const EmailVerifin = () => {
   const [email, setEmail] = useState("");
 
   const callVerifyEmail = async (token) => {
-
     setIsProcessing(true);
     try {
       const response = await verifyEmail(token);
-      console.log("response.message", response.message);
       setSwitchLabel(response.message);
-
-      switch (response.message) {
-        case "계정 활성화":
-          setVerifyMsg("이메일 검증이 성공하여 로그인이 가능합니다.");
-          setAlertType("alert-success");
-          break;
-        case "이미 검증된 토큰":
-          setVerifyMsg("이메일 검증이 이미 완료된 바 있습니다.");
-          setAlertType("alert-info");
-          break;
-        case "토큰 재발급됨":
-          setVerifyMsg("새로 전송된 메일을 확인해주세요.");
-          setAlertType("alert-info");
-          break;
-        default:
-          setVerifyMsg("이메일 검증 중 오류가 발생하였습니다.");
-          setAlertType("alert-danger");
-          break;
-      }
     } catch (error) {
       if (error.response) {
         const message = error.response.data.message;
@@ -76,27 +55,22 @@ const EmailVerifin = () => {
   const moveToLoginPage = () => {
     setShowEmailModal(false);
     window.location.href = "/login";
-  };  
-  const [switchLabel, setSwitchLabel] = useState("계정 활성화");
+  };
+  const [switchLabel, setSwitchLabel] = useState("");
 
   return (
     <>
       <ConfirmResultModal
-        show={showEmailModal}
+        show={showEmailModal && switchLabel !== ""}
         closer={() => moveToLoginPage()}
         switchLabel={switchLabel}
         dialogClass="email-sent-modal"
       />
-      <div className="d-flex justify-content-center mt-lg-5">
-        {isProcessing ? (
-          <ProcessSpinner message="이메일 검증 처리" />
-        ) : (
-          <div className="col-12 col-md-6">
-            <div className={`alert ${alertType}`} role="alert">
-              {verifyMsg}
-            </div>
-          </div>
-        )}
+      <div
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "100vh" }}
+      >
+        {isProcessing && <ProcessSpinner message="이메일 검증 처리" />}
       </div>
     </>
   );
