@@ -20,6 +20,16 @@ export async function deleteUserAccount(userId) {
   }
 }
 
+export async function disableUserAccount(userId) {
+  try {
+    const urlSuffix = `/user/${userId}/disable`;
+    const result = await callWithToken("post", urlSuffix);
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function getSoapsMonthUser(userId) {
   try {
     const urlSuffix = `/user/${userId}/soaps_month`;
