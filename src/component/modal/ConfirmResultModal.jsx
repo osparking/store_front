@@ -15,9 +15,9 @@ const ConfirmResultModal = ({ show, closer, switchLabel, dialogClass }) => {
             </p>
           </>
         );
-        case "토큰 재발급됨":
-          return (
-            <>
+      case "토큰 재발급됨":
+        return (
+          <>
             <p className="text-success mb-3" style={{ textAlign: "center" }}>
               회원의 이메일 주소 검증을 위하여...
             </p>
@@ -29,18 +29,29 @@ const ConfirmResultModal = ({ show, closer, switchLabel, dialogClass }) => {
             </p>
           </>
         );
-        case "이미 검증된 토큰":
-          return (
-            <>
-              <p className="text-success mb-3" style={{ textAlign: "center" }}>
-                *기 검증 이메일 주소*
-              </p>
-              <p style={{ textAlign: "center" }}>
-                귀하의 이메일 주소는 이미 검증되었습니다.
-              </p>
-            </>
-          );
-        default:
+      case "폐기된 토큰":
+        return (
+          <>
+            <p className="text-success mb-3" style={{ textAlign: "center" }}>
+              *폐기된 토큰*
+            </p>
+            <p style={{ textAlign: "center" }}>
+              제출한 토큰은 폐기 처분된 것입니다.
+            </p>
+          </>
+        );
+      case "이미 검증된 토큰":
+        return (
+          <>
+            <p className="text-success mb-3" style={{ textAlign: "center" }}>
+              *기 검증 이메일 주소*
+            </p>
+            <p style={{ textAlign: "center" }}>
+              귀하의 이메일 주소는 이미 검증되었습니다.
+            </p>
+          </>
+        );
+      default:
         return (
           <p className="text-danger mb-3" style={{ textAlign: "center" }}>
             예외적인 스위치 라벨: {switchLabel}
