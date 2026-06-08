@@ -19,9 +19,16 @@ import { HTTP_STATUS, storeJWT, storeLoginInfo } from "../util/utilities";
 import { loginUser } from "./AuthService";
 import CodeEntryModal from "./CodeEntryModal";
 import "./Login.css";
+import EnableAccountModal from "../modal/EnableAccountModal";
 
 const Login = () => {
   const [showCodeModal, setShowCodeModal] = useState(false);
+
+  const [showEnableModal, setShowEnableModal] = useState(false);
+  const handleModalXButtonClick = () => {
+    setShowEnableModal(false);
+  };
+
   const [credentials, setCredentials] = useState({
     email: "jbpark103@hanmail.net",
     password: "1234",
@@ -82,9 +89,8 @@ const Login = () => {
             replace: true,
           });
         }
-      } else if (response.status === HTTP_STATUS.ACCEPTED) {
-        setErrorMsg("모달을 사용하여 계정 활성화를 진행해주세요.");
-        setAlertError(true);
+      } else if (response.status === HTTP_STATUS.CLOSED) {
+        setShowEnableModal(true);
       }
     } catch (error) {
       console.error("로그인 실패:", error);
@@ -207,6 +213,13 @@ const Login = () => {
           </Container>
         </Col>
       </Row>
+      <EnableAccountModal
+        show={showEnableModal}
+        onHide={handleModalXButtonClick}
+        email={credentials.email}
+        disabled={false}
+        modalClass={"enable-account-modal"}
+      />
     </Container>
   );
 };

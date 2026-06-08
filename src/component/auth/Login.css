@@ -11,6 +11,10 @@
     align-items: center;
 }
 
+.enable-account-modal {
+    width: 360px !important;
+}
+
 /* MUI small <= 599px */
 @media screen and (max-height: 599px) {
     #background-carousel {
