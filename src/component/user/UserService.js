@@ -60,6 +60,15 @@ export async function registerUser(user) {
   }
 }
 
+export async function enableAccount(data) {
+  try {
+    const result = await api.put("/user/enable", data);
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function getDefaultRecipient(userId) {
   try {
     const result = await callWithToken("get", `/user/${userId}/get_recipient`);
