@@ -1,6 +1,7 @@
 import { Button, Modal } from "react-bootstrap";
 import { logoutUser } from "../auth/AuthService";
 import { disableUserAccount } from "../user/UserService";
+import { enableAccount } from "../user/UserService";
 
 const EnableAccountModal = ({
   show,
@@ -8,10 +9,15 @@ const EnableAccountModal = ({
   email,
   disabled,
   modalClass = "",
+  setEnableResult,
 }) => {
   const handleEnableAccount = async () => {
     try {
-      // await askAccountActivation(email);
+      const result = await enableAccount({ email: email });
+      setEnableResult({
+        message: result.message,
+        expireTime: result.data.tokenExpireTime,
+      });
       onHide();
     } catch (error) {
       console.error(error.message);
