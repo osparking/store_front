@@ -220,6 +220,7 @@ export const maskEmail = (email) => {
 export const HTTP_STATUS = {
   OK: 200,
   CLOSED: 202,
+  ALREADY_REPORTED: 208,
   BAD_REQUEST: 400,
   UNAUTHORIZED: 401,
   FORBIDDEN: 403,

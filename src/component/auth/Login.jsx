@@ -92,6 +92,9 @@ const Login = () => {
         }
       } else if (response.status === HTTP_STATUS.CLOSED) {
         setShowEnableModal(true);
+      } else if (response.status === HTTP_STATUS.ALREADY_REPORTED) {
+        setErrorMsg(response.data.message);
+        setAlertError(true);
       }
     } catch (error) {
       console.error("로그인 실패:", error);
