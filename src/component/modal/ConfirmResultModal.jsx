@@ -19,10 +19,24 @@ const ConfirmResultModal = ({ show, closer, switchLabel, dialogClass }) => {
         return (
           <>
             <p className="text-success mb-3" style={{ textAlign: "center" }}>
-              회원의 이메일 주소 검증을 위하여...
+              회원님의 이메일 주소 검증을 위하여...
             </p>
             <p>
               귀하께 <b>새 이메일이 발송</b>되었으니,
+            </p>
+            <p>
+              이메일에 포함된 <b>링크를 클릭</b>하여 계정을 활성화하십시오.
+            </p>
+          </>
+        );
+      case "제출 요청 접수됨":
+        return (
+          <>
+            <p className="text-success mb-3" style={{ textAlign: "center" }}>
+              회원님의 계정 활성화를 위하여...
+            </p>
+            <p>
+              귀하께 <b> 이메일이 발송</b>되었으니,
             </p>
             <p>
               이메일에 포함된 <b>링크를 클릭</b>하여 계정을 활성화하십시오.
