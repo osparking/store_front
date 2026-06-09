@@ -20,6 +20,7 @@ import { loginUser } from "./AuthService";
 import CodeEntryModal from "./CodeEntryModal";
 import "./Login.css";
 import EnableAccountModal from "../modal/EnableAccountModal";
+import ConfirmResultModal from "../modal/ConfirmResultModal";
 
 const Login = () => {
   const [showCodeModal, setShowCodeModal] = useState(false);
@@ -193,6 +194,18 @@ const Login = () => {
     setShowCodeModal(false);
   };
 
+  const [enableResult, setEnableResult] = useState(null);
+  const [switchLabel, setSwitchLabel] = useState("");
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  useEffect(() => {
+    if (enableResult) {
+      console.log("Enable account result:", enableResult);
+      setSwitchLabel(enableResult.message);
+      setShowConfirmModal(true);
+    }
+  }, [enableResult]);
+
   return (
     <Container fluid id="login-container" style={{ position: "relative" }}>
       {showCodeModal && (
@@ -219,6 +232,13 @@ const Login = () => {
         email={credentials.email}
         disabled={false}
         modalClass={"enable-account-modal"}
+        setEnableResult={setEnableResult}
+      />
+      <ConfirmResultModal
+        show={showConfirmModal}
+        closer={() => setShowConfirmModal(false)}
+        switchLabel={switchLabel}
+        dialogClass="email-sent-modal"
       />
     </Container>
   );
