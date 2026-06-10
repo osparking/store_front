@@ -126,7 +126,7 @@ const WorkerCanvas = () => {
             <div className="sideDiv"></div>
           </div>
 
-          <div className="bg-white p-4 rounded shadow-sm main-container-div">
+          <div className="p-4 rounded shadow-sm main-container-div">
             {
               {
                 manageOrder: <ManageOrder />,
