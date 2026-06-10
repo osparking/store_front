@@ -9,9 +9,7 @@ import RegisterProduce from "./produce/RegisterProduce";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { HiOutlinePencilAlt } from "react-icons/hi";
-import {
-  HiOutlineRectangleGroup
-} from "react-icons/hi2";
+import { HiOutlineRectangleGroup } from "react-icons/hi2";
 
 import { LuComponent, LuPanelLeftOpen } from "react-icons/lu";
 
@@ -66,7 +64,10 @@ const WorkerCanvas = () => {
                   onClick={() => tabClicked("manageOrder")}
                 >
                   <a href="#">
-                    <HiOutlinePencilAlt className="icon" style={{fill: "none"}}/>
+                    <HiOutlinePencilAlt
+                      className="icon"
+                      style={{ fill: "none" }}
+                    />
                   </a>
                 </li>
                 <li
@@ -88,9 +89,7 @@ const WorkerCanvas = () => {
               </ul>
             </div>
           ) : (
-            <WorkerSideBar
-              tabClicked={tabClicked}
-            />
+            <WorkerSideBar tabClicked={tabClicked} />
           )}
         </Col>
         <Col
@@ -128,15 +127,13 @@ const WorkerCanvas = () => {
           </div>
 
           <div className="bg-white p-4 rounded shadow-sm main-container-div">
-            <div className="main-container">
+            {
               {
-                {
-                  manageOrder: <ManageOrder />,
-                  manageIngredient: <ManageIngredient />,
-                  registerProduce: <RegisterProduce />,
-                }[workerTab]
-              }
-            </div>
+                manageOrder: <ManageOrder />,
+                manageIngredient: <ManageIngredient />,
+                registerProduce: <RegisterProduce />,
+              }[workerTab]
+            }
           </div>
         </Col>
       </Row>
@@ -152,7 +149,7 @@ const WorkerCanvas = () => {
         <Offcanvas.Body>
           <WorkerSideBar tabClicked={tabClicked} />
         </Offcanvas.Body>
-      </Offcanvas>      
+      </Offcanvas>
     </Container>
   );
 };
