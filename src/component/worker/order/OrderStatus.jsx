@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { changeOrderStatus, storeWaybillNo } from "../../buy/orderService";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import WaybillModal from "../../modal/WaybillModal";
+import "./OrderStatus.css";
 
 const OrderStatus = ({ statusLabels, order, loadOrderPage }) => {
   // 예정 주문 상태
@@ -87,6 +88,7 @@ const OrderStatus = ({ statusLabels, order, loadOrderPage }) => {
         title="범이비누 주문 발주"
         noLabel="발주 보류"
         yesLabel="발주 진행"
+        dialogClassName="placeOrderModalWidth"
       />
       <WaybillModal
         show={showWaybillModal}
