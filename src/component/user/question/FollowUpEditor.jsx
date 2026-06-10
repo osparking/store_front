@@ -166,7 +166,8 @@ function FollowUpEditor({
         title="댓글 삭제 확인"
         noLabel="취소"
         yesLabel="삭제"
-        headerBgColor="bg-danger"
+        yesVariant="danger"
+        headerBgColor="bg-warning"
         modelClassName="modal-slide-down"
         dialogClassName="reply-deletion-confirmation-modal"
       />

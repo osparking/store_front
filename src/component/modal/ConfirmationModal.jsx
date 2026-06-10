@@ -9,7 +9,7 @@ export default function ConfirmationModal({
   title,
   noLabel,
   yesLabel,
-  yesVariant = "",
+  yesVariant = "primary",
   headerBgColor = "",
   modelClassName = "",
   dialogClassName = "",
