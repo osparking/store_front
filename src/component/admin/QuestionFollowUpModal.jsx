@@ -67,7 +67,7 @@ export default function QuestionFollowUpModal({
               />
             ),
           )}
-        <div className="mt-3">
+        <div>
           {justReadQuestion ? (
             <QuestionViewer question={question} mine={mine} />
           ) : (
