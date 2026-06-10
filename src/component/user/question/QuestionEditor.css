@@ -16,8 +16,7 @@ form.question-editor-window {
 }
 
 .customerQuestionCard {
-  margin-top: 28px;
-  width: 100vw;
+  width: 100%;
   max-width: 740px;
   background-color: ivory;
   border-radius: 6px;
