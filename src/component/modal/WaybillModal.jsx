@@ -9,6 +9,7 @@ export default function WaybillModal({
   handleSubmit,
   getMessage,
   title,
+  dialogClass = "",
 }) {
   const [waybillNo, setWaybillNo] = useState("3631317740");
   const inputRef = useRef(null);
@@ -54,7 +55,13 @@ export default function WaybillModal({
   };
 
   return (
-    <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
+    <Modal
+      show={show}
+      onHide={handleClose}
+      backdrop="static"
+      keyboard={false}
+      dialogClassName={dialogClass}
+    >
       <Modal.Header closeButton>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>

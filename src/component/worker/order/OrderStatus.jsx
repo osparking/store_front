@@ -96,6 +96,7 @@ const OrderStatus = ({ statusLabels, order, loadOrderPage }) => {
         handleSubmit={handleWaybillConfirm}
         getMessage={getWaybillMessage}
         title="운송장번호 등록"
+        dialogClass="waybill-modal-class"
       />
       <Form.Group>
         <Form.Control
