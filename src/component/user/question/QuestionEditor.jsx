@@ -154,90 +154,86 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
   }, []);
 
   return (
-    <Container fluid className="home-container">
-      <div className="d-flex justify-content-center align-items-center">
-        <div>
-          <Card className="p-0 customerQuestionCard">
-            <Card.Body className="p-0">
-              <div className="d-flex justify-content-center align-items-center vh-67">
-                <Form
-                  onSubmit={handleSubmit}
-                  className={
-                    mine ? "question-editor-modal" : "question-editor-window"
-                  }
-                >
-                  <h5>
-                    {mine ? "나의 질문" : "고객 질문"}
-                  </h5>
-                  <Form.Group className="mb-0">
-                    <Form.Label className="mt-3">
-                      제목
-                      <Form.Text className="text-muted ms-2">
-                        (내용을 30 자 내외로 요약하세요.)
-                      </Form.Text>
-                      <Form.Control
-                        type="text"
-                        maxLength={40}
-                        name="title"
-                        defaultValue={question ? question.title : ""}
-                        placeholder="(제목 입력)"
-                        className="mt-2"
-                      />
-                    </Form.Label>
-                  </Form.Group>
+    <div className="d-flex justify-content-center align-items-center">
+      <div>
+        <Card className="p-0 customerQuestionCard">
+          <Card.Body className="p-0">
+            <div className="d-flex p-3 justify-content-center align-items-center vh-67">
+              <Form
+                onSubmit={handleSubmit}
+                className={
+                  mine ? "question-editor-modal" : "question-editor-window"
+                }
+              >
+                <h5>{mine ? "나의 질문" : "고객 질문"}</h5>
+                <Form.Group className="mb-0">
                   <Form.Label className="mt-3">
-                    내용
-                    <ReactQuill
-                      ref={quillRef}
-                      theme="snow"
-                      value={editorContent || placeholder}
-                      onChange={handleEditorChange}
-                      onFocus={clearPlaceholder}
-                      onBlur={handleEditorBlur}
-                      modules={modules}
-                      formats={formats}
-                      className="content-edit mt-2"
+                    제목
+                    <Form.Text className="text-muted ms-2">
+                      (내용을 30 자 내외로 요약하세요.)
+                    </Form.Text>
+                    <Form.Control
+                      type="text"
+                      maxLength={40}
+                      name="title"
+                      defaultValue={question ? question.title : ""}
+                      placeholder="(제목 입력)"
+                      className="mt-2"
                     />
                   </Form.Label>
+                </Form.Group>
+                <Form.Label className="mt-3">
+                  내용
+                  <ReactQuill
+                    ref={quillRef}
+                    theme="snow"
+                    value={editorContent || placeholder}
+                    onChange={handleEditorChange}
+                    onFocus={clearPlaceholder}
+                    onBlur={handleEditorBlur}
+                    modules={modules}
+                    formats={formats}
+                    className="content-edit mt-2"
+                  />
+                </Form.Label>
 
-                  <div className="text-muted mb-3">
-                    글자수: {getTextLength()} 자
-                  </div>
+                <div className="text-muted mb-3">
+                  글자수: {getTextLength()} 자
+                </div>
 
-                  <div className="d-flex gap-2 justify-content-center mb-3">
-                    <Button
-                      variant="secondary"
-                      type="button"
-                      className="px-4"
-                      onClick={() => closeEditor()}
-                    >
-                      닫기
-                    </Button>
-                    <Button
-                      variant="primary"
-                      type="submit"
-                      className="px-4"
-                      style={{ cursor: "pointer" }}
-                      disabled={saving}
-                    >
-                      {saving ? <span>저장 중...</span> : "저장"}
-                    </Button>
-                    <Button
-                      variant="outline-secondary"
-                      type="button"
-                      className="px-3"
-                      onClick={() => setEditorContent("")}
-                    >
-                      초기화
-                    </Button>
-                  </div>
-                </Form>
-              </div>
-            </Card.Body>
-          </Card>
-        </div>
+                <div className="d-flex gap-2 justify-content-center mb-3">
+                  <Button
+                    variant="secondary"
+                    type="button"
+                    className="px-4"
+                    onClick={() => closeEditor()}
+                  >
+                    닫기
+                  </Button>
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    className="px-4"
+                    style={{ cursor: "pointer" }}
+                    disabled={saving}
+                  >
+                    {saving ? <span>저장 중...</span> : "저장"}
+                  </Button>
+                  <Button
+                    variant="outline-secondary"
+                    type="button"
+                    className="px-3"
+                    onClick={() => setEditorContent("")}
+                  >
+                    초기화
+                  </Button>
+                </div>
+              </Form>
+            </div>
+          </Card.Body>
+        </Card>
       </div>
-    </Container>
+    </div>
   );
 }
 
