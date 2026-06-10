@@ -9,6 +9,7 @@ export default function ConfirmationModal({
   title,
   noLabel,
   yesLabel,
+  yesVariant = "",
   headerBgColor = "",
   modelClassName = "",
   dialogClassName = "",
@@ -31,7 +32,7 @@ export default function ConfirmationModal({
           {noLabel}
         </Button>
         <Button
-          variant="primary"
+          variant={yesVariant}
           onClick={() => handleConfirm()}
           className="flex-fill ms-2"
         >

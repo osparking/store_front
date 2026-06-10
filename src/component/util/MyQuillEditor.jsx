@@ -100,7 +100,8 @@ function MyQuillEditor({
         title="후기 삭제 확인"
         noLabel="취소"
         yesLabel="삭제"
-        headerBgColor="bg-danger"
+        yesVariant="danger"
+        headerBgColor="bg-warning"
         modelClassName="modal-slide-down"
         dialogClassName="review-deletion-confirmation-modal"
       />
