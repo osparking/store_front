@@ -259,6 +259,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         title={getModalTitle(orderStatus)}
         noLabel={getNoLabel(orderStatus)}
         yesLabel={getYesLabel(orderStatus)}
+        dialogClassName="customer-confirm-modal"
       />
       <ReviewModal
         show={showReviewModal}

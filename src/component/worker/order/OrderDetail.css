@@ -94,6 +94,10 @@ td.addressCell {
   margin-right: 0 !important;
 }
 
+.customer-confirm-modal {
+  width: 360px;
+}
+
 @media screen and (max-height: 899px) {
   #order_detail_container {
     align-items: center;
