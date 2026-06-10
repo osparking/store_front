@@ -89,13 +89,18 @@ td.addressCell {
   overflow-y: auto;
 }
 
-#order_detail_container > .row {
+#order_detail_container>.row {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
 
 .customer-confirm-modal {
   width: 360px;
+}
+
+#orderDetails {
+  display: flex;
+  height: fit-content !important;
 }
 
 @media screen and (max-height: 899px) {

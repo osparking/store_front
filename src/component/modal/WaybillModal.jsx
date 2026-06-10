@@ -69,7 +69,7 @@ export default function WaybillModal({
         {getMessage()}
         <Form onSubmit={saveWaybillNo}>
           <Form.Group controlId="curPwd">
-            <Form.Label>GS25 운송장번호: 363131774074</Form.Label>
+            <Form.Label>GS25 운송장번호: 365109450043</Form.Label>
             <InputGroup>
               <Form.Control
                 ref={inputRef}

@@ -270,7 +270,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         editable={!isHouse}
       />
       {orderDetails && (
-        <div className="main-container" style={{ display: "flex" }}>
+        <div id="orderDetails" className="main-container">
           <div className="orders_table_div darkBack">
             <div id="order_detail_container">
               <Row className="d-flex justify-content-center align-items-center gap-10">
