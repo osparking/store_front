@@ -269,196 +269,207 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         editable={!isHouse}
       />
       {orderDetails && (
-        <div className="mt-4 orders_table_div darkBack">
-          <div id="order_detail_container">
-            <Row className="d-flex justify-content-center align-items-center gap-10">
-              <p className="shapeCount darkFont">주문 개요</p>
-              <Col lg={4} md={4} xs={8} className="orderSummaryCol">
-                <Table className="tabWidth mt-0">
-                  <tbody>
-                    <tr>
-                      <th className="iLabel">주문ID</th>
-                      <td className="oText">{orderDetails.order.orderId}</td>
-                    </tr>
-                    <tr>
-                      <th className="iLabel">주문명칭</th>
-                      <td className="oText">{orderDetails.order.orderName}</td>
-                    </tr>
-                    <tr>
-                      <th className="iLabel">주문시간</th>
-                      <td className="oText">
-                        {formatDate(orderDetails.order.orderTime)}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th className="iLabel">{getStatusLabel()}</th>
-                      <td className="oText">{orderStatus}</td>
-                    </tr>
-                  </tbody>
-                </Table>
-              </Col>
-              <Col lg={4} md={4} xs={8} className="orderSummaryCol">
-                <Table className="tabWidth mt-0">
-                  <tbody>
-                    <tr>
-                      <th className="iLabel">주문자명</th>
-                      <td className="oText">{orderDetails.order.customer}</td>
-                    </tr>
-                    {isHouse && (
+        <div className="main-container" style={{ display: "flex" }}>
+          <div className="orders_table_div darkBack">
+            <div id="order_detail_container">
+              <Row className="d-flex justify-content-center align-items-center gap-10">
+                <p className="shapeCount darkFont">주문 개요</p>
+                <Col lg={4} md={4} xs={8} className="orderSummaryCol">
+                  <Table className="tabWidth mt-0">
+                    <tbody>
                       <tr>
-                        <th className="iLabel">주문자ID</th>
-                        <td className="oText">{orderDetails.order.user_id}</td>
+                        <th className="iLabel">주문ID</th>
+                        <td className="oText">{orderDetails.order.orderId}</td>
                       </tr>
-                    )}
-                    <tr>
-                      <th className="iLabel">지불금액</th>
-                      <td className="oText">
-                        {Number(orderDetails.order.payment).toLocaleString()}원
-                      </td>
-                    </tr>
-                    {!isHouse && (
+                      <tr>
+                        <th className="iLabel">주문명칭</th>
+                        <td className="oText">
+                          {orderDetails.order.orderName}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th className="iLabel">주문시간</th>
+                        <td className="oText">
+                          {formatDate(orderDetails.order.orderTime)}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th className="iLabel">{getStatusLabel()}</th>
+                        <td className="oText">{orderStatus}</td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </Col>
+                <Col lg={4} md={4} xs={8} className="orderSummaryCol">
+                  <Table className="tabWidth mt-0">
+                    <tbody>
+                      <tr>
+                        <th className="iLabel">주문자명</th>
+                        <td className="oText">{orderDetails.order.customer}</td>
+                      </tr>
+                      {isHouse && (
+                        <tr>
+                          <th className="iLabel">주문자ID</th>
+                          <td className="oText">
+                            {orderDetails.order.user_id}
+                          </td>
+                        </tr>
+                      )}
+                      <tr>
+                        <th className="iLabel">지불금액</th>
+                        <td className="oText">
+                          {Number(orderDetails.order.payment).toLocaleString()}
+                          원
+                        </td>
+                      </tr>
+                      {!isHouse && (
+                        <tr>
+                          <td
+                            className="oText hidden centered"
+                            colSpan={2}
+                            onMouseEnter={() =>
+                              notAtGS25yet() && setShowTooltip1(true)
+                            }
+                            onMouseLeave={() => setShowTooltip1(false)}
+                          >
+                            <Button
+                              className="pt-0 pb-0"
+                              disabled={notAtGS25yet()}
+                              onClick={() => handleTopButton()}
+                            >
+                              배송 조회
+                            </Button>
+                            {showTooltip1 && (
+                              <div
+                                className="absolute bottom-full left-1/2 
+                  transform -translate-x-1/2 mb-1 px-2 py-1 
+                  bg-black text-white text-xs rounded"
+                              >
+                                'GS25 접수' 후 활성화됨
+                              </div>
+                            )}
+                          </td>
+                        </tr>
+                      )}
                       <tr>
                         <td
                           className="oText hidden centered"
                           colSpan={2}
                           onMouseEnter={() =>
-                            notAtGS25yet() && setShowTooltip1(true)
+                            notAtGS25yet() && setShowTooltip2(true)
                           }
-                          onMouseLeave={() => setShowTooltip1(false)}
+                          onMouseLeave={() => setShowTooltip2(false)}
                         >
                           <Button
                             className="pt-0 pb-0"
                             disabled={notAtGS25yet()}
-                            onClick={() => handleTopButton()}
+                            onClick={() => handleBottomButton()}
                           >
-                            배송 조회
+                            {getBottomButtonLabel(orderStatus)}
                           </Button>
-                          {showTooltip1 && (
+                          {showTooltip2 && (
                             <div
                               className="absolute bottom-full left-1/2 
-                  transform -translate-x-1/2 mb-1 px-2 py-1 
-                  bg-black text-white text-xs rounded"
+                transform -translate-x-1/2 mb-1 px-2 py-1 
+                bg-black text-white text-xs rounded"
                             >
                               'GS25 접수' 후 활성화됨
                             </div>
                           )}
                         </td>
                       </tr>
-                    )}
-                    <tr>
-                      <td
-                        className="oText hidden centered"
-                        colSpan={2}
-                        onMouseEnter={() =>
-                          notAtGS25yet() && setShowTooltip2(true)
-                        }
-                        onMouseLeave={() => setShowTooltip2(false)}
-                      >
-                        <Button
-                          className="pt-0 pb-0"
-                          disabled={notAtGS25yet()}
-                          onClick={() => handleBottomButton()}
-                        >
-                          {getBottomButtonLabel(orderStatus)}
-                        </Button>
-                        {showTooltip2 && (
-                          <div
-                            className="absolute bottom-full left-1/2 
-                transform -translate-x-1/2 mb-1 px-2 py-1 
-                bg-black text-white text-xs rounded"
-                          >
-                            'GS25 접수' 후 활성화됨
-                          </div>
-                        )}
-                      </td>
-                    </tr>
-                  </tbody>
-                </Table>
-              </Col>
-            </Row>
-            <Row className="d-flex justify-content-center align-items-center p-2">
-              <Col lg={4} md={4} xs={12}>
-                <p className="shapeCount darkFont">외형별 개수</p>
-                <Table id="shapeCountTable" style={{ marginTop: 0 }}>
-                  <tbody>
-                    {orderDetails.items.map((item, index) => (
-                      <tr key={index}>
-                        <th className="aLabel">{item.shape}</th>
-                        <td> {item.count} 개</td>
-                      </tr>
-                    ))}
-                    <tr style={{ fontWeight: "bold" }}>
-                      <th className="aLabel bold center">합 계</th>
-                      <td> {orderDetails.totalSoapCount} 개</td>
-                    </tr>
-                  </tbody>
-                </Table>
-              </Col>
-              <Col lg={7} md={8} xs={12}>
-                <p className="shapeCount darkFont">배송지</p>
-                <div
-                  className="mb-1"
-                  style={{
-                    width: "100%",
-                    marginTop: 0,
-                  }}
-                >
-                  <Table className="tabWidth mb-1" style={{ marginTop: 0 }}>
+                    </tbody>
+                  </Table>
+                </Col>
+              </Row>
+              <Row className="d-flex justify-content-center align-items-center p-2">
+                <Col lg={4} md={4} xs={12}>
+                  <p className="shapeCount darkFont">외형별 개수</p>
+                  <Table id="shapeCountTable" style={{ marginTop: 0 }}>
                     <tbody>
-                      <tr>
-                        <th className="aLabel">우편번호</th>
-                        <td className="oText">{orderDetails.order.zipcode}</td>
-                      </tr>
-                      <tr>
-                        <th className="aLabel addressCell">도로주소</th>
-                        <td className="oText addressCell text-wrap">
-                          {orderDetails.order.roadAddress}
-                        </td>
-                      </tr>
-                      <tr>
-                        <th className="aLabel">상세주소</th>
-                        <td className="oText">
-                          {orderDetails.order.addressDetail}
-                        </td>
-                      </tr>
-                      <tr>
-                        <th className="aLabel">받는 분</th>
-                        <td className="oText">
-                          {orderDetails.order.recipient}
-                        </td>
-                      </tr>
-                      <tr>
-                        <th className="aLabel">휴대폰</th>
-                        <td className="oText">{orderDetails.order.mbPhone}</td>
+                      {orderDetails.items.map((item, index) => (
+                        <tr key={index}>
+                          <th className="aLabel">{item.shape}</th>
+                          <td> {item.count} 개</td>
+                        </tr>
+                      ))}
+                      <tr style={{ fontWeight: "bold" }}>
+                        <th className="aLabel bold center">합 계</th>
+                        <td> {orderDetails.totalSoapCount} 개</td>
                       </tr>
                     </tbody>
                   </Table>
-                </div>
-              </Col>
-            </Row>
-          </div>
-          {setShowDetail && (
-            <>
-              <hr />
-              <Row>
-                <Col
-                  lg={12}
-                  md={12}
-                  xs={12}
-                  className="d-flex justify-content-center align-items-center"
-                >
-                  <Button
-                    variant="success"
-                    className="showAlways"
-                    onClick={() => setShowDetail(false)}
-                    style={{ margin: "0 auto .5rem" }}
+                </Col>
+                <Col lg={7} md={8} xs={12}>
+                  <p className="shapeCount darkFont">배송지</p>
+                  <div
+                    className="mb-1"
+                    style={{
+                      width: "100%",
+                      marginTop: 0,
+                    }}
                   >
-                    주문 목록
-                  </Button>
+                    <Table className="tabWidth mb-1" style={{ marginTop: 0 }}>
+                      <tbody>
+                        <tr>
+                          <th className="aLabel">우편번호</th>
+                          <td className="oText">
+                            {orderDetails.order.zipcode}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th className="aLabel addressCell">도로주소</th>
+                          <td className="oText addressCell text-wrap">
+                            {orderDetails.order.roadAddress}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th className="aLabel">상세주소</th>
+                          <td className="oText">
+                            {orderDetails.order.addressDetail}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th className="aLabel">받는 분</th>
+                          <td className="oText">
+                            {orderDetails.order.recipient}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th className="aLabel">휴대폰</th>
+                          <td className="oText">
+                            {orderDetails.order.mbPhone}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                  </div>
                 </Col>
               </Row>
-            </>
-          )}
+            </div>
+            {setShowDetail && (
+              <>
+                <hr />
+                <Row>
+                  <Col
+                    lg={12}
+                    md={12}
+                    xs={12}
+                    className="d-flex justify-content-center align-items-center"
+                  >
+                    <Button
+                      variant="success"
+                      className="showAlways"
+                      onClick={() => setShowDetail(false)}
+                      style={{ margin: "0 auto .5rem" }}
+                    >
+                      주문 목록
+                    </Button>
+                  </Col>
+                </Row>
+              </>
+            )}
+          </div>
         </div>
       )}
     </>

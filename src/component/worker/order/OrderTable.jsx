@@ -86,7 +86,7 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
   };
 
   return (
-    <div>
+    <div className="main-container">
       <p className="text-center mb-1">
         {getRecordRange(orderPage, indexOfFirst, idxLastPlus1, "주문")}
       </p>
