@@ -57,6 +57,16 @@ const Login = () => {
   } = BsAlertHook();
 
   useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const email = params.get("email");
+
+    if (email) {
+      setCredentials({ ...credentials, email: email });
+      setShowEnableModal(true);
+    }
+  }, []);
+
+  useEffect(() => {
     localStorage.setItem("SAVE_LOGIN", credentials.save_login);
   }, [credentials.save_login]);
 
