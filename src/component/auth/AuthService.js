@@ -12,6 +12,16 @@ export const loginUser = async (email, password) => {
   }
 };
 
+export async function getEmailViaToken(token) {
+  try {
+    const url = `/autho/email?token=${token}`;
+    const result = await api.get(url);
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 const clearLoginUserInfo = () => {
   const items = [
     "ADMIN_TAB",
