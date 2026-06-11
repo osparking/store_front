@@ -8,6 +8,17 @@ const ConfirmResultModal = ({
   dialogClass,
   expireTime = "미설정",
 }) => {
+  const getModalTitle = () => {
+    switch (switchLabel) {
+      case "제출 요청 접수됨":
+        return "활성화 다음 단계";
+        break;
+
+      default:
+        return "이메일 소유 확인 결과";
+    }
+  };
+
   const getModalMessage = () => {
     switch (switchLabel) {
       case "계정 활성화":
@@ -28,10 +39,8 @@ const ConfirmResultModal = ({
               회원님의 이메일 주소 검증을 위하여...
             </p>
             <p>
-              귀하께 <b>새 이메일이 발송</b>되었으니,
-            </p>
-            <p>
-              이메일에 포함된 <b>링크를 클릭</b>하여 계정을 활성화하십시오.
+              귀하께 <b>새 이메일이 발송</b>되었으니, 이메일에 포함된{" "}
+              <b>링크를 클릭</b>하여 계정을 활성화하십시오.
             </p>
           </>
         );
@@ -42,12 +51,12 @@ const ConfirmResultModal = ({
               회원님의 계정 활성화를 위하여...
             </p>
             <p>
-              귀하께 <b> 이메일이 발송</b>되었으니,
+              귀하께 <b> 이메일이 발송</b>되었습니다.<br />
+              이메일 내포 <b>링크를 클릭</b>하면 활성화가 완료됩니다.
             </p>
-            <p>
-              이메일에 포함된 <b>링크를 클릭</b>하여 계정을 활성화하십시오.
+            <p style={{ textAlign: "center" }}>
+              (* 링크 폐기 시간: {expireTime} *)
             </p>
-            <p>(* 링크 폐기 시간: {expireTime} *)</p>
           </>
         );
       case "폐기된 토큰":
@@ -84,7 +93,7 @@ const ConfirmResultModal = ({
   return (
     <Modal show={show} onHide={closer} dialogClassName={dialogClass}>
       <Modal.Header closeButton>
-        <Modal.Title>이메일 소유 확인 결과</Modal.Title>
+        <Modal.Title>{getModalTitle()}</Modal.Title>
       </Modal.Header>
       <Modal.Body>{getModalMessage()}</Modal.Body>
       <Modal.Footer>
