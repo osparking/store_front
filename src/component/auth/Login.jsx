@@ -15,7 +15,12 @@ import naverIcon from "../../assets/images/btnD_icon_square.png";
 import AlertMessage from "../common/AlertMessage";
 import { jwtToUser } from "../common/JwtUtils";
 import BsAlertHook from "../hook/BsAlertHook";
-import { HTTP_STATUS, storeJWT, storeLoginInfo } from "../util/utilities";
+import {
+  formatTime,
+  HTTP_STATUS,
+  storeJWT,
+  storeLoginInfo,
+} from "../util/utilities";
 import { loginUser } from "./AuthService";
 import CodeEntryModal from "./CodeEntryModal";
 import "./Login.css";
@@ -199,12 +204,13 @@ const Login = () => {
 
   const [enableResult, setEnableResult] = useState(null);
   const [switchLabel, setSwitchLabel] = useState("");
+  const [expireTime, setExpireTime] = useState("");
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   useEffect(() => {
     if (enableResult) {
-      console.log("Enable account result:", enableResult);
       setSwitchLabel(enableResult.message);
+      setExpireTime(formatTime(enableResult.expireTime));
       setShowConfirmModal(true);
     }
   }, [enableResult]);
@@ -242,6 +248,7 @@ const Login = () => {
         closer={() => setShowConfirmModal(false)}
         switchLabel={switchLabel}
         dialogClass="email-sent-modal"
+        expireTime={expireTime}
       />
     </Container>
   );
