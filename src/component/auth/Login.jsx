@@ -21,7 +21,7 @@ import {
   storeJWT,
   storeLoginInfo,
 } from "../util/utilities";
-import { loginUser } from "./AuthService";
+import { getEmailViaToken, loginUser } from "./AuthService";
 import CodeEntryModal from "./CodeEntryModal";
 import "./Login.css";
 import EnableAccountModal from "../modal/EnableAccountModal";
@@ -57,13 +57,33 @@ const Login = () => {
   } = BsAlertHook();
 
   useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const email = params.get("email");
+    const fetchToken = async () => {
+      try {
+        const params = new URLSearchParams(location.search);
+        const token = params.get("token");
+        if (token) {
+          try {
+            const response = await getEmailViaToken(token);
+            const email = response.data.email;
 
-    if (email) {
-      setCredentials({ ...credentials, email: email });
-      setShowEnableModal(true);
-    }
+            if (email) {
+              setCredentials({ ...credentials, email: email });
+              setShowEnableModal(true);
+
+              // 보안: 모달 뜬 후 URL에서 token 제거 (히스토리 정리)
+              window.history.replaceState(null, "", "/login");
+            } else {
+              console.error("토큰 만료 또는 오류");
+            }
+          } catch (e) {
+            console.error("email error: ", e);
+          }
+        }
+      } catch (e) {
+        console.error("token error: ", e);
+      }
+    };
+    fetchToken();
   }, []);
 
   useEffect(() => {
