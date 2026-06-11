@@ -1,7 +1,13 @@
 import { Button, Modal } from "react-bootstrap";
 import "./ConfirmResultModal.css";
 
-const ConfirmResultModal = ({ show, closer, switchLabel, dialogClass }) => {
+const ConfirmResultModal = ({
+  show,
+  closer,
+  switchLabel,
+  dialogClass,
+  expireTime = "미설정",
+}) => {
   const getModalMessage = () => {
     switch (switchLabel) {
       case "계정 활성화":
@@ -41,6 +47,7 @@ const ConfirmResultModal = ({ show, closer, switchLabel, dialogClass }) => {
             <p>
               이메일에 포함된 <b>링크를 클릭</b>하여 계정을 활성화하십시오.
             </p>
+            <p>(* 링크 폐기 시간: {expireTime} *)</p>
           </>
         );
       case "폐기된 토큰":
