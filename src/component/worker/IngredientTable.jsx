@@ -118,7 +118,9 @@ const IngredientTable = (
                     <Link
                       to={"#"}
                       className="text-danger"
-                      onClick={() => handleShowDelModal(ingredient.id)}
+                      onClick={() =>
+                        handleShowDelModal(ingredient.id, ingredient.ingreName)
+                      }
                     >
                       <BsTrashFill />
                     </Link>
