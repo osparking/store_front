@@ -7,10 +7,9 @@ import {
 } from "../../buy/orderService";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import ReviewModal from "../../review/ReviewModal";
+import { ReviewsContext } from "../../user/UserDashboard";
 import { formatDate } from "../../util/utilities";
 import "./OrderDetail.css";
-import { set } from "lodash";
-import { ReviewsContext } from "../../user/UserDashboard";
 
 const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   let refreshReviews = () => {};
@@ -249,6 +248,10 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     setShowReviewModal(false);
   };
 
+  const deliveryStatusCheckingNeeded = () => {
+    return isHouse && !notAtGS25yet() && orderStatus === "후기 남김";
+  };
+
   return (
     <>
       <ConfirmationModal
@@ -311,9 +314,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                       {isHouse && (
                         <tr>
                           <th className="iLabel">주문자ID</th>
-                          <td className="oText">
-                            {orderDetails.order.user_id}
-                          </td>
+                          <td className="oText">{orderDetails.order.userId}</td>
                         </tr>
                       )}
                       <tr>
@@ -361,22 +362,32 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                           }
                           onMouseLeave={() => setShowTooltip2(false)}
                         >
-                          <Button
-                            className="pt-0 pb-0"
-                            disabled={notAtGS25yet()}
-                            onClick={() => handleBottomButton()}
-                          >
-                            {getBottomButtonLabel(orderStatus)}
-                          </Button>
-                          {showTooltip2 && (
-                            <div
-                              className="absolute bottom-full left-1/2 
-                transform -translate-x-1/2 mb-1 px-2 py-1 
-                bg-black text-white text-xs rounded"
+                          <div id="orderWorkerButton">
+                            {deliveryStatusCheckingNeeded() && (
+                              <Button
+                                className="pt-0 pb-0"
+                                onClick={() => showDeliveryStatus()}
+                              >
+                                배송 조회
+                              </Button>
+                            )}
+                            <Button
+                              className="pt-0 pb-0"
+                              disabled={notAtGS25yet()}
+                              onClick={() => handleBottomButton()}
                             >
-                              'GS25 접수' 후 활성화됨
-                            </div>
-                          )}
+                              {getBottomButtonLabel(orderStatus)}
+                            </Button>
+                            {showTooltip2 && (
+                              <div
+                                className="absolute bottom-full left-1/2 
+transform -translate-x-1/2 mb-1 px-2 py-1 
+bg-black text-white text-xs rounded"
+                              >
+                                'GS25 접수' 후 활성화됨
+                              </div>
+                            )}
+                          </div>
                         </td>
                       </tr>
                     </tbody>
