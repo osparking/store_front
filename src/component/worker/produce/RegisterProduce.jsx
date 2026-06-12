@@ -155,9 +155,10 @@ const RegisterProduce = () => {
         show={showDelModal}
         onHide={() => setShowDelModal(false)}
         handleDeletion={handleProduceDelete}
-        target={`${delRegTime} 시분초 입력 생산 정보`}
+        target={`${delRegTime} 입력 정보`}
         disabled={delBtnDisabled}
         isPageLastItem={produceRows.length === 1}
+        modalClass="delete-produce-confirm"
       />
 
       <Row>
