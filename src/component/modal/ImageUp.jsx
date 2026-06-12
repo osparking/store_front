@@ -49,7 +49,7 @@ const ImageUp = ({ user, show, handleClose }) => {
 
   return (
     <Modal show={show} onHide={handleClose} dialogClassName="w-400">
-      <Modal.Header>
+      <Modal.Header closeButton>
         <Modal.Title>프로필 사진</Modal.Title>
       </Modal.Header>
       <Modal.Body>
