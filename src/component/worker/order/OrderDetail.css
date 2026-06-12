@@ -103,6 +103,12 @@ td.addressCell {
   height: fit-content !important;
 }
 
+#orderWorkerButton {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+}
+
 @media screen and (max-height: 899px) {
   #order_detail_container {
     align-items: center;
