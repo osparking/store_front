@@ -183,7 +183,7 @@ const ManageIngredient = () => {
         target={ingNameToDel}
         disabled={delBtnDisabled}
         isPageLastItem={ingreList.length === 1}
-        modalClass="delete-produce-confirm"
+        modalClass="delete-ingredient-confirm"
       />
 
       <Row className="mb-2 justify-content-center">
