@@ -11,8 +11,11 @@ import DisableAccountModal from "../modal/DisableAccountModal";
 import ImageUp from "../modal/ImageUp";
 import { callWithToken } from "../util/api";
 import "./UserProfile.css";
+import { deleteUserPhoto } from "../modal/ImageService";
+import DeleteConfirmModal from "../modal/DeleteConfirmModal";
+import BsAlertHook from "../hook/BsAlertHook";
 
-const UserProfile = ({ user, handleRemovePhoto }) => {
+const UserProfile = ({ user }) => {
   const userNew = { ...user, enabled: user.enabled ? "가능" : "불가능" };
   const [showImageUp, setShowImageUp] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
@@ -32,6 +35,37 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
   const [showDelModal, setShowDelModal] = useState(false);
   const handleModalXButtonClick = () => {
     setShowDelModal(false);
+  };
+
+  const {
+    successMsg,
+    setSuccessMsg,
+    alertSuccess,
+    setAlertSuccess,
+    errorMsg,
+    setErrorMsg,
+    alertError,
+    setAlertError,
+  } = BsAlertHook();
+
+  const [showPhotoDelModal, setShowPhotoDelModal] = useState(false);
+  const [delPhotoBtnDisabled, setDelPhotoBtnDisabled] = useState(false);
+
+  const removePhoto = async () => {
+    try {
+      setDelPhotoBtnDisabled(true);
+      const result = await deleteUserPhoto(user.id);
+      window.location.reload();
+    } catch (error) {
+      setErrorMsg(error.response.data.message);
+      setAlertError(true);
+    } finally {
+      setDelPhotoBtnDisabled(false);
+    }
+  };
+
+  const confirmPhotoRemoval = () => {
+    setShowPhotoDelModal(true);
   };
 
   const [twoFaEnabled, setTwoFaEnabled] = useState(user.twoFaEnabled);
@@ -115,7 +149,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                   <Link
                     to={"#"}
                     {...(user.photoId
-                      ? { onClick: handleRemovePhoto }
+                      ? { onClick: confirmPhotoRemoval }
                       : { style: { cursor: "default", color: "grey" } })}
                   >
                     사진 제거
@@ -153,6 +187,14 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
             </div>
           </div>
         </Card.Body>
+        <DeleteConfirmModal
+          show={showPhotoDelModal}
+          onHide={() => setShowPhotoDelModal(false)}
+          handleDeletion={removePhoto}
+          target={"프로필 사진"}
+          disabled={delPhotoBtnDisabled}
+          modalClass="delete-photo-confirm"
+        />
       </Card>
     );
   };
