@@ -6,7 +6,6 @@ import "../../index.css";
 import ManageQuestions from "../admin/ManageQuestions";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
-import { deleteUserPhoto } from "../modal/ImageService";
 import ManageMyOrder from "./ManageMyOrder";
 import OverviewUser from "./OverviewUser";
 import MyReviewsPage from "./review/MyReviewsPage";
@@ -68,16 +67,6 @@ const UserDashboard = () => {
     }
   }, [id]);
 
-  const removePhoto = async () => {
-    try {
-      const result = await deleteUserPhoto(id);
-      window.location.reload();
-    } catch (error) {
-      setErrorMsg(error.response.data.message);
-      setAlertError(true);
-    }
-  };
-
   const isVeryNarrow = useMediaQuery({ maxWidth: 599 });
   const isVeryShort = useMediaQuery({ maxHeight: 599 });
   const isMedium = useMediaQuery({ minWidth: 600, maxWidth: 1199 });
@@ -91,7 +80,7 @@ const UserDashboard = () => {
       key: "profile",
       title: "내 프로필",
       component: user && (
-        <UserProfile user={user} handleRemovePhoto={removePhoto} />
+        <UserProfile user={user} />
       ),
     },
     { key: "purchase_stat", title: "구매 통계", component: <OverviewUser /> },
