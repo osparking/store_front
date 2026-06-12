@@ -1,4 +1,4 @@
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { BsPlusSquareFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
@@ -181,6 +181,7 @@ const ManageIngredient = () => {
         target="입고 재료 정보의"
         disabled={delBtnDisabled}
         isPageLastItem={ingreList.length === 1}
+        modalClass="delete-produce-confirm"
       />
 
       <Row className="mb-2 justify-content-center">
