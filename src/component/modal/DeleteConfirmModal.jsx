@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
+import "./DeleteConfirmModal.css"
 
 const DeleteConfirmModal = ({
   show,
@@ -12,7 +13,7 @@ const DeleteConfirmModal = ({
 }) => {
   return (
     <Modal show={show} onHide={onHide} dialogClassName={modalClass}>
-      <Modal.Header closeButton>
+      <Modal.Header className="bg-warning" closeButton>
         <Modal.Title>삭제 후 복구 불가</Modal.Title>
       </Modal.Header>
       <Modal.Body>삭제되면, '{target}' 복구는 불가합니다!</Modal.Body>
