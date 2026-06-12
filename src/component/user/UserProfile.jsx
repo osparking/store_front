@@ -108,7 +108,7 @@ const UserProfile = ({ user, handleRemovePhoto }) => {
                 <EmpImage empPhoto={user.photoBytes} />
                 <p className="mt-5">
                   <Link to={"#"} onClick={() => setShowImageUp(true)}>
-                    사진 변경
+                    {user.photoBytes ? "사진 변경" : "사진 등록"}
                   </Link>
                 </p>
                 <p>
