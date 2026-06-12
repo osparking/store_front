@@ -144,7 +144,9 @@ const ManageIngredient = () => {
   const [ingIdToDel, setIngIdToDel] = useState(null);
   const [delBtnDisabled, setDelBtnDisabled] = useState(false);
 
-  const handleShowDelModal = (ingId) => {
+  const [ingNameToDel, setIngNameToDel] = useState();
+  const handleShowDelModal = (ingId, ingName) => {
+    setIngNameToDel(ingName);
     setShowDelModal(true);
     setIngIdToDel(ingId);
   };
@@ -178,7 +180,7 @@ const ManageIngredient = () => {
         show={showDelModal}
         onHide={() => setShowDelModal(false)}
         handleDeletion={handleIngreDelete}
-        target="입고 재료 정보의"
+        target={ingNameToDel}
         disabled={delBtnDisabled}
         isPageLastItem={ingreList.length === 1}
         modalClass="delete-produce-confirm"
