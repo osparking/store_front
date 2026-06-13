@@ -5,7 +5,12 @@ import AlertMessage from "../common/AlertMessage";
 import ProcessSpinner from "../common/ProcessSpinner";
 import BsAlertHook from "../hook/BsAlertHook";
 import ConfirmEmailModal from "../modal/ConfirmEmailModal";
-import { formatTime, maskEmail } from "../util/utilities";
+import {
+  formatTime,
+  handlePhoneChange,
+  insertHyphens,
+  maskEmail,
+} from "../util/utilities";
 import WorkerDeptSelector from "../worker/WorkerDeptSelector";
 import "./RegisterUser.css";
 import { registerUser } from "./UserService";
@@ -94,10 +99,14 @@ const RegisterUser = () => {
     });
   };
 
+  const setPhoneNumber = (mbPhone) => {
+    setUser({ ...user, mbPhone: mbPhone });
+  };
+
   const easyData = () => {
     setUser({
       fullName: "김성훈",
-      mbPhone: "010-1234-1223",
+      mbPhone: insertHyphens("01012341223"),
       email: "jbpark103@hanmail.net",
       password: "1234",
       confirmPassword: "1234",
@@ -205,12 +214,12 @@ const RegisterUser = () => {
                       <Form.Label>
                         휴대폰 번호
                         <Form.Control
-                          type="text"
+                          type="tel"
                           name="mbPhone"
                           autoComplete="tel"
                           placeholder="(휴대폰 번호)"
                           value={user.mbPhone}
-                          onChange={handleChange}
+                          onChange={(e) => handlePhoneChange(e, setPhoneNumber)}
                           required
                         />
                       </Form.Label>
@@ -273,17 +282,13 @@ const RegisterUser = () => {
                 </Button>
               </div>
 
-              {isAdmin && (
-                <div className="d-flex justify-content-center mb-3 mt-3">
-                  <Button
-                    variant="outline-warning"
-                    size="sm"
-                    onClick={easyData}
-                  >
-                    입력 편의
-                  </Button>
-                </div>
-              )}
+              {/* {isAdmin && ( */}
+              <div className="d-flex justify-content-center mb-3 mt-3">
+                <Button variant="outline-warning" size="sm" onClick={easyData}>
+                  입력 편의
+                </Button>
+              </div>
+              {/* )} */}
               {alertSuccess && (
                 <>
                   <AlertMessage type="success" message={successMsg} />
