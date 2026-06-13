@@ -103,11 +103,14 @@ const UserUpdate = () => {
 
   const handleUpdate = async (event) => {
     event.preventDefault();
-    if (!user.enabled) {
+    if (user.enabled) {
+      await callUpdateUser();
+    } else {
       console.log("모달표시 및 처리중단");
-      return;
     }
+  };
 
+  const callUpdateUser = async () => {
     const updatedUser = {
       userType: user.userType,
       fullName: user.fullName,
