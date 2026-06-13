@@ -68,7 +68,6 @@ const RegisterUser = () => {
 
     try {
       setIsProcessing(true);
-
       const response = await registerUser(user);
       const expireTime = response.data.tokenExpireTime;
 
@@ -106,7 +105,7 @@ const RegisterUser = () => {
   const easyData = () => {
     setUser({
       fullName: "김성훈",
-      mbPhone: insertHyphens("01012341223"),
+      mbPhone: "01012345678",
       email: "jbpark103@hanmail.net",
       password: "1234",
       confirmPassword: "1234",
@@ -218,7 +217,7 @@ const RegisterUser = () => {
                           name="mbPhone"
                           autoComplete="tel"
                           placeholder="(휴대폰 번호)"
-                          value={user.mbPhone}
+                          value={insertHyphens(user.mbPhone)}
                           onChange={(e) => handlePhoneChange(e, setPhoneNumber)}
                           required
                         />
