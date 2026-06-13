@@ -133,20 +133,19 @@ export function formatDate(dateString) {
 }
 
 export function insertHyphens(phone) {
-  return `${phone.slice(0, 3)}-${phone.slice(3, 7)}-${phone.slice(7, 11)}`;
+  if (phone.length <= 3) {
+    return phone;
+  } else if (phone.length <= 7) {
+    return `${phone.slice(0, 3)}-${phone.slice(3)}`;
+  } else {
+    return `${phone.slice(0, 3)}-${phone.slice(3, 7)}-${phone.slice(7, 11)}`;
+  }
 }
 
 export function handlePhoneChange(e, setPhoneNumber) {
   const input = e.target.value;
   const cleaned = input.replace(/\D/g, "");
-
-  if (cleaned.length <= 3) {
-    setPhoneNumber(cleaned);
-  } else if (cleaned.length <= 7) {
-    setPhoneNumber(`${cleaned.slice(0, 3)}-${cleaned.slice(3)}`);
-  } else {
-    setPhoneNumber(insertHyphens(cleaned));
-  }
+  setPhoneNumber(cleaned);
 }
 
 export function getPlainContent(htmlContent) {
