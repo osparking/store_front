@@ -2,7 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { Button, Form, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
 import AddressModal from "./AddressModal";
 import RecipientsModal from "../modal/RecipientsModal";
-import { handlePropChange, insertHyphens } from "../util/utilities.js";
+import {
+  handlePhoneChange,
+  handlePropChange,
+  insertHyphens,
+} from "../util/utilities.js";
 
 const RecipientInfo = ({
   formData,
@@ -28,19 +32,6 @@ const RecipientInfo = ({
       return;
     }
     e.preventDefault();
-  };
-
-  const handlePhoneChange = (e) => {
-    const input = e.target.value;
-    const cleaned = input.replace(/\D/g, "");
-
-    if (cleaned.length <= 3) {
-      setPhoneNumber(cleaned);
-    } else if (cleaned.length <= 7) {
-      setPhoneNumber(`${cleaned.slice(0, 3)}-${cleaned.slice(3)}`);
-    } else {
-      setPhoneNumber(insertHyphens(cleaned));
-    }
   };
 
   useEffect(() => {
@@ -110,7 +101,7 @@ const RecipientInfo = ({
                   <input
                     type="tel"
                     value={formData.mbPhone}
-                    onChange={handlePhoneChange}
+                    onChange={(e) => handlePhoneChange(e, setPhoneNumber)}
                     onKeyDown={handleKeyDown}
                     placeholder="000-0000-0000"
                     maxLength="13"
