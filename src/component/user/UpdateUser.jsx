@@ -92,7 +92,10 @@ const UserUpdate = () => {
     setUser((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleCheckChange = (e) => {
+  const [accountClosing, setAccountClosing] = useState(false);
+
+  const changeAccountAvailability = (e) => {
+    setAccountClosing(!e.target.checked);
     setUser({ ...user, [e.target.name]: e.target.checked });
   };
 
@@ -100,6 +103,11 @@ const UserUpdate = () => {
 
   const handleUpdate = async (event) => {
     event.preventDefault();
+    if (!user.enabled) {
+      console.log("모달표시 및 처리중단");
+      return;
+    }
+
     const updatedUser = {
       userType: user.userType,
       fullName: user.fullName,
@@ -167,7 +175,7 @@ const UserUpdate = () => {
               type="switch"
               name="enabled"
               checked={user.enabled}
-              onChange={handleCheckChange}
+              onChange={changeAccountAvailability}
               label={user.enabled ? "활성화됨" : "비활성임"}
               style={{ marginTop: "5px", opacity: user.enabled ? 1 : 0.5 }}
               className="pink-label"
@@ -294,7 +302,7 @@ const UserUpdate = () => {
               <div className="mx-2">
                 <Button
                   type="submit"
-                  variant="outline-primary"
+                  variant={accountClosing ? "danger" : "primary"}
                   size="sm"
                   className="me-2"
                   disabled={isProcessing}
