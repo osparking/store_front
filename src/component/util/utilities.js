@@ -136,6 +136,19 @@ export function insertHyphens(phone) {
   return `${phone.slice(0, 3)}-${phone.slice(3, 7)}-${phone.slice(7, 11)}`;
 }
 
+export function handlePhoneChange(e, setPhoneNumber) {
+  const input = e.target.value;
+  const cleaned = input.replace(/\D/g, "");
+
+  if (cleaned.length <= 3) {
+    setPhoneNumber(cleaned);
+  } else if (cleaned.length <= 7) {
+    setPhoneNumber(`${cleaned.slice(0, 3)}-${cleaned.slice(3)}`);
+  } else {
+    setPhoneNumber(insertHyphens(cleaned));
+  }
+}
+
 export function getPlainContent(htmlContent) {
   return htmlContent.replace(/<[^>]*>/g, "").trim();
 }
@@ -202,20 +215,20 @@ export const clearLocalOrderData = () => {
   localStorage.removeItem("ORDER_ID");
   localStorage.removeItem("ORDER_ACTION");
   localStorage.removeItem("ORDER_ID_TOSS");
-}
+};
 
 export const formatTime = (isoString) => {
   const date = new Date(isoString);
   const hours = date.getHours();
   const minutes = date.getMinutes();
-  return `${hours}시 ${minutes.toString().padStart(2, '0')}분`;
-}
+  return `${hours}시 ${minutes.toString().padStart(2, "0")}분`;
+};
 
 export const maskEmail = (email) => {
   return email.replace(/^(.{3})(.*)@/, (match, firstThree, rest) => {
-    return firstThree + '*'.repeat(rest.length) + '@';
+    return firstThree + "*".repeat(rest.length) + "@";
   });
-}
+};
 
 export const HTTP_STATUS = {
   OK: 200,
