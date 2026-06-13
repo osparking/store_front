@@ -22,23 +22,23 @@ const DisableAccountModal = ({
 
   return (
     <Modal show={show} onHide={onHide} dialogClassName={modalClass}>
-      <Modal.Header closeButton>
-        <Modal.Title>폐쇄 관련 지침</Modal.Title>
+      <Modal.Header className="bg-warning" closeButton>
+        <Modal.Title>비활성화 효과</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        폐쇄 후, 귀하는 자동 로그아웃되며, <br />'{target}' 복구는 이메일 검증을
-        통하여 가능합니다!
+        비활성화하면, 귀하는 자동 로그아웃되며, <br />
+        추후, 이메일 검증을 통하여 계정을 활성화할 수 있습니다.
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onHide}>
-          폐쇄 취소
+          그냥 두기
         </Button>
         <Button
           variant="danger"
           onClick={handleDisableAccount}
           disabled={disabled}
         >
-          {disabled ? "진행 중~" : "폐쇄 진행"}
+          {disabled ? "진행 중~" : "비활성화"}
         </Button>
       </Modal.Footer>
     </Modal>
