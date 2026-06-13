@@ -14,6 +14,7 @@ import AlertMessage from "../common/AlertMessage";
 import ProcessSpinner from "../common/ProcessSpinner";
 import BsAlertHook from "../hook/BsAlertHook";
 import { RootContext } from "../layout/RootLayout";
+import DisableAccountModal from "../modal/DisableAccountModal";
 import { insertHyphens } from "../util/utilities";
 import WorkerDeptSelector from "../worker/WorkerDeptSelector";
 import "./UpdateUser.css";
@@ -106,7 +107,7 @@ const UserUpdate = () => {
     if (user.enabled) {
       await callUpdateUser();
     } else {
-      console.log("모달표시 및 처리중단");
+      setShowConfirmModal(true);
     }
   };
 
@@ -283,11 +284,23 @@ const UserUpdate = () => {
     );
   };
 
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const handleXButtonClick = () => {
+    setShowConfirmModal(false);
+  };
+
   return (
     <Container
       id="userUpdateFormContainer"
       className="d-flex justify-content-center"
     >
+      <DisableAccountModal
+        show={showConfirmModal}
+        onHide={handleXButtonClick}
+        callUpdateUser={callUpdateUser}
+        disabled={false}
+        modalClass={"disable-account-confirm"}
+      />
       <Form id="userUpdateForm" onSubmit={handleUpdate}>
         <Card id="userUpdateCard" className="shadow">
           <Card.Header className="text-center mb-2 h3">
