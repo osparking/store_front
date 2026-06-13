@@ -6,13 +6,17 @@ const DisableAccountModal = ({
   show,
   onHide,
   userId,
-  target,
+  callUpdateUser,
   disabled,
   modalClass = "",
 }) => {
   const handleDisableAccount = async () => {
     try {
-      await disableUserAccount(userId);
+      if (userId) {
+        await disableUserAccount(userId);
+      } else {
+        await callUpdateUser();
+      }
       onHide();
       logoutUser();
     } catch (error) {
