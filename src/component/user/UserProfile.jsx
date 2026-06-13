@@ -182,7 +182,7 @@ const UserProfile = ({ user }) => {
                 className="w-100"
                 style={{ minWidth: "60px" }}
               >
-                계정 폐쇄
+                비활성화
               </Button>
             </div>
           </div>
@@ -301,7 +301,7 @@ const UserProfile = ({ user }) => {
         show={showDelModal}
         onHide={handleModalXButtonClick}
         userId={loginId}
-        target={`${user.fullName} 계정`}
+        target={""}
         disabled={false}
         modalClass={"disable-account-confirm"}
       />
