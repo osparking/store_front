@@ -9,6 +9,7 @@ import {
 import { Link } from "react-router-dom";
 import "./AdminCanvas.css";
 import "./WorkersTable.css";
+import { insert2Hyphens } from "../util/utilities";
 
 const WorkersTable = (displayWorkers) => {
   return (
@@ -30,7 +31,7 @@ const WorkersTable = (displayWorkers) => {
           <tr key={index}>
             <td>{worker.fullName}</td>
             <td>{worker.email}</td>
-            <td>{worker.mbPhone}</td>
+            <td>{insert2Hyphens(worker.mbPhone)}</td>
             <td>{worker.dept}</td>
             <td>{worker.enabled ? "활성" : "비활성"}</td>
             <td>{worker.addDate}</td>
