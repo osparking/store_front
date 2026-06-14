@@ -219,7 +219,7 @@ const Recipient = () => {
   };
 
   const mbPhoneOk = () => {
-    return formData.mbPhone.length === 13;
+    return formData.mbPhone.length === 11 || formData.mbPhone.length === 10;
   };
 
   const handleConfirm = async () => {
