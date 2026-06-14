@@ -153,17 +153,18 @@ h6 {
 }
 
 .returnLink {
-  font-size: 1.2em;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  font-family: 'Noto Serif KR', 'NanumGothicCoding', Georgia, Times;
+  margin-top: 20px;
+  font-family: 'Noto Sans KR', 'NanumGothic', 'Malgun Gothic', 'Segoe UI', sans-serif;
 }
 
-.returnLink>a {
-  text-decoration: none !important;
+.returnLink>.btn {
+  font-weight: 700;
+  font-size: 1.1em;
+  color: rgba(44, 29, 29, 0.9);
+  background-color: ivory;
 }
 
 .identity {
