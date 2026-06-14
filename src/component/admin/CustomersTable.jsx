@@ -6,6 +6,7 @@ import {
 import { BsEyeFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import "./ManageCustomers.css";
+import { insert2Hyphens } from "../util/utilities";
 
 const CustomersTable = (displayCustomers) => {
   return (
@@ -27,7 +28,7 @@ const CustomersTable = (displayCustomers) => {
           <tr key={idx}>
             <td>{customer.id}</td>
             <td>{customer.fullName}</td>
-            <td>{customer.mbPhone}</td>
+            <td>{insert2Hyphens(customer.mbPhone)}</td>
             <td>{customer.email}</td>
             <td>{customer.enabled ? "예" : "아니오"}</td>
             <td>{customer.addDate}</td>
