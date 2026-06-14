@@ -14,6 +14,7 @@ import "./UserProfile.css";
 import { deleteUserPhoto } from "../modal/ImageService";
 import DeleteConfirmModal from "../modal/DeleteConfirmModal";
 import BsAlertHook from "../hook/BsAlertHook";
+import { insert2Hyphens } from "../util/utilities";
 
 const UserProfile = ({ user }) => {
   const userNew = { ...user, enabled: user.enabled ? "가능" : "불가능" };
@@ -109,7 +110,7 @@ const UserProfile = ({ user }) => {
 
   const profileData = [
     { label: "성명", value: userNew.fullName },
-    { label: "휴대폰", value: userNew.mbPhone },
+    { label: "휴대폰", value: insert2Hyphens(userNew.mbPhone) },
     { label: "이메일", value: userNew.email },
     { label: "등록 형태", value: userNew.signUpMethod },
     { label: "등록 일시", value: userNew.addDate },

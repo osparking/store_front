@@ -132,6 +132,10 @@ export function formatDate(dateString) {
   return `'${year}년 ${month}월 ${day}일 ${hours}:${minutes}`;
 }
 
+export function insert2Hyphens(phone) {
+  return `${phone.slice(0, 3)}-${phone.slice(3, 7)}-${phone.slice(7, 11)}`;
+}
+
 export function insertHyphens(phone) {
   if (phone.length <= 3) {
     return phone;
