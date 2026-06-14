@@ -15,10 +15,10 @@ import { deleteUserPhoto } from "../modal/ImageService";
 import DeleteConfirmModal from "../modal/DeleteConfirmModal";
 import BsAlertHook from "../hook/BsAlertHook";
 import { insert2Hyphens } from "../util/utilities";
+import PasswordCard from "./details/PasswordCard";
 
 const UserProfile = ({ user }) => {
   const userNew = { ...user, enabled: user.enabled ? "가능" : "불가능" };
-  const [showImageUp, setShowImageUp] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [switchDisabled, setSwitchDisabled] = useState(false);
   const [qrCodeUrl, setQrCodeUrl] = useState("");
@@ -27,16 +27,7 @@ const UserProfile = ({ user }) => {
   const loginId = localStorage.getItem("LOGIN_ID");
   const fromList = Number(loginId) !== user.id;
   const isAdmin = JSON.parse(localStorage.getItem("IS_ADMIN"));
-
-  const handleCloseAccountButtonCLick = () => {
-    setShowDelModal(true);
-  };
-
   const [show2FA_modal, setShow2FA_modal] = useState(false);
-  const [showDelModal, setShowDelModal] = useState(false);
-  const handleModalXButtonClick = () => {
-    setShowDelModal(false);
-  };
 
   const {
     successMsg,
@@ -127,77 +118,6 @@ const UserProfile = ({ user }) => {
       return true;
     }
     return false;
-  };
-
-  const PasswordCard = () => {
-    return (
-      <Card
-        id="passwordCard"
-        className="text-center mb-3 shadow"
-        style={{ height: "fit-content" }}
-      >
-        <Card.Body className="p-3">
-          <div className="d-flex flex-column align-items-center justify-content-center">
-            {!(user.userType === "고객") && (
-              <>
-                <EmpImage empPhoto={user.photoBytes} />
-                <p className="mt-5">
-                  <Link to={"#"} onClick={() => setShowImageUp(true)}>
-                    {user.photoBytes ? "사진 변경" : "사진 등록"}
-                  </Link>
-                </p>
-                <p>
-                  <Link
-                    to={"#"}
-                    {...(user.photoId
-                      ? { onClick: confirmPhotoRemoval }
-                      : { style: { cursor: "default", color: "grey" } })}
-                  >
-                    사진 제거
-                  </Link>
-                </p>
-                <ImageUp
-                  user={user}
-                  show={showImageUp}
-                  handleClose={() => setShowImageUp(false)}
-                />
-              </>
-            )}
-            <p id="changePasswordLink">
-              <Link to={"#"} onClick={() => setShowChangePassword(true)}>
-                비밀번호 변경
-              </Link>
-            </p>
-            <ChangePassword
-              userId={user.id}
-              show={showChangePassword}
-              handleClose={() => setShowChangePassword(false)}
-            />
-          </div>
-          <div className="d-flex justify-content-center mt-2 mb-2">
-            <div className="mx-2">
-              <Button
-                variant="danger"
-                size="sm"
-                onClick={handleCloseAccountButtonCLick}
-                className="w-100"
-                style={{ minWidth: "60px" }}
-              >
-                비활성화
-              </Button>
-            </div>
-          </div>
-        </Card.Body>
-        <DeleteConfirmModal
-          show={showPhotoDelModal}
-          onHide={() => setShowPhotoDelModal(false)}
-          handleDeletion={removePhoto}
-          target={"프로필 사진"}
-          disabled={delPhotoBtnDisabled}
-          modalClass="delete-photo-confirm"
-        />
-      </Card>
-    );
   };
 
   const UserInfoCard = () => {
@@ -298,14 +218,6 @@ const UserProfile = ({ user }) => {
 
   return (
     <>
-      <DisableAccountModal
-        show={showDelModal}
-        onHide={handleModalXButtonClick}
-        userId={loginId}
-        target={""}
-        disabled={false}
-        modalClass={"disable-account-confirm"}
-      />
       <ConfirmationModal
         show={show2FA_modal}
         handleClose={() => setShow2FA_modal(false)}
@@ -319,7 +231,9 @@ const UserProfile = ({ user }) => {
       />
       <div style={{ width: "100%", maxWidth: "90vw", margin: "0 auto" }}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, md: 2 }}>
-          <Grid size={{ xs: 12, md: 3 }}>{PasswordCard()}</Grid>
+          <Grid size={{ xs: 12, md: 3 }}>
+            <PasswordCard user={user} />
+          </Grid>
           <Grid size={{ xs: 12, md: 9 }}>{UserInfoCard()}</Grid>
         </Grid>
       </div>
