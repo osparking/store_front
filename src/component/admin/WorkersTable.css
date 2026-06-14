@@ -1,8 +1,10 @@
 .admin-worker-table-container {
     margin: 20px;
-    max-height: 420px; /* 원하는 최대 높이 설정 */
+    max-height: 420px;
+    /* 원하는 최대 높이 설정 */
     width: calc(100% - 200px);
-    overflow: auto; /* 내용이 최대 높이를 초과할 때 스크롤바 표시 */
+    overflow: auto;
+    /* 내용이 최대 높이를 초과할 때 스크롤바 표시 */
 }
 
 .admin-worker-table {
@@ -23,8 +25,18 @@
     height: calc(100vh - 345px);
 }
 
+.readEye {
+    font-size: 14px;
+    padding: 0;
+    height: 16px;
+}
+
+.readEye>svg {
+    vertical-align: top;
+}
+
 @media screen and (max-width: 992px) {
     .main-container {
-        padding: 0 !important; 
+        padding: 0 !important;
     }
 }
