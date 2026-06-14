@@ -8,7 +8,7 @@ import {
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import ReviewModal from "../../review/ReviewModal";
 import { ReviewsContext } from "../../user/UserDashboard";
-import { formatDate } from "../../util/utilities";
+import { formatDate, insert2Hyphens } from "../../util/utilities";
 import "./OrderDetail.css";
 
 const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
@@ -450,7 +450,7 @@ bg-black text-white text-xs rounded"
                         <tr>
                           <th className="aLabel">휴대폰</th>
                           <td className="oText">
-                            {orderDetails.order.mbPhone}
+                            {insert2Hyphens(orderDetails.order.mbPhone)}
                           </td>
                         </tr>
                       </tbody>
