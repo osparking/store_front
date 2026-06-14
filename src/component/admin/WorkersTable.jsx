@@ -1,17 +1,17 @@
-import { OverlayTrigger, Table, Tooltip } from "react-bootstrap";
+import { Button, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
 import {
-    BsEyeFill,
-    BsLockFill,
-    BsPencilFill,
-    BsTrashFill,
-    BsUnlockFill
+  BsEyeFill,
+  BsLockFill,
+  BsPencilFill,
+  BsTrashFill,
+  BsUnlockFill,
 } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { insert2Hyphens } from "../util/utilities";
 import "./AdminCanvas.css";
 import "./WorkersTable.css";
-import { insert2Hyphens } from "../util/utilities";
 
-const WorkersTable = (displayWorkers) => {
+const WorkersTable = (displayWorkers, showDetailsOf) => {
   return (
     <Table bordered hover striped className="admin-worker-table">
       <thead>
@@ -42,13 +42,12 @@ const WorkersTable = (displayWorkers) => {
                   <Tooltip id={`tooltip-view-${index}`}>상세 보기</Tooltip>
                 }
               >
-                <Link
-                  to={`/dashboard/${worker.id}/user`}
-                  className="text-info"
-                  state={{ userState: worker }}
+                <Button
+                  className="readEye"
+                  onClick={() => showDetailsOf(worker)}
                 >
                   <BsEyeFill />
-                </Link>
+                </Button>
               </OverlayTrigger>
             </td>
             <td>
