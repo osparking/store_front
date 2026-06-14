@@ -100,7 +100,7 @@ const RecipientInfo = ({
                 <OverlayTrigger overlay={<Tooltip>숫자만 :-)</Tooltip>}>
                   <input
                     type="tel"
-                    value={formData.mbPhone}
+                    value={insertHyphens(formData.mbPhone)}
                     onChange={(e) => handlePhoneChange(e, setPhoneNumber)}
                     onKeyDown={handleKeyDown}
                     placeholder="000-0000-0000"
