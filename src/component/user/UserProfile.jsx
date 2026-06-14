@@ -7,7 +7,7 @@ import PasswordCard from "./details/PasswordCard";
 import UserInfoCard from "./details/UserInfoCard";
 import "./UserProfile.css";
 
-const UserProfile = ({ user, setShowDetails }) => {
+const UserProfile = ({ user, setShowDetails, readOnly = false }) => {
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [qrCodeUrl, setQrCodeUrl] = useState("");
 
@@ -52,10 +52,10 @@ const UserProfile = ({ user, setShowDetails }) => {
       <div style={{ width: "100%", maxWidth: "701px", margin: "0 auto" }}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, md: 2 }}>
           <Grid size={{ xs: 12, md: 3 }}>
-            <PasswordCard user={user} />
+            <PasswordCard user={user} readOnly = {readOnly}/>
           </Grid>
           <Grid size={{ xs: 12, md: 9 }}>
-            <UserInfoCard user={user} />
+            <UserInfoCard user={user} readOnly = {readOnly}/>
           </Grid>
         </Grid>
       </div>
