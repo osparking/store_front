@@ -1,14 +1,13 @@
 import Grid from "@mui/material/Grid";
 import { useState } from "react";
-import { Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Button, Row } from "react-bootstrap";
 import BsAlertHook from "../hook/BsAlertHook";
 import { deleteUserPhoto } from "../modal/ImageService";
 import PasswordCard from "./details/PasswordCard";
 import UserInfoCard from "./details/UserInfoCard";
 import "./UserProfile.css";
 
-const UserProfile = ({ user }) => {
+const UserProfile = ({ user, setShowDetails }) => {
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [qrCodeUrl, setQrCodeUrl] = useState("");
 
@@ -50,7 +49,7 @@ const UserProfile = ({ user }) => {
 
   return (
     <>
-      <div style={{ width: "100%", maxWidth: "90vw", margin: "0 auto" }}>
+      <div style={{ width: "100%", maxWidth: "701px", margin: "0 auto" }}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, md: 2 }}>
           <Grid size={{ xs: 12, md: 3 }}>
             <PasswordCard user={user} />
@@ -63,9 +62,7 @@ const UserProfile = ({ user }) => {
       {fromList && isAdmin && (
         <Row>
           <div className="returnLink">
-            <Link className="text-white" to="/dashboard/admin">
-              프로필 목록
-            </Link>
+            <Button onClick={() => setShowDetails(false)}>목록으로</Button>
           </div>
         </Row>
       )}
