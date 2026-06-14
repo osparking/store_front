@@ -9,7 +9,7 @@ import { deleteUserPhoto } from "../../modal/ImageService";
 import ImageUp from "../../modal/ImageUp";
 import "./../UserProfile.css";
 
-const PasswordCard = ({ user }) => {
+const PasswordCard = ({ user, readOnly = false }) => {
   const [showPhotoDelModal, setShowPhotoDelModal] = useState(false);
   const confirmPhotoRemoval = () => {
     setShowPhotoDelModal(true);
@@ -61,33 +61,40 @@ const PasswordCard = ({ user }) => {
           {!(user.userType === "고객") && (
             <>
               <EmpImage empPhoto={user.photoBytes} />
-              <p className="mt-5">
-                <Link to={"#"} onClick={() => setShowImageUp(true)}>
-                  {user.photoBytes ? "사진 변경" : "사진 등록"}
-                </Link>
-              </p>
-              <p>
-                <Link
-                  to={"#"}
-                  {...(user.photoId
-                    ? { onClick: confirmPhotoRemoval }
-                    : { style: { cursor: "default", color: "grey" } })}
-                >
-                  사진 제거
-                </Link>
-              </p>
-              <ImageUp
-                user={user}
-                show={showImageUp}
-                handleClose={() => setShowImageUp(false)}
-              />
+              {!readOnly && (
+                <>
+                  <p className="mt-5">
+                    <Link to={"#"} onClick={() => setShowImageUp(true)}>
+                      {user.photoBytes ? "사진 변경" : "사진 등록"}
+                    </Link>
+                  </p>
+                  <p>
+                    <Link
+                      to={"#"}
+                      {...(user.photoId
+                        ? { onClick: confirmPhotoRemoval }
+                        : { style: { cursor: "default", color: "grey" } })}
+                    >
+                      사진 제거
+                    </Link>
+                  </p>
+                  <ImageUp
+                    user={user}
+                    show={showImageUp}
+                    handleClose={() => setShowImageUp(false)}
+                  />
+                </>
+              )}
             </>
           )}
-          <p id="changePasswordLink">
-            <Link to={"#"} onClick={() => setShowChangePassword(true)}>
-              비밀번호 변경
-            </Link>
-          </p>
+          {!readOnly && (
+            <p id="changePasswordLink">
+              <Link to={"#"} onClick={() => setShowChangePassword(true)}>
+                비밀번호 변경
+              </Link>
+            </p>
+          )}
+
           <ChangePassword
             userId={user.id}
             show={showChangePassword}
