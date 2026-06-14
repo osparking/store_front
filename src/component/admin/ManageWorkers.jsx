@@ -177,12 +177,16 @@ const ManageWorkers = () => {
   const showDetailsOf = (worker) => {
     setWorker(worker);
     setShowDetails(true);
-  }
+  };
 
   return (
     <>
       {showDetails ? (
-        <UserProfile user={worker} setShowDetails={setShowDetails} />
+        <UserProfile
+          user={worker}
+          setShowDetails={setShowDetails}
+          readOnly={true}
+        />
       ) : (
         <>
           <DeleteConfirmModal
