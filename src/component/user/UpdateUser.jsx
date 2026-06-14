@@ -76,16 +76,8 @@ const UserUpdate = () => {
   const handlePhoneChange = (event) => {
     const { name, value } = event.target;
     const cleaned = value.replace(/\D/g, "");
-    let phoneNumber = undefined;
 
-    if (cleaned.length <= 3) {
-      phoneNumber = cleaned;
-    } else if (cleaned.length <= 7) {
-      phoneNumber = `${cleaned.slice(0, 3)}-${cleaned.slice(3)}`;
-    } else {
-      phoneNumber = insertHyphens(cleaned);
-    }
-    setUser((prevState) => ({ ...prevState, [name]: phoneNumber }));
+    setUser((prevState) => ({ ...prevState, [name]: cleaned }));
   };
 
   const handleTextChange = (event) => {
@@ -212,7 +204,7 @@ const UserUpdate = () => {
                   type="text"
                   name="mbPhone"
                   placeholder="(휴대폰 번호)"
-                  value={user.mbPhone}
+                  value={insertHyphens(user.mbPhone)}
                   onChange={handlePhoneChange}
                   style={{ backgroundColor: "pink" }}
                 />
