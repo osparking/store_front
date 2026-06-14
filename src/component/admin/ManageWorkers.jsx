@@ -13,6 +13,7 @@ import { getRecordRange } from "../util/utilities";
 import "./AdminCanvas.css";
 import WorkersTable from "./WorkersTable";
 import "./WorkersTable.css";
+import UserProfile from "../user/UserProfile";
 
 const ManageWorkers = () => {
   const [workerList, setWorkerList] = useState([]);
@@ -171,76 +172,94 @@ const ManageWorkers = () => {
     localStorage.setItem("CURR_WORKER_PAGE", pageNo);
   };
 
+  const [showDetails, setShowDetails] = useState(false);
+  const [worker, setWorker] = useState();
+  const showDetailsOf = (worker) => {
+    setWorker(worker);
+    setShowDetails(true);
+  }
+
   return (
     <>
-      <DeleteConfirmModal
-        show={showDelModal}
-        onHide={() => setShowDelModal(false)}
-        handleDeletion={handleDeletion}
-        target={`${delTarget.name} 계정의`}
-        disabled={delBtnDisabled}
-      />
-      <Row>
-        <Col>
-          {alertSuccess && (
-            <AlertMessage type={"success"} message={successMsg} />
-          )}
-          {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
-        </Col>
-      </Row>
-      <Row className="justify-content-between mb-2">
-        <Col md={1}>
-          <div></div>
-        </Col>
-        <Col md={6} xs={10} style={{ maxWidth: "350px" }}>
-          <ItemFilter
-            itemType={"소속"}
-            options={departments}
-            onClearFilter={handleClearFilter}
-            onOptionSelection={handleDeptSelection}
-            selectedOption={selectedDept}
+      {showDetails ? (
+        <UserProfile user={worker} setShowDetails={setShowDetails} />
+      ) : (
+        <>
+          <DeleteConfirmModal
+            show={showDelModal}
+            onHide={() => setShowDelModal(false)}
+            handleDeletion={handleDeletion}
+            target={`${delTarget.name} 계정의`}
+            disabled={delBtnDisabled}
           />
-        </Col>
-        <Col md={1} xs={1}>
-          <div className="d-flex justify-content-end worker-add-link">
-            <Link to={"/register_user"}>
-              <BsPlusSquareFill />
-            </Link>
-          </div>
-        </Col>
-      </Row>
-      <p className="text-center mb-1">
-        {getRecordRange(
-          { totalElements: filteredWorkers.length },
-          indexOfFirst,
-          idxLastPlus1,
-          "직원",
-        )}
-      </p>
-      <Card id="user-table-card" className="p-0" style={{ overflowY: "auto" }}>
-        <Card.Body className="p-0">
-          <div
-            style={{
-              whiteSpace: "initial",
-              margin: "20px",
-            }}
-            className="justify-content-center align-items-center"
+          <Row>
+            <Col>
+              {alertSuccess && (
+                <AlertMessage type={"success"} message={successMsg} />
+              )}
+              {alertError && (
+                <AlertMessage type={"danger"} message={errorMsg} />
+              )}
+            </Col>
+          </Row>
+          <Row className="justify-content-between mb-2">
+            <Col md={1}>
+              <div></div>
+            </Col>
+            <Col md={6} xs={10} style={{ maxWidth: "350px" }}>
+              <ItemFilter
+                itemType={"소속"}
+                options={departments}
+                onClearFilter={handleClearFilter}
+                onOptionSelection={handleDeptSelection}
+                selectedOption={selectedDept}
+              />
+            </Col>
+            <Col md={1} xs={1}>
+              <div className="d-flex justify-content-end worker-add-link">
+                <Link to={"/register_user"}>
+                  <BsPlusSquareFill />
+                </Link>
+              </div>
+            </Col>
+          </Row>
+          <p className="text-center mb-1">
+            {getRecordRange(
+              { totalElements: filteredWorkers.length },
+              indexOfFirst,
+              idxLastPlus1,
+              "직원",
+            )}
+          </p>
+          <Card
+            id="user-table-card"
+            className="p-0"
+            style={{ overflowY: "auto" }}
           >
-            {WorkersTable(displayWorkers)}
-          </div>
-        </Card.Body>
-      </Card>
+            <Card.Body className="p-0">
+              <div
+                style={{
+                  whiteSpace: "initial",
+                  margin: "20px",
+                }}
+                className="justify-content-center align-items-center"
+              >
+                {WorkersTable(displayWorkers, showDetailsOf)}
+              </div>
+            </Card.Body>
+          </Card>
 
-      <Paginator
-        pageSize={pageSize}
-        totalItems={filteredWorkers.length}
-        totalPages={totalPages}
-        currPage={currWorkerPage}
-        setCurrPage={setAndSavePageNo}
-        darkBackground={true}
-      />
+          <Paginator
+            pageSize={pageSize}
+            totalItems={filteredWorkers.length}
+            totalPages={totalPages}
+            currPage={currWorkerPage}
+            setCurrPage={setAndSavePageNo}
+            darkBackground={true}
+          />
+        </>
+      )}
     </>
   );
 };
-
 export default ManageWorkers;
