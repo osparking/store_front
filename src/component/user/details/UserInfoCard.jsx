@@ -8,7 +8,7 @@ import { callWithToken } from "../../util/api";
 import { insert2Hyphens } from "../../util/utilities";
 import "../UserProfile.css";
 
-const UserInfoCard = ({ user }) => {
+const UserInfoCard = ({ user, readOnly }) => {
   const userNew = { ...user, enabled: user.enabled ? "가능" : "불가능" };
   const profileData = [
     { label: "성명", value: userNew.fullName },
@@ -91,21 +91,23 @@ const UserInfoCard = ({ user }) => {
         <div style={{ overflow: "auto" }}>
           <Table id="userProfile" className="my-0">
             <tbody>
-              <tr id="legendRow">
-                <td className="text-end">
-                  <Link
-                    id="profileChangeLink"
-                    to={`/user/${user.id}/update`}
-                    className="btn btn-warning btn-sm w-70 py-0"
-                  >
-                    정보 수정
-                  </Link>
-                </td>
-                <td id="legendBlock" className="setBorder">
-                  &nbsp;
-                </td>
-                <td className="text-start">: 수정 가능</td>
-              </tr>
+              {!readOnly && (
+                <tr id="legendRow">
+                  <td className="text-end">
+                    <Link
+                      id="profileChangeLink"
+                      to={`/user/${user.id}/update`}
+                      className="btn btn-warning btn-sm w-70 py-0"
+                    >
+                      정보 수정
+                    </Link>
+                  </td>
+                  <td id="legendBlock" className="setBorder">
+                    &nbsp;
+                  </td>
+                  <td className="text-start">: 수정 가능</td>
+                </tr>
+              )}
 
               {profileData.map((item, index) => (
                 <tr key={index}>
@@ -132,7 +134,7 @@ const UserInfoCard = ({ user }) => {
                   <div id="switch-2FA">
                     <Switch
                       id="twoFAswitch"
-                      disabled={switchDisabled}
+                      disabled={switchDisabled || readOnly}
                       checked={twoFaEnabled}
                       onChange={
                         twoFaEnabled ? () => setShow2FA_modal(true) : enable2FA
