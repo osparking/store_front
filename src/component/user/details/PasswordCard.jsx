@@ -41,6 +41,7 @@ const PasswordCard = ({ user, readOnly = false }) => {
   };
 
   const loginId = localStorage.getItem("LOGIN_ID");
+  const accountOwner = loginId === user.id;
 
   return (
     <Card
@@ -61,7 +62,7 @@ const PasswordCard = ({ user, readOnly = false }) => {
           {!(user.userType === "고객") && (
             <>
               <EmpImage empPhoto={user.photoBytes} />
-              {!readOnly && (
+              {accountOwner && (
                 <>
                   <p className="mt-5">
                     <Link to={"#"} onClick={() => setShowImageUp(true)}>
@@ -87,7 +88,7 @@ const PasswordCard = ({ user, readOnly = false }) => {
               )}
             </>
           )}
-          {!readOnly && (
+          {accountOwner && (
             <p id="changePasswordLink">
               <Link to={"#"} onClick={() => setShowChangePassword(true)}>
                 비밀번호 변경
