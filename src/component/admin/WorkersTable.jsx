@@ -11,7 +11,13 @@ import { insert2Hyphens } from "../util/utilities";
 import "./AdminCanvas.css";
 import "./WorkersTable.css";
 
-const WorkersTable = (displayWorkers, showDetailsOf) => {
+const WorkersTable = (displayWorkers, showDetailsOf, setEditUser) => {
+  
+  const showEditableOf = (worker) => {
+    setEditUser(true);
+    showDetailsOf(worker);
+  };
+
   return (
     <Table bordered hover striped className="admin-worker-table">
       <thead>
@@ -56,13 +62,12 @@ const WorkersTable = (displayWorkers, showDetailsOf) => {
                   <Tooltip id={`tooltip-view-${index}`}>정보 수정</Tooltip>
                 }
               >
-                <Link
-                  to={`/user/${worker.id}/update`}
-                  className="text-warning"
-                  state={{ userState: worker }}
+                <Button
+                  className="readEye"
+                  onClick={() => showEditableOf(worker)}
                 >
                   <BsPencilFill />
-                </Link>
+                </Button>
               </OverlayTrigger>
             </td>
             <td>
