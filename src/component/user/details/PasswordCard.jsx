@@ -41,8 +41,8 @@ const PasswordCard = ({ user, readOnly = false }) => {
   };
 
   const loginId = localStorage.getItem("LOGIN_ID");
-  const accountOwner = loginId === user.id;
-
+  const accountOwner = loginId == user.id;
+  
   return (
     <Card
       id="passwordCard"
