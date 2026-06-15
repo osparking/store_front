@@ -24,6 +24,10 @@ const NavBar = () => {
     displayIdentity();
   };
 
+  useEffect(() => {
+    checkIfAdmin();
+  }, []);
+
   const displayIdentity = () => {
     const user = JSON.parse(localStorage.getItem("USER"));
 
