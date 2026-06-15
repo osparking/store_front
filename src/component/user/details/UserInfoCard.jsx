@@ -7,6 +7,7 @@ import ConfirmationModal from "../../modal/ConfirmationModal";
 import { callWithToken } from "../../util/api";
 import { insert2Hyphens } from "../../util/utilities";
 import "../UserProfile.css";
+import "./UserDetails.css";
 
 const UserInfoCard = ({ user, readOnly }) => {
   const userNew = { ...user, enabled: user.enabled ? "가능" : "불가능" };
@@ -32,7 +33,9 @@ const UserInfoCard = ({ user, readOnly }) => {
   };
 
   const getClasses = (flag) => {
-    return flag ? "setBorder ms-1 text-start" : "text-start ms-1";
+    return flag && !readOnly
+      ? "text-start ms-1 setBorder"
+      : "text-start ms-1 greyBack";
   };
 
   const [show2FA_modal, setShow2FA_modal] = useState(false);
@@ -131,7 +134,7 @@ const UserInfoCard = ({ user, readOnly }) => {
                   구글 이중 인증(2FA):
                 </td>
                 <td md={7} colSpan={2}>
-                  <div id="switch-2FA">
+                  <div id="switch-2FA" className={readOnly ? "greyBack" : ""}>
                     <Switch
                       id="twoFAswitch"
                       disabled={switchDisabled || readOnly}
