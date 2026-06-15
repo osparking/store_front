@@ -153,6 +153,17 @@ export const soapImages = [
   },
   {
     id: 15,
+    name: "사용 중 보관법",
+    shape: "manage",
+    image: "manage-store.jpg",
+    width: 1000,
+    height: 1000,
+    desc:
+      "재료 특성상 어성초보다 율무가 물에 덜 녹습니다." +
+      "밝은 색 율무 층이 비누 접시 아래로 가게 두세요.",
+  },
+  {
+    id: 20,
     name: "비누 접시",
     shape: "manage",
     image: "manage-no-hole-tray.png",
