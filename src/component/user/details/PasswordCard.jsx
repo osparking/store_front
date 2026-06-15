@@ -101,19 +101,21 @@ const PasswordCard = ({ user, readOnly = false }) => {
             handleClose={() => setShowChangePassword(false)}
           />
         </div>
-        <div className="d-flex justify-content-center mt-2 mb-2">
-          <div className="mx-2">
-            <Button
-              variant="danger"
-              size="sm"
-              onClick={handleCloseAccountButtonCLick}
-              className="w-100"
-              style={{ minWidth: "60px" }}
-            >
-              비활성화
-            </Button>
+        {!readOnly && (
+          <div className="d-flex justify-content-center mt-2 mb-2">
+            <div className="mx-2">
+              <Button
+                variant="danger"
+                size="sm"
+                onClick={handleCloseAccountButtonCLick}
+                className="w-100"
+                style={{ minWidth: "60px" }}
+              >
+                비활성화
+              </Button>
+            </div>
           </div>
-        </div>
+        )}
       </Card.Body>
       <DeleteConfirmModal
         show={showPhotoDelModal}
