@@ -178,14 +178,20 @@ const ManageWorkers = () => {
     setWorker(worker);
     setShowDetails(true);
   };
+  const [editUser, setEditUser] = useState(false);
+
+  const gotoUserList = () => {
+    setShowDetails(false);
+    setEditUser(false);
+  };
 
   return (
     <>
       {showDetails ? (
         <UserProfile
           user={worker}
-          setShowDetails={setShowDetails}
-          readOnly={true}
+          gotoUserList={gotoUserList}
+          readOnly={editUser ? false : true}
         />
       ) : (
         <>
@@ -248,7 +254,7 @@ const ManageWorkers = () => {
                 }}
                 className="justify-content-center align-items-center"
               >
-                {WorkersTable(displayWorkers, showDetailsOf)}
+                {WorkersTable(displayWorkers, showDetailsOf, setEditUser)}
               </div>
             </Card.Body>
           </Card>
