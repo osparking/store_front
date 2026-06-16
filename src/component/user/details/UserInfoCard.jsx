@@ -12,14 +12,23 @@ import "./UserDetails.css";
 const UserInfoCard = ({ user, readOnly }) => {
   const userNew = { ...user, enabled: user.enabled ? "가능" : "불가능" };
   const profileData = [
-    { label: "성명", value: userNew.fullName },
-    { label: "휴대폰", value: insert2Hyphens(userNew.mbPhone) },
-    { label: "이메일", value: userNew.email },
-    { label: "등록 형태", value: userNew.signUpMethod },
-    { label: "등록 일시", value: userNew.addDate },
-    { label: "유저 구분", value: userNew.userType },
-    { label: "로그인", value: userNew.enabled },
+    { label: "성명", value: userNew.fullName, disabled: false },
+    {
+      label: "휴대폰",
+      value: insert2Hyphens(userNew.mbPhone),
+      disabled: false,
+    },
+    { label: "이메일", value: userNew.email, disabled: true },
+    { label: "등록 형태", value: userNew.signUpMethod, disabled: true },
+    { label: "등록 일시", value: userNew.addDate, disabled: true },
+    { label: "유저 구분", value: userNew.userType, disabled: true },
+    { label: "로그인", value: userNew.enabled, disabled: true },
   ];
+
+  const handleTextChange = (event) => {
+    const { name, value } = event.target;
+    setUser((prevState) => ({ ...prevState, [name]: value }));
+  };
 
   if (userNew.userType === "노동자") {
     profileData.push({ label: "소속 부서", value: userNew.dept });
@@ -33,9 +42,7 @@ const UserInfoCard = ({ user, readOnly }) => {
   };
 
   const getClasses = (flag) => {
-    return flag && !readOnly
-      ? "text-start ms-1 setBorder"
-      : "text-start ms-1 greyBack";
+    return flag && !readOnly ? "text-start ms-1 setBorder" : "text-start ms-1";
   };
 
   const [show2FA_modal, setShow2FA_modal] = useState(false);
@@ -90,6 +97,7 @@ const UserInfoCard = ({ user, readOnly }) => {
         headerBgColor="bg-warning"
         modelClassName="twoFAmodal"
       />
+      <Card.Header className="text-center mb-2 h5">계정 상세 정보</Card.Header>
       <Card.Body className="d-flex align-items-center justify-content-center">
         <div style={{ overflow: "auto" }}>
           <Table id="userProfile" className="my-0">
@@ -97,13 +105,6 @@ const UserInfoCard = ({ user, readOnly }) => {
               {!readOnly && (
                 <tr id="legendRow">
                   <td className="text-end">
-                    <Link
-                      id="profileChangeLink"
-                      to={`/user/${user.id}/update`}
-                      className="btn btn-warning btn-sm w-70 py-0"
-                    >
-                      정보 수정
-                    </Link>
                   </td>
                   <td id="legendBlock" className="setBorder">
                     &nbsp;
@@ -124,7 +125,16 @@ const UserInfoCard = ({ user, readOnly }) => {
                     //  ? "setBorder ms-1 text-start" : "text-start ms-1"}`}
                     style={{ minWidth: "250px" }}
                   >
-                    {item.value}
+                    <Form.Control
+                      type="text"
+                      disabled={item.disabled}
+                      name="fullName"
+                      placeholder="(성명)"
+                      value={item.value}
+                      onChange={handleTextChange}
+                      className={item.disabled ? "greyBack" : ""}
+                      style={{ backgroundColor: "pink" }}
+                    />
                   </td>
                 </tr>
               ))}
