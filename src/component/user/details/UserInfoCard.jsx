@@ -42,7 +42,7 @@ const UserInfoCard = ({ user, readOnly }) => {
   };
 
   const getClasses = (flag) => {
-    return flag && !readOnly ? "text-start ms-1 setBorder" : "text-start ms-1";
+    return flag && !readOnly ? "text-start ms-1" : "text-start ms-1";
   };
 
   const [show2FA_modal, setShow2FA_modal] = useState(false);
@@ -106,7 +106,7 @@ const UserInfoCard = ({ user, readOnly }) => {
                 <tr id="legendRow">
                   <td className="text-end">
                   </td>
-                  <td id="legendBlock" className="setBorder">
+                  <td id="legendBlock">
                     &nbsp;
                   </td>
                   <td className="text-start">: 수정 가능</td>
@@ -122,7 +122,6 @@ const UserInfoCard = ({ user, readOnly }) => {
                     md={7}
                     colSpan={2}
                     className={getClasses(isUpdatable(item.label))}
-                    //  ? "setBorder ms-1 text-start" : "text-start ms-1"}`}
                     style={{ minWidth: "250px" }}
                   >
                     <Form.Control
