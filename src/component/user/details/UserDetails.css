@@ -1,3 +1,7 @@
 .greyBack {
     background-color: lightgrey !important;
 }
+
+#userInfoCard .form-label {
+    margin-bottom: 0;
+}
