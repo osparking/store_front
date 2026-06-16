@@ -7,13 +7,13 @@ import ItemFilter from "../common/ItemFilter";
 import Paginator from "../common/Paginator";
 import BsAlertHook from "../hook/BsAlertHook";
 import DeleteConfirmModal from "../modal/DeleteConfirmModal";
+import UserProfile from "../user/UserProfile";
 import { deleteUserAccount } from "../user/UserService";
 import { callWithToken } from "../util/api";
 import { getRecordRange } from "../util/utilities";
 import "./AdminCanvas.css";
 import WorkersTable from "./WorkersTable";
 import "./WorkersTable.css";
-import UserProfile from "../user/UserProfile";
 
 const ManageWorkers = () => {
   const [workerList, setWorkerList] = useState([]);
@@ -173,25 +173,20 @@ const ManageWorkers = () => {
   };
 
   const [showDetails, setShowDetails] = useState(false);
-  const [worker, setWorker] = useState();
-  const showDetailsOf = (worker) => {
-    setWorker(worker);
+  const [account, setAccount] = useState({});
+
+  const showAccountDetails = (account) => {
+    setAccount(account);
     setShowDetails(true);
   };
-  const [editUser, setEditUser] = useState(false);
-
-  const gotoUserList = () => {
-    setShowDetails(false);
-    setEditUser(false);
-  };
-
+  
   return (
     <>
       {showDetails ? (
         <UserProfile
-          user={worker}
-          gotoUserList={gotoUserList}
-          readOnly={editUser ? false : true}
+          user={account.worker}
+          setShowDetails={setShowDetails}
+          readOnly={!account.editable}
         />
       ) : (
         <>
@@ -254,7 +249,7 @@ const ManageWorkers = () => {
                 }}
                 className="justify-content-center align-items-center"
               >
-                {WorkersTable(displayWorkers, showDetailsOf, setEditUser)}
+                {WorkersTable(displayWorkers, showAccountDetails)}
               </div>
             </Card.Body>
           </Card>
