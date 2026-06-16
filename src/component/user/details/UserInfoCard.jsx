@@ -20,14 +20,14 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
       type: "text",
       name: "fullName",
       value: newUser.fullName,
-      disabled: readOnly || isAdmined,
+      disabled: true,
     },
     {
       label: "휴대폰",
       type: "tel",
       name: "mbPhone",
       value: newUser.mbPhone,
-      disabled: readOnly || isAdmined,
+      disabled: true,
     },
     { label: "이메일", value: newUser.email, disabled: true },
     { label: "등록 형태", value: newUser.signUpMethod, disabled: true },
@@ -52,7 +52,7 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
     profileData.push({
       label: "로그인",
       value: newUser.enabled,
-      disabled: true
+      disabled: true,
     });
   }
 
@@ -136,7 +136,7 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
           <div style={{ overflow: "auto" }}>
             <Table id="userProfile" className="my-0">
               <tbody>
-                {!readOnly && (
+                {isAdmined && (
                   <tr id="legendRow">
                     <td className="text-end"></td>
                     <td id="legendBlock">&nbsp;</td>
@@ -232,15 +232,22 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
             </Table>
           </div>
         </Card.Body>
-        <Card.Footer className="text-center">
-          <div className="d-flex justify-content-center mb-3 mt-3 char2button">
-            <Button type="submit" variant="primary" size="sm" className="me-2">
-              {"저장"}
-            </Button>
-          </div>
-        </Card.Footer>
+        {isAdmined && (
+          <Card.Footer className="text-center">
+            <div className="d-flex justify-content-center mb-3 mt-3 char2button">
+              <Button
+                type="submit"
+                variant="primary"
+                size="sm"
+                className="me-2"
+              >
+                {"저장"}
+              </Button>
+            </div>
+          </Card.Footer>
+        )}
       </Card>
-    </Form>
+    </Form>q
   );
 };
 
