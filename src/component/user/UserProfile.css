@@ -3,16 +3,17 @@
   padding-bottom: 10px;
 }
 
-.setBorder {
-  background-color: pink !important;
+#userProfile td {
+  padding: 2px;
+}
+
+.form-control {
+  border-radius: 0;
+  padding: 3px 2px 3px 4px;
 }
 
 #userProfile td {
-  padding: 4px;
-}
-
-#userProfile td {
-  border: 6px solid white;
+  border: 1px solid white;
 }
 
 #userProfile p {
@@ -20,7 +21,7 @@
 }
 
 #userProfile #legendRow {
-  height: 38px !important;
+  height: 30px !important;
 }
 
 #legendRow td {
@@ -30,12 +31,13 @@
 #switch-2FA {
   padding: 0;
   text-align: start;
-  background-color: var(--color-act-change);
+  background-color: pink;
   border-radius: 5px;
 }
 
 #legendBlock {
-  width: 38px !important;
+  width: 30px !important;
+  background-color: pink;
 }
 
 #userInfoCard {
