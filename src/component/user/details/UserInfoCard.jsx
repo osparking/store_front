@@ -33,7 +33,6 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
     { label: "등록 형태", value: newUser.signUpMethod, disabled: true },
     { label: "등록 일시", value: newUser.addDate, disabled: true },
     { label: "유저 구분", value: newUser.userType, disabled: true },
-    { label: "로그인", value: newUser.enabled, disabled: true },
   ];
 
   const handleTextChange = (event) => {
@@ -46,6 +45,14 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
       label: "소속 부서",
       value: newUser.dept,
       disabled: readOnly || !isAdmined,
+    });
+  }
+
+  if (isAdmined) {
+    profileData.push({
+      label: "로그인",
+      value: newUser.enabled,
+      disabled: true
     });
   }
 
