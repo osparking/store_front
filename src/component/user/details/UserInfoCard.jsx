@@ -1,38 +1,50 @@
 import Switch from "@mui/material/Switch";
 import { useState } from "react";
-import { Card, Form, Table } from "react-bootstrap";
+import { Button, Card, Form, Table } from "react-bootstrap";
 import QRcodeBox from "../../auth/QRcodeBox";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import { callWithToken } from "../../util/api";
-import { insert2Hyphens } from "../../util/utilities";
+import { handlePhoneChange, insertHyphens } from "../../util/utilities";
 import "../UserProfile.css";
 import "./UserDetails.css";
 
 const UserInfoCard = ({ user, readOnly, isAdmined }) => {
-  const userNew = { ...user, enabled: user.enabled ? "가능" : "불가능" };
+  const [newUser, setNewUser] = useState({
+    ...user,
+    enabled: user.enabled ? "가능" : "불가능",
+  });
+
   const profileData = [
-    { label: "성명", value: userNew.fullName, disabled: readOnly || isAdmined },
     {
-      label: "휴대폰",
-      value: insert2Hyphens(userNew.mbPhone),
+      label: "성명",
+      type: "text",
+      name: "fullName",
+      value: newUser.fullName,
       disabled: readOnly || isAdmined,
     },
-    { label: "이메일", value: userNew.email, disabled: true },
-    { label: "등록 형태", value: userNew.signUpMethod, disabled: true },
-    { label: "등록 일시", value: userNew.addDate, disabled: true },
-    { label: "유저 구분", value: userNew.userType, disabled: true },
-    { label: "로그인", value: userNew.enabled, disabled: true },
+    {
+      label: "휴대폰",
+      type: "tel",
+      name: "mbPhone",
+      value: newUser.mbPhone,
+      disabled: readOnly || isAdmined,
+    },
+    { label: "이메일", value: newUser.email, disabled: true },
+    { label: "등록 형태", value: newUser.signUpMethod, disabled: true },
+    { label: "등록 일시", value: newUser.addDate, disabled: true },
+    { label: "유저 구분", value: newUser.userType, disabled: true },
+    { label: "로그인", value: newUser.enabled, disabled: true },
   ];
 
   const handleTextChange = (event) => {
     const { name, value } = event.target;
-    setUser((prevState) => ({ ...prevState, [name]: value }));
+    setNewUser((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  if (userNew.userType === "노동자") {
+  if (newUser.userType === "노동자") {
     profileData.push({
       label: "소속 부서",
-      value: userNew.dept,
+      value: newUser.dept,
       disabled: readOnly || !isAdmined,
     });
   }
@@ -87,107 +99,141 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
     }
   };
 
+  const setPhoneNumber = (mbPhone) => {
+    setNewUser({ ...newUser, mbPhone: mbPhone });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("저장할 새 유저: ", newUser);
+  };
+
   return (
-    <Card id="userInfoCard" className="profileItems">
-      <ConfirmationModal
-        show={show2FA_modal}
-        handleClose={() => setShow2FA_modal(false)}
-        handleConfirm={disable2FA}
-        bodyMessage="구글 이중 인증을 생략할까요?"
-        title="구글 이중 인증"
-        noLabel="인증 유지"
-        yesLabel="인증 생략"
-        headerBgColor="bg-warning"
-        modelClassName="twoFAmodal"
-      />
-      <Card.Header className="text-center mb-2 h5">계정 상세 정보</Card.Header>
-      <Card.Body className="d-flex align-items-center justify-content-center">
-        <div style={{ overflow: "auto" }}>
-          <Table id="userProfile" className="my-0">
-            <tbody>
-              {!readOnly && (
-                <tr id="legendRow">
-                  <td className="text-end"></td>
-                  <td id="legendBlock">&nbsp;</td>
-                  <td className="text-start">: 수정 가능</td>
-                </tr>
-              )}
+    <Form onSubmit={handleSubmit} className="d-flex justify-content-center">
+      <Card id="userInfoCard" className="profileItems">
+        <ConfirmationModal
+          show={show2FA_modal}
+          handleClose={() => setShow2FA_modal(false)}
+          handleConfirm={disable2FA}
+          bodyMessage="구글 이중 인증을 생략할까요?"
+          title="구글 이중 인증"
+          noLabel="인증 유지"
+          yesLabel="인증 생략"
+          headerBgColor="bg-warning"
+          modelClassName="twoFAmodal"
+        />
+        <Card.Header className="text-center mb-2 h5">
+          계정 상세 정보
+        </Card.Header>
+        <Card.Body className="d-flex align-items-center justify-content-center">
+          <div style={{ overflow: "auto" }}>
+            <Table id="userProfile" className="my-0">
+              <tbody>
+                {!readOnly && (
+                  <tr id="legendRow">
+                    <td className="text-end"></td>
+                    <td id="legendBlock">&nbsp;</td>
+                    <td className="text-start">: 수정 가능</td>
+                  </tr>
+                )}
 
-              {profileData.map((item, index) => (
-                <tr key={index}>
+                {profileData.map((item, index) => (
+                  <tr key={index}>
+                    <td
+                      md={4}
+                      className="text-end"
+                      style={{ minWidth: "145px" }}
+                    >
+                      <Form.Label htmlFor={item.name}>{item.label}:</Form.Label>
+                    </td>
+                    <td
+                      md={7}
+                      colSpan={2}
+                      className={getClasses(isUpdatable(item.label))}
+                      style={{ minWidth: "250px" }}
+                    >
+                      <Form.Control
+                        type={item.type}
+                        disabled={item.disabled}
+                        id={item.name}
+                        name={item.name}
+                        value={
+                          item.type === "tel"
+                            ? insertHyphens(item.value)
+                            : item.value
+                        }
+                        onChange={
+                          item.type === "tel"
+                            ? (e) => handlePhoneChange(e, setPhoneNumber)
+                            : handleTextChange
+                        }
+                        className={item.disabled ? "greyBack" : ""}
+                        style={{ backgroundColor: "pink" }}
+                      />
+                    </td>
+                  </tr>
+                ))}
+
+                <tr>
                   <td md={4} className="text-end" style={{ minWidth: "145px" }}>
-                    {item.label}:
+                    구글 이중 인증(2FA):
                   </td>
-                  <td
-                    md={7}
-                    colSpan={2}
-                    className={getClasses(isUpdatable(item.label))}
-                    style={{ minWidth: "250px" }}
-                  >
-                    <Form.Control
-                      type="text"
-                      disabled={item.disabled}
-                      name="fullName"
-                      placeholder="(성명)"
-                      value={item.value}
-                      onChange={handleTextChange}
-                      className={item.disabled ? "greyBack" : ""}
-                      style={{ backgroundColor: "pink" }}
-                    />
+                  <td md={7} colSpan={2}>
+                    <div
+                      id="switch-2FA"
+                      className={readOnly || isAdmined ? "greyBack" : ""}
+                    >
+                      <Switch
+                        id="twoFAswitch"
+                        disabled={switchDisabled || readOnly || isAdmined}
+                        checked={twoFaEnabled}
+                        onChange={
+                          twoFaEnabled
+                            ? () => setShow2FA_modal(true)
+                            : enable2FA
+                        }
+                        slotProps={{
+                          input: {
+                            "aria-label": "이중 인증 활성화 상태 토글",
+                          },
+                        }}
+                      />
+                      <Form.Label htmlFor="twoFAswitch">
+                        <span
+                          className="serif"
+                          style={{
+                            fontWeight: "bolder",
+                            fontSize: ".9rem",
+                            fontStretch: "expanded",
+                            color: `${twoFaEnabled ? "darkgreen" : "slategrey"}`,
+                          }}
+                        >
+                          {twoFaEnabled ? "활성화됨" : "비활성임"}
+                        </span>
+                      </Form.Label>
+                    </div>
+                    {showQrCode && (
+                      <QRcodeBox
+                        qrCodeUrl={qrCodeUrl}
+                        setTwoFaEnabled={setTwoFaEnabled}
+                        setShowQrCode={setShowQrCode}
+                      />
+                    )}
                   </td>
                 </tr>
-              ))}
-
-              <tr>
-                <td md={4} className="text-end" style={{ minWidth: "145px" }}>
-                  구글 이중 인증(2FA):
-                </td>
-                <td md={7} colSpan={2}>
-                  <div
-                    id="switch-2FA"
-                    className={readOnly || isAdmined ? "greyBack" : ""}
-                  >
-                    <Switch
-                      id="twoFAswitch"
-                      disabled={switchDisabled || readOnly || isAdmined}
-                      checked={twoFaEnabled}
-                      onChange={
-                        twoFaEnabled ? () => setShow2FA_modal(true) : enable2FA
-                      }
-                      slotProps={{
-                        input: {
-                          "aria-label": "이중 인증 활성화 상태 토글",
-                        },
-                      }}
-                    />
-                    <Form.Label htmlFor="twoFAswitch">
-                      <span
-                        className="serif"
-                        style={{
-                          fontWeight: "bolder",
-                          fontSize: ".9rem",
-                          fontStretch: "expanded",
-                          color: `${twoFaEnabled ? "darkgreen" : "slategrey"}`,
-                        }}
-                      >
-                        {twoFaEnabled ? "활성화됨" : "비활성임"}
-                      </span>
-                    </Form.Label>
-                  </div>
-                  {showQrCode && (
-                    <QRcodeBox
-                      qrCodeUrl={qrCodeUrl}
-                      setTwoFaEnabled={setTwoFaEnabled}
-                      setShowQrCode={setShowQrCode}
-                    />
-                  )}
-                </td>
-              </tr>
-            </tbody>
-          </Table>
-        </div>
-      </Card.Body>
-    </Card>
+              </tbody>
+            </Table>
+          </div>
+        </Card.Body>
+        <Card.Footer className="text-center">
+          <div className="d-flex justify-content-center mb-3 mt-3 char2button">
+            <Button type="submit" variant="primary" size="sm" className="me-2">
+              {"저장"}
+            </Button>
+          </div>
+        </Card.Footer>
+      </Card>
+    </Form>
   );
 };
 
