@@ -7,7 +7,7 @@ import PasswordCard from "./details/PasswordCard";
 import UserInfoCard from "./details/UserInfoCard";
 import "./UserProfile.css";
 
-const UserProfile = ({ user, gotoUserList, readOnly = false }) => {
+const UserProfile = ({ user, setShowDetails, readOnly = false }) => {
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [qrCodeUrl, setQrCodeUrl] = useState("");
 
@@ -62,7 +62,7 @@ const UserProfile = ({ user, gotoUserList, readOnly = false }) => {
       {fromList && isAdmin && (
         <Row>
           <div className="returnLink">
-            <Button onClick={() => gotoUserList()}>목록으로</Button>
+            <Button onClick={() => setShowDetails(false)}>목록으로</Button>
           </div>
         </Row>
       )}
