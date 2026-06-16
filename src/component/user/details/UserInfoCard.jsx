@@ -1,7 +1,6 @@
 import Switch from "@mui/material/Switch";
 import { useState } from "react";
 import { Card, Form, Table } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import QRcodeBox from "../../auth/QRcodeBox";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import { callWithToken } from "../../util/api";
@@ -9,7 +8,7 @@ import { insert2Hyphens } from "../../util/utilities";
 import "../UserProfile.css";
 import "./UserDetails.css";
 
-const UserInfoCard = ({ user, readOnly }) => {
+const UserInfoCard = ({ user, readOnly, isAdmin }) => {
   const userNew = { ...user, enabled: user.enabled ? "가능" : "불가능" };
   const profileData = [
     { label: "성명", value: userNew.fullName, disabled: false },
@@ -31,7 +30,11 @@ const UserInfoCard = ({ user, readOnly }) => {
   };
 
   if (userNew.userType === "노동자") {
-    profileData.push({ label: "소속 부서", value: userNew.dept });
+    profileData.push({
+      label: "소속 부서",
+      value: userNew.dept,
+      disabled: !isAdmin,
+    });
   }
 
   const isUpdatable = (label) => {
@@ -104,11 +107,8 @@ const UserInfoCard = ({ user, readOnly }) => {
             <tbody>
               {!readOnly && (
                 <tr id="legendRow">
-                  <td className="text-end">
-                  </td>
-                  <td id="legendBlock">
-                    &nbsp;
-                  </td>
+                  <td className="text-end"></td>
+                  <td id="legendBlock">&nbsp;</td>
                   <td className="text-start">: 수정 가능</td>
                 </tr>
               )}
