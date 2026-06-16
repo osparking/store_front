@@ -136,7 +136,7 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
           <div style={{ overflow: "auto" }}>
             <Table id="userProfile" className="my-0">
               <tbody>
-                {isAdmined && (
+                {!readOnly && (
                   <tr id="legendRow">
                     <td className="text-end"></td>
                     <td id="legendBlock">&nbsp;</td>
@@ -232,7 +232,7 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
             </Table>
           </div>
         </Card.Body>
-        {isAdmined && (
+        {isAdmined && !readOnly && (
           <Card.Footer className="text-center">
             <div className="d-flex justify-content-center mb-3 mt-3 char2button">
               <Button
@@ -247,7 +247,7 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
           </Card.Footer>
         )}
       </Card>
-    </Form>q
+    </Form>
   );
 };
 
