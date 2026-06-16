@@ -12,7 +12,7 @@ const UserProfile = ({ user, setShowDetails, readOnly = false }) => {
   const [qrCodeUrl, setQrCodeUrl] = useState("");
 
   const loginId = localStorage.getItem("LOGIN_ID");
-  const fromList = Number(loginId) !== user.id;
+  const isAdmined = Number(loginId) !== user.id;
   const isAdmin = JSON.parse(localStorage.getItem("IS_ADMIN"));
   const [show2FA_modal, setShow2FA_modal] = useState(false);
 
@@ -55,11 +55,15 @@ const UserProfile = ({ user, setShowDetails, readOnly = false }) => {
             <PasswordCard user={user} readOnly={readOnly} />
           </Grid>
           <Grid size={{ xs: 12, md: 9 }}>
-            <UserInfoCard user={user} readOnly={readOnly} isAdmin={isAdmin} />
+            <UserInfoCard
+              user={user}
+              readOnly={readOnly}
+              isAdmined={isAdmined}
+            />
           </Grid>
         </Grid>
       </div>
-      {fromList && isAdmin && (
+      {isAdmined && (
         <Row>
           <div className="returnLink">
             <Button onClick={() => setShowDetails(false)}>목록으로</Button>
