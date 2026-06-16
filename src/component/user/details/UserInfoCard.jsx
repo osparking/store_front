@@ -11,11 +11,11 @@ import "./UserDetails.css";
 const UserInfoCard = ({ user, readOnly, isAdmin }) => {
   const userNew = { ...user, enabled: user.enabled ? "가능" : "불가능" };
   const profileData = [
-    { label: "성명", value: userNew.fullName, disabled: false },
+    { label: "성명", value: userNew.fullName, disabled: readOnly },
     {
       label: "휴대폰",
       value: insert2Hyphens(userNew.mbPhone),
-      disabled: false,
+      disabled: readOnly,
     },
     { label: "이메일", value: userNew.email, disabled: true },
     { label: "등록 형태", value: userNew.signUpMethod, disabled: true },
@@ -33,7 +33,7 @@ const UserInfoCard = ({ user, readOnly, isAdmin }) => {
     profileData.push({
       label: "소속 부서",
       value: userNew.dept,
-      disabled: !isAdmin,
+      disabled: readOnly || !isAdmin,
     });
   }
 
