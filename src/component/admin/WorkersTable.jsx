@@ -11,13 +11,7 @@ import { insert2Hyphens } from "../util/utilities";
 import "./AdminCanvas.css";
 import "./WorkersTable.css";
 
-const WorkersTable = (displayWorkers, showDetailsOf, setEditUser) => {
-  
-  const showEditableOf = (worker) => {
-    setEditUser(true);
-    showDetailsOf(worker);
-  };
-
+const WorkersTable = (displayWorkers, showAccountDetails) => {
   return (
     <Table bordered hover striped className="admin-worker-table">
       <thead>
@@ -50,7 +44,9 @@ const WorkersTable = (displayWorkers, showDetailsOf, setEditUser) => {
               >
                 <Button
                   className="readEye"
-                  onClick={() => showDetailsOf(worker)}
+                  onClick={() =>
+                    showAccountDetails({ worker: worker, editable: false })
+                  }
                 >
                   <BsEyeFill />
                 </Button>
@@ -64,7 +60,9 @@ const WorkersTable = (displayWorkers, showDetailsOf, setEditUser) => {
               >
                 <Button
                   className="readEye"
-                  onClick={() => showEditableOf(worker)}
+                  onClick={() =>
+                    showAccountDetails({ worker: worker, editable: true })
+                  }
                 >
                   <BsPencilFill />
                 </Button>
