@@ -8,14 +8,14 @@ import { insert2Hyphens } from "../../util/utilities";
 import "../UserProfile.css";
 import "./UserDetails.css";
 
-const UserInfoCard = ({ user, readOnly, isAdmin }) => {
+const UserInfoCard = ({ user, readOnly, isAdmined }) => {
   const userNew = { ...user, enabled: user.enabled ? "가능" : "불가능" };
   const profileData = [
-    { label: "성명", value: userNew.fullName, disabled: readOnly },
+    { label: "성명", value: userNew.fullName, disabled: readOnly || isAdmined },
     {
       label: "휴대폰",
       value: insert2Hyphens(userNew.mbPhone),
-      disabled: readOnly,
+      disabled: readOnly || isAdmined,
     },
     { label: "이메일", value: userNew.email, disabled: true },
     { label: "등록 형태", value: userNew.signUpMethod, disabled: true },
@@ -33,7 +33,7 @@ const UserInfoCard = ({ user, readOnly, isAdmin }) => {
     profileData.push({
       label: "소속 부서",
       value: userNew.dept,
-      disabled: readOnly || !isAdmin,
+      disabled: readOnly || !isAdmined,
     });
   }
 
@@ -143,10 +143,13 @@ const UserInfoCard = ({ user, readOnly, isAdmin }) => {
                   구글 이중 인증(2FA):
                 </td>
                 <td md={7} colSpan={2}>
-                  <div id="switch-2FA" className={readOnly ? "greyBack" : ""}>
+                  <div
+                    id="switch-2FA"
+                    className={readOnly || isAdmined ? "greyBack" : ""}
+                  >
                     <Switch
                       id="twoFAswitch"
-                      disabled={switchDisabled || readOnly}
+                      disabled={switchDisabled || readOnly || isAdmined}
                       checked={twoFaEnabled}
                       onChange={
                         twoFaEnabled ? () => setShow2FA_modal(true) : enable2FA
