@@ -12,6 +12,7 @@ import WorkerDeptSelector from "../../worker/WorkerDeptSelector";
 import "../UserProfile.css";
 import { updateWorkerDept } from "../UserService";
 import "./UserDetails.css";
+import { ManageWorkersContext } from "../../admin/ManageWorkers";
 
 const UserInfoCard = ({ user, readOnly, isAdmined }) => {
   const [newUser, setNewUser] = useState({
@@ -19,8 +20,13 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
     enabled: user.enabled ? "가능" : "불가능",
   });
 
+  const [userDept, setUserDept] = useState(user.dept);
   const restoreDept = () => {
-    setNewUser({ ...newUser, dept: user.dept });
+    setNewUser({ ...newUser, dept: userDept });
+  };
+
+  const deptRemains = () => {
+    return userDept === newUser.dept;
   };
 
   const profileData = [
@@ -133,6 +139,9 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
     setAlertError,
   } = BsAlertHook();
 
+  const manageWorkersContext = useContext(ManageWorkersContext);
+  const readWorkerList = manageWorkersContext.readWorkerList;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -147,6 +156,8 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
       localStorage.setItem("USER", JSON.stringify(localUser));
 
       toast.success(response.message);
+      setUserDept(newUser.dept);
+      readWorkerList();
     } catch (error) {
       setErrorMsg(error.response?.data.message);
       setAlertError(true);
@@ -284,6 +295,7 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
             <div className="d-flex justify-content-center mb-3 mt-3 char2button">
               <Button
                 type="button"
+                disabled={deptRemains()}
                 variant="secondary"
                 size="sm"
                 className="me-4"
@@ -291,7 +303,12 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
               >
                 {"복원"}
               </Button>
-              <Button type="submit" variant="primary" size="sm">
+              <Button
+                type="submit"
+                disabled={deptRemains()}
+                variant="primary"
+                size="sm"
+              >
                 {"저장"}
               </Button>
             </div>
