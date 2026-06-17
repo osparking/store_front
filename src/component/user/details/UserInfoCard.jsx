@@ -1,12 +1,17 @@
 import Switch from "@mui/material/Switch";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button, Card, Form, Table } from "react-bootstrap";
 import QRcodeBox from "../../auth/QRcodeBox";
+import BsAlertHook from "../../hook/BsAlertHook";
+import { RootContext } from "../../layout/RootLayout";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import { callWithToken } from "../../util/api";
 import { handlePhoneChange, insertHyphens } from "../../util/utilities";
+import WorkerDeptSelector from "../../worker/WorkerDeptSelector";
 import "../UserProfile.css";
+import { updateWorkerDept } from "../UserService";
 import "./UserDetails.css";
+import toast from "react-hot-toast";
 
 const UserInfoCard = ({ user, readOnly, isAdmined }) => {
   const [newUser, setNewUser] = useState({
@@ -110,9 +115,40 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
     setNewUser({ ...newUser, mbPhone: mbPhone });
   };
 
+  const rootContext = useContext(RootContext);
+  const refreshUser = rootContext.refreshUser;
+  const [isProcessing, setIsProcessing] = useState(false);
+  const {
+    successMsg,
+    setSuccessMsg,
+    alertSuccess,
+    setAlertSuccess,
+    errorMsg,
+    setErrorMsg,
+    alertError,
+    setAlertError,
+  } = BsAlertHook();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("저장할 새 유저: ", newUser);
+    try {
+      setIsProcessing(true);
+      const response = await updateWorkerDept(newUser.id, newUser.dept);
+      setSuccessMsg(response.message);
+      setAlertSuccess(true);
+
+      const localUser = JSON.parse(localStorage.getItem("USER"));
+
+      localUser.dept = response.data;
+      localStorage.setItem("USER", JSON.stringify(localUser));
+
+      toast.success(response.message);
+    } catch (error) {
+      setErrorMsg(error.response?.data.message);
+      setAlertError(true);
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   return (
@@ -159,24 +195,31 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
                       className={getClasses(isUpdatable(item.label))}
                       style={{ minWidth: "250px" }}
                     >
-                      <Form.Control
-                        type={item.type}
-                        disabled={item.disabled}
-                        id={item.name}
-                        name={item.name}
-                        value={
-                          item.type === "tel"
-                            ? insertHyphens(item.value)
-                            : item.value
-                        }
-                        onChange={
-                          item.type === "tel"
-                            ? (e) => handlePhoneChange(e, setPhoneNumber)
-                            : handleTextChange
-                        }
-                        className={item.disabled ? "greyBack" : ""}
-                        style={{ backgroundColor: "pink" }}
-                      />
+                      {item.label === "소속 부서" ? (
+                        <WorkerDeptSelector
+                          workerDept={item.value}
+                          onChange={handleTextChange}
+                        />
+                      ) : (
+                        <Form.Control
+                          type={item.type}
+                          disabled={item.disabled}
+                          id={item.name}
+                          name={item.name}
+                          value={
+                            item.type === "tel"
+                              ? insertHyphens(item.value)
+                              : item.value
+                          }
+                          onChange={
+                            item.type === "tel"
+                              ? (e) => handlePhoneChange(e, setPhoneNumber)
+                              : handleTextChange
+                          }
+                          className={item.disabled ? "greyBack" : ""}
+                          style={{ backgroundColor: "pink" }}
+                        />
+                      )}
                     </td>
                   </tr>
                 ))}
