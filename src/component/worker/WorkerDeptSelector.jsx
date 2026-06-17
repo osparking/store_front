@@ -4,7 +4,12 @@ import AdderModal from "../modal/AdderModal";
 import { getAllDept } from "./WorkerService";
 import "./WorkerDeptSelector.css";
 
-const WorkerDeptSelector = ({ disabled, workerDept, onChange }) => {
+const WorkerDeptSelector = ({
+  disabled,
+  workerDept,
+  onChange,
+  readOnly = false,
+}) => {
   const [workerDepts, setWorkerDepts] = useState([]);
   const [showDeptAdder, setShowDeptAdder] = useState(false);
 
@@ -45,7 +50,8 @@ const WorkerDeptSelector = ({ disabled, workerDept, onChange }) => {
           required
           onChange={handleDept}
           disabled={disabled}
-          style={{ backgroundColor: "pink" }}
+          style={{ backgroundColor: readOnly ? "lightgrey" : "pink" }}
+          disabled={readOnly}
         >
           <option value="">(소속 부서)</option>
           {workerDepts.map((dept, index) => (
