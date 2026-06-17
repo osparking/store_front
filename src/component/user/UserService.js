@@ -108,6 +108,20 @@ export async function getUserDtoById(userId) {
   }
 }
 
+export async function updateWorkerDept(id, dept) {
+  try {
+    const request = { dept };
+    const result = await callWithToken(
+      "put",
+      `/worker/${id}/change_dept`,
+      request,
+    );
+    return result ? result.data : result;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function changePwd(userId, curPwd, newPwd, cnfPwd) {
   try {
     const request = { curPwd, newPwd, cnfPwd };
