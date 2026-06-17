@@ -5,11 +5,11 @@ import { SiGoogleauthenticator } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
 import google_authen from "../../assets/images/google_authen.svg";
 import { api } from "../util/api";
-import { storeLoginInfo } from "../util/utilities";
+import { storeJWT, storeLoginInfo } from "../util/utilities";
 
 import "../../App.css";
 
-const CodeEntryModal = ({ show, handleHide, jwtToken, user }) => {
+const CodeEntryModal = ({ show, handleHide, jwtToken, user, save_login }) => {
   
   const [code, setCode] = useState("");
   const [verifying, setVerifying] = useState(false);
@@ -32,6 +32,7 @@ const CodeEntryModal = ({ show, handleHide, jwtToken, user }) => {
         },
       });
       storeLoginInfo(user);
+      storeJWT(jwtToken, save_login);
       window.dispatchEvent(new Event("loginEvt"));
       navigate(`/dashboard/${user.id}/user`);
     } catch (error) {

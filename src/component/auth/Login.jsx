@@ -253,6 +253,7 @@ const Login = () => {
           handleHide={hideCodeModal}
           jwtToken={jwtToken}
           user={user}
+          save_login={credentials.save_login}
         />
       )}
       <Row id="login-row" className="justify-content-center">
