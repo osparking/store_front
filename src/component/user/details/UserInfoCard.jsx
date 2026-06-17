@@ -140,7 +140,7 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
   } = BsAlertHook();
 
   const manageWorkersContext = useContext(ManageWorkersContext);
-  const readWorkerList = manageWorkersContext.readWorkerList;
+  const readWorkerList = manageWorkersContext?.readWorkerList;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -214,6 +214,7 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
                         <WorkerDeptSelector
                           workerDept={item.value}
                           onChange={handleTextChange}
+                          readOnly={readOnly}
                         />
                       ) : (
                         <Form.Control
