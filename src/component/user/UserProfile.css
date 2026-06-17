@@ -99,6 +99,15 @@
   width: 360px;
 }
 
+#disableAccountButton {
+  background-color: pink;
+  color: deeppink;
+  font-weight: bold;
+  border: none;
+  min-width: 60px;
+  font-size: 1.03em;
+}
+
 @media (max-width: 575px) {
   .home-container .card {
     margin-top: 0 !important;
