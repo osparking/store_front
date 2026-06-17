@@ -1,6 +1,7 @@
 import Switch from "@mui/material/Switch";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Card, Form, Table } from "react-bootstrap";
+import toast from "react-hot-toast";
 import QRcodeBox from "../../auth/QRcodeBox";
 import BsAlertHook from "../../hook/BsAlertHook";
 import { RootContext } from "../../layout/RootLayout";
@@ -11,13 +12,16 @@ import WorkerDeptSelector from "../../worker/WorkerDeptSelector";
 import "../UserProfile.css";
 import { updateWorkerDept } from "../UserService";
 import "./UserDetails.css";
-import toast from "react-hot-toast";
 
 const UserInfoCard = ({ user, readOnly, isAdmined }) => {
   const [newUser, setNewUser] = useState({
     ...user,
     enabled: user.enabled ? "가능" : "불가능",
   });
+
+  const restoreDept = () => {
+    setNewUser({ ...newUser, dept: user.dept });
+  };
 
   const profileData = [
     {
@@ -279,11 +283,15 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
           <Card.Footer className="text-center">
             <div className="d-flex justify-content-center mb-3 mt-3 char2button">
               <Button
-                type="submit"
-                variant="primary"
+                type="button"
+                variant="secondary"
                 size="sm"
-                className="me-2"
+                className="me-4"
+                onClick={restoreDept}
               >
+                {"복원"}
+              </Button>
+              <Button type="submit" variant="primary" size="sm">
                 {"저장"}
               </Button>
             </div>
