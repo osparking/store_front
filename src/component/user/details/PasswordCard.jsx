@@ -106,11 +106,10 @@ const PasswordCard = ({ user, readOnly = false }) => {
           <div className="d-flex justify-content-center mt-2 mb-2">
             <div className="mx-2">
               <Button
-                variant="danger"
+                id="disableAccountButton"
                 size="sm"
                 onClick={handleCloseAccountButtonCLick}
                 className="w-100"
-                style={{ minWidth: "60px" }}
               >
                 비활성화
               </Button>
