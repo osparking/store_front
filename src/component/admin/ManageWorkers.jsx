@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { BsPlusSquareFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,6 +14,8 @@ import { getRecordRange } from "../util/utilities";
 import "./AdminCanvas.css";
 import WorkersTable from "./WorkersTable";
 import "./WorkersTable.css";
+
+export const ManageWorkersContext = createContext();
 
 const ManageWorkers = () => {
   const [workerList, setWorkerList] = useState([]);
@@ -46,6 +48,13 @@ const ManageWorkers = () => {
       setAlertError(true);
     }
   };
+
+  const workersContext = useMemo(
+    () => ({
+      readWorkerList,
+    }),
+    [readWorkerList],
+  );
 
   const handleLockToggle = async (worker) => {
     try {
@@ -179,15 +188,17 @@ const ManageWorkers = () => {
     setAccount(account);
     setShowDetails(true);
   };
-  
+
   return (
     <>
       {showDetails ? (
-        <UserProfile
-          user={account.worker}
-          setShowDetails={setShowDetails}
-          readOnly={!account.editable}
-        />
+        <ManageWorkersContext.Provider value={workersContext}>
+          <UserProfile
+            user={account.worker}
+            setShowDetails={setShowDetails}
+            readOnly={!account.editable}
+          />
+        </ManageWorkersContext.Provider>
       ) : (
         <>
           <DeleteConfirmModal
@@ -253,7 +264,6 @@ const ManageWorkers = () => {
               </div>
             </Card.Body>
           </Card>
-
           <Paginator
             pageSize={pageSize}
             totalItems={filteredWorkers.length}
