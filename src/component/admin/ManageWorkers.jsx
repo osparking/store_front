@@ -21,7 +21,6 @@ const ManageWorkers = () => {
   const [workerList, setWorkerList] = useState([]);
   const [showDelModal, setShowDelModal] = useState(false);
   const [delTarget, setDelTarget] = useState({});
-  const [reloadFlag, setReloadFlag] = useState(false);
 
   const {
     successMsg,
@@ -56,25 +55,6 @@ const ManageWorkers = () => {
     [readWorkerList],
   );
 
-  const handleLockToggle = async (worker) => {
-    try {
-      const result = await callWithToken(
-        "put",
-        `/admin/worker/${worker.id}/toggle`,
-      );
-      console.log("result:" + JSON.stringify(result));
-      setReloadFlag(!reloadFlag);
-      setAlertError(false);
-      setSuccessMsg(result.data.message + ", 활성값: " + !worker.enabled);
-      setAlertSuccess(true);
-    } catch (e) {
-      console.error("e:", e);
-      setErrorMsg(e.response.data.message);
-      setAlertSuccess(false);
-      setAlertError(true);
-    }
-  };
-
   const [delBtnDisabled, setDelBtnDisabled] = useState(false);
   const handleDeletion = async () => {
     if (delTarget) {
@@ -97,7 +77,7 @@ const ManageWorkers = () => {
 
   useEffect(() => {
     readWorkerList();
-  }, [reloadFlag]);
+  }, []);
 
   const processDeletion = async (id, name) => {
     setDelTarget({ id, name });
@@ -191,89 +171,89 @@ const ManageWorkers = () => {
 
   return (
     <>
-      {showDetails ? (
-        <ManageWorkersContext.Provider value={workersContext}>
+      <ManageWorkersContext.Provider value={workersContext}>
+        {showDetails ? (
           <UserProfile
             user={account.worker}
             setShowDetails={setShowDetails}
             readOnly={!account.editable}
           />
-        </ManageWorkersContext.Provider>
-      ) : (
-        <>
-          <DeleteConfirmModal
-            show={showDelModal}
-            onHide={() => setShowDelModal(false)}
-            handleDeletion={handleDeletion}
-            target={`${delTarget.name} 계정의`}
-            disabled={delBtnDisabled}
-          />
-          <Row>
-            <Col>
-              {alertSuccess && (
-                <AlertMessage type={"success"} message={successMsg} />
+        ) : (
+          <>
+            <DeleteConfirmModal
+              show={showDelModal}
+              onHide={() => setShowDelModal(false)}
+              handleDeletion={handleDeletion}
+              target={`${delTarget.name} 계정의`}
+              disabled={delBtnDisabled}
+            />
+            <Row>
+              <Col>
+                {alertSuccess && (
+                  <AlertMessage type={"success"} message={successMsg} />
+                )}
+                {alertError && (
+                  <AlertMessage type={"danger"} message={errorMsg} />
+                )}
+              </Col>
+            </Row>
+            <Row className="justify-content-between mb-2">
+              <Col md={1}>
+                <div></div>
+              </Col>
+              <Col md={6} xs={10} style={{ maxWidth: "350px" }}>
+                <ItemFilter
+                  itemType={"소속"}
+                  options={departments}
+                  onClearFilter={handleClearFilter}
+                  onOptionSelection={handleDeptSelection}
+                  selectedOption={selectedDept}
+                />
+              </Col>
+              <Col md={1} xs={1}>
+                <div className="d-flex justify-content-end worker-add-link">
+                  <Link to={"/register_user"}>
+                    <BsPlusSquareFill />
+                  </Link>
+                </div>
+              </Col>
+            </Row>
+            <p className="text-center mb-1">
+              {getRecordRange(
+                { totalElements: filteredWorkers.length },
+                indexOfFirst,
+                idxLastPlus1,
+                "직원",
               )}
-              {alertError && (
-                <AlertMessage type={"danger"} message={errorMsg} />
-              )}
-            </Col>
-          </Row>
-          <Row className="justify-content-between mb-2">
-            <Col md={1}>
-              <div></div>
-            </Col>
-            <Col md={6} xs={10} style={{ maxWidth: "350px" }}>
-              <ItemFilter
-                itemType={"소속"}
-                options={departments}
-                onClearFilter={handleClearFilter}
-                onOptionSelection={handleDeptSelection}
-                selectedOption={selectedDept}
-              />
-            </Col>
-            <Col md={1} xs={1}>
-              <div className="d-flex justify-content-end worker-add-link">
-                <Link to={"/register_user"}>
-                  <BsPlusSquareFill />
-                </Link>
-              </div>
-            </Col>
-          </Row>
-          <p className="text-center mb-1">
-            {getRecordRange(
-              { totalElements: filteredWorkers.length },
-              indexOfFirst,
-              idxLastPlus1,
-              "직원",
-            )}
-          </p>
-          <Card
-            id="user-table-card"
-            className="p-0"
-            style={{ overflowY: "auto" }}
-          >
-            <Card.Body className="p-0">
-              <div
-                style={{
-                  whiteSpace: "initial",
-                  margin: "20px",
-                }}
-                className="justify-content-center align-items-center"
-              >
-                {WorkersTable(displayWorkers, showAccountDetails)}
-              </div>
-            </Card.Body>
-          </Card>
-          <Paginator
-            pageSize={pageSize}
-            totalItems={filteredWorkers.length}
-            totalPages={totalPages}
-            currPage={currWorkerPage}
-            setCurrPage={setAndSavePageNo}
-            darkBackground={true}
-          />
-        </>
-      )}
+            </p>
+            <Card
+              id="user-table-card"
+              className="p-0"
+              style={{ overflowY: "auto" }}
+            >
+              <Card.Body className="p-0">
+                <div
+                  style={{
+                    whiteSpace: "initial",
+                    margin: "20px",
+                  }}
+                  className="justify-content-center align-items-center"
+                >
+                  {WorkersTable(displayWorkers, showAccountDetails)}
+                </div>
+              </Card.Body>
+            </Card>
+            <Paginator
+              pageSize={pageSize}
+              totalItems={filteredWorkers.length}
+              totalPages={totalPages}
+              currPage={currWorkerPage}
+              setCurrPage={setAndSavePageNo}
+              darkBackground={true}
+            />
+          </>
+        )}
+      </ManageWorkersContext.Provider>
     </>
   );
 };
