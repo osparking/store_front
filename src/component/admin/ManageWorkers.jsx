@@ -6,9 +6,7 @@ import AlertMessage from "../common/AlertMessage";
 import ItemFilter from "../common/ItemFilter";
 import Paginator from "../common/Paginator";
 import BsAlertHook from "../hook/BsAlertHook";
-import DeleteConfirmModal from "../modal/DeleteConfirmModal";
 import UserProfile from "../user/UserProfile";
-import { deleteUserAccount } from "../user/UserService";
 import { callWithToken } from "../util/api";
 import { getRecordRange } from "../util/utilities";
 import "./AdminCanvas.css";
@@ -19,8 +17,6 @@ export const ManageWorkersContext = createContext();
 
 const ManageWorkers = () => {
   const [workerList, setWorkerList] = useState([]);
-  const [showDelModal, setShowDelModal] = useState(false);
-  const [delTarget, setDelTarget] = useState({});
 
   const {
     successMsg,
@@ -55,34 +51,9 @@ const ManageWorkers = () => {
     [readWorkerList],
   );
 
-  const [delBtnDisabled, setDelBtnDisabled] = useState(false);
-  const handleDeletion = async () => {
-    if (delTarget) {
-      try {
-        setDelBtnDisabled(true);
-        const result = await deleteUserAccount(delTarget.id);
-        setSuccessMsg(result.message);
-        setAlertSuccess(true);
-        setShowDelModal(false);
-        readWorkerList();
-      } catch (err) {
-        console.error("err:", err);
-        setErrorMsg(err.message);
-        setAlertError(true);
-      } finally {
-        setDelBtnDisabled(false);
-      }
-    }
-  };
-
   useEffect(() => {
     readWorkerList();
   }, []);
-
-  const processDeletion = async (id, name) => {
-    setDelTarget({ id, name });
-    setShowDelModal(true);
-  };
 
   const [pageSize] = useState(10);
   const [filteredWorkers, setFilteredWorkers] = useState([]);
@@ -180,13 +151,6 @@ const ManageWorkers = () => {
           />
         ) : (
           <>
-            <DeleteConfirmModal
-              show={showDelModal}
-              onHide={() => setShowDelModal(false)}
-              handleDeletion={handleDeletion}
-              target={`${delTarget.name} 계정의`}
-              disabled={delBtnDisabled}
-            />
             <Row>
               <Col>
                 {alertSuccess && (
