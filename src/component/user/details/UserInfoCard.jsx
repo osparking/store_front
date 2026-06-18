@@ -35,14 +35,14 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
       type: "text",
       name: "fullName",
       value: newUser.fullName,
-      disabled: true,
+      disabled: isAdmined,
     },
     {
       label: "휴대폰",
       type: "tel",
       name: "mbPhone",
       value: newUser.mbPhone,
-      disabled: true,
+      disabled: isAdmined,
     },
     { label: "이메일", value: newUser.email, disabled: true },
     { label: "등록 형태", value: newUser.signUpMethod, disabled: true },
@@ -55,11 +55,13 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
     setNewUser((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  const disableDept = readOnly || !isAdmined;
+
   if (newUser.userType === "노동자") {
     profileData.push({
       label: "소속 부서",
       value: newUser.dept,
-      disabled: readOnly || !isAdmined,
+      disabled: disableDept,
     });
   }
 
@@ -214,7 +216,7 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
                         <WorkerDeptSelector
                           workerDept={item.value}
                           onChange={handleTextChange}
-                          readOnly={readOnly}
+                          readOnly={disableDept}
                         />
                       ) : (
                         <Form.Control
