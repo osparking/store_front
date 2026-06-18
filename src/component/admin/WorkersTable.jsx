@@ -13,6 +13,9 @@ import { insert2Hyphens } from "../util/utilities";
 import "./AdminCanvas.css";
 import "./WorkersTable.css";
 import AlertMessage from "../common/AlertMessage";
+import { deleteUserAccount } from "../user/UserService";
+import DeleteConfirmModal from "../modal/DeleteConfirmModal";
+import { useState } from "react";
 
 const WorkersTable = (displayWorkers, showAccountDetails, readWorkerList) => {
   const {
@@ -41,6 +44,34 @@ const WorkersTable = (displayWorkers, showAccountDetails, readWorkerList) => {
       setErrorMsg(e.response.data.message);
       setAlertSuccess(false);
       setAlertError(true);
+    }
+  };
+
+  const [delBtnDisabled, setDelBtnDisabled] = useState(false);
+  const [showDelModal, setShowDelModal] = useState(false);
+  const [delTarget, setDelTarget] = useState({});
+
+  const processDeletion = async (id, name) => {
+    setDelTarget({ id, name });
+    setShowDelModal(true);
+  };
+
+  const handleDeletion = async () => {
+    if (delTarget) {
+      try {
+        setDelBtnDisabled(true);
+        const result = await deleteUserAccount(delTarget.id);
+        setSuccessMsg(result.message);
+        setAlertSuccess(true);
+        setShowDelModal(false);
+        readWorkerList();
+      } catch (err) {
+        console.error("err:", err);
+        setErrorMsg(err.message);
+        setAlertError(true);
+      } finally {
+        setDelBtnDisabled(false);
+      }
     }
   };
 
@@ -138,6 +169,14 @@ const WorkersTable = (displayWorkers, showAccountDetails, readWorkerList) => {
         {alertSuccess && <AlertMessage type={"success"} message={successMsg} />}
         {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
       </div>
+
+      <DeleteConfirmModal
+        show={showDelModal}
+        onHide={() => setShowDelModal(false)}
+        handleDeletion={handleDeletion}
+        target={`${delTarget.name} 계정의`}
+        disabled={delBtnDisabled}
+      />
     </>
   );
 };
