@@ -5,7 +5,7 @@ import { getAllDept } from "./WorkerService";
 import "./WorkerDeptSelector.css";
 
 const WorkerDeptSelector = ({
-  disabled,
+  disabled = false,
   workerDept,
   onChange,
   readOnly = false,
@@ -49,9 +49,8 @@ const WorkerDeptSelector = ({
           value={workerDept}
           required
           onChange={handleDept}
-          disabled={disabled}
+          disabled={disabled || readOnly}
           style={{ backgroundColor: readOnly ? "lightgrey" : "pink" }}
-          disabled={readOnly}
         >
           <option value="">(소속 부서)</option>
           {workerDepts.map((dept, index) => (
