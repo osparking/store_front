@@ -8,6 +8,7 @@ import {
 } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import BsAlertHook from "../hook/BsAlertHook";
+import DeleteWorkerConfirmModal from "../modal/DeleteWorkerConfirmModal";
 import { callWithToken } from "../util/api";
 import { insert2Hyphens } from "../util/utilities";
 import "./AdminCanvas.css";
@@ -170,12 +171,14 @@ const WorkersTable = (displayWorkers, showAccountDetails, readWorkerList) => {
         {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
       </div>
 
-      <DeleteConfirmModal
+      <DeleteWorkerConfirmModal
         show={showDelModal}
         onHide={() => setShowDelModal(false)}
         handleDeletion={handleDeletion}
-        target={`${delTarget.name} 계정의`}
+        target={`${delTarget.name}`}
         disabled={delBtnDisabled}
+        isPageLastItem={displayWorkers.length}
+        modalClass="delete-worker-confirm"
       />
     </>
   );
