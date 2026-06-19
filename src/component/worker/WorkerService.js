@@ -22,6 +22,16 @@ export async function deleteStoredIngre(ingId) {
   }
 }
 
+export async function deleteWorkerSoftly(userId) {
+  try {
+    const urlSuffix = `/worker/${userId}/delete`;
+    const result = await callWithToken("delete", urlSuffix);
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function getAllPackUnits() {
   try {
     const result = await callWithToken("get", "/store_ingred/get_packunits");
