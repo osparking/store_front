@@ -8,7 +8,6 @@ const DeleteWorkerConfirmModal = ({
   handleDeletion,
   target,
   disabled,
-  isPageLastItem = false,
   modalClass = "",
 }) => {
   return (
@@ -30,7 +29,7 @@ const DeleteWorkerConfirmModal = ({
         </Button>
         <Button
           variant="danger"
-          onClick={() => handleDeletion(isPageLastItem)}
+          onClick={() => handleDeletion()}
           disabled={disabled}
         >
           {disabled ? "진행 중~" : "삭제 진행"}
