@@ -88,6 +88,11 @@
   min-width: 930px;
 }
 
+.grey-out {
+  color: grey;
+  cursor: default;
+}
+
 @media screen and (max-height: 899px) {
   .table-body.order {
     max-height: calc(100vh - 382px);
@@ -114,7 +119,7 @@
   .worker-table-wrapper.ingredient {
     padding: 0 1em;
   }
-  
+
   .table-body.order {
     max-height: calc(100vh - 308px);
   }
