@@ -22,7 +22,6 @@ const WorkersTable = (
   showAccountDetails,
   readWorkerList,
   currentPage,
-  setAndSavePageNo,
 ) => {
   const {
     successMsg,
@@ -65,7 +64,7 @@ const WorkersTable = (
     setShowDelModal(true);
   };
 
-  const handleDeletion = async (isPageLastItem) => {
+  const handleDeletion = async () => {
     if (delTarget) {
       try {
         setDelBtnDisabled(true);
@@ -73,12 +72,7 @@ const WorkersTable = (
         setSuccessMsg(result.message);
         setAlertSuccess(true);
         setShowDelModal(false);
-
-        if (isPageLastItem && currentPage > 1) {
-          setAndSavePageNo(currentPage - 1);
-        } else {
-          readWorkerList();
-        }
+        readWorkerList();
       } catch (err) {
         console.error("err:", err);
         setErrorMsg(err.message);
@@ -190,7 +184,6 @@ const WorkersTable = (
         handleDeletion={handleDeletion}
         target={`${delTarget.name}`}
         disabled={delBtnDisabled}
-        isPageLastItem={displayWorkers.length}
         modalClass="delete-worker-confirm"
       />
     </>
