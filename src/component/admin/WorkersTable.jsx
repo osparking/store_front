@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
 import {
   BsEyeFill,
@@ -7,18 +8,22 @@ import {
   BsUnlockFill,
 } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import DeleteWorkerConfirmModal from "../modal/DeleteWorkerConfirmModal";
 import { callWithToken } from "../util/api";
 import { insert2Hyphens } from "../util/utilities";
+import { deleteWorkerSoftly } from "../worker/WorkerService";
 import "./AdminCanvas.css";
 import "./WorkersTable.css";
-import AlertMessage from "../common/AlertMessage";
-import { deleteUserAccount } from "../user/UserService";
-import DeleteConfirmModal from "../modal/DeleteConfirmModal";
-import { useState } from "react";
 
-const WorkersTable = (displayWorkers, showAccountDetails, readWorkerList) => {
+const WorkersTable = (
+  displayWorkers,
+  showAccountDetails,
+  readWorkerList,
+  currentPage,
+  setAndSavePageNo,
+) => {
   const {
     successMsg,
     setSuccessMsg,
@@ -57,15 +62,20 @@ const WorkersTable = (displayWorkers, showAccountDetails, readWorkerList) => {
     setShowDelModal(true);
   };
 
-  const handleDeletion = async () => {
+  const handleDeletion = async (isPageLastItem) => {
     if (delTarget) {
       try {
         setDelBtnDisabled(true);
-        const result = await deleteUserAccount(delTarget.id);
+        const result = await deleteWorkerSoftly(delTarget.id);
         setSuccessMsg(result.message);
         setAlertSuccess(true);
         setShowDelModal(false);
-        readWorkerList();
+
+        if (isPageLastItem && currentPage > 1) {
+          setAndSavePageNo(currentPage - 1);
+        } else {
+          readWorkerList();
+        }
       } catch (err) {
         console.error("err:", err);
         setErrorMsg(err.message);
