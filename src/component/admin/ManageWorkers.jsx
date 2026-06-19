@@ -207,6 +207,8 @@ const ManageWorkers = () => {
                     displayWorkers,
                     showAccountDetails,
                     readWorkerList,
+                    currWorkerPage,
+                    setAndSavePageNo,
                   )}
                 </div>
               </Card.Body>
