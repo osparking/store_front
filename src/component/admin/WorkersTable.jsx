@@ -57,8 +57,11 @@ const WorkersTable = (
   const [showDelModal, setShowDelModal] = useState(false);
   const [delTarget, setDelTarget] = useState({});
 
-  const processDeletion = async (id, name) => {
-    setDelTarget({ id, name });
+  const processDeletion = async (worker) => {
+    if (worker.deleted) {
+      return;
+    }
+    setDelTarget({ id: worker.id, name: worker.name });
     setShowDelModal(true);
   };
 
@@ -165,8 +168,8 @@ const WorkersTable = (
                 >
                   <Link
                     to={"#"}
-                    className="text-danger"
-                    onClick={() => processDeletion(worker.id, worker.fullName)}
+                    className={worker.deleted ? "grey-out" : "text-danger"}
+                    onClick={() => processDeletion(worker)}
                   >
                     <BsTrashFill />
                   </Link>
