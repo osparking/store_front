@@ -1,4 +1,10 @@
-import { createContext, useEffect, useMemo, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { BsPlusSquareFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,6 +24,17 @@ export const ManageWorkersContext = createContext();
 const ManageWorkers = () => {
   const [workerList, setWorkerList] = useState([]);
 
+  const [currWorkerPage, setCurrWorkerPage] = useState(
+    Number(localStorage.getItem("CURR_WORKER_PAGE")) || 1,
+  );
+  
+  const [filteredWorkers, setFilteredWorkers] = useState([]);
+
+  const [pageSize] = useState(10);  
+  const idxLastPlus1 = currWorkerPage * pageSize;
+  const indexOfFirst = idxLastPlus1 - pageSize;
+  const displayWorkers = filteredWorkers.slice(indexOfFirst, idxLastPlus1);
+
   const {
     successMsg,
     setSuccessMsg,
@@ -30,7 +47,7 @@ const ManageWorkers = () => {
   } = BsAlertHook();
   const navigate = useNavigate();
 
-  const readWorkerList = async () => {
+  const readWorkerList = useCallback(async () => {
     try {
       const response = await callWithToken("get", "/admin/worker/get_all");
       if (response) {
@@ -42,7 +59,7 @@ const ManageWorkers = () => {
       setErrorMsg(err.message);
       setAlertError(true);
     }
-  };
+  }, [navigate, setErrorMsg, setAlertError]);
 
   const workersContext = useMemo(
     () => ({
@@ -55,8 +72,6 @@ const ManageWorkers = () => {
     readWorkerList();
   }, []);
 
-  const [pageSize] = useState(10);
-  const [filteredWorkers, setFilteredWorkers] = useState([]);
   const [selectedDept, setSelectedDept] = useState(
     localStorage.getItem("SELECTED_DEPT") || "",
   );
@@ -118,14 +133,6 @@ const ManageWorkers = () => {
     localStorage.removeItem("CURR_WORKER_PAGE");
     setCurrWorkerPage(1);
   };
-
-  const [currWorkerPage, setCurrWorkerPage] = useState(
-    Number(localStorage.getItem("CURR_WORKER_PAGE")) || 1,
-  );
-
-  const idxLastPlus1 = currWorkerPage * pageSize;
-  const indexOfFirst = idxLastPlus1 - pageSize;
-  const displayWorkers = filteredWorkers.slice(indexOfFirst, idxLastPlus1);
 
   const setAndSavePageNo = (pageNo) => {
     setCurrWorkerPage(pageNo);
