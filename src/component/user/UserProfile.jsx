@@ -7,7 +7,12 @@ import PasswordCard from "./details/PasswordCard";
 import UserInfoCard from "./details/UserInfoCard";
 import "./UserProfile.css";
 
-const UserProfile = ({ user, setShowDetails, readOnly = false }) => {
+const UserProfile = ({
+  user,
+  setShowDetails,
+  readOnly = false,
+  handleDeletion,
+}) => {
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [qrCodeUrl, setQrCodeUrl] = useState("");
 
@@ -59,6 +64,7 @@ const UserProfile = ({ user, setShowDetails, readOnly = false }) => {
               user={user}
               readOnly={readOnly}
               isAdmined={isAdmined}
+              handleDeletion={handleDeletion}
             />
           </Grid>
         </Grid>
