@@ -203,12 +203,12 @@ const ManageWorkers = () => {
                   }}
                   className="justify-content-center align-items-center"
                 >
-                  {WorkersTable(
-                    displayWorkers,
-                    showAccountDetails,
-                    readWorkerList,
-                    currWorkerPage,
-                  )}
+                  <WorkersTable
+                    displayWorkers={displayWorkers}
+                    showAccountDetails={showAccountDetails}
+                    readWorkerList={readWorkerList}
+                    currWorkerPage={currWorkerPage}
+                  />
                 </div>
               </Card.Body>
             </Card>
