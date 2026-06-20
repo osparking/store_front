@@ -184,6 +184,7 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
         />
         <Card.Header className="text-center mb-2 h5">
           계정 상세 정보
+          <span className="text-danger">{user.deleted ? "(삭제됨)" : ""}</span>
         </Card.Header>
         <Card.Body className="d-flex align-items-center justify-content-center">
           <div style={{ overflow: "auto" }}>
