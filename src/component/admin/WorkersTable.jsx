@@ -11,7 +11,6 @@ import { Link } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import DeleteWorkerConfirmModal from "../modal/DeleteWorkerConfirmModal";
-import { callWithToken } from "../util/api";
 import { insert2Hyphens } from "../util/utilities";
 import { deleteWorkerSoftly } from "../worker/WorkerService";
 import "./AdminCanvas.css";
@@ -33,24 +32,6 @@ const WorkersTable = ({
     alertError,
     setAlertError,
   } = BsAlertHook();
-
-  const handleLockToggle = async (worker) => {
-    try {
-      const result = await callWithToken(
-        "put",
-        `/admin/worker/${worker.id}/toggle`,
-      );
-      readWorkerList();
-      setAlertError(false);
-      setSuccessMsg(result.data.message + ", 활성값: " + !worker.enabled);
-      setAlertSuccess(true);
-    } catch (e) {
-      console.error("e:", e);
-      setErrorMsg(e.response.data.message);
-      setAlertSuccess(false);
-      setAlertError(true);
-    }
-  };
 
   const [delBtnDisabled, setDelBtnDisabled] = useState(false);
   const [showDelModal, setShowDelModal] = useState(false);
@@ -144,14 +125,11 @@ const WorkersTable = ({
                 <OverlayTrigger
                   overlay={
                     <Tooltip id={`tooltip-view-${index}`}>
-                      {worker.enabled ? "계정 잠금" : "잠금 해제"}
+                      {"계정 상태"}
                     </Tooltip>
                   }
                 >
-                  <span
-                    onClick={() => handleLockToggle(worker)}
-                    style={{ cursor: "pointer" }}
-                  >
+                  <span style={{ color: "grey" }}>
                     {worker.enabled ? <BsUnlockFill /> : <BsLockFill />}
                   </span>
                 </OverlayTrigger>
