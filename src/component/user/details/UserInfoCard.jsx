@@ -1,20 +1,22 @@
 import Switch from "@mui/material/Switch";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Button, Card, Form, Table } from "react-bootstrap";
 import toast from "react-hot-toast";
+import { ManageWorkersContext } from "../../admin/ManageWorkers";
 import QRcodeBox from "../../auth/QRcodeBox";
 import BsAlertHook from "../../hook/BsAlertHook";
 import { RootContext } from "../../layout/RootLayout";
 import ConfirmationModal from "../../modal/ConfirmationModal";
+import DeleteWorkerConfirmModal from "../../modal/DeleteWorkerConfirmModal";
 import { callWithToken } from "../../util/api";
 import { handlePhoneChange, insertHyphens } from "../../util/utilities";
 import WorkerDeptSelector from "../../worker/WorkerDeptSelector";
 import "../UserProfile.css";
 import { updateWorkerDept } from "../UserService";
 import "./UserDetails.css";
-import { ManageWorkersContext } from "../../admin/ManageWorkers";
 
-const UserInfoCard = ({ user, readOnly, isAdmined }) => {
+const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
+  console.log("user: ", user);
   const [newUser, setNewUser] = useState({
     ...user,
     enabled: user.enabled ? "가능" : "불가능",
@@ -141,6 +143,9 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
     setAlertError,
   } = BsAlertHook();
 
+  const [showDelModal, setShowDelModal] = useState(false);
+  const [delBtnDisabled, setDelBtnDisabled] = useState(false);
+
   const manageWorkersContext = useContext(ManageWorkersContext);
   const readWorkerList = manageWorkersContext?.readWorkerList;
 
@@ -165,6 +170,20 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
       setAlertError(true);
     } finally {
       setIsProcessing(false);
+    }
+  };
+
+  const workerDeletionConfirmed = async () => {
+    try {
+      setDelBtnDisabled(true);
+      await handleDeletion(newUser.id);
+      setShowDelModal(false);
+      setNewUser({ ...newUser, deleted: true });
+    } catch (err) {
+      setErrorMsg(err.message);
+      setAlertError(true);
+    } finally {
+      setDelBtnDisabled(false);
     }
   };
 
@@ -299,6 +318,16 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
             <div className="d-flex justify-content-center mb-3 mt-3 char2button">
               <Button
                 type="button"
+                disabled={user.deleted}
+                variant="danger"
+                size="sm"
+                className="me-4"
+                onClick={() => setShowDelModal(true)}
+              >
+                {"삭제"}
+              </Button>
+              <Button
+                type="button"
                 disabled={deptRemains()}
                 variant="secondary"
                 size="sm"
@@ -316,6 +345,14 @@ const UserInfoCard = ({ user, readOnly, isAdmined }) => {
                 {"저장"}
               </Button>
             </div>
+            <DeleteWorkerConfirmModal
+              show={showDelModal}
+              onHide={() => setShowDelModal(false)}
+              handleDeletion={workerDeletionConfirmed}
+              target={newUser.fullName}
+              disabled={newUser.deleted}
+              modalClass="delete-worker-confirm"
+            />
           </Card.Footer>
         )}
       </Card>
