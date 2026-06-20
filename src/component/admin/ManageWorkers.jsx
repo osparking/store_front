@@ -154,6 +154,7 @@ const ManageWorkers = () => {
       setSuccessMsg(result.message);
       setAlertSuccess(true);
       readWorkerList();
+      setAccount({ ...account, worker: { ...account.worker, deleted: true } });
     } catch (err) {
       console.error("err:", err);
       setErrorMsg(err.message);
@@ -169,6 +170,7 @@ const ManageWorkers = () => {
             user={account.worker}
             setShowDetails={setShowDetails}
             readOnly={!account.editable}
+            handleDeletion={handleDeletion}
           />
         ) : (
           <>
