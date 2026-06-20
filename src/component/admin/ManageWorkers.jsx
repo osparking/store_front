@@ -15,6 +15,7 @@ import BsAlertHook from "../hook/BsAlertHook";
 import UserProfile from "../user/UserProfile";
 import { callWithToken } from "../util/api";
 import { getRecordRange } from "../util/utilities";
+import { deleteWorkerSoftly } from "../worker/WorkerService";
 import "./AdminCanvas.css";
 import WorkersTable from "./WorkersTable";
 import "./WorkersTable.css";
@@ -27,10 +28,10 @@ const ManageWorkers = () => {
   const [currWorkerPage, setCurrWorkerPage] = useState(
     Number(localStorage.getItem("CURR_WORKER_PAGE")) || 1,
   );
-  
+
   const [filteredWorkers, setFilteredWorkers] = useState([]);
 
-  const [pageSize] = useState(10);  
+  const [pageSize] = useState(10);
   const idxLastPlus1 = currWorkerPage * pageSize;
   const indexOfFirst = idxLastPlus1 - pageSize;
   const displayWorkers = filteredWorkers.slice(indexOfFirst, idxLastPlus1);
@@ -147,6 +148,19 @@ const ManageWorkers = () => {
     setShowDetails(true);
   };
 
+  const handleDeletion = async (workerId) => {
+    try {
+      const result = await deleteWorkerSoftly(workerId);
+      setSuccessMsg(result.message);
+      setAlertSuccess(true);
+      readWorkerList();
+    } catch (err) {
+      console.error("err:", err);
+      setErrorMsg(err.message);
+      setAlertError(true);
+    }
+  };
+
   return (
     <>
       <ManageWorkersContext.Provider value={workersContext}>
@@ -158,7 +172,7 @@ const ManageWorkers = () => {
           />
         ) : (
           <>
-            <Row>
+            <Row className="justify-content-center">
               <Col>
                 {alertSuccess && (
                   <AlertMessage type={"success"} message={successMsg} />
@@ -213,7 +227,7 @@ const ManageWorkers = () => {
                   <WorkersTable
                     displayWorkers={displayWorkers}
                     showAccountDetails={showAccountDetails}
-                    readWorkerList={readWorkerList}
+                    handleDeletion={handleDeletion}
                     currWorkerPage={currWorkerPage}
                   />
                 </div>
