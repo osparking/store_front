@@ -17,12 +17,12 @@ import { deleteWorkerSoftly } from "../worker/WorkerService";
 import "./AdminCanvas.css";
 import "./WorkersTable.css";
 
-const WorkersTable = (
+const WorkersTable = ({
   displayWorkers,
   showAccountDetails,
   readWorkerList,
   currentPage,
-) => {
+}) => {
   const {
     successMsg,
     setSuccessMsg,
