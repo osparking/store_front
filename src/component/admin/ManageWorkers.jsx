@@ -58,7 +58,7 @@ const ManageWorkers = () => {
   const [pageSize] = useState(10);
   const [filteredWorkers, setFilteredWorkers] = useState([]);
   const [selectedDept, setSelectedDept] = useState(
-    localStorage.getItem("SELECTED_DEPT") | "",
+    localStorage.getItem("SELECTED_DEPT") || "",
   );
   const [totalPages, setTotalPages] = useState(0);
 
