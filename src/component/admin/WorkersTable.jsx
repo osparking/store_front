@@ -12,14 +12,13 @@ import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import DeleteWorkerConfirmModal from "../modal/DeleteWorkerConfirmModal";
 import { insert2Hyphens } from "../util/utilities";
-import { deleteWorkerSoftly } from "../worker/WorkerService";
 import "./AdminCanvas.css";
 import "./WorkersTable.css";
 
 const WorkersTable = ({
   displayWorkers,
   showAccountDetails,
-  readWorkerList,
+  handleDeletion,
   currentPage,
 }) => {
   const {
@@ -45,17 +44,13 @@ const WorkersTable = ({
     setShowDelModal(true);
   };
 
-  const handleDeletion = async () => {
+  const workerDeletionConfirmed = async () => {
     if (delTarget) {
       try {
         setDelBtnDisabled(true);
-        const result = await deleteWorkerSoftly(delTarget.id);
-        setSuccessMsg(result.message);
-        setAlertSuccess(true);
+        await handleDeletion(delTarget.id);
         setShowDelModal(false);
-        readWorkerList();
       } catch (err) {
-        console.error("err:", err);
         setErrorMsg(err.message);
         setAlertError(true);
       } finally {
@@ -163,7 +158,7 @@ const WorkersTable = ({
       <DeleteWorkerConfirmModal
         show={showDelModal}
         onHide={() => setShowDelModal(false)}
-        handleDeletion={handleDeletion}
+        handleDeletion={workerDeletionConfirmed}
         target={`${delTarget.name}`}
         disabled={delBtnDisabled}
         modalClass="delete-worker-confirm"
