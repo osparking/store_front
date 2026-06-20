@@ -136,7 +136,11 @@ const WorkersTable = ({
               </td>
               <td>
                 <OverlayTrigger
-                  overlay={<Tooltip id={`tooltip-view-${index}`}>삭제</Tooltip>}
+                  overlay={
+                    <Tooltip id={`tooltip-view-${index}`}>
+                      {worker.deleted ? "삭제됨" : "삭제"}
+                    </Tooltip>
+                  }
                 >
                   <Link
                     to={"#"}
