@@ -3,6 +3,7 @@ import { Form } from "react-bootstrap";
 import AdderModal from "../modal/AdderModal";
 import { getAllDept } from "./WorkerService";
 import "./WorkerDeptSelector.css";
+import "../../App.css";
 
 const WorkerDeptSelector = ({
   disabled = false,
@@ -50,7 +51,7 @@ const WorkerDeptSelector = ({
           required
           onChange={handleDept}
           disabled={disabled || readOnly}
-          style={{ backgroundColor: readOnly ? "lightgrey" : "pink" }}
+          className={readOnly ? "disabled-color" : "enabled-color"}
         >
           <option value="">(소속 부서)</option>
           {workerDepts.map((dept, index) => (
