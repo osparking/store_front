@@ -2,6 +2,7 @@ import Switch from "@mui/material/Switch";
 import { useContext, useState } from "react";
 import { Button, Card, Form, Table } from "react-bootstrap";
 import toast from "react-hot-toast";
+import "../../../App.css";
 import { ManageWorkersContext } from "../../admin/ManageWorkers";
 import QRcodeBox from "../../auth/QRcodeBox";
 import BsAlertHook from "../../hook/BsAlertHook";
@@ -175,7 +176,7 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
         response = await updateWorkerDept(newUser.id, newUser.dept);
         localUser.dept = response.data;
         localStorage.setItem("USER", JSON.stringify(localUser));
-        
+
         setUserDept(newUser.dept);
         readWorkerList();
       } else {
@@ -281,8 +282,9 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
                               ? (e) => handlePhoneChange(e, setPhoneNumber)
                               : handleTextChange
                           }
-                          className={item.disabled ? "greyBack" : ""}
-                          style={{ backgroundColor: "pink" }}
+                          className={
+                            item.disabled ? "disabled-color" : "enabled-color"
+                          }
                         />
                       )}
                     </td>
@@ -296,7 +298,11 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
                   <td md={7} colSpan={2}>
                     <div
                       id="switch-2FA"
-                      className={readOnly || isAdmined ? "greyBack" : ""}
+                      className={
+                        readOnly || isAdmined
+                          ? "disabled-color"
+                          : "enabled-color"
+                      }
                     >
                       <Switch
                         id="twoFAswitch"
