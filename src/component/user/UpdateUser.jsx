@@ -304,7 +304,10 @@ const UserUpdate = () => {
           <Card.Footer>
             {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
             {alertSuccess && (
-              <AlertMessage type={"success"} message={successMsg} />
+              <AlertMessage
+                type={"success"}
+                message={successMsg + " - [닫기]로 마감하세요"}
+              />
             )}
             <div className="d-flex justify-content-center char2button mt-3">
               <div className="mx-2">
