@@ -250,6 +250,7 @@ const UserUpdate = () => {
               >
                 <Form.Label className="legend">소속 부서</Form.Label>
                 <WorkerDeptSelector
+                  disabled={true}
                   workerDept={user.dept}
                   onChange={handleTextChange}
                 />
