@@ -12,23 +12,37 @@ import { callWithToken } from "../../util/api";
 import { handlePhoneChange, insertHyphens } from "../../util/utilities";
 import WorkerDeptSelector from "../../worker/WorkerDeptSelector";
 import "../UserProfile.css";
-import { updateWorkerDept } from "../UserService";
+import { updateUser, updateWorkerDept } from "../UserService";
 import "./UserDetails.css";
 
 const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
   console.log("user: ", user);
-  const [newUser, setNewUser] = useState({
-    ...user,
-    enabled: user.enabled ? "가능" : "불가능",
-  });
+  const [newUser, setNewUser] = useState(user);
 
   const [userDept, setUserDept] = useState(user.dept);
+  const [userFullName, setUserFullName] = useState(user.fullName);
+  const [userMbPhone, setUserMbPhone] = useState(user.mbPhone);
+
   const restoreDept = () => {
-    setNewUser({ ...newUser, dept: userDept });
+    if (isAdmined) {
+      setNewUser({ ...newUser, dept: userDept });
+    } else {
+      setNewUser({
+        ...newUser,
+        fullName: userFullName,
+        mbPhone: userMbPhone,
+      });
+    }
   };
 
   const deptRemains = () => {
-    return userDept === newUser.dept;
+    if (isAdmined) {
+      return userDept === newUser.dept;
+    } else {
+      return (
+        userFullName === newUser.fullName && userMbPhone === newUser.mbPhone
+      );
+    }
   };
 
   const profileData = [
@@ -70,7 +84,7 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
   if (isAdmined) {
     profileData.push({
       label: "로그인",
-      value: newUser.enabled,
+      value: newUser.enabled ? "가능" : "불가능",
       disabled: true,
     });
   }
@@ -153,7 +167,13 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
     e.preventDefault();
     try {
       setIsProcessing(true);
-      const response = await updateWorkerDept(newUser.id, newUser.dept);
+      let response = null;
+
+      if (isAdmined) {
+        response = await updateWorkerDept(newUser.id, newUser.dept);
+      } else {
+        response = await updateUser(newUser.id, newUser);
+      }
       setSuccessMsg(response.message);
       setAlertSuccess(true);
 
@@ -163,8 +183,13 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
       localStorage.setItem("USER", JSON.stringify(localUser));
 
       toast.success(response.message);
-      setUserDept(newUser.dept);
-      readWorkerList();
+      if (isAdmined) {
+        setUserDept(newUser.dept);
+        readWorkerList();
+      } else {
+        setUserFullName(newUser.fullName);
+        setUserMbPhone(newUser.mbPhone);
+      }
     } catch (error) {
       setErrorMsg(error.response?.data.message);
       setAlertError(true);
@@ -313,19 +338,21 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
             </Table>
           </div>
         </Card.Body>
-        {isAdmined && !readOnly && (
+        {!readOnly && (
           <Card.Footer className="text-center">
             <div className="d-flex justify-content-center mb-3 mt-3 char2button">
-              <Button
-                type="button"
-                disabled={user.deleted}
-                variant="danger"
-                size="sm"
-                className="me-4"
-                onClick={() => setShowDelModal(true)}
-              >
-                {"삭제"}
-              </Button>
+              {isAdmined && (
+                <Button
+                  type="button"
+                  disabled={user.deleted}
+                  variant="danger"
+                  size="sm"
+                  className="me-4"
+                  onClick={() => setShowDelModal(true)}
+                >
+                  {"삭제"}
+                </Button>
+              )}
               <Button
                 type="button"
                 disabled={deptRemains()}
