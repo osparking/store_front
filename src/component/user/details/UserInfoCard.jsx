@@ -167,29 +167,31 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
     e.preventDefault();
     try {
       setIsProcessing(true);
+
       let response = null;
+      const localUser = JSON.parse(localStorage.getItem("USER"));
 
       if (isAdmined) {
         response = await updateWorkerDept(newUser.id, newUser.dept);
-      } else {
-        response = await updateUser(newUser.id, newUser);
-      }
-      setSuccessMsg(response.message);
-      setAlertSuccess(true);
-
-      const localUser = JSON.parse(localStorage.getItem("USER"));
-
-      localUser.dept = response.data;
-      localStorage.setItem("USER", JSON.stringify(localUser));
-
-      toast.success(response.message);
-      if (isAdmined) {
+        localUser.dept = response.data;
+        localStorage.setItem("USER", JSON.stringify(localUser));
+        
         setUserDept(newUser.dept);
         readWorkerList();
       } else {
+        response = await updateUser(newUser.id, newUser);
+        localUser.fullName = response.data.fullName;
+        localUser.mbPhone = response.data.mbPhone;
+        localStorage.setItem("USER", JSON.stringify(localUser));
+
         setUserFullName(newUser.fullName);
         setUserMbPhone(newUser.mbPhone);
+        refreshUser();
       }
+
+      toast.success(response.message);
+      setSuccessMsg(response.message);
+      setAlertSuccess(true);
     } catch (error) {
       setErrorMsg(error.response?.data.message);
       setAlertError(true);
