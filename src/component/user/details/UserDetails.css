@@ -1,5 +1,7 @@
+@import '../../../App.css';
+
 .greyBack {
-    background-color: lightgrey !important;
+    background-color:  var(--color-disabled) !important;
 }
 
 #userInfoCard .form-label {

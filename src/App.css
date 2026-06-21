@@ -233,6 +233,14 @@
   width: 100%;
 }
 
+.disabled-color {
+  background-color: var(--color-disabled);
+}
+
+.enabled-color {
+  background-color: pink;
+}
+
 @media (max-width: 992px) {
   .chart-container {
     flex-basis: 100%;
@@ -339,6 +347,7 @@ input[type="radio"] {
   --color-normal-soap: #ccec99;
   --color-chart-background: rgb(13, 12, 36);
   --color-act-change: #ffc107;
+  --color-disabled: rgb(233, 236, 239);
 }
 
 /* For home page */
