@@ -5,7 +5,13 @@ import Paginator from "../common/Paginator";
 import { getMyRecipients } from "../user/UserService";
 import "./RecipientsModal.css";
 
-const RecipientsModal = ({ show, formData, setFormData, closer }) => {
+const RecipientsModal = ({
+  show,
+  formData,
+  setFormData,
+  closer,
+  setNoPurchaseHistory,
+}) => {
   const [recipients, setRecipients] = useState([]);
   const [recipientPage, setRecipientPage] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -36,8 +42,8 @@ const RecipientsModal = ({ show, formData, setFormData, closer }) => {
         currentPage,
         pageSize,
       );
-
-      // console.log("recipients: ", JSON.stringify(myRecipients));
+      setNoPurchaseHistory(myRecipients.pageContent.empty);
+      
       setFetchResult(myRecipients);
       if (myRecipients && myRecipients.pageContent) {
         setRecipients(myRecipients.pageContent.content);
