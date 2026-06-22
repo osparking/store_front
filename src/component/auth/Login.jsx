@@ -15,6 +15,8 @@ import naverIcon from "../../assets/images/btnD_icon_square.png";
 import AlertMessage from "../common/AlertMessage";
 import { jwtToUser } from "../common/JwtUtils";
 import BsAlertHook from "../hook/BsAlertHook";
+import ConfirmResultModal from "../modal/ConfirmResultModal";
+import EnableAccountModal from "../modal/EnableAccountModal";
 import {
   formatTime,
   HTTP_STATUS,
@@ -24,8 +26,6 @@ import {
 import { getEmailViaToken, loginUser } from "./AuthService";
 import CodeEntryModal from "./CodeEntryModal";
 import "./Login.css";
-import EnableAccountModal from "../modal/EnableAccountModal";
-import ConfirmResultModal from "../modal/ConfirmResultModal";
 
 const Login = () => {
   const [showCodeModal, setShowCodeModal] = useState(false);
@@ -36,7 +36,7 @@ const Login = () => {
   };
 
   const [credentials, setCredentials] = useState({
-    email: "jbpark103@hanmail.net",
+    email: "jbpark03@naver.com",
     password: "1234",
     save_login: localStorage.getItem("SAVE_LOGIN") === "true",
   });
@@ -121,7 +121,7 @@ const Login = () => {
           storeLoginInfo(user);
           storeJWT(data.token, credentials.save_login);
           window.dispatchEvent(new Event("loginEvt"));
-          navigate(location.state?.from || `/dashboard/${user.id}/user`, {
+          navigate(location.state?.from || "/", {
             replace: true,
           });
         }
