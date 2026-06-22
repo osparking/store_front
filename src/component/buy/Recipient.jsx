@@ -107,8 +107,8 @@ const Recipient = () => {
       roadAddress: "",
       zbunAddress: "",
     },
-    mbPhone: `${insertHyphens(user.mbPhone)}`,
-    fullName: `${user.fullName}`,
+    mbPhone: user.mbPhone,
+    fullName: user.fullName,
   };
 
   const [formData, setFormData] = useState(
