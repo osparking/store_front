@@ -10,7 +10,7 @@ import {
 } from "react-bootstrap";
 import { BsLockFill, BsPersonFill } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import naverIcon from "../../assets/images/btnD_icon_square.png";
 import AlertMessage from "../common/AlertMessage";
 import { jwtToUser } from "../common/JwtUtils";
@@ -28,6 +28,21 @@ import CodeEntryModal from "./CodeEntryModal";
 import "./Login.css";
 
 const Login = () => {
+  const localUser = localStorage.getItem("USER");
+  let isLoggedIn = false;
+
+  try {
+    const userData = JSON.parse(localUser);
+    isLoggedIn = userData && typeof userData === "object" && userData.id;
+  } catch {
+    isLoggedIn = false;
+  }
+  
+  // 이미 로그인되어 있으면 홈으로 보내기
+  if (isLoggedIn) {
+    return <Navigate to="/" replace />;
+  }
+
   const [showCodeModal, setShowCodeModal] = useState(false);
 
   const [showEnableModal, setShowEnableModal] = useState(false);
