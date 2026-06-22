@@ -3,7 +3,7 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
-import { handlePropChange } from "../util/utilities";
+import { getSubTotal, handlePropChange } from "../util/utilities";
 import CartItemRow from "./CartItemRow";
 import { readUserCart, updateUserCart } from "./orderService";
 
@@ -29,6 +29,7 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
         shape: "",
         count: "1",
         subTotal: 0,
+        price: 0,
       },
     ],
   });
@@ -45,11 +46,22 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
 
   useEffect(() => {
     setSelectedItems(formData.items.filter((item) => item.isChecked));
-  }, [formData]);
+  }, [formData.items]);
+
+  const [subTotal, setSubTotal] = useState({ count: 0, price: 0 });
+
+  useEffect(() => {
+    const newSubTotal = getSubTotal(selectedItems);
+    setSubTotal(newSubTotal);
+  }, [selectedItems]);
 
   function enterDeliveryInfo() {
     navigate("/recipient", {
-      state: { formItems: formData.items, source: "shoppingCart" },
+      state: {
+        formItems: formData.items,
+        subTotal: subTotal,
+        source: "shoppingCart",
+      },
     });
   }
 
