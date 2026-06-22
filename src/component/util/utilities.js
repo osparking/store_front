@@ -200,17 +200,34 @@ export const getRecordRange = (thePage, idxFirst, idxLastPlus1, name) => {
 };
 
 export const getSubTotal = (orderItems) => {
-  return (
-    orderItems &&
-    orderItems.reduce(
-      (subTotal, item) => {
-        return {
-          count: subTotal.count + Number(item.count),
-          price: subTotal.price + item.price * item.count,
-        };
-      },
-      { count: 0, price: 0 },
-    )
+  if (!orderItems || orderItems.length === 0) {
+    return { count: 0, price: 0 };
+  }
+
+  return orderItems.reduce(
+    (result, item) => {
+      // count를 숫자로 변환 (type 2는 문자열일 수 있음)
+      const count = Number(item.count);
+      
+      // price 계산: type 1은 subTotal 사용, type 2는 price * count 사용
+      let price;
+      if (item.subTotal !== undefined) {
+        // type 1: subTotal이 있는 경우
+        price = item.subTotal;
+      } else if (item.price !== undefined) {
+        // type 2: price가 있는 경우
+        price = item.price * count;
+      } else {
+        // 두 속성이 모두 없는 경우 (에러 처리)
+        price = 0;
+      }
+
+      return {
+        count: result.count + count,
+        price: result.price + price,
+      };
+    },
+    { count: 0, price: 0 }
   );
 };
 
