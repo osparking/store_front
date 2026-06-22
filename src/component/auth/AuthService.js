@@ -22,7 +22,7 @@ export async function getEmailViaToken(token) {
   }
 }
 
-const clearLoginUserInfo = () => {
+export const clearLoginUserInfo = () => {
   const items = [
     "ADMIN_TAB",
     "CURR_INGRE_PAGE",
