@@ -16,6 +16,8 @@ const RecipientInfo = ({
   putFocus2PayButton,
 }) => {
   const [phoneNumber, setPhoneNumber] = useState(formData.mbPhone);
+  const [noPurchaseHistory, setNoPurchaseHistory] = useState(true);
+
   const handleKeyDown = (e) => {
     // 허용: backspace, delete, tab, escape, enter
     if (
@@ -112,6 +114,7 @@ const RecipientInfo = ({
                   variant="warning"
                   className="pt-0 pb-1 order-button-width fw-light"
                   onClick={showMyRecipients}
+                  disabled={noPurchaseHistory}
                 >
                   <span className="boldText">과거 수신처</span>
                 </Button>
@@ -195,6 +198,7 @@ const RecipientInfo = ({
         closer={() => {
           setShowRecipientsModal(false);
         }}
+        setNoPurchaseHistory={setNoPurchaseHistory}
       />
     </div>
   );
