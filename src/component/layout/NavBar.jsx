@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-import { logoutUser } from "../auth/AuthService";
+import { clearLoginUserInfo, logoutUser } from "../auth/AuthService";
 import { getStorageToken } from "../util/utilities";
 import "./navBar.css";
 import { RootContext } from "./RootLayout";
@@ -9,6 +9,10 @@ import { RootContext } from "./RootLayout";
 const NavBar = () => {
   const { userVersion } = useContext(RootContext);
   const beforeLogin = getStorageToken() === null;
+
+  if (beforeLogin) {
+    clearLoginUserInfo();
+  }
 
   const [isAdmin, setIsAdmin] = useState(false);
   const [isWorker, setIsWorker] = useState(false);
