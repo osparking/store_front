@@ -74,7 +74,7 @@ const RecipientInfo = ({
           <tr>
             <th className="rText">성명</th>
             <td className="boxLeft">
-              <div className="d-flex align-items-center gap-2">
+              <div className="d-flex align-items-center gap-2 mt-1">
                 <input
                   type="text"
                   name="fullName"
