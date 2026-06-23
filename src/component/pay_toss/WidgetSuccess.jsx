@@ -64,7 +64,7 @@ export function WidgetSuccessPage() {
     localStorage.setItem("DASHBOARD_TAB", "purchase_list");
     const userId = localStorage.getItem("LOGIN_ID");
     setIsModalOpen(false);
-    navigate(`/dashboard/${userId}/user`);
+    navigate(`/dashboard/${userId}/user`, { replace: true });
   }
 
   return (
