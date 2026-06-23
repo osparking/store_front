@@ -85,13 +85,15 @@ const RecipientInfo = ({
                   onChange={(e) => handlePropChange(e, setFormData)}
                   required
                 />
-                <Form.Check
-                  type="checkbox"
-                  name="isDefaultRecipient"
-                  label="기본"
-                  checked={isDefaultRecipient}
-                  onChange={(e) => setIsDefaultRecipient(e.target.checked)}
-                />
+                <OverlayTrigger overlay={<Tooltip>[결제]때 새 값 저장</Tooltip>}>
+                  <Form.Check
+                    type="checkbox"
+                    name="isDefaultRecipient"
+                    label="기본"
+                    checked={isDefaultRecipient}
+                    onChange={(e) => setIsDefaultRecipient(e.target.checked)}
+                  />
+                </OverlayTrigger>
               </div>
             </td>
           </tr>
