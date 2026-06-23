@@ -7,6 +7,7 @@ import {
   handlePropChange,
   insertHyphens,
 } from "../util/utilities.js";
+import "./RecipientInfo.css";
 
 const RecipientInfo = ({
   formData,
@@ -99,7 +100,7 @@ const RecipientInfo = ({
           </tr>
           <tr>
             <th className="rText">휴대폰</th>
-            <td className="boxLeft">
+            <td className="boxLeft" style={{paddingTop: "0"}}>
               <div className="d-flex align-items-center gap-2">
                 <OverlayTrigger overlay={<Tooltip>숫자만 :-)</Tooltip>}>
                   <input
@@ -113,8 +114,9 @@ const RecipientInfo = ({
                   />
                 </OverlayTrigger>
                 <Button
+                  id="pastRecipients"
                   variant="warning"
-                  className="pt-0 pb-1 order-button-width fw-light"
+                  className="order-button-width fw-light"
                   onClick={showMyRecipients}
                   disabled={noPurchaseHistory}
                 >
