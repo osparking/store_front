@@ -38,13 +38,7 @@ function WidgetCheckoutPage() {
   const isSubmittingRef = useRef(false);
 
   async function saveOrderRecord() {
-    let action = "";
-    if (toDefaultRecipient) {
-      if (!isDefaultRecipient) action = "remove";
-    } else if (isDefaultRecipient) {
-      action = "store";
-    }
-
+    const action = !toDefaultRecipient && isDefaultRecipient ? "store" : "";
     const orderAction = { ...orderData, defaultRecipientAction: action };
 
     // 로컬에 저장된 주문 정보를 찾는다.
