@@ -540,7 +540,7 @@ textarea {
 }
 
 .p-grid {
-  height: 100%;
+  height: fit-content;
   display: flex;
   flex-wrap: wrap;
   margin-right: -24px;
@@ -614,4 +614,12 @@ textarea {
 .payment-widget-cache-1wfyq9i {
   padding-top: 6px !important;
   padding-bottom: 6px !important;
+}
+
+#fail_page {
+  height: calc(100vh - 62px);
+  min-height: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
