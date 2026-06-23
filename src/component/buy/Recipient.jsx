@@ -285,7 +285,7 @@ const Recipient = () => {
         </div>
         <Form onSubmit={gotoCheckout}>
           <div className="d-flex justify-content-center ">
-            <Row className="justify-content-center pb-5 rowStyle">
+            <Row className="justify-content-center pb-4 rowStyle">
               <Col xs={11} md={9}>
                 <div className="table-container">
                   <PayButtonContext.Provider value={{ putFocus2PayButton }}>
