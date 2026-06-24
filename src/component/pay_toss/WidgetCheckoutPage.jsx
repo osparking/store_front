@@ -107,6 +107,16 @@ function WidgetCheckoutPage() {
   }
 
   useEffect(() => {
+    const paymentCompleted = sessionStorage.getItem("paymentCompleted");
+    const isProcessing = sessionStorage.getItem("isProcessingPayment");
+
+    if (paymentCompleted === "true" && !isProcessing) {
+      // 이미 결제 완료된 상태에서 체크아웃 접근 차단
+      toast.error("이미 완료된 결제입니다.");
+      const userId = localStorage.getItem("LOGIN_ID");
+      navigate(`/dashboard/${userId}/user`, { replace: true });
+      return;
+    }
     saveOrderRecord();
     if (!widgets) {
       getTossWidgets();
@@ -177,7 +187,7 @@ function WidgetCheckoutPage() {
 
       // Reset React state before navigation
       setReady(false);
-
+      sessionStorage.setItem("isProcessingPayment", "true");
       await widgets.requestPayment({
         orderId: orderIdToss,
         orderName: orderData?.orderName,
@@ -189,6 +199,7 @@ function WidgetCheckoutPage() {
     } catch (error) {
       // Restore ready state if payment fails
       setReady(true);
+      sessionStorage.removeItem("isProcessingPayment");
       console.error("결제 요청 오류: ", error);
     }
   };
