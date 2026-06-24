@@ -107,20 +107,25 @@ function WidgetCheckoutPage() {
   }
 
   useEffect(() => {
-    const paymentCompleted = sessionStorage.getItem("paymentCompleted");
-    const isProcessing = sessionStorage.getItem("isProcessingPayment");
+    const storeSoapOrderInfo = async () => {
+      const paymentCompleted = sessionStorage.getItem("paymentCompleted");
+      const isProcessing = sessionStorage.getItem("isProcessingPayment");
 
-    if (paymentCompleted === "true" && !isProcessing) {
-      // 이미 결제 완료된 상태에서 체크아웃 접근 차단
-      toast.error("이미 완료된 결제입니다.");
-      const userId = localStorage.getItem("LOGIN_ID");
-      navigate(`/dashboard/${userId}/user`, { replace: true });
-      return;
-    }
-    saveOrderRecord();
-    if (!widgets) {
-      getTossWidgets();
-    }
+      if (paymentCompleted === "true") {
+        // 이미 결제 완료된 상태에서 체크아웃 접근 차단
+        console.error("이미 완료된 결제입니다.");
+        const userId = localStorage.getItem("LOGIN_ID");
+        navigate(`/dashboard/${userId}/user`, { replace: true });
+        return;
+      } else {
+        saveOrderRecord();
+        if (!widgets) {
+          getTossWidgets();
+        }
+      }
+    };
+
+    storeSoapOrderInfo();
   }, []); // 마운트 때 1회 실행
 
   useEffect(() => {
