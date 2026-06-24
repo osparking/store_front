@@ -146,7 +146,7 @@ const Recipient = () => {
   const [showAddressConfirm, setShowAddressConfirm] = useState(false);
   const gotoCheckout = async (e) => {
     e.preventDefault();
-
+    sessionStorage.removeItem("paymentCompleted");
     if (formData.addressDetail.trim() === "") {
       setShowAddressConfirm(true);
       return;
