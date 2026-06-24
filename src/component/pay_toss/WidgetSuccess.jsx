@@ -41,6 +41,8 @@ export function WidgetSuccessPage() {
         if (response?.status === 208) {
           console.log("확인용 결제 컴펌입니다.");
         } else if (response?.status === 200) {
+          sessionStorage.setItem("paymentCompleted", "true");
+          sessionStorage.removeItem("isProcessingPayment");
           setIsModalOpen(true);
         }
       })
