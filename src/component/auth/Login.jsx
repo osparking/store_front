@@ -51,7 +51,8 @@ const Login = () => {
   };
 
   const [credentials, setCredentials] = useState({
-    email: "jbpark03@naver.com",
+    // email: "jbpark03@naver.com",
+    email: "customer2@email.com",
     password: "1234",
     save_login: localStorage.getItem("SAVE_LOGIN") === "true",
   });
