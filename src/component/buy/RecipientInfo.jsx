@@ -8,6 +8,7 @@ import {
   insertHyphens,
 } from "../util/utilities.js";
 import "./RecipientInfo.css";
+import _ from "lodash";
 
 const RecipientInfo = ({
   formData,
@@ -75,6 +76,15 @@ const RecipientInfo = ({
     setFormData(defaultRecipient);
   };
 
+  const disableDefaultRecipientCheckbox =
+    defaultRecipient && _.isEqual(formData, defaultRecipient);
+
+  const [checkedAsDefault, setCheckedAsDefault] = useState(false);
+  const changeDefaultRecipient = (e) => {
+    setIsDefaultRecipient(e.target.checked);
+    setCheckedAsDefault(e.target.checked);
+  };
+
   return (
     <div>
       <Table className="noBorder">
@@ -97,7 +107,7 @@ const RecipientInfo = ({
                     variant="primary"
                     className="order-button-width fw-light"
                     onClick={loadDefaultRecipient}
-                    disabled={!isDefaultRecipient}
+                    disabled={!defaultRecipient}
                   >
                     <span className="boldText">기본 수신처</span>
                   </Button>
@@ -139,8 +149,9 @@ const RecipientInfo = ({
                     type="checkbox"
                     name="isDefaultRecipient"
                     label="기본 수신처 지정"
-                    checked={isDefaultRecipient}
-                    onChange={(e) => setIsDefaultRecipient(e.target.checked)}
+                    checked={checkedAsDefault}
+                    onChange={changeDefaultRecipient}
+                    disabled={disableDefaultRecipientCheckbox}
                   />
                 </OverlayTrigger>
               </div>
