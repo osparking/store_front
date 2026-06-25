@@ -154,7 +154,10 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
   }, []);
 
   return (
-    <div className="d-flex justify-content-center align-items-center">
+    <div
+      id="questionEditorContainer"
+      className="d-flex justify-content-center align-items-center"
+    >
       <div>
         <Card className="p-0 customerQuestionCard">
           <Card.Body className="p-0">
