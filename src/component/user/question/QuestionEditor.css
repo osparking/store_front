@@ -20,4 +20,12 @@ form.question-editor-window {
   max-width: 740px;
   background-color: ivory;
   border-radius: 6px;
+  margin-top: 0 !important;
+}
+
+#questionEditorContainer {
+  position: relative;
+  top: 62px;
+  height: calc(100vh - 62px);
+  align-items: center;
 }
