@@ -322,7 +322,7 @@ const Recipient = () => {
                 className="pt-2 pb-2 order-button-width"
                 onClick={goBack}
               >
-                <span className="boldText">뒤로</span>
+                <span className="boldText">내역 수정</span>
               </Button>
               <Button
                 type="submit"
@@ -338,7 +338,7 @@ const Recipient = () => {
                   payButtonRef.current?.classList.remove("boxShadow");
                 }}
               >
-                <span className="boldText">결제</span>
+                <span className="boldText">결제 진행</span>
               </Button>
             </Row>
           </div>
