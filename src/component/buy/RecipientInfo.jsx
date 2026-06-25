@@ -81,26 +81,35 @@ const RecipientInfo = ({
                 <input
                   type="text"
                   name="fullName"
-                  size="20"
+                  size="10"
                   value={formData.fullName}
                   onChange={(e) => handlePropChange(e, setFormData)}
                   required
                 />
-                <OverlayTrigger overlay={<Tooltip>[결제]때 새 값 저장</Tooltip>}>
-                  <Form.Check
-                    type="checkbox"
-                    name="isDefaultRecipient"
-                    label="기본"
-                    checked={isDefaultRecipient}
-                    onChange={(e) => setIsDefaultRecipient(e.target.checked)}
-                  />
-                </OverlayTrigger>
+                <Button
+                  id="pastRecipients"
+                  variant="warning"
+                  className="order-button-width fw-light"
+                  onClick={showMyRecipients}
+                  disabled={noPurchaseHistory}
+                >
+                  <span className="boldText">기본 수신처</span>
+                </Button>
+                <Button
+                  id="pastRecipients"
+                  variant="warning"
+                  className="order-button-width fw-light"
+                  onClick={showMyRecipients}
+                  disabled={noPurchaseHistory}
+                >
+                  <span className="boldText">모든 수신처</span>
+                </Button>
               </div>
             </td>
           </tr>
           <tr>
             <th className="rText">휴대폰</th>
-            <td className="boxLeft" style={{paddingTop: "0"}}>
+            <td className="boxLeft" style={{ paddingTop: "0" }}>
               <div className="d-flex align-items-center gap-2">
                 <OverlayTrigger overlay={<Tooltip>숫자만 :-)</Tooltip>}>
                   <input
@@ -110,18 +119,19 @@ const RecipientInfo = ({
                     onKeyDown={handleKeyDown}
                     placeholder="000-0000-0000"
                     maxLength="13"
+                    size="15"
                     required
                   />
                 </OverlayTrigger>
-                <Button
-                  id="pastRecipients"
-                  variant="warning"
-                  className="order-button-width fw-light"
-                  onClick={showMyRecipients}
-                  disabled={noPurchaseHistory}
-                >
-                  <span className="boldText">과거 수신처</span>
-                </Button>
+                <OverlayTrigger overlay={<Tooltip>[결 제] 때 저장됨</Tooltip>}>
+                  <Form.Check
+                    type="checkbox"
+                    name="isDefaultRecipient"
+                    label="기본 수신처 지정"
+                    checked={isDefaultRecipient}
+                    onChange={(e) => setIsDefaultRecipient(e.target.checked)}
+                  />
+                </OverlayTrigger>
               </div>
             </td>
           </tr>
