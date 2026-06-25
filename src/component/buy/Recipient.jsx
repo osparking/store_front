@@ -1,6 +1,6 @@
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { Form, useLocation, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
@@ -255,94 +255,96 @@ const Recipient = () => {
         yesLabel={"네, 그래요."}
         dialogClassName={"no-detail-address-confirm"}
       />
-      <div id="recipientDiv">
-        <div className="d-flex justify-content-center ">
-          <Row className="pt-4 pb-2 mt-3 rowStyle dark">
-            <Col md={8}>
-              <h5 className="centered">결제 내역</h5>
-            </Col>
-          </Row>
-        </div>
-        <div className="d-flex justify-content-center">
-          <Row className="justify-content-center pb-1 rowStyle">
-            <Col xs={11} md={9}>
-              <div>
-                <CheckoutCart
-                  subTotal={shapeSummary}
-                  deliveryFee={deliveryFee}
-                />
-              </div>
-            </Col>
-          </Row>
-        </div>
-        <div className="d-flex justify-content-center ">
-          <Row className="pt-4 pb-2 rowStyle dark">
-            <Col md={8}>
-              <h5 className="centered">수신처</h5>
-            </Col>
-          </Row>
-        </div>
-        <Form onSubmit={gotoCheckout}>
+      <div id="recipientDiv" className="d-flex">
+        <div style={{ width: "100%", height: "fit-content", overflow: "auto" }}>
           <div className="d-flex justify-content-center ">
-            <Row className="justify-content-center pb-4 rowStyle">
+            <Row className="pt-4 pb-2 mt-0 rowStyle dark">
+              <Col md={8}>
+                <h5 className="centered">결제 내역</h5>
+              </Col>
+            </Row>
+          </div>
+          <div className="d-flex justify-content-center">
+            <Row className="justify-content-center pb-1 rowStyle">
               <Col xs={11} md={9}>
-                <div className="table-container">
-                  <PayButtonContext.Provider value={{ putFocus2PayButton }}>
-                    <RecipientInfo
-                      formData={formData}
-                      setFormData={setFormData}
-                      isDefaultRecipient={isDefaultRecipient}
-                      setIsDefaultRecipient={setIsDefaultRecipient}
-                      defaultRecipient={recipientDefault}
-                    />
-                  </PayButtonContext.Provider>
+                <div>
+                  <CheckoutCart
+                    subTotal={shapeSummary}
+                    deliveryFee={deliveryFee}
+                  />
                 </div>
               </Col>
             </Row>
           </div>
           <div className="d-flex justify-content-center ">
-            <Row className="justify-content-center rowStyle">
-              <Col md={4} style={{ minWidth: "350px" }}>
-                {alertSuccess && (
-                  <AlertMessage type={"success"} message={successMsg} />
-                )}
-                {alertError && (
-                  <AlertMessage type={"danger"} message={errorMsg} />
-                )}
+            <Row className="pt-4 pb-2 rowStyle dark">
+              <Col md={8}>
+                <h5 className="centered">수신처</h5>
               </Col>
             </Row>
           </div>
-          <div className="d-flex justify-content-center ">
-            <Row
-              className="justify-content-center pb-5 rowStyle"
-              style={{ display: "flex", gap: "20px" }}
-            >
-              <Button
-                variant="info"
-                className="pt-2 pb-2 order-button-width"
-                onClick={goBack}
+          <Form onSubmit={gotoCheckout}>
+            <div className="d-flex justify-content-center">
+              <Row className="justify-content-center pb-4 rowStyle">
+                <Col xs={11} md={9}>
+                  <div className="table-container">
+                    <PayButtonContext.Provider value={{ putFocus2PayButton }}>
+                      <RecipientInfo
+                        formData={formData}
+                        setFormData={setFormData}
+                        isDefaultRecipient={isDefaultRecipient}
+                        setIsDefaultRecipient={setIsDefaultRecipient}
+                        defaultRecipient={recipientDefault}
+                      />
+                    </PayButtonContext.Provider>
+                  </div>
+                </Col>
+              </Row>
+            </div>
+            <div className="d-flex justify-content-center ">
+              <Row className="justify-content-center rowStyle">
+                <Col md={4} style={{ minWidth: "350px" }}>
+                  {alertSuccess && (
+                    <AlertMessage type={"success"} message={successMsg} />
+                  )}
+                  {alertError && (
+                    <AlertMessage type={"danger"} message={errorMsg} />
+                  )}
+                </Col>
+              </Row>
+            </div>
+            <div className="d-flex justify-content-center ">
+              <Row
+                className="justify-content-center pb-5 rowStyle"
+                style={{ display: "flex", gap: "20px" }}
               >
-                <span className="boldText">내역 수정</span>
-              </Button>
-              <Button
-                type="submit"
-                variant="success"
-                className="pt-2 pb-2 order-button-width"
-                disabled={
-                  !formData.fullName ||
-                  !(formData.mbPhone && mbPhoneOk()) ||
-                  !formData.addrBasisAddReq.zipcode
-                }
-                ref={payButtonRef}
-                onBlur={() => {
-                  payButtonRef.current?.classList.remove("boxShadow");
-                }}
-              >
-                <span className="boldText">결제 진행</span>
-              </Button>
-            </Row>
-          </div>
-        </Form>
+                <Button
+                  variant="info"
+                  className="pt-2 pb-2 order-button-width"
+                  onClick={goBack}
+                >
+                  <span className="boldText">내역 수정</span>
+                </Button>
+                <Button
+                  type="submit"
+                  variant="success"
+                  className="pt-2 pb-2 order-button-width"
+                  disabled={
+                    !formData.fullName ||
+                    !(formData.mbPhone && mbPhoneOk()) ||
+                    !formData.addrBasisAddReq.zipcode
+                  }
+                  ref={payButtonRef}
+                  onBlur={() => {
+                    payButtonRef.current?.classList.remove("boxShadow");
+                  }}
+                >
+                  <span className="boldText">결제 진행</span>
+                </Button>
+              </Row>
+            </div>
+          </Form>
+        </div>
       </div>
     </>
   );
