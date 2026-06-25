@@ -107,25 +107,61 @@ function WidgetCheckoutPage() {
   }
 
   useEffect(() => {
+    let isRedirecting = false;
+    let isMounted = true;
+
     const storeSoapOrderInfo = async () => {
+      if (isRedirecting || !isMounted) return;
+
       const paymentCompleted = sessionStorage.getItem("paymentCompleted");
       const isProcessing = sessionStorage.getItem("isProcessingPayment");
 
       if (paymentCompleted === "true") {
         // 이미 결제 완료된 상태에서 체크아웃 접근 차단
+        isRedirecting = true;
         console.error("이미 완료된 결제입니다.");
         const userId = localStorage.getItem("LOGIN_ID");
-        navigate(`/dashboard/${userId}/user`, { replace: true });
+        // navigate 대신 replace 사용으로 bfcache 우회
+        window.location.replace(`/dashboard/${userId}/user`);
         return;
       } else {
-        saveOrderRecord();
-        if (!widgets) {
-          getTossWidgets();
+        // 정상 checkout 로직
+        try {
+          await saveOrderRecord();
+          if (!widgets && isMounted) {
+            await getTossWidgets();
+          }
+        } catch (error) {
+          console.error("Checkout initialization error:", error);
         }
       }
     };
 
+    // bfcache 이벤트 처리
+    const handlePageShow = (event) => {
+      if (event.persisted && !isRedirecting) {
+        // bfcache에서 복원 시 재실행
+        storeSoapOrderInfo();
+      }
+    };
+
+    window.addEventListener("pageshow", handlePageShow);
     storeSoapOrderInfo();
+
+    return () => {
+      isMounted = false;
+      window.removeEventListener("pageshow", handlePageShow);
+
+      // WebSocket 정리
+      if (window.socket) {
+        try {
+          window.socket.close();
+          delete window.socket;
+        } catch (e) {
+          // 무시
+        }
+      }
+    };
   }, []); // 마운트 때 1회 실행
 
   useEffect(() => {
