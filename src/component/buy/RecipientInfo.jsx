@@ -100,6 +100,7 @@ const RecipientInfo = ({
                   value={formData.fullName}
                   onChange={(e) => handlePropChange(e, setFormData)}
                   required
+                  style={{ borderWidth: "thin" }}
                 />
                 <OverlayTrigger overlay={<Tooltip>기본 값 로딩</Tooltip>}>
                   <Button
