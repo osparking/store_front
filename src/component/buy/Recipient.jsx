@@ -4,13 +4,12 @@ import { Button, Col, Row } from "react-bootstrap";
 import { Form, useLocation, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
+import ConfirmationModal from "../modal/ConfirmationModal.jsx";
 import { getDefaultRecipient } from "../user/UserService.js";
-import { insertHyphens } from "../util/utilities.js";
 import CheckoutCart from "./CheckoutCart";
 import { getDeliveryFee } from "./orderService";
 import "./recipient.css";
 import RecipientInfo from "./RecipientInfo";
-import ConfirmationModal from "../modal/ConfirmationModal.jsx";
 
 export const PayButtonContext = React.createContext();
 
@@ -294,6 +293,7 @@ const Recipient = () => {
                       setFormData={setFormData}
                       isDefaultRecipient={isDefaultRecipient}
                       setIsDefaultRecipient={setIsDefaultRecipient}
+                      defaultRecipient={recipientDefault}
                     />
                   </PayButtonContext.Provider>
                 </div>
