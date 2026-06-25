@@ -73,11 +73,15 @@ Button.order-button-width {
 }
 
 #recipientDiv {
-  position: absolute;
-  top: 46px;
-  width: 95%;
+  position: relative;
+  top: 62px;
+  height: calc(100vh - 62px);
+  align-items: center;
+  width: 950px;
   max-width: 950px;
   margin: auto;
+  overflow: auto;
+  justify-content: center;
 }
 
 .boxShadow {
