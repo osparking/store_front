@@ -86,24 +86,30 @@ const RecipientInfo = ({
                   onChange={(e) => handlePropChange(e, setFormData)}
                   required
                 />
-                <Button
-                  id="pastRecipients"
-                  variant="warning"
-                  className="order-button-width fw-light"
-                  onClick={showMyRecipients}
-                  disabled={noPurchaseHistory}
+                <OverlayTrigger overlay={<Tooltip>기본 값 로딩</Tooltip>}>
+                  <Button
+                    id="pastRecipients"
+                    variant="warning"
+                    className="order-button-width fw-light"
+                    onClick={showMyRecipients}
+                    disabled={noPurchaseHistory}
+                  >
+                    <span className="boldText">기본 수신처</span>
+                  </Button>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  overlay={<Tooltip>과거 수신처 중 선택</Tooltip>}
                 >
-                  <span className="boldText">기본 수신처</span>
-                </Button>
-                <Button
-                  id="pastRecipients"
-                  variant="warning"
-                  className="order-button-width fw-light"
-                  onClick={showMyRecipients}
-                  disabled={noPurchaseHistory}
-                >
-                  <span className="boldText">모든 수신처</span>
-                </Button>
+                  <Button
+                    id="pastRecipients"
+                    variant="warning"
+                    className="order-button-width fw-light"
+                    onClick={showMyRecipients}
+                    disabled={noPurchaseHistory}
+                  >
+                    <span className="boldText">모든 수신처</span>
+                  </Button>
+                </OverlayTrigger>
               </div>
             </td>
           </tr>
