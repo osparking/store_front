@@ -15,6 +15,7 @@ const RecipientInfo = ({
   isDefaultRecipient,
   setIsDefaultRecipient,
   putFocus2PayButton,
+  defaultRecipient,
 }) => {
   const [phoneNumber, setPhoneNumber] = useState(formData.mbPhone);
   const [noPurchaseHistory, setNoPurchaseHistory] = useState(true);
@@ -70,6 +71,10 @@ const RecipientInfo = ({
     setShowRecipientsModal(true);
   };
 
+  const loadDefaultRecipient = () => {
+    setFormData(defaultRecipient);
+  };
+
   return (
     <div>
       <Table className="noBorder">
@@ -88,11 +93,11 @@ const RecipientInfo = ({
                 />
                 <OverlayTrigger overlay={<Tooltip>기본 값 로딩</Tooltip>}>
                   <Button
-                    id="pastRecipients"
-                    variant="warning"
+                    id="defaultRecipient"
+                    variant="primary"
                     className="order-button-width fw-light"
-                    onClick={showMyRecipients}
-                    disabled={noPurchaseHistory}
+                    onClick={loadDefaultRecipient}
+                    disabled={!isDefaultRecipient}
                   >
                     <span className="boldText">기본 수신처</span>
                   </Button>
@@ -102,7 +107,7 @@ const RecipientInfo = ({
                 >
                   <Button
                     id="pastRecipients"
-                    variant="warning"
+                    variant="success"
                     className="order-button-width fw-light"
                     onClick={showMyRecipients}
                     disabled={noPurchaseHistory}
