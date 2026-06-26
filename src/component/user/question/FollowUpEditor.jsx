@@ -132,12 +132,6 @@ function FollowUpEditor({
   const quillRef = useRef(null); // Reference for the ReactQuill instance
 
   const h5ref = useRef(null); // 퀼 편집기 위 h5 헤딩 참조자
-  useEffect(() => {
-    // 성분 열릴 때, 퀼 편집기로 촛점 이동
-    if (quillRef.current) {
-      quillRef.current.focus();
-    }
-  }, []);
 
   const handleHeadingClick = () => {
     if (quillRef.current) {
@@ -182,7 +176,7 @@ function FollowUpEditor({
             className="mb-2"
             tabIndex="0" // 탭이동 순서에 포함, 포커스 지정 가능
             role="button" // 클릭 가능한 버튼으로 취급 지정
-            aria-label={`${headText} 라벨 및 편집기`} 
+            aria-label={`${headText} 라벨 및 편집기`}
           >
             {headText}
           </h5>
