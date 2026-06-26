@@ -68,7 +68,7 @@ const ManageQuestions = ({ mine }) => {
 
   const answerQuestion = async (question) => {
     const theQuestion = await getQuestion(question.id);
-    setQuestion({ ...theQuestion, answered: question.answered === "완료" });
+    setQuestion({ ...theQuestion, answered: question.answered === "등록" });
     setShowQuestionFollowUpModal(true);
   };
 
