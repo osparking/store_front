@@ -1,3 +1,9 @@
-#soapPriceCard table.stepInfo, tr, td {
-    border: unset;
+#soapPriceCard table, 
+#soapPriceCard tr, 
+#soapPriceCard td {
+    border: 0 solid black;
+}
+
+#soapPrice .form-label {
+    margin-bottom: 0;
 }
