@@ -21,6 +21,7 @@ import ManageWorkers from "./ManageWorkers";
 import Overview from "./Overview";
 import SidebarContent from "./SidebarContent";
 import ManageCustomers from "./ManageCustomers";
+import ManagePriceFee from "./ManagePriceFee";
 
 const AdminCanvas = () => {
   const [showOffcanvas, setShowOffcanvas] = useState(false);
@@ -109,7 +110,7 @@ const AdminCanvas = () => {
                 </li>
                 <li
                   className="sidebar-list-item"
-                  onClick={() => tabClicked("Price")}
+                  onClick={() => tabClicked("PriceFee")}
                 >
                   <a href="#">
                     <FaWonSign className="icon" />
@@ -152,6 +153,7 @@ const AdminCanvas = () => {
                   Overview: "통계 챠트",
                   Employee: "직원 관리",
                   Customer: "고객 목록",
+                  PriceFee: "비누 가격 및 배송비",
                 }[adminTab]
               }
             </h5>
@@ -167,6 +169,7 @@ const AdminCanvas = () => {
                   Overview: <Overview />,
                   Employee: <ManageWorkers />,
                   Customer: <ManageCustomers />,
+                  PriceFee: <ManagePriceFee />,
                 }[adminTab]
               }
             </div>
