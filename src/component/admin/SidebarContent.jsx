@@ -1,14 +1,15 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BsPeopleFill } from "react-icons/bs";
 import { FaChartPie, FaQuestion } from "react-icons/fa";
+import { FaWonSign } from "react-icons/fa6";
+import { GiOlive } from "react-icons/gi";
 import { MdOutlineFamilyRestroom } from "react-icons/md";
 import "./AdminCanvas.css";
 import "./SidebarContent.css";
-import { GiOlive } from "react-icons/gi";
 
 const SidebarContent = ({ tabClicked }) => (
   <div className="sidebar-content">
-    <div className="sidebar-title" >
+    <div className="sidebar-title">
       <div className="sidebar-brand">
         <GiOlive className="icon-header" />
         관리 업무
@@ -37,6 +38,12 @@ const SidebarContent = ({ tabClicked }) => (
         <a href="#">
           <MdOutlineFamilyRestroom className="icon" />
           고객 목록
+        </a>
+      </li>
+      <li className="sidebar-list-item" onClick={() => tabClicked("Price")}>
+        <a href="#">
+          <FaWonSign className="icon" />
+          가격&비용
         </a>
       </li>
     </ul>
