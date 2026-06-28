@@ -14,6 +14,7 @@ import { FaChartPie, FaQuestion } from "react-icons/fa";
 import { GiOlive } from "react-icons/gi";
 import { LuPanelLeftOpen } from "react-icons/lu";
 import { MdOutlineFamilyRestroom } from "react-icons/md";
+import { FaWonSign } from "react-icons/fa6";
 import "./AdminCanvas.css";
 import ManageQuestions from "./ManageQuestions";
 import ManageWorkers from "./ManageWorkers";
@@ -104,6 +105,14 @@ const AdminCanvas = () => {
                 >
                   <a href="#">
                     <MdOutlineFamilyRestroom className="icon" />
+                  </a>
+                </li>
+                <li
+                  className="sidebar-list-item"
+                  onClick={() => tabClicked("Price")}
+                >
+                  <a href="#">
+                    <FaWonSign className="icon" />
                   </a>
                 </li>
               </ul>
