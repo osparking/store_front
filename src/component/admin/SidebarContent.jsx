@@ -40,7 +40,7 @@ const SidebarContent = ({ tabClicked }) => (
           고객 목록
         </a>
       </li>
-      <li className="sidebar-list-item" onClick={() => tabClicked("Price")}>
+      <li className="sidebar-list-item" onClick={() => tabClicked("PriceFee")}>
         <a href="#">
           <FaWonSign className="icon" />
           가격&비용
