@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Button, Card, Form, Table } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Form,
+  OverlayTrigger,
+  Table,
+  Tooltip,
+} from "react-bootstrap";
 import { getFeeEtc } from "../../buy/orderService";
 
 const DeliveryFeeCard = () => {
@@ -22,6 +29,21 @@ const DeliveryFeeCard = () => {
       label: "기본 배송비",
       name: "deliBasis",
       value: feeEtc.deliBasis,
+    },
+    {
+      label: "제주 할증료",
+      name: "deliJeju",
+      value: feeEtc.deliJeju,
+    },
+    {
+      label: "도서 할증료",
+      name: "deliIsol",
+      value: feeEtc.deliIsol,
+    },
+    {
+      label: "무배 최저액",
+      name: "deliFreeMin",
+      value: feeEtc.deliFreeMin,
     },
   ];
 
