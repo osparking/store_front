@@ -1,7 +1,8 @@
 import _ from "lodash";
 import { useEffect, useState } from "react";
 import { Button, Card, Form, Table } from "react-bootstrap";
-import { getSoapPrices } from "../AdminService";
+import toast from "react-hot-toast";
+import { getSoapPrices, saveNewSoapPrice } from "../AdminService";
 import "./SoapPriceCard.css";
 
 const SoapPriceCard = () => {
@@ -18,7 +19,34 @@ const SoapPriceCard = () => {
     readPrices();
   }, []);
 
-  const handleSubmit = () => {};
+  const handleSubmit = async () => {
+    console.log(soapPrices, originPrices);
+    let allSuccessful = true;
+    let resultData;
+
+    for (let i = 0; i < soapPrices.length; i++) {
+      if (soapPrices[i].unitPrice !== originPrices[i].unitPrice) {
+        const soapPrice = {
+          shapeOrdinal: soapPrices[i].shapeOrdinal,
+          unitPrice: soapPrices[i].unitPrice,
+        };
+
+        try {
+          resultData = await saveNewSoapPrice(soapPrice);
+        } catch (e) {
+          toast.error(resultData.message);
+          allSuccessful = false;
+        }
+      }
+    }
+    // 최대 3 건의 가격 갱신이 모두 성공한 경우 토스트&재적재
+    if (allSuccessful) {
+      toast.success(resultData.message);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    }
+  };
 
   const priceUnchanged = () => {
     return _.isEqual(soapPrices, originPrices);
