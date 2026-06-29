@@ -72,21 +72,33 @@ const DeliveryFeeCard = () => {
                       </Form.Label>
                     </td>
                     <td md={3} style={{ minWidth: "60px", paddingRight: "0" }}>
-                      <Form.Control
-                        type="text"
-                        placeholder="0.00"
-                        // disabled={soapPrice.disabled}
-                        id={feeItem.name}
-                        name={feeItem.name}
-                        maxLength={6}
-                        // onChange={(e) => handleChange(e, index)}
-                        value={`${(feeItem.value ?? 0).toLocaleString()}`}
-                        style={{
-                          width: "60px", // 6자리(예: 999,999) + '원'에 적합
-                          textAlign: "right", // 숫자이니, 우측으로 정렬
-                          paddingRight: "5px",
-                        }}
-                      />
+                      {(() => {
+                        const control = (
+                          <Form.Control
+                            type="text"
+                            placeholder="0.00"
+                            id={feeItem.name}
+                            name={feeItem.name}
+                            maxLength={6}
+                            value={`${(feeItem.value ?? 0).toLocaleString()}`}
+                            style={{
+                              width: "60px",
+                              textAlign: "right",
+                              paddingRight: "5px",
+                            }}
+                          />
+                        );
+
+                        return feeItem.name === "deliFreeMin" ? (
+                          <OverlayTrigger
+                            overlay={<Tooltip>배송 무료 최소 구매액</Tooltip>}
+                          >
+                            {control}
+                          </OverlayTrigger>
+                        ) : (
+                          control
+                        );
+                      })()}
                     </td>
                     <td style={{ paddingLeft: "2px" }}>원</td>
                   </tr>
