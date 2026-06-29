@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { useEffect, useState } from "react";
 import { Button, Card, Form, Table } from "react-bootstrap";
 import { getSoapPrices } from "../AdminService";
@@ -5,11 +6,13 @@ import "./SoapPriceCard.css";
 
 const SoapPriceCard = () => {
   const [soapPrices, setSoapPrices] = useState([]);
+  const [originPrices, setOriginPrices] = useState([]);
 
   useEffect(() => {
     const readPrices = async () => {
       const priceData = await getSoapPrices();
-
+      
+      setOriginPrices(priceData.data);
       setSoapPrices(priceData.data);
     };
     readPrices();
@@ -17,7 +20,9 @@ const SoapPriceCard = () => {
 
   const handleSubmit = () => {};
 
-  const priceUnchanged = () => {};
+  const priceUnchanged = () => {
+    return _.isEqual(soapPrices, originPrices);
+  };
 
   const restorePrices = () => {};
 
