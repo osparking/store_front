@@ -11,7 +11,7 @@ const SoapPriceCard = () => {
   useEffect(() => {
     const readPrices = async () => {
       const priceData = await getSoapPrices();
-      
+
       setOriginPrices(priceData.data);
       setSoapPrices(priceData.data);
     };
@@ -64,22 +64,24 @@ const SoapPriceCard = () => {
                         {" :"}
                       </Form.Label>
                     </td>
-                    <td md={6} colSpan={2} style={{ minWidth: "110px" }}>
+                    <td md={3} style={{ minWidth: "60px", paddingRight: "0" }}>
                       <Form.Control
                         type="text"
                         placeholder="0.00"
                         disabled={soapPrice.disabled}
                         id={soapPrice.shapeLabel}
                         name={soapPrice.name}
-                        maxLength={5}
+                        maxLength={6}
                         onChange={(e) => handleChange(e, index)}
-                        value={`${(soapPrice.unitPrice ?? 0).toLocaleString()}원`}
+                        value={`${(soapPrice.unitPrice ?? 0).toLocaleString()}`}
                         style={{
-                          width: "80px", // 6자리(예: 999,999) + '원'에 적합
+                          width: "60px", // 6자리(예: 999,999) + '원'에 적합
                           textAlign: "right", // 숫자이니, 우측으로 정렬
+                          paddingRight: "5px",
                         }}
                       />
                     </td>
+                    <td style={{ paddingLeft: "2px" }}>원</td>
                   </tr>
                 ))}
               </tbody>
