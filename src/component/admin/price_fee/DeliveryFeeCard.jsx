@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { useEffect, useState } from "react";
 import {
   Button,
@@ -53,6 +54,10 @@ const DeliveryFeeCard = () => {
     const newFee = { ...feeEtc };
     newFee[itemName] = Number(numericValue) || 0;
     setFeeEtc(newFee);
+  };
+
+  const feeUnchanged = () => {
+    return _.isEqual(feeEtc, originFeeEtc);
   };
 
   const handleSubmit = () => {};
@@ -120,7 +125,7 @@ const DeliveryFeeCard = () => {
           <div className="d-flex justify-content-center mb-3 mt-3 char2button">
             <Button
               type="button"
-              // disabled={priceUnchanged()}
+              disabled={feeUnchanged()}
               variant="success"
               size="sm"
               className="me-4"
@@ -130,7 +135,7 @@ const DeliveryFeeCard = () => {
             </Button>
             <Button
               type="submit"
-              // disabled={priceUnchanged()}
+              disabled={feeUnchanged()}
               variant="primary"
               size="sm"
             >
