@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Card, Form, Table } from "react-bootstrap";
 import { getSoapPrices } from "../AdminService";
-import "./SoapPriceCard.css"
+import "./SoapPriceCard.css";
 
 const SoapPriceCard = () => {
   const [soapPrices, setSoapPrices] = useState([]);
@@ -23,10 +23,18 @@ const SoapPriceCard = () => {
 
   const getClasses = () => {};
 
-  const handleChange = (e) => {
+  const handleChange = (e, index) => {
     const numericValue = e.target.value.replace(/[^0-9]/g, "");
     // 숫자만 상태에 저장
-    setSoapPrice((prev) => ({ ...prev, unitPrice: Number(numericValue) || 0 }));
+    setSoapPrices((prev) => {
+      const updatedPrices = [...prev];
+
+      updatedPrices[index] = {
+        ...updatedPrices[index],
+        unitPrice: Number(numericValue) || 0,
+      };
+      return updatedPrices;
+    });
   };
 
   return (
@@ -39,7 +47,7 @@ const SoapPriceCard = () => {
           <div style={{ overflow: "auto" }}>
             <Table id="soapPrice" className="my-0">
               <tbody>
-                {soapPrices.map((soapPrice, index) => (
+                {soapPrices?.map((soapPrice, index) => (
                   <tr key={index}>
                     <td
                       md={6}
@@ -47,14 +55,11 @@ const SoapPriceCard = () => {
                       style={{ minWidth: "100px" }}
                     >
                       <Form.Label htmlFor={soapPrice.shapeLabel}>
-                        {soapPrice.shapeLabel}{" :"}
+                        {soapPrice.shapeLabel}
+                        {" :"}
                       </Form.Label>
                     </td>
-                    <td
-                      md={6}
-                      colSpan={2}
-                      style={{ minWidth: "110px" }}
-                    >
+                    <td md={6} colSpan={2} style={{ minWidth: "110px" }}>
                       <Form.Control
                         type="text"
                         placeholder="0.00"
@@ -62,7 +67,7 @@ const SoapPriceCard = () => {
                         id={soapPrice.shapeLabel}
                         name={soapPrice.name}
                         maxLength={5}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, index)}
                         value={`${(soapPrice.unitPrice ?? 0).toLocaleString()}원`}
                         style={{
                           width: "80px", // 6자리(예: 999,999) + '원'에 적합
