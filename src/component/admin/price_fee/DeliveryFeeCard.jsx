@@ -10,8 +10,8 @@ import {
 import { getFeeEtc } from "../../buy/orderService";
 
 const DeliveryFeeCard = () => {
-  const [feeEtc, setFeeEtc] = useState([]);
-  const [originFeeEtc, setOriginPrices] = useState([]);
+  const [feeEtc, setFeeEtc] = useState({});
+  const [originFeeEtc, setOriginPrices] = useState({});
 
   useEffect(() => {
     console.log("배송비 관련 비용을 읽음");
@@ -47,6 +47,14 @@ const DeliveryFeeCard = () => {
     },
   ];
 
+  const handleChange = (e, itemName) => {
+    const numericValue = e.target.value.replace(/[^0-9]/g, "");
+    // 숫자만 상태에 저장
+    const newFee = { ...feeEtc };
+    newFee[itemName] = Number(numericValue) || 0;
+    setFeeEtc(newFee);
+  };
+
   const handleSubmit = () => {};
 
   return (
@@ -80,6 +88,7 @@ const DeliveryFeeCard = () => {
                             id={feeItem.name}
                             name={feeItem.name}
                             maxLength={6}
+                            onChange={(e) => handleChange(e, feeItem.name)}
                             value={`${(feeItem.value ?? 0).toLocaleString()}`}
                             style={{
                               width: "60px",
