@@ -17,6 +17,14 @@ const DeliveryFeeCard = () => {
     readFeeEtc();
   }, []);
 
+  const deliveryData = [
+    {
+      label: "기본 배송비",
+      name: "deliBasis",
+      value: feeEtc.deliBasis,
+    },
+  ];
+
   const handleSubmit = () => {};
 
   return (
@@ -29,32 +37,38 @@ const DeliveryFeeCard = () => {
           <div style={{ overflow: "auto" }}>
             <Table id="soapPrice" className="my-0">
               <tbody>
-                <tr>
-                  <td md={6} className="text-end" style={{ minWidth: "100px" }}>
-                    <Form.Label htmlFor="deliBasis">
-                      기본 배송비
-                      {" :"}
-                    </Form.Label>
-                  </td>
-                  <td md={3} style={{ minWidth: "60px", paddingRight: "0" }}>
-                    <Form.Control
-                      type="text"
-                      placeholder="0.00"
-                      // disabled={soapPrice.disabled}
-                      id="deliBasis"
-                      name="deliBasis"
-                      maxLength={6}
-                      // onChange={(e) => handleChange(e, index)}
-                      value={`${(feeEtc.deliBasis ?? 0).toLocaleString()}`}
-                      style={{
-                        width: "60px", // 6자리(예: 999,999) + '원'에 적합
-                        textAlign: "right", // 숫자이니, 우측으로 정렬
-                        paddingRight: "5px",
-                      }}
-                    />
-                  </td>
-                  <td style={{ paddingLeft: "2px" }}>원</td>
-                </tr>
+                {deliveryData.map((feeItem, index) => (
+                  <tr key={index}>
+                    <td
+                      md={6}
+                      className="text-end"
+                      style={{ minWidth: "100px" }}
+                    >
+                      <Form.Label htmlFor={feeItem.name}>
+                        {feeItem.label}
+                        {" :"}
+                      </Form.Label>
+                    </td>
+                    <td md={3} style={{ minWidth: "60px", paddingRight: "0" }}>
+                      <Form.Control
+                        type="text"
+                        placeholder="0.00"
+                        // disabled={soapPrice.disabled}
+                        id={feeItem.name}
+                        name={feeItem.name}
+                        maxLength={6}
+                        // onChange={(e) => handleChange(e, index)}
+                        value={`${(feeItem.value ?? 0).toLocaleString()}`}
+                        style={{
+                          width: "60px", // 6자리(예: 999,999) + '원'에 적합
+                          textAlign: "right", // 숫자이니, 우측으로 정렬
+                          paddingRight: "5px",
+                        }}
+                      />
+                    </td>
+                    <td style={{ paddingLeft: "2px" }}>원</td>
+                  </tr>
+                ))}
               </tbody>
             </Table>
           </div>
