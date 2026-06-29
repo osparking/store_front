@@ -8,3 +8,12 @@ export async function getSoapPrices() {
     throw err;
   }
 }
+
+export async function saveNewSoapPrice(soapPrice) {
+  try {
+    const result = await callWithToken("post", "/admin/add_price", soapPrice);
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
