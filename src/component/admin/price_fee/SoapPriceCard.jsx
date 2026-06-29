@@ -24,7 +24,9 @@ const SoapPriceCard = () => {
     return _.isEqual(soapPrices, originPrices);
   };
 
-  const restorePrices = () => {};
+  const restorePrices = () => {
+    setSoapPrices(originPrices);
+  };
 
   const getClasses = () => {};
 
