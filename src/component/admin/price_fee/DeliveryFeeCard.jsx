@@ -5,10 +5,13 @@ import {
   Card,
   Form,
   OverlayTrigger,
+  Spinner,
   Table,
   Tooltip,
 } from "react-bootstrap";
+import toast from "react-hot-toast";
 import { getFeeEtc } from "../../buy/orderService";
+import { saveNewFeeEtc } from "../AdminService";
 
 const DeliveryFeeCard = () => {
   const [feeEtc, setFeeEtc] = useState({});
@@ -64,7 +67,31 @@ const DeliveryFeeCard = () => {
     setFeeEtc(originFeeEtc);
   };
 
-  const handleSubmit = () => {};
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const requestData = {
+        deliBasis: feeEtc.deliBasis,
+        deliJeju: feeEtc.deliJeju,
+        deliIsol: feeEtc.deliIsol,
+        deliFreeMin: feeEtc.deliFreeMin,
+      };
+
+      setIsLoading(true);
+      const resultData = await saveNewFeeEtc(requestData);
+      if (resultData && resultData.message) {
+        toast.success(resultData.message);
+        setOriginPrices(feeEtc); // 현재 데이터를 원본으로 설정
+      }
+    } catch (e) {
+      toast.error(resultData.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <Form onSubmit={handleSubmit} className="d-flex justify-content-center">
@@ -139,11 +166,25 @@ const DeliveryFeeCard = () => {
             </Button>
             <Button
               type="submit"
-              disabled={feeUnchanged()}
+              disabled={feeUnchanged() || isLoading}
               variant="primary"
               size="sm"
             >
-              {"저장"}
+              {isLoading ? (
+                <>
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                    className="me-2"
+                  />
+                  저장 중...
+                </>
+              ) : (
+                "저장"
+              )}
             </Button>
           </div>
         </Card.Footer>

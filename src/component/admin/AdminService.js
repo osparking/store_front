@@ -12,7 +12,6 @@ export async function getSoapPrices() {
 export async function saveNewFeeEtc(feeEtc) {
   try {
     const result = await callWithToken("post", "/admin/add_fee_etc", feeEtc);
-    console.log("result2: ", result);
     return result.data;
   } catch (err) {
     throw err;
