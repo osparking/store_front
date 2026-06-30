@@ -1,0 +1,9 @@
+#customerDetails .form-label {
+    margin-bottom: 0;
+}
+
+#customerDetails tr, 
+#customerDetails td, 
+#customerDetails th {
+    border: none !important;
+}
