@@ -12,6 +12,7 @@ import {
 import toast from "react-hot-toast";
 import { getFeeEtc } from "../../buy/orderService";
 import { saveNewFeeEtc } from "../AdminService";
+import "./DeliveryFeeCard.css";
 
 const DeliveryFeeCard = () => {
   const [feeEtc, setFeeEtc] = useState({});
@@ -95,13 +96,13 @@ const DeliveryFeeCard = () => {
 
   return (
     <Form onSubmit={handleSubmit} className="d-flex justify-content-center">
-      <Card id="soapPriceCard">
+      <Card id="feeEtcCard">
         <Card.Header className="text-center mb-2 h5">
           배송비 관련 설정
         </Card.Header>
         <Card.Body className="d-flex align-items-center justify-content-center">
           <div style={{ overflow: "auto" }}>
-            <Table id="soapPrice" className="my-0">
+            <Table id="feeEtcTable" className="my-0">
               <tbody>
                 {deliveryData.map((feeItem, index) => (
                   <tr key={index}>
