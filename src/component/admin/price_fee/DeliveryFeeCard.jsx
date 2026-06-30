@@ -60,6 +60,10 @@ const DeliveryFeeCard = () => {
     return _.isEqual(feeEtc, originFeeEtc);
   };
 
+  const restoreFees = () => {
+    setFeeEtc(originFeeEtc);
+  };
+
   const handleSubmit = () => {};
 
   return (
@@ -129,7 +133,7 @@ const DeliveryFeeCard = () => {
               variant="success"
               size="sm"
               className="me-4"
-              // onClick={restorePrices}
+              onClick={restoreFees}
             >
               {"복원"}
             </Button>
