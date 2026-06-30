@@ -6,9 +6,14 @@
     padding-bottom: 4px;
 }
 
-#soapPrice .form-label {
+#feeEtcTable .form-label {
     margin-bottom: 0;
 }
+
+#feeEtcTable td {
+    padding-left: 0;
+}
+
 #feeEtcCard .card-body {
     padding-top: 8px;
     padding-bottom: 8px;
