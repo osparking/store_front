@@ -169,6 +169,12 @@ const DeliveryFeeCard = () => {
               disabled={feeUnchanged() || isLoading}
               variant="primary"
               size="sm"
+              style={{
+                whiteSpace: "nowrap",
+                padding: "0.375rem 0.75rem",
+                fontSize: isLoading ? "0.7rem" : undefined,
+                minWidth: "fit-content",
+              }}
             >
               {isLoading ? (
                 <>
@@ -178,7 +184,8 @@ const DeliveryFeeCard = () => {
                     size="sm"
                     role="status"
                     aria-hidden="true"
-                    className="me-2"
+                    className="me-1"
+                    style={{ width: "0.8rem", height: "0.8rem" }}
                   />
                   저장 중...
                 </>
