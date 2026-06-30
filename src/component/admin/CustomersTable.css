@@ -1,0 +1,9 @@
+.readEye {
+    font-size: 14px;
+    padding: 0;
+    height: 16px;
+}
+
+.readEye>svg {
+    vertical-align: top;
+}
