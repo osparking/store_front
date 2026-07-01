@@ -62,30 +62,37 @@ const CustomerInfoModal = ({ show, onHide, customer }) => {
   ];
 
   return (
-    <Modal show={show} onHide={onHide} dialogClassName="recipients-modal">
+    <Modal show={show} onHide={onHide} dialogClassName="customer-info-modal">
       <div className="custom-modal-width">
-        <Modal.Header closeButton>
-          <Modal.Title>고객 상세 정보</Modal.Title>
+        <Modal.Header closeButton className="pt-1 pb-1">
+          <Modal.Title>유저 상세 정보</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form className="d-flex justify-content-center">
-            <Table id="customerDetails" className="my-0" style={{width: "75%"}}>
+            <Table
+              id="customerDetails"
+              className="my-0"
+              style={{ width: "75%" }}
+            >
               <tbody>
                 {detailsItem.map((item, index) => (
                   <tr key={index}>
                     <td
                       md={4}
                       className="text-end"
-                      style={{ minWidth: "145px", paddingRight: 0 }}
+                      style={{ minWidth: "160px", paddingRight: 0 }}
                     >
-                      <Form.Label htmlFor={item.name}>{item.label} :</Form.Label>
+                      <Form.Label htmlFor={item.name}>
+                        {item.label} :
+                      </Form.Label>
                     </td>
                     <td
                       md={7}
                       colSpan={2}
-                      style={{ minWidth: "250px", paddingLeft: "4px" }}
+                      style={{ minWidth: "270px", paddingLeft: "4px" }}
                     >
                       <Form.Control
+                        name={item.name}
                         plaintext
                         readOnly
                         defaultValue={item.value}
