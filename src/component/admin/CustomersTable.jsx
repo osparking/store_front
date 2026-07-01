@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
 import { BsEyeFill } from "react-icons/bs";
-import CustomerInfoModal from "../modal/CustomerInfoModal";
+import CustomerInfoModalDraggable from "../modal/CustomerInfoModalDraggable";
 import { insert2Hyphens } from "../util/utilities";
 import "./CustomersTable.css";
 import "./ManageCustomers.css";
@@ -16,11 +16,14 @@ const CustomersTable = (displayCustomers) => {
 
   return (
     <>
-      <CustomerInfoModal
+      <CustomerInfoModalDraggable
         show={showDetails}
         onHide={() => setShowDetails(false)}
-        customer={customer}
-      />
+        title="고객 상세 정보"
+      >
+        <div>상세 정보 테이블</div>
+      </CustomerInfoModalDraggable>
+
       <Table bordered hover striped className="admin-customer-table">
         <thead>
           <tr>
