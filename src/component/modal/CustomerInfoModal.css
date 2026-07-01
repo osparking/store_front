@@ -2,8 +2,23 @@
     margin-bottom: 0;
 }
 
-#customerDetails tr, 
-#customerDetails td, 
+#customerDetails tr,
+#customerDetails td,
 #customerDetails th {
     border: none !important;
+}
+
+#customerDetails .form-control-plaintext {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+#customerDetails td {
+    padding-top: 4px;
+    padding-bottom: 0;
+}
+
+.customer-info-modal {
+  width: 550px;
+  max-width: 550px;
 }
