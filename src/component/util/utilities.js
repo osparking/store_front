@@ -133,7 +133,9 @@ export function formatDate(dateString) {
 }
 
 export function insert2Hyphens(phone) {
-  return `${phone.slice(0, 3)}-${phone.slice(3, 7)}-${phone.slice(7, 11)}`;
+  return phone
+    ? `${phone.slice(0, 3)}-${phone.slice(3, 7)}-${phone.slice(7, 11)}`
+    : "";
 }
 
 export function insertHyphens(phone) {
