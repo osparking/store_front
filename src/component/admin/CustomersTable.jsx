@@ -5,6 +5,7 @@ import CustomerInfoModalDraggable from "../modal/CustomerInfoModalDraggable";
 import { insert2Hyphens } from "../util/utilities";
 import "./CustomersTable.css";
 import "./ManageCustomers.css";
+import CustomerDetails from "../modal/CustomerDetails";
 
 const CustomersTable = (displayCustomers) => {
   const [showDetails, setShowDetails] = useState(false);
@@ -19,9 +20,9 @@ const CustomersTable = (displayCustomers) => {
       <CustomerInfoModalDraggable
         show={showDetails}
         onHide={() => setShowDetails(false)}
-        title="고객 상세 정보"
+        title="유저 상세 정보"
       >
-        <div>상세 정보 테이블</div>
+        <CustomerDetails customer={customer} />
       </CustomerInfoModalDraggable>
 
       <Table bordered hover striped className="admin-customer-table">
