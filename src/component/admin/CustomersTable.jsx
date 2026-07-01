@@ -39,7 +39,9 @@ const CustomersTable = (displayCustomers) => {
             <tr key={idx}>
               <td>{customer.id}</td>
               <td>{customer.fullName}</td>
-              <td>{insert2Hyphens(customer.mbPhone)}</td>
+              <td style={{ minWidth: "100px" }}>
+                {insert2Hyphens(customer.mbPhone)}
+              </td>
               <td>{customer.email}</td>
               <td>{customer.enabled ? "예" : "아니오"}</td>
               <td>{customer.addDate}</td>
