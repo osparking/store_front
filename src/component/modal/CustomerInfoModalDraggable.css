@@ -63,6 +63,7 @@
   cursor: pointer;
   color: #888;
   font-weight: bold;
+  text-decoration: none;
 }
 
 #customer-info-modal .close-button {
