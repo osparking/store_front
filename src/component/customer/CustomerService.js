@@ -1,10 +1,10 @@
 import { callWithToken } from "../util/api";
 
-export async function getCustomerPage(page, size) {
+export async function getCustomerPage(page, size, email) {
   const urlPrefix = "/admin/get_customer_page?page=";
 
   try {
-    const url = `${urlPrefix}${page}&size=${size}`;
+    const url = `${urlPrefix}${page}&size=${size}&email=${email}`;
     const result = await callWithToken("get", url);
     return result.data.data;
   } catch (err) {
