@@ -3,7 +3,7 @@ import { Card, Col, Form, InputGroup, Row } from "react-bootstrap";
 import AlertMessage from "../common/AlertMessage";
 import ItemFilter from "../common/ItemFilter";
 import Paginator from "../common/Paginator";
-import { getCustomerList } from "../customer/CustomerService";
+import { getCustomerList, getCustomerPage } from "../customer/CustomerService";
 import BsAlertHook from "../hook/BsAlertHook";
 import { getRecordRange } from "../util/utilities";
 import CustomersTable from "./CustomersTable";
@@ -22,11 +22,14 @@ const ManageCustomers = () => {
     setAlertError,
   } = BsAlertHook();
 
-  const readCustomerList = async () => {
+  const [loading, setLoading] = useState(false);
+
+  const fetchCustomerPage = async (pageNo = 1) => {
     try {
-      const response = await getCustomerList();
-      setCustomers(response.data);
-      console.log("고객: ", response.data);
+      setLoading(true);
+      const response = await getCustomerPage(pageNo, 10);
+      setLoading(false);
+      setCustomers(response.pageContent.content);
     } catch (error) {
       console.error(error);
       setErrorMsg(error.message);
@@ -34,9 +37,7 @@ const ManageCustomers = () => {
     }
   };
 
-  const emails = Array.from(
-    new Set(customers.map((customer) => customer.email)),
-  ).sort();
+  const emails = [];
   const [selectedEmail, setSelectedEmail] = useState(
     localStorage.getItem("SELECTED_EMAIL") || "",
   );
@@ -50,6 +51,7 @@ const ManageCustomers = () => {
   };
 
   const [filteredOnes, setFilteredOnes] = useState([]);
+
   useEffect(() => {
     if (selectedEmail) {
       setFilteredOnes(
@@ -82,7 +84,7 @@ const ManageCustomers = () => {
   };
 
   useEffect(() => {
-    readCustomerList();
+    fetchCustomerPage(1);
   }, []);
 
   const [currCustomerPage, setCurrCustomerPage] = useState(
