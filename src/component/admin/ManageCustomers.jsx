@@ -40,7 +40,7 @@ const ManageCustomers = () => {
   const fetchCustomerPage = async (pageNo = 1) => {
     try {
       setLoading(true);
-      const response = await getCustomerPage(pageNo, 10);
+      const response = await getCustomerPage(pageNo, pageSize, emailSubstr);
       setLoading(false);
       setFetchResult(response);
 
@@ -65,6 +65,9 @@ const ManageCustomers = () => {
   const [emailSubstr, setEmailSubstr] = useState(
     localStorage.getItem("EMAIL_SUBSTR") || "",
   );
+  const [nameSubstr, setNameSubstr] = useState(
+    localStorage.getItem("NAME_SUBSTR") || "",
+  );
   const clearFilter = () => {
     setSelectedEmail("");
     localStorage.removeItem("SELECTED_EMAIL");
@@ -79,6 +82,13 @@ const ManageCustomers = () => {
     }
     setSelectedEmail(value);
     localStorage.setItem("SELECTED_EMAIL", value);
+  };
+
+  const handleNameSubChg = (e) => {
+    clearFilter();
+    setCurrCustomerPage(1);
+    setEmailSubstr(e.target.value);
+    localStorage.setItem("EMAIL_SUBSTR", e.target.value);
   };
 
   const handleEmailSubChg = (e) => {
@@ -100,7 +110,7 @@ const ManageCustomers = () => {
 
   const searchCustomers = () => {
     setAndSavePageNo(1);
-  }
+  };
 
   return (
     <>
@@ -117,23 +127,31 @@ const ManageCustomers = () => {
         style={{ justifyContent: "center", alignItems: "center" }}
       >
         <Col md={2} style={{ maxWidth: "200px" }}></Col>
-        <Col md={2} style={{ maxWidth: "200px" }}>
+        <Col md={3} style={{ maxWidth: "200px" }}>
           <InputGroup className="mb-2">
+            <Form.Label htmlFor="namePart" className="me-2">
+              성명:
+            </Form.Label>
             <Form.Control
               type="text"
-              value={emailSubstr}
+              value={nameSubstr}
               placeholder="(성명 일부)"
-              name="emailPart"
-              onChange={handleEmailSubChg}
+              id="namePart"
+              name="namePart"
+              onChange={handleNameSubChg}
             />
           </InputGroup>
         </Col>
-        <Col md={2} style={{ maxWidth: "200px" }}>
+        <Col md={3} style={{ maxWidth: "200px" }}>
           <InputGroup className="mb-2">
+            <Form.Label htmlFor="emailPart" className="me-2">
+              이메일:
+            </Form.Label>
             <Form.Control
               type="text"
               value={emailSubstr}
               placeholder="(이메일 일부)"
+              id="emailPart"
               name="emailPart"
               onChange={handleEmailSubChg}
             />
