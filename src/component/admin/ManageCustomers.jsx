@@ -1,16 +1,31 @@
 import { useEffect, useState } from "react";
-import { Card, Col, Form, InputGroup, Row } from "react-bootstrap";
+import { Button, Card, Col, Form, InputGroup, Row } from "react-bootstrap";
 import AlertMessage from "../common/AlertMessage";
-import ItemFilter from "../common/ItemFilter";
 import Paginator from "../common/Paginator";
-import { getCustomerList, getCustomerPage } from "../customer/CustomerService";
+import { getCustomerPage } from "../customer/CustomerService";
 import BsAlertHook from "../hook/BsAlertHook";
 import { getRecordRange } from "../util/utilities";
 import CustomersTable from "./CustomersTable";
 import "./ManageCustomers.css";
 
 const ManageCustomers = () => {
+  const [totalPages, setTotalPages] = useState(1);
+  const [customerPage, setCustomerPage] = useState({});
   const [customers, setCustomers] = useState([]);
+  const [fetchResult, setFetchResult] = useState();
+  const [pageSize, setPageSize] = useState(10); // itemsPerPage
+
+  const savedPageNo = localStorage.getItem("CURR_CUST_PAGE");
+  const [currentPage, setCurrentPage] = useState(savedPageNo || 1);
+  const [loading, setLoading] = useState(false);
+
+  const [currCustomerPage, setCurrCustomerPage] = useState(
+    Number(localStorage.getItem("CURR_CUST_PAGE")) || 1,
+  );
+
+  const idxLastPlus1 = currCustomerPage * pageSize;
+  const indexOfFirst = idxLastPlus1 - pageSize;
+
   const {
     successMsg,
     setSuccessMsg,
@@ -22,14 +37,20 @@ const ManageCustomers = () => {
     setAlertError,
   } = BsAlertHook();
 
-  const [loading, setLoading] = useState(false);
-
   const fetchCustomerPage = async (pageNo = 1) => {
     try {
       setLoading(true);
       const response = await getCustomerPage(pageNo, 10);
       setLoading(false);
-      setCustomers(response.pageContent.content);
+      setFetchResult(response);
+
+      if (response && response.pageContent) {
+        setTotalPages(response.totalPages);
+        setCustomerPage(response.pageContent);
+        setCustomers(response.pageContent.content);
+        setPageSize(response.pageSize);
+        setCurrentPage(response.currentPage);
+      }
     } catch (error) {
       console.error(error);
       setErrorMsg(error.message);
@@ -49,22 +70,6 @@ const ManageCustomers = () => {
     localStorage.removeItem("SELECTED_EMAIL");
     localStorage.removeItem("CURR_CUST_PAGE");
   };
-
-  const [filteredOnes, setFilteredOnes] = useState([]);
-
-  useEffect(() => {
-    if (selectedEmail) {
-      setFilteredOnes(
-        customers.filter((customer) => customer.email === selectedEmail),
-      );
-    } else if (emailSubstr) {
-      setFilteredOnes(
-        customers.filter((customer) => customer.email.includes(emailSubstr)),
-      );
-    } else {
-      setFilteredOnes(customers);
-    }
-  }, [customers, selectedEmail, emailSubstr]);
 
   const handleEmailSelect = (value) => {
     localStorage.removeItem("CURR_CUST_PAGE");
@@ -87,19 +92,15 @@ const ManageCustomers = () => {
     fetchCustomerPage(1);
   }, []);
 
-  const [currCustomerPage, setCurrCustomerPage] = useState(
-    Number(localStorage.getItem("CURR_CUST_PAGE")) || 1,
-  );
-
-  const [pageSize] = useState(10);
-  const idxLastPlus1 = currCustomerPage * pageSize;
-  const indexOfFirst = idxLastPlus1 - pageSize;
-  const displayCustomers = filteredOnes.slice(indexOfFirst, idxLastPlus1);
-
   const setAndSavePageNo = (pageNo) => {
     setCurrCustomerPage(pageNo);
     localStorage.setItem("CURR_CUST_PAGE", pageNo);
+    fetchCustomerPage(pageNo);
   };
+
+  const searchCustomers = () => {
+    setAndSavePageNo(1);
+  }
 
   return (
     <>
@@ -115,16 +116,19 @@ const ManageCustomers = () => {
         className="mb-2"
         style={{ justifyContent: "center", alignItems: "center" }}
       >
-        <Col md={6} style={{ maxWidth: "400px" }}>
-          <ItemFilter
-            itemType={"이메일"}
-            options={emails}
-            onClearFilter={clearFilter}
-            onOptionSelection={handleEmailSelect}
-            selectedOption={selectedEmail}
-          />
+        <Col md={2} style={{ maxWidth: "200px" }}></Col>
+        <Col md={2} style={{ maxWidth: "200px" }}>
+          <InputGroup className="mb-2">
+            <Form.Control
+              type="text"
+              value={emailSubstr}
+              placeholder="(성명 일부)"
+              name="emailPart"
+              onChange={handleEmailSubChg}
+            />
+          </InputGroup>
         </Col>
-        <Col md={3} style={{ maxWidth: "200px" }}>
+        <Col md={2} style={{ maxWidth: "200px" }}>
           <InputGroup className="mb-2">
             <Form.Control
               type="text"
@@ -135,14 +139,14 @@ const ManageCustomers = () => {
             />
           </InputGroup>
         </Col>
+        <Col md={2} style={{ maxWidth: "200px" }}>
+          <Button variant="primary" onClick={searchCustomers}>
+            검색
+          </Button>
+        </Col>
       </Row>
       <p className="text-center mb-1">
-        {getRecordRange(
-          { totalElements: filteredOnes.length },
-          indexOfFirst,
-          idxLastPlus1,
-          "고객",
-        )}
+        {getRecordRange(customerPage, indexOfFirst, idxLastPlus1, "고객")}
       </p>
 
       <Card id="user-table-card" className="p-0" style={{ overflowY: "auto" }}>
@@ -154,19 +158,21 @@ const ManageCustomers = () => {
             }}
             className="justify-content-center align-items-center"
           >
-            {CustomersTable(displayCustomers)}
+            {CustomersTable(customers)}
           </div>
         </Card.Body>
       </Card>
 
-      <Paginator
-        pageSize={pageSize}
-        totalItems={filteredOnes.length}
-        totalPages={Math.ceil(filteredOnes.length / pageSize)}
-        currPage={currCustomerPage}
-        setCurrPage={setAndSavePageNo}
-        darkBackground={true}
-      />
+      {fetchResult && customerPage && (
+        <Paginator
+          pageSize={customerPage.size}
+          totalItems={customerPage.totalElements}
+          totalPages={totalPages}
+          currPage={currCustomerPage}
+          setCurrPage={(pageNo) => setAndSavePageNo(pageNo)}
+          darkBackground={true}
+        />
+      )}
     </>
   );
 };
