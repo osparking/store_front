@@ -22,6 +22,10 @@
     height: calc(100vh - 345px);
 }
 
+#customer-search-row .form-label {
+    margin-bottom: 0;
+}
+
 @media screen and (max-width: 992px) {
     .main-container {
         padding: 0 !important; 

@@ -134,6 +134,7 @@ const ManageCustomers = () => {
         </Col>
       </Row>
       <Row
+        id="customer-search-row"
         className="mb-2"
         style={{ justifyContent: "center", alignItems: "center" }}
       >
