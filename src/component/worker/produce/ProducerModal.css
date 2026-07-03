@@ -2,3 +2,7 @@
    width: 300px;
    top: 60px
 }
+
+#search-producer-button{
+   padding: 0 5px !important;
+}

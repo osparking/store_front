@@ -89,10 +89,11 @@ const ProducerModal = ({ show, producer, setProducer, closer }) => {
     if (loading) {
       return (
         <Button
+          id="search-producer-button"
           disabled={keyNotEnough()}
-          variant="outline-primary"
+          variant="outline-success"
           type="submit"
-          className="w-25 ms-2"
+          className="w-25"
           style={{ width: "50vw" }}
         >
           <ProcessSpinner message="로딩" />
@@ -101,14 +102,16 @@ const ProducerModal = ({ show, producer, setProducer, closer }) => {
     } else {
       return (
         <Button
+          id="search-producer-button"
           disabled={keyNotEnough()}
-          variant="outline-primary"
+          variant="success"
           type="button"
-          className="ms-2"
           onClick={handleNameKey}
         >
-          <FaMagnifyingGlass />
-          <span className="shourcut">(Alt+S)</span>
+          <div style={{ marginTop: "-3px" }}>
+            <FaMagnifyingGlass />
+            <span className="shourcut">(Alt+S)</span>
+          </div>
         </Button>
       );
     }
@@ -146,12 +149,12 @@ const ProducerModal = ({ show, producer, setProducer, closer }) => {
   return (
     <Modal show={show} onHide={closer} dialogClassName="address-modal">
       <div className="custom-modal-width">
-        <Modal.Header closeButton>
+        <Modal.Header closeButton style={{ color: "blue" }}>
           <Modal.Title>직원 검색</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <div className="d-flex justify-content-center">
+            <div className="d-flex justify-content-center char2button gap-2">
               <OverlayTrigger overlay={<Tooltip>한 글자 이상 입력!</Tooltip>}>
                 <Form.Control
                   type="text"
