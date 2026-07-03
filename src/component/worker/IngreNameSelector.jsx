@@ -61,7 +61,7 @@ const IngreNameSelector = forwardRef(({ ingreName, onChange }, ref) => {
           setShowNameAdder(false);
           console.log("false called");
         }}
-        label={"재료 이름"}
+        label={"재료"}
         saver={handleNewName}
         dialogClass="modal-50w"
       />
