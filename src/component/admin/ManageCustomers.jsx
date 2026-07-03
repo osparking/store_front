@@ -116,6 +116,13 @@ const ManageCustomers = () => {
     setAndSavePageNo(1);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      searchCustomers();
+    }
+  };
+
   return (
     <>
       <Row>
@@ -143,6 +150,7 @@ const ManageCustomers = () => {
               id="namePart"
               name="namePart"
               onChange={handleNameSubChg}
+              onKeyDown={handleKeyDown}
             />
           </InputGroup>
         </Col>
@@ -158,6 +166,7 @@ const ManageCustomers = () => {
               id="emailPart"
               name="emailPart"
               onChange={handleEmailSubChg}
+              onKeyDown={handleKeyDown}
             />
           </InputGroup>
         </Col>
