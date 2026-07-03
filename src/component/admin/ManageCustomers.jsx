@@ -172,9 +172,11 @@ const ManageCustomers = () => {
           </InputGroup>
         </Col>
         <Col md={2} style={{ maxWidth: "200px" }}>
-          <Button variant="primary" onClick={searchCustomers}>
-            검 색
-          </Button>
+          <div className="char2button d-flex justify-content-start">
+            <Button variant="primary" onClick={searchCustomers} size="sm">
+              검 색
+            </Button>
+          </div>
         </Col>
       </Row>
       <p className="text-center mb-1">
