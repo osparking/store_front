@@ -264,10 +264,17 @@ const RegisterUser = () => {
             <Card.Footer className="text-center">
               <div className="d-flex justify-content-center mb-3 mt-3 char2button">
                 <Button
-                  type="submit"
-                  variant="outline-primary"
-                  size="sm"
                   className="me-2"
+                  variant="secondary"
+                  size="sm"
+                  onClick={handleReset}
+                >
+                  리셋
+                </Button>
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="sm"
                   disabled={isProcessing}
                 >
                   {isProcessing ? (
@@ -276,18 +283,19 @@ const RegisterUser = () => {
                     "등록"
                   )}
                 </Button>
-                <Button variant="outline-info" size="sm" onClick={handleReset}>
-                  리셋
-                </Button>
               </div>
 
-              {/* {isAdmin && ( */}
-              <div className="d-flex justify-content-center mb-3 mt-3">
-                <Button variant="outline-warning" size="sm" onClick={easyData}>
-                  입력 편의
-                </Button>
-              </div>
-              {/* )} */}
+              {isAdmin && (
+                <div className="d-flex justify-content-center char2button mb-3 mt-3">
+                  <Button
+                    variant="outline-success"
+                    size="sm"
+                    onClick={easyData}
+                  >
+                    입력 편의
+                  </Button>
+                </div>
+              )}
               {alertSuccess && (
                 <>
                   <AlertMessage type="success" message={successMsg} />
