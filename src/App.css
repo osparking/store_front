@@ -435,4 +435,8 @@ footer {
   background-color: rgba(230, 248, 248, 0.966);
 }
 
+.modal-title {
+  color: var(--color-nav-home);
+}
+
 /* End home page*/
