@@ -63,6 +63,7 @@ const BuyPlaceSelector = ({ buyPlace, onChange }) => {
         }}
         label={"구매 링크"}
         saver={handleNewLink}
+        dialogClass={"link-adder-modal"}
       />
     </React.Fragment>
   );
