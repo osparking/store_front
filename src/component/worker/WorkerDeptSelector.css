@@ -2,3 +2,8 @@
   width: 50%;
   max-width: 250px;
 }
+
+.link-adder-modal {
+  width: 600px;
+  max-width: 600px !important;
+}
