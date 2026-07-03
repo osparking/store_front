@@ -82,6 +82,7 @@ function CustomerDetails({ customer }) {
                   readOnly
                   defaultValue={item.value}
                   className={"disabled-color ps-2"}
+                  autoComplete="off"
                 />
               </td>
             </tr>
