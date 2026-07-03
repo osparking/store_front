@@ -76,6 +76,7 @@ function CustomerDetails({ customer }) {
                 style={{ minWidth: "270px", paddingLeft: "4px" }}
               >
                 <Form.Control
+                  id={item.name}
                   name={item.name}
                   plaintext
                   readOnly
