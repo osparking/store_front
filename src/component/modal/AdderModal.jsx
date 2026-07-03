@@ -16,7 +16,7 @@ const AdderModal = ({ show, closer, label, saver, dialogClass }) => {
   return (
     <Modal show={show} onHide={closer} dialogClassName={dialogClass}>
       <Modal.Header closeButton>
-        <Modal.Title>새 {label} 추가</Modal.Title>
+        <Modal.Title className="modal-title">새 {label} 추가</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
@@ -25,18 +25,18 @@ const AdderModal = ({ show, closer, label, saver, dialogClass }) => {
             <Form.Control
               type="text"
               value={itemValue}
-              placeholder={`(새 ${label} 입력)`}
+              placeholder={`(새 ${label} 이름)`}
               onChange={contentChanged}
             />
           </Form.Group>
         </Form>
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handle추가}>
-          추가
-        </Button>
-        <Button variant="danger" onClick={closer}>
+      <Modal.Footer className="d-flex justify-content-center char2button gap-2">
+        <Button className="p-0" variant="secondary" onClick={closer}>
           닫기
+        </Button>
+        <Button className="p-0" variant="primary" onClick={handle추가}>
+          추가
         </Button>
       </Modal.Footer>
     </Modal>
