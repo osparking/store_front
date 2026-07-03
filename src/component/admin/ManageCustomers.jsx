@@ -37,10 +37,16 @@ const ManageCustomers = () => {
     setAlertError,
   } = BsAlertHook();
 
-  const fetchCustomerPage = async (pageNo = 1) => {
+
+    const fetchCustomerPage = async (pageNo = 1) => {
     try {
       setLoading(true);
-      const response = await getCustomerPage(pageNo, pageSize, emailSubstr);
+      const response = await getCustomerPage(
+        pageNo,
+        pageSize,
+        emailSubstr,
+        nameSubstr,
+      );
       setLoading(false);
       setFetchResult(response);
 
@@ -86,9 +92,8 @@ const ManageCustomers = () => {
 
   const handleNameSubChg = (e) => {
     clearFilter();
-    setCurrCustomerPage(1);
-    setEmailSubstr(e.target.value);
-    localStorage.setItem("EMAIL_SUBSTR", e.target.value);
+    setNameSubstr(e.target.value);
+    localStorage.setItem("NAME_SUBSTR", e.target.value);
   };
 
   const handleEmailSubChg = (e) => {
