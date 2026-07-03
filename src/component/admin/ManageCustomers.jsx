@@ -37,8 +37,7 @@ const ManageCustomers = () => {
     setAlertError,
   } = BsAlertHook();
 
-
-    const fetchCustomerPage = async (pageNo = 1) => {
+  const fetchCustomerPage = async (pageNo = 1) => {
     try {
       setLoading(true);
       const response = await getCustomerPage(
@@ -133,7 +132,7 @@ const ManageCustomers = () => {
       >
         <Col md={2} style={{ maxWidth: "200px" }}></Col>
         <Col md={3} style={{ maxWidth: "200px" }}>
-          <InputGroup className="mb-2">
+          <InputGroup className="d-flex align-items-center">
             <Form.Label htmlFor="namePart" className="me-2">
               성명:
             </Form.Label>
@@ -148,9 +147,9 @@ const ManageCustomers = () => {
           </InputGroup>
         </Col>
         <Col md={3} style={{ maxWidth: "200px" }}>
-          <InputGroup className="mb-2">
+          <InputGroup className="d-flex align-items-center">
             <Form.Label htmlFor="emailPart" className="me-2">
-              이메일:
+              메일:
             </Form.Label>
             <Form.Control
               type="text"
@@ -164,7 +163,7 @@ const ManageCustomers = () => {
         </Col>
         <Col md={2} style={{ maxWidth: "200px" }}>
           <Button variant="primary" onClick={searchCustomers}>
-            검색
+            검 색
           </Button>
         </Col>
       </Row>
