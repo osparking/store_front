@@ -110,7 +110,7 @@ const IngreDataModal = ({
       <Modal.Header closeButton>
         <Modal.Title className="modal-title">입고 재료 정보</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body style={{ overflow: "visible" }}>
         <Row className="justify-content-center">
           <Col xs={10} md={10} lg={10}>
             <Form onSubmit={handleSubmit}>
@@ -239,22 +239,9 @@ const IngreDataModal = ({
                   </Form.Group>
                 </>
               )}
-
               {alertError && (
                 <AlertMessage type={"danger"} message={errorMsg} />
               )}
-
-    <div className="d-flex justify-content-center char2button mt-3">
-      <Button
-        variant="info"
-        size="md"
-        style={{ padding: 0 }}
-        onClick={handleReset}
-      >
-                  리셋
-                </Button>
-              </div>
-
               {alertSuccess && (
                 <AlertMessage severity={"success"} message={successMsg} />
               )}
@@ -262,20 +249,28 @@ const IngreDataModal = ({
           </Col>
         </Row>
       </Modal.Body>
-    <Modal.Footer style={{ justifyContent: "center", padding: "2em" }}>
-      <div className="d-flex justify-content-center char2button gap-3">
-        <Button variant="secondary" onClick={closer} style={{ padding: 0 }}>
-          닫기
-        </Button>
-        <Button
-          variant="primary"
-          onClick={handleSubmit}
-          style={{ padding: 0 }}
-        >
-          저장
-        </Button>
-      </div>
-    </Modal.Footer>
+      <Modal.Footer style={{ justifyContent: "center", padding: "2em" }}>
+        <div className="d-flex justify-content-center char2button gap-3">
+          <Button variant="secondary" onClick={closer} style={{ padding: 0 }}>
+            닫기
+          </Button>
+          <Button
+            variant="info"
+            size="md"
+            style={{ padding: 0 }}
+            onClick={handleReset}
+          >
+            리셋
+          </Button>
+          <Button
+            variant="primary"
+            onClick={handleSubmit}
+            style={{ padding: 0 }}
+          >
+            저장
+          </Button>
+        </div>
+      </Modal.Footer>
     </Modal>
   );
 };
