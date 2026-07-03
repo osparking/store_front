@@ -96,36 +96,20 @@ const ProduceInfoModal = ({
         dialogClassName="bum-modal-size"
       >
         <Modal.Header closeButton>
-          <Modal.Title>생산 정보 입력</Modal.Title>
+          <Modal.Title style={{ color: "black" }}>생산 정보 입력</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ padding: "2em" }}>
+        <Modal.Body
+          id="new-produce-body"
+          style={{
+            padding: "1em 2em",
+            height: "fit-content",
+            overflow: "visible",
+          }}
+        >
           <Form onSubmit={handleSubmit}>
             <div className={styles.formContainer}>
-              {/* First Row: Producer Name + Produce Date */}
+              {/* First Row: 생산일자 및 비누외형 */}
               <div className={styles.firstRow}>
-                <Form.Group controlId="producerName">
-                  <Form.Label>생산 직원명</Form.Label>
-                  <div className={styles.buttonWrapper}>
-                    <Form.Control
-                      type="text"
-                      name="producerName"
-                      value={`${produceInfo.producer.name} (${produceInfo.producer.id})`}
-                      placeholder="(직원명)"
-                      onChange={handleChange}
-                      required
-                      readOnly
-                      className={styles.producerInput}
-                    />
-                    <Button
-                      variant="primary"
-                      className={styles.editButton}
-                      onClick={openNameModal}
-                    >
-                      <span>수정</span>
-                    </Button>
-                  </div>
-                </Form.Group>
-
                 <Form.Group controlId="produceDate">
                   <Form.Label>생산 일자</Form.Label>
                   <DatePicker
@@ -141,15 +125,40 @@ const ProduceInfoModal = ({
                     locale="ko"
                   />
                 </Form.Group>
-              </div>
 
-              {/* Second Row: Shape Selector + Quantity */}
-              <div className={styles.secondRow} style={{ marginBottom: "0" }}>
                 <ShapeSelector
                   shapeLabel={produceInfo.shapeLabel}
                   onChange={handleChange}
                 />
+              </div>
 
+              {/* Second Row: 직원명 및 생산수량 */}
+              <div className={styles.secondRow} style={{ marginBottom: "0" }}>
+                <Form.Group controlId="producerName">
+                  <Form.Label>생산 직원명</Form.Label>
+                  <div className={styles.buttonWrapper}>
+                    <Form.Control
+                      type="text"
+                      name="producerName"
+                      value={`${produceInfo.producer.name} (${produceInfo.producer.id})`}
+                      placeholder="(직원명)"
+                      onChange={handleChange}
+                      required
+                      readOnly
+                      className={styles.producerInput}
+                    />
+                    <div className="char2button">
+                      <Button
+                        variant="success"
+                        className={styles.editButton}
+                        onClick={openNameModal}
+                        style={{ marginTop: 0 }}
+                      >
+                        <span>수정</span>
+                      </Button>
+                    </div>
+                  </div>
+                </Form.Group>
                 <Form.Group controlId="producedQuantity" className="me-3">
                   <Form.Label>수량</Form.Label>
                   <Form.Control
@@ -182,13 +191,19 @@ const ProduceInfoModal = ({
             </div>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleSubmit}>
-            저장
-          </Button>
-          <Button variant="danger" onClick={closer}>
-            닫기
-          </Button>
+        <Modal.Footer style={{ justifyContent: "center", padding: "2em" }}>
+          <div className="d-flex justify-content-center char2button gap-3">
+            <Button variant="secondary" onClick={closer} style={{ padding: 0 }}>
+              닫기
+            </Button>
+            <Button
+              variant="primary"
+              onClick={handleSubmit}
+              style={{ padding: 0 }}
+            >
+              저장
+            </Button>
+          </div>
         </Modal.Footer>
       </Modal>
     </>
