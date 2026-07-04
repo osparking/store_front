@@ -1,6 +1,7 @@
 body {
   background-color: #e8f3ff;
 }
+
 .p {
   padding: 0;
   margin: 0;
@@ -12,16 +13,19 @@ body {
   word-break: keep-all;
   word-wrap: break-word;
 }
+
 .wrapper {
   max-width: 800px;
   margin: 0 auto;
 }
+
 .title {
   margin: 0 0 4px;
   font-size: 24px;
   font-weight: 600;
   color: #4e5968;
 }
+
 .box_section {
   position: relative;
   top: 62px;
@@ -35,8 +39,10 @@ body {
   align-items: center;
   text-align: center;
   height: calc(100vh - 124px);
-  white-space: nowrap; /* Prevent text wrapping */
+  white-space: nowrap;
+  /* Prevent text wrapping */
 }
+
 :root {
   --inverseGrey50: #202027;
   --inverseGrey100: #2c2c35;
@@ -372,7 +378,7 @@ textarea {
   display: flex;
 }
 
-.checkable + .checkable {
+.checkable+.checkable {
   margin-top: 12px;
 }
 
@@ -380,7 +386,7 @@ textarea {
   display: inline-block;
 }
 
-.checkable--inline + .checkable--inline {
+.checkable--inline+.checkable--inline {
   margin-top: 0;
   margin-left: 18px;
 }
@@ -517,11 +523,11 @@ textarea {
   padding-left: var(--checkable-label-text-padding);
 }
 
-.checkable--disabled > .checkable__input {
+.checkable--disabled>.checkable__input {
   cursor: not-allowed;
 }
 
-.checkable--disabled > .checkable__label {
+.checkable--disabled>.checkable__label {
   color: #b0b8c1;
   color: var(--grey400);
   cursor: not-allowed;
@@ -579,16 +585,16 @@ textarea {
 }
 
 #checkout-buttons {
-  position:sticky;
+  position: sticky;
   bottom: 70px;
   display: flex;
   gap: 20px;
   justify-content: center;
 }
 
-#checkout-buttons  button{
-  width: 100px;
+#checkout-buttons button {
   margin-top: 0;
+  padding-top: 2px;
 }
 
 .checkout-page .box_section {
@@ -603,7 +609,6 @@ textarea {
 }
 
 #payment-method {
-  
   gap: 20px;
   justify-content: center;
   border: 1px solid #e0e0e0;
