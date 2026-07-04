@@ -461,7 +461,7 @@ bg-black text-white text-xs rounded"
             </div>
             {setShowDetail && (
               <>
-                <hr />
+                <hr style={{ color: "green" }} />
                 <Row>
                   <Col
                     lg={12}
@@ -473,7 +473,7 @@ bg-black text-white text-xs rounded"
                       variant="success"
                       className="showAlways"
                       onClick={() => setShowDetail(false)}
-                      style={{ margin: "0 auto .5rem" }}
+                      style={{ margin: "0 auto 1rem" }}
                     >
                       주문 목록
                     </Button>
