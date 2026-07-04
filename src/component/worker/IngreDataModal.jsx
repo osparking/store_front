@@ -173,8 +173,14 @@ const IngreDataModal = ({
                 </Col>
               </Row>
 
-              <Row style={{ display: "flex", gap: "23px" }}>
-                <Col xs={3} className="mb-3 mb-sm-0">
+              <Row
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: "55px",
+                }}
+              >
+                <Col xs={2} className="mb-3 mb-sm-0">
                   <Form.Group as={Row} className="mb-1" controlId="quantity">
                     <Form.Label>용량</Form.Label>
                     <Form.Control
@@ -219,8 +225,8 @@ const IngreDataModal = ({
                     controlId="addTime"
                     style={{ width: "fit-content", margin: "0 auto" }}
                   >
-                    <Form.Label column xs="auto" className="mb-0">
-                      입력 시간 :
+                    <Form.Label column xs="auto" className="mb-0 px-1">
+                      입력 시간:
                     </Form.Label>
                     <Form.Control
                       type="text"
@@ -230,10 +236,11 @@ const IngreDataModal = ({
                       readOnly
                       plaintext
                       style={{
+                        paddingLeft: "4px",
                         width: "168px",
                         backgroundColor: "lightgray",
                         borderRadius: "6px",
-                        textAlign: "center",
+                        textAlign: "start",
                       }}
                     />
                   </Form.Group>
