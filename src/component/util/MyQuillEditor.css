@@ -12,3 +12,7 @@
 .review-deletion-confirmation-modal {
     width: 360px;
 }
+
+.ql-editor:focus.ql-blank::before {
+  display: none !important;
+}
