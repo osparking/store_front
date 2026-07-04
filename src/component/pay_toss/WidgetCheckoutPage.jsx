@@ -294,7 +294,7 @@ function WidgetCheckoutPage() {
         {/* 이용약관 UI */}
         <div id="agreement" />
 
-        <div id="checkout-buttons">
+        <div id="checkout-buttons" className="char2button">
           <Button
             variant="secondary"
             onClick={cancelPayment} // Use the extracted function
@@ -309,7 +309,7 @@ function WidgetCheckoutPage() {
           </Button>
           {/* 결제하기 버튼 */}
           <Button
-            variant="success"
+            variant="primary"
             disabled={!ready}
             // ------ '결제하기' 버튼 누르면 결제창 띄우기 ------
             // @docs https://docs.tosspayments.com/sdk/v2/js#widgetsrequestpayment
