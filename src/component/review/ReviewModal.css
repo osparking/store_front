@@ -11,3 +11,7 @@
 #review-modal-body .quill-buttons {
     margin-bottom: 1em;
 }
+
+#review-modal-body h5 {
+   font-size: 1.1rem;
+}

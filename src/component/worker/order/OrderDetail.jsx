@@ -183,7 +183,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         title = "상품 구매 확정";
         break;
       case "구매 확정":
-        title = "퀼(Quill) - 리치(rich) 문서 편집기";
+        title = "주문 및 사용 경험";
         break;
       case "후기 남김":
         title = "후기 관리";
