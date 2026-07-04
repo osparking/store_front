@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Row } from "react-bootstrap";
+import { Form, Row, Button } from "react-bootstrap";
 import AdderModal from "../modal/AdderModal";
 import { getBuyLinksFor } from "./WorkerService";
 
@@ -38,17 +38,33 @@ const BuyPlaceSelector = ({ buyPlace, onChange, ingreName }) => {
     }
   };
 
+  const checkBuyPlace = () => {
+    if (buyPlace || buyPlace !== "") {
+      window.open(buyPlace, "_blank", "noreferrer");
+    }
+  };
+
   return (
     <React.Fragment>
       <Form.Group as={Row} controlId="buyLink" className="mb-4">
-        <Form.Label>구매 링크</Form.Label>
+        <Form.Label>
+          구매 링크
+          <Button
+            variant="success"
+            disabled={!buyPlace || buyPlace === ""}
+            size="sm"
+            className="ml-2 ms-3 py-0 mb-1"
+            onClick={checkBuyPlace}
+          >
+            링크 검사
+          </Button>
+        </Form.Label>
         <Form.Control
           as="select"
           name="buyPlace"
           value={buyPlace}
           required
           onChange={handleBuyPlace}
-          style={{ width: "65vw", maxWidth: "340px" }}
         >
           <option value="">- 구매 링크 -</option>
           {buyLinks.map((name, index) => (
