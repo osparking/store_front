@@ -133,6 +133,7 @@ const IngreDataModal = ({
                   <BuyPlaceSelector
                     buyPlace={ingredient.buyPlace}
                     onChange={handleChange}
+                    ingreName={ingredient.ingreName}
                   />
                 </Col>
               </Form.Group>
