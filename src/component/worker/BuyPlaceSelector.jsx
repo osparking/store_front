@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Form, Row } from "react-bootstrap";
 import AdderModal from "../modal/AdderModal";
-import { getAllBuyLinks, getBuyLinksFor } from "./WorkerService";
+import { getBuyLinksFor } from "./WorkerService";
 
 const BuyPlaceSelector = ({ buyPlace, onChange, ingreName }) => {
   const [buyLinks, setBuyLinks] = useState([]);

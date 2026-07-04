@@ -41,9 +41,12 @@ export async function getAllPackUnits() {
   }
 }
 
-export async function getAllBuyLinks() {
+export async function getBuyLinksFor(ingreName) {
   try {
-    const result = await callWithToken("get", "/store_ingred/get_buy_places");
+    const result = await callWithToken(
+      "get",
+      `/store_ingred/get_buy_places?ingreName=${ingreName}`,
+    );
     return result.data;
   } catch (err) {
     throw err;
@@ -138,7 +141,7 @@ export async function sendProduceInfo(produceInfo) {
     };
 
     const result = await callWithToken("post", url, produceData);
-    
+
     return result.data;
   } catch (err) {
     throw err;
