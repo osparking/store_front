@@ -16,7 +16,7 @@ const Rating = ({ stars, setStars, editable, review }) => {
     <Container>
       <Row className="align-items-center">
         <Col xs={3} md={3}>
-          <h5 style={{ textAlign: "left" }}>별점 평가</h5>
+          <h5 style={{ textAlign: "left" }}>별점 부여</h5>
           <div>
             {[...Array(5)].map((_, index) => {
               const starCount = index + 1;
@@ -31,7 +31,7 @@ const Rating = ({ stars, setStars, editable, review }) => {
                     inline
                   />
                   <FaStar
-                    size={20}
+                    size={18}
                     className={editable ? "star" : "star no-cursor"}
                     color={
                       starCount <= (hover || stars) ? "#ffc107" : "#e4e5e9"
