@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Form, Row } from "react-bootstrap";
 import AdderModal from "../modal/AdderModal";
-import { getAllBuyLinks } from "./WorkerService";
+import { getAllBuyLinks, getBuyLinksFor } from "./WorkerService";
 
-const BuyPlaceSelector = ({ buyPlace, onChange }) => {
+const BuyPlaceSelector = ({ buyPlace, onChange, ingreName }) => {
   const [buyLinks, setBuyLinks] = useState([]);
   const [showLinkAdder, setShowLinkAdder] = useState(false);
 
   useEffect(() => {
     const readBuyLinks = async () => {
       try {
-        const response = await getAllBuyLinks();
+        const response = await getBuyLinksFor(ingreName);
         setBuyLinks(response.data);
       } catch (error) {
-        console.error(error.response.data.message);
+        console.error(
+          "구매처 URL 적재 오류: ",
+          error.response ? error.response.data : error.message,
+        );
       }
     };
     readBuyLinks();
-  }, []);
+  }, [ingreName]);
 
   const handleBuyPlace = (event) => {
     if (event.target.value === "add_link") {
@@ -45,7 +48,7 @@ const BuyPlaceSelector = ({ buyPlace, onChange }) => {
           value={buyPlace}
           required
           onChange={handleBuyPlace}
-          style={{width: "65vw", maxWidth: "340px"}}
+          style={{ width: "65vw", maxWidth: "340px" }}
         >
           <option value="">- 구매 링크 -</option>
           {buyLinks.map((name, index) => (
@@ -53,7 +56,7 @@ const BuyPlaceSelector = ({ buyPlace, onChange }) => {
               {name}
             </option>
           ))}
-          <option value="add_link">(구매 링크 추가)</option>
+          <option value="add_link">(구매 링크 혹은 구매처 이름 추가)</option>
         </Form.Control>
       </Form.Group>
       <AdderModal
@@ -61,7 +64,7 @@ const BuyPlaceSelector = ({ buyPlace, onChange }) => {
         closer={() => {
           setShowLinkAdder(false);
         }}
-        label={"구매 링크"}
+        label={"구매 링크 혹은 구매처 이름"}
         saver={handleNewLink}
         dialogClass={"link-adder-modal"}
       />
