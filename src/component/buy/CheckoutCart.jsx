@@ -1,4 +1,4 @@
-import { Col, Row, Table } from "react-bootstrap";
+import { Col, OverlayTrigger, Row, Table, Tooltip } from "react-bootstrap";
 import "./checkoutCart.css";
 
 const CheckoutCart = ({ subTotal, deliveryFee }) => {
@@ -20,7 +20,9 @@ const CheckoutCart = ({ subTotal, deliveryFee }) => {
               </td>
             </tr>
             <tr>
-              <td>배송비</td>
+              <OverlayTrigger overlay={<Tooltip>수신처 종속 항목</Tooltip>}>
+                <td>배송비</td>
+              </OverlayTrigger>
               <td className="grandTotal">{deliveryFee.toLocaleString()}원</td>
             </tr>
             <tr style={{ fontWeight: "bold" }}>

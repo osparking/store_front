@@ -197,14 +197,14 @@ const RecipientInfo = ({
             </td>
           </tr>
           <tr>
-            <td className="boxLeft goldCell">
+            <td className="boxLeft goldCell pt-0">
               <OverlayTrigger overlay={<Tooltip>수정 불가!</Tooltip>}>
                 <span>{formData.addrBasisAddReq.roadAddress}</span>
               </OverlayTrigger>
             </td>
           </tr>
           <tr>
-            <td className="boxLeft goldCell" style={{ paddingTop: 0 }}>
+            <td className="boxLeft goldCell pt-0">
               <input
                 ref={addressDetailInputRef}
                 type="text"
