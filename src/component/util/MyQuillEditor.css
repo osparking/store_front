@@ -1,6 +1,6 @@
 .quill-editor-modal {
   max-width: calc(100vw - 2 * var(--bs-modal-margin));
-  width: 730px;
+  width: 750px;
 }
 
 .quill-editor-modal .h-limited-body {
