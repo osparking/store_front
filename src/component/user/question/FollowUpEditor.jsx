@@ -198,7 +198,18 @@ function FollowUpEditor({
             className="ms-2 me-0"
           />
         </Form.Group>
-        <div className="char2button d-flex gap-4 justify-content-center ">
+        <div className="char2button d-flex gap-4 justify-content-center ">          
+          {followUp.content && editable && (
+            <Button
+              variant="danger"
+              type="button"
+              className="p-0"
+              disabled={loading}
+              onClick={confirmDeletion}
+            >
+              삭제
+            </Button>
+          )}
           <Button
             variant="secondary"
             type="button"
@@ -227,17 +238,6 @@ function FollowUpEditor({
                 {loading ? <span>저장 중...</span> : "저장"}
               </Button>
             </>
-          )}
-          {followUp.content && editable && (
-            <Button
-              variant="danger"
-              type="button"
-              className="p-0"
-              disabled={loading}
-              onClick={confirmDeletion}
-            >
-              삭제
-            </Button>
           )}
         </div>
         <hr style={{ color: "blue" }} />
