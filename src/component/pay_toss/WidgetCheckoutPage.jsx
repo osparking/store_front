@@ -246,13 +246,13 @@ function WidgetCheckoutPage() {
   };
 
   const recipient = orderData.recipRegiReq;
-  let address = recipient.addressDetail.trim();
 
-  if (address === "") {
-    address = getSuffixAfterSpace(recipient.addrBasisAddReq.roadAddress, 20);
-  } else {
-    address = "..." + address;
-  }
+  const fullAddress =
+    recipient.addrBasisAddReq.roadAddress +
+    " " +
+    recipient.addressDetail.trim();
+
+  const address = "~ " + getSuffixAfterSpace(fullAddress, 25);
 
   const navigate = useNavigate();
 
