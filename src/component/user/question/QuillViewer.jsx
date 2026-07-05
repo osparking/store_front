@@ -1,6 +1,7 @@
 import ReactQuill from "react-quill-new";
+import "./QuillViewer.css";
 
-const QuillViewer = ({ question }) => {
+const QuillViewer = ({ question, evenOdd }) => {
   const modulesNone = {
     toolbar: false, // No toolbar at all
   };
@@ -10,10 +11,7 @@ const QuillViewer = ({ question }) => {
       modules={modulesNone}
       value={question}
       readOnly={true}
-      style={{
-        marginBottom: "10px",
-        borderRadius: "4px",
-      }}
+      className={evenOdd}
     />
   );
 };
