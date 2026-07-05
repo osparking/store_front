@@ -9,7 +9,7 @@ const OrderDigest = ({ name, amount, address }) => {
   if (!name) return null;
 
   return (
-    <div md={6} className="rounded order-digest p-3">
+    <div md={6} className="rounded order-digest p-2">
       <div className="justify-content-center">
         <h5
           className="orderDigest"
@@ -29,7 +29,7 @@ const OrderDigest = ({ name, amount, address }) => {
 
       {isOpen && (
         <Row className="fit-content">
-          <Col xs={6} md={6} className="mx-auto">
+          <Col xs={7} md={7} className="mx-auto">
             <ul className="mb-0">
               <li>주문 이름 : {name}</li>
               <li className="mt-0">결제 금액 : {amount.toLocaleString()} 원</li>
