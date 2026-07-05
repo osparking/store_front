@@ -431,6 +431,12 @@ footer {
   font-weight: bold;
 }
 
+.char4button button {
+  width: 100px;
+  height: 32px;
+  font-weight: bold;
+}
+
 .bg-lightblue {
   background-color: rgba(230, 248, 248, 0.966);
 }

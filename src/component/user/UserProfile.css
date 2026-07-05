@@ -100,11 +100,9 @@
 
 #disableAccountButton {
   background-color: pink;
-  color: deeppink;
+  color: navy;
   font-weight: bold;
   border: none;
-  min-width: 60px;
-  font-size: 1.03em;
 }
 
 @media (max-width: 575px) {
