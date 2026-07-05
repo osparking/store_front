@@ -3,9 +3,9 @@ import { Form } from "react-bootstrap";
 import "../../../App.css";
 import QuillViewer from "./QuillViewer";
 
-function FollowUpViewer({ followUp, headText, bgColor }) {
+function FollowUpViewer({ followUp, headText, evenOdd }) {
   return (
-    <Form className="mt-3 ms-3 mb-3" style={{ backgroundColor: bgColor }}>
+    <Form className="mt-3 ms-3 mb-3">
       <Form.Label>
         <h5 style={{ textAlign: "left" }}>{headText}</h5>
       </Form.Label>
@@ -16,7 +16,7 @@ function FollowUpViewer({ followUp, headText, bgColor }) {
       </Form.Group>
       <Form.Group className="mb-2 ms-3 me-4">
         <Form.Group className="mb-0" controlId="formBasicEmail">
-          <QuillViewer question={followUp.content} />
+          <QuillViewer question={followUp.content} evenOdd={evenOdd} />
         </Form.Group>
       </Form.Group>
       <hr style={{ color: "blue" }} />
