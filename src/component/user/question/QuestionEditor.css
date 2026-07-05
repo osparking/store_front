@@ -1,11 +1,16 @@
 form.question-editor-window {
   max-width: 750px;
-  background-color: ivory;
-  margin: 16px;
-  padding: 16px;
+  background-color: white;
+  margin: 12px;
+  padding: 0 12px 12px 12px;
 }
 
 .question-editor-modal {
+  background-color: white;
+  padding-top: 0;
+}
+
+.ql-editor {
   background-color: ivory;
 }
 
@@ -17,8 +22,8 @@ form.question-editor-window {
 
 .customerQuestionCard {
   width: 100%;
-  max-width: 740px;
-  background-color: ivory;
+  max-width: 750px;
+  background-color: white;
   border-radius: 6px;
   margin-top: 0 !important;
 }
@@ -28,4 +33,10 @@ form.question-editor-window {
   top: 62px;
   height: calc(100vh - 62px);
   align-items: center;
+}
+
+.question-title-input {
+  background-color: ivory;
+  width: 70%;
+  max-width: 500px;
 }
