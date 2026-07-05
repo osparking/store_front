@@ -195,14 +195,14 @@ function FollowUpEditor({
               marginBottom: "10px",
               borderRadius: "4px",
             }}
-            className="ms-3 me-2"
+            className="ms-2 me-0"
           />
         </Form.Group>
-        <div className="d-flex gap-2 justify-content-center ">
+        <div className="char2button d-flex gap-4 justify-content-center ">
           <Button
             variant="secondary"
             type="button"
-            className="px-4"
+            className="p-0"
             onClick={() => handleClose()}
           >
             닫기
@@ -210,21 +210,21 @@ function FollowUpEditor({
           {editable && (
             <>
               <Button
+                variant="info"
+                type="button"
+                className="p-0"
+                onClick={() => setEditorContent("")}
+              >
+                초기화
+              </Button>
+              <Button
                 variant="primary"
                 type="submit"
-                className="px-4"
+                className="p-0"
                 style={{ cursor: "pointer" }}
                 disabled={loading}
               >
                 {loading ? <span>저장 중...</span> : "저장"}
-              </Button>
-              <Button
-                variant="outline-secondary"
-                type="button"
-                className="px-3"
-                onClick={() => setEditorContent("")}
-              >
-                초기화
               </Button>
             </>
           )}
