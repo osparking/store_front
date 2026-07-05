@@ -232,7 +232,7 @@ function FollowUpEditor({
             <Button
               variant="danger"
               type="button"
-              className="px-4"
+              className="p-0"
               disabled={loading}
               onClick={confirmDeletion}
             >
