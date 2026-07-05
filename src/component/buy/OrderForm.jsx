@@ -249,13 +249,12 @@ const OrderForm = ({
 
             <Row className="mt-5">
               <div
-                style={{ display: "flex", gap: "20px" }}
-                className="justify-content-center"
+                className="d-flex justify-content-center gap-4"
               >
                 <Button
-                  variant="primary"
+                  variant="success"
                   size="sm"
-                  className="pt-2 pb-2 order-button-width"
+                  className="order-button-width"
                   onClick={() =>
                     navigate("/shopping_cart", { state: { showCart: true } })
                   }
@@ -265,18 +264,18 @@ const OrderForm = ({
                 <Button
                   variant="info"
                   size="sm"
-                  className="pt-2 pb-2 order-button-width"
+                  className="order-button-width"
                   onClick={putToCart}
                 >
                   바구니 담기
                 </Button>
                 <Button
-                  variant="success"
+                  variant="primary"
                   size="sm"
-                  className="pt-2 pb-2 order-button-width"
+                  className="order-button-width"
                   onClick={enterDeliveryInfo}
                 >
-                  바로 구매하기
+                  바로 구매
                 </Button>
               </div>
             </Row>
