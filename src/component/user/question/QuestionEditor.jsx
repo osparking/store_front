@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useRef, useState } from "react";
-import { Button, Card, Container, Form } from "react-bootstrap";
+import { Button, Card, Form } from "react-bootstrap";
 import toast from "react-hot-toast";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css"; // Import styles
@@ -168,25 +168,31 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
                   mine ? "question-editor-modal" : "question-editor-window"
                 }
               >
-                <h5>{mine ? "나의 질문" : "고객 질문"}</h5>
+                <h4>{mine ? "나의 질문" : "고객 질문"}</h4>
                 <Form.Group className="mb-0">
-                  <Form.Label className="mt-3">
-                    제목
-                    <Form.Text className="text-muted ms-2">
-                      (내용을 30 자 내외로 요약하세요.)
-                    </Form.Text>
-                    <Form.Control
-                      type="text"
-                      maxLength={40}
-                      name="title"
-                      defaultValue={question ? question.title : ""}
-                      placeholder="(제목 입력)"
-                      className="mt-2"
-                    />
+                  <Form.Label className="mt-3" htmlFor="questionTitle">
+                    <div className="d-flex align-items-center">
+                      <h5 className="mb-0">제목</h5>
+                      <Form.Text className="text-muted ms-2">
+                        (내용을 30 자 내외로 요약하세요.)
+                      </Form.Text>
+                    </div>
                   </Form.Label>
+                  <Form.Control
+                    type="text"
+                    maxLength={30}
+                    id="questionTitle"
+                    defaultValue={question ? question.title : ""}
+                    placeholder="(제목 입력)"
+                    className="mt-0 ps-3 serif question-title-input"
+                  />
                 </Form.Group>
                 <Form.Label className="mt-3">
-                  내용
+                  <div className="d-flex">
+                    <h5 className="mb-0" style={{ marginLeft: "4px" }}>
+                      내용
+                    </h5>
+                  </div>
                   <ReactQuill
                     ref={quillRef}
                     theme="snow"
