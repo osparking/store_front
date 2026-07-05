@@ -204,7 +204,7 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
                   글자수: {getTextLength()} 자
                 </div>
 
-                <div className="d-flex gap-2 justify-content-center mb-3">
+                <div className="d-flex gap-4 justify-content-center mb-3">
                   <Button
                     variant="secondary"
                     type="button"
@@ -214,6 +214,14 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
                     닫기
                   </Button>
                   <Button
+                    variant="info"
+                    type="button"
+                    className="px-4"
+                    onClick={() => setEditorContent("")}
+                  >
+                    리셋
+                  </Button>
+                  <Button
                     variant="primary"
                     type="submit"
                     className="px-4"
@@ -221,14 +229,6 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
                     disabled={saving}
                   >
                     {saving ? <span>저장 중...</span> : "저장"}
-                  </Button>
-                  <Button
-                    variant="outline-secondary"
-                    type="button"
-                    className="px-3"
-                    onClick={() => setEditorContent("")}
-                  >
-                    초기화
                   </Button>
                 </div>
               </Form>
