@@ -128,11 +128,22 @@ function MyQuillEditor({
         {/* Character count (optional) */}
         <div className="text-muted mb-2">글자수: {getTextLength()} 자</div>
 
-        <div className="d-flex gap-2 justify-content-center quill-buttons">
+        <div className="d-flex gap-4 justify-content-center quill-buttons char2button">
+          {order.review && editable && (
+            <Button
+              variant="danger"
+              type="button"
+              className="p-0"
+              disabled={loading}
+              onClick={() => setShowModal(true)}
+            >
+              삭제
+            </Button>
+          )}
           <Button
             variant="secondary"
             type="button"
-            className="px-4"
+            className="p-0"
             onClick={() => handleClose()}
           >
             닫기
@@ -140,34 +151,23 @@ function MyQuillEditor({
           {editable && (
             <>
               <Button
+                variant="info"
+                type="button"
+                className="p-0"
+                onClick={() => setEditorContent("")}
+              >
+                초기화
+              </Button>
+              <Button
                 variant="primary"
                 type="submit"
-                className="px-4"
+                className="p-0"
                 style={{ cursor: "pointer" }}
                 disabled={loading}
               >
                 {loading ? <span>저장 중...</span> : "저장"}
               </Button>
-              <Button
-                variant="outline-secondary"
-                type="button"
-                className="px-3"
-                onClick={() => setEditorContent("")}
-              >
-                초기화
-              </Button>
             </>
-          )}
-          {order.review && editable && (
-            <Button
-              variant="danger"
-              type="button"
-              className="px-4"
-              disabled={loading}
-              onClick={() => setShowModal(true)}
-            >
-              삭제
-            </Button>
           )}
         </div>
       </Form>
