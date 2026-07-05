@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-/* 길이가 length 이내이며, 최대한 길고, 공백문자로 구분된 접미사를 찾아낸다.
+/**
+ * 문자열에서 정한 길이의 접미사를 취하고, 그 중 첫 공백 우측 부분을 반환한다.
+ * @param {string} str - 문자열
+ * @param {number} length - 접미사 길이
+ * @returns {string} 주어진 길이의 접미사에서 첫 공백 우측 부분
  */
 export function getSuffixAfterSpace(str, length) {
   if (!str || str.length <= length) {
