@@ -52,7 +52,7 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const title = e.target.elements.title.value;
+    const title = e.target.elements.questionTitle.value;
 
     if (title.trim().length === 0 || getTextLength() === 0) {
       return toast.error("질문 제목과 내용을 둘 다 작성하세요!");
