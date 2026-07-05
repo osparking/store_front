@@ -17,7 +17,7 @@ export default function ReviewModal({
 }) {
   let refreshReviews = () => {};
   let refreshOrders = () => {};
-
+  
   if (editable) {
     const context = useContext(ReviewsContext);
     refreshReviews = context?.refreshReviews || (() => {});
