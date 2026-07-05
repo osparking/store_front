@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import toast from "react-hot-toast";
 import ReactQuill from "react-quill-new";
@@ -15,6 +15,7 @@ function MyQuillEditor({
   saveEdit,
   editable,
   performDeletion,
+  starsRemains,
 }) {
   const [editorContent, setEditorContent] = useState(order.review);
   const contentsRemains = order.review === editorContent;
@@ -153,7 +154,7 @@ function MyQuillEditor({
           {editable && (
             <>
               <Button
-                disabled={loading || contentsRemains}
+                disabled={loading || (contentsRemains && starsRemains())}
                 variant="info"
                 type="button"
                 className="p-0"
@@ -166,7 +167,7 @@ function MyQuillEditor({
                 type="submit"
                 className="p-0"
                 style={{ cursor: "pointer" }}
-                disabled={loading || contentsRemains}
+                disabled={loading || (contentsRemains && starsRemains())}
               >
                 {loading ? <span>저장 중...</span> : "저장"}
               </Button>
