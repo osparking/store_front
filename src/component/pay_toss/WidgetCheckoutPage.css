@@ -27,6 +27,8 @@ body {
 }
 
 .box_section {
+  display: flex;
+  flex-direction: column;
   position: relative;
   top: 62px;
   background-color: white;
@@ -585,8 +587,6 @@ textarea {
 }
 
 #checkout-buttons {
-  position: sticky;
-  bottom: 70px;
   display: flex;
   gap: 20px;
   justify-content: center;
@@ -602,17 +602,19 @@ textarea {
 }
 
 .order-summary {
+  width: 100%;
   text-align: left;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   height: fit-content;
   overflow-y: auto
 }
 
 #payment-method {
+  width: 100%;
   gap: 20px;
   justify-content: center;
   border: 1px solid #e0e0e0;
-  height: calc(100% - 195px);
+  height: calc(100% - 185px);
   overflow-y: auto;
 }
 
@@ -627,4 +629,30 @@ textarea {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#agreement {
+  width: 100%;
+  height: fit-content;
+  overflow-y: hidden;
+  border: 1px solid #e0e0e0;
+  padding: 0;
+  margin-bottom: 20px;
+  margin-top: 5px;
+}
+
+#agreement div {
+  padding: 0 !important;
+}
+
+.order-digest>.row {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+/* Medium <= 992px */
+@media screen and (max-height: 899px) {
+  .box_section {
+    height: calc(100vh - 62px);
+  }
 }
