@@ -84,6 +84,7 @@ export default function ReviewModal({
           editable={editable}
           performDeletion={performDeletion}
           starsRemains={starsRemains}
+          setStars={setStars}
         />
       </Modal.Body>
     </Modal>

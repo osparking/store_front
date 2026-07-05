@@ -16,6 +16,7 @@ function MyQuillEditor({
   editable,
   performDeletion,
   starsRemains,
+  setStars
 }) {
   const [editorContent, setEditorContent] = useState(order.review);
   const contentsRemains = order.review === editorContent;
@@ -29,6 +30,11 @@ function MyQuillEditor({
   const getTextLength = () => {
     return editorContent ? getPlainContent(editorContent).length : 0;
   };
+
+  const resetReview = () => {
+    setEditorContent(order.review);
+    setStars(order.stars);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -158,7 +164,7 @@ function MyQuillEditor({
                 variant="info"
                 type="button"
                 className="p-0"
-                onClick={() => setEditorContent(order.review)}
+                onClick={resetReview}
               >
                 리셋
               </Button>
