@@ -262,13 +262,8 @@ const RegisterUser = () => {
             </Card.Body>
 
             <Card.Footer className="text-center">
-              <div className="d-flex justify-content-center mb-3 mt-3 char2button">
-                <Button
-                  className="me-2"
-                  variant="secondary"
-                  size="sm"
-                  onClick={handleReset}
-                >
+              <div className="d-flex justify-content-center mb-3 mt-3 gap-4 char2button">
+                <Button variant="secondary" size="sm" onClick={handleReset}>
                   리셋
                 </Button>
                 <Button
