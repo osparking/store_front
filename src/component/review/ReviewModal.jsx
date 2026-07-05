@@ -17,13 +17,17 @@ export default function ReviewModal({
 }) {
   let refreshReviews = () => {};
   let refreshOrders = () => {};
-  
+
   if (editable) {
     const context = useContext(ReviewsContext);
     refreshReviews = context?.refreshReviews || (() => {});
     refreshOrders = context?.refreshOrders || (() => {});
   }
   const [stars, setStars] = useState(0);
+  const starsRemains = () => {
+    return review && (review.stars === stars);
+  };
+
   const saveEdit = (editorText) => {
     const reviewData = { stars: stars, ...editorText };
     saveReview(reviewData);
@@ -79,6 +83,7 @@ export default function ReviewModal({
           saveEdit={saveEdit}
           editable={editable}
           performDeletion={performDeletion}
+          starsRemains={starsRemains}
         />
       </Modal.Body>
     </Modal>
