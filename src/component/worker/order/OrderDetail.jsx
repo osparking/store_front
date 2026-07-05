@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
+import "../../../App.css";
 import {
   changeOrderStatus,
   getOrderDetail,
@@ -467,11 +468,11 @@ bg-black text-white text-xs rounded"
                     lg={12}
                     md={12}
                     xs={12}
-                    className="d-flex justify-content-center align-items-center"
+                    className="char4button d-flex justify-content-center align-items-center"
                   >
                     <Button
                       variant="success"
-                      className="showAlways"
+                      className="showAlways p-0"
                       onClick={() => setShowDetail(false)}
                       style={{ margin: "0 auto 1rem" }}
                     >

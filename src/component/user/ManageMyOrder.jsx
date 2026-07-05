@@ -22,10 +22,10 @@ const ManageMyOrder = () => {
           {showDetail ? (
             <>
               <OrderDetail detailId={detailId} isHouse={false} />
-              <div className="d-flex justify-content-center align-items-center">
+              <div className="d-flex justify-content-center align-items-center char4button">
                 <Button
                   variant="success"
-                  className="showAlways mt-3"
+                  className="showAlways mt-3 p-0"
                   onClick={() => setShowDetail(false)}
                   style={{ margin: "0 0 1em" }}
                 >
