@@ -212,7 +212,12 @@ const OrderForm = ({
         wasDefaultRecipient: isDefaultRecipient,
       },
     });
-  } 
+  }
+
+  function someShapeIsEmpty() {
+    // 모든 원소의 shape 속성이 빈 문자열이 아닌지 검사
+    return formData.items.some((item) => item.shape === "");
+  }
 
   return (
     <div className="order-form">
@@ -248,9 +253,7 @@ const OrderForm = ({
             />
 
             <Row className="mt-5">
-              <div
-                className="d-flex justify-content-center gap-4"
-              >
+              <div className="d-flex justify-content-center gap-4">
                 <Button
                   variant="success"
                   size="sm"
@@ -271,6 +274,7 @@ const OrderForm = ({
                 </Button>
                 <Button
                   variant="primary"
+                  disabled={someShapeIsEmpty()}
                   size="sm"
                   className="order-button-width"
                   onClick={enterDeliveryInfo}
