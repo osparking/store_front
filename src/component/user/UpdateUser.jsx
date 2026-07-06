@@ -310,27 +310,22 @@ const UserUpdate = () => {
                 message={successMsg + " - [닫기]로 마감하세요"}
               />
             )}
-            <div className="d-flex justify-content-center char2button mt-3">
-              <div className="mx-2">
-                <Button
-                  type="submit"
-                  variant={accountClosing ? "danger" : "primary"}
-                  size="sm"
-                  className="me-2"
-                  disabled={isProcessing}
-                >
-                  {isProcessing ? (
-                    <ProcessSpinner message="갱신 처리 중..." />
-                  ) : (
-                    "갱신"
-                  )}
-                </Button>
-              </div>
-              <div className="mx-2">
-                <Button variant="secondary" size="sm" onClick={cancelUpdate}>
-                  닫기
-                </Button>
-              </div>
+            <div className="d-flex justify-content-center char2button mt-3 gap-4">
+              <Button variant="secondary" size="sm" onClick={cancelUpdate}>
+                닫기
+              </Button>
+              <Button
+                type="submit"
+                variant={accountClosing ? "danger" : "primary"}
+                size="sm"
+                disabled={isProcessing}
+              >
+                {isProcessing ? (
+                  <ProcessSpinner message="갱신 처리 중..." />
+                ) : (
+                  "갱신"
+                )}
+              </Button>
             </div>
           </Card.Footer>
         </Card>
