@@ -77,7 +77,7 @@ const OrderTable = ({
                   <option
                     value={label.optionLabel}
                     key={idx}
-                    disabled={label.inventory === 0}
+                    disabled={label.inventory <= 0}
                   >
                     {label.optionLabel}
                   </option>
