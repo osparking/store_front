@@ -16,12 +16,13 @@ import "./RegisterUser.css";
 import { registerUser } from "./UserService";
 
 const RegisterUser = () => {
+  const isAdmin = localStorage.getItem("IS_ADMIN") === "true";
   const [user, setUser] = useState({
     fullName: "",
     mbPhone: "",
     email: "",
     password: "",
-    userType: "",
+    userType: isAdmin ? "WORKER" : "CUSTOMER",
     dept: "",
   });
 
@@ -114,7 +115,6 @@ const RegisterUser = () => {
     });
   };
 
-  const isAdmin = localStorage.getItem("IS_ADMIN") === "true";
   const [showConfirmEmailModal, setShowConfirmEmailModal] = useState(false);
   const moveToLoginPage = () => {
     setShowConfirmEmailModal(false);
@@ -172,7 +172,9 @@ const RegisterUser = () => {
                         >
                           <option value="">(계정 타입)</option>
                           <option value="CUSTOMER">고객</option>
-                          <option value="WORKER">직원</option>
+                          <option value="WORKER" disabled={!isAdmin}>
+                            직원
+                          </option>
                         </Form.Control>
                       </Form.Label>
                     </Col>
