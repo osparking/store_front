@@ -147,7 +147,7 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
   return (
     <div className="order-form">
       <Form onSubmit={handleSubmit}>
-        <fieldset className="field-set mb-4">
+        <fieldset className="field-set">
           <Form.Group className="mb-2">
             <Row className="justify-content-center mb-2">
               <Col xs={2} md={2}></Col>
@@ -173,15 +173,24 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
             ) : (
               <p>장바구니가 비었습니다.</p>
             )}
+            {(alertSuccess || alertError) && (
+              <Row className="mt-5 justify-content-center">
+                <Col md={7}>
+                  {alertSuccess && (
+                    <AlertMessage type={"success"} message={successMsg} />
+                  )}
+                  {alertError && (
+                    <AlertMessage type={"danger"} message={errorMsg} />
+                  )}
+                </Col>
+              </Row>
+            )}
             <Row className="mt-5">
-              <div
-                style={{ display: "flex", gap: "20px" }}
-                className="justify-content-center"
-              >
+              <div className="d-flex p-0 char4button justify-content-center gap-2">
                 <Button
                   variant="info"
                   size="sm"
-                  className="pt-2 pb-2 order-button-width"
+                  className="p-0"
                   onClick={enterDeliveryInfo}
                   disabled={selectedItems.length === 0}
                 >
@@ -190,7 +199,7 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
                 <Button
                   variant="warning"
                   size="sm"
-                  className="pt-2 pb-2 order-button-width"
+                  className="p-0"
                   onClick={saveCartUpdate}
                   disabled={countsAreEqual(formData.items)}
                 >
@@ -199,7 +208,7 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
                 <Button
                   variant="secondary"
                   size="sm"
-                  className="pt-2 pb-2 order-button-width"
+                  className="p-0"
                   onClick={cancelCartUpdate}
                   disabled={countsAreEqual(formData.items)}
                 >
@@ -208,22 +217,12 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
                 <Button
                   variant="success"
                   size="sm"
-                  className="pt-2 pb-2 order-button-width"
+                  className="p-0"
                   onClick={gotoOrderForm}
                 >
                   비누 주문
                 </Button>
               </div>
-            </Row>
-            <Row className="mt-5 justify-content-center">
-              <Col md={7}>
-                {alertSuccess && (
-                  <AlertMessage type={"success"} message={successMsg} />
-                )}
-                {alertError && (
-                  <AlertMessage type={"danger"} message={errorMsg} />
-                )}
-              </Col>
             </Row>
           </Form.Group>
         </fieldset>
