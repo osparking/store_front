@@ -180,7 +180,7 @@ const OrderForm = ({
       return;
     }
     if (formData.items.some((item) => item.shape === "")) {
-      alert("모든 비누 외형을 선택해주세요.");
+      alert("비누 외형을 선택해주세요.");
       return;
     }
     if (formData.items.some((item) => parseInt(item.count) < 1)) {
@@ -266,6 +266,7 @@ const OrderForm = ({
                 </Button>
                 <Button
                   variant="info"
+                  disabled={someShapeIsEmpty()}
                   size="sm"
                   className="order-button-width"
                   onClick={putToCart}
