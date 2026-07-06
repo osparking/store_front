@@ -315,20 +315,16 @@ const Recipient = () => {
             </div>
             <div className="d-flex justify-content-center ">
               <Row
-                className="justify-content-center pb-5 rowStyle"
+                className="char4button justify-content-center pb-5 rowStyle"
                 style={{ display: "flex", gap: "20px" }}
               >
-                <Button
-                  variant="info"
-                  className="pt-2 pb-2 order-button-width"
-                  onClick={goBack}
-                >
-                  <span className="boldText">내역 수정</span>
+                <Button variant="info" className="p-0" onClick={goBack}>
+                  <span>내역 수정</span>
                 </Button>
                 <Button
                   type="submit"
-                  variant="success"
-                  className="pt-2 pb-2 order-button-width"
+                  variant="primary"
+                  className="p-0"
                   disabled={
                     !formData.fullName ||
                     !(formData.mbPhone && mbPhoneOk()) ||
@@ -338,8 +334,9 @@ const Recipient = () => {
                   onBlur={() => {
                     payButtonRef.current?.classList.remove("boxShadow");
                   }}
+                  style={{ fontWeight: 500 }}
                 >
-                  <span className="boldText">결제 진행</span>
+                  <span>결제 진행</span>
                 </Button>
               </Row>
             </div>
