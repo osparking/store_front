@@ -27,14 +27,14 @@ export default function ConfirmationModal({
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>{bodyMessage}</Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose} className="flex-fill">
+      <Modal.Footer className="d-flex justify-content-center char4button">
+        <Button variant="secondary" onClick={handleClose} className="p-0">
           {noLabel}
         </Button>
         <Button
           variant={yesVariant}
           onClick={() => handleConfirm()}
-          className="flex-fill ms-2"
+          className="p-0"
         >
           {yesLabel}
         </Button>

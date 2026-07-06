@@ -251,8 +251,8 @@ const Recipient = () => {
         handleConfirm={handleConfirm}
         bodyMessage={"'상세 주소' 가 없습니다. 바른 주소입니까?"}
         title={"주소 확인"}
-        noLabel={"수정할께요."}
-        yesLabel={"네, 그래요."}
+        noLabel={"주소 수정"}
+        yesLabel={"바른 주소"}
         dialogClassName={"no-detail-address-confirm"}
       />
       <div id="recipientDiv" className="d-flex">
