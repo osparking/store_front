@@ -121,6 +121,8 @@ const RegisterUser = () => {
     window.location.href = "/login";
   };
 
+  const isDevelopment = process.env.NODE_ENV === 'development';
+
   return (
     <>
       <ConfirmEmailModal
@@ -282,7 +284,7 @@ const RegisterUser = () => {
                 </Button>
               </div>
 
-              {isAdmin && (
+              {isAdmin && isDevelopment && (
                 <div className="d-flex justify-content-center char2button mb-3 mt-3">
                   <Button
                     variant="outline-success"
