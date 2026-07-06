@@ -121,7 +121,7 @@ const RegisterUser = () => {
     window.location.href = "/login";
   };
 
-  const isDevelopment = process.env.NODE_ENV === 'development';
+  const isDevelopment = process.env.NODE_ENV === "development";
 
   return (
     <>
@@ -304,7 +304,7 @@ const RegisterUser = () => {
                 </>
               )}
               {alertError && <AlertMessage type="danger" message={errorMsg} />}
-              <div className="text-center">
+              <div className="text-center mb-3">
                 이미 등록한 경우:{" "}
                 <Link to={"/login"} style={{ textDecoration: "none" }}>
                   로그인
