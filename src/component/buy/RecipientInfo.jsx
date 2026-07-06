@@ -92,7 +92,7 @@ const RecipientInfo = ({
           <tr>
             <th className="rText">성명</th>
             <td className="boxLeft">
-              <div className="d-flex align-items-center gap-2 mt-1">
+              <div className="char4button d-flex align-items-center gap-2 mt-1">
                 <input
                   type="text"
                   name="fullName"
@@ -106,11 +106,11 @@ const RecipientInfo = ({
                   <Button
                     id="defaultRecipient"
                     variant="primary"
-                    className="order-button-width fw-light"
+                    className="fw-light"
                     onClick={loadDefaultRecipient}
                     disabled={!defaultRecipient}
                   >
-                    <span className="boldText">기본 수신처</span>
+                    <span className="boldText">기본 주소</span>
                   </Button>
                 </OverlayTrigger>
                 <OverlayTrigger
@@ -119,11 +119,11 @@ const RecipientInfo = ({
                   <Button
                     id="pastRecipients"
                     variant="success"
-                    className="order-button-width fw-light"
+                    className="fw-light"
                     onClick={showMyRecipients}
                     disabled={noPurchaseHistory}
                   >
-                    <span className="boldText">모든 수신처</span>
+                    <span className="boldText">모든 주소</span>
                   </Button>
                 </OverlayTrigger>
               </div>
@@ -149,7 +149,7 @@ const RecipientInfo = ({
                   <Form.Check
                     type="checkbox"
                     name="isDefaultRecipient"
-                    label="기본 수신처 지정"
+                    label="기본 주소 갱신"
                     checked={checkedAsDefault}
                     onChange={changeDefaultRecipient}
                     disabled={disableDefaultRecipientCheckbox}
