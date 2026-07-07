@@ -13,6 +13,10 @@ const ConfirmResultModal = ({
       case "제출 요청 접수됨":
         return "활성화 다음 단계";
         break;
+      
+      case "비밀번호리셋":
+        return "비밀번호 재 설정";
+        break;
 
       default:
         return "이메일 소유 확인 결과";
@@ -81,6 +85,17 @@ const ConfirmResultModal = ({
             </p>
           </>
         );
+      case "비밀번호리셋":
+        return (
+          <>
+            <p className="text-success mb-3" style={{ textAlign: "center" }}>
+              *비밀번호 재 설정 메일 발송됨*
+            </p>
+            <p style={{ textAlign: "center" }}>
+              이메일을 열고, 링크를 클릭하십시오.<br/>
+              [링크 유효기간: ~{expireTime}]</p>
+          </>
+        );
       default:
         return (
           <p className="text-danger mb-3" style={{ textAlign: "center" }}>
@@ -96,8 +111,8 @@ const ConfirmResultModal = ({
         <Modal.Title>{getModalTitle()}</Modal.Title>
       </Modal.Header>
       <Modal.Body>{getModalMessage()}</Modal.Body>
-      <Modal.Footer>
-        <Button variant="danger" onClick={closer}>
+      <Modal.Footer className="char2button">
+        <Button variant="secondary" onClick={closer} className="p-0">
           닫기
         </Button>
       </Modal.Footer>
