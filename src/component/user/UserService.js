@@ -1,5 +1,17 @@
 import { api, callWithToken } from "../util/api";
 
+export const resetPassword = async (email) => {
+  try {
+    const response = await api.post("/user/reset_pwd", { email });
+    return response.data;
+  } catch (error) {
+    if (error.code === "ERR_NETWORK") {
+      alert("네트워크 오류");
+    }
+    throw error;
+  }
+};
+
 export async function updateUser(userId, user) {
   try {
     const url = `/user/${userId}/update`;
