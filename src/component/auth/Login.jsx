@@ -10,6 +10,7 @@ import {
   Row,
   Tooltip,
 } from "react-bootstrap";
+import toast from "react-hot-toast";
 import { BsLockFill, BsPersonFill } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
@@ -28,7 +29,7 @@ import {
 import { getEmailViaToken, loginUser } from "./AuthService";
 import CodeEntryModal from "./CodeEntryModal";
 import "./Login.css";
-import toast from "react-hot-toast";
+import { resetPassword } from "../user/UserService";
 
 const Login = () => {
   const localUser = localStorage.getItem("USER");
@@ -178,15 +179,15 @@ const Login = () => {
     const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return pattern.test(trimmed);
   }
-  
-  const resetPassword = () => {
-    const randomInt = Math.floor(Math.random() * 10);
-    console.log("후단에 요구하여 패스워드 재설정 링크 메일 전송");
-    
-    if (randomInt % 2 === 0)
-      toast.success("비밀번호 재설정 메일을 확인하세요.")
-    else 
-      toast.success("존재하지 않는 계정 이메일입니다.")
+
+  const reset_password = async () => {
+    try {
+      const response = await resetPassword(credentials.email);
+      setShowConfirmModal(true);
+      toast.success(response.message);
+    } catch (error) {
+      toast.error("존재하지 않는 계정 이메일입니다.");
+    }
   };
 
   const loginEntryCard = () => {
@@ -224,7 +225,7 @@ const Login = () => {
                       id="pwdReset"
                       variant="success"
                       disabled={!isValidEmail(credentials.email)}
-                      onClick={resetPassword}
+                      onClick={reset_password}
                     >
                       재설정
                     </Button>
