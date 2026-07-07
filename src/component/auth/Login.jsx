@@ -54,12 +54,22 @@ const Login = () => {
     setShowEnableModal(false);
   };
 
-  const [credentials, setCredentials] = useState({
-    // email: "jbpark03@naver.com",
-    email: "worker1@email.com",
-    password: "1234",
-    save_login: localStorage.getItem("SAVE_LOGIN") === "true",
-  });
+  const isDevelopment = process.env.NODE_ENV === "development";
+
+  const [credentials, setCredentials] = useState(
+    isDevelopment
+      ? {
+          email: "jbpark103@hanmail.net",
+          password: "1234",
+          save_login: localStorage.getItem("SAVE_LOGIN") === "true",
+        }
+      : {
+          email: "",
+          password: "",
+          save_login: localStorage.getItem("SAVE_LOGIN") === "true",
+        },
+  );
+
   const [code, setCode] = useState("");
   const [codeNeeded, setCodeNeeded] = useState(false);
   const [verifying, setVerifying] = useState(false);
