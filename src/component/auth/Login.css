@@ -15,6 +15,17 @@
     width: 360px !important;
 }
 
+#pwdReset {
+    width: 70px;
+    font-size: 0.9em;
+    height: 24px;
+    margin-left: 16px;
+    padding: 0;
+    position: relative;
+    top: -2px;
+    border-radius: 11px;
+}
+
 /* MUI small <= 599px */
 @media screen and (max-height: 599px) {
     #background-carousel {
