@@ -61,6 +61,16 @@ export const logoutUser = () => {
   window.dispatchEvent(new Event("logoutEvt"));
 };
 
+export const verify_token = async (token) => {
+  const url = `/autho/verify_token?token=${token}`;
+  try {
+    const response = await api.get(url);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const verifyEmail = async (token) => {
   try {
     const response = await api.get(`/autho/email_address?token=${token}`);
