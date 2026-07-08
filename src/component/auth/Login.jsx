@@ -20,6 +20,7 @@ import { jwtToUser } from "../common/JwtUtils";
 import BsAlertHook from "../hook/BsAlertHook";
 import ConfirmResultModal from "../modal/ConfirmResultModal";
 import EnableAccountModal from "../modal/EnableAccountModal";
+import { resetPassword } from "../user/UserService";
 import {
   formatTime,
   HTTP_STATUS,
@@ -29,7 +30,6 @@ import {
 import { getEmailViaToken, loginUser } from "./AuthService";
 import CodeEntryModal from "./CodeEntryModal";
 import "./Login.css";
-import { resetPassword } from "../user/UserService";
 
 const Login = () => {
   const localUser = localStorage.getItem("USER");
@@ -130,6 +130,33 @@ const Login = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const [prevError, setPrevError] = useState('');
+  const [prevSuccess, setPrevSuccess] = useState('');
+
+  useEffect(() => {
+    // location.state에서 에러 메시지 추출
+    if (location.state?.prevSuccess) {
+      setPrevSuccess(location.state.prevSuccess);
+      // 읽은 후, 새로고침 시 메시지가 남지 않게, state를 비움
+      window.history.replaceState({}, document.title);
+    }
+
+    if (location.state?.prevError) {
+      setPrevError(location.state.prevError);
+      // 읽은 후, 새로고침 시 메시지가 남지 않게, state를 비움
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
+
+  useEffect(() => {
+    if (prevSuccess) {
+      toast.success(prevSuccess, { duration: 3000 }); // 3초 동안 표시
+      // 또는 모달을 띄울 수도 있음 (아래 참고)
+    }
+    if (prevError) {
+      toast.error(prevError, { duration: 3000 }); // 3초 동안 표시
+    }
+  }, [prevError, prevSuccess]);  
 
   const actLogin = async (e) => {
     e.preventDefault();
@@ -193,8 +220,9 @@ const Login = () => {
   const reset_password = async () => {
     try {
       const response = await resetPassword(credentials.email);
+      setSwitchLabel("비밀번호리셋");
       setShowConfirmModal(true);
-      toast.success(response.message);
+      setExpireTime(response.data);
     } catch (error) {
       toast.error("존재하지 않는 계정 이메일입니다.");
     }
