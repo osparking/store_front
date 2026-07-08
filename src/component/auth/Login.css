@@ -17,13 +17,11 @@
 
 #pwdReset {
     width: 70px;
-    font-size: 0.9em;
+    font-size: 0.8em;
     height: 24px;
-    margin-left: 16px;
     padding: 0;
     position: relative;
-    top: -2px;
-    border-radius: 11px;
+    border-radius: 12px;
 }
 
 /* MUI small <= 599px */
