@@ -225,12 +225,14 @@ const Login = () => {
               </InputGroup>
             </Form.Group>
             <Form.Group className="mb-3" controlId="password">
-              <Form.Label>
-                비밀번호
-                <OverlayTrigger
-                  overlay={<Tooltip>이메일 완성 때, 활성화됨</Tooltip>}
-                >
-                  <span style={{ display: "inline-block" }}>
+              <Row className="d-flex">
+                <Col md={4}>
+                  <Form.Label>비밀번호</Form.Label>
+                </Col>
+                <Col md={4} className="d-flex justify-content-center">
+                  <OverlayTrigger
+                    overlay={<Tooltip>이메일 완성 때, 활성화됨</Tooltip>}
+                  >
                     <Button
                       id="pwdReset"
                       variant="success"
@@ -239,9 +241,9 @@ const Login = () => {
                     >
                       재설정
                     </Button>
-                  </span>
-                </OverlayTrigger>
-              </Form.Label>
+                  </OverlayTrigger>
+                </Col>
+              </Row>
               <InputGroup>
                 <InputGroup.Text>
                   <BsLockFill />
