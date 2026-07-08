@@ -28,6 +28,7 @@ import RegisterUser from "./component/user/RegisterUser";
 import UserUpdate from "./component/user/UpdateUser";
 import UserDashboard from "./component/user/UserDashboard";
 import WorkerCanvas from "./component/worker/WorkerCanvas";
+import VerifyToken from "./component/auth/VerifyToken";
 
 function App() {
   useEffect(() => {
@@ -59,6 +60,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/register_user" element={<RegisterUser />} />
         <Route path="/email_verifin" element={<EmailVerifin />} />
+        <Route path="/verify_token" element={<VerifyToken />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard/:id/user" element={<UserDashboard />} />
         <Route path="/dashboard/admin" element={<AdminCanvas />} />
