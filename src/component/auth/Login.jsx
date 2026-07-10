@@ -31,6 +31,8 @@ import { getEmailViaToken, loginUser } from "./AuthService";
 import CodeEntryModal from "./CodeEntryModal";
 import "./Login.css";
 
+const processedIds = new Set();
+
 const Login = () => {
   const localUser = localStorage.getItem("USER");
   let isLoggedIn = false;
@@ -130,33 +132,27 @@ const Login = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const [prevError, setPrevError] = useState('');
-  const [prevSuccess, setPrevSuccess] = useState('');
 
   useEffect(() => {
-    // location.state에서 에러 메시지 추출
-    if (location.state?.prevSuccess) {
-      setPrevSuccess(location.state.prevSuccess);
-      // 읽은 후, 새로고침 시 메시지가 남지 않게, state를 비움
-      window.history.replaceState({}, document.title);
+    const { success, message, id } = location.state || {};
+    window.history.replaceState({}, document.title);
+
+    // id가 없거나 이미 처리된 id면 무시
+    if (!id || processedIds.has(id)) {
+      window.history.replaceState({}, document.title); // state 초기화
+      return;
     }
 
-    if (location.state?.prevError) {
-      setPrevError(location.state.prevError);
-      // 읽은 후, 새로고침 시 메시지가 남지 않게, state를 비움
-      window.history.replaceState({}, document.title);
+    if (success) {
+      toast.success(message, { duration: 3000 });
+    } else {
+      toast.error(message, { duration: 3000 });
     }
-  }, [location]);
 
-  useEffect(() => {
-    if (prevSuccess) {
-      toast.success(prevSuccess, { duration: 3000 }); // 3초 동안 표시
-      // 또는 모달을 띄울 수도 있음 (아래 참고)
-    }
-    if (prevError) {
-      toast.error(prevError, { duration: 3000 }); // 3초 동안 표시
-    }
-  }, [prevError, prevSuccess]);  
+    // 해당 id를 처리됨으로 기록
+    processedIds.add(id);
+
+  }, [location.state]);
 
   const actLogin = async (e) => {
     e.preventDefault();
