@@ -233,7 +233,7 @@ const RegisterUser = () => {
                 <Form.Group as={Row} className="mb-2">
                   <Col xs={6}>
                     <Form.Label>
-                      패스워드
+                      비밀번호:
                       <Form.Control
                         type="password"
                         name="password"
@@ -248,7 +248,7 @@ const RegisterUser = () => {
                   </Col>
                   <Col xs={6}>
                     <Form.Label>
-                      패스워드 확인
+                      비밀번호 확인:
                       <Form.Control
                         type="password"
                         id="confirmPassword"
@@ -268,7 +268,7 @@ const RegisterUser = () => {
             <Card.Footer className="text-center">
               <div className="d-flex justify-content-center mb-3 mt-3 gap-4 char2button">
                 <Button variant="secondary" size="sm" onClick={handleReset}>
-                  리셋
+                  소거
                 </Button>
                 <Button
                   type="submit"
