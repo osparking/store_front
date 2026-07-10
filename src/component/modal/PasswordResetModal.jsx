@@ -54,12 +54,15 @@ const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
     const hasLower = /[a-z]/.test(password);
     const hasUpper = /[A-Z]/.test(password);
     const hasDigit = /[0-9]/.test(password);
+    // ! @ # $ % ^ & * ( ) - _ = +
     const hasSpecial = /[!@#\$%\^&\*\(\)\-_=\+]/.test(password);
+    const onlyAllowed = /^[a-zA-Z0-9!@#$%\^&*()\-_=+]+$/.test(password);
     return (
       hasLower &&
       hasUpper &&
       hasDigit &&
       hasSpecial &&
+      onlyAllowed &&
       password.length >= 9 &&
       password === confirm
     );
