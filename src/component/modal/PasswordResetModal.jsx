@@ -49,6 +49,22 @@ const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
     closer();
   };
 
+  function validatePassword(password, confirm) {
+    if (typeof password !== "string") return false;
+    const hasLower = /[a-z]/.test(password);
+    const hasUpper = /[A-Z]/.test(password);
+    const hasDigit = /[0-9]/.test(password);
+    const hasSpecial = /[!@#\$%\^&\*\(\)\-_=\+]/.test(password);
+    return (
+      hasLower &&
+      hasUpper &&
+      hasDigit &&
+      hasSpecial &&
+      password.length >= 9 &&
+      password === confirm
+    );
+  }
+
   return (
     <Modal
       show={show}
@@ -101,7 +117,12 @@ const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
             <Button variant="secondary" size="sm" onClick={handleReset}>
               소거
             </Button>
-            <Button variant="primary" size="sm" type="submit">
+            <Button
+              variant="primary"
+              size="sm"
+              type="submit"
+              disabled={!validatePassword(pwds.newPwd, pwds.cnfPwd)}
+            >
               저장
             </Button>
           </div>
