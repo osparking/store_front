@@ -37,7 +37,11 @@ const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
     setPwds({ ...pwds, [e.target.name]: e.target.value });
   };
 
-  const handleReset = async (e) => {};
+  const handleReset = async () => {
+    setPwds({ newPwd: "", cnfPwd: "" });
+    setAlertError(false);
+    setAlertSuccess(false);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -95,7 +99,7 @@ const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
             style={{ fontWeight: "500" }}
           >
             <Button variant="secondary" size="sm" onClick={handleReset}>
-              리셋
+              소거
             </Button>
             <Button variant="primary" size="sm" type="submit">
               저장
