@@ -134,6 +134,15 @@ export async function updateWorkerDept(id, dept) {
   }
 }
 
+export async function actResetPassword(newPwd, cnfPwd, token) {
+  const response = await api.put("/user/act_reset_pwd", {
+    newPwd,
+    cnfPwd,
+    token,
+  });
+  return response ? response.data : response;
+}
+
 export async function changePwd(userId, curPwd, newPwd, cnfPwd) {
   try {
     const request = { curPwd, newPwd, cnfPwd };
