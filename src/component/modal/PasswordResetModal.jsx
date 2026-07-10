@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Button, Form, InputGroup, Modal } from "react-bootstrap";
-import toast from "react-hot-toast";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
@@ -21,17 +20,13 @@ const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
 
   const [typePwd, setTypePwd] = useState("password");
   const [typeCnf, setTypeCnf] = useState("password");
-  const [iconPwd, setIconPwd] = useState(FiEyeOff);
-  const [iconCnf, setIconCnf] = useState(FiEyeOff);
 
   const togglePasswordStarizePwd = () => {
     setTypePwd(typePwd === "password" ? "text" : "password");
-    setIconPwd(typePwd === "password" ? FiEye : FiEyeOff);
   };
 
   const togglePasswordStarizeCnf = () => {
     setTypeCnf(typeCnf === "password" ? "text" : "password");
-    setIconCnf(typeCnf === "password" ? FiEye : FiEyeOff);
   };
 
   const handleChange = (e) => {
@@ -104,7 +99,7 @@ const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
                 onChange={handleChange}
               />
               <InputGroup.Text onClick={togglePasswordStarizePwd}>
-                {iconPwd}
+                {typePwd === "password" ? <FiEyeOff /> : <FiEye />}
               </InputGroup.Text>
             </InputGroup>
           </Form.Group>
@@ -119,7 +114,7 @@ const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
                 onChange={handleChange}
               />
               <InputGroup.Text onClick={togglePasswordStarizeCnf}>
-                {iconCnf}
+                {typeCnf === "password" ? <FiEyeOff /> : <FiEye />}
               </InputGroup.Text>
             </InputGroup>
           </Form.Group>
