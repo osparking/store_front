@@ -5,6 +5,7 @@ import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import "./ConfirmationModal.css";
 import "./PasswordResetModal.css";
+import { validatePassword } from "../util/utilities";
 
 const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
   const {
@@ -49,25 +50,6 @@ const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
       setIsProcessing(false);
     });
   };
-
-  function validatePassword(password, confirm) {
-    if (typeof password !== "string") return false;
-    const hasLower = /[a-z]/.test(password);
-    const hasUpper = /[A-Z]/.test(password);
-    const hasDigit = /[0-9]/.test(password);
-    // ! @ # $ % ^ & * ( ) - _ = +
-    const hasSpecial = /[!@#\$%\^&\*\(\)\-_=\+]/.test(password);
-    const onlyAllowed = /^[a-zA-Z0-9!@#$%\^&*()\-_=+]+$/.test(password);
-    return (
-      hasLower &&
-      hasUpper &&
-      hasDigit &&
-      hasSpecial &&
-      onlyAllowed &&
-      password.length >= 9 &&
-      password === confirm
-    );
-  }
 
   const [hideRule, setHideRule] = useState(true);
 

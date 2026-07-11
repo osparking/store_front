@@ -214,7 +214,7 @@ export const getSubTotal = (orderItems) => {
     (result, item) => {
       // count를 숫자로 변환 (type 2는 문자열일 수 있음)
       const count = Number(item.count);
-      
+
       // price 계산: type 1은 subTotal 사용, type 2는 price * count 사용
       let price;
       if (item.subTotal !== undefined) {
@@ -233,7 +233,7 @@ export const getSubTotal = (orderItems) => {
         price: result.price + price,
       };
     },
-    { count: 0, price: 0 }
+    { count: 0, price: 0 },
   );
 };
 
@@ -266,3 +266,22 @@ export const HTTP_STATUS = {
   NOT_FOUND: 404,
   INTERNAL_SERVER_ERROR: 500,
 };
+
+export function validatePassword(password, confirm) {
+  if (typeof password !== "string") return false;
+  const hasLower = /[a-z]/.test(password);
+  const hasUpper = /[A-Z]/.test(password);
+  const hasDigit = /[0-9]/.test(password);
+  // ! @ # $ % ^ & * ( ) - _ = +
+  const hasSpecial = /[!@#\$%\^&\*\(\)\-_=\+]/.test(password);
+  const onlyAllowed = /^[a-zA-Z0-9!@#$%\^&*()\-_=+]+$/.test(password);
+  return (
+    hasLower &&
+    hasUpper &&
+    hasDigit &&
+    hasSpecial &&
+    onlyAllowed &&
+    password.length >= 9 &&
+    password === confirm
+  );
+}
