@@ -10,6 +10,7 @@ import {
   handlePhoneChange,
   insertHyphens,
   maskEmail,
+  validatePassword,
 } from "../util/utilities";
 import WorkerDeptSelector from "../worker/WorkerDeptSelector";
 import "./RegisterUser.css";
@@ -22,6 +23,7 @@ const RegisterUser = () => {
     mbPhone: "",
     email: "",
     password: "",
+    confirmPassword: "",
     userType: isAdmin ? "WORKER" : "CUSTOMER",
     dept: "",
   });
@@ -94,6 +96,7 @@ const RegisterUser = () => {
       mbPhone: "",
       email: "",
       password: "",
+      confirmPassword: "",
       userType: "",
       dept: "",
     });
@@ -108,8 +111,8 @@ const RegisterUser = () => {
       fullName: "김성훈",
       mbPhone: "01012345678",
       email: "jbpark103@hanmail.net",
-      password: "1234",
-      confirmPassword: "1234",
+      password: "1aB$56789",
+      confirmPassword: "1aB$56789",
       userType: "CUSTOMER",
       dept: "생산부",
     });
@@ -274,13 +277,12 @@ const RegisterUser = () => {
                   type="submit"
                   variant="primary"
                   size="sm"
-                  disabled={isProcessing}
+                  disabled={
+                    isProcessing ||
+                    !validatePassword(user.password, user.confirmPassword)
+                  }
                 >
-                  {isProcessing ? (
-                    <ProcessSpinner/>
-                  ) : (
-                    "등록"
-                  )}
+                  {isProcessing ? <ProcessSpinner /> : "등록"}
                 </Button>
               </div>
 
