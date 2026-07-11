@@ -1,10 +1,20 @@
-import { useState } from "react";
-import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import { useRef, useState } from "react";
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Form,
+  Overlay,
+  Popover,
+  Row,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import ProcessSpinner from "../common/ProcessSpinner";
 import BsAlertHook from "../hook/BsAlertHook";
 import ConfirmEmailModal from "../modal/ConfirmEmailModal";
+import PasswordRule from "../modal/PasswordRule";
 import {
   formatTime,
   handlePhoneChange,
@@ -126,6 +136,18 @@ const RegisterUser = () => {
 
   const isDevelopment = process.env.NODE_ENV === "development";
 
+  const [showPopover, setShowPopover] = useState(false);
+  const inputRef = useRef(null);
+
+  const handleFocus = () => setShowPopover(true);
+  const handleBlur = (e) => {
+    // 팝오버 내부로 포커스가 이동하면 닫지 않음
+    if (e.relatedTarget && e.relatedTarget.closest(".popover")) {
+      return;
+    }
+    setShowPopover(false);
+  };
+
   return (
     <>
       <ConfirmEmailModal
@@ -147,7 +169,7 @@ const RegisterUser = () => {
               <div style={{ width: "475px" }}>
                 <fieldset className="mb-4">
                   <Row>
-                    <Col xs={4} md={4}>
+                    <Col xs={5} md={5}>
                       <Form.Label>
                         성명
                         <Form.Control
@@ -157,13 +179,12 @@ const RegisterUser = () => {
                           value={user.fullName}
                           onChange={handleChange}
                           required
-                          style={{ width: "71%" }}
                         />
                       </Form.Label>
                     </Col>
                     <Col
-                      xs={4}
-                      md={4}
+                      xs={3}
+                      md={3}
                       className="d-flex justify-content-center"
                     >
                       <Form.Label>
@@ -202,21 +223,7 @@ const RegisterUser = () => {
 
                 <fieldset className="mb-4">
                   <Row>
-                    <Col xs={6} className="mb-2 mb-sm-0">
-                      <Form.Label>
-                        이메일
-                        <Form.Control
-                          type="email"
-                          name="email"
-                          autoComplete="email"
-                          placeholder="(이메일)"
-                          value={user.email}
-                          onChange={handleChange}
-                          required
-                        />
-                      </Form.Label>
-                    </Col>
-                    <Col xs={6}>
+                    <Col xs={5} md={5}>
                       <Form.Label>
                         휴대폰 번호
                         <Form.Control
@@ -230,14 +237,42 @@ const RegisterUser = () => {
                         />
                       </Form.Label>
                     </Col>
+                    <Col xs={7} md={7} className="mb-2 mb-sm-0">
+                      <Form.Label>
+                        이메일
+                        <Form.Control
+                          type="email"
+                          name="email"
+                          autoComplete="email"
+                          placeholder="(이메일)"
+                          value={user.email}
+                          onChange={handleChange}
+                          required
+                        />
+                      </Form.Label>
+                    </Col>
                   </Row>
                 </fieldset>
 
                 <Form.Group as={Row} className="mb-2">
-                  <Col xs={4}>
+                  <Col xs={5} md={5}>
                     <Form.Label>
                       비밀번호:
+                      <Overlay
+                        show={showPopover}
+                        target={inputRef.current}
+                        placement="bottom"
+                        container={document.body}
+                      >
+                        <Popover id="password-rules-popover">
+                          <Popover.Header as="h3">작성 규칙</Popover.Header>
+                          <Popover.Body className="pwd-rules-body">
+                            <PasswordRule />
+                          </Popover.Body>
+                        </Popover>
+                      </Overlay>
                       <Form.Control
+                        ref={inputRef}
                         type="password"
                         name="password"
                         id="password"
@@ -246,16 +281,12 @@ const RegisterUser = () => {
                         placeholder="(비밀번호)"
                         value={user.password || ""}
                         onChange={handleChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
                       />
                     </Form.Label>
                   </Col>
-                  <Col xs={4} id="showRuleCol">
-                    <Button variant="success">
-                      비밀번호
-                      <br /> 작성 규칙
-                    </Button>
-                  </Col>
-                  <Col xs={4}>
+                  <Col xs={5} md={5}>
                     <Form.Label>
                       비밀번호 확인:
                       <Form.Control
@@ -277,7 +308,7 @@ const RegisterUser = () => {
             <Card.Footer className="text-center">
               <div className="d-flex justify-content-center mb-3 mt-3 gap-4 char2button">
                 <Button variant="secondary" size="sm" onClick={handleReset}>
-                  소거
+                  초기화
                 </Button>
                 <Button
                   type="submit"
