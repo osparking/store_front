@@ -19,17 +19,16 @@
   height: calc(100vh - 62px);
 }
 
-#showRuleCol {
-  display: flex;
-  justify-content:center ;
-  align-items:flex-end;
+#password-rules-popover {
+  max-width: 550px;
 }
 
-#showRuleCol button{
-  padding: 0 12px;
-  width: 91px;
-  height: 70%;
-  font-size: 13px;
+#password-rules-popover h3 {
+  margin-top: 0;
+}
+
+.pwd-rules-body {
+  padding: 0.55rem 1rem 1.25rem;
 }
 
 /* MUI small <= 599px */
