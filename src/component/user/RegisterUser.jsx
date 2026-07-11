@@ -234,7 +234,7 @@ const RegisterUser = () => {
                 </fieldset>
 
                 <Form.Group as={Row} className="mb-2">
-                  <Col xs={6}>
+                  <Col xs={4}>
                     <Form.Label>
                       비밀번호:
                       <Form.Control
@@ -249,7 +249,13 @@ const RegisterUser = () => {
                       />
                     </Form.Label>
                   </Col>
-                  <Col xs={6}>
+                  <Col xs={4} id="showRuleCol">
+                    <Button variant="success">
+                      비밀번호
+                      <br /> 작성 규칙
+                    </Button>
+                  </Col>
+                  <Col xs={4}>
                     <Form.Label>
                       비밀번호 확인:
                       <Form.Control
