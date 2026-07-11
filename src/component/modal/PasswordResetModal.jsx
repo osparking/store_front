@@ -84,10 +84,12 @@ const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
       <Modal.Header closeButton={true}>
         <Modal.Title>비밀번호 재 설정</Modal.Title>
       </Modal.Header>
-      <Modal.Body id="pwdRstModalBodyTop">
-        {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
-        {alertSuccess && <AlertMessage type={"success"} message={successMsg} />}
-        <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
+        <Modal.Body id="pwdRstModalBodyTop">
+          {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
+          {alertSuccess && (
+            <AlertMessage type={"success"} message={successMsg} />
+          )}
           <Form.Group controlId="newPwd" className="mb-2">
             <Form.Label>비밀번호: </Form.Label>
             <InputGroup>
@@ -118,7 +120,7 @@ const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
               </InputGroup.Text>
             </InputGroup>
           </Form.Group>
-        </Form>
+        </Modal.Body>
         <Modal.Footer className="d-flex justify-content-center char2button gap-4">
           <Button variant="secondary" size="sm" onClick={handleReset}>
             소거
@@ -132,7 +134,7 @@ const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
             저장
           </Button>
         </Modal.Footer>
-      </Modal.Body>
+      </Form>
       <Modal.Body id="pwdRstModalBodyBottom">
         <div style={{ textAlign: "center" }}>
           <Button id="pwdRuleTitle" variant="success" onClick={toggleRule}>
@@ -144,7 +146,8 @@ const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
           <ul>
             <li className="no-bullet">
               (특수)
-              <span style={{letterSpacing: "1px"}}>{" "}
+              <span style={{ letterSpacing: "1px" }}>
+                {" "}
                 ! @ # $ % ^ & * ( ) - _ = +
               </span>
             </li>
