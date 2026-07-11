@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Button, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
 import { BsEyeFill } from "react-icons/bs";
-import CustomerInfoModalDraggable from "../modal/CustomerInfoModalDraggable";
+import CustomerDetails from "../modal/CustomerDetails";
+import InfoModalDraggable from "../modal/InfoModalDraggable";
 import { insert2Hyphens } from "../util/utilities";
 import "./CustomersTable.css";
 import "./ManageCustomers.css";
-import CustomerDetails from "../modal/CustomerDetails";
 
 const CustomersTable = (displayCustomers) => {
   const [showDetails, setShowDetails] = useState(false);
@@ -17,13 +17,13 @@ const CustomersTable = (displayCustomers) => {
 
   return (
     <>
-      <CustomerInfoModalDraggable
+      <InfoModalDraggable
         show={showDetails}
         onHide={() => setShowDetails(false)}
         title="유저 상세 정보"
       >
         <CustomerDetails customer={customer} />
-      </CustomerInfoModalDraggable>
+      </InfoModalDraggable>
 
       <Table bordered hover striped className="admin-customer-table">
         <thead>

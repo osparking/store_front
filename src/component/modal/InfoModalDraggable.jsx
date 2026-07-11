@@ -2,9 +2,9 @@ import { useEffect, useRef } from "react"; // 1. useRef import 추가
 import { Button } from "react-bootstrap";
 import ReactDOM from "react-dom";
 import Draggable from "react-draggable";
-import "./CustomerInfoModalDraggable.css";
+import "./InfoModalDraggable.css";
 
-const CustomerInfoModalDraggable = ({ show, onHide, title, children }) => {
+const InfoModalDraggable = ({ show, onHide, title, children }) => {
   const nodeRef = useRef(null);
 
   useEffect(() => {
@@ -48,4 +48,4 @@ const CustomerInfoModalDraggable = ({ show, onHide, title, children }) => {
   );
 };
 
-export default CustomerInfoModalDraggable;
+export default InfoModalDraggable;
