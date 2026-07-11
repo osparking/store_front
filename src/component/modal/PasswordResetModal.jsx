@@ -6,6 +6,7 @@ import BsAlertHook from "../hook/BsAlertHook";
 import "./ConfirmationModal.css";
 import "./PasswordResetModal.css";
 import { validatePassword } from "../util/utilities";
+import PasswordRule from "./PasswordRule";
 
 const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
   const {
@@ -129,18 +130,7 @@ const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
           </Button>
         </div>
         <ul className="pwdRule" hidden={hideRule}>
-          <li id="pwdRuleTopRow">허용 문자 유형: 영대, 영소, 숫자, 특수</li>
-          <ul>
-            <li className="no-bullet">
-              (특수)
-              <span style={{ letterSpacing: "1px" }}>
-                {" "}
-                ! @ # $ % ^ & * ( ) - _ = +
-              </span>
-            </li>
-          </ul>
-          <li id="midBreak">문자 유형별 한 자 이상 사용</li>
-          <li>허용 문자만으로 길이 9 자 이상</li>
+          <PasswordRule />
         </ul>
       </Modal.Body>
     </Modal>
