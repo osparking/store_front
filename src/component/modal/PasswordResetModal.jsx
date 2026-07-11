@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Form, InputGroup, Modal } from "react-bootstrap";
+import { Button, Form, InputGroup, Modal, Spinner } from "react-bootstrap";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
@@ -39,10 +39,15 @@ const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
     setAlertSuccess(false);
   };
 
+  const [isProcessing, setIsProcessing] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    doSubmit();
-    closer();
+    setIsProcessing(true);
+    doSubmit().finally(() => {
+      closer();
+      setIsProcessing(false);
+    });
   };
 
   function validatePassword(password, confirm) {
@@ -131,7 +136,7 @@ const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
             type="submit"
             disabled={!validatePassword(pwds.newPwd, pwds.cnfPwd)}
           >
-            저장
+            {isProcessing ? <Spinner message="저장 중..." /> : "저장"}
           </Button>
         </Modal.Footer>
       </Form>
