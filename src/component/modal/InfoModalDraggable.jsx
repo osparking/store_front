@@ -2,9 +2,16 @@ import { useEffect, useRef } from "react"; // 1. useRef import 추가
 import { Button } from "react-bootstrap";
 import ReactDOM from "react-dom";
 import Draggable from "react-draggable";
+import "./CustomerDetails.css";
 import "./InfoModalDraggable.css";
 
-const InfoModalDraggable = ({ show, onHide, title, children }) => {
+const InfoModalDraggable = ({
+  show,
+  onHide,
+  title,
+  children,
+  idPrefix = "customer",
+}) => {
   const nodeRef = useRef(null);
 
   useEffect(() => {
@@ -26,20 +33,22 @@ const InfoModalDraggable = ({ show, onHide, title, children }) => {
     >
       <Draggable handle=".modal-header" nodeRef={nodeRef}>
         <div
-          id="customer-info-modal"
+          id={`${idPrefix}-info-modal`}
           className="modal-wrapper"
           ref={nodeRef}
           onClick={(e) => e.stopPropagation()}
         >
           <div className="modal-header">
-            <h3 id="customer-info-title">{title}</h3>
+            <h3 id={`${idPrefix}-info-title`}>{title}</h3>
             <button id="modal-close-btn" className="close-btn" onClick={onHide}>
               ✕
             </button>
           </div>
           <div className="modal-body">{children}</div>
-          <div className="modal-footer justify-content-center">
-            <Button onClick={onHide}>닫기</Button>
+          <div className="modal-footer justify-content-center char2button">
+            <Button onClick={onHide} style={{ padding: 0 }}>
+              닫기
+            </Button>
           </div>
         </div>
       </Draggable>
