@@ -19,6 +19,19 @@
   height: calc(100vh - 62px);
 }
 
+#showRuleCol {
+  display: flex;
+  justify-content:center ;
+  align-items:flex-end;
+}
+
+#showRuleCol button{
+  padding: 0 12px;
+  width: 91px;
+  height: 70%;
+  font-size: 13px;
+}
+
 /* MUI small <= 599px */
 @media screen and ((max-width: 599px) or (max-height: 599px)) {
   #registerContainer {
