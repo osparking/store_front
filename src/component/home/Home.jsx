@@ -12,8 +12,9 @@ const Home = () => {
   };
 
   const gotoSoapImages = () => {
-    localStorage.setItem("SOAP_INTRO_TAB", "shapes");
-    navigate("/soap_intro", { state: { scrollTo: "soapImages" } });
+    navigate("/soap_intro", {
+      state: { selectedTab: "shapes", scrollTo: "imageRowRef" },
+    });
   };
 
   const gotoReviews = () => {
