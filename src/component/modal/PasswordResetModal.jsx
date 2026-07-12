@@ -3,10 +3,9 @@ import { Button, Form, InputGroup, Modal, Spinner } from "react-bootstrap";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
+import { validatePassword } from "../util/utilities";
 import "./ConfirmationModal.css";
 import "./PasswordResetModal.css";
-import { validatePassword } from "../util/utilities";
-import PasswordRule from "./PasswordRule";
 
 const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
   const {
@@ -52,15 +51,6 @@ const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
     });
   };
 
-  const [hideRule, setHideRule] = useState(true);
-
-  const toggleRule = () => {
-    setHideRule(!hideRule);
-    setRuleAction(hideRule ? "숨김" : "보기");
-  };
-
-  const [ruleAction, setRuleAction] = useState("보기");
-
   return (
     <Modal
       show={show}
@@ -73,7 +63,7 @@ const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
         <Modal.Title>비밀번호 재 설정</Modal.Title>
       </Modal.Header>
       <Form onSubmit={handleSubmit}>
-        <Modal.Body id="pwdRstModalBodyTop">
+        <Modal.Body>
           {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
           {alertSuccess && (
             <AlertMessage type={"success"} message={successMsg} />
@@ -123,16 +113,6 @@ const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
           </Button>
         </Modal.Footer>
       </Form>
-      <Modal.Body id="pwdRstModalBodyBottom">
-        <div style={{ textAlign: "center" }}>
-          <Button id="pwdRuleTitle" variant="success" onClick={toggleRule}>
-            비밀번호 규칙 {ruleAction}
-          </Button>
-        </div>
-        <ul className="pwdRule" hidden={hideRule}>
-          <PasswordRule />
-        </ul>
-      </Modal.Body>
     </Modal>
   );
 };
