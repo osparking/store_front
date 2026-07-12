@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Dropdown, Tab, Tabs } from "react-bootstrap";
 import { useMediaQuery } from "react-responsive";
+import { useLocation } from "react-router-dom";
 import "../../index.css";
 import "../user/userDashboard.css";
 import BumShapes from "./BumShapes";
@@ -10,13 +11,36 @@ import ProduceSteps from "./ProduceSteps";
 import "./soapIntro.css";
 
 const SoapIntro = () => {
+  const location = useLocation();
+  const selectedTab = location.state?.selectedTab;
+
+  const [currTabKey, setCurrTabKey] = useState(() => {
+    return selectedTab || localStorage.getItem("SOAP_INTRO_TAB") || "effect";
+  });
+
+  useEffect(() => {
+    if (selectedTab) {
+      localStorage.setItem("SOAP_INTRO_TAB", selectedTab);
+    }
+    // selectedTab을 히스토리에서 제거 (F5 부활 방지)
+    const currentState = window.history.state;
+
+    if (currentState?.usr?.selectedTab) {
+      // usr 객체를 복사하고 selectedTab 키만 삭제
+      const newUsr = { ...currentState.usr };
+      delete newUsr.selectedTab;
+
+      // 기존 state는 유지하되, usr만 교체하여 replaceState 호출
+      window.history.replaceState(
+        { ...currentState, usr: newUsr },
+        "", // title (보통 빈 문자열)
+      );
+    }
+  }, [selectedTab]); // 빈 배열: 최초 1회만 실행
+
   const handleSoapIntroTabSelect = (key) => {
     localStorage.setItem("SOAP_INTRO_TAB", key);
   };
-
-  const [currTabKey, setCurrTabKey] = useState(
-    localStorage.getItem("SOAP_INTRO_TAB") || "effect",
-  );
 
   const isMediumWide = useMediaQuery({ maxWidth: 1199 });
   const tabItems = [
