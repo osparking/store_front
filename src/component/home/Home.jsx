@@ -8,8 +8,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const gotoIngredients = () => {
-    localStorage.setItem("SOAP_INTRO_TAB", "ingredient");
-    navigate("/soap_intro");
+    navigate("/soap_intro", { state: { selectedTab: "ingredient" } });
   };
 
   const gotoSoapImages = () => {
