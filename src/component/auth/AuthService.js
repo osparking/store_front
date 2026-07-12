@@ -40,8 +40,6 @@ export const clearLoginUserInfo = () => {
     "REVIEW_PAGE_고객",
     "REVIEW_PAGE_CUSTOMER",
     "SAVE_LOGIN",
-    "SOAP_INTRO_TAB",
-    "SOAP_SHAPE_TAB",
     "TOKEN",
     "USER",
     "WORKER_TAB",
