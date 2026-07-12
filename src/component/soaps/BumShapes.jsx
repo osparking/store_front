@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   Col,
@@ -10,12 +10,12 @@ import {
   Tabs,
 } from "react-bootstrap";
 import { useMediaQuery } from "react-responsive";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./bumShapes.css";
 import { bgColor, indColor, soapImages } from "./soapImages.js";
 import SoapImages from "./SoapImages.jsx";
 
-const BumShapes = ({imageRowRef}) => {
+const BumShapes = ({ imageRowRef }) => {
   const normalSoaps = soapImages.filter((soap) => soap.shape === "normal");
   const sWhiteSoaps = soapImages.filter((soap) => soap.shape === "s-white");
   const maejooSoaps = soapImages.filter((soap) => soap.shape === "maejoo");
@@ -176,10 +176,17 @@ const BumShapes = ({imageRowRef}) => {
               <li>
                 <strong>향오일 상표</strong> - 범이가 사용한 제주 비자나무
                 향오일은 기본형과 변경형이 있습니다. 기본형은{" "}
-                <a href="https://degrasse.kr/index.html">드그라쎄</a>에서 '20년
-                12월 말부터 리터당 6.4만원에 구매하였고, 변경형은 네이버
-                스토어인{" "}
-                <a href="https://smartstore.naver.com/herbrapa">허브라파</a>
+                <Link to="https://degrasse.kr/index.html" target="_blank">
+                  드그라쎄
+                </Link>
+                에서 '20년 12월 말부터 리터당 6.4만원에 구매하였고, 변경형은
+                네이버 스토어인{" "}
+                <Link
+                  to="https://smartstore.naver.com/herbrapa"
+                  target="_blank"
+                >
+                  허브라파
+                </Link>
                 (현재 운영 중지 상태) 에서 '21년 1월 8일 리터당 7.8만원에 구매한
                 것입니다.
               </li>
