@@ -1,11 +1,20 @@
-import { useState } from "react";
-import { Button, Form, InputGroup, Modal, Spinner } from "react-bootstrap";
+import { useRef, useState } from "react";
+import {
+  Button,
+  Form,
+  InputGroup,
+  Modal,
+  Overlay,
+  Popover,
+  Spinner,
+} from "react-bootstrap";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import { validatePassword } from "../util/utilities";
 import "./ConfirmationModal.css";
 import "./PasswordResetModal.css";
+import PasswordRule from "./PasswordRule";
 
 const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
   const {
@@ -28,6 +37,18 @@ const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
 
   const togglePasswordStarizeCnf = () => {
     setTypeCnf(typeCnf === "password" ? "text" : "password");
+  };
+
+  const [showPopover, setShowPopover] = useState(false);
+  const inputRef = useRef(null);
+
+  const handleFocus = () => setShowPopover(true);
+  const handleBlur = (e) => {
+    // 팝오버 내부로 포커스가 이동하면 닫지 않음
+    if (e.relatedTarget && e.relatedTarget.closest(".popover")) {
+      return;
+    }
+    setShowPopover(false);
   };
 
   const handleChange = (e) => {
@@ -54,6 +75,7 @@ const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
   return (
     <Modal
       show={show}
+      centered
       onHide={closer}
       dialogClassName={"password-reset-modal"}
       backdrop="static" // 외부 클릭 완전 차단
@@ -69,22 +91,38 @@ const PasswordResetModal = ({ show, closer, doSubmit, pwds, setPwds }) => {
             <AlertMessage type={"success"} message={successMsg} />
           )}
           <Form.Group controlId="newPwd" className="mb-2">
-            <Form.Label>비밀번호: </Form.Label>
+            <Form.Label className="mb-1">비밀번호</Form.Label>
+            <Overlay
+              show={showPopover}
+              target={inputRef.current}
+              placement="top"
+              container={document.body}
+            >
+              <Popover id="password-rules-popover">
+                <Popover.Header as="h3">작성 규칙</Popover.Header>
+                <Popover.Body className="pwd-rules-body">
+                  <PasswordRule />
+                </Popover.Body>
+              </Popover>
+            </Overlay>
             <InputGroup>
               <Form.Control
+                ref={inputRef}
                 type={typePwd}
                 value={pwds.newPwd}
                 placeholder="(비밀번호)"
                 name="newPwd"
                 onChange={handleChange}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
               />
               <InputGroup.Text onClick={togglePasswordStarizePwd}>
                 {typePwd === "password" ? <FiEyeOff /> : <FiEye />}
               </InputGroup.Text>
             </InputGroup>
           </Form.Group>
-          <Form.Group controlId="cnfPwd" className="mb-2">
-            <Form.Label>비밀번호 확인: </Form.Label>
+          <Form.Group controlId="cnfPwd" className="mt-3 mb-2">
+            <Form.Label className="mb-1">비밀번호 확인</Form.Label>
             <InputGroup>
               <Form.Control
                 type={typeCnf}
