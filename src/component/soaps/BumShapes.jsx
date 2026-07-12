@@ -15,7 +15,7 @@ import "./bumShapes.css";
 import { bgColor, indColor, soapImages } from "./soapImages.js";
 import SoapImages from "./SoapImages.jsx";
 
-const BumShapes = () => {
+const BumShapes = ({imageRowRef}) => {
   const normalSoaps = soapImages.filter((soap) => soap.shape === "normal");
   const sWhiteSoaps = soapImages.filter((soap) => soap.shape === "s-white");
   const maejooSoaps = soapImages.filter((soap) => soap.shape === "maejoo");
@@ -30,7 +30,6 @@ const BumShapes = () => {
     localStorage.getItem("SOAP_SHAPE_TAB") || "normalSoap",
   );
 
-  const imageRowRef = useRef(null);
   const shapeClicked = (shape) => {
     imageRowRef.current?.scrollIntoView({
       behavior: "smooth",
