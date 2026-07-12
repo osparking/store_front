@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Container, Dropdown, Tab, Tabs } from "react-bootstrap";
 import { useMediaQuery } from "react-responsive";
 import { useLocation } from "react-router-dom";
@@ -18,9 +18,19 @@ const SoapIntro = () => {
     return selectedTab || localStorage.getItem("SOAP_INTRO_TAB") || "effect";
   });
 
+  const imageRowRef = useRef(null);
+
   useEffect(() => {
     if (selectedTab) {
       localStorage.setItem("SOAP_INTRO_TAB", selectedTab);
+      if (selectedTab === "shapes") {
+        if (location.state.scrollTo === "imageRowRef") {
+          imageRowRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      }
     }
     // selectedTab을 히스토리에서 제거 (F5 부활 방지)
     const currentState = window.history.state;
@@ -49,13 +59,21 @@ const SoapIntro = () => {
       title: "효능 소개",
       component: <Effect />,
     },
-    { key: "ingredient", title: "비누 재료", component: <Ingredient /> },
+    {
+      key: "ingredient",
+      title: "비누 재료",
+      component: <Ingredient />,
+    },
     {
       key: "steps",
       title: "제조 절차",
       component: <ProduceSteps />,
     },
-    { key: "shapes", title: "비누 외형", component: <BumShapes /> },
+    {
+      key: "shapes",
+      title: "비누 외형",
+      component: <BumShapes imageRowRef={imageRowRef} />,
+    },
   ];
 
   const classes = "tabBackgroundThick contentHolyCentered";
