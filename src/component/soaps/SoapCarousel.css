@@ -2,11 +2,11 @@
   display: none;
 }
 
-.buy-soap .button-left {
+.soap-image .button-left {
   left: -15% !important;
 }
 
-.buy-soap .button-right {
+.soap-image .button-right {
   right: -15% !important;
 }
 
