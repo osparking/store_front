@@ -155,7 +155,7 @@ export const soapImages = [
     id: 15,
     name: "사용 중 보관법",
     shape: "manage",
-    image: "manage-store.jpg",
+    image: "manage-store.png",
     width: 1000,
     height: 1000,
     desc:
