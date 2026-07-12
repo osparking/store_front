@@ -4,6 +4,7 @@
   box-shadow: 0 1px 2px #00000033;
   display: grid;
   margin-top: 1.5em;
+  padding: 16px 24px;
 }
 
 .accordion {
