@@ -59,7 +59,7 @@ function MyQuillEditor({
 
   // Custom toolbar configuration
   const modules = {
-    toolbar: [
+    toolbar: editable ? [
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
       ["bold", "italic", "underline", "strike"],
       [{ list: "ordered" }, { list: "bullet" }],
@@ -68,7 +68,7 @@ function MyQuillEditor({
       [{ align: [] }],
       ["link", "image", "video"],
       ["clean"],
-    ],
+    ] : false,
   };
 
   const formats = [
