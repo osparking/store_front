@@ -5,6 +5,7 @@ import {
   Col,
   Container,
   Form,
+  InputGroup,
   Overlay,
   Popover,
   Row,
@@ -25,6 +26,7 @@ import {
 import WorkerDeptSelector from "../worker/WorkerDeptSelector";
 import "./RegisterUser.css";
 import { registerUser } from "./UserService";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const RegisterUser = () => {
   const isAdmin = localStorage.getItem("IS_ADMIN") === "true";
@@ -148,6 +150,18 @@ const RegisterUser = () => {
     setShowPopover(false);
   };
 
+  const [typePwd, setTypePwd] = useState("password");
+
+  const [typeCnf, setTypeCnf] = useState("password");
+
+  const toggleStarizePwd = () => {
+    setTypePwd(typePwd === "password" ? "text" : "password");
+  };
+
+  const toggleStarizeCnf = () => {
+    setTypeCnf(typeCnf === "password" ? "text" : "password");
+  };
+
   return (
     <>
       <ConfirmEmailModal
@@ -207,7 +221,7 @@ const RegisterUser = () => {
                     <Col
                       xs={4}
                       md={4}
-                      className="employeeAffiliation d-flex justify-content-end"
+                      className="employeeAffiliation d-flex justify-content-left"
                     >
                       <Form.Label>
                         부서
@@ -255,9 +269,9 @@ const RegisterUser = () => {
                 </fieldset>
 
                 <Form.Group as={Row} className="mb-2">
-                  <Col xs={5} md={5}>
+                  <Col xs={6} md={6}>
                     <Form.Label>
-                      비밀번호:
+                      비밀번호
                       <Overlay
                         show={showPopover}
                         target={inputRef.current}
@@ -271,34 +285,44 @@ const RegisterUser = () => {
                           </Popover.Body>
                         </Popover>
                       </Overlay>
-                      <Form.Control
-                        ref={inputRef}
-                        type="password"
-                        name="password"
-                        id="password"
-                        autoComplete="new-password"
-                        required
-                        placeholder="(비밀번호)"
-                        value={user.password || ""}
-                        onChange={handleChange}
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
-                      />
+                      <InputGroup>
+                        <Form.Control
+                          ref={inputRef}
+                          type={typePwd}
+                          name="password"
+                          id="password"
+                          autoComplete="new-password"
+                          required
+                          placeholder="(비밀번호)"
+                          value={user.password || ""}
+                          onChange={handleChange}
+                          onFocus={handleFocus}
+                          onBlur={handleBlur}
+                        />
+                        <InputGroup.Text onClick={toggleStarizePwd}>
+                          {typePwd === "password" ? <FiEyeOff /> : <FiEye />}
+                        </InputGroup.Text>
+                      </InputGroup>
                     </Form.Label>
                   </Col>
-                  <Col xs={5} md={5}>
+                  <Col xs={6} md={6}>
                     <Form.Label>
-                      비밀번호 확인:
-                      <Form.Control
-                        type="password"
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        autoComplete="new-password-confirm"
-                        required
-                        placeholder="(비밀번호 확인)"
-                        value={user.confirmPassword || ""}
-                        onChange={handleChange}
-                      />
+                      비밀번호 확인
+                      <InputGroup>
+                        <Form.Control
+                          type={typeCnf}
+                          id="confirmPassword"
+                          name="confirmPassword"
+                          autoComplete="new-password-confirm"
+                          required
+                          placeholder="(비밀번호 확인)"
+                          value={user.confirmPassword || ""}
+                          onChange={handleChange}
+                        />
+                        <InputGroup.Text onClick={toggleStarizeCnf}>
+                          {typeCnf === "password" ? <FiEyeOff /> : <FiEye />}
+                        </InputGroup.Text>
+                      </InputGroup>
                     </Form.Label>
                   </Col>
                 </Form.Group>
