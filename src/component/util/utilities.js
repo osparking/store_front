@@ -70,7 +70,7 @@ export const storeJWT = (token, save_login) => {
 };
 
 export const getStorageToken = () => {
-  return localStorage.getItem("TOKEN") || sessionStorage.getItem("TOKEN");
+  return getValidJWT_removeIfNot() || sessionStorage.getItem("TOKEN");
 };
 
 export const setDifference = (arrA, arrB) => {
@@ -185,6 +185,27 @@ export const expiredTokenRemoved = () => {
     return true;
   }
 };
+
+const getValidJWT_removeIfNot = () => {
+  const token = localStorage.getItem("TOKEN");
+
+  if (token) {
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      const currentTime = Date.now() / 1000;
+
+      if (payload.exp > currentTime) {
+        return token;
+      }else {
+        localStorage.removeItem("TOKEN")
+      }
+    } catch (error) {
+      localStorage.removeItem("TOKEN")
+      console.error("Error decoding token:", error);
+    }
+  }
+  return undefined;
+}
 
 const removeStorageToken = () => {
   if ("true" === localStorage.getItem("SAVE_LOGIN")) {
