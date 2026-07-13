@@ -1,6 +1,6 @@
 import axios, { HttpStatusCode } from "axios";
 import toast from "react-hot-toast";
-import { expiredTokenRemoved, getStorageToken } from "./utilities";
+import { getStorageToken } from "./utilities";
 
 const prefix = "http://localhost:9193/api/s1";
 
@@ -16,17 +16,16 @@ export const apic = axios.create({
 export async function callWithToken(method, urlSuffix, data = null) {
   try {
     const token = getStorageToken();
-    if (token) {
-      console.log("url: ", `${prefix}${urlSuffix}`);
 
-      if (expiredTokenRemoved()) {
-        window.location.href = "/login";
-        return Promise.reject(new Error("Token expired"));
-      }
+    if (!token) {
+      window.location.href = "/login";
+    } else {
+      const backendUrl = `${prefix}${urlSuffix}`;
 
+      console.log("backendUrl: ", backendUrl);
       let config = {
         method: method,
-        url: `${prefix}${urlSuffix}`,
+        url: backendUrl,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -47,8 +46,6 @@ export async function callWithToken(method, urlSuffix, data = null) {
       }
       const result = await axios(config);
       return result;
-    } else {
-      return null;
     }
   } catch (err) {
     console.error("erro:", err);
