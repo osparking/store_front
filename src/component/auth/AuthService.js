@@ -54,9 +54,11 @@ export const clearLoginUserInfo = () => {
   sessionStorage.removeItem("TOKEN");
 };
 
-export const logoutUser = () => {
+export const logoutUser = (detail) => {
   clearLoginUserInfo();
-  window.dispatchEvent(new Event("logoutEvt"));
+  window.dispatchEvent(
+    new CustomEvent("logoutEvt", { detail: detail }),
+  );
 };
 
 export const verify_token = async (token) => {
