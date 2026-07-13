@@ -21,10 +21,13 @@ const OAuth2RedirectHandler = () => {
     window.dispatchEvent(new Event("loginEvt"));
 
     // Check for stored pre-login URL
-    const landingUrl =
-      sessionStorage.getItem("preLoginUrl") || `/dashboard/${user.id}/user`;
-    sessionStorage.removeItem("preLoginUrl");
+    let landingUrl = "/";
+    const preLoginUrl = sessionStorage.getItem("preLoginUrl");
 
+    if (preLoginUrl) {
+      landingUrl = preLoginUrl;
+      sessionStorage.removeItem("preLoginUrl");
+    }
     navigate(landingUrl, { replace: true });
   };
 
