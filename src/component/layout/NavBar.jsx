@@ -47,9 +47,21 @@ const NavBar = () => {
   };
 
   const navigate = useNavigate();
-  const handleLogout = () => {
+  const handleLogout = (event) => {
+    const { path, message } = event?.detail || { path: "", message: "" };
+
     checkIfAdmin();
-    navigate("/");
+    if (message) {
+      navigate(path, {
+        state: {
+          success: false,
+          message: message,
+          id: Date.now(),
+        },
+      });
+    } else {
+      navigate(path);
+    }
   };
   const loginId = localStorage.getItem("LOGIN_ID");
 
