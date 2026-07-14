@@ -70,7 +70,26 @@ export const storeJWT = (token, save_login) => {
 };
 
 export const getStorageToken = () => {
-  return getValidJWT_removeIfNot() || sessionStorage.getItem("TOKEN");
+  const token =
+    localStorage.getItem("TOKEN") || sessionStorage.getItem("TOKEN");
+
+  if (token) {
+    try {
+      const currentTime = new Date().getTime();
+      const payload = JSON.parse(atob(token.split(".")[1]));
+
+      if (payload.exp * 1000 > currentTime) {
+        return token;
+      } else {
+        console.log("만료된 토큰 제거");
+        localStorage.removeItem("TOKEN");
+      }
+    } catch (error) {
+      localStorage.removeItem("TOKEN");
+      console.error("Error decoding token:", error);
+    }
+  }
+  return undefined;
 };
 
 export const setDifference = (arrA, arrB) => {
@@ -185,27 +204,6 @@ export const expiredTokenRemoved = () => {
     return true;
   }
 };
-
-const getValidJWT_removeIfNot = () => {
-  const token = localStorage.getItem("TOKEN");
-
-  if (token) {
-    try {
-      const payload = JSON.parse(atob(token.split(".")[1]));
-      const currentTime = Date.now() / 1000;
-
-      if (payload.exp > currentTime) {
-        return token;
-      }else {
-        localStorage.removeItem("TOKEN")
-      }
-    } catch (error) {
-      localStorage.removeItem("TOKEN")
-      console.error("Error decoding token:", error);
-    }
-  }
-  return undefined;
-}
 
 const removeStorageToken = () => {
   if ("true" === localStorage.getItem("SAVE_LOGIN")) {
