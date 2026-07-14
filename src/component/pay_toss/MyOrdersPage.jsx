@@ -19,7 +19,9 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
   const [searchResult, setSearchResult] = useState();
   const idxLastPlus1 = currentPage * pageSize;
   const indexOfFirst = idxLastPlus1 - pageSize;
-  const { ordersVersion } = useContext(ReviewsContext);
+
+  const reviewContext = useContext(ReviewsContext);
+  let ordersVersion = reviewContext?.ordersVersion || undefined;
   const loginId = localStorage.getItem("LOGIN_ID");
 
   useEffect(() => {
