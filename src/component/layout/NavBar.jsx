@@ -8,7 +8,7 @@ import { RootContext } from "./RootLayout";
 
 const NavBar = () => {
   const { userVersion } = useContext(RootContext);
-  const beforeLogin = getStorageToken() === null;
+  const beforeLogin = !getStorageToken();
 
   if (beforeLogin) {
     clearLoginUserInfo();

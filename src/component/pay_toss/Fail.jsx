@@ -1,5 +1,5 @@
 import { Button, Container } from "react-bootstrap";
-import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export function FailPage() {
   const [searchParams] = useSearchParams();
