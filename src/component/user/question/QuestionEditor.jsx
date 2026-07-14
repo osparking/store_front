@@ -9,6 +9,8 @@ import "../../../App.css";
 import { expiredTokenRemoved, getPlainContent } from "../../util/utilities";
 import "./QuestionEditor.css";
 import { saveQuestion } from "./QuestionService";
+import { HttpStatusCode } from "axios";
+import { logoutUser } from "../../auth/AuthService";
 
 function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
   const navigate = useNavigate();
@@ -68,20 +70,22 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
         question: editorContent,
       };
 
-      await saveQuestion(questionData);
+      const result = await saveQuestion(questionData);
 
-      toast.success("질문 저장 성공.");
-      localStorage.setItem("DASHBOARD_TAB", "my_question");
-      localStorage.setItem("QUESTION_PAGE", 1);
+      if (result) {
+        toast.success("질문 저장 성공.");
+        localStorage.setItem("DASHBOARD_TAB", "my_question");
+        localStorage.setItem("QUESTION_PAGE", 1);
 
-      if (setReloadPage) {
-        // 모달 내포 퀼 편집기 - 갱신된 질문 저장
-        setReloadPage(true);
-        handleClose();
-      } else {
-        // 고객 질문 입력 후 저장 처리
-        const id = localStorage.getItem("LOGIN_ID");
-        navigate(`/dashboard/${id}/user`);
+        if (setReloadPage) {
+          // 모달 내포 퀼 편집기 - 갱신된 질문 저장
+          setReloadPage(true);
+          handleClose();
+        } else {
+          // 고객 질문 입력 후 저장 처리
+          const id = localStorage.getItem("LOGIN_ID");
+          navigate(`/dashboard/${id}/user`);
+        }
       }
     } catch (err) {
       console.error("err: ", err);
