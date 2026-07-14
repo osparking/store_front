@@ -4,8 +4,8 @@ export async function saveQuestion(data) {
   try {
     // await new Promise((resolve) => setTimeout(resolve, 1000));
     const result = await callWithToken("post", "/question/add", data);
-    console.log("QuestionService: ", result.data);
-    return result.data;
+    console.log("QuestionService: ", result?.data);
+    return result?.data;
   } catch (err) {
     throw err;
   }
@@ -17,7 +17,7 @@ export async function getMyQuestionsPage(page, size) {
   try {
     const result = await callWithToken(
       "get",
-      `${urlPrefix}${page}&size=${size}`
+      `${urlPrefix}${page}&size=${size}`,
     );
     return result?.data.data;
   } catch (err) {
@@ -31,7 +31,7 @@ export async function getQuestionPage(page, size) {
   try {
     const result = await callWithToken(
       "get",
-      `${urlPrefix}${page}&size=${size}`
+      `${urlPrefix}${page}&size=${size}`,
     );
     return result.data.data;
   } catch (err) {
@@ -69,5 +69,5 @@ export async function deleteFollowUp(id) {
     return result.data;
   } catch (err) {
     throw err;
-  }  
+  }
 }
