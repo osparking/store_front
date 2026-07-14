@@ -49,18 +49,24 @@ export async function callWithToken(method, urlSuffix, data = null) {
       return result;
     }
   } catch (err) {
-    console.error("erro:", err);
-    if (
-      err.response.status === HttpStatusCode.Forbidden ||
-      err.response.status === HttpStatusCode.Unauthorized
-    ) {
-      toast.error(err?.response?.data.message);
+    console.error("callWithToken 오류: ", err);
+    if (err.response?.status === HttpStatusCode.Forbidden) {
+      toast.error("금지된 요청 - " + err?.response?.data.message);
       return null;
     } else if (
-      err.response.status === HttpStatusCode.InternalServerError &&
-      err.response.data.message.includes("JWT expired")
+      err.status === HttpStatusCode.Unauthorized      
     ) {
-      logoutUser({path: "/login", message: "인증이 만료되었습니다."});
+      let message = "인증 오류. 내용: 콘솔 확인";
+      
+      if (err.response.data.message.includes("JWT가 만료")) {
+        message = "인증이 만료되었습니다.";
+      } else {
+        console.error("자격 오류: " + err?.response?.data.message);
+      }
+      logoutUser({ path: "/login", message: message  });
+      return null;
+    } else if (err.response?.status === HttpStatusCode.InternalServerError) {
+      toast.error("서버 오류 - " + err?.response?.data.message);
       throw err;
     } else {
       throw err;
