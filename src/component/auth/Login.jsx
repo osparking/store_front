@@ -163,16 +163,17 @@ const Login = () => {
     }
     try {
       const response = await loginUser(credentials.email, credentials.password);
-      const data = response.data.data;
+      const data = response.data;
+      
       if (response.status === HTTP_STATUS.OK) {
-        let user = jwtToUser(data.token);
+        let user = jwtToUser(data.data.token);
         if (user.twoFaEnabled) {
           setUser(user);
-          setJwtToken(data.token);
+          setJwtToken(data.data.token);
           setShowCodeModal(true);
         } else {
           storeLoginInfo(user);
-          storeJWT(data.token, credentials.save_login);
+          storeJWT(data, credentials.save_login);
           window.dispatchEvent(new Event("loginEvt"));
           navigate(location.state?.from || "/", {
             replace: true,
