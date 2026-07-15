@@ -41,6 +41,7 @@ export const clearLoginUserInfo = () => {
     "REVIEW_PAGE_CUSTOMER",
     "SAVE_LOGIN",
     "TOKEN",
+    "REFRESH",
     "USER",
     "WORKER_TAB",
   ];
@@ -52,6 +53,7 @@ export const clearLoginUserInfo = () => {
   });
 
   sessionStorage.removeItem("TOKEN");
+  sessionStorage.removeItem("REFRESH");
 };
 
 export const logoutUser = (detail) => {
