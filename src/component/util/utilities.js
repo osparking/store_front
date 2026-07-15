@@ -59,37 +59,42 @@ export const storeLoginInfo = (user) => {
   localStorage.setItem("IS_WORKER", user.isWorker);
 };
 
-export const storeJWT = (token, save_login) => {
-  if (save_login) {
-    // ON: localStorage에 저장 (브라우저 종료 후에도 유지)
-    localStorage.setItem("TOKEN", token);
-  } else {
-    // OFF: sessionStorage에 저장 (브라우저/탭 종료 시 삭제)
-    sessionStorage.setItem("TOKEN", token);
-  }
+export const storeJWT = (data, save_login) => {
+  // localStorage: 브라우저 종료 후에도 유지
+  // sessionStorage: 브라우저/탭 종료 시 삭제
+  const storage = save_login ? localStorage : sessionStorage;
+  
+  storage.setItem("TOKEN", data.data.token);
+  storage.setItem("REFRESH", data.data.refresh);
+};
+
+export const clearTokens = () => {
+  localStorage.removeItem("TOKEN");
+  sessionStorage.removeItem("TOKEN");
+  localStorage.removeItem("REFRESH");
+  sessionStorage.removeItem("REFRESH");
 };
 
 export const getStorageToken = () => {
-  const token =
-    localStorage.getItem("TOKEN") || sessionStorage.getItem("TOKEN");
+  const save_login = "true" === localStorage.getItem("SAVE_LOGIN");
+  const storage = save_login ? localStorage : sessionStorage;
+  const token = storage.getItem("TOKEN");
 
   if (token) {
     try {
-      const currentTime = new Date().getTime();
       const payload = JSON.parse(atob(token.split(".")[1]));
 
-      if (payload.exp * 1000 > currentTime) {
+      if (payload.exp * 1000 > Date.now()) {
         return token;
       } else {
-        console.log("만료된 토큰 제거");
-        localStorage.removeItem("TOKEN");
+        storage.removeItem("TOKEN");
       }
     } catch (error) {
-      localStorage.removeItem("TOKEN");
+      storage.removeItem("TOKEN");
       console.error("Error decoding token:", error);
     }
   }
-  return undefined;
+  return null;
 };
 
 export const setDifference = (arrA, arrB) => {
