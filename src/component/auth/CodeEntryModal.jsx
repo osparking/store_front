@@ -9,7 +9,7 @@ import { storeJWT, storeLoginInfo } from "../util/utilities";
 
 import "../../App.css";
 
-const CodeEntryModal = ({ show, handleHide, jwtToken, user, save_login }) => {
+const CodeEntryModal = ({ show, handleHide, jwtToken, user }) => {
   
   const [code, setCode] = useState("");
   const [verifying, setVerifying] = useState(false);
@@ -32,7 +32,7 @@ const CodeEntryModal = ({ show, handleHide, jwtToken, user, save_login }) => {
         },
       });
       storeLoginInfo(user);
-      storeJWT(jwtToken, save_login);
+      storeJWT(jwtToken);
       window.dispatchEvent(new Event("loginEvt"));
       navigate(`/dashboard/${user.id}/user`);
     } catch (error) {
