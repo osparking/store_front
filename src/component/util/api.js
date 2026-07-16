@@ -30,8 +30,7 @@ const refreshAccessToken = async () => {
     const response = await axios.post(`${prefix}/autho/refresh_token`, {
       refreshToken: refreshToken,
     });
-    const save_login = "true" === localStorage.getItem("SAVE_LOGIN");
-    storeJWT(response.data, save_login);
+    storeJWT(response.data);
 
     return response.data.data.token;
   } catch (error) {
