@@ -50,8 +50,7 @@ const OAuth2RedirectHandler = () => {
           setUser(user);
         } else {
           loginAfterProcessing(user);
-          const save_login = "true" === localStorage.getItem("SAVE_LOGIN");
-          storeJWT(token, save_login);
+          storeJWT(token);
         }
       } catch (error) {
         console.error("토큰 해독 오류:", error);
