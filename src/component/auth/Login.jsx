@@ -61,14 +61,14 @@ const Login = () => {
   const [credentials, setCredentials] = useState(
     isDevelopment
       ? {
-          email: "jbpark103@hanmail.net",
+          email: "customer3@email.com",
           password: "1234",
-          save_login: localStorage.getItem("SAVE_LOGIN") === "true",
+          save_login: false,
         }
       : {
           email: "",
           password: "",
-          save_login: localStorage.getItem("SAVE_LOGIN") === "true",
+          save_login: false,
         },
   );
 
@@ -118,15 +118,14 @@ const Login = () => {
     fetchToken();
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("SAVE_LOGIN", credentials.save_login);
-  }, [credentials.save_login]);
-
   const handleChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
   const handleCheckChange = (e) => {
+    if (e.target.name === "save_login") {
+      localStorage.setItem("SAVE_LOGIN", e.target.checked);
+    }
     setCredentials({ ...credentials, [e.target.name]: e.target.checked });
   };
 
@@ -151,7 +150,6 @@ const Login = () => {
 
     // 해당 id를 처리됨으로 기록
     processedIds.add(id);
-
   }, [location.state]);
 
   const actLogin = async (e) => {
@@ -164,7 +162,7 @@ const Login = () => {
     try {
       const response = await loginUser(credentials.email, credentials.password);
       const data = response.data;
-      
+
       if (response.status === HTTP_STATUS.OK) {
         let user = jwtToUser(data.data.token);
         if (user.twoFaEnabled) {
@@ -354,7 +352,6 @@ const Login = () => {
           handleHide={hideCodeModal}
           jwtToken={jwtToken}
           user={user}
-          save_login={credentials.save_login}
         />
       )}
       <Row id="login-row" className="justify-content-center">
