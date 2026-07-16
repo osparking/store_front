@@ -63,7 +63,7 @@ export const storeJWT = (data, save_login) => {
   // localStorage: 브라우저 종료 후에도 유지
   // sessionStorage: 브라우저/탭 종료 시 삭제
   const storage = save_login ? localStorage : sessionStorage;
-  
+
   storage.setItem("TOKEN", data.data.token);
   storage.setItem("REFRESH", data.data.refresh);
 };
@@ -75,26 +75,15 @@ export const clearTokens = () => {
   sessionStorage.removeItem("REFRESH");
 };
 
-export const getStorageToken = () => {
+export const getStorage = () => {
   const save_login = "true" === localStorage.getItem("SAVE_LOGIN");
-  const storage = save_login ? localStorage : sessionStorage;
-  const token = storage.getItem("TOKEN");
+  return save_login ? localStorage : sessionStorage;
+};
 
-  if (token) {
-    try {
-      const payload = JSON.parse(atob(token.split(".")[1]));
+export const getStorageToken = () => {
+  const storage = getStorage();
 
-      if (payload.exp * 1000 > Date.now()) {
-        return token;
-      } else {
-        storage.removeItem("TOKEN");
-      }
-    } catch (error) {
-      storage.removeItem("TOKEN");
-      console.error("Error decoding token:", error);
-    }
-  }
-  return null;
+  return storage.getItem("TOKEN");
 };
 
 export const setDifference = (arrA, arrB) => {
@@ -185,30 +174,6 @@ export function handlePhoneChange(e, setPhoneNumber) {
 export function getPlainContent(htmlContent) {
   return htmlContent.replace(/<[^>]*>/g, "").trim();
 }
-
-export const expiredTokenRemoved = () => {
-  const token = getStorageToken();
-
-  if (token) {
-    try {
-      const payload = JSON.parse(atob(token.split(".")[1]));
-      const currentTime = Date.now() / 1000;
-
-      if (payload.exp > currentTime) {
-        return false;
-      } else {
-        removeStorageToken();
-        return true;
-      }
-    } catch (error) {
-      removeStorageToken();
-      console.error("Error decoding token:", error);
-      return true;
-    }
-  } else {
-    return true;
-  }
-};
 
 const removeStorageToken = () => {
   if ("true" === localStorage.getItem("SAVE_LOGIN")) {
