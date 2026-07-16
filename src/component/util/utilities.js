@@ -59,10 +59,10 @@ export const storeLoginInfo = (user) => {
   localStorage.setItem("IS_WORKER", user.isWorker);
 };
 
-export const storeJWT = (data, save_login) => {
+export const storeJWT = (data) => {
   // localStorage: 브라우저 종료 후에도 유지
   // sessionStorage: 브라우저/탭 종료 시 삭제
-  const storage = save_login ? localStorage : sessionStorage;
+  const storage = getStorage();
 
   storage.setItem("TOKEN", data.data.token);
   storage.setItem("REFRESH", data.data.refresh);
@@ -174,14 +174,6 @@ export function handlePhoneChange(e, setPhoneNumber) {
 export function getPlainContent(htmlContent) {
   return htmlContent.replace(/<[^>]*>/g, "").trim();
 }
-
-const removeStorageToken = () => {
-  if ("true" === localStorage.getItem("SAVE_LOGIN")) {
-    localStorage.removeItem("TOKEN"); // 토큰 제거됨
-  } else {
-    sessionStorage.removeItem("TOKEN");
-  }
-};
 
 export const getRecordRange = (thePage, idxFirst, idxLastPlus1, name) => {
   const recordRange =
