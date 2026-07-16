@@ -1,7 +1,6 @@
 import axios, { HttpStatusCode } from "axios";
-import toast from "react-hot-toast";
 import { logoutUser } from "../auth/AuthService";
-import { getStorageToken } from "./utilities";
+import { clearTokens, getStorageToken, storeJWT } from "./utilities";
 
 const prefix = "http://localhost:9193/api/s1";
 
@@ -14,62 +13,73 @@ export const apic = axios.create({
   withCredentials: true,
 });
 
-export async function callWithToken(method, urlSuffix, data = null) {
+// refresh 토큰으로 새 AT 발급 요청
+const refreshAccessToken = async () => {
+  const refreshToken =
+    localStorage.getItem("REFRESH") || sessionStorage.getItem("REFRESH");
+
+  if (!refreshToken) throw new Error("No refresh token");
+
   try {
-    const token = getStorageToken();
+    // RT를 Authorization 헤더가 아닌 별도로 전달 (또는 쿠키에 자동 포함)
+    const response = await axios.post(`${prefix}/autho/refresh_token`, {
+      refreshToken: refreshToken,
+    });
+    const save_login = "true" === localStorage.getItem("SAVE_LOGIN");
+    storeJWT(response.data, save_login);
+
+    return response.data.data.token;
+  } catch (error) {
+    // 갱신 실패 (RT 만료, 무효 등)
+    clearTokens();
+    throw error;
+  }
+};
+
+// 빌드 헬퍼 (중복 코드 제거)
+function buildConfig(method, urlSuffix, data, token) {
+  const config = {
+    method,
+    url: `${prefix}${urlSuffix}`,
+    headers: { Authorization: `Bearer ${token}` },
+  };
+  if (data) {
+    config.data = data;
+    if (!(data instanceof FormData)) {
+      config.headers["Content-Type"] = "application/json";
+    }
+  }
+  return config;
+}
+
+export async function callWithToken(method, urlSuffix, data = null) {
+  const originalRequest = async (token) => {
+    const config = buildConfig(method, urlSuffix, data, token);
+    return await axios(config);
+  };
+
+  try {
+    let token = getStorageToken();
 
     if (!token) {
-      window.location.href = "/login";
-    } else {
-      const backendUrl = `${prefix}${urlSuffix}`;
-
-      console.log("backendUrl: ", backendUrl);
-      let config = {
-        method: method,
-        url: backendUrl,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-      if (data) {
-        config = {
-          method: method,
-          url: `${prefix}${urlSuffix}`,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          data: data,
-          withCredentials: true,
-        };
-        if (!(data instanceof FormData)) {
-          config.headers["Content-Type"] = "application/json";
-        }
-      }
-      const result = await axios(config);
-      return result;
+      console.log("tokens refreshed");
+      token = await refreshAccessToken();
     }
+    return await originalRequest(token);
   } catch (err) {
     console.error("callWithToken 오류: ", err);
-    if (err.response?.status === HttpStatusCode.Forbidden) {
-      toast.error("금지된 요청 - " + err?.response?.data.message);
-      return null;
-    } else if (
-      err.status === HttpStatusCode.Unauthorized      
-    ) {
-      let message = "인증 오류. 내용: 콘솔 확인";
-      
-      if (err.response.data.message.includes("JWT가 만료")) {
-        message = "인증이 만료되었습니다.";
-      } else {
-        console.error("자격 오류: " + err?.response?.data.message);
+    // 401 Unauthorized state 때, 갱신 후, 요청 재시도
+    if (err.response?.status === HttpStatusCode.Unauthorized) {
+      try {
+        const newToken = await refreshAccessToken();
+        // 갱신 성공 시 원래 요청 재시도
+        return await originalRequest(newToken);
+      } catch (refreshError) {
+        // 갱신 실패 -> 로그아웃
+        logoutUser({ path: "/login", message: "인증이 만료되었습니다." });
+        return null;
       }
-      logoutUser({ path: "/login", message: message  });
-      return null;
-    } else if (err.response?.status === HttpStatusCode.InternalServerError) {
-      toast.error("서버 오류 - " + err?.response?.data.message);
-      throw err;
-    } else {
-      throw err;
     }
+    throw err;
   }
 }
