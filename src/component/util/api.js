@@ -1,6 +1,11 @@
 import axios, { HttpStatusCode } from "axios";
 import { logoutUser } from "../auth/AuthService";
-import { clearTokens, getStorageToken, storeJWT } from "./utilities";
+import {
+  clearTokens,
+  getStorage,
+  getStorageToken,
+  storeJWT,
+} from "./utilities";
 
 const prefix = "http://localhost:9193/api/s1";
 
@@ -36,7 +41,7 @@ const refreshAccessToken = async () => {
   }
 };
 
-// 빌드 헬퍼 (중복 코드 제거)
+// 빌드 헬퍼
 function buildConfig(method, urlSuffix, data, token) {
   const config = {
     method,
@@ -52,6 +57,11 @@ function buildConfig(method, urlSuffix, data, token) {
   return config;
 }
 
+const isExpired = (token) => {
+  const payload = JSON.parse(atob(token.split(".")[1]));
+  return payload.exp * 1000 <= Date.now();
+};
+
 export async function callWithToken(method, urlSuffix, data = null) {
   const originalRequest = async (token) => {
     const config = buildConfig(method, urlSuffix, data, token);
@@ -60,6 +70,11 @@ export async function callWithToken(method, urlSuffix, data = null) {
 
   try {
     let token = getStorageToken();
+
+    if (token && isExpired(token)) {
+      const storage = getStorage();
+      storage.removeItem("TOKEN");
+    }
 
     if (!token) {
       console.log("tokens refreshed");
@@ -72,6 +87,7 @@ export async function callWithToken(method, urlSuffix, data = null) {
     if (err.response?.status === HttpStatusCode.Unauthorized) {
       try {
         const newToken = await refreshAccessToken();
+        console.log("두 토큰 리프레시 성공 :-)");
         // 갱신 성공 시 원래 요청 재시도
         return await originalRequest(newToken);
       } catch (refreshError) {
