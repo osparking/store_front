@@ -49,6 +49,7 @@ function buildConfig(method, urlSuffix, data, token) {
   };
   if (data) {
     config.data = data;
+    config.withCredentials = true;
     if (!(data instanceof FormData)) {
       config.headers["Content-Type"] = "application/json";
     }
