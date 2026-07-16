@@ -6,11 +6,9 @@ import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css"; // Import styles
 import { useNavigate } from "react-router-dom";
 import "../../../App.css";
-import { expiredTokenRemoved, getPlainContent } from "../../util/utilities";
+import { getPlainContent } from "../../util/utilities";
 import "./QuestionEditor.css";
 import { saveQuestion } from "./QuestionService";
-import { HttpStatusCode } from "axios";
-import { logoutUser } from "../../auth/AuthService";
 
 function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
   const navigate = useNavigate();
@@ -129,15 +127,6 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
   const quillRef = useRef(null);
 
   useEffect(() => {
-    if (expiredTokenRemoved()) {
-      navigate("/login", {
-        state: {
-          from: "/question",
-          source: "question",
-        },
-      });
-    }
-
     const handleTitleKeyDown = (e) => {
       if (e.key === "Tab" && !e.shiftKey) {
         e.preventDefault();
