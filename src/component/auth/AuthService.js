@@ -23,37 +23,8 @@ export async function getEmailViaToken(token) {
 }
 
 export const clearLoginUserInfo = () => {
-  const items = [
-    "ADMIN_TAB",
-    "CURR_INGRE_PAGE",
-    "DASHBOARD_TAB",
-    "INGRE_NAME",
-    "IS_ADMIN",
-    "LOGIN_ID",
-    "ORDER_ACTION",
-    "ORDER_ID",
-    "ORDER_ID_TOSS",
-    "ORDER_PAGE_고객",
-    "ORDER_PAGE_WORKER",
-    "QUESTION_PAGE_관리",
-    "QUESTION_PAGE",
-    "REVIEW_PAGE_고객",
-    "REVIEW_PAGE_CUSTOMER",
-    "SAVE_LOGIN",
-    "TOKEN",
-    "REFRESH",
-    "USER",
-    "WORKER_TAB",
-  ];
-
-  items.push("IS_WORKER");
-
-  items.forEach((item) => {
-    localStorage.removeItem(item);
-  });
-
-  sessionStorage.removeItem("TOKEN");
-  sessionStorage.removeItem("REFRESH");
+  localStorage.clear();
+  sessionStorage.clear();
 };
 
 export const logoutUser = (detail) => {
