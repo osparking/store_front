@@ -1,6 +1,6 @@
 import axios, { HttpStatusCode } from "axios";
 import { logoutUser } from "../auth/AuthService";
-import { clearTokens, getStorage, getStorageToken } from "./utilities";
+import { clearTokens, getStorage, getStorageToken, storeJWT } from "./utilities";
 
 axios.defaults.withCredentials = true; // 모든 요청에 쿠키 포함
 axios.defaults.headers.common["Content-Type"] = "application/json";
