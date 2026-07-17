@@ -65,14 +65,11 @@ export const storeJWT = (data) => {
   const storage = getStorage();
 
   storage.setItem("TOKEN", data.data.token);
-  storage.setItem("REFRESH", data.data.refresh);
 };
 
 export const clearTokens = () => {
   localStorage.removeItem("TOKEN");
   sessionStorage.removeItem("TOKEN");
-  localStorage.removeItem("REFRESH");
-  sessionStorage.removeItem("REFRESH");
 };
 
 export const getStorage = () => {
