@@ -1,11 +1,9 @@
 import axios, { HttpStatusCode } from "axios";
 import { logoutUser } from "../auth/AuthService";
-import {
-  clearTokens,
-  getStorage,
-  getStorageToken,
-  storeJWT,
-} from "./utilities";
+import { clearTokens, getStorage, getStorageToken } from "./utilities";
+
+axios.defaults.withCredentials = true; // 모든 요청에 쿠키 포함
+axios.defaults.headers.common["Content-Type"] = "application/json";
 
 const prefix = "http://localhost:9193/api/s1";
 
@@ -20,19 +18,17 @@ export const apic = axios.create({
 
 // refresh 토큰으로 새 AT 발급 요청
 const refreshAccessToken = async () => {
-  const refreshToken =
-    localStorage.getItem("REFRESH") || sessionStorage.getItem("REFRESH");
-
-  if (!refreshToken) throw new Error("No refresh token");
-
   try {
-    // RT를 Authorization 헤더가 아닌 별도로 전달 (또는 쿠키에 자동 포함)
-    const response = await axios.post(`${prefix}/autho/refresh_token`, {
-      refreshToken: refreshToken,
+    // RT 제출 방식 - Authorization 헤더 대신 쿠키에 자동 포함
+    const response = await axios.post(`${prefix}/autho/refresh_token`, null, {
+      withCredentials: true,
     });
-    storeJWT(response.data);
-
-    return response.data.data.token;
+    if (response.data?.data?.token) {
+      storeJWT(response.data);
+      
+      return response.data.data.token;
+    }
+    throw new Error("New access token not received");
   } catch (error) {
     // 갱신 실패 (RT 만료, 무효 등)
     clearTokens();
@@ -74,6 +70,7 @@ export async function callWithToken(method, urlSuffix, data = null) {
     if (token && isExpired(token)) {
       const storage = getStorage();
       storage.removeItem("TOKEN");
+      token = null;
     }
 
     if (!token) {
