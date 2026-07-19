@@ -92,7 +92,7 @@ const UserUpdate = () => {
     setUser({ ...user, [e.target.name]: e.target.checked });
   };
 
-  const refreshUser = rootContext.refreshUser;
+  const refreshUser = rootContext?.refreshUser;
 
   const handleUpdate = async (event) => {
     event.preventDefault();
