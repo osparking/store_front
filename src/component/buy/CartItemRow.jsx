@@ -17,7 +17,7 @@ const CartItemRow = ({
   setCarouselImages,
   delSoapItem,
 }) => {
-  function handleCountChange(e) {
+  function handleCountChange(e, index) {
     setCarouselImages(item.shapeLabel.substring(0, 2));
     const inventory =
       optionLabels.find((label) =>
@@ -30,7 +30,7 @@ const CartItemRow = ({
       alert("최소 1개 이상 입력해주세요.");
       e.target.value = 1;
     }
-    handleInputChange(e);
+    handleInputChange(e, index);
   }
 
   function handleCheckChange(e) {
@@ -63,7 +63,7 @@ const CartItemRow = ({
           max={item.inventory}
           value={item.count}
           placeholder="수량"
-          onChange={handleCountChange}
+          onChange={(e) => handleCountChange(e, index)}
           required
         />
       </Col>
