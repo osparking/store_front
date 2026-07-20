@@ -37,11 +37,12 @@ const Recipient = () => {
 
   const [recipientDefault, setRecipientDefault] = useState(null);
   const user = JSON.parse(localStorage.getItem("USER"));
-  if (!user) 
-    return;
 
   useEffect(() => {
-    const readDefaultRecipient = async () => {
+    const readDefaultRecipient = async () => {      
+      if (!user) 
+        return;
+
       try {
         const response = await getDefaultRecipient(user.id);
         const recipientDto = response.data;
@@ -108,8 +109,8 @@ const Recipient = () => {
       roadAddress: "",
       zbunAddress: "",
     },
-    mbPhone: user.mbPhone,
-    fullName: user.fullName,
+    mbPhone: user?.mbPhone,
+    fullName: user?.fullName,
   };
 
   const [formData, setFormData] = useState(
