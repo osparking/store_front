@@ -144,6 +144,20 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
     readCart();
   }
 
+  const handleInputChange = (e, index) => {
+    handlePropChange(e, setFormData, index);
+
+    if (e.target.name === "count") {
+      const formItems = formData.items;
+
+      formItems[index] = {
+        ...formItems[index],
+        subTotal: formItems[index].unitPrice * e.target.value,
+      };
+      setFormData({ ...formData, items: formItems });
+    }
+  };
+
   return (
     <div className="order-form">
       <Form onSubmit={handleSubmit}>
@@ -163,9 +177,7 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
                   index={index}
                   item={item}
                   optionLabels={optionLabels}
-                  handleInputChange={(e) =>
-                    handlePropChange(e, setFormData, index)
-                  }
+                  handleInputChange={handleInputChange}
                   setCarouselImages={setCarouselImages}
                   delSoapItem={delCartItem}
                 />
