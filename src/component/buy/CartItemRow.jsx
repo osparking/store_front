@@ -33,9 +33,9 @@ const CartItemRow = ({
     handleInputChange(e, index);
   }
 
-  function handleCheckChange(e) {
+  function handleCheckChange(e, index) {
     setCarouselImages(item.shapeLabel.substring(0, 2));
-    handleInputChange(e);
+    handleInputChange(e, index);
   }
 
   return (
@@ -49,7 +49,7 @@ const CartItemRow = ({
             id={`putOrder${index}`}
             checked={item.isChecked}
             label={item.shapeLabel}
-            onChange={handleCheckChange}
+            onChange={(e) => handleCheckChange(e, index)}
           />
         </OverlayTrigger>
       </Col>
