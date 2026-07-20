@@ -42,7 +42,7 @@ const NavBar = () => {
         setIdentity("<" + user.loginMethod + ">");
       }
     } else {
-      setIdentity("(로그인 前)");
+      setIdentity("<로그인 전>");
     }
   };
 
