@@ -147,6 +147,7 @@ const RecipientInfo = ({
                 </OverlayTrigger>
                 <OverlayTrigger overlay={<Tooltip>[결 제] 때 저장됨</Tooltip>}>
                   <Form.Check
+                    id="default-recipient-checkbox"
                     type="checkbox"
                     name="isDefaultRecipient"
                     label="기본 주소 갱신"
