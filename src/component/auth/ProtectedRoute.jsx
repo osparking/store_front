@@ -25,8 +25,8 @@ const ProtectedRoute = ({ children, allowedRoles = [], useOutlet = false }) => {
     // Outlet 태그 혹은 자식 성분을 표출
     return useOutlet ? <Outlet /> : children;
   } else {
-    // 접근 비인가 페이지로 재방향
-    return <Navigate to="/unauthorized" state={{ from: location }} replace />;
+    // 로그인 페이지로 재방향
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 };
 
