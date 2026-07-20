@@ -37,6 +37,8 @@ const Recipient = () => {
 
   const [recipientDefault, setRecipientDefault] = useState(null);
   const user = JSON.parse(localStorage.getItem("USER"));
+  if (!user) 
+    return;
 
   useEffect(() => {
     const readDefaultRecipient = async () => {
