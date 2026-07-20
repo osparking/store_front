@@ -56,13 +56,17 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
   }, [selectedItems]);
 
   function enterDeliveryInfo() {
-    navigate("/recipient", {
-      state: {
-        formItems: formData.items,
-        subTotal: subTotal,
-        source: "shoppingCart",
-      },
-    });
+    if (countsAreEqual(formData.items)) {
+      navigate("/recipient", {
+        state: {
+          formItems: formData.items,
+          subTotal: subTotal,
+          source: "shoppingCart",
+        },
+      });
+    } else {
+      confirm("변경된 수량을 저장하거나 취소하십시오.");
+    }
   }
 
   const handleSubmit = (e) => {
@@ -71,7 +75,11 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
 
   const navigate = useNavigate();
   function gotoOrderForm() {
-    navigate("/buy_soap");
+    if (countsAreEqual(formData.items)) {
+      navigate("/buy_soap");
+    } else {
+      confirm("변경된 수량을 저장하거나 취소하십시오.");
+    }
   }
 
   const [cartInDB, setCartInDB] = useState([]);
