@@ -39,9 +39,8 @@ const Recipient = () => {
   const user = JSON.parse(localStorage.getItem("USER"));
 
   useEffect(() => {
-    const readDefaultRecipient = async () => {      
-      if (!user) 
-        return;
+    const readDefaultRecipient = async () => {
+      if (!user) return;
 
       try {
         const response = await getDefaultRecipient(user.id);
@@ -246,6 +245,8 @@ const Recipient = () => {
     setFocusPayButton(true);
   };
 
+  const addressDetailInputRef = useRef(null);
+
   return (
     <>
       <ConfirmationModal
@@ -298,6 +299,7 @@ const Recipient = () => {
                         isDefaultRecipient={isDefaultRecipient}
                         setIsDefaultRecipient={setIsDefaultRecipient}
                         defaultRecipient={recipientDefault}
+                        addressDetailInputRef={addressDetailInputRef}
                       />
                     </PayButtonContext.Provider>
                   </div>
