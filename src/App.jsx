@@ -62,22 +62,22 @@ function App() {
         <Route path="/email_verifin" element={<EmailVerifin />} />
         <Route path="/verify_token" element={<VerifyToken />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard/:id/user" element={<UserDashboard />} />
-        <Route path="/dashboard/admin" element={<AdminCanvas />} />
-        <Route path="/user/:id/update" element={<UserUpdate />} />
         <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
         <Route path="/soap_intro" element={<SoapIntro />} />
-        <Route path="/reviews" element={<ReviewTable />} />
 
         {/* 인증이 필요한 루트 */}
         <Route
           element={
             <ProtectedRoute
-              allowedRoles={["ROLE_ADMIN", "ROLE_WORKER", "ROLE_CUSTOMER"]}
-              useOutlet={true}
+            allowedRoles={["ROLE_ADMIN", "ROLE_WORKER", "ROLE_CUSTOMER"]}
+            useOutlet={true}
             />
           }
         >
+          <Route path="/dashboard/admin" element={<AdminCanvas />} />
+          <Route path="/user/:id/update" element={<UserUpdate />} />
+          <Route path="/reviews" element={<ReviewTable />} />
+          <Route path="/dashboard/:id/user" element={<UserDashboard />} />
           <Route path="/buy_soap" element={<BuySoap />} />
           <Route path="/shopping_cart" element={<BuySoap showCart={true} />} />
           <Route path="/recipient" element={<Recipient />} />
