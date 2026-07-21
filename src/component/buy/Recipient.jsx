@@ -246,6 +246,17 @@ const Recipient = () => {
   };
 
   const addressDetailInputRef = useRef(null);
+  const [focusDetailedAddr, setFocusDetailedAddr] = useState(false);
+
+  useEffect(() => {
+    if (focusDetailedAddr && addressDetailInputRef.current) {
+      setTimeout(() => {
+        addressDetailInputRef.current.focus();
+        addressDetailInputRef.current.select();
+      }, 200);
+      setFocusDetailedAddr(false);
+    }
+  }, [focusDetailedAddr]);
 
   return (
     <>
@@ -300,6 +311,7 @@ const Recipient = () => {
                         setIsDefaultRecipient={setIsDefaultRecipient}
                         defaultRecipient={recipientDefault}
                         addressDetailInputRef={addressDetailInputRef}
+                        setFocusDetailedAddr={setFocusDetailedAddr}
                       />
                     </PayButtonContext.Provider>
                   </div>
