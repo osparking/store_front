@@ -225,6 +225,8 @@ function WidgetCheckoutPage() {
 
     try {
       const user = JSON.parse(localStorage.getItem("USER"));
+      
+      if (!user) return;
 
       // Reset React state before navigation
       setReady(false);
