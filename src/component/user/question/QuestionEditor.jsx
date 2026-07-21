@@ -178,6 +178,14 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
                     defaultValue={question ? question.title : ""}
                     placeholder="(제목 입력)"
                     className="mt-0 ps-3 serif question-title-input"
+                    onKeyDown={(e) => {
+                      if (e.key === "Tab") {
+                        e.preventDefault(); // 기본 탭 이동 방지
+                        if (quillRef.current) {
+                          quillRef.current.focus(); // ReactQuill에 포커스
+                        }
+                      }
+                    }}
                   />
                 </Form.Group>
                 <Form.Label className="mt-3">
