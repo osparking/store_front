@@ -18,6 +18,7 @@ const RecipientInfo = ({
   putFocus2PayButton,
   defaultRecipient,
   addressDetailInputRef,
+  setFocusDetailedAddr,
 }) => {
   const [phoneNumber, setPhoneNumber] = useState(formData.mbPhone);
   const [noPurchaseHistory, setNoPurchaseHistory] = useState(true);
@@ -49,21 +50,10 @@ const RecipientInfo = ({
 
   const [showAddressModal, setShowAddressModal] = useState(false);
   const [showRecipientsModal, setShowRecipientsModal] = useState(false);
-  const [focusDetailedAddr, setFocusDetailedAddr] = useState(false);
 
   const putFocus2detailedAddr = () => {
     setFocusDetailedAddr(true);
   };
-
-  useEffect(() => {
-    if (focusDetailedAddr && addressDetailInputRef.current) {
-      setTimeout(() => {
-        addressDetailInputRef.current.focus();
-        addressDetailInputRef.current.select();
-      }, 200);
-      setFocusDetailedAddr(false);
-    }
-  }, [focusDetailedAddr]);
 
   const openAddressModal = () => {
     setShowAddressModal(true);
