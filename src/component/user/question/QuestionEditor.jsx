@@ -159,6 +159,7 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
               className={
                 mine ? "question-editor-modal" : "question-editor-window"
               }
+              style={{ padding: 0 }}
             >
               <h4>{mine ? "나의 질문" : "고객 질문"}</h4>
               <Form.Group className="mb-0">
