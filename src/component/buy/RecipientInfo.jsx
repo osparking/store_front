@@ -197,15 +197,20 @@ const RecipientInfo = ({
           </tr>
           <tr>
             <td className="boxLeft goldCell pt-0">
-              <input
-                ref={addressDetailInputRef}
-                type="text"
-                name="addressDetail"
-                size="20"
-                value={formData.addressDetail}
-                onChange={(e) => handlePropChange(e, setFormData)}
-                style={{ fontWeight: 500 }}
-              />
+              <OverlayTrigger
+                placement="left"
+                overlay={<Tooltip>상세 주소</Tooltip>}
+              >
+                <input
+                  ref={addressDetailInputRef}
+                  type="text"
+                  name="addressDetail"
+                  size="20"
+                  value={formData.addressDetail}
+                  onChange={(e) => handlePropChange(e, setFormData)}
+                  style={{ fontWeight: 500 }}
+                />
+              </OverlayTrigger>
             </td>
           </tr>
         </tbody>
