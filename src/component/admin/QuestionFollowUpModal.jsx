@@ -21,6 +21,7 @@ export default function QuestionFollowUpModal({
 
   return (
     <Modal
+      id="question-followup-modal"
       show={show}
       onHide={handleClose}
       backdrop="static"
@@ -31,7 +32,7 @@ export default function QuestionFollowUpModal({
       <Modal.Header closeButton>
         <Modal.Title>질문 및 답변</Modal.Title>
       </Modal.Header>
-      <Modal.Body style={{ paddingTop: 0 }} className="h-limited-body">
+      <Modal.Body className="h-limited-body">
         {showFollowUpEditor && (
           <FollowUpEditor
             questionId={question.id}
@@ -67,18 +68,16 @@ export default function QuestionFollowUpModal({
               />
             ),
           )}
-        <div>
-          {justReadQuestion ? (
-            <QuestionViewer question={question} mine={mine} />
-          ) : (
-            <QuestionEditor
-              question={question}
-              mine={mine}
-              handleClose={handleClose}
-              setReloadPage={setReloadPage}
-            />
-          )}
-        </div>
+        {justReadQuestion ? (
+          <QuestionViewer question={question} mine={mine} />
+        ) : (
+          <QuestionEditor
+            question={question}
+            mine={mine}
+            handleClose={handleClose}
+            setReloadPage={setReloadPage}
+          />
+        )}
       </Modal.Body>
     </Modal>
   );
