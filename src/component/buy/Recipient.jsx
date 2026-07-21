@@ -258,11 +258,16 @@ const Recipient = () => {
     }
   }, [focusDetailedAddr]);
 
+  const closeAndFocus = () => {
+    setShowAddressConfirm(false);
+    setFocusDetailedAddr(true);
+  };
+
   return (
     <>
       <ConfirmationModal
         show={showAddressConfirm}
-        handleClose={() => setShowAddressConfirm(false)}
+        handleClose={closeAndFocus}
         handleConfirm={handleConfirm}
         bodyMessage={"'상세 주소' 가 없습니다. 바른 주소입니까?"}
         title={"주소 확인"}
