@@ -151,98 +151,96 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
       id="questionEditorContainer"
       className="d-flex justify-content-center align-items-center"
     >
-      <div>
-        <Card className="p-0 customerQuestionCard">
-          <Card.Body className="p-0">
-            <div className="d-flex p-3 justify-content-center align-items-center vh-67">
-              <Form
-                onSubmit={handleSubmit}
-                className={
-                  mine ? "question-editor-modal" : "question-editor-window"
-                }
-              >
-                <h4>{mine ? "나의 질문" : "고객 질문"}</h4>
-                <Form.Group className="mb-0">
-                  <Form.Label className="mt-3" htmlFor="questionTitle">
-                    <div className="d-flex align-items-center">
-                      <h5 className="mb-0">제목</h5>
-                      <Form.Text className="text-muted ms-2">
-                        (내용을 30 자 내외로 요약하세요.)
-                      </Form.Text>
-                    </div>
-                  </Form.Label>
-                  <Form.Control
-                    type="text"
-                    maxLength={30}
-                    id="questionTitle"
-                    defaultValue={question ? question.title : ""}
-                    placeholder="(제목 입력)"
-                    className="mt-0 ps-3 serif question-title-input"
-                    onKeyDown={(e) => {
-                      if (e.key === "Tab") {
-                        e.preventDefault(); // 기본 탭 이동 방지
-                        if (quillRef.current) {
-                          quillRef.current.focus(); // ReactQuill에 포커스
-                        }
-                      }
-                    }}
-                  />
-                </Form.Group>
-                <Form.Label className="mt-3">
-                  <div className="d-flex">
-                    <h5 className="mb-0" style={{ marginLeft: "4px" }}>
-                      내용
-                    </h5>
+      <Card className="p-0 customerQuestionCard">
+        <Card.Body>
+          <div className="d-flex p-3 justify-content-center align-items-center vh-67">
+            <Form
+              onSubmit={handleSubmit}
+              className={
+                mine ? "question-editor-modal" : "question-editor-window"
+              }
+            >
+              <h4>{mine ? "나의 질문" : "고객 질문"}</h4>
+              <Form.Group className="mb-0">
+                <Form.Label className="mt-3" htmlFor="questionTitle">
+                  <div className="d-flex align-items-center">
+                    <h5 className="mb-0">제목</h5>
+                    <Form.Text className="text-muted ms-2">
+                      (내용을 30 자 내외로 요약하세요.)
+                    </Form.Text>
                   </div>
-                  <ReactQuill
-                    ref={quillRef}
-                    theme="snow"
-                    value={editorContent || placeholder}
-                    onChange={handleEditorChange}
-                    onFocus={clearPlaceholder}
-                    onBlur={handleEditorBlur}
-                    modules={modules}
-                    formats={formats}
-                    className="content-edit mt-2"
-                  />
                 </Form.Label>
-
-                <div className="text-muted mb-3">
-                  글자수: {getTextLength()} 자
+                <Form.Control
+                  type="text"
+                  maxLength={30}
+                  id="questionTitle"
+                  defaultValue={question ? question.title : ""}
+                  placeholder="(제목 입력)"
+                  className="mt-0 ps-3 serif question-title-input"
+                  onKeyDown={(e) => {
+                    if (e.key === "Tab") {
+                      e.preventDefault(); // 기본 탭 이동 방지
+                      if (quillRef.current) {
+                        quillRef.current.focus(); // ReactQuill에 포커스
+                      }
+                    }
+                  }}
+                />
+              </Form.Group>
+              <Form.Label className="mt-3">
+                <div className="d-flex">
+                  <h5 className="mb-0" style={{ marginLeft: "4px" }}>
+                    내용
+                  </h5>
                 </div>
+                <ReactQuill
+                  ref={quillRef}
+                  theme="snow"
+                  value={editorContent || placeholder}
+                  onChange={handleEditorChange}
+                  onFocus={clearPlaceholder}
+                  onBlur={handleEditorBlur}
+                  modules={modules}
+                  formats={formats}
+                  className="content-edit mt-2"
+                />
+              </Form.Label>
 
-                <div className="char2button d-flex gap-4 justify-content-center">
-                  <Button
-                    variant="secondary"
-                    type="button"
-                    className="p-0"
-                    onClick={() => closeEditor()}
-                  >
-                    닫기
-                  </Button>
-                  <Button
-                    variant="info"
-                    type="button"
-                    className="p-0"
-                    onClick={() => setEditorContent("")}
-                  >
-                    리셋
-                  </Button>
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    className="p-0"
-                    style={{ cursor: "pointer" }}
-                    disabled={saving}
-                  >
-                    {saving ? <span>저장 중...</span> : "저장"}
-                  </Button>
-                </div>
-              </Form>
-            </div>
-          </Card.Body>
-        </Card>
-      </div>
+              <div className="text-muted mb-3">
+                글자수: {getTextLength()} 자
+              </div>
+
+              <div className="char2button d-flex gap-4 justify-content-center">
+                <Button
+                  variant="secondary"
+                  type="button"
+                  className="p-0"
+                  onClick={() => closeEditor()}
+                >
+                  닫기
+                </Button>
+                <Button
+                  variant="info"
+                  type="button"
+                  className="p-0"
+                  onClick={() => setEditorContent("")}
+                >
+                  리셋
+                </Button>
+                <Button
+                  variant="primary"
+                  type="submit"
+                  className="p-0"
+                  style={{ cursor: "pointer" }}
+                  disabled={saving}
+                >
+                  {saving ? <span>저장 중...</span> : "저장"}
+                </Button>
+              </div>
+            </Form>
+          </div>
+        </Card.Body>
+      </Card>
     </div>
   );
 }
