@@ -67,6 +67,14 @@ export const storeJWT = (data) => {
   storage.setItem("TOKEN", data.data.token);
 };
 
+export const storeJWtoken= (token) => {
+  // localStorage: 브라우저 종료 후에도 유지
+  // sessionStorage: 브라우저/탭 종료 시 삭제
+  const storage = getStorage();
+
+  storage.setItem("TOKEN", token);
+};
+
 export const clearTokens = () => {
   localStorage.removeItem("TOKEN");
   sessionStorage.removeItem("TOKEN");

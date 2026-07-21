@@ -3,7 +3,7 @@ import { Container } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { jwtToUser } from "../common/JwtUtils";
 import CodeEntryModal from "./CodeEntryModal";
-import { storeJWT } from "../util/utilities";
+import { storeJWT, storeJWtoken } from "../util/utilities";
 
 const OAuth2RedirectHandler = () => {
   const [showCodeModal, setShowCodeModal] = useState(false);
@@ -50,7 +50,7 @@ const OAuth2RedirectHandler = () => {
           setUser(user);
         } else {
           loginAfterProcessing(user);
-          storeJWT(token);
+          storeJWtoken(token);
         }
       } catch (error) {
         console.error("토큰 해독 오류:", error);
