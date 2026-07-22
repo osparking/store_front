@@ -214,9 +214,16 @@ const OrderForm = ({
     });
   }
 
-  function someShapeIsEmpty() {
+  function notReadyToPay() {
+    /**
+     * 구매 수량이 3 혹은 12일 때, 구매 가능
+     */
+    const wrongCount = subTotal?.count !== 3 && subTotal?.count !== 12;
+
     // 모든 원소의 shape 속성이 빈 문자열이 아닌지 검사
-    return formData.items.some((item) => item.shape === "");
+    const emptyShape = formData.items.some((item) => item.shape === "");
+
+    return wrongCount || emptyShape;
   }
 
   return (
@@ -251,8 +258,14 @@ const OrderForm = ({
               changeCarouselShape={changeCarouselShape}
               delSoapItem={delSoapItem}
             />
-
-            <Row className="mt-5">
+            <Row className="justify-content-center">
+              <Col xs="auto">
+                <p className="small mb-0 fw-bold text-danger">
+                  *수량 소계가 3 혹은 12일 때, 구매 가능합니다.
+                </p>
+              </Col>
+            </Row>
+            <Row className="mt-3">
               <div className="d-flex justify-content-center gap-4">
                 <Button
                   variant="success"
@@ -266,7 +279,6 @@ const OrderForm = ({
                 </Button>
                 <Button
                   variant="info"
-                  disabled={someShapeIsEmpty()}
                   size="sm"
                   className="order-button-width"
                   onClick={putToCart}
@@ -275,7 +287,7 @@ const OrderForm = ({
                 </Button>
                 <Button
                   variant="primary"
-                  disabled={someShapeIsEmpty()}
+                  disabled={notReadyToPay()}
                   size="sm"
                   className="order-button-width"
                   onClick={enterDeliveryInfo}
