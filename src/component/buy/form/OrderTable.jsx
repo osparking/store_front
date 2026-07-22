@@ -122,9 +122,14 @@ const OrderTable = ({
         ))}
         <tr>
           <td className="text-center fw-bold">소계</td>
-          <td className="text-end fw-bold" style={{ paddingRight: "28px" }}>
-            {subTotal.count}
-          </td>
+          <OverlayTrigger
+            placement="bottom"
+            overlay={<Tooltip>소계를 3 혹은 12로 만드세요</Tooltip>}
+          >
+            <td className="text-end fw-bold" style={{ paddingRight: "28px" }}>
+              {subTotal.count}
+            </td>
+          </OverlayTrigger>
           <td className="fw-bold text-end">
             {subTotal.price.toLocaleString()}원
           </td>
