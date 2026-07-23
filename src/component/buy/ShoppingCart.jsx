@@ -57,13 +57,11 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
 
   function enterDeliveryInfo() {
     if (countsAreEqual(formData.items)) {
-      navigate("/recipient", {
+      navigate("/buy_soap", {
         state: {
-          formItems: formData.items,
-          subTotal: subTotal,
-          source: "shoppingCart",
+          itemsFromCart: formData.items,
         },
-      });
+      });      
     } else {
       confirm("변경된 수량을 저장하거나 취소하십시오.");
     }
