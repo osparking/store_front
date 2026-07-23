@@ -20,6 +20,7 @@ const OrderForm = ({
   changeCarouselShape,
   setCarouselImages,
   recipient,
+  itemsFromCart,
 }) => {
   const location = useLocation();
   const { formItems, isDefaultRecipient } = location.state || false;
@@ -93,6 +94,24 @@ const OrderForm = ({
       items: items,
     }));
   }, [defaultLabel]);
+
+  useEffect(() => {
+    if (!itemsFromCart) return;
+    // itemsFromCart 를 items 로 변환
+    const items = [
+      {
+        shape: "보통비누(재고: 79)",
+        count: "12",
+        inventory: 709,
+        price: 5110,
+      },
+    ];
+
+    setFormData((prevState) => ({
+      ...prevState,
+      items: items,
+    }));
+  }, [itemsFromCart]);
 
   useEffect(() => {
     const allLabels = labelsOver(optionLabels, 0);
