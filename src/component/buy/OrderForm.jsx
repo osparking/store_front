@@ -95,17 +95,31 @@ const OrderForm = ({
     }));
   }, [defaultLabel]);
 
+  /**
+   * 쇼핑카트 비누 외형-수량 항목을 주문 폼에 적합한 자료 형태로 변환
+   * @param {*} itemsFromCart 
+   * @returns 주문 폼에 맞는 외형라벨-수량-재고 속성의 항목 목록
+   */
+  function convertToFormDataItems(itemsFromCart) {
+    return itemsFromCart.map((item) => {
+      // shapeLabel(예: "보통비누")을 옵션라벨("보통비누(재고: 79)")로 치환
+      const matchedOption = optionLabels.find((opt) =>
+        opt.optionLabel.startsWith(item.shapeLabel),
+      );
+
+      return {
+        shape: matchedOption.optionLabel,
+        count: String(item.count),
+        inventory: matchedOption.inventory,
+        price: item.unitPrice,
+      };
+    });
+  }
+
   useEffect(() => {
     if (!itemsFromCart) return;
     // itemsFromCart 를 items 로 변환
-    const items = [
-      {
-        shape: "보통비누(재고: 79)",
-        count: "12",
-        inventory: 709,
-        price: 5110,
-      },
-    ];
+    const items = convertToFormDataItems(itemsFromCart);
 
     setFormData((prevState) => ({
       ...prevState,
