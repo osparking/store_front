@@ -55,13 +55,13 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
     setSubTotal(newSubTotal);
   }, [selectedItems]);
 
-  function enterDeliveryInfo() {
+  function orderSelected() {
     if (countsAreEqual(formData.items)) {
       navigate("/buy_soap", {
         state: {
-          itemsFromCart: formData.items,
+          itemsFromCart: formData.items.filter((item) => item.isChecked),
         },
-      });      
+      });
     } else {
       confirm("변경된 수량을 저장하거나 취소하십시오.");
     }
@@ -209,7 +209,7 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
                   variant="info"
                   size="sm"
                   className="p-0"
-                  onClick={enterDeliveryInfo}
+                  onClick={orderSelected}
                   disabled={selectedItems.length === 0}
                 >
                   선택 주문
