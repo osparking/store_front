@@ -134,6 +134,7 @@ const Recipient = () => {
     const callGetDeliveryFee = async () => {
       const result = await getDeliveryFee({
         zipcode: formData.addrBasisAddReq.zipcode,
+        soapCount: shapeSummary.count,
         grandTotal: shapeSummary.price,
       });
       setDeliveryFee(result.data);
