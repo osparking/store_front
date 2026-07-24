@@ -57,9 +57,19 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
 
   function orderSelected() {
     if (countsAreEqual(formData.items)) {
+      const itemsFromCart = formData.items
+        .filter((item) => item.isChecked)
+        .map((item) => {
+          return {
+            shapeLabel: item.shapeLabel,
+            count: item.count,
+            unitPrice: item.unitPrice,
+          };
+        });
+
       navigate("/buy_soap", {
         state: {
-          itemsFromCart: formData.items.filter((item) => item.isChecked),
+          itemsFromCart: itemsFromCart,
         },
       });
     } else {
