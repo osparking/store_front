@@ -1,0 +1,7 @@
+#priceFeeCard {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  max-height: calc(100vh - 240px);
+  overflow: auto;
+}
