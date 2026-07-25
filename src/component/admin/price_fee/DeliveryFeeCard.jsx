@@ -1,17 +1,8 @@
 import _ from "lodash";
 import { useEffect, useState } from "react";
-import {
-  Button,
-  Card,
-  Form,
-  OverlayTrigger,
-  Spinner,
-  Table,
-  Tooltip,
-} from "react-bootstrap";
+import { Button, Card, Form, Spinner, Table } from "react-bootstrap";
 import toast from "react-hot-toast";
-import { getFeeEtc } from "../../buy/orderService";
-import { saveNewFeeEtc } from "../AdminService";
+import { saveFeeRegion } from "../AdminService";
 import "./DeliveryFeeCard.css";
 
 /**
@@ -124,32 +115,37 @@ const DeliveryFeeCard = ({ feeRegion }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    shownFeeRegion.map((feeRegion, idx) => {
-      if (!_.isEqual(feeRegion, originFeeRegion[idx])) {
-        console.log("변경된 배송비 비누 수량: ", idx === 0 ? 3 : 12);
-        console.log("저장할 동일 지역 배송비: ", feeRegion.areaSame);
-        console.log("저장할 다른 지역 배송비: ", feeRegion.areaDiff);
-        console.log("저장할 제주 지역 배송비: ", feeRegion.areaJeju);
-      }
-    });
+
+    // 로딩은 반복문 밖에서 한 번만 켭니다.
+    setIsLoading(true);
 
     try {
-      const requestData = {
-        // deliBasis: feeEtc.deliBasis,
-        // deliJeju: feeEtc.deliJeju,
-        // deliIsol: feeEtc.deliIsol,
-        // deliFreeMin: feeEtc.deliFreeMin,
-      };
+      // for...of를 사용하면 await을 자연스럽게 순차적으로 처리할 수 있습니다.
+      for (let idx = 0; idx < shownFeeRegion.length; idx++) {
+        const feeRegion = shownFeeRegion[idx];
 
-      setIsLoading(true);
-      //const resultData = await saveNewFeeEtc(requestData);
-      const resultData = undefined; 
-      if (resultData && resultData.message) {
-        toast.success(resultData.message);
-        setOriginPrices(delivery03); // 현재 데이터를 원본으로 설정
+        // 변경된 항목이 있을 때만 저장 요청
+        if (!_.isEqual(feeRegion, originFeeRegion[idx])) {
+          const reginalDeliveryFee = {
+            boxSize: idx === 0 ? 3 : 12,
+            areaSame: feeRegion.areaSame,
+            areaDiff: feeRegion.areaDiff,
+            areaJeju: feeRegion.areaJeju,
+          };
+
+          const resultData = await saveFeeRegion(reginalDeliveryFee);
+
+          if (resultData?.message) {
+            toast.success(resultData.message);
+          }
+        }
       }
-    } catch (e) {
-      toast.error(resultData.message);
+
+      // 모든 저장이 성공적으로 끝나면 원본 데이터를 최신 상태로 갱신
+      setOriginFeeRegion([...shownFeeRegion]);
+    } catch (error) {
+      // catch에서는 try 내부에서 던져진 에러 객체(error)를 사용해야 합니다.
+      toast.error(error?.message || "권역별 배송비 저장 오류 발생");
     } finally {
       setIsLoading(false);
     }
