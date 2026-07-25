@@ -1,9 +1,7 @@
 #feeEtcCard table, 
 #feeEtcCard tr, 
 #feeEtcCard td {
-    border: 0 solid black;
-    padding-top: 4px;
-    padding-bottom: 4px;
+    border: none;
 }
 
 #feeEtcTable .form-label {
@@ -14,7 +12,7 @@
     padding-left: 0;
 }
 
-#feeEtcCard .card-body {
-    padding-top: 8px;
-    padding-bottom: 8px;
+.soap-color {
+    color: var(--color-nav-home);
+    font-weight: 500;
 }
