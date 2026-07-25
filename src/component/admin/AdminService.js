@@ -9,9 +9,13 @@ export async function getSoapPrices() {
   }
 }
 
-export async function saveNewFeeEtc(feeEtc) {
+export async function saveFeeRegion(feeRegion) {
   try {
-    const result = await callWithToken("post", "/admin/add_fee_etc", feeEtc);
+    const result = await callWithToken(
+      "post",
+      "/admin/add_fee_delivery",
+      feeRegion,
+    );
     return result.data;
   } catch (err) {
     throw err;
