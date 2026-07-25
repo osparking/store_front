@@ -55,27 +55,6 @@ const DeliveryFeeCard = ({ feeRegion }) => {
   // 이후 shown을 수정하는 로직은 origin에 전혀 영향을 주지 않음
   // 예: setShownFeeRegion(prev => [...prev, newItem])
 
-  /**
-  feeEtc =
-    {
-      "fee_03": {
-        "areaSame": 4100,
-        "areaDiff": 4600,
-        "areaJeju": 7600,
-      },
-      "fee_12": {
-        "areaSame": 5100,
-        "areaDiff": 5600,
-        "areaJeju": 8600,
-      },
-      "feeOther": {
-        "id": 1,
-        "islandAdd": 4000,
-        "deliFreeMin": 40000,
-        "applyTime": "2026-07-24T09:34:00"
-      }
-    }
-   */
   // useEffect(() => {
   //   console.log("배송비 관련 비용을 읽음");
   //   const readFeeEtc = async () => {
@@ -145,6 +124,14 @@ const DeliveryFeeCard = ({ feeRegion }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    shownFeeRegion.map((feeRegion, idx) => {
+      if (!_.isEqual(feeRegion, originFeeRegion[idx])) {
+        console.log("변경된 배송비 비누 수량: ", idx === 0 ? 3 : 12);
+        console.log("저장할 동일 지역 배송비: ", feeRegion.areaSame);
+        console.log("저장할 다른 지역 배송비: ", feeRegion.areaDiff);
+        console.log("저장할 제주 지역 배송비: ", feeRegion.areaJeju);
+      }
+    });
 
     try {
       const requestData = {
@@ -155,7 +142,8 @@ const DeliveryFeeCard = ({ feeRegion }) => {
       };
 
       setIsLoading(true);
-      const resultData = await saveNewFeeEtc(requestData);
+      //const resultData = await saveNewFeeEtc(requestData);
+      const resultData = undefined; 
       if (resultData && resultData.message) {
         toast.success(resultData.message);
         setOriginPrices(delivery03); // 현재 데이터를 원본으로 설정
