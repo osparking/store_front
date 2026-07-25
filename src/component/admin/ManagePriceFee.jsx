@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { getFeeEtc } from "../buy/orderService";
+import "./ManagePriceFee.css";
 import DeliveryFeeCard from "./price_fee/DeliveryFeeCard";
+import OtherFeeCard from "./price_fee/OtherFeeCard";
 import SoapPriceCard from "./price_fee/SoapPriceCard";
 
 function useWindowWidth() {
@@ -16,21 +20,44 @@ function useWindowWidth() {
 
 const ManagePriceFee = () => {
   const width = useWindowWidth();
+  const [feeOther, setFeeOther] = useState({});
+  const [feeRegion, setFeeRegion] = useState({});
+
+  useEffect(() => {
+    console.log("배송비 기타 비용 읽기");
+    const readFeeEtc = async () => {
+      try {
+        const response = await getFeeEtc();
+        const feeRegion = [response.data.fee_03, response.data.fee_12];
+
+        console.log("feeRegion1:", feeRegion);
+
+        setFeeOther(response.data.feeOther);
+        setFeeRegion(feeRegion);
+      } catch (e) {
+        toast.error("배송비 기타 오류: ", e.message);
+      }
+    };
+    readFeeEtc();
+  }, []);
 
   return (
-    <div style={{ width: "100%", maxWidth: "700px", margin: "0 auto" }}>
+    <div id="priceFeeCard">
       <div
         style={{
           display: "flex",
           gap: "20px",
-          flexDirection: width < 700 ? "column" : "row",
+          flexDirection: width < 1500 ? "column" : "row",
         }}
       >
-        <div style={{ flex: 1 }}>
-          <SoapPriceCard />
+        <div style={{ flex: 3 }}>
+          <OtherFeeCard feeOther={feeOther} />
         </div>
-        <div style={{ flex: 1 }}>
-          <DeliveryFeeCard />
+        <div style={{ flex: 4 }}>
+          <DeliveryFeeCard feeRegion={feeRegion} />
+        </div>
+        <div style={{ flex: 3 }}>
+          <SoapPriceCard />
         </div>
       </div>
     </div>
