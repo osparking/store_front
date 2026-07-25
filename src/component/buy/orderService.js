@@ -12,7 +12,7 @@ export async function getDeliveryFee(data) {
 
 export async function getFeeEtc() {
   try {
-    const result = await api.get("/fee_etc/get_latest");
+    const result = await callWithToken("get", "/fee_etc/get_latest");
     return result.data;
   } catch (err) {
     throw err;
