@@ -74,6 +74,8 @@ const UserDashboard = () => {
   const refreshReviews = () => setReviewsVersion((prev) => prev + 1);
   const [ordersVersion, setOrdersVersion] = useState(1);
   const refreshOrders = () => setOrdersVersion((prev) => prev + 1);
+  const [statVersion, setStatVersion] = useState(1);
+  const refreshStat = () => setStatVersion((prev) => prev + 1);
 
   const tabItems = [
     {
@@ -192,7 +194,14 @@ const UserDashboard = () => {
   return (
     <Container fluid className="home-container user-dashboard">
       <ReviewsContext.Provider
-        value={{ reviewsVersion, refreshReviews, ordersVersion, refreshOrders }}
+        value={{
+          reviewsVersion,
+          refreshReviews,
+          ordersVersion,
+          refreshOrders,
+          statVersion,
+          refreshStat,
+        }}
       >
         {dashBoardContent()}
       </ReviewsContext.Provider>
