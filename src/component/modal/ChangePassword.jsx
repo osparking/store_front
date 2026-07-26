@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useRef, useState } from "react";
 import {
   Button,
   Form,
@@ -6,17 +6,16 @@ import {
   Modal,
   Overlay,
   Popover,
-  Spinner,
 } from "react-bootstrap";
 import toast from "react-hot-toast";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import { logoutUser } from "../auth/AuthService";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import { changePwd } from "../user/UserService";
-import "./ConfirmationModal.css";
-import { FiEye, FiEyeOff } from "react-icons/fi";
-import PasswordRule from "./PasswordRule";
 import { validatePassword } from "../util/utilities";
+import "./ConfirmationModal.css";
+import PasswordRule from "./PasswordRule";
 
 const ChangePassword = ({ userId, show, handleClose }) => {
   const [pwdType, setPwdType] = useState({
@@ -93,13 +92,15 @@ const ChangePassword = ({ userId, show, handleClose }) => {
       onHide={handleClose}
       dialogClassName={"change-pwd-modal"}
     >
+    <Form onSubmit={handleSubmit}>
       <Modal.Header closeButton={true}>
         <Modal.Title>비밀번호 변경</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
-        {alertSuccess && <AlertMessage type={"success"} message={successMsg} />}
-        <Form onSubmit={handleSubmit}>
+        </Modal.Header>
+        <Modal.Body>
+          {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
+          {alertSuccess && (
+            <AlertMessage type={"success"} message={successMsg} />
+          )}
           <Form.Group controlId="curPwd">
             <Form.Label>현재 비밀번호: </Form.Label>
             <InputGroup>
@@ -161,24 +162,24 @@ const ChangePassword = ({ userId, show, handleClose }) => {
               </InputGroup.Text>
             </InputGroup>
           </Form.Group>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <div className="d-flex justify-content-center mt-2 mb-3 char2button gap-2 w-100">
-          <Button variant="secondary" size="sm" onClick={handleReset}>
-            리셋
-          </Button>
-          <Button
-            variant="primary"
-            size="sm"
-            type="submit"
-            disabled={!validatePassword(pwds.newPwd, pwds.cnfPwd)}
-          >
-            저장
-          </Button>
-        </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <div className="d-flex justify-content-center mt-2 mb-3 char2button gap-2 w-100">
+            <Button variant="secondary" size="sm" onClick={handleReset}>
+              리셋
+            </Button>
+            <Button
+              variant="primary"
+              size="sm"
+              type="submit"
+              disabled={!validatePassword(pwds.newPwd, pwds.cnfPwd)}
+            >
+              저장
+            </Button>
+          </div>
       </Modal.Footer>
-    </Modal>
+    </Form>
+  </Modal>
   );
 };
 
