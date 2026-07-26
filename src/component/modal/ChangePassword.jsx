@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import { Button, Form, InputGroup, Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
-import { FiEye, FiEyeOff } from "react-icons/fi";
 import { logoutUser } from "../auth/AuthService";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import { changePwd } from "../user/UserService";
 import "./ConfirmationModal.css";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const ChangePassword = ({ userId, show, handleClose }) => {
-  const [type, setType] = useState("password");
-  const [icon, setIcon] = useState(FiEyeOff);
+  const [pwdType, setPwdType] = useState({
+    current: "password",
+    newPwd: "password",
+    confirm: "password",
+  });
   const [pwds, setPwds] = useState({
     curPwd: "",
     newPwd: "",
@@ -26,10 +29,6 @@ const ChangePassword = ({ userId, show, handleClose }) => {
     alertError,
     setAlertError,
   } = BsAlertHook();
-
-  useEffect(() => {
-    setIcon(FiEyeOff);
-  }, [show]);
 
   const handleChange = (e) => {
     setPwds({ ...pwds, [e.target.name]: e.target.value });
@@ -55,9 +54,15 @@ const ChangePassword = ({ userId, show, handleClose }) => {
     }
   };
 
-  const togglePasswordStarize = () => {
-    setType(type === "password" ? "text" : "password");
-    setIcon(type === "password" ? FiEye : FiEyeOff);
+  const togglePasswordStarize = (pwdName) => {
+    // 현재 타입을 미리 계산 (업데이트 전 값 사용)
+    const currentType = pwdType[pwdName];
+    const newType = currentType === "password" ? "text" : "password";
+
+    setPwdType({
+      ...pwdType,
+      [pwdName]: newType, // 동적 키 할당
+    });
   };
 
   return (
@@ -77,14 +82,14 @@ const ChangePassword = ({ userId, show, handleClose }) => {
             <Form.Label>현재 비밀번호: </Form.Label>
             <InputGroup>
               <Form.Control
-                type={type}
+                type={pwdType.current}
                 value={pwds.curPwd}
                 placeholder="(현재 비밀번호)"
                 name="curPwd"
                 onChange={handleChange}
               />
-              <InputGroup.Text onClick={togglePasswordStarize}>
-                {icon}
+              <InputGroup.Text onClick={() => togglePasswordStarize("current")}>
+                {pwdType.current === "password" ? <FiEyeOff /> : <FiEye />}
               </InputGroup.Text>
             </InputGroup>
           </Form.Group>
@@ -92,14 +97,14 @@ const ChangePassword = ({ userId, show, handleClose }) => {
             <Form.Label>신규 비밀번호: </Form.Label>
             <InputGroup>
               <Form.Control
-                type={type}
+                type={pwdType.newPwd}
                 value={pwds.newPwd}
                 placeholder="(신규 비밀번호)"
                 name="newPwd"
                 onChange={handleChange}
               />
-              <InputGroup.Text onClick={togglePasswordStarize}>
-                {icon}
+              <InputGroup.Text onClick={() => togglePasswordStarize("newPwd")}>
+                {pwdType.newPwd === "password" ? <FiEyeOff /> : <FiEye />}
               </InputGroup.Text>
             </InputGroup>
           </Form.Group>
@@ -107,14 +112,14 @@ const ChangePassword = ({ userId, show, handleClose }) => {
             <Form.Label>비밀번호 확인: </Form.Label>
             <InputGroup>
               <Form.Control
-                type={type}
+                type={pwdType.confirm}
                 value={pwds.cnfPwd}
                 placeholder="(비밀번호 확인)"
                 name="cnfPwd"
                 onChange={handleChange}
               />
-              <InputGroup.Text onClick={togglePasswordStarize}>
-                {icon}
+              <InputGroup.Text onClick={() => togglePasswordStarize("confirm")}>
+                {pwdType.confirm === "password" ? <FiEyeOff /> : <FiEye />}
               </InputGroup.Text>
             </InputGroup>
           </Form.Group>
