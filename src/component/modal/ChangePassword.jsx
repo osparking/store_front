@@ -1,5 +1,13 @@
-import { useEffect, useState } from "react";
-import { Button, Form, InputGroup, Modal } from "react-bootstrap";
+import { useEffect, useState, useRef } from "react";
+import {
+  Button,
+  Form,
+  InputGroup,
+  Modal,
+  Overlay,
+  Popover,
+  Spinner,
+} from "react-bootstrap";
 import toast from "react-hot-toast";
 import { logoutUser } from "../auth/AuthService";
 import AlertMessage from "../common/AlertMessage";
@@ -7,6 +15,7 @@ import BsAlertHook from "../hook/BsAlertHook";
 import { changePwd } from "../user/UserService";
 import "./ConfirmationModal.css";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import PasswordRule from "./PasswordRule";
 
 const ChangePassword = ({ userId, show, handleClose }) => {
   const [pwdType, setPwdType] = useState({
@@ -65,6 +74,18 @@ const ChangePassword = ({ userId, show, handleClose }) => {
     });
   };
 
+  const [showPopover, setShowPopover] = useState(false);
+  const inputRef = useRef(null);
+
+  const handleFocus = () => setShowPopover(true);
+  const handleBlur = (e) => {
+    // 팝오버 내부로 포커스가 이동하면 닫지 않음
+    if (e.relatedTarget && e.relatedTarget.closest(".popover")) {
+      return;
+    }
+    setShowPopover(false);
+  };
+
   return (
     <Modal
       show={show}
@@ -95,13 +116,29 @@ const ChangePassword = ({ userId, show, handleClose }) => {
           </Form.Group>
           <Form.Group controlId="newPwd" className="mb-2">
             <Form.Label>신규 비밀번호: </Form.Label>
+            <Overlay
+              show={showPopover}
+              target={inputRef.current}
+              placement="top"
+              container={document.body}
+            >
+              <Popover id="password-rules-popover">
+                <Popover.Header as="h3">작성 규칙</Popover.Header>
+                <Popover.Body className="pwd-rules-body">
+                  <PasswordRule />
+                </Popover.Body>
+              </Popover>
+            </Overlay>
             <InputGroup>
               <Form.Control
+                ref={inputRef}
                 type={pwdType.newPwd}
                 value={pwds.newPwd}
                 placeholder="(신규 비밀번호)"
                 name="newPwd"
                 onChange={handleChange}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
               />
               <InputGroup.Text onClick={() => togglePasswordStarize("newPwd")}>
                 {pwdType.newPwd === "password" ? <FiEyeOff /> : <FiEye />}
