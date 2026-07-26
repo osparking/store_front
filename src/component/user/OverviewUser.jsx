@@ -1,17 +1,19 @@
 import { format, subMonths } from "date-fns";
-import { useEffect, useState } from "react";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { useContext, useEffect, useState } from "react";
+import { Card } from "react-bootstrap";
 import { FaShapes } from "react-icons/fa6";
 import { LuPackageOpen } from "react-icons/lu";
 import CardCompo from "../card/CardCompo";
 import "./OverviewUser.css";
 import { getSoapsMonthUser } from "./UserService";
 
+import Grid from "@mui/material/Grid";
 import SoapsByMonth from "./charts/SoapsByMonth";
 import SoapsByShape from "./charts/SoapsByShape";
-import Grid from "@mui/material/Grid";
+import { ReviewsContext } from "./UserDashboard";
 
 const OverviewUser = () => {
+  const { statVersion } = useContext(ReviewsContext);
   const [soapsMonth, setSoapsMonth] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   const [totalSoaps, setTotalSoaps] = useState(0);
@@ -74,7 +76,7 @@ const OverviewUser = () => {
       }
     };
     getSoapsMonth();
-  }, []);
+  }, [statVersion]);
 
   return (
     <Grid
