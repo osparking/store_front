@@ -160,20 +160,18 @@ const ChangePassword = ({ userId, show, handleClose }) => {
               </InputGroup.Text>
             </InputGroup>
           </Form.Group>
-          <div className="d-flex justify-content-center mt-4">
-            <div className="mx-2">
-              <Button variant="primary" size="sm" type="submit">
-                비밀번호 변경
-              </Button>
-            </div>
-            <div className="mx-2 mb-4">
-              <Button variant="secondary" size="sm" onClick={handleReset}>
-                리셋
-              </Button>
-            </div>
-          </div>
         </Form>
       </Modal.Body>
+      <Modal.Footer>
+        <div className="d-flex justify-content-center mt-2 mb-3 char2button gap-2 w-100">
+          <Button variant="secondary" size="sm" onClick={handleReset}>
+            리셋
+          </Button>
+          <Button variant="primary" size="sm" type="submit">
+            저장
+          </Button>
+        </div>
+      </Modal.Footer>
     </Modal>
   );
 };
