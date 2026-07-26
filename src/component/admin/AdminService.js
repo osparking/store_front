@@ -22,6 +22,19 @@ export async function saveFeeRegion(feeRegion) {
   }
 }
 
+export async function saveOtherFee(otherFee) {
+  try {
+    const result = await callWithToken(
+      "post",
+      "/admin/add_fee_other",
+      otherFee,
+    );
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function saveNewSoapPrice(soapPrice) {
   try {
     const result = await callWithToken("post", "/admin/add_price", soapPrice);
