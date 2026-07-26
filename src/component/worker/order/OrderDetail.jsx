@@ -13,11 +13,13 @@ import { formatDate, insert2Hyphens } from "../../util/utilities";
 import "./OrderDetail.css";
 
 const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
+  let refreshStat = () => {};  
   let refreshReviews = () => {};
   let ordersVersion = undefined;
-
+  
   if (!isHouse) {
     const context = useContext(ReviewsContext);
+    refreshStat = context?.refreshStat || (() => {});
     refreshReviews = context?.refreshReviews || (() => {});
     ordersVersion = context?.ordersVersion || undefined;
   }
@@ -104,6 +106,9 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     }
 
     if (nextStatus) {
+      if (nextStatus === "구매 확정") {
+        refreshStat();
+      }
       const data = { id: orderDetails.order.id, status: nextStatus };
       await changeOrderStatus(data);
       setOrderStatus(nextStatus);
