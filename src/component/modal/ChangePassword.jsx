@@ -16,6 +16,7 @@ import { changePwd } from "../user/UserService";
 import "./ConfirmationModal.css";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import PasswordRule from "./PasswordRule";
+import { validatePassword } from "../util/utilities";
 
 const ChangePassword = ({ userId, show, handleClose }) => {
   const [pwdType, setPwdType] = useState({
@@ -167,7 +168,12 @@ const ChangePassword = ({ userId, show, handleClose }) => {
           <Button variant="secondary" size="sm" onClick={handleReset}>
             리셋
           </Button>
-          <Button variant="primary" size="sm" type="submit">
+          <Button
+            variant="primary"
+            size="sm"
+            type="submit"
+            disabled={!validatePassword(pwds.newPwd, pwds.cnfPwd)}
+          >
             저장
           </Button>
         </div>
