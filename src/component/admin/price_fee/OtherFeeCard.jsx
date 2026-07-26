@@ -1,13 +1,9 @@
 import _ from "lodash";
 import { useEffect, useState } from "react";
-import {
-  Button,
-  Card,
-  Form,
-  Spinner,
-  Table
-} from "react-bootstrap";
+import { Button, Card, Form, Spinner, Table } from "react-bootstrap";
 import "./DeliveryFeeCard.css";
+import toast from "react-hot-toast";
+import { saveOtherFee } from "../AdminService";
 
 /**
  * feeOther: {
@@ -58,28 +54,33 @@ const OtherFeeCard = ({ feeOther }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
-    // try {
-    //   const requestData = {
-    //   };
-    //   setIsLoading(true);
-    //   const resultData = await saveNewFeeEtc(requestData);
-    //   if (resultData && resultData.message) {
-    //     toast.success(resultData.message);
-    //     setOriginFeeOther(shownFeeOther); // 현재 데이터를 원본으로 설정
-    //   }
-    // } catch (e) {
-    //   toast.error(resultData.message);
-    // } finally {
-    //   setIsLoading(false);
-    // }
+    e.preventDefault();
+
+    let resultData = undefined;
+    try {
+      const otherFee = {
+        deliFreeMin: shownFeeOther.deliFreeMin,
+        islandAdd: shownFeeOther.islandAdd
+      };
+
+      setIsLoading(true);
+      resultData = await saveOtherFee(otherFee);
+      if (resultData && resultData.message) {
+        toast.success(resultData.message);
+        setOriginFeeOther(shownFeeOther); // 현재 데이터를 원본으로 설정
+      }
+    } catch (e) {
+      toast.error(resultData.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <Form onSubmit={handleSubmit} className="d-flex justify-content-center">
       <Card id="feeEtcCard">
         <Card.Header className="text-center mb-2 h5">
-          할증료 무배 기준
+          할증료 및 무배
         </Card.Header>
         <Card.Body className="d-flex align-items-center justify-content-center">
           <div style={{ overflow: "auto" }}>
