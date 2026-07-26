@@ -43,25 +43,6 @@ const DeliveryFeeCard = ({ feeRegion }) => {
     }
   }, [feeRegion]); // prop이 바뀔 때마다 이 useEffect 실행
 
-  // 이후 shown을 수정하는 로직은 origin에 전혀 영향을 주지 않음
-  // 예: setShownFeeRegion(prev => [...prev, newItem])
-
-  // useEffect(() => {
-  //   console.log("배송비 관련 비용을 읽음");
-  //   const readFeeEtc = async () => {
-  //     try {
-  //       const response = await getFeeEtc();
-
-  //       setOriginPrices(response.data);
-  //       setDelivery03(response.data.fee_03);
-  //       setDelivery12(response.data.fee_12);
-  //     } catch (e) {
-  //       toast.error("배송비 채취 오류1: ", e.message);
-  //     }
-  //   };
-  //   readFeeEtc();
-  // }, []);
-
   const deliveryData = [
     {
       label: "수도권 배송비",
