@@ -26,7 +26,7 @@ const DisableAccountModal = ({
 
   return (
     <Modal show={show} onHide={onHide} dialogClassName={modalClass}>
-      <Modal.Header className="bg-warning" closeButton>
+      <Modal.Header className="bg-warning no-radius" closeButton>
         <Modal.Title>비활성화 효과</Modal.Title>
       </Modal.Header>
       <Modal.Body>
