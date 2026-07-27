@@ -71,3 +71,13 @@ export async function deleteFollowUp(id) {
     throw err;
   }
 }
+
+export async function deleteQuestion(id) {
+  const urlSuffix = `/question/${id}/delete`;
+  try {
+    const result = await callWithToken("delete", urlSuffix);
+    return result.data;
+  } catch (err) {
+    throw err;
+  }
+}
