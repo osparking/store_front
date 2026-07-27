@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { Modal } from "react-bootstrap";
+import toast from "react-hot-toast";
 import FollowUpEditor from "../user/question/FollowUpEditor";
 import FollowUpViewer from "../user/question/FollowUpViewer";
 import QuestionEditor from "../user/question/QuestionEditor";
+import { deleteQuestion } from "../user/question/QuestionService";
 import QuestionViewer from "../user/question/QuestionViewer";
 import "./QuestionFollowUpModal.css";
 
@@ -18,6 +21,18 @@ export default function QuestionFollowUpModal({
   const justReadQuestion = (followUps && followUps.length > 0) || is_admin;
   const showFollowUpEditor =
     (question.answered && !is_admin) || (is_admin && !question.answered);
+
+  const performDeletion = async () => {
+    try {
+      await deleteQuestion(question.id);
+      toast.success("질문 삭제 성공");
+      setReloadPage(true);
+      handleClose();
+    } catch (err) {
+      console.error("err: ", err);
+      toast.error("질문 삭제 실패!");
+    }
+  };
 
   return (
     <Modal
@@ -76,6 +91,7 @@ export default function QuestionFollowUpModal({
             mine={mine}
             handleClose={handleClose}
             setReloadPage={setReloadPage}
+            performDeletion={performDeletion}
           />
         )}
       </Modal.Body>
