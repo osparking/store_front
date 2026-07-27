@@ -1,16 +1,23 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useRef, useState } from "react";
-import { Button, Card, Form } from "react-bootstrap";
+import { Button, Card, Form, Spinner } from "react-bootstrap";
 import toast from "react-hot-toast";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css"; // Import styles
 import { useNavigate } from "react-router-dom";
 import "../../../App.css";
+import ConfirmationModal from "../../modal/ConfirmationModal";
 import { getPlainContent } from "../../util/utilities";
 import "./QuestionEditor.css";
 import { saveQuestion } from "./QuestionService";
 
-function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
+function QuestionEditor({
+  question,
+  mine,
+  handleClose,
+  setReloadPage,
+  performDeletion,
+}) {
   const navigate = useNavigate();
   const [editorContent, setEditorContent] = useState(
     question ? question.question : "",
@@ -146,11 +153,34 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
     }
   }, []);
 
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+
+  const handleQuestionDeletionConfirmation = async () => {
+    setShowDeleteModal(false);
+    setDeleting(true);
+    await performDeletion();
+    setDeleting(false);
+  };
+
   return (
     <div
       id="questionEditorContainer"
       className="d-flex justify-content-center align-items-center"
     >
+      <ConfirmationModal
+        show={showDeleteModal}
+        handleClose={() => setShowDeleteModal(false)}
+        handleConfirm={handleQuestionDeletionConfirmation}
+        bodyMessage="질문을 삭제하려면, 삭제 버튼을 누르십시오!"
+        title="질문 삭제 확인"
+        noLabel="취소"
+        yesLabel="삭제"
+        yesVariant="danger"
+        headerBgColor="bg-warning"
+        modelClassName="modal-slide-down"
+        dialogClassName="reply-deletion-confirmation-modal"
+      />
       <Card className="p-0 customerQuestionCard">
         <Card.Body>
           <div className="d-flex p-3 justify-content-center align-items-center vh-67">
@@ -212,6 +242,30 @@ function QuestionEditor({ question, mine, handleClose, setReloadPage }) {
               </div>
 
               <div className="char2button d-flex gap-4 justify-content-center">
+                <Button
+                  variant="danger"
+                  type="button"
+                  className="p-0"
+                  onClick={() => setShowDeleteModal(true)}
+                  disabled={deleting}
+                >
+                  {deleting ? (
+                    <>
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                        className="me-1"
+                        style={{ width: "0.8rem", height: "0.8rem" }}
+                      />
+                      <small>삭제 중...</small>
+                    </>
+                  ) : (
+                    "삭제"
+                  )}
+                </Button>
                 <Button
                   variant="secondary"
                   type="button"
