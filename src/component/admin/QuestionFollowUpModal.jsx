@@ -57,6 +57,7 @@ export default function QuestionFollowUpModal({
             editable={true}
             setReloadPage={setReloadPage}
             headText={is_admin ? "범이 답변" : "추가 질문"}
+            evenOdd={is_admin ? "viewer-even" : "viewer-odd"}
           />
         )}
         {followUps &&
@@ -73,13 +74,14 @@ export default function QuestionFollowUpModal({
                 setReloadPage={setReloadPage}
                 key={idx}
                 headText={followUp.bumWrote ? "범이 답변" : "추가 질문"}
+                evenOdd={followUp.bumWrote ? "viewer-even" : "viewer-odd"}
               />
             ) : (
               <FollowUpViewer
                 followUp={followUp}
                 key={idx}
                 headText={followUp.bumWrote ? "범이 답변" : "추가 질문"}
-                evenOdd={idx % 2 === 0 ? "viewer-even" : "viewer-odd"}
+                evenOdd={followUp.bumWrote ? "viewer-even" : "viewer-odd"}
               />
             ),
           )}
