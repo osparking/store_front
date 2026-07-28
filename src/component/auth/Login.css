@@ -16,12 +16,14 @@
 }
 
 #pwdReset {
-    width: 70px;
     font-size: 0.8em;
+    width: 70px;
     height: 24px;
     padding: 0;
-    position: relative;
     border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* MUI small <= 599px */
