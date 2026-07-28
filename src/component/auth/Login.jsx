@@ -223,6 +223,8 @@ const Login = () => {
     }
   };
 
+  const [showTooltip, setShowTooltip] = useState(false);
+
   const loginEntryCard = () => {
     return (
       <Card style={{ height: "fit-content", marginTop: 0 }}>
@@ -254,16 +256,32 @@ const Login = () => {
                 </Col>
                 <Col md={4} className="d-flex justify-content-center">
                   <OverlayTrigger
-                    overlay={<Tooltip>이메일 완성 때, 활성화됨</Tooltip>}
+                    placement="bottom"
+                    overlay={<Tooltip>이메일을 완성하세요</Tooltip>}
+                    show={showTooltip} // 🔥 상태로 제어
+                    trigger={[]} // 기본 트리거는 모두 끔
                   >
-                    <Button
-                      id="pwdReset"
-                      variant="success"
-                      disabled={!isValidEmail(credentials.email)}
-                      onClick={reset_password}
+                    <span
+                      style={{ display: "inline-block" }}
+                      onMouseEnter={() => {
+                        // 비활성 상태일 때만 툴팁을 띄움
+                        if (!isValidEmail(credentials.email)) {
+                          setShowTooltip(true);
+                        }
+                      }}
+                      onMouseLeave={() => {
+                        setShowTooltip(false); // 마우스를 떠나면 항상 닫음
+                      }}
                     >
-                      재설정
-                    </Button>
+                      <Button
+                        id="pwdReset"
+                        variant="success"
+                        disabled={!isValidEmail(credentials.email)}
+                        onClick={reset_password}
+                      >
+                        재설정
+                      </Button>
+                    </span>
                   </OverlayTrigger>
                 </Col>
               </Row>
