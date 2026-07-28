@@ -13,10 +13,10 @@ import { formatDate, insert2Hyphens } from "../../util/utilities";
 import "./OrderDetail.css";
 
 const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
-  let refreshStat = () => {};  
+  let refreshStat = () => {};
   let refreshReviews = () => {};
   let ordersVersion = undefined;
-  
+
   if (!isHouse) {
     const context = useContext(ReviewsContext);
     refreshStat = context?.refreshStat || (() => {});
@@ -258,6 +258,20 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     return isHouse && !notAtGS25yet() && orderStatus === "후기 남김";
   };
 
+  const tooltipGs25 =
+    "absolute bottom-full left-1/2 transform -translate-x-1/2 " +
+    "mb-1 px-2 py-1 bg-black text-white rounded mt-1";
+
+  // 3. 컴포넌트명을 대문자 시작(PascalCase)으로 변경
+  const Gs25Tooltip = () => {
+    // 4. 불필요한 백틱 제거하고 변수 바로 할당
+    return (
+      <div className={tooltipGs25} style={{ fontSize: "75%" }}>
+        'GS25 접수' 후 활성화됨
+      </div>
+    );
+  };
+
   return (
     <>
       <ConfirmationModal
@@ -330,6 +344,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                           원
                         </td>
                       </tr>
+
                       {!isHouse && (
                         <tr>
                           <td
@@ -347,18 +362,11 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                             >
                               배송 조회
                             </Button>
-                            {showTooltip1 && (
-                              <div
-                                className="absolute bottom-full left-1/2 
-                  transform -translate-x-1/2 mb-1 px-2 py-1 
-                  bg-black text-white text-xs rounded"
-                              >
-                                'GS25 접수' 후 활성화됨
-                              </div>
-                            )}
+                            {showTooltip1 && Gs25Tooltip()}
                           </td>
                         </tr>
                       )}
+
                       <tr>
                         <td
                           className="oText hidden centered"
@@ -384,16 +392,8 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                             >
                               {getBottomButtonLabel(orderStatus)}
                             </Button>
-                            {showTooltip2 && (
-                              <div
-                                className="absolute bottom-full left-1/2 
-transform -translate-x-1/2 mb-1 px-2 py-1 
-bg-black text-white text-xs rounded"
-                              >
-                                'GS25 접수' 후 활성화됨
-                              </div>
-                            )}
                           </div>
+                          {showTooltip2 && Gs25Tooltip()}
                         </td>
                       </tr>
                     </tbody>
