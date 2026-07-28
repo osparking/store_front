@@ -17,6 +17,7 @@ function FollowUpEditor({
   editable,
   setReloadPage,
   headText,
+  evenOdd,
 }) {
   console.log("followUp: ", JSON.stringify(followUp));
   const [editorContent, setEditorContent] = useState(followUp.content);
@@ -195,10 +196,10 @@ function FollowUpEditor({
               marginBottom: "10px",
               borderRadius: "4px",
             }}
-            className="ms-2 me-0"
+            className={`ms-2 me-0 ${evenOdd}`}
           />
         </Form.Group>
-        <div className="char2button d-flex gap-4 justify-content-center ">          
+        <div className="char2button d-flex gap-4 justify-content-center ">
           {followUp.content && editable && (
             <Button
               variant="danger"
