@@ -38,7 +38,7 @@ const InfoModalDraggable = ({
           ref={nodeRef}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="modal-header">
+          <div className="modal-header draggable">
             <h3 id={`${idPrefix}-info-title`}>{title}</h3>
             <button id="modal-close-btn" className="close-btn" onClick={onHide}>
               ✕

@@ -23,7 +23,7 @@
 }
 
 /* 헤더: 드래그 가능하다는 UX를 위해 cursor: grab */
-.modal-header {
+.modal-header.draggable{
   display: flex;
   justify-content: space-between;
   align-items: center;
