@@ -1,5 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import { Button, Col, Row, Table } from "react-bootstrap";
+import {
+  Button,
+  Col,
+  OverlayTrigger,
+  Row,
+  Table,
+  Tooltip,
+} from "react-bootstrap";
 import "../../../App.css";
 import {
   changeOrderStatus,
@@ -272,6 +279,8 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     );
   };
 
+  const [showTooltipTop, setShowTooltipTop] = useState(false);
+
   return (
     <>
       <ConfirmationModal
@@ -347,22 +356,34 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
 
                       {!isHouse && (
                         <tr>
-                          <td
-                            className="oText hidden centered"
-                            colSpan={2}
-                            onMouseEnter={() =>
-                              notAtGS25yet() && setShowTooltip1(true)
-                            }
-                            onMouseLeave={() => setShowTooltip1(false)}
-                          >
-                            <Button
-                              className="pt-0 pb-0"
-                              disabled={notAtGS25yet()}
-                              onClick={() => handleTopButton()}
+                          <td className="oText hidden centered" colSpan={2}>
+                            <OverlayTrigger
+                              placement="right"
+                              overlay={<Tooltip>GS25 접수 전입니다</Tooltip>}
+                              show={showTooltipTop} // 상태로 제어
+                              trigger={[]} // 기본 트리거는 모두 끔
                             >
-                              배송 조회
-                            </Button>
-                            {showTooltip1 && Gs25Tooltip()}
+                              <span
+                                style={{ display: "inline-block" }}
+                                onMouseEnter={() => {
+                                  // 비활성 상태일 때만 툴팁을 띄움
+                                  if (notAtGS25yet()) {
+                                    setShowTooltipTop(true);
+                                  }
+                                }}
+                                onMouseLeave={() => {
+                                  setShowTooltipTop(false); // 마우스를 떠나면 항상 닫음
+                                }}
+                              >
+                                <Button
+                                  className="pt-0 pb-0"
+                                  disabled={notAtGS25yet()}
+                                  onClick={() => handleTopButton()}
+                                >
+                                  배송 조회
+                                </Button>
+                              </span>
+                            </OverlayTrigger>
                           </td>
                         </tr>
                       )}
