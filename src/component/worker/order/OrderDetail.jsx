@@ -265,21 +265,8 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     return isHouse && !notAtGS25yet() && orderStatus === "후기 남김";
   };
 
-  const tooltipGs25 =
-    "absolute bottom-full left-1/2 transform -translate-x-1/2 " +
-    "mb-1 px-2 py-1 bg-black text-white rounded mt-1";
-
-  // 3. 컴포넌트명을 대문자 시작(PascalCase)으로 변경
-  const Gs25Tooltip = () => {
-    // 4. 불필요한 백틱 제거하고 변수 바로 할당
-    return (
-      <div className={tooltipGs25} style={{ fontSize: "75%" }}>
-        'GS25 접수' 후 활성화됨
-      </div>
-    );
-  };
-
   const [showTooltipTop, setShowTooltipTop] = useState(false);
+  const [showTooltipBottom, setShowTooltipBottom] = useState(false);
 
   return (
     <>
@@ -389,14 +376,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                       )}
 
                       <tr>
-                        <td
-                          className="oText hidden centered"
-                          colSpan={2}
-                          onMouseEnter={() =>
-                            notAtGS25yet() && setShowTooltip2(true)
-                          }
-                          onMouseLeave={() => setShowTooltip2(false)}
-                        >
+                        <td className="oText hidden centered" colSpan={2}>
                           <div id="orderWorkerButton">
                             {deliveryStatusCheckingNeeded() && (
                               <Button
@@ -406,15 +386,34 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                                 배송 조회
                               </Button>
                             )}
-                            <Button
-                              className="pt-0 pb-0"
-                              disabled={notAtGS25yet()}
-                              onClick={() => handleBottomButton()}
+                            <OverlayTrigger
+                              placement="right"
+                              overlay={<Tooltip>GS25 접수 전입니다</Tooltip>}
+                              show={showTooltipBottom} // 상태로 제어
+                              trigger={[]} // 기본 트리거는 모두 끔
                             >
-                              {getBottomButtonLabel(orderStatus)}
-                            </Button>
+                              <span
+                                style={{ display: "inline-block" }}
+                                onMouseEnter={() => {
+                                  // 비활성 상태일 때만 툴팁을 띄움
+                                  if (notAtGS25yet()) {
+                                    setShowTooltipBottom(true);
+                                  }
+                                }}
+                                onMouseLeave={() => {
+                                  setShowTooltipBottom(false); // 마우스를 떠나면 항상 닫음
+                                }}
+                              >
+                                <Button
+                                  className="pt-0 pb-0"
+                                  disabled={notAtGS25yet()}
+                                  onClick={() => handleBottomButton()}
+                                >
+                                  {getBottomButtonLabel(orderStatus)}
+                                </Button>
+                              </span>
+                            </OverlayTrigger>
                           </div>
-                          {showTooltip2 && Gs25Tooltip()}
                         </td>
                       </tr>
                     </tbody>
