@@ -109,6 +109,11 @@ td.addressCell {
   justify-content: center;
 }
 
+.tooltip {
+  font-family: 'GmarketSans', 'Montserrat', sans-serif;
+  font-size: 85%;
+}
+
 @media screen and (max-height: 899px) {
   #order_detail_container {
     align-items: center;
