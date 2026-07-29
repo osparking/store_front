@@ -35,6 +35,15 @@ const UserUpdate = () => {
     photoId: null,
   });
 
+  const [userInDB, setUserInDB] = useState({});
+
+  const changeUserInDB = (name, phone) => {
+      setUserInDB({
+        fullName: name,
+        mbPhone: phone,
+      });    
+  }
+
   const {
     successMsg,
     setSuccessMsg,
@@ -57,12 +66,14 @@ const UserUpdate = () => {
           const result = await getUserDtoById(id);
           if (result) {
             setUser(result.data);
+            changeUserInDB(result.data.fullName, result.data.mbPhone);
           } else {
             navigate("/login");
           }
         } else if (location.state) {
           const { userState } = location.state;
           setUser(userState);
+          setUserInDB(useState);
         }
       } catch (error) {
         const errMsg = error.response.data.error;
@@ -115,6 +126,8 @@ const UserUpdate = () => {
     try {
       setIsProcessing(true);
       const response = await updateUser(id, updatedUser);
+
+      changeUserInDB(user.fullName, user.mbPhone);
       setSuccessMsg(response.message);
       setAlertSuccess(true);
 
@@ -141,6 +154,14 @@ const UserUpdate = () => {
       navigate(`/dashboard/admin`);
     }
   };
+
+  const accountIntact = () => {
+    return (
+      userInDB.fullName === user.fullName && userInDB.mbPhone === user.mbPhone
+    );
+  };
+
+  const resetAccount = () => setUser({ ...user, ...userInDB });
 
   const dataSection = () => {
     return (
@@ -315,16 +336,20 @@ const UserUpdate = () => {
                 닫기
               </Button>
               <Button
+                disabled={accountIntact()}
+                variant="secondary"
+                size="sm"
+                onClick={resetAccount}
+              >
+                리셋
+              </Button>
+              <Button
+                disabled={accountIntact() || isProcessing}
                 type="submit"
                 variant={accountClosing ? "danger" : "primary"}
                 size="sm"
-                disabled={isProcessing}
               >
-                {isProcessing ? (
-                  <ProcessSpinner message="갱신 처리 중..." />
-                ) : (
-                  "갱신"
-                )}
+                {isProcessing ? <ProcessSpinner message="저장" /> : "저장"}
               </Button>
             </div>
           </Card.Footer>
