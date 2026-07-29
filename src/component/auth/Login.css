@@ -24,6 +24,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: skyblue;
+    border-color: skyblue;
+    color: crimson;
+    font-weight: 500;
 }
 
 /* MUI small <= 599px */
