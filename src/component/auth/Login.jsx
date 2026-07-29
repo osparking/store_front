@@ -251,10 +251,10 @@ const Login = () => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="password">
               <Row className="d-flex">
-                <Col md={4}>
+                <Col md={6}>
                   <Form.Label>비밀번호</Form.Label>
                 </Col>
-                <Col md={4} className="d-flex justify-content-center">
+                <Col md={6} className="d-flex justify-content-end">
                   <OverlayTrigger
                     placement="bottom"
                     overlay={<Tooltip>이메일을 완성하세요</Tooltip>}
@@ -275,7 +275,6 @@ const Login = () => {
                     >
                       <Button
                         id="pwdReset"
-                        variant="success"
                         disabled={!isValidEmail(credentials.email)}
                         onClick={reset_password}
                       >
