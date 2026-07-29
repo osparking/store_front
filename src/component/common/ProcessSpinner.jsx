@@ -1,21 +1,22 @@
-import React from "react";
 import { Spinner } from "react-bootstrap";
 
 const ProcessSpinner = ({ size = "sm", animation = "grow", message = "" }) => {
   return (
-    <>
-      <div className="text-center" style={{ zIndex: "10" }}>
-        <Spinner
-          as="span"
-          animation={animation}
-          size={size}
-          role="status"
-          aria-hidden="true"
-        />
-      </div>
+    <div
+      className="d-flex justify-content-center align-items-center"
+      style={{ zIndex: "10" }}
+    >
+      <Spinner
+        as="span"
+        animation={animation}
+        size={size}
+        role="status"
+        aria-hidden="true"
+        style={{ width: "0.8rem", height: "0.8rem" }}
+      />
 
       {message && (
-        <div
+        <span
           className="sr-only"
           aria-live="polite"
           style={{
@@ -25,9 +26,9 @@ const ProcessSpinner = ({ size = "sm", animation = "grow", message = "" }) => {
           }}
         >
           {message}&nbsp;중...
-        </div>
+        </span>
       )}
-    </>
+    </div>
   );
 };
 
