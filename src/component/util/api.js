@@ -53,9 +53,27 @@ function buildConfig(method, urlSuffix, data, token) {
   return config;
 }
 
+const base64UrlToBase64 = (str) => {
+  // 1. URL-safe 문자를 표준 Base64 문자로 치환
+  let base64 = str.replace(/-/g, '+').replace(/_/g, '/');
+  // 2. 패딩 추가 (4의 배수가 되도록)
+  const pad = base64.length % 4;
+  if (pad) {
+    base64 += '='.repeat(4 - pad);
+  }
+  return base64;
+};
+
 const isExpired = (token) => {
-  const payload = JSON.parse(atob(token.split(".")[1]));
-  return payload.exp * 1000 <= Date.now();
+  try {
+    const base64Payload = token.split('.')[1]; // 페이로드 부분 추출
+    const standardBase64 = base64UrlToBase64(base64Payload);
+    const payload = JSON.parse(atob(standardBase64));
+    return payload.exp * 1000 <= Date.now();
+  } catch (e) {
+    console.error('토큰 디코딩 실패:', e);
+    return true;
+  }
 };
 
 export async function callWithToken(method, urlSuffix, data = null) {
