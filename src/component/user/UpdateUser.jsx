@@ -38,11 +38,11 @@ const UserUpdate = () => {
   const [userInDB, setUserInDB] = useState({});
 
   const changeUserInDB = (name, phone) => {
-      setUserInDB({
-        fullName: name,
-        mbPhone: phone,
-      });    
-  }
+    setUserInDB({
+      fullName: name,
+      mbPhone: phone,
+    });
+  };
 
   const {
     successMsg,
@@ -157,11 +157,16 @@ const UserUpdate = () => {
 
   const accountIntact = () => {
     return (
-      userInDB.fullName === user.fullName && userInDB.mbPhone === user.mbPhone
+      userInDB.fullName === user.fullName &&
+      userInDB.mbPhone === user.mbPhone &&
+      user.enabled
     );
   };
 
-  const resetAccount = () => setUser({ ...user, ...userInDB });
+  const resetAccount = () => {
+    user.enabled = true;
+    setUser({ ...user, ...userInDB });
+  };
 
   const dataSection = () => {
     return (
