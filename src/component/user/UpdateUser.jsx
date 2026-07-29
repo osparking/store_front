@@ -304,7 +304,8 @@ const UserUpdate = () => {
   };
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const handleXButtonClick = () => {
+  const keepAccountEnabled = () => {
+    user.enabled = true;
     setShowConfirmModal(false);
   };
 
@@ -315,7 +316,7 @@ const UserUpdate = () => {
     >
       <DisableAccountModal
         show={showConfirmModal}
-        onHide={handleXButtonClick}
+        onHide={keepAccountEnabled}
         callUpdateUser={callUpdateUser}
         disabled={false}
         modalClass={"disable-account-confirm"}
