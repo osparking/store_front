@@ -56,21 +56,14 @@ const Login = () => {
     setShowEnableModal(false);
   };
 
-  const isDevelopment = process.env.NODE_ENV === "development";
-
-  const [credentials, setCredentials] = useState(
-    isDevelopment
-      ? {
-          email: "customer3@email.com",
-          password: "1234",
-          save_login: false,
-        }
-      : {
-          email: "",
-          password: "",
-          save_login: false,
-        },
-  );
+  const isDevelopment = import.meta.env.MODE === 'development';
+  const [credentials, setCredentials] = useState({
+    email: isDevelopment ? import.meta.env.VITE_DEV_EMAIL : "",
+    password: isDevelopment ? import.meta.env.VITE_DEV_PASSWORD : "",
+    save_login: isDevelopment
+      ? import.meta.env.VITE_DEV_SAVE_LOGIN === "true"
+      : false,
+  });
 
   const [code, setCode] = useState("");
   const [codeNeeded, setCodeNeeded] = useState(false);
