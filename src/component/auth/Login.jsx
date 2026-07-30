@@ -309,6 +309,7 @@ const Login = () => {
               <p className="me-2">[7일 간]</p>
               <Form.Check
                 type="switch"
+                id="save_login"
                 name="save_login"
                 checked={credentials.save_login}
                 onChange={handleCheckChange}
