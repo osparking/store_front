@@ -68,9 +68,11 @@ export default function WaybillModal({
       <Form onSubmit={saveWaybillNo}>
         <Modal.Body>
           {getMessage()}
-          <Form.Group controlId="curPwd">
-            <Form.Label>GS25 운송장번호: 365109450043</Form.Label>
-            <InputGroup>
+          <Form.Group controlId="curPwd" className="mb-3 mt-3">
+            <div className="d-flex align-items-center gap-2">
+              <Form.Label className="mb-0 text-nowrap">
+                GS25 운송장번호:
+              </Form.Label>
               <Form.Control
                 ref={inputRef}
                 type="text"
@@ -80,33 +82,33 @@ export default function WaybillModal({
                 onChange={handleChange}
                 required
               />
-        </InputGroup>
-      </Form.Group>
-      {alertError && (
-        <div className="d-flex justify-content-center mt-4">
-          <AlertMessage type={"danger"} message={errorMsg} />
-        </div>
-      )}
-    </Modal.Body>
-
-    <Modal.Footer>
-      <div className="d-flex justify-content-center char2button gap-3 w-100">
-        <Button
-          variant="secondary"
-          onClick={handleClose}
-          className="d-flex align-items-center justify-content-center"
-        >
-          취소
-        </Button>
-        <Button
-          type="submit"
-          variant="primary"
-          className="d-flex align-items-center justify-content-center"
-        >
-          등록
-        </Button>
       </div>
-    </Modal.Footer>
+    </Form.Group>
+          {alertError && (
+            <div className="d-flex justify-content-center mt-4">
+              <AlertMessage type={"danger"} message={errorMsg} />
+            </div>
+          )}
+        </Modal.Body>
+
+        <Modal.Footer>
+          <div className="d-flex justify-content-center char2button gap-3 w-100">
+            <Button
+              variant="secondary"
+              onClick={handleClose}
+              className="d-flex align-items-center justify-content-center"
+            >
+              취소
+            </Button>
+            <Button
+              type="submit"
+              variant="primary"
+              className="d-flex align-items-center justify-content-center"
+            >
+              등록
+            </Button>
+          </div>
+        </Modal.Footer>
       </Form>
     </Modal>
   );
