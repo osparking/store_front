@@ -199,7 +199,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         title = "주문 및 사용 경험";
         break;
       case "후기 남김":
-        title = "후기 관리";
+        title = isHouse ? "후기 열람" : "후기 관리";
         break;
       default:
         title = "상품 수취 확인";
