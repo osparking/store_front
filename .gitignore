@@ -25,3 +25,9 @@ dist-ssr
 
 # 임시적 무시
 **/temp/*
+
+# .env 파일들
+.env
+.env.local
+.env.development
+.env.production
