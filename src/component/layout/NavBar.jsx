@@ -6,6 +6,8 @@ import { getStorageToken } from "../util/utilities";
 import "./navBar.css";
 import { RootContext } from "./RootLayout";
 
+const naviAskedIds = new Set();
+
 const NavBar = () => {
   const { userVersion } = useContext(RootContext);
   const beforeLogin = !getStorageToken();
@@ -51,14 +53,20 @@ const NavBar = () => {
     const { path, message } = event?.detail || { path: "", message: "" };
 
     checkIfAdmin();
-    if (message) {
-      navigate(path, {
-        state: {
-          success: false,
-          message: message,
-          id: Date.now(),
-        },
-      });
+    if (message) {      
+      const nowTimeId = Math.floor(Date.now() / 1000);
+
+      if (!naviAskedIds.has(nowTimeId)) {
+        clearLoginUserInfo();
+        navigate(path, {
+          state: {
+            success: false,
+            message: message,
+            id: nowTimeId,
+          },
+        });
+        naviAskedIds.add(nowTimeId);
+      }
     } else {
       navigate(path);
     }
