@@ -15,8 +15,8 @@ const NavBar = () => {
 
   const [identity, setIdentity] = useState();
 
-  const checkIfAdmin = () => {
-    console.log("check if admin");
+  const handleLogin = () => {
+    console.log("handleLogin");
     const isAdminJson = localStorage.getItem("IS_ADMIN");
     setIsAdmin(isAdminJson ? JSON.parse(isAdminJson) : false);
 
@@ -27,10 +27,6 @@ const NavBar = () => {
       clearLoginUserInfo();
     }
   };
-
-  useEffect(() => {
-    checkIfAdmin();
-  }, []);
 
   const displayIdentity = () => {
     const user = JSON.parse(localStorage.getItem("USER"));
@@ -50,7 +46,7 @@ const NavBar = () => {
   const handleLogout = (event) => {
     const { path, message } = event?.detail || { path: "", message: "" };
 
-    checkIfAdmin();
+    handleLogin();
     if (message) {      
       const nowTimeId = Math.floor(Date.now() / 1000);
 
@@ -70,7 +66,7 @@ const NavBar = () => {
   };
   const loginId = localStorage.getItem("LOGIN_ID");
 
-  window.addEventListener("loginEvt", checkIfAdmin);
+  window.addEventListener("loginEvt", handleLogin);
   window.addEventListener("logoutEvt", handleLogout);
 
   useEffect(() => {
