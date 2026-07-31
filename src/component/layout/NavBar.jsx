@@ -18,14 +18,15 @@ const NavBar = () => {
   const handleLogin = () => {
     console.log("handleLogin");
     const isAdminJson = localStorage.getItem("IS_ADMIN");
-    setIsAdmin(isAdminJson ? JSON.parse(isAdminJson) : false);
-
     const isWorkerJson = localStorage.getItem("IS_WORKER");
-    setIsWorker(isWorkerJson ? JSON.parse(isWorkerJson) : false);
+
+    setIsEmployee(JSON.parse(isAdminJson), JSON.parse(isWorkerJson));
     displayIdentity();
-    if (!getStorageToken()) {
-      clearLoginUserInfo();
-    }
+  };
+
+  const setIsEmployee = (isAdmin, isWorker) => {
+    setIsAdmin(isAdmin);
+    setIsWorker(isWorker);
   };
 
   const displayIdentity = () => {
@@ -44,10 +45,13 @@ const NavBar = () => {
 
   const navigate = useNavigate();
   const handleLogout = (event) => {
+    console.log("handleLogout");
     const { path, message } = event?.detail || { path: "", message: "" };
 
-    handleLogin();
-    if (message) {      
+    clearLoginUserInfo();
+    setIsEmployee(false, false);
+
+    if (message) {
       const nowTimeId = Math.floor(Date.now() / 1000);
 
       if (!naviAskedIds.has(nowTimeId)) {
@@ -102,7 +106,7 @@ const NavBar = () => {
       const confirmed = window.confirm("로그아웃하고 계정을 등록할까요?");
       if (confirmed) {
         // 로그아웃 처리 (예: 상태 초기화, localStorage 제거 등)
-        logoutUser({ path: "/register_user", message: "" });        
+        logoutUser({ path: "/register_user", message: "" });
       } else {
         // 아무것도 하지 않음 (현재 페이지 유지)
         return;
@@ -114,11 +118,6 @@ const NavBar = () => {
   };
 
   const beforeLogin = !getStorageToken();
-
-  if (beforeLogin) {
-    console.log("beforelogin clear login info");
-    clearLoginUserInfo();
-  }  
 
   return (
     <Navbar expand="lg" sticky="top" className="nav-bg start-0 end-0">
