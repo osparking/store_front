@@ -31,7 +31,8 @@ const refreshAccessToken = async () => {
     throw new Error("New access token not received");
   } catch (error) {
     // 갱신 실패 (RT 만료, 무효 등)
-    clearTokens();
+    logoutUser();
+    console.error("활력 토큰 만료로 강제 로그아웃...");
     throw error;
   }
 };
