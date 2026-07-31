@@ -74,7 +74,7 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
     return (
       <colgroup>
         <col style={{ width: "15%" }} />
-        <col style={{ width: "12%" }} />
+        <col style={{ width: "12%", minWidth: "115px" }} />
         <col style={{ width: "12%" }} />
         <col style={{ width: "8%" }} />
         <col style={{ width: "8%" }} />
