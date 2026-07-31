@@ -123,6 +123,20 @@ const IngreDataModal = ({
     }
   };
 
+  const someItemEmpty = () => {
+    const allSet =
+      ingredient.buyPlace &&
+      ingredient.ingreName &&
+      ingredient.quantity &&
+      ingredient.packunit &&
+      ingredient.count &&
+      ingredient.storeDate &&
+      ingredient.buyPlace &&
+      ingredient.expireDate;
+
+    return !allSet;
+  };
+
   return (
     <Modal show={show} onHide={closer}>
       <Modal.Header closeButton>
@@ -293,6 +307,7 @@ const IngreDataModal = ({
             variant="primary"
             onClick={handleSubmit}
             style={{ padding: 0 }}
+            disabled={someItemEmpty()}
           >
             저장
           </Button>
