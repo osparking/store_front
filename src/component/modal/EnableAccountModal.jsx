@@ -1,6 +1,4 @@
 import { Button, Modal } from "react-bootstrap";
-import { logoutUser } from "../auth/AuthService";
-import { disableUserAccount } from "../user/UserService";
 import { enableAccount } from "../user/UserService";
 
 const EnableAccountModal = ({

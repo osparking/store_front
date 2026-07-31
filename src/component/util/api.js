@@ -1,6 +1,6 @@
 import axios, { HttpStatusCode } from "axios";
 import { logoutUser } from "../auth/AuthService";
-import { clearTokens, getStorage, getStorageToken, storeJWT } from "./utilities";
+import { getStorage, getStorageToken, storeJWT } from "./utilities";
 
 axios.defaults.withCredentials = true; // 모든 요청에 쿠키 포함
 axios.defaults.headers.common["Content-Type"] = "application/json";
@@ -100,13 +100,10 @@ export async function callWithToken(method, urlSuffix, data = null) {
     if (err.response?.status === HttpStatusCode.Unauthorized) {
       try {
         const newToken = await refreshAccessToken();
-        console.log("두 토큰 리프레시 성공 :-)");
         // 갱신 성공 시 원래 요청 재시도
         return await originalRequest(newToken);
-      } catch (refreshError) {
-        // 갱신 실패 -> 로그아웃
-        logoutUser({ path: "/login", message: "인증이 만료되었습니다." });
-        return null;
+      } catch (error) {
+        return error;
       }
     }
     throw err;
