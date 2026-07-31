@@ -100,9 +100,8 @@ const NavBar = () => {
     if (loginId) {
       const confirmed = window.confirm("로그아웃하고 계정을 등록할까요?");
       if (confirmed) {
-        // 로그아웃 후 등록 페이지로 이동
-        logoutUser(); // 로그아웃 처리 (예: 상태 초기화, localStorage 제거 등)
-        navigate("/register_user");
+        // 로그아웃 처리 (예: 상태 초기화, localStorage 제거 등)
+        logoutUser({ path: "/register_user", message: "" });        
       } else {
         // 아무것도 하지 않음 (현재 페이지 유지)
         return;

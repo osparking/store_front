@@ -55,7 +55,7 @@ const ChangePassword = ({ userId, show, handleClose }) => {
     try {
       await changePwd(userId, curPwd, newPwd, cnfPwd);
       toast.success("재 로그인이 필요합니다.");
-      logoutUser();
+      logoutUser({ path: "/login", message: "" });
       handleClose();
     } catch (error) {
       setErrorMsg(error.response.data.message);
@@ -92,9 +92,9 @@ const ChangePassword = ({ userId, show, handleClose }) => {
       onHide={handleClose}
       dialogClassName={"change-pwd-modal"}
     >
-    <Form onSubmit={handleSubmit}>
-      <Modal.Header closeButton={true}>
-        <Modal.Title>비밀번호 변경</Modal.Title>
+      <Form onSubmit={handleSubmit}>
+        <Modal.Header closeButton={true}>
+          <Modal.Title>비밀번호 변경</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
@@ -177,9 +177,9 @@ const ChangePassword = ({ userId, show, handleClose }) => {
               저장
             </Button>
           </div>
-      </Modal.Footer>
-    </Form>
-  </Modal>
+        </Modal.Footer>
+      </Form>
+    </Modal>
   );
 };
 

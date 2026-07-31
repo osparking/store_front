@@ -18,7 +18,7 @@ const DisableAccountModal = ({
         await callUpdateUser();
       }
       onHide();
-      logoutUser();
+      logoutUser({ path: "/", message: "" });      
     } catch (error) {
       console.error(error.message);
     }
