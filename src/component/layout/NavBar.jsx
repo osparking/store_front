@@ -10,24 +10,22 @@ const naviAskedIds = new Set();
 
 const NavBar = () => {
   const { userVersion } = useContext(RootContext);
-  const beforeLogin = !getStorageToken();
-
-  if (beforeLogin) {
-    clearLoginUserInfo();
-  }
-
   const [isAdmin, setIsAdmin] = useState(false);
   const [isWorker, setIsWorker] = useState(false);
 
   const [identity, setIdentity] = useState();
 
   const checkIfAdmin = () => {
+    console.log("check if admin");
     const isAdminJson = localStorage.getItem("IS_ADMIN");
     setIsAdmin(isAdminJson ? JSON.parse(isAdminJson) : false);
 
     const isWorkerJson = localStorage.getItem("IS_WORKER");
     setIsWorker(isWorkerJson ? JSON.parse(isWorkerJson) : false);
     displayIdentity();
+    if (!getStorageToken()) {
+      clearLoginUserInfo();
+    }
   };
 
   useEffect(() => {
@@ -57,7 +55,6 @@ const NavBar = () => {
       const nowTimeId = Math.floor(Date.now() / 1000);
 
       if (!naviAskedIds.has(nowTimeId)) {
-        clearLoginUserInfo();
         navigate(path, {
           state: {
             success: false,
@@ -119,6 +116,13 @@ const NavBar = () => {
       navigate("/register_user");
     }
   };
+
+  const beforeLogin = !getStorageToken();
+
+  if (beforeLogin) {
+    console.log("beforelogin clear login info");
+    clearLoginUserInfo();
+  }  
 
   return (
     <Navbar expand="lg" sticky="top" className="nav-bg start-0 end-0">
