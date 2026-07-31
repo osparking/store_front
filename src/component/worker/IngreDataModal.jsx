@@ -51,16 +51,34 @@ const IngreDataModal = ({
   } = BsAlertHook();
 
   const handleChange = (e) => {
-    switch (e.target.name) {
-      case "quantity":
-      case "count":
-        if (isNaN(e.target.value)) {
-          setErrorMsg("숫자만 입력하세요!");
-          setAlertError(true);
-        }
-        break;
-    }
     setIngredient({ ...ingredient, [e.target.name]: e.target.value });
+  };
+
+  const changeCount = (e) => {
+    const { name, value } = e.target;
+
+    // 숫자만 남기고 모두 제거
+    const numValue = value.replace(/\D/g, "");
+
+    // 빈 문자열이면 그대로 허용 (사용자가 지울 수 있도록)
+    if (numValue === "") {
+      setIngredient({ ...ingredient, [name]: numValue });
+      return;
+    }
+
+    // 숫자로 변환하여 최소값 검사 (min="1" 적용)
+    const number = parseInt(numValue, 10);
+
+    if (number >= 1) {
+      setIngredient({ ...ingredient, [name]: numValue });
+      setErrorMsg(""); // 에러 메시지 초기화 (선택)
+      setAlertError(false);
+    } else {
+      setErrorMsg("1 이상의 숫자만 입력하세요!");
+      setAlertError(true);
+      // 유효하지 않으면 이전 값 유지하거나, 1로 강제 설정할 수도 있음
+      // 여기서는 변경하지 않음 (사용자가 직접 수정하도록)
+    }
   };
 
   const handleStoreDate = (storeDate) => {
@@ -205,12 +223,13 @@ const IngreDataModal = ({
                   <Form.Group as={Row} className="mb-1" controlId="count">
                     <Form.Label>수량</Form.Label>
                     <Form.Control
-                      type="number"
+                      type="text" // number → text 변경
                       name="count"
-                      min="1"
+                      inputMode="numeric" // 모바일에서 숫자 키패드 제공
+                      pattern="[0-9]*" // (선택) HTML5 유효성 검사 힌트
                       value={ingredient.count}
                       placeholder="(숫자)"
-                      onChange={handleChange}
+                      onChange={changeCount}
                       required
                       style={{ flex: "1" }}
                     />
