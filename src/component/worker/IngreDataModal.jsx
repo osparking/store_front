@@ -58,7 +58,13 @@ const IngreDataModal = ({
     const { name, value } = e.target;
 
     // 숫자만 남기고 모두 제거
+    const trimmedValue = value.trim();    
     const numValue = value.replace(/\D/g, "");
+    if (trimmedValue.length > numValue.length) {
+      setErrorMsg("숫자만 입력 가능합니다!");
+      setAlertError(true);
+      return;
+    }
 
     // 빈 문자열이면 그대로 허용 (사용자가 지울 수 있도록)
     if (numValue === "") {
@@ -74,7 +80,7 @@ const IngreDataModal = ({
       setErrorMsg(""); // 에러 메시지 초기화 (선택)
       setAlertError(false);
     } else {
-      setErrorMsg("1 이상의 숫자만 입력하세요!");
+      setErrorMsg("1 이상의 숫자를 입력하세요!");
       setAlertError(true);
       // 유효하지 않으면 이전 값 유지하거나, 1로 강제 설정할 수도 있음
       // 여기서는 변경하지 않음 (사용자가 직접 수정하도록)
@@ -220,7 +226,7 @@ const IngreDataModal = ({
                       type="text" // Use "text" to gain more control over input
                       name="quantity"
                       value={ingredient.quantity}
-                      onChange={handleChange}
+                      onChange={changeCount}
                       inputMode="numeric" // Suggest numeric keyboard on mobile devices
                       pattern="[0-9]*" // HTML5 pattern for basic browser validation
                       style={{ flex: "1" }}
