@@ -144,8 +144,7 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
     setNewUser({ ...newUser, mbPhone: mbPhone });
   };
 
-  const rootContext = useContext(RootContext);
-  const refreshUser = rootContext.refreshUser;
+  const { refreshUser } = useContext(RootContext);
   const [isProcessing, setIsProcessing] = useState(false);
   const {
     successMsg,

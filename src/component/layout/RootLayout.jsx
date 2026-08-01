@@ -6,7 +6,10 @@ import NavBar from "./NavBar";
 import "./RootLayout.css";
 import { createContext, useCallback, useMemo, useState } from "react";
 
-export const RootContext = createContext();
+export const RootContext = createContext({
+  userVersion: 0,
+  refreshUser: () => {},
+});
 
 const RootLayout = () => {
   const [userVersion, setUserVersion] = useState(157);
