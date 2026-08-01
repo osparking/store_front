@@ -15,15 +15,6 @@ const NavBar = () => {
 
   const [identity, setIdentity] = useState();
 
-  const handleLogin = () => {
-    console.log("handleLogin");
-    const isAdminJson = localStorage.getItem("IS_ADMIN");
-    const isWorkerJson = localStorage.getItem("IS_WORKER");
-
-    setIsEmployee(JSON.parse(isAdminJson), JSON.parse(isWorkerJson));
-    displayIdentity();
-  };
-
   const setIsEmployee = (isAdmin, isWorker) => {
     setIsAdmin(isAdmin);
     setIsWorker(isWorker);
@@ -44,34 +35,52 @@ const NavBar = () => {
   };
 
   const navigate = useNavigate();
-  const handleLogout = (event) => {
-    console.log("handleLogout");
-    const { path, message } = event?.detail || { path: "", message: "" };
+  const loginId = localStorage.getItem("LOGIN_ID");
 
-    clearLoginUserInfo();
-    setIsEmployee(false, false);
+  useEffect(() => {
+    const handleLogin = () => {
+      console.log("handleLogin");
+      const isAdminJson = localStorage.getItem("IS_ADMIN");
+      const isWorkerJson = localStorage.getItem("IS_WORKER");
 
-    if (message) {
+      setIsEmployee(JSON.parse(isAdminJson), JSON.parse(isWorkerJson));
+      displayIdentity();
+    };
+
+    const handleLogout = (event) => {
+      console.log("handleLogout");
+
       const nowTimeId = Math.floor(Date.now() / 1000);
 
       if (!naviAskedIds.has(nowTimeId)) {
-        navigate(path, {
-          state: {
-            success: false,
-            message: message,
-            id: nowTimeId,
-          },
-        });
+        const { path, message } = event?.detail || { path: "", message: "" };
+
+        // clearLoginUserInfo();
+        setIsEmployee(false, false);
+
+        if (message) {
+          navigate(path, {
+            state: {
+              success: false,
+              message: message,
+              id: nowTimeId,
+            },
+          });
+        } else {
+          navigate(path);
+        }
         naviAskedIds.add(nowTimeId);
       }
-    } else {
-      navigate(path);
-    }
-  };
-  const loginId = localStorage.getItem("LOGIN_ID");
+    };
 
-  window.addEventListener("loginEvt", handleLogin);
-  window.addEventListener("logoutEvt", handleLogout);
+    window.addEventListener("loginEvt", handleLogin);
+    window.addEventListener("logoutEvt", handleLogout);
+
+    return () => {
+      window.removeEventListener("logoutEvt", handleLogout);
+      window.removeEventListener("loginEvt", handleLogin);
+    };
+  }, []); // 마운트 시 1회만 등록
 
   useEffect(() => {
     displayIdentity();
