@@ -128,7 +128,7 @@ const ManageIngredient = () => {
   const dummy = {
     ingreName: "",
     quantity: "1",
-    packunit: "kg",
+    packunit: "",
     count: "1",
     storeDate: new Date(),
     buyPlace: "",
