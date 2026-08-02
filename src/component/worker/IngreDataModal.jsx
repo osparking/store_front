@@ -226,6 +226,7 @@ const IngreDataModal = ({
                       type="text" // Use "text" to gain more control over input
                       name="quantity"
                       value={ingredient.quantity}
+                      placeholder="(숫자)"
                       onChange={changeCount}
                       inputMode="numeric" // Suggest numeric keyboard on mobile devices
                       pattern="[0-9]*" // HTML5 pattern for basic browser validation
