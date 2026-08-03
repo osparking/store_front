@@ -165,7 +165,7 @@ const NavBar = () => {
             >
               비누 주문
             </Nav.Link>
-            {isAdmin && (
+            {!beforeLogin && isAdmin && (
               <Nav.Link
                 to={`/dashboard/admin`}
                 as={NavLink}
@@ -174,7 +174,7 @@ const NavBar = () => {
                 관리 업무
               </Nav.Link>
             )}
-            {(isAdmin || isWorker) && (
+            {!beforeLogin && (isAdmin || isWorker) && (
               <Nav.Link
                 to={"/work_item"}
                 as={NavLink}
