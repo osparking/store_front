@@ -105,27 +105,22 @@ const RegisterProduce = () => {
     }
   };
 
+  const today = Temporal.Now.plainDateISO();
+  const [dummyProduce, setDummyProduce] = useState({});
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("USER"));
 
     setDummyProduce({
-      ...dummyProduce,
+      shapeLabel: "",
+      quantity: 0,
+      produceDate: today.toString(),
       producer: {
-        id: user.id,
-        name: user.fullName,
+        id: user?.id,
+        name: user?.fullName,
       },
     });
   }, []);
-
-  const [dummyProduce, setDummyProduce] = useState({
-    shapeLabel: "",
-    quantity: 0,
-    produceDate: new Date(),
-    producer: {
-      id: 0,
-      name: "",
-    },
-  });
 
   const editProduceInfo = (produce) => {
     var produceInfo = {
@@ -142,9 +137,11 @@ const RegisterProduce = () => {
   };
 
   const [produceInfo, setProduceInfo] = useState(dummyProduce);
+  const [savedProduceInfo, setSavedProduceInfo] = useState(null);
   const [showInfoModal, setShowInfoModal] = useState(false);
 
   const openProduceModal = (produceInfo) => {
+    setSavedProduceInfo({ ...produceInfo });
     setProduceInfo(produceInfo);
     setShowInfoModal(true);
   };
@@ -207,6 +204,8 @@ const RegisterProduce = () => {
         setParentAlertSuccess={setAlertSuccess}
         loadProducePage={loadProducePage}
         changePage={changePage}
+        savedProduceInfo={savedProduceInfo}
+        setSavedProduceInfo={setSavedProduceInfo}
       />
       <div>
         <Paginator
