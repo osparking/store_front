@@ -1,5 +1,6 @@
 import ko from "date-fns/locale/ko";
-import { useRef, useState } from "react";
+import _ from "lodash";
+import { useEffect, useRef, useState } from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -17,26 +18,23 @@ const IngreDataModal = ({
   setIngreUpdated,
   ingredient,
   setIngredient,
+  savedIngredient,
+  setSavedIngredient,
 }) => {
-  const [storeDate, setStoreDate] = useState(new Date());
-  let endDate = new Date();
-  endDate.setFullYear(endDate.getFullYear() + 1);
-  const [expireDate, setExpireDate] = useState(endDate);
+  const ingredientUnchanged = () => {
+    if (savedIngredient) {
+      return _.isEqual(ingredient, savedIngredient);
+    } else {
+      return true; // savedIngredient 부재 = 변경되지 않은 것
+    }
+  };
 
   registerLocale("ko", ko);
 
   const ingreNameRef = useRef(null);
 
   const handleReset = () => {
-    setIngredient({
-      ingreName: "",
-      quantity: "1",
-      packunit: "",
-      count: "1",
-      storeDate: storeDate,
-      buyPlace: "",
-      expireDate: expireDate,
-    });
+    setIngredient({ ...savedIngredient });
   };
 
   const {
@@ -58,7 +56,7 @@ const IngreDataModal = ({
     const { name, value } = e.target;
 
     // 숫자만 남기고 모두 제거
-    const trimmedValue = value.trim();    
+    const trimmedValue = value.trim();
     const numValue = value.replace(/\D/g, "");
     if (trimmedValue.length > numValue.length) {
       setErrorMsg("숫자만 입력 가능합니다!");
@@ -120,6 +118,7 @@ const IngreDataModal = ({
         response = await sendStoIngInfo(ingredient);
         setIngreAdded(true);
       }
+      setSavedIngredient({ ...ingredient }); // saved 값 갱신
       setSuccessMsg(response.message);
       setAlertSuccess(true);
     } catch (error) {
@@ -257,36 +256,6 @@ const IngreDataModal = ({
                   </Form.Group>
                 </Col>
               </Row>
-              {ingredient.addTime && (
-                <>
-                  <hr style={{ marginBottom: "0" }} />
-                  <Form.Group
-                    as={Row}
-                    className="mt-2 mb-2"
-                    controlId="addTime"
-                    style={{ width: "fit-content", margin: "0 auto" }}
-                  >
-                    <Form.Label column xs="auto" className="mb-0 px-1">
-                      입력 시간:
-                    </Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="addTime"
-                      value={ingredient.addTime}
-                      onChange={handleChange}
-                      readOnly
-                      plaintext
-                      style={{
-                        paddingLeft: "4px",
-                        width: "168px",
-                        backgroundColor: "lightgray",
-                        borderRadius: "6px",
-                        textAlign: "start",
-                      }}
-                    />
-                  </Form.Group>
-                </>
-              )}
               {alertError && (
                 <AlertMessage type={"danger"} message={errorMsg} />
               )}
@@ -299,13 +268,18 @@ const IngreDataModal = ({
       </Modal.Body>
       <Modal.Footer style={{ justifyContent: "center", padding: "2em" }}>
         <div className="d-flex justify-content-center char2button gap-3">
-          <Button variant="secondary" onClick={closer} style={{ padding: 0 }}>
+          <Button
+            variant="secondary"
+            onClick={closer}
+            style={{ padding: 0, cursor: "pointer" }}
+          >
             닫기
           </Button>
           <Button
             variant="info"
             size="md"
-            style={{ padding: 0 }}
+            style={{ padding: 0, cursor: "pointer" }}
+            disabled={ingredientUnchanged()}
             onClick={handleReset}
           >
             리셋
@@ -313,8 +287,8 @@ const IngreDataModal = ({
           <Button
             variant="primary"
             onClick={handleSubmit}
-            style={{ padding: 0 }}
-            disabled={someItemEmpty()}
+            style={{ padding: 0, cursor: "pointer" }}
+            disabled={someItemEmpty() || ingredientUnchanged()}
           >
             저장
           </Button>
