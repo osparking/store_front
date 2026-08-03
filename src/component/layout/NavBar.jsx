@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-import { clearLoginUserInfo, logoutUser } from "../auth/AuthService";
+import { logoutUser } from "../auth/AuthService";
 import { getStorageToken } from "../util/utilities";
 import "./navBar.css";
 import { RootContext } from "./RootLayout";
@@ -38,12 +38,17 @@ const NavBar = () => {
   const loginId = localStorage.getItem("LOGIN_ID");
 
   useEffect(() => {
-    const handleLogin = () => {
-      console.log("handleLogin");
+    const readEmployeeStatus = () => {
       const isAdminJson = localStorage.getItem("IS_ADMIN");
       const isWorkerJson = localStorage.getItem("IS_WORKER");
-
       setIsEmployee(JSON.parse(isAdminJson), JSON.parse(isWorkerJson));
+    }
+
+    readEmployeeStatus();
+
+    const handleLogin = () => {
+      console.log("handleLogin");
+      readEmployeeStatus();
       displayIdentity();
     };
 
@@ -55,7 +60,6 @@ const NavBar = () => {
       if (!naviAskedIds.has(nowTimeId)) {
         const { path, message } = event?.detail || { path: "", message: "" };
 
-        // clearLoginUserInfo();
         setIsEmployee(false, false);
 
         if (message) {
