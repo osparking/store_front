@@ -10,6 +10,7 @@ import ShapeSelector from "../../soaps/ShapeSelector";
 import { sendProduceInfo } from "../WorkerService";
 import styles from "./ProduceInfoModal.module.css";
 import ProducerModal from "./ProducerModal";
+import _ from "lodash";
 
 const ProduceInfoModal = ({
   show,
@@ -20,8 +21,33 @@ const ProduceInfoModal = ({
   setParentAlertSuccess,
   loadProducePage,
   changePage,
+  savedProduceInfo,
+  setSavedProduceInfo,
 }) => {
   registerLocale("ko", ko);
+
+  const produceInfoUnchanged = () => {
+    if (savedProduceInfo) {
+      return _.isEqual(produceInfo, savedProduceInfo);
+    } else {
+      return true; // savedProduceInfo 부재 = 변경되지 않은 것
+    }
+  };
+
+  const handleReset = () => {
+    setProduceInfo({ ...savedProduceInfo });
+  };
+
+  const someItemEmpty = () => {
+    const allSet =
+      produceInfo.produceDate &&
+      produceInfo.shapeLabel &&
+      produceInfo.quantity &&
+      produceInfo.producer.name &&
+      produceInfo.quantity;
+
+    return !allSet;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,6 +57,7 @@ const ProduceInfoModal = ({
 
       setParentSuccessMsg(result.message);
       setParentAlertSuccess(true);
+      setSavedProduceInfo({ ...produceInfo });
       !produceInfo.id ? changePage(1) : loadProducePage();
       closer();
     }
@@ -140,7 +167,7 @@ const ProduceInfoModal = ({
                     <Form.Control
                       type="text"
                       name="producerName"
-                      value={`${produceInfo.producer.name} (${produceInfo.producer.id})`}
+                      value={`${produceInfo.producer?.name} (${produceInfo.producer?.id})`}
                       placeholder="(직원명)"
                       onChange={handleChange}
                       required
@@ -193,13 +220,27 @@ const ProduceInfoModal = ({
         </Modal.Body>
         <Modal.Footer style={{ justifyContent: "center", padding: "2em" }}>
           <div className="d-flex justify-content-center char2button gap-3">
-            <Button variant="secondary" onClick={closer} style={{ padding: 0 }}>
+            <Button
+              variant="secondary"
+              onClick={closer}
+              style={{ padding: 0, cursor: "pointer" }}
+            >
               닫기
+            </Button>
+            <Button
+              variant="info"
+              size="md"
+              style={{ padding: 0, cursor: "pointer" }}
+              disabled={produceInfoUnchanged()}
+              onClick={handleReset}
+            >
+              리셋
             </Button>
             <Button
               variant="primary"
               onClick={handleSubmit}
-              style={{ padding: 0 }}
+              style={{ padding: 0, cursor: "pointer" }}
+              disabled={someItemEmpty() || produceInfoUnchanged()}
             >
               저장
             </Button>
