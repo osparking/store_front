@@ -120,22 +120,24 @@ const ManageIngredient = () => {
   const indexOfLastIngre = currIngrePage * ingresPerPage;
   const indexOfFirstIngre = indexOfLastIngre - ingresPerPage;
 
-  const [ingredient, setIngredient] = useState({});
-
-  let expireDate = new Date();
-  expireDate.setFullYear(expireDate.getFullYear() + 1);
+  const today = Temporal.Now.plainDateISO();
+  const nextYear = today.add({ years: 1 });
 
   const dummy = {
     ingreName: "",
     quantity: "1",
     packunit: "",
     count: "1",
-    storeDate: new Date(),
+    storeDate: today.toString(),
     buyPlace: "",
-    expireDate: expireDate,
+    expireDate: nextYear.toString(),
   };
 
+  const [ingredient, setIngredient] = useState(dummy);
+  const [savedIngredient, setSavedIngredient] = useState(null);  
+
   const openWithRow = (row) => {
+    setSavedIngredient(row);
     setIngredient(row);
     setShowModal(true);
   };
@@ -244,6 +246,8 @@ const ManageIngredient = () => {
         setIngreUpdated={setIngreUpdated}
         ingredient={ingredient}
         setIngredient={setIngredient}
+        savedIngredient={savedIngredient}
+        setSavedIngredient={setSavedIngredient}
       />
       <div className="pb-1">
         <Paginator
