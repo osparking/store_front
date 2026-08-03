@@ -80,6 +80,12 @@ const NavBar = () => {
     window.addEventListener("loginEvt", handleLogin);
     window.addEventListener("logoutEvt", handleLogout);
 
+    // 토큰이 없으면, 로컬 스토리지 및 세션 스토리지 내용 모두 제거
+    if (!getStorageToken()) {
+      localStorage.clear();
+      sessionStorage.clear();
+    }
+
     return () => {
       window.removeEventListener("logoutEvt", handleLogout);
       window.removeEventListener("loginEvt", handleLogin);
