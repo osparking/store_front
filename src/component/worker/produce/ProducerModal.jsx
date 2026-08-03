@@ -17,7 +17,7 @@ import { getEmployeeNamesPage } from "../WorkerService";
 import "./ProducerModal.css";
 
 const ProducerModal = ({ show, producer, setProducer, closer }) => {
-  const [nameKey, setNameKey] = useState(producer.name);
+  const [nameKey, setNameKey] = useState(producer?.name);
   const [employees, setEmployees] = useState([]);
   const [namePage, setNamePage] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -28,8 +28,10 @@ const ProducerModal = ({ show, producer, setProducer, closer }) => {
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    setNameKey(producer.name);
-    loadNamesPage(producer.name);
+    if (producer) {
+      setNameKey(producer.name);
+      loadNamesPage(producer.name);
+    }
   }, [producer]);
 
   const idxLastPlus1 = currentPage * pageSize;
