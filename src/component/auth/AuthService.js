@@ -28,8 +28,8 @@ export const clearLoginUserInfo = () => {
 };
 
 export const logoutUser = (detail) => {
+  clearLoginUserInfo();
   if (localStorage.getItem("LOGIN_ID")) {
-    clearLoginUserInfo();
     window.dispatchEvent(new CustomEvent("logoutEvt", { detail: detail }));
   }
 };
