@@ -58,6 +58,7 @@ export default function QuestionFollowUpModal({
             setReloadPage={setReloadPage}
             headText={is_admin ? "범이 답변" : "추가 질문"}
             evenOdd={is_admin ? "viewer-even" : "viewer-odd"}
+            isAdmin={is_admin}
           />
         )}
         {followUps &&
