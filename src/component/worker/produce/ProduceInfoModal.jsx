@@ -121,6 +121,8 @@ const ProduceInfoModal = ({
         onHide={closer}
         id="new-produce"
         dialogClassName="bum-modal-size"
+        backdrop="static" // 배경 클릭 시 닫히지 않음
+        keyboard={false} // ESC 키로 닫히지 않음
       >
         <Modal.Header closeButton>
           <Modal.Title style={{ color: "black" }}>생산 정보 입력</Modal.Title>
