@@ -4,11 +4,11 @@ import { BsPeopleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import CardCompo from "../card/CardCompo";
 import SalesChart from "../chart/SalesChart";
-import SoapChart from "../chart/SoapChart";
 import UserChart from "../chart/UserChart";
 import WorkerChart from "../chart/WorkerChart";
 import { callWithToken } from "../util/api";
 import "./Overview.css";
+import ProduceChart from "../chart/ProduceChart";
 
 const Overview = () => {
   const [userCount, setUserCount] = useState(0);
@@ -90,7 +90,7 @@ const Overview = () => {
               <UserChart chartRefs={chartRefs} />
             </div>
             <div className="chart-container">
-              <SoapChart />
+              <ProduceChart />
             </div>
             <div className="chart-container">
               <SalesChart chartRefs={chartRefs} setSoldCount={setSoldCount} />
