@@ -103,6 +103,10 @@ export async function callWithToken(method, urlSuffix, data = null) {
         // 갱신 성공 시 원래 요청 재시도
         return await originalRequest(newToken);
       } catch (error) {
+        if (error.response?.status === HttpStatusCode.Unauthorized) {
+          // 갱신 실패 시, 로그아웃 처리
+          logoutUser({ path: "/login", message: "로그인 유지 기간 만료" });
+        }
         return error;
       }
     }
