@@ -28,10 +28,10 @@ export const clearLoginUserInfo = () => {
 };
 
 export const logoutUser = (detail) => {
-  clearLoginUserInfo();
   if (localStorage.getItem("LOGIN_ID")) {
     window.dispatchEvent(new CustomEvent("logoutEvt", { detail: detail }));
   }
+  clearLoginUserInfo();
 };
 
 export const verify_token = async (token) => {
