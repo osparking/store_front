@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   CartesianGrid,
   Legend,
@@ -11,8 +11,7 @@ import {
 } from "recharts";
 import NoDataExists from "../common/NoDataExists";
 import "./ProduceChart.css";
-// #region Sample data
-const data = [
+const produceData = [
   {
     name: "'26-03",
     보통비누: 1000,
@@ -56,11 +55,21 @@ const data = [
     amt: 2500,
   },
 ];
-// #endregion
 
 const ProduceChart = () => {
-  const [soapProduced, setSoapProduced] = useState([{}, {}]);
+  const [soapProduced, setSoapProduced] = useState([]);
   const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    const getSoapProduceStat = () => {
+      try {
+        setSoapProduced(produceData);
+      } catch (err) {
+        setErrorMsg("비누 생산 실적 채취 오류: ", err.message);
+      }
+    };
+    getSoapProduceStat();
+  }, []);
 
   return (
     <section className="mb-2 centerChart">
@@ -70,7 +79,7 @@ const ProduceChart = () => {
           <ResponsiveContainer width={"100%"} height={300}>
             <LineChart
               responsive
-              data={data}
+              data={soapProduced}
               margin={{
                 top: 10,
                 right: 10,
