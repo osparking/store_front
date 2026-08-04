@@ -110,6 +110,7 @@ export async function callWithToken(method, urlSuffix, data = null) {
         return error;
       }
     }
+    logoutUser({ path: "/login", message: "접근 권한 위반 오류" });
     throw err;
   }
 }
