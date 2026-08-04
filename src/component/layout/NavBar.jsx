@@ -30,7 +30,8 @@ const NavBar = () => {
         setIdentity("<" + user.loginMethod + ">");
       }
     } else {
-      setIdentity("<로그인 전>");
+      localStorage.clear();
+      sessionStorage.clear();
     }
   };
 
