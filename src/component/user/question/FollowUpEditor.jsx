@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import _ from "lodash";
 import { useEffect, useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import toast from "react-hot-toast";
@@ -6,8 +7,8 @@ import ReactQuill from "react-quill-new";
 import "../../../App.css";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import { getPlainContent } from "../../util/utilities";
-import { deleteFollowUp } from "./QuestionService";
 import "./FollowUpEditor.css";
+import { deleteFollowUp } from "./QuestionService";
 
 function FollowUpEditor({
   questionId,
@@ -18,10 +19,33 @@ function FollowUpEditor({
   setReloadPage,
   headText,
   evenOdd,
+  isAdmin,
 }) {
-  console.log("followUp: ", JSON.stringify(followUp));
+  
   const [editorContent, setEditorContent] = useState(followUp.content);
   const [loading, setLoading] = useState(false);
+
+  const [contentUnChanged, setContentUnChanged] = useState(true);
+  const [savedContent, setSavedContent] = useState("");
+
+  useEffect(() => {
+    setSavedContent(followUp.content);
+  }, []);
+
+  useEffect(() => {
+    if (followUp && followUp.content !== undefined) {
+      const writingAnswer =
+        isAdmin &&
+        (getPlainContent(editorContent) === "" ||
+          getPlainContent(editorContent) === promptMessage);
+      const hasEqualContent = _.isEqual(editorContent, savedContent);
+      setContentUnChanged(writingAnswer || hasEqualContent);
+    }
+  }, [editorContent, savedContent]);
+
+  const resetEditorContent = () => {
+    setEditorContent(savedContent);
+  };
 
   const handleEditorChange = (content, delta, source, editor) => {
     setEditorContent(content);
@@ -215,6 +239,7 @@ function FollowUpEditor({
             variant="secondary"
             type="button"
             className="p-0"
+            style={{ padding: 0, cursor: "pointer" }}
             onClick={() => handleClose()}
           >
             닫기
@@ -225,16 +250,18 @@ function FollowUpEditor({
                 variant="info"
                 type="button"
                 className="p-0"
-                onClick={() => setEditorContent("")}
+                style={{ padding: 0, cursor: "pointer" }}
+                onClick={resetEditorContent}
+                disabled={contentUnChanged || loading}
               >
-                초기화
+                리셋
               </Button>
               <Button
                 variant="primary"
                 type="submit"
                 className="p-0"
                 style={{ cursor: "pointer" }}
-                disabled={loading}
+                disabled={contentUnChanged || loading}
               >
                 {loading ? <span>저장 중...</span> : "저장"}
               </Button>
