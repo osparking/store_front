@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import "../worker/WorkerDeptSelector.css";
 
@@ -13,6 +13,18 @@ const AdderModal = ({ show, closer, label, saver, dialogClass }) => {
     closer();
   };
 
+  const inputRef = React.useRef(null);
+
+  useEffect(() => {
+    if (show) {
+      setTimeout(() => {
+        if (inputRef.current) {
+          inputRef.current.focus();
+        }
+      }, 100);
+    }
+  }, [show]);
+
   return (
     <Modal show={show} onHide={closer} dialogClassName={dialogClass}>
       <Modal.Header closeButton>
@@ -23,6 +35,7 @@ const AdderModal = ({ show, closer, label, saver, dialogClass }) => {
           <Form.Group className="mb-1">
             <Form.Label>{label} 명</Form.Label>
             <Form.Control
+              ref={inputRef}
               type="text"
               value={itemValue}
               placeholder={`(새 ${label} 이름)`}
