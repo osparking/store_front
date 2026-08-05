@@ -10,60 +10,29 @@ import {
   YAxis,
 } from "recharts";
 import NoDataExists from "../common/NoDataExists";
+import { callWithToken } from "../util/api";
 import "./ProduceChart.css";
-const produceData = [
-  {
-    name: "'26-03",
-    보통비누: 1000,
-    백설공주: 4400,
-    메주비누: 1400,
-    amt: 2400,
-  },
-  {
-    name: "'26-04",
-    보통비누: 1000,
-    백설공주: 3398,
-    메주비누: 398,
-    amt: 2210,
-  },
-  {
-    name: "'26-05",
-    보통비누: 2000,
-    백설공주: 5800,
-    메주비누: 2800,
-    amt: 2290,
-  },
-  {
-    name: "'26-06",
-    보통비누: 2780,
-    백설공주: 3908,
-    메주비누: 1908,
-    amt: 2000,
-  },
-  {
-    name: "'26-07",
-    보통비누: 1890,
-    백설공주: 4800,
-    메주비누: 1800,
-    amt: 2181,
-  },
-  {
-    name: "'26-08",
-    보통비누: 2390,
-    백설공주: 3800,
-    메주비누: 1800,
-    amt: 2500,
-  },
-];
 
-const ProduceChart = () => {
+const ProduceChart = ({ setProducedCount }) => {
   const [soapProduced, setSoapProduced] = useState([]);
   const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
-    const getSoapProduceStat = () => {
+    const getSoapProduceStat = async () => {
       try {
-        setSoapProduced(produceData);
+        const url = "/admin/soap_produce_chart";
+        const response = await callWithToken("get", url);
+        const responseData = await response.data.data;
+
+        if (responseData) {
+          const total = responseData.reduce((sum, item) => {
+            return sum + item["보통비누"] + item["백설공주"] + item["메주비누"];
+          }, 0);
+          setProducedCount(total);
+          setSoapProduced(responseData);
+        } else {
+          navigate("/login");
+        }
       } catch (err) {
         setErrorMsg("비누 생산 실적 채취 오류: ", err.message);
       }
@@ -88,7 +57,7 @@ const ProduceChart = () => {
               }}
             >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" stroke="var(--color-text-3)" />
+              <XAxis dataKey="month" stroke="var(--color-text-3)" />
               <YAxis width="auto" stroke="var(--color-text-3)" />
               <Tooltip
                 cursor={{
