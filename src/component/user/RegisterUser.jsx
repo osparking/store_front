@@ -379,12 +379,14 @@ const RegisterUser = () => {
                 </>
               )}
               {alertError && <AlertMessage type="danger" message={errorMsg} />}
-              <div className="text-center mb-3">
-                이미 등록한 경우:{" "}
-                <Link to={"/login"} style={{ textDecoration: "none" }}>
-                  로그인
-                </Link>
-              </div>
+              {!isAdmin && (
+                <div className="text-center mb-3">
+                  이미 등록한 경우:{" "}
+                  <Link to={"/login"} style={{ textDecoration: "none" }}>
+                    로그인
+                  </Link>
+                </div>
+              )}
             </Card.Footer>
           </Card>
         </Form>
