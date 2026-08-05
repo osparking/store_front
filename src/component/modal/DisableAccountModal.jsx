@@ -8,6 +8,7 @@ const DisableAccountModal = ({
   userId,
   callUpdateUser,
   disabled,
+  accountOwner = true,
   modalClass = "",
 }) => {
   const handleDisableAccount = async () => {
@@ -18,7 +19,9 @@ const DisableAccountModal = ({
         await callUpdateUser();
       }
       onHide();
-      logoutUser({ path: "/", message: "" });      
+      if (accountOwner) {
+        logoutUser({ path: "/", message: "" });
+      }
     } catch (error) {
       console.error(error.message);
     }
@@ -30,7 +33,15 @@ const DisableAccountModal = ({
         <Modal.Title>비활성화 효과</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        비활성화하면, 귀하는 자동 로그아웃되며, <br />
+        {accountOwner ? (
+          <>
+            계정을 비활성화하면, 귀하는 자동 로그아웃되며, <br />
+          </>
+        ) : (
+          <>
+            계정을 비활성화하면, 해당 직원은 <br />
+          </>
+        )}
         추후, 이메일 검증을 통하여 계정을 활성화할 수 있습니다.
       </Modal.Body>
       <Modal.Footer>
