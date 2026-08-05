@@ -7,7 +7,7 @@ const useColorMapping = () => {
     const rootStyle = getComputedStyle(document.documentElement);
 
     setColors({
-      백설공주: rootStyle.getPropertyValue("--color-snow-white"),
+      백설공주: rootStyle.getPropertyValue("--color-snow-pink"),
       보통비누: rootStyle.getPropertyValue("--color-normal-soap"),
       메주비누: rootStyle.getPropertyValue("--color-maejoo-soap"),
       default: rootStyle.getPropertyValue("--color-default"),
