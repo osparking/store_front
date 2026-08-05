@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Card } from "react-bootstrap";
 import { BsPeopleFill } from "react-icons/bs";
+import { FaPeopleGroup } from "react-icons/fa6";
+import { HiOutlineRectangleGroup } from "react-icons/hi2";
+import { FcMoneyTransfer } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import CardCompo from "../card/CardCompo";
 import ProduceChart from "../chart/ProduceChart";
@@ -60,21 +63,21 @@ const Overview = () => {
         <CardCompo
           label={"유저 통계"}
           count={userCount}
-          IconCompo={BsPeopleFill}
+          IconCompo={FaPeopleGroup}
           chartName={"user"}
           scrollToChart={scrollToChart}
         />
         <CardCompo
           label={"생산 실적"}
           count={producedCount}
-          IconCompo={BsPeopleFill}
+          IconCompo={HiOutlineRectangleGroup}
           chartName={"produce"}
           scrollToChart={scrollToChart}
         />
         <CardCompo
           label={"판매 실적"}
           count={soldCount}
-          IconCompo={BsPeopleFill}
+          IconCompo={FcMoneyTransfer}
           chartName={"sales"}
           scrollToChart={scrollToChart}
         />
