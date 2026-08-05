@@ -3,15 +3,16 @@ import { Card } from "react-bootstrap";
 import { BsPeopleFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import CardCompo from "../card/CardCompo";
+import ProduceChart from "../chart/ProduceChart";
 import SalesChart from "../chart/SalesChart";
 import UserChart from "../chart/UserChart";
 import WorkerChart from "../chart/WorkerChart";
 import { callWithToken } from "../util/api";
 import "./Overview.css";
-import ProduceChart from "../chart/ProduceChart";
 
 const Overview = () => {
   const [userCount, setUserCount] = useState(0);
+  const [producedCount, setProducedCount] = useState(0);
   const [soldCount, setSoldCount] = useState(0);
   const [employeeCount, setEmployeeCount] = useState(0);
   const navigate = useNavigate();
@@ -90,7 +91,7 @@ const Overview = () => {
               <UserChart chartRefs={chartRefs} />
             </div>
             <div className="chart-container">
-              <ProduceChart />
+              <ProduceChart setProducedCount={setProducedCount} />
             </div>
             <div className="chart-container">
               <SalesChart chartRefs={chartRefs} setSoldCount={setSoldCount} />
