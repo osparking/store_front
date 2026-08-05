@@ -64,7 +64,13 @@ const Overview = () => {
           chartName={"user"}
           scrollToChart={scrollToChart}
         />
-        <CardCompo label={"생산 실적"} count={0} IconCompo={BsPeopleFill} />
+        <CardCompo
+          label={"생산 실적"}
+          count={producedCount}
+          IconCompo={BsPeopleFill}
+          chartName={"produce"}
+          scrollToChart={scrollToChart}
+        />
         <CardCompo
           label={"판매 실적"}
           count={soldCount}
@@ -91,7 +97,10 @@ const Overview = () => {
               <UserChart chartRefs={chartRefs} />
             </div>
             <div className="chart-container">
-              <ProduceChart setProducedCount={setProducedCount} />
+              <ProduceChart
+                chartRefs={chartRefs}
+                setProducedCount={setProducedCount}
+              />
             </div>
             <div className="chart-container">
               <SalesChart chartRefs={chartRefs} setSoldCount={setSoldCount} />
