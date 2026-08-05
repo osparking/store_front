@@ -347,37 +347,38 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
         </Card.Body>
         {!readOnly && (
           <Card.Footer className="text-center">
-            <div className="d-flex justify-content-center mb-3 mt-3 char2button">
-              {isAdmined && (
+            <div className="d-flex justify-content-center mb-3 mt-3 char2button gap-4">
+              {isAdmined ? (
                 <Button
                   type="button"
                   disabled={user.deleted}
                   variant="danger"
                   size="sm"
-                  className="me-4"
                   onClick={() => setShowDelModal(true)}
                 >
                   {"삭제"}
                 </Button>
+              ) : (
+                <>
+                  <Button
+                    type="button"
+                    disabled={deptRemains()}
+                    variant="secondary"
+                    size="sm"
+                    onClick={restoreDept}
+                  >
+                    {"리셋"}
+                  </Button>
+                  <Button
+                    type="submit"
+                    disabled={deptRemains()}
+                    variant="primary"
+                    size="sm"
+                  >
+                    {"저장"}
+                  </Button>
+                </>
               )}
-              <Button
-                type="button"
-                disabled={deptRemains()}
-                variant="secondary"
-                size="sm"
-                className="me-4"
-                onClick={restoreDept}
-              >
-                {"복원"}
-              </Button>
-              <Button
-                type="submit"
-                disabled={deptRemains()}
-                variant="primary"
-                size="sm"
-              >
-                {"저장"}
-              </Button>
             </div>
             <DeleteWorkerConfirmModal
               show={showDelModal}
