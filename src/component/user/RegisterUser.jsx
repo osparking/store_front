@@ -347,15 +347,26 @@ const RegisterUser = () => {
                 </Button>
               </div>
 
-              {isAdmin && isDevelopment && (
-                <div className="d-flex justify-content-center char2button mb-3 mt-3">
+              {isAdmin && (
+                <div className="d-flex justify-content-center char2button mb-3 mt-3 gap-4">
                   <Button
-                    variant="outline-success"
+                    variant="success"
                     size="sm"
-                    onClick={easyData}
+                    onClick={() => {
+                      history.back();
+                    }}
                   >
-                    입력 편의
+                    관리 업무
                   </Button>
+                  {isDevelopment && (
+                    <Button
+                      variant="outline-success"
+                      size="sm"
+                      onClick={easyData}
+                    >
+                      입력 편의
+                    </Button>
+                  )}
                 </div>
               )}
               {alertSuccess && (
