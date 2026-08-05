@@ -51,7 +51,6 @@ const WorkerDeptSelector = ({
           required
           onChange={handleDept}
           disabled={disabled || readOnly}
-          className={readOnly ? "disabled-color" : "enabled-color"}
         >
           <option value="">(소속 부서)</option>
           {workerDepts.map((dept, index) => (
