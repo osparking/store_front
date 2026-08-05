@@ -40,7 +40,7 @@ const WorkersTable = ({
     if (worker.deleted) {
       return;
     }
-    setDelTarget({ id: worker.id, name: worker.name });
+    setDelTarget({ id: worker.id, name: worker.fullName });
     setShowDelModal(true);
   };
 
@@ -159,7 +159,7 @@ const WorkersTable = ({
         show={showDelModal}
         onHide={() => setShowDelModal(false)}
         handleDeletion={workerDeletionConfirmed}
-        target={`${delTarget.name}`}
+        target={delTarget.name}
         disabled={delBtnDisabled}
         modalClass="delete-worker-confirm"
       />
