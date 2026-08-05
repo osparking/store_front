@@ -12,6 +12,7 @@ import {
 import NoDataExists from "../common/NoDataExists";
 import { callWithToken } from "../util/api";
 import "./ProduceChart.css";
+import useColorMapping from "../hook/ColorMapping";
 
 const ProduceChart = ({ setProducedCount }) => {
   const [soapProduced, setSoapProduced] = useState([]);
@@ -39,6 +40,8 @@ const ProduceChart = ({ setProducedCount }) => {
     };
     getSoapProduceStat();
   }, []);
+
+  const colors = useColorMapping();
 
   return (
     <section className="mb-2 centerChart">
@@ -72,27 +75,27 @@ const ProduceChart = ({ setProducedCount }) => {
               <Line
                 type="monotone"
                 dataKey="백설공주"
-                stroke="var(--color-chart-1)"
+                stroke={colors["백설공주"]}
                 dot={{
-                  fill: "var(--color-surface-base)",
+                  fill: colors["백설공주"],
                 }}
                 activeDot={{ r: 8, stroke: "var(--color-surface-base)" }}
               />
               <Line
                 type="monotone"
                 dataKey="메주비누"
-                stroke="var(--color-chart-2)"
+                stroke={colors["메주비누"]}
                 dot={{
-                  fill: "var(--color-surface-base)",
+                  fill: colors["메주비누"],
                 }}
                 activeDot={{ r: 8, stroke: "var(--color-surface-base)" }}
               />
               <Line
                 type="monotone"
                 dataKey="보통비누"
-                stroke="var(--color-chart-3)"
+                stroke={colors["보통비누"]}
                 dot={{
-                  fill: "var(--color-surface-base)",
+                  fill: colors["보통비누"],
                 }}
                 activeDot={{ stroke: "var(--color-surface-base)" }}
               />
