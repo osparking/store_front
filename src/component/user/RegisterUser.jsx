@@ -203,27 +203,19 @@ const RegisterUser = () => {
                     >
                       <Form.Label>
                         계정 유형
-                        {isAdmin ? (
-                          <Form.Control
-                            as="select"
-                            name="userType"
-                            required
-                            value={user.userType}
-                            onChange={handleChange}
-                          >
+                        <Form.Control
+                          as="text"
+                          name="userType"
+                          required
+                          value={user.userType}
+                          className="disabled-color"
+                        >
+                          {isAdmin ? (
                             <option value="WORKER">직원</option>
-                          </Form.Control>
-                        ) : (
-                          <Form.Control
-                            as="select"
-                            name="userType"
-                            required
-                            value={user.userType}
-                            onChange={handleChange}
-                          >
+                          ) : (
                             <option value="CUSTOMER">고객</option>
-                          </Form.Control>
-                        )}
+                          )}
+                        </Form.Control>
                       </Form.Label>
                     </Col>
                     <Col
@@ -235,7 +227,6 @@ const RegisterUser = () => {
                         <Form.Label>
                           부서
                           <WorkerDeptSelector
-                            disabled={user.userType !== "WORKER"}
                             workerDept={user.dept}
                             onChange={handleChange}
                           />
