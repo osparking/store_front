@@ -10,6 +10,7 @@ import {
   Popover,
   Row,
 } from "react-bootstrap";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import ProcessSpinner from "../common/ProcessSpinner";
@@ -26,7 +27,6 @@ import {
 import WorkerDeptSelector from "../worker/WorkerDeptSelector";
 import "./RegisterUser.css";
 import { registerUser } from "./UserService";
-import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const RegisterUser = () => {
   const isAdmin = localStorage.getItem("IS_ADMIN") === "true";
@@ -203,19 +203,27 @@ const RegisterUser = () => {
                     >
                       <Form.Label>
                         계정 유형
-                        <Form.Control
-                          as="select"
-                          name="userType"
-                          required
-                          value={user.userType}
-                          onChange={handleChange}
-                        >
-                          <option value="">(계정 타입)</option>
-                          <option value="CUSTOMER">고객</option>
-                          <option value="WORKER" disabled={!isAdmin}>
-                            직원
-                          </option>
-                        </Form.Control>
+                        {isAdmin ? (
+                          <Form.Control
+                            as="select"
+                            name="userType"
+                            required
+                            value={user.userType}
+                            onChange={handleChange}
+                          >
+                            <option value="WORKER">직원</option>
+                          </Form.Control>
+                        ) : (
+                          <Form.Control
+                            as="select"
+                            name="userType"
+                            required
+                            value={user.userType}
+                            onChange={handleChange}
+                          >
+                            <option value="CUSTOMER">고객</option>
+                          </Form.Control>
+                        )}
                       </Form.Label>
                     </Col>
                     <Col
@@ -223,14 +231,16 @@ const RegisterUser = () => {
                       md={4}
                       className="employeeAffiliation d-flex justify-content-left"
                     >
-                      <Form.Label>
-                        부서
-                        <WorkerDeptSelector
-                          disabled={user.userType !== "WORKER"}
-                          workerDept={user.dept}
-                          onChange={handleChange}
-                        />
-                      </Form.Label>
+                      {isAdmin && (
+                        <Form.Label>
+                          부서
+                          <WorkerDeptSelector
+                            disabled={user.userType !== "WORKER"}
+                            workerDept={user.dept}
+                            onChange={handleChange}
+                          />
+                        </Form.Label>
+                      )}
                     </Col>
                   </Row>
                 </fieldset>
