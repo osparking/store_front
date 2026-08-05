@@ -14,7 +14,7 @@ import { callWithToken } from "../util/api";
 import "./ProduceChart.css";
 import useColorMapping from "../hook/ColorMapping";
 
-const ProduceChart = ({ setProducedCount }) => {
+const ProduceChart = ({ chartRefs, setProducedCount }) => {
   const [soapProduced, setSoapProduced] = useState([]);
   const [errorMsg, setErrorMsg] = useState(null);
 
@@ -44,7 +44,13 @@ const ProduceChart = ({ setProducedCount }) => {
   const colors = useColorMapping();
 
   return (
-    <section className="mb-2 centerChart">
+    <section
+      className="mb-2 centerChart"
+      ref={(el) => (chartRefs.current.produce = el)}
+      style={{
+        scrollMarginTop: "260px",
+      }}
+    >
       <h5 className="chart-title mb-3">비누 생산 실적</h5>
       {soapProduced && soapProduced.length > 0 ? (
         <>
