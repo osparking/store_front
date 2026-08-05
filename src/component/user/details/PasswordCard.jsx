@@ -42,7 +42,7 @@ const PasswordCard = ({ user, readOnly = false }) => {
 
   const loginId = localStorage.getItem("LOGIN_ID");
   const accountOwner = loginId == user.id;
-  
+
   return (
     <Card
       id="passwordCard"
@@ -52,9 +52,10 @@ const PasswordCard = ({ user, readOnly = false }) => {
       <DisableAccountModal
         show={showDelModal}
         onHide={handleModalXButtonClick}
-        userId={loginId}
+        userId={user.id}
         target={""}
         disabled={false}
+        accountOwner={accountOwner}
         modalClass={"disable-account-confirm"}
       />
       <Card.Body className="p-3">
@@ -109,8 +110,9 @@ const PasswordCard = ({ user, readOnly = false }) => {
                 id="disableAccountButton"
                 size="sm"
                 onClick={handleCloseAccountButtonCLick}
+                disabled={!user.enabled}
               >
-                비활성화
+                {user.enabled ? "비활성화" : "비활성임"}
               </Button>
             </div>
           </div>
