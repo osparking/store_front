@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Modal } from "react-bootstrap";
 import "../worker/WorkerDeptSelector.css";
 import "./ConfirmEmailModal.css";
 
@@ -32,9 +32,11 @@ const ConfirmEmailModal = ({ show, closer, confirmData, dialogClass }) => {
         </p>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="danger" onClick={closer}>
-          닫기
-        </Button>
+        <div className="char2button d-flex justify-content-start">
+          <Button variant="danger" onClick={closer} className="p-0">
+            닫기
+          </Button>
+        </div>
       </Modal.Footer>
     </Modal>
   );
