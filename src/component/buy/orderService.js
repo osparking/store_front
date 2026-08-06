@@ -176,7 +176,7 @@ export async function saveOrderRecipient(data) {
 }
 
 export async function fetchReviewPage(page, size) {
-  const urlPrefix = "/soap/review_page?page=";
+  const urlPrefix = "/soap/public/review_page?page=";
 
   try {
     const result = await api.get(`${urlPrefix}${page}&size=${size}`);
@@ -188,7 +188,7 @@ export async function fetchReviewPage(page, size) {
 
 export async function fetchAverageStars() {
   try {
-    const result = await api.get("/soap/average_stars");
+    const result = await api.get("/soap/public/average_stars");
     return result && result.data.data;
   } catch (err) {
     throw err;
