@@ -35,7 +35,7 @@ const Recipient = () => {
   } = location.state || [];
   let productList = undefined;
 
-  const [recipientDefault, setRecipientDefault] = useState(null);
+  const [defaultRecipient, setDefaultRecipient] = useState(null);
   const user = JSON.parse(localStorage.getItem("USER"));
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const Recipient = () => {
         console.log("response.data:", JSON.stringify(recipientDto));
 
         if (recipientDto) {
-          setRecipientDefault({
+          setDefaultRecipient({
             addressDetail: recipientDto.addressDetail,
             doroZbun: recipientDto.doroZbun,
             addrBasisAddReq: {
@@ -113,19 +113,19 @@ const Recipient = () => {
   };
 
   const [formData, setFormData] = useState(
-    recipient || recipientDefault || recipientEmpty,
+    recipient || defaultRecipient || recipientEmpty,
   );
 
   useEffect(() => {
-    if (!recipient && recipientDefault) {
-      setFormData(recipientDefault);
+    if (!recipient && defaultRecipient) {
+      setFormData(defaultRecipient);
       setIsDefaultRecipient(true);
     }
-  }, [recipientDefault]);
+  }, [defaultRecipient]);
 
   const [isDefaultRecipient, setIsDefaultRecipient] = useState(
     wasDefaultRecipient === undefined
-      ? recipientDefault !== null
+      ? defaultRecipient !== null
       : wasDefaultRecipient,
   );
   const [deliveryFee, setDeliveryFee] = useState(0);
@@ -185,7 +185,7 @@ const Recipient = () => {
         formItems: formItems,
         subTotal: shapeSummary,
         source: source,
-        toDefaultRecipient: _.isEqual(recipientDefault, formData),
+        toDefaultRecipient: _.isEqual(defaultRecipient, formData),
         isDefaultRecipient: isDefaultRecipient,
       },
     });
@@ -315,7 +315,7 @@ const Recipient = () => {
                         setFormData={setFormData}
                         isDefaultRecipient={isDefaultRecipient}
                         setIsDefaultRecipient={setIsDefaultRecipient}
-                        defaultRecipient={recipientDefault}
+                        defaultRecipient={defaultRecipient}
                         addressDetailInputRef={addressDetailInputRef}
                         setFocusDetailedAddr={setFocusDetailedAddr}
                       />
