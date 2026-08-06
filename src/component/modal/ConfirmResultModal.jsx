@@ -74,6 +74,17 @@ const ConfirmResultModal = ({
             </p>
           </>
         );
+      case "잘못된 토큰":
+        return (
+          <>
+            <p className="text-success mb-3" style={{ textAlign: "center" }}>
+              *잘못된 토큰*
+            </p>
+            <p style={{ textAlign: "center" }}>
+              이메일 검증용 제출 토큰은 잘못된 것입니다.
+            </p>
+          </>
+        );
       case "이미 검증된 토큰":
         return (
           <>
