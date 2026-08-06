@@ -24,9 +24,14 @@ const EmailVerifin = () => {
           setVerifyMsg("계정 등록 때 발급된 토큰이 만료되었습니다.");
           setAlertType("alert-warning");
           setTokenExpired(true);
+        } else if (message === "잘못된 토큰") {
+          setVerifyMsg("이메일 검증용 제출 토큰이 잘못되었습니다.");
+          setAlertType("alert-warning");
+          setTokenExpired(true);
         } else {
           setVerifyMsg(message);
         }
+        setSwitchLabel(message);
       } else {
         setVerifyMsg("서버 연결 오류가 발생하였습니다.");
       }
