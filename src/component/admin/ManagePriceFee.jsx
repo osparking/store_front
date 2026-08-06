@@ -35,7 +35,7 @@ const ManagePriceFee = () => {
         setFeeOther(response.data.feeOther);
         setFeeRegion(feeRegion);
       } catch (e) {
-        toast.error("배송비 기타 오류: ", e.message);
+        console.error("배송비 기타 오류: ", e.message);
       }
     };
     readFeeEtc();
