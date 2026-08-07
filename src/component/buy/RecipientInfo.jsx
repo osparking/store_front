@@ -13,10 +13,9 @@ import _ from "lodash";
 const RecipientInfo = ({
   formData,
   setFormData,
-  isDefaultRecipient,
-  setIsDefaultRecipient,
-  putFocus2PayButton,
   defaultRecipient,
+  makeThisDefault,
+  setMakeThisDefault,
   addressDetailInputRef,
   setFocusDetailedAddr,
 }) => {
@@ -67,13 +66,11 @@ const RecipientInfo = ({
     setFormData(defaultRecipient);
   };
 
-  const disableDefaultRecipientCheckbox =
-    defaultRecipient && _.isEqual(formData, defaultRecipient);
+  const defaultLoaded = _.isEqual(formData, defaultRecipient);
+  const disableDefaultCheckbox = defaultRecipient && defaultLoaded;
 
-  const [checkedAsDefault, setCheckedAsDefault] = useState(false);
-  const changeDefaultRecipient = (e) => {
-    setIsDefaultRecipient(e.target.checked);
-    setCheckedAsDefault(e.target.checked);
+  const defaultCheckboxChanged = (e) => {
+    setMakeThisDefault(e.target.checked);
   };
 
   return (
@@ -99,7 +96,8 @@ const RecipientInfo = ({
                     variant="primary"
                     className="fw-light"
                     onClick={loadDefaultRecipient}
-                    disabled={!defaultRecipient}
+                    // 기본 주소가 없거나, 이미 기본 주소가 로딩된 경우 버튼 비활성화
+                    disabled={!defaultRecipient || defaultLoaded}
                   >
                     <span className="boldText">기본 주소</span>
                   </Button>
@@ -136,15 +134,17 @@ const RecipientInfo = ({
                     required
                   />
                 </OverlayTrigger>
-                <OverlayTrigger overlay={<Tooltip>[결 제] 때 저장됨</Tooltip>}>
+                <OverlayTrigger
+                  overlay={<Tooltip>[결제 진행] 때 저장됨</Tooltip>}
+                >
                   <Form.Check
                     id="default-recipient-checkbox"
                     type="checkbox"
                     name="isDefaultRecipient"
-                    label="기본 주소 갱신"
-                    checked={checkedAsDefault}
-                    onChange={changeDefaultRecipient}
-                    disabled={disableDefaultRecipientCheckbox}
+                    label="새 기본 주소로 지정"
+                    checked={makeThisDefault}
+                    onChange={defaultCheckboxChanged}
+                    disabled={disableDefaultCheckbox}
                   />
                 </OverlayTrigger>
               </div>
