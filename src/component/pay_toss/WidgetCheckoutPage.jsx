@@ -26,8 +26,7 @@ function WidgetCheckoutPage() {
     formItems,
     subTotal,
     source,
-    toDefaultRecipient,
-    isDefaultRecipient,
+    makeRecipientDefault,
   } = location.state;
 
   const [widgets, setWidgets] = useState(null);
@@ -38,8 +37,10 @@ function WidgetCheckoutPage() {
   const isSubmittingRef = useRef(false);
 
   async function saveOrderRecord() {
-    const action = !toDefaultRecipient && isDefaultRecipient ? "store" : "";
-    const orderAction = { ...orderData, defaultRecipientAction: action };
+    const orderAction = {
+      ...orderData,
+      makeRecipientDefault: makeRecipientDefault,
+    };
 
     // 로컬에 저장된 주문 정보를 찾는다.
     const localOrder = localStorage.getItem("ORDER_ACTION");
@@ -265,7 +266,6 @@ function WidgetCheckoutPage() {
         subTotal: subTotal,
         source: source,
         recipient: recipient,
-        wasDefaultRecipient: isDefaultRecipient,
       },
     });
   };
