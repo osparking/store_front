@@ -13,6 +13,7 @@ import { callWithToken } from "../util/api.js";
 import { getSubTotal, labelsOver, setDifference } from "../util/utilities.js";
 import CartPutModal from "./CartPutModal.jsx";
 import OrderTable from "./form/OrderTable.jsx";
+import { useOrderDataStore } from "./orderDataStore.js";
 
 const OrderForm = ({
   optionLabels,
@@ -25,17 +26,7 @@ const OrderForm = ({
   const location = useLocation();
   const { formItems, isDefaultRecipient } = location.state || false;
 
-  const [formData, setFormData] = useState({
-    userId: 3,
-    items: [
-      {
-        shape: defaultLabel,
-        count: "1",
-      },
-    ],
-    orderStatus: "결재대기",
-  });
-
+  const { formData, setFormData } = useOrderDataStore();
   const [subTotal, setSubTotal] = useState({ count: 0, price: 0 });
 
   useEffect(() => {
@@ -74,6 +65,10 @@ const OrderForm = ({
   }, [formItems]);
 
   useEffect(() => {
+    if (!defaultLabel || formData.items.length > 0) {
+      return;
+    }
+
     if (formItems) {
       // 주문서에서 '뒤로' 돌아온 경우
       return;
@@ -89,15 +84,14 @@ const OrderForm = ({
         price: findPrice(optionLabels, defaultLabel),
       },
     ];
-    setFormData((prevState) => ({
-      ...prevState,
+    setFormData({
       items: items,
-    }));
+    });
   }, [defaultLabel]);
 
   /**
    * 쇼핑카트 비누 외형-수량 항목을 주문 폼에 적합한 자료 형태로 변환
-   * @param {*} itemsFromCart 
+   * @param {*} itemsFromCart
    * @returns 주문 폼에 맞는 외형라벨-수량-재고 속성의 항목 목록
    */
   function convertToFormDataItems(itemsFromCart) {
@@ -134,14 +128,17 @@ const OrderForm = ({
 
   const handlePropChange = (index, e) => {
     const { name, value } = e.target;
-    const newItems = [...formData.items];
+    const newItems = formData.items.map((item, i) => {
+      if (i !== index) return item; // 해당 인덱스가 아니면 그대로 반환
 
-    // 만일 name 이 'shape' 라면, 가격도 함께 바꿔준다.
-    if (name === "shape") {
-      newItems[index]["price"] = findPrice(optionLabels, value);
-    }
-    newItems[index][name] = value;
-    setFormData((prevState) => ({ ...prevState, items: newItems }));
+      // 해당 인덱스라면 새 객체 생성
+      const updatedItem = { ...item, [name]: value };
+      if (name === "shape") {
+        updatedItem.price = findPrice(optionLabels, value);
+      }
+      return updatedItem;
+    });
+    setFormData({ items: newItems });
   };
 
   const handleSubmit = (e) => {
@@ -152,12 +149,14 @@ const OrderForm = ({
     const newItem = {
       shape: defaultShape,
       count: "1",
+      inventory:
+        optionLabels.find((label) => label.optionLabel === defaultLabel)
+          ?.inventory || 0,
       price: findPrice(optionLabels, defaultShape),
     };
-    setFormData((prevState) => ({
-      ...prevState,
-      items: [...prevState.items, newItem],
-    }));
+    setFormData({
+      items: [...formData.items, newItem],
+    });
   };
 
   const delSoapItem = (index) => {
