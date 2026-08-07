@@ -31,7 +31,7 @@ const Recipient = () => {
     subTotal: shapeSummary,
     source,
     recipient,
-    wasDefaultRecipient,
+    checkedAsDefault,
   } = location.state || [];
   let productList = undefined;
 
@@ -119,15 +119,9 @@ const Recipient = () => {
   useEffect(() => {
     if (!recipient && defaultRecipient) {
       setFormData(defaultRecipient);
-      setIsDefaultRecipient(true);
     }
   }, [defaultRecipient]);
 
-  const [isDefaultRecipient, setIsDefaultRecipient] = useState(
-    wasDefaultRecipient === undefined
-      ? defaultRecipient !== null
-      : wasDefaultRecipient,
-  );
   const [deliveryFee, setDeliveryFee] = useState(0);
 
   useEffect(() => {
@@ -185,8 +179,7 @@ const Recipient = () => {
         formItems: formItems,
         subTotal: shapeSummary,
         source: source,
-        toDefaultRecipient: _.isEqual(defaultRecipient, formData),
-        isDefaultRecipient: isDefaultRecipient,
+        makeRecipientDefault: makeThisDefault,
       },
     });
   };
@@ -205,7 +198,7 @@ const Recipient = () => {
         state: {
           formItems: formItems,
           recipient: formData,
-          isDefaultRecipient: isDefaultRecipient,
+          makeRecipientDefault: makeThisDefault,
           showCart: true,
         },
       });
@@ -214,7 +207,8 @@ const Recipient = () => {
         state: {
           formItems: formItems,
           recipient: formData,
-          isDefaultRecipient: isDefaultRecipient,
+          makeRecipientDefault: makeThisDefault,
+          showCart: false,
         },
       });
     }
@@ -263,6 +257,10 @@ const Recipient = () => {
     setShowAddressConfirm(false);
     setFocusDetailedAddr(true);
   };
+
+  const [makeThisDefault, setMakeThisDefault] = useState(
+    checkedAsDefault ?? false,
+  );
 
   return (
     <>
@@ -313,9 +311,9 @@ const Recipient = () => {
                       <RecipientInfo
                         formData={formData}
                         setFormData={setFormData}
-                        isDefaultRecipient={isDefaultRecipient}
-                        setIsDefaultRecipient={setIsDefaultRecipient}
                         defaultRecipient={defaultRecipient}
+                        makeThisDefault={makeThisDefault}
+                        setMakeThisDefault={setMakeThisDefault}
                         addressDetailInputRef={addressDetailInputRef}
                         setFocusDetailedAddr={setFocusDetailedAddr}
                       />
@@ -342,7 +340,7 @@ const Recipient = () => {
                 style={{ display: "flex", gap: "20px" }}
               >
                 <Button variant="info" className="p-0" onClick={goBack}>
-                  <span>내역 수정</span>
+                  내역 수정
                 </Button>
                 <Button
                   type="submit"
@@ -359,7 +357,7 @@ const Recipient = () => {
                   }}
                   style={{ fontWeight: 500 }}
                 >
-                  <span>결제 진행</span>
+                  결제 진행
                 </Button>
               </Row>
             </div>
