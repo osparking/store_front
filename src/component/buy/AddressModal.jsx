@@ -170,8 +170,14 @@ const AddressModal = ({
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <div className="d-flex">
-              <OverlayTrigger overlay={<Tooltip>5 글자 이상 입력!</Tooltip>}>
+            <div className="d-flex address">
+              <OverlayTrigger
+                overlay={
+                  <Tooltip className="address-tooltip">
+                    도로명 2+ 자: 미사대(O), 경기도(X)
+                  </Tooltip>
+                }
+              >
                 <Form.Control
                   type="text"
                   name="addressKey"
