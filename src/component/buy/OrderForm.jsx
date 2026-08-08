@@ -129,7 +129,7 @@ const OrderForm = ({
 
   const delSoapItem = (index) => {
     const newItems = formData.items.filter((_, i) => i !== index);
-    setFormData((prevState) => ({ ...prevState, items: newItems }));
+    setFormData({ items: newItems });
   };
 
   const navigate = useNavigate();
