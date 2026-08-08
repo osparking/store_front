@@ -63,6 +63,17 @@ const OrderForm = ({
     }
   }, [formItems]);
 
+  const defaultItems = [
+    {
+      shape: defaultLabel,
+      count: "3",
+      inventory:
+        optionLabels.find((label) => label.optionLabel === defaultLabel)
+          ?.inventory || 0,
+      price: findPrice(optionLabels, defaultLabel),
+    },
+  ];
+
   useEffect(() => {
     if (!defaultLabel || formData.items.length > 0) {
       return;
@@ -73,18 +84,8 @@ const OrderForm = ({
       return;
     }
     setDisableButton(false);
-    const items = [
-      {
-        shape: defaultLabel,
-        count: "3",
-        inventory:
-          optionLabels.find((label) => label.optionLabel === defaultLabel)
-            ?.inventory || 0,
-        price: findPrice(optionLabels, defaultLabel),
-      },
-    ];
     setFormData({
-      items: items,
+      items: defaultItems,
     });
   }, [defaultLabel]);
 
@@ -195,6 +196,8 @@ const OrderForm = ({
     const userId = localStorage.getItem("LOGIN_ID") || "0";
 
     await saveCart(cartItems, userId);
+    // 장바구니에 담았으니, 주문 폼에는 기본 외형 행만 남김
+    setFormData({ items: defaultItems });
     showCartModal(getResultString());
   }
 
