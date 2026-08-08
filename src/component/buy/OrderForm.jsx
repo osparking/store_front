@@ -77,7 +77,7 @@ const OrderForm = ({
     const items = [
       {
         shape: defaultLabel,
-        count: "1",
+        count: "3",
         inventory:
           optionLabels.find((label) => label.optionLabel === defaultLabel)
             ?.inventory || 0,

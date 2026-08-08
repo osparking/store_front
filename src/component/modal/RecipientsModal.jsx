@@ -38,7 +38,7 @@ const RecipientsModal = ({
 
     try {
       const myRecipients = await getMyRecipients(
-        user.id,
+        user?.id,
         currentPage,
         pageSize,
       );
