@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
@@ -35,10 +35,9 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
     ],
   });
 
-  const [deleteIdList] = useState(new Array());
-
+  const deleteIdList = useRef([]);
   const delCartItem = (index) => {
-    deleteIdList.push(formData.items[index].id);
+    deleteIdList.current.push(formData.items[index].id);
     const newItems = formData.items.filter((_, i) => i !== index);
     setFormData((prevState) => ({ ...prevState, items: newItems }));
   };
@@ -95,6 +94,17 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
       setOrderFormData({
         items: convertToFormDataItems(itemsFromCart),
       });
+
+      // 선택된 항목이 주문 폼에 반영되었으므로, 카트에서 삭제
+      const idsToDelete = formData.items
+        .filter((item) => item.isChecked)
+        .map((item) => item.id);
+
+      saveCartUpdate(idsToDelete, true); // 삭제만 수행
+      setFormData((prevState) => ({
+        ...prevState,
+        items: prevState.items.filter((item) => !item.isChecked),
+      }));
 
       navigate("/buy_soap");
     } else {
@@ -169,11 +179,14 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
     readCart();
   }, []);
 
-  async function saveCartUpdate() {
+  async function saveCartUpdate(idsToDelete = [], deletionOnly = false) {
     const convertedItems = formData.items.map((item) => {
       return { id: item.id, count: item.count };
     });
-    let data = { deleteId: deleteIdList, updateCount: convertedItems };
+    let data = {
+      deleteId: idsToDelete.current,
+      updateCount: deletionOnly ? [] : convertedItems,
+    };
     const result = await updateUserCart(data);
 
     readCart(result);
@@ -253,7 +266,7 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
                   variant="warning"
                   size="sm"
                   className="p-0"
-                  onClick={saveCartUpdate}
+                  onClick={() => saveCartUpdate(deleteIdList, false)}
                   disabled={countsAreEqual(formData.items)}
                 >
                   변경 저장
