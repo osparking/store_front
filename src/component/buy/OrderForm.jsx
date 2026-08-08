@@ -54,15 +54,6 @@ const OrderForm = ({
     );
   }
 
-  useEffect(() => {
-    if (formItems) {
-      setFormData((prevState) => ({
-        ...prevState,
-        items: formItems,
-      }));
-    }
-  }, [formItems]);
-
   const defaultItems = [
     {
       shape: defaultLabel,
@@ -76,11 +67,6 @@ const OrderForm = ({
 
   useEffect(() => {
     if (!defaultLabel || formData.items.length > 0) {
-      return;
-    }
-
-    if (formItems) {
-      // 주문서에서 '뒤로' 돌아온 경우
       return;
     }
     setDisableButton(false);
