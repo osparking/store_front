@@ -20,10 +20,9 @@ const OrderForm = ({
   defaultLabel,
   changeCarouselShape,
   setCarouselImages,
-  recipient,
 }) => {
   const location = useLocation();
-  const { formItems, isDefaultRecipient } = location.state || false;
+  const { formItems } = location.state || false;
 
   const { formData, setFormData } = useOrderDataStore();
   const [subTotal, setSubTotal] = useState({ count: 0, price: 0 });
@@ -196,8 +195,6 @@ const OrderForm = ({
         formItems: formData.items,
         subTotal: subTotal,
         source: "orderForm",
-        recipient: recipient,
-        wasDefaultRecipient: isDefaultRecipient,
       },
     });
   }
