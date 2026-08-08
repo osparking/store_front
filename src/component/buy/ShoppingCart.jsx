@@ -184,7 +184,7 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
       return { id: item.id, count: item.count };
     });
     let data = {
-      deleteId: idsToDelete.current,
+      deleteId: idsToDelete,
       updateCount: deletionOnly ? [] : convertedItems,
     };
     const result = await updateUserCart(data);
@@ -266,7 +266,7 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
                   variant="warning"
                   size="sm"
                   className="p-0"
-                  onClick={() => saveCartUpdate(deleteIdList, false)}
+                  onClick={() => saveCartUpdate(deleteIdList.current, false)}
                   disabled={countsAreEqual(formData.items)}
                 >
                   변경 저장
