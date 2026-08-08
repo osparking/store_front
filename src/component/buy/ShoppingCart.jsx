@@ -6,6 +6,7 @@ import BsAlertHook from "../hook/BsAlertHook";
 import { getSubTotal, handlePropChange } from "../util/utilities";
 import CartItemRow from "./CartItemRow";
 import { readUserCart, updateUserCart } from "./orderService";
+import { useOrderDataStore } from "./orderDataStore.js";
 
 const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
   const location = useLocation();
@@ -55,6 +56,30 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
     setSubTotal(newSubTotal);
   }, [selectedItems]);
 
+  const { formData: orderFormData, setFormData: setOrderFormData } =
+    useOrderDataStore();
+
+  /**
+   * 쇼핑카트 비누 외형-수량 항목을 주문 폼에 적합한 자료 형태로 변환
+   * @param {*} itemsFromCart
+   * @returns 주문 폼에 맞는 외형라벨-수량-재고 속성의 항목 목록
+   */
+  function convertToFormDataItems(itemsFromCart) {
+    return itemsFromCart.map((item) => {
+      // shapeLabel(예: "보통비누")을 옵션라벨("보통비누(재고: 79)")로 치환
+      const matchedOption = optionLabels.find((opt) =>
+        opt.optionLabel.startsWith(item.shapeLabel),
+      );
+
+      return {
+        shape: matchedOption.optionLabel,
+        count: String(item.count),
+        inventory: matchedOption.inventory,
+        price: item.unitPrice,
+      };
+    });
+  }
+
   function orderSelected() {
     if (countsAreEqual(formData.items)) {
       const itemsFromCart = formData.items
@@ -67,11 +92,11 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
           };
         });
 
-      navigate("/buy_soap", {
-        state: {
-          itemsFromCart: itemsFromCart,
-        },
+      setOrderFormData({
+        items: convertToFormDataItems(itemsFromCart),
       });
+
+      navigate("/buy_soap");
     } else {
       confirm("변경된 수량을 저장하거나 취소하십시오.");
     }
