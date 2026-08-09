@@ -6,6 +6,7 @@ const useOrderDataStore = create(
     formData: {
       userId: 3,
       items: [],
+      subTotal: { count: 0, price: 0 },
       orderStatus: "결제대기",
     },
     recipient: {
