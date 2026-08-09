@@ -1,12 +1,12 @@
-import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { Form, useLocation, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import ConfirmationModal from "../modal/ConfirmationModal.jsx";
 import { getDefaultRecipient } from "../user/UserService.js";
 import CheckoutCart from "./CheckoutCart";
+import { useOrderDataStore } from "./orderDataStore.js";
 import { getDeliveryFee } from "./orderService";
 import "./recipient.css";
 import RecipientInfo from "./RecipientInfo";
@@ -30,17 +30,18 @@ const Recipient = () => {
     formItems,
     subTotal: shapeSummary,
     source,
-    recipient,
     checkedAsDefault,
   } = location.state || [];
   let productList = undefined;
 
-  const [defaultRecipient, setDefaultRecipient] = useState(null);
+  const { recipient, setRecipient } = useOrderDataStore();
   const user = JSON.parse(localStorage.getItem("USER"));
 
   useEffect(() => {
     const readDefaultRecipient = async () => {
-      if (!user) return;
+      if (!user || recipient.formUse) {
+        return;
+      }
 
       try {
         const response = await getDefaultRecipient(user.id);
@@ -48,7 +49,7 @@ const Recipient = () => {
         console.log("response.data:", JSON.stringify(recipientDto));
 
         if (recipientDto) {
-          setDefaultRecipient({
+          const defaultRecipient = {
             addressDetail: recipientDto.addressDetail,
             doroZbun: recipientDto.doroZbun,
             addrBasisAddReq: {
@@ -58,6 +59,10 @@ const Recipient = () => {
             },
             mbPhone: recipientDto.mbPhone,
             fullName: recipientDto.fullName,
+          };
+          setRecipient({
+            default: defaultRecipient,
+            formUse: defaultRecipient || recipientEmpty,
           });
         }
       } catch (error) {
@@ -65,7 +70,7 @@ const Recipient = () => {
       }
     };
     readDefaultRecipient();
-  }, []);
+  }, [user, recipient]);
 
   // source 에 따라 productList 를 다르게 만들어 배정
   if (source === "shoppingCart") {
@@ -112,38 +117,40 @@ const Recipient = () => {
     fullName: user?.fullName,
   };
 
-  const [formData, setFormData] = useState(
-    recipient || defaultRecipient || recipientEmpty,
-  );
-
   useEffect(() => {
-    if (!recipient && defaultRecipient) {
-      setFormData(defaultRecipient);
+    if (!recipient && recipient.default) {
+      setFormData(recipient.default);
     }
-  }, [defaultRecipient]);
+  }, [recipient.default]);
 
   const [deliveryFee, setDeliveryFee] = useState(0);
 
   useEffect(() => {
-    const callGetDeliveryFee = async () => {
-      const result = await getDeliveryFee({
-        zipcode: formData.addrBasisAddReq.zipcode,
-        soapCount: shapeSummary.count,
-        grandTotal: shapeSummary.price,
-      });
-      setDeliveryFee(result.data);
-      console.log("delivery fee: ", result.data);
-    };
-    if (formData.addrBasisAddReq.zipcode) {
-      callGetDeliveryFee();
+    if (
+      recipient.formUse &&
+      recipient.formUse.addrBasisAddReq &&
+      recipient.formUse?.addrBasisAddReq.zipcode
+    ) {
+      const callGetDeliveryFee = async () => {
+        const result = await getDeliveryFee({
+          zipcode: recipient.formUse?.addrBasisAddReq.zipcode,
+          soapCount: shapeSummary.count,
+          grandTotal: shapeSummary.price,
+        });
+        setDeliveryFee(result.data);
+        console.log("delivery fee: ", result.data);
+      };
+      if (recipient.formUse?.addrBasisAddReq.zipcode) {
+        callGetDeliveryFee();
+      }
     }
-  }, [formData.addrBasisAddReq.zipcode]);
+  }, [recipient.formUse]);
 
   const [showAddressConfirm, setShowAddressConfirm] = useState(false);
   const gotoCheckout = async (e) => {
     e.preventDefault();
     sessionStorage.removeItem("paymentCompleted");
-    if (formData.addressDetail.trim() === "") {
+    if (recipient.formUse.addressDetail.trim() === "") {
       setShowAddressConfirm(true);
       return;
     }
@@ -161,7 +168,7 @@ const Recipient = () => {
     const orderData = {
       userId: userId,
       items: items,
-      recipRegiReq: formData,
+      recipRegiReq: recipient.formUse,
       orderStatus: "결제대기",
       orderName: items[0].shape + " " + items[0].count + "개 등",
     };
@@ -197,7 +204,7 @@ const Recipient = () => {
       navigate("/shopping_cart", {
         state: {
           formItems: formItems,
-          recipient: formData,
+          recipient: recipient.formUse,
           makeRecipientDefault: makeThisDefault,
           showCart: true,
         },
@@ -206,7 +213,7 @@ const Recipient = () => {
       navigate("/buy_soap", {
         state: {
           formItems: formItems,
-          recipient: formData,
+          recipient: recipient.formUse,
           makeRecipientDefault: makeThisDefault,
           showCart: false,
         },
@@ -215,7 +222,10 @@ const Recipient = () => {
   };
 
   const mbPhoneOk = () => {
-    return formData.mbPhone.length === 11 || formData.mbPhone.length === 10;
+    return (
+      recipient.formUse.mbPhone.length === 11 ||
+      recipient.formUse.mbPhone.length === 10
+    );
   };
 
   const handleConfirm = async () => {
@@ -309,11 +319,6 @@ const Recipient = () => {
                   <div className="table-container">
                     <PayButtonContext.Provider value={{ putFocus2PayButton }}>
                       <RecipientInfo
-                        formData={formData}
-                        setFormData={setFormData}
-                        defaultRecipient={defaultRecipient}
-                        makeThisDefault={makeThisDefault}
-                        setMakeThisDefault={setMakeThisDefault}
                         addressDetailInputRef={addressDetailInputRef}
                         setFocusDetailedAddr={setFocusDetailedAddr}
                       />
@@ -347,9 +352,9 @@ const Recipient = () => {
                   variant="primary"
                   className="p-0"
                   disabled={
-                    !formData.fullName ||
-                    !(formData.mbPhone && mbPhoneOk()) ||
-                    !formData.addrBasisAddReq.zipcode
+                    !recipient.formUse?.fullName ||
+                    !(recipient.formUse?.mbPhone && mbPhoneOk()) ||
+                    !recipient.formUse?.addrBasisAddReq.zipcode
                   }
                   ref={payButtonRef}
                   onBlur={() => {
