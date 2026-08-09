@@ -2,6 +2,10 @@ import { Col, OverlayTrigger, Row, Table, Tooltip } from "react-bootstrap";
 import "./checkoutCart.css";
 
 const CheckoutCart = ({ subTotal, deliveryFee }) => {
+  if (!subTotal) {
+    return;
+  }
+
   return (
     <Row className="justify-content-center pt-2">
       <Col xs={8} md={8}>

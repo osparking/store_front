@@ -186,7 +186,6 @@ const Recipient = () => {
         formItems: formItems,
         subTotal: shapeSummary,
         source: source,
-        makeRecipientDefault: makeThisDefault,
       },
     });
   };
