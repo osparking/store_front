@@ -26,14 +26,10 @@ const Recipient = () => {
   } = BsAlertHook();
 
   const location = useLocation();
-  const {
-    formItems,
-    subTotal: shapeSummary,
-    source,
-  } = location.state || [];
+  const { source } = location.state || [];
   let productList = undefined;
 
-  const { recipient, setRecipient } = useOrderDataStore();
+  const { formData, recipient, setRecipient } = useOrderDataStore();
   const user = JSON.parse(localStorage.getItem("USER"));
 
   useEffect(() => {
@@ -73,7 +69,7 @@ const Recipient = () => {
 
   // source 에 따라 productList 를 다르게 만들어 배정
   if (source === "shoppingCart") {
-    productList = formItems
+    productList = formData.items
       .filter((item) => item.isChecked)
       .map((item) => {
         return {
@@ -83,8 +79,8 @@ const Recipient = () => {
         };
       });
   } else if (source) {
-    // formItems 각 항목에 shapeLabel 과 subTotal 추가
-    productList = formItems.map((item) => {
+    // formData.items 각 항목에 shapeLabel 과 subTotal 추가
+    productList = formData.items.map((item) => {
       const paren = item.shape.indexOf("(");
       return {
         count: item.count,
@@ -133,8 +129,8 @@ const Recipient = () => {
       const callGetDeliveryFee = async () => {
         const result = await getDeliveryFee({
           zipcode: recipient.formUse?.addrBasisAddReq.zipcode,
-          soapCount: shapeSummary.count,
-          grandTotal: shapeSummary.price,
+          soapCount: formData.subTotal.count,
+          grandTotal: formData.subTotal.price,
         });
         setDeliveryFee(result.data);
         console.log("delivery fee: ", result.data);
@@ -182,8 +178,8 @@ const Recipient = () => {
       state: {
         orderData: orderData,
         feeData: feeData,
-        formItems: formItems,
-        subTotal: shapeSummary,
+        formItems: formData.items,
+        subTotal: formData.subTotal,
         source: source,
       },
     });
@@ -201,7 +197,7 @@ const Recipient = () => {
     if (source === "shoppingCart") {
       navigate("/shopping_cart", {
         state: {
-          formItems: formItems,
+          formItems: formData.items,
           recipient: recipient.formUse,
           showCart: true,
         },
@@ -209,8 +205,6 @@ const Recipient = () => {
     } else {
       navigate("/buy_soap", {
         state: {
-          formItems: formItems,
-          recipient: recipient.formUse,
           showCart: false,
         },
       });
@@ -290,7 +284,7 @@ const Recipient = () => {
               <Col xs={11} md={9}>
                 <div>
                   <CheckoutCart
-                    subTotal={shapeSummary}
+                    subTotal={formData.subTotal}
                     deliveryFee={deliveryFee}
                   />
                 </div>
