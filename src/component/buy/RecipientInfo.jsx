@@ -1,25 +1,17 @@
-import { useEffect, useRef, useState } from "react";
-import { Button, Form, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
-import AddressModal from "./AddressModal";
-import RecipientsModal from "../modal/RecipientsModal";
-import {
-  handlePhoneChange,
-  handlePropChange,
-  insertHyphens,
-} from "../util/utilities.js";
-import "./RecipientInfo.css";
 import _ from "lodash";
+import { useEffect, useState } from "react";
+import { Button, Form, OverlayTrigger, Table, Tooltip } from "react-bootstrap";
+import RecipientsModal from "../modal/RecipientsModal";
+import { handlePhoneChange, insertHyphens } from "../util/utilities.js";
+import AddressModal from "./AddressModal";
+import { useOrderDataStore } from "./orderDataStore.js";
+import "./RecipientInfo.css";
 
-const RecipientInfo = ({
-  formData,
-  setFormData,
-  defaultRecipient,
-  makeThisDefault,
-  setMakeThisDefault,
-  addressDetailInputRef,
-  setFocusDetailedAddr,
-}) => {
-  const [phoneNumber, setPhoneNumber] = useState(formData.mbPhone);
+const RecipientInfo = ({ addressDetailInputRef, setFocusDetailedAddr }) => {
+  const { recipient, setRecipient, defaultChecked, setDefaultChecked } =
+    useOrderDataStore();
+
+  const [phoneNumber, setPhoneNumber] = useState(recipient?.formUse?.mbPhone);
   const [noPurchaseHistory, setNoPurchaseHistory] = useState(true);
 
   const handleKeyDown = (e) => {
@@ -41,9 +33,11 @@ const RecipientInfo = ({
   };
 
   useEffect(() => {
-    setFormData((prevState) => {
-      // Handle regular form fields
-      return { ...prevState, mbPhone: phoneNumber };
+    if (!phoneNumber) return;
+
+    setRecipient({
+      ...recipient,
+      formUse: { ...recipient.formUse, mbPhone: phoneNumber },
     });
   }, [phoneNumber]);
 
@@ -63,15 +57,31 @@ const RecipientInfo = ({
   };
 
   const loadDefaultRecipient = () => {
-    setFormData(defaultRecipient);
+    setRecipient({ ...recipient, formUse: recipient.default });
   };
 
-  const defaultLoaded = _.isEqual(formData, defaultRecipient);
-  const disableDefaultCheckbox = defaultRecipient && defaultLoaded;
+  const defaultLoaded = _.isEqual(recipient.formUse, recipient.default);
+  const disableDefaultCheckbox = !recipient.default || defaultLoaded;
 
   const defaultCheckboxChanged = (e) => {
-    setMakeThisDefault(e.target.checked);
+    setDefaultChecked(e.target.checked);
   };
+
+  const handleTextChange = (e) => {
+    const { name, value } = e.target;
+    console.log("텍스트 정보 변경");
+    setRecipient({
+      ...recipient,
+      formUse: { ...recipient.formUse, [name]: value },
+    });
+  };
+
+  if (
+    recipient.formUse === null ||
+    recipient.formUse.addrBasisAddReq === undefined
+  ) {
+    return;
+  }
 
   return (
     <div>
@@ -85,8 +95,8 @@ const RecipientInfo = ({
                   type="text"
                   name="fullName"
                   size="10"
-                  value={formData.fullName}
-                  onChange={(e) => handlePropChange(e, setFormData)}
+                  value={recipient.formUse?.fullName}
+                  onChange={handleTextChange}
                   required
                   style={{ borderWidth: "thin" }}
                 />
@@ -97,7 +107,7 @@ const RecipientInfo = ({
                     className="fw-light"
                     onClick={loadDefaultRecipient}
                     // 기본 주소가 없거나, 이미 기본 주소가 로딩된 경우 버튼 비활성화
-                    disabled={!defaultRecipient || defaultLoaded}
+                    disabled={!recipient.default || defaultLoaded}
                   >
                     <span className="boldText">기본 주소</span>
                   </Button>
@@ -125,7 +135,7 @@ const RecipientInfo = ({
                 <OverlayTrigger overlay={<Tooltip>숫자만 :-)</Tooltip>}>
                   <input
                     type="tel"
-                    value={insertHyphens(formData.mbPhone)}
+                    value={insertHyphens(recipient.formUse?.mbPhone)}
                     onChange={(e) => handlePhoneChange(e, setPhoneNumber)}
                     onKeyDown={handleKeyDown}
                     placeholder="000-0000-0000"
@@ -142,7 +152,7 @@ const RecipientInfo = ({
                     type="checkbox"
                     name="isDefaultRecipient"
                     label="새 기본 주소로 지정"
-                    checked={makeThisDefault}
+                    checked={defaultChecked}
                     onChange={defaultCheckboxChanged}
                     disabled={disableDefaultCheckbox}
                   />
@@ -183,7 +193,7 @@ const RecipientInfo = ({
                   size="1"
                   readOnly
                   className="ms-2 readOnly"
-                  value={formData.addrBasisAddReq.zipcode}
+                  value={recipient.formUse?.addrBasisAddReq.zipcode}
                 />
               </OverlayTrigger>
             </td>
@@ -191,7 +201,7 @@ const RecipientInfo = ({
           <tr>
             <td className="boxLeft goldCell pt-0">
               <OverlayTrigger overlay={<Tooltip>수정 불가!</Tooltip>}>
-                <span>{formData.addrBasisAddReq.roadAddress}</span>
+                <span>{recipient.formUse?.addrBasisAddReq.roadAddress}</span>
               </OverlayTrigger>
             </td>
           </tr>
@@ -206,8 +216,8 @@ const RecipientInfo = ({
                   type="text"
                   name="addressDetail"
                   size="20"
-                  value={formData.addressDetail}
-                  onChange={(e) => handlePropChange(e, setFormData)}
+                  value={recipient.formUse?.addressDetail}
+                  onChange={handleTextChange}
                   style={{ fontWeight: 500 }}
                 />
               </OverlayTrigger>
@@ -217,18 +227,17 @@ const RecipientInfo = ({
       </Table>
       <AddressModal
         show={showAddressModal}
-        formData={formData}
-        setFormData={setFormData}
+        formData={recipient.formUse}
+        setRecipient={setRecipient}
         closer={() => {
           setShowAddressModal(false);
-          // cartAddResultMap.clear();
         }}
         putFocus2detailedAddr={putFocus2detailedAddr}
       />
       <RecipientsModal
         show={showRecipientsModal}
-        formData={formData}
-        setFormData={setFormData}
+        formData={recipient.formUse}
+        setRecipient={setRecipient}
         closer={() => {
           setShowRecipientsModal(false);
         }}
