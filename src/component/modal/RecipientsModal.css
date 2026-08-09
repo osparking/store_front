@@ -80,3 +80,7 @@ td {
 .table th {
   width: fit-content;
 }
+
+.recipients .btn-close {
+    margin-right: 0;
+}

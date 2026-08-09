@@ -84,7 +84,7 @@ const RecipientsModal = ({
   return (
     <Modal show={show} onHide={closer} dialogClassName="recipients-modal">
       <div className="custom-modal-width">
-        <Modal.Header closeButton>
+        <Modal.Header className="recipients" closeButton>
           <Modal.Title>최근 수신처</Modal.Title>
         </Modal.Header>
         <Modal.Body>
