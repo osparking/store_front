@@ -22,14 +22,11 @@ const OrderForm = ({
   setCarouselImages,
 }) => {
   const location = useLocation();
-  const { formItems } = location.state || false;
-
   const { formData, setFormData } = useOrderDataStore();
-  const [subTotal, setSubTotal] = useState({ count: 0, price: 0 });
 
   useEffect(() => {
     const newSubTotal = getSubTotal(formData.items);
-    setSubTotal(newSubTotal);
+    setFormData({ ...formData, subTotal: newSubTotal });
   }, [formData.items]);
 
   const [disableButton, setDisableButton] = useState(false);
@@ -192,8 +189,6 @@ const OrderForm = ({
   function enterDeliveryInfo() {
     navigate("/recipient", {
       state: {
-        formItems: formData.items,
-        subTotal: subTotal,
         source: "orderForm",
       },
     });
@@ -203,7 +198,8 @@ const OrderForm = ({
     /**
      * 구매 수량이 3 혹은 12일 때, 구매 가능
      */
-    const wrongCount = subTotal?.count !== 3 && subTotal?.count !== 12;
+    const wrongCount =
+      formData.subTotal?.count !== 3 && formData.subTotal?.count !== 12;
 
     // 모든 원소의 shape 속성이 빈 문자열이 아닌지 검사
     const emptyShape = formData.items.some((item) => item.shape === "");
@@ -237,7 +233,7 @@ const OrderForm = ({
             <hr style={{ marginTop: "-5px" }} />
             <OrderTable
               orderItems={formData.items}
-              subTotal={subTotal}
+              subTotal={formData.subTotal}
               optionLabels={optionLabels}
               handleInputChange={handlePropChange}
               changeCarouselShape={changeCarouselShape}
