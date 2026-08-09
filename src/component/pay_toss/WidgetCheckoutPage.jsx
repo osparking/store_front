@@ -8,6 +8,7 @@ import { saveOrderRecipient } from "../buy/orderService";
 import { callWithToken } from "../util/api";
 import { clearLocalOrderData, getSuffixAfterSpace } from "../util/utilities";
 import "./WidgetCheckoutPage.css";
+import { useOrderDataStore } from "../buy/orderDataStore";
 
 // 전자결제 신청 및 가입 완료 후, clientKey 를 다음으로 수정할 것.
 // 개발자센터의 결제위젯 연동 키 > 클라이언트 키
@@ -20,14 +21,7 @@ function generateRandomString() {
 
 function WidgetCheckoutPage() {
   const location = useLocation();
-  const {
-    orderData,
-    feeData,
-    formItems,
-    subTotal,
-    source,
-    makeRecipientDefault,
-  } = location.state;
+  const { orderData, feeData, formItems, subTotal, source } = location.state;
 
   const [widgets, setWidgets] = useState(null);
   const [ready, setReady] = useState(false);
@@ -36,11 +30,17 @@ function WidgetCheckoutPage() {
   );
   const isSubmittingRef = useRef(false);
 
+  // 스토어에서 defaultChecked 등 가져오기
+  const { defaultChecked, setDefaultChecked, setRecipient, recipient } =
+    useOrderDataStore();
+
   async function saveOrderRecord() {
     const orderAction = {
       ...orderData,
-      makeRecipientDefault: makeRecipientDefault,
+      makeRecipientDefault: defaultChecked,
     };
+    setDefaultChecked(false);
+    setRecipient({ ...recipient, default: recipient.formUse });
 
     // 로컬에 저장된 주문 정보를 찾는다.
     const localOrder = localStorage.getItem("ORDER_ACTION");
@@ -226,7 +226,7 @@ function WidgetCheckoutPage() {
 
     try {
       const user = JSON.parse(localStorage.getItem("USER"));
-      
+
       if (!user) return;
 
       // Reset React state before navigation
@@ -248,12 +248,10 @@ function WidgetCheckoutPage() {
     }
   };
 
-  const recipient = orderData.recipRegiReq;
-
   const fullAddress =
-    recipient.addrBasisAddReq.roadAddress +
+    recipient.formUse.addrBasisAddReq.roadAddress +
     " " +
-    recipient.addressDetail.trim();
+    recipient.formUse.addressDetail.trim();
 
   const address = "~ " + getSuffixAfterSpace(fullAddress, 25);
 
@@ -265,7 +263,6 @@ function WidgetCheckoutPage() {
         formItems: formItems,
         subTotal: subTotal,
         source: source,
-        recipient: recipient,
       },
     });
   };
