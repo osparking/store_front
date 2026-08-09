@@ -67,7 +67,7 @@ export const storeJWT = (data) => {
   storage.setItem("TOKEN", data.data.token);
 };
 
-export const storeJWtoken= (token) => {
+export const storeJWtoken = (token) => {
   // localStorage: 브라우저 종료 후에도 유지
   // sessionStorage: 브라우저/탭 종료 시 삭제
   const storage = getStorage();
@@ -161,7 +161,7 @@ export function insert2Hyphens(phone) {
 }
 
 export function insertHyphens(phone) {
-  if (phone.length <= 3) {
+  if (!phone || phone.length <= 3) {
     return phone;
   } else if (phone.length <= 7) {
     return `${phone.slice(0, 3)}-${phone.slice(3)}`;
