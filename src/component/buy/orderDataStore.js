@@ -8,7 +8,10 @@ const useOrderDataStore = create(
       items: [],
       orderStatus: "결제대기",
     },
-    recipient: null,
+    recipient: {
+      default: undefined,
+      formUse: null
+    },
     defaultChecked: false,
 
     setFormData: (newData) =>
@@ -17,9 +20,9 @@ const useOrderDataStore = create(
         Object.assign(state.formData, newData);
       }),
 
-    setRecipient: (recipient) =>
+    setRecipient: (newData) =>
       set((state) => {
-        state.recipient = recipient;
+        Object.assign(state.recipient, newData);
       }),
 
     setDefaultChecked: (defaultChecked) =>
