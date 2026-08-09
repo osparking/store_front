@@ -30,7 +30,6 @@ const Recipient = () => {
     formItems,
     subTotal: shapeSummary,
     source,
-    checkedAsDefault,
   } = location.state || [];
   let productList = undefined;
 
@@ -204,7 +203,6 @@ const Recipient = () => {
         state: {
           formItems: formItems,
           recipient: recipient.formUse,
-          makeRecipientDefault: makeThisDefault,
           showCart: true,
         },
       });
@@ -213,7 +211,6 @@ const Recipient = () => {
         state: {
           formItems: formItems,
           recipient: recipient.formUse,
-          makeRecipientDefault: makeThisDefault,
           showCart: false,
         },
       });
@@ -266,10 +263,6 @@ const Recipient = () => {
     setShowAddressConfirm(false);
     setFocusDetailedAddr(true);
   };
-
-  const [makeThisDefault, setMakeThisDefault] = useState(
-    checkedAsDefault ?? false,
-  );
 
   return (
     <>
