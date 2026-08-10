@@ -25,6 +25,17 @@ const useOrderDataStore = create(
       orderName: "",
     },
 
+    feeData: {
+      productTotal: 0,
+      deliveryFee: 0,
+      amount: 0,
+    },
+
+    setFeeData: (newData) =>
+      set((state) => {
+        Object.assign(state.feeData, newData);
+      }),
+
     setOrderData: (newData) =>
       set((state) => {
         Object.assign(state.orderData, newData);
