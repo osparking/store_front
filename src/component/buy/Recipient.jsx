@@ -29,8 +29,16 @@ const Recipient = () => {
   const { source } = location.state || [];
   let productList = undefined;
 
-  const { formData, recipient, setRecipient, orderData, setOrderData } =
-    useOrderDataStore();
+  const {
+    formData,
+    recipient,
+    setRecipient,
+    orderData,
+    setOrderData,
+    feeData,
+    setFeeData,
+  } = useOrderDataStore();
+
   const user = JSON.parse(localStorage.getItem("USER"));
 
   useEffect(() => {
@@ -169,17 +177,14 @@ const Recipient = () => {
       orderName: items[0].shape + " " + items[0].count + "개 등",
     });
 
-    const feeData = {
+    setFeeData({
       productTotal: grandTotal,
       deliveryFee: deliveryFee,
       amount: grandTotal + deliveryFee,
-    };
+    });
 
     navigate("/checkout", {
       state: {
-        feeData: feeData,
-        formItems: formData.items,
-        subTotal: formData.subTotal,
         source: source,
       },
     });
