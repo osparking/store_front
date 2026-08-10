@@ -4,14 +4,10 @@ import { PayButtonContext } from "../buy/Recipient";
 import Paginator from "../common/Paginator";
 import { getMyRecipients } from "../user/UserService";
 import "./RecipientsModal.css";
+import { useOrderDataStore } from "../buy/orderDataStore";
 
-const RecipientsModal = ({
-  show,
-  formData,
-  setFormData,
-  closer,
-  setNoPurchaseHistory,
-}) => {
+const RecipientsModal = ({ show, closer, setNoPurchaseHistory }) => {
+  const { recipient, setMemberData } = useOrderDataStore();
   const [recipients, setRecipients] = useState([]);
   const [recipientPage, setRecipientPage] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,7 +39,7 @@ const RecipientsModal = ({
         pageSize,
       );
       setNoPurchaseHistory(myRecipients.pageContent.empty);
-      
+
       setFetchResult(myRecipients);
       if (myRecipients && myRecipients.pageContent) {
         setRecipients(myRecipients.pageContent.content);
@@ -61,24 +57,22 @@ const RecipientsModal = ({
 
   const { putFocus2PayButton } = useContext(PayButtonContext) || {};
   const selectRecipient = (recipient) => {
-    setFormData({
-      addressDetail: recipient.addressDetail,
-      doroZbun: recipient.doroZbun,
-      addrBasisAddReq: {
-        zipcode: recipient.zipcode,
-        roadAddress: recipient.roadAddress,
-        zbunAddress: recipient.zbunAddress,
+    setMemberData("recipient", {
+      ...recipient,
+      formUse: {
+        addressDetail: recipient.addressDetail,
+        doroZbun: recipient.doroZbun,
+        addrBasisAddReq: {
+          zipcode: recipient.zipcode,
+          roadAddress: recipient.roadAddress,
+          zbunAddress: recipient.zbunAddress,
+        },
+        mbPhone: recipient.mbPhone,
+        fullName: recipient.fullName,
       },
-      mbPhone: recipient.mbPhone,
-      fullName: recipient.fullName,
     });
     closer();
-
-    setTimeout(() => {
-      if (putFocus2PayButton) {
-        putFocus2PayButton();
-      }
-    }, 200);
+    putFocus2PayButton();
   };
 
   return (
