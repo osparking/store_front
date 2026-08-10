@@ -22,11 +22,11 @@ const OrderForm = ({
   setCarouselImages,
 }) => {
   const location = useLocation();
-  const { formData, setFormData } = useOrderDataStore();
+  const { formData, setMemberData } = useOrderDataStore();
 
   useEffect(() => {
     const newSubTotal = getSubTotal(formData.items);
-    setFormData({ ...formData, subTotal: newSubTotal });
+    setMemberData("formData", { ...formData, subTotal: newSubTotal });
   }, [formData.items]);
 
   const [disableButton, setDisableButton] = useState(false);
@@ -66,7 +66,7 @@ const OrderForm = ({
       return;
     }
     setDisableButton(false);
-    setFormData({
+    setMemberData("formData", {
       items: defaultItems,
     });
   }, [defaultLabel]);
@@ -88,7 +88,7 @@ const OrderForm = ({
       }
       return updatedItem;
     });
-    setFormData({ items: newItems });
+    setMemberData("formData", { items: newItems });
   };
 
   const handleSubmit = (e) => {
@@ -104,14 +104,14 @@ const OrderForm = ({
           ?.inventory || 0,
       price: findPrice(optionLabels, defaultShape),
     };
-    setFormData({
+    setMemberData("formData", {
       items: [...formData.items, newItem],
     });
   };
 
   const delSoapItem = (index) => {
     const newItems = formData.items.filter((_, i) => i !== index);
-    setFormData({ items: newItems });
+    setMemberData("formData", { items: newItems });
   };
 
   const navigate = useNavigate();
@@ -179,7 +179,7 @@ const OrderForm = ({
 
     await saveCart(cartItems, userId);
     // 장바구니에 담았으니, 주문 폼에는 기본 외형 행만 남김
-    setFormData({ items: defaultItems });
+    setMemberData("formData", { items: defaultItems });
     showCartModal(getResultString());
   }
 
