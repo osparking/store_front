@@ -29,12 +29,7 @@ const Recipient = () => {
   const { source } = location.state || [];
   let productList = undefined;
 
-  const {
-    formData,
-    recipient,
-    setRecipient,
-    setMemberData,
-  } = useOrderDataStore();
+  const { formData, recipient, setMemberData } = useOrderDataStore();
 
   const user = JSON.parse(localStorage.getItem("USER"));
 
@@ -61,7 +56,7 @@ const Recipient = () => {
             mbPhone: recipientDto.mbPhone,
             fullName: recipientDto.fullName,
           };
-          setRecipient({
+          setMemberData("recipient", {
             default: defaultRecipient,
             formUse: defaultRecipient || recipientEmpty,
           });
