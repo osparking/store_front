@@ -33,10 +33,7 @@ const Recipient = () => {
     formData,
     recipient,
     setRecipient,
-    orderData,
-    setOrderData,
-    feeData,
-    setFeeData,
+    setMemberData,
   } = useOrderDataStore();
 
   const user = JSON.parse(localStorage.getItem("USER"));
@@ -123,7 +120,7 @@ const Recipient = () => {
 
   useEffect(() => {
     if (!recipient && recipient.default) {
-      setFormData(recipient.default);
+      setMemberData("formData", recipient.default);
     }
   }, [recipient.default]);
 
@@ -169,7 +166,7 @@ const Recipient = () => {
       count: item.count,
     }));
 
-    setOrderData({
+    setMemberData("orderData", {
       userId: userId,
       items: items,
       recipRegiReq: recipient.formUse,
@@ -177,7 +174,7 @@ const Recipient = () => {
       orderName: items[0].shape + " " + items[0].count + "개 등",
     });
 
-    setFeeData({
+    setMemberData("feeData", {
       productTotal: grandTotal,
       deliveryFee: deliveryFee,
       amount: grandTotal + deliveryFee,
