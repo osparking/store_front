@@ -55,8 +55,7 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
     setSubTotal(newSubTotal);
   }, [selectedItems]);
 
-  const { formData: orderFormData, setFormData: setOrderFormData } =
-    useOrderDataStore();
+  const { setFormData: setOrderFormData } = useOrderDataStore();
 
   /**
    * 쇼핑카트 비누 외형-수량 항목을 주문 폼에 적합한 자료 형태로 변환

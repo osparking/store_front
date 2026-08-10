@@ -4,10 +4,8 @@ import { immer } from "zustand/middleware/immer";
 const useOrderDataStore = create(
   immer((set) => ({
     formData: {
-      userId: 3,
       items: [],
       subTotal: { count: 0, price: 0 },
-      orderStatus: "결제대기",
     },
 
     recipient: {
