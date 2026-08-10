@@ -33,18 +33,8 @@ const useOrderDataStore = create(
 
     setMemberData: (member, newData) =>
       set((state) => {
-        Object.assign(state[member], newData);
-      }),
-
-    setOrderData: (newData) =>
-      set((state) => {
-        Object.assign(state.orderData, newData);
-      }),
-
-    setFormData: (newData) =>
-      set((state) => {
         // ✅ Immer 스타일: 직접 병합 (불변성은 Immer가 보장)
-        Object.assign(state.formData, newData);
+        Object.assign(state[member], newData);
       }),
 
     setRecipient: (newData) =>
