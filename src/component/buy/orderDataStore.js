@@ -9,11 +9,26 @@ const useOrderDataStore = create(
       subTotal: { count: 0, price: 0 },
       orderStatus: "결제대기",
     },
+
     recipient: {
       default: undefined,
-      formUse: null
+      formUse: null,
     },
+
     defaultChecked: false,
+
+    orderData: {
+      userId: 0,
+      items: [],
+      recipRegiReq: null,
+      orderStatus: "결제대기",
+      orderName: "",
+    },
+
+    setOrderData: (newData) =>
+      set((state) => {
+        Object.assign(state.orderData, newData);
+      }),
 
     setFormData: (newData) =>
       set((state) => {
