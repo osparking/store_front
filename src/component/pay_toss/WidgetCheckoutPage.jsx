@@ -43,6 +43,7 @@ function WidgetCheckoutPage() {
     const orderAction = {
       ...orderData,
       makeRecipientDefault: defaultChecked,
+      payment: feeData.amount,
     };
     setDefaultChecked(false);
     setMemberData("recipient", { ...recipient, default: recipient.formUse });
