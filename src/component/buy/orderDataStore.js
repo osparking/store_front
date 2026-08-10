@@ -31,9 +31,9 @@ const useOrderDataStore = create(
       amount: 0,
     },
 
-    setFeeData: (newData) =>
+    setMemberData: (member, newData) =>
       set((state) => {
-        Object.assign(state.feeData, newData);
+        Object.assign(state[member], newData);
       }),
 
     setOrderData: (newData) =>
