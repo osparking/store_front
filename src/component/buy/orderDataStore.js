@@ -37,11 +37,6 @@ const useOrderDataStore = create(
         Object.assign(state[member], newData);
       }),
 
-    setRecipient: (newData) =>
-      set((state) => {
-        Object.assign(state.recipient, newData);
-      }),
-
     setDefaultChecked: (defaultChecked) =>
       set((state) => {
         state.defaultChecked = defaultChecked;
