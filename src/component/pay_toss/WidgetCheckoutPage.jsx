@@ -21,8 +21,7 @@ function generateRandomString() {
 
 function WidgetCheckoutPage() {
   const location = useLocation();
-  const { feeData, source } = location.state;
-
+  const { source } = location.state;
   const [widgets, setWidgets] = useState(null);
   const [ready, setReady] = useState(false);
   const [orderIdToss, setOrderIdToss] = useState(
@@ -37,6 +36,7 @@ function WidgetCheckoutPage() {
     setRecipient,
     recipient,
     orderData,
+    feeData
   } = useOrderDataStore();
 
   async function saveOrderRecord() {
