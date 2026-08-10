@@ -21,7 +21,7 @@ function generateRandomString() {
 
 function WidgetCheckoutPage() {
   const location = useLocation();
-  const { orderData, feeData, formItems, subTotal, source } = location.state;
+  const { feeData, source } = location.state;
 
   const [widgets, setWidgets] = useState(null);
   const [ready, setReady] = useState(false);
@@ -31,8 +31,13 @@ function WidgetCheckoutPage() {
   const isSubmittingRef = useRef(false);
 
   // 스토어에서 defaultChecked 등 가져오기
-  const { defaultChecked, setDefaultChecked, setRecipient, recipient } =
-    useOrderDataStore();
+  const {
+    defaultChecked,
+    setDefaultChecked,
+    setRecipient,
+    recipient,
+    orderData,
+  } = useOrderDataStore();
 
   async function saveOrderRecord() {
     const orderAction = {
@@ -260,8 +265,6 @@ function WidgetCheckoutPage() {
   const goRecipient = () => {
     navigate("/recipient", {
       state: {
-        formItems: formItems,
-        subTotal: subTotal,
         source: source,
       },
     });
