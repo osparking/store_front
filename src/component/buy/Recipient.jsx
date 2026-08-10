@@ -29,7 +29,8 @@ const Recipient = () => {
   const { source } = location.state || [];
   let productList = undefined;
 
-  const { formData, recipient, setRecipient } = useOrderDataStore();
+  const { formData, recipient, setRecipient, orderData, setOrderData } =
+    useOrderDataStore();
   const user = JSON.parse(localStorage.getItem("USER"));
 
   useEffect(() => {
@@ -160,13 +161,13 @@ const Recipient = () => {
       count: item.count,
     }));
 
-    const orderData = {
+    setOrderData({
       userId: userId,
       items: items,
       recipRegiReq: recipient.formUse,
       orderStatus: "결제대기",
       orderName: items[0].shape + " " + items[0].count + "개 등",
-    };
+    });
 
     const feeData = {
       productTotal: grandTotal,
@@ -176,7 +177,6 @@ const Recipient = () => {
 
     navigate("/checkout", {
       state: {
-        orderData: orderData,
         feeData: feeData,
         formItems: formData.items,
         subTotal: formData.subTotal,
