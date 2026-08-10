@@ -13,15 +13,11 @@ import ProcessSpinner from "../common/ProcessSpinner";
 import { useDebounce } from "../util/utilities";
 import "./AddressModal.css";
 import { searchAddress } from "./orderService";
+import { useOrderDataStore } from "./orderDataStore";
 
-const AddressModal = ({
-  show,
-  formData,
-  setFormData,
-  closer,
-  putFocus2detailedAddr,
-}) => {
-  const [addressKey, setAddressKey] = useState("태평로445");
+const AddressModal = ({ show, closer, putFocus2detailedAddr }) => {
+  const { recipient, setMemberData } = useOrderDataStore();
+  const [addressKey, setAddressKey] = useState("");
   const [addresses, setAddresses] = useState([]);
   const [addrPage, setAddrPage] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -71,18 +67,20 @@ const AddressModal = ({
       roadAddress: addr.roadAddress,
       zbunAddress: addr.zbunAddress,
     };
-    console.log("addrBasisAddReq: ", addrBasisAddReq);
-    setFormData((prevState) => ({
-      ...prevState,
-      addrBasisAddReq: addrBasisAddReq,
-    }));
 
-    if (formData.addrBasisAddReq.roadAddress !== addr.roadAddress) {
-      setFormData((prevState) => ({
-        ...prevState,
-        addressDetail: "",
-      }));
+    const clearDetail =
+      recipient.formUse.addrBasisAddReq.roadAddress !== addr.roadAddress;
 
+    setMemberData("recipient", {
+      ...recipient,
+      formUse: {
+        ...recipient.formUse,
+        addrBasisAddReq: addrBasisAddReq,
+        addressDetail: clearDetail ? "" : addressDetail,
+      },
+    });
+
+    if (clearDetail) {
       putFocus2detailedAddr();
     }
 
