@@ -33,10 +33,10 @@ function WidgetCheckoutPage() {
   const {
     defaultChecked,
     setDefaultChecked,
-    setRecipient,
+    setMemberData,
     recipient,
     orderData,
-    feeData
+    feeData,
   } = useOrderDataStore();
 
   async function saveOrderRecord() {
@@ -45,7 +45,7 @@ function WidgetCheckoutPage() {
       makeRecipientDefault: defaultChecked,
     };
     setDefaultChecked(false);
-    setRecipient({ ...recipient, default: recipient.formUse });
+    setMemberData("recipient", { ...recipient, default: recipient.formUse });
 
     // 로컬에 저장된 주문 정보를 찾는다.
     const localOrder = localStorage.getItem("ORDER_ACTION");
