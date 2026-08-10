@@ -8,7 +8,7 @@ import { useOrderDataStore } from "./orderDataStore.js";
 import "./RecipientInfo.css";
 
 const RecipientInfo = ({ addressDetailInputRef, setFocusDetailedAddr }) => {
-  const { recipient, setRecipient, defaultChecked, setDefaultChecked } =
+  const { recipient, setMemberData, defaultChecked, setDefaultChecked } =
     useOrderDataStore();
 
   const [phoneNumber, setPhoneNumber] = useState(recipient?.formUse?.mbPhone);
@@ -35,7 +35,7 @@ const RecipientInfo = ({ addressDetailInputRef, setFocusDetailedAddr }) => {
   useEffect(() => {
     if (!phoneNumber) return;
 
-    setRecipient({
+    setMemberData("recipient", {
       ...recipient,
       formUse: { ...recipient.formUse, mbPhone: phoneNumber },
     });
@@ -57,7 +57,7 @@ const RecipientInfo = ({ addressDetailInputRef, setFocusDetailedAddr }) => {
   };
 
   const loadDefaultRecipient = () => {
-    setRecipient({ ...recipient, formUse: recipient.default });
+    setMemberData("recipient", { ...recipient, formUse: recipient.default });
   };
 
   const defaultLoaded = _.isEqual(recipient.formUse, recipient.default);
@@ -69,8 +69,7 @@ const RecipientInfo = ({ addressDetailInputRef, setFocusDetailedAddr }) => {
 
   const handleTextChange = (e) => {
     const { name, value } = e.target;
-    console.log("텍스트 정보 변경");
-    setRecipient({
+    setMemberData("recipient", {
       ...recipient,
       formUse: { ...recipient.formUse, [name]: value },
     });
@@ -227,8 +226,6 @@ const RecipientInfo = ({ addressDetailInputRef, setFocusDetailedAddr }) => {
       </Table>
       <AddressModal
         show={showAddressModal}
-        formData={recipient.formUse}
-        setRecipient={setRecipient}
         closer={() => {
           setShowAddressModal(false);
         }}
@@ -236,8 +233,6 @@ const RecipientInfo = ({ addressDetailInputRef, setFocusDetailedAddr }) => {
       />
       <RecipientsModal
         show={showRecipientsModal}
-        formData={recipient.formUse}
-        setRecipient={setRecipient}
         closer={() => {
           setShowRecipientsModal(false);
         }}
