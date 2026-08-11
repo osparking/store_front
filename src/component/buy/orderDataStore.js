@@ -21,11 +21,6 @@ const useOrderDataStore = create(
       recipRegiReq: null,
       orderStatus: "결제대기",
       orderName: "",
-    },
-
-    feeData: {
-      productTotal: 0,
-      deliveryFee: 0,
       amount: 0,
     },
 
