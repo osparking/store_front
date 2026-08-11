@@ -167,11 +167,6 @@ const Recipient = () => {
       recipRegiReq: recipient.formUse,
       orderStatus: "결제대기",
       orderName: items[0].shape + " " + items[0].count + "개 등",
-    });
-
-    setMemberData("feeData", {
-      productTotal: grandTotal,
-      deliveryFee: deliveryFee,
       amount: grandTotal + deliveryFee,
     });
 
