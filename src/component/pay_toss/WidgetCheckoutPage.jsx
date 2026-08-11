@@ -3,12 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useOrderDataStore } from "../buy/orderDataStore";
 import OrderDigest from "../buy/OrderDigest";
 import { saveOrderRecipient } from "../buy/orderService";
 import { callWithToken } from "../util/api";
 import { clearLocalOrderData, getSuffixAfterSpace } from "../util/utilities";
 import "./WidgetCheckoutPage.css";
-import { useOrderDataStore } from "../buy/orderDataStore";
 
 // 전자결제 신청 및 가입 완료 후, clientKey 를 다음으로 수정할 것.
 // 개발자센터의 결제위젯 연동 키 > 클라이언트 키
@@ -29,23 +29,23 @@ function WidgetCheckoutPage() {
   );
   const isSubmittingRef = useRef(false);
 
-  // 스토어에서 defaultChecked 등 가져오기
-  const {
-    defaultChecked,
-    setDefaultChecked,
-    setMemberData,
-    recipient,
-    orderData,
-  } = useOrderDataStore();
+  // 스토어에서 필요한 멤버 가져오기
+  const { setMemberData, recipient, orderData } = useOrderDataStore();
 
   async function saveOrderRecord() {
     const orderAction = {
       ...orderData,
-      makeRecipientDefault: defaultChecked,
+      makeRecipientDefault: recipient.defaultChecked,
       payment: orderData.amount,
     };
-    setDefaultChecked(false);
-    setMemberData("recipient", { ...recipient, default: recipient.formUse });
+
+    if (recipient.defaultChecked) {
+      setMemberData("recipient", {
+        ...recipient,
+        default: recipient.formUse,
+        defaultChecked: false,
+      });
+    }
 
     // 로컬에 저장된 주문 정보를 찾는다.
     const localOrder = localStorage.getItem("ORDER_ACTION");
