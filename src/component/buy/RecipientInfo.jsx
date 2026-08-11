@@ -8,8 +8,7 @@ import { useOrderDataStore } from "./orderDataStore.js";
 import "./RecipientInfo.css";
 
 const RecipientInfo = ({ addressDetailInputRef, setFocusDetailedAddr }) => {
-  const { recipient, setMemberData, defaultChecked, setDefaultChecked } =
-    useOrderDataStore();
+  const { recipient, setMemberData } = useOrderDataStore();
 
   const [phoneNumber, setPhoneNumber] = useState(recipient?.formUse?.mbPhone);
   const [noPurchaseHistory, setNoPurchaseHistory] = useState(true);
@@ -64,7 +63,10 @@ const RecipientInfo = ({ addressDetailInputRef, setFocusDetailedAddr }) => {
   const disableDefaultCheckbox = !recipient.default || defaultLoaded;
 
   const defaultCheckboxChanged = (e) => {
-    setDefaultChecked(e.target.checked);
+    setMemberData("recipient", {
+      ...recipient,
+      defaultChecked: e.target.checked,
+    });
   };
 
   const handleTextChange = (e) => {
@@ -151,7 +153,7 @@ const RecipientInfo = ({ addressDetailInputRef, setFocusDetailedAddr }) => {
                     type="checkbox"
                     name="isDefaultRecipient"
                     label="새 기본 주소로 지정"
-                    checked={defaultChecked}
+                    checked={recipient.defaultChecked}
                     onChange={defaultCheckboxChanged}
                     disabled={disableDefaultCheckbox}
                   />
