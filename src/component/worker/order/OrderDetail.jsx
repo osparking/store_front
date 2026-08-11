@@ -113,12 +113,12 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     }
 
     if (nextStatus) {
-      if (nextStatus === "구매 확정") {
-        refreshStat();
-      }
       const data = { id: orderDetails.order.id, status: nextStatus };
       await changeOrderStatus(data);
       setOrderStatus(nextStatus);
+      if (nextStatus === "구매 확정") {
+        refreshStat();
+      }
     }
   };
 
