@@ -249,6 +249,13 @@ function WidgetCheckoutPage() {
       // Restore ready state if payment fails
       setReady(true);
       sessionStorage.removeItem("isProcessingPayment");
+      if (error instanceof Error) {
+        const message = error.message.replace(/^[^:]*:\s*/, "");
+        toast.error(message);        
+      }
+      if (paymentRef.current) {
+        paymentRef.current.scrollTop = paymentRef.current.scrollHeight;
+      }
       console.error("결제 요청 오류: ", error);
     }
   };
@@ -279,6 +286,8 @@ function WidgetCheckoutPage() {
     goRecipient();
   };
 
+  const paymentRef = useRef(null);
+
   return (
     <div className="wrapper checkout-page">
       <div className="box_section">
@@ -291,7 +300,7 @@ function WidgetCheckoutPage() {
         </div>
 
         {/* 결제 UI */}
-        <div id="payment-method" />
+        <div id="payment-method" ref={paymentRef} />
 
         {/* 이용약관 UI */}
         <div id="agreement" />
