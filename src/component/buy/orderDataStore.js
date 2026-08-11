@@ -11,9 +11,8 @@ const useOrderDataStore = create(
     recipient: {
       default: undefined,
       formUse: null,
+      defaultChecked: false,
     },
-
-    defaultChecked: false,
 
     orderData: {
       userId: 0,
@@ -28,11 +27,6 @@ const useOrderDataStore = create(
       set((state) => {
         // ✅ Immer 스타일: 직접 병합 (불변성은 Immer가 보장)
         Object.assign(state[member], newData);
-      }),
-
-    setDefaultChecked: (defaultChecked) =>
-      set((state) => {
-        state.defaultChecked = defaultChecked;
       }),
   })),
 );
