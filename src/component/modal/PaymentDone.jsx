@@ -16,8 +16,8 @@ const PaymentDoneModal = ({ show, onHide, children, title }) => {
       <Modal.Body className="d-flex justify-content-center align-items-center">
         <div className="text-center w-100">{children}</div>
       </Modal.Body>
-      <Modal.Footer className="justify-content-center">
-        <Button variant="success" onClick={() => onHide()}>
+      <Modal.Footer className="justify-content-center char2button">
+        <Button variant="success" onClick={() => onHide()} className="p-0">
           닫기
         </Button>
       </Modal.Footer>
