@@ -242,30 +242,32 @@ function QuestionEditor({
               </div>
 
               <div className="char2button d-flex gap-4 justify-content-center">
-                <Button
-                  variant="danger"
-                  type="button"
-                  className="p-0"
-                  onClick={() => setShowDeleteModal(true)}
-                  disabled={deleting}
-                >
-                  {deleting ? (
-                    <>
-                      <Spinner
-                        as="span"
-                        animation="border"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                        className="me-1"
-                        style={{ width: "0.8rem", height: "0.8rem" }}
-                      />
-                      <small>삭제 중...</small>
-                    </>
-                  ) : (
-                    "삭제"
-                  )}
-                </Button>
+                {question && (
+                  <Button
+                    variant="danger"
+                    type="button"
+                    className="p-0"
+                    onClick={() => setShowDeleteModal(true)}
+                    disabled={deleting}
+                  >
+                    {deleting ? (
+                      <>
+                        <Spinner
+                          as="span"
+                          animation="border"
+                          size="sm"
+                          role="status"
+                          aria-hidden="true"
+                          className="me-1"
+                          style={{ width: "0.8rem", height: "0.8rem" }}
+                        />
+                        <small>삭제 중...</small>
+                      </>
+                    ) : (
+                      "삭제"
+                    )}
+                  </Button>
+                )}
                 <Button
                   variant="secondary"
                   type="button"
