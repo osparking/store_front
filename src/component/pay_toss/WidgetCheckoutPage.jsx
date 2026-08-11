@@ -36,14 +36,13 @@ function WidgetCheckoutPage() {
     setMemberData,
     recipient,
     orderData,
-    feeData,
   } = useOrderDataStore();
 
   async function saveOrderRecord() {
     const orderAction = {
       ...orderData,
       makeRecipientDefault: defaultChecked,
-      payment: feeData.amount,
+      payment: orderData.amount,
     };
     setDefaultChecked(false);
     setMemberData("recipient", { ...recipient, default: recipient.formUse });
@@ -176,7 +175,7 @@ function WidgetCheckoutPage() {
       // @docs https://docs.tosspayments.com/sdk/v2/js#widgetssetamount
       await widgets.setAmount({
         currency: "KRW",
-        value: feeData.amount,
+        value: orderData.amount,
       });
       await Promise.all([
         // ------  결제 UI 렌더링 ------
@@ -212,7 +211,7 @@ function WidgetCheckoutPage() {
     try {
       const saveAmountReq = {
         orderId: orderIdToss,
-        amount: feeData?.amount,
+        amount: orderData?.amount,
         orderName: orderData?.orderName,
       };
 
@@ -286,7 +285,7 @@ function WidgetCheckoutPage() {
         <div className="order-summary">
           <OrderDigest
             name={orderData.orderName}
-            amount={feeData.amount}
+            amount={orderData.amount}
             address={address}
           />
         </div>
