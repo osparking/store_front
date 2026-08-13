@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react";
 import { Button, Card, Col, Container, ListGroup, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import olive_label from "../../assets/images/olive_label.jpg";
 import soap_rack from "../../assets/images/soap_rack.jpg";
+import EducationalModal from "../modal/EducationalModal";
 import "./home.css";
 
 const Home = () => {
@@ -29,8 +31,50 @@ const Home = () => {
     navigate("/buy_soap");
   };
 
+  // 실 구매 불가 알림 모달 성분 적재 직 후 표시 여부
+  const showAtLoad = () => {
+    const hide_till = localStorage.getItem("HIDE_TILL");
+
+    if (hide_till) {
+      const till_time = parseInt(hide_till, 10);
+      if (Date.now() < till_time) {
+        return false; // '숨김' 첵크 후 24시간 이내, 모달 비 표시
+      }
+    }
+    return true; // 숨김 기한 부재 혹은 기한 만료인 경우, 모달 표시
+  };
+
+  const save_hide_till = (msec) => {
+    const hide_till = Date.now() + msec;
+    localStorage.setItem("HIDE_TILL", String(hide_till));
+  };
+
+  useEffect(() => {
+    if (!localStorage.getItem("HIDE_TILL")) {
+      save_hide_till(0); // 현재 시각 지정하여, 모달 표시 유도
+    }
+  }, []);
+
+  const [showEduModal, setShowEduModal] = useState(showAtLoad());
+  const [hideCheckBox, setHideCheckBox] = useState(false);
+
+  const closeEduModal = () => {
+    setShowEduModal(false);
+
+    if (hideCheckBox) {
+      // 모달 숨김 첵크된 경우, 24시간 동안 알림 모달 숨김 지시
+      setHideCheckBox(false);
+      save_hide_till(24 * 60 * 60 * 1000);
+    }
+  };
+
   return (
     <Container fluid className="home-container mb-2">
+      <EducationalModal
+        show={showEduModal}
+        handleClose={closeEduModal}
+        setHideCheckBox={setHideCheckBox}
+      />
       <Row className="justify-content-center homeRow">
         <Col md={6} className="homeCol">
           <Card>
