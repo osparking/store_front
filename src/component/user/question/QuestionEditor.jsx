@@ -19,6 +19,9 @@ function QuestionEditor({
   performDeletion,
 }) {
   const navigate = useNavigate();
+  const originalQuestion = useRef(question);
+
+  const [title, setTitle] = useState(question ? question.title : "");
   const [editorContent, setEditorContent] = useState(
     question ? question.question : "",
   );
@@ -132,6 +135,7 @@ function QuestionEditor({
 
   // 제목 상자에 탭 핸들러 추가: 내용 편집기로 촛점 이동
   const quillRef = useRef(null);
+  const titleRef = useRef(null);
 
   useEffect(() => {
     const handleTitleKeyDown = (e) => {
@@ -161,6 +165,17 @@ function QuestionEditor({
     setDeleting(true);
     await performDeletion();
     setDeleting(false);
+  };
+
+  const resetQuestion = () => {
+    const original = originalQuestion.current;
+
+    setTitle(original?.title || "");
+    setEditorContent(original?.question || "");
+
+    setTimeout(() => {
+      titleRef.current?.focus();
+    }, 0);
   };
 
   return (
@@ -202,10 +217,12 @@ function QuestionEditor({
                   </div>
                 </Form.Label>
                 <Form.Control
+                  ref={titleRef}
                   type="text"
                   maxLength={30}
                   id="questionTitle"
-                  defaultValue={question ? question.title : ""}
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)} // 사용자 입력 반영
                   placeholder="(제목 입력)"
                   className="mt-0 ps-3 serif question-title-input"
                   onKeyDown={(e) => {
@@ -280,7 +297,7 @@ function QuestionEditor({
                   variant="info"
                   type="button"
                   className="p-0"
-                  onClick={() => setEditorContent("")}
+                  onClick={resetQuestion}
                 >
                   리셋
                 </Button>
