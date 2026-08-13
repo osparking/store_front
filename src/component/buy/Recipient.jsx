@@ -155,26 +155,31 @@ const Recipient = () => {
 
   const navigateToCheckout = () => {
     // 현재까지 수집된 주문 정보를 일단 저장
-    const userId = localStorage.getItem("LOGIN_ID");
-    const items = productList.map((item) => ({
-      shape: item.shapeLabel,
-      count: item.count,
-    }));
+    try {
+      const userId = localStorage.getItem("LOGIN_ID");
+      const items = productList.map((item) => ({
+        shape: item.shapeLabel,
+        count: item.count,
+      }));
 
-    setMemberData("orderData", {
-      userId: userId,
-      items: items,
-      recipRegiReq: recipient.formUse,
-      orderStatus: "결제대기",
-      orderName: items[0].shape + " " + items[0].count + "개 등",
-      amount: grandTotal + deliveryFee,
-    });
+      setMemberData("orderData", {
+        userId: userId,
+        items: items,
+        recipRegiReq: recipient.formUse,
+        orderStatus: "결제대기",
+        orderName: items[0].shape + " " + items[0].count + "개 등",
+        amount: grandTotal + deliveryFee,
+      });
 
-    navigate("/checkout", {
-      state: {
-        source: source,
-      },
-    });
+      navigate("/checkout", {
+        state: {
+          source: source,
+        },
+      });
+    } catch (error) {
+      toast.error(error.message);
+      navigate("/login");
+    }
   };
 
   const navigate = useNavigate();
