@@ -1,0 +1,11 @@
+.eduModalDialog {
+    width: 380px;
+}
+
+.strong {
+    font-weight: bold;
+}
+
+.eduModalDialog .btn-close {
+    margin-right: 0;
+}
