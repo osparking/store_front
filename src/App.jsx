@@ -1,5 +1,4 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -13,6 +12,7 @@ import Login from "./component/auth/Login";
 import OAuth2RedirectHandler from "./component/auth/OAuth2RedirectHandler";
 import ProtectedRoute from "./component/auth/ProtectedRoute";
 import Unauthorized from "./component/auth/Unauthorized";
+import VerifyToken from "./component/auth/VerifyToken";
 import BuySoap from "./component/buy/BuySoap";
 import Recipient from "./component/buy/Recipient";
 import Home from "./component/home/Home";
@@ -28,32 +28,8 @@ import RegisterUser from "./component/user/RegisterUser";
 import UserUpdate from "./component/user/UpdateUser";
 import UserDashboard from "./component/user/UserDashboard";
 import WorkerCanvas from "./component/worker/WorkerCanvas";
-import VerifyToken from "./component/auth/VerifyToken";
 
 function App() {
-  useEffect(() => {
-    const tabId = Date.now() + Math.random().toString(36).slice(2, 9);
-    sessionStorage.setItem("TAB_ID", tabId);
-
-    // Update tab count in localStorage
-    const updateTabCount = (increment) => {
-      const storedTabs = JSON.parse(
-        localStorage.getItem("ACTIVE_TABS") || "{}",
-      );
-
-      if (increment) {
-        storedTabs[tabId] = Date.now();
-      } else {
-        delete storedTabs[tabId];
-      }
-
-      localStorage.setItem("ACTIVE_TABS", JSON.stringify(storedTabs));
-      localStorage.setItem("TAB_COUNT", Object.keys(storedTabs).length);
-    };
-
-    updateTabCount(true);
-  }, []);
-
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
