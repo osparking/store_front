@@ -21,7 +21,6 @@ function FollowUpEditor({
   evenOdd,
   isAdmin,
 }) {
-  
   const [editorContent, setEditorContent] = useState(followUp.content);
   const [loading, setLoading] = useState(false);
 
@@ -34,12 +33,17 @@ function FollowUpEditor({
 
   useEffect(() => {
     if (followUp && followUp.content !== undefined) {
+      const editorPlain = getPlainContent(editorContent);
+
       const writingAnswer =
-        isAdmin &&
-        (getPlainContent(editorContent) === "" ||
-          getPlainContent(editorContent) === promptMessage);
-      const hasEqualContent = _.isEqual(editorContent, savedContent);
-      setContentUnChanged(writingAnswer || hasEqualContent);
+        isAdmin && (editorPlain === "" || editorPlain === promptMessage);
+
+      const hasEqualContent = _.isEqual(editorPlain, savedContent);
+      const isPrompter = _.isEqual(editorPlain, promptMessage);
+      
+      setContentUnChanged(
+        writingAnswer || hasEqualContent || (!isAdmin && isPrompter),
+      );
     }
   }, [editorContent, savedContent]);
 
