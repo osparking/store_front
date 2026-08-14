@@ -4,6 +4,7 @@ import "./EducationalModal.css";
 
 export default function EducationalModal({
   show,
+  hours,
   handleClose,
   setHideCheckBox,
 }) {
@@ -36,8 +37,7 @@ export default function EducationalModal({
               id="default-recipient-checkbox"
               type="checkbox"
               name="isDefaultRecipient"
-              label="24시간 알림 숨김"
-              // value={showEduModal}
+              label={`${hours} 시간 알림 숨김`}
               onChange={(e) => setHideCheckBox(e.target.checked)}
             />
           </div>

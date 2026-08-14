@@ -31,6 +31,8 @@ const Home = () => {
     navigate("/buy_soap");
   };
 
+  const hide_hours = 1;
+
   // 실 구매 불가 알림 모달 성분 적재 직 후 표시 여부
   const showAtLoad = () => {
     const hide_till = localStorage.getItem("HIDE_TILL");
@@ -64,7 +66,7 @@ const Home = () => {
     if (hideCheckBox) {
       // 모달 숨김 첵크된 경우, 24시간 동안 알림 모달 숨김 지시
       setHideCheckBox(false);
-      save_hide_till(24 * 60 * 60 * 1000);
+      save_hide_till(hide_hours * 60 * 60 * 1000);
     }
   };
 
@@ -72,6 +74,7 @@ const Home = () => {
     <Container fluid className="home-container mb-2">
       <EducationalModal
         show={showEduModal}
+        hours={hide_hours}
         handleClose={closeEduModal}
         setHideCheckBox={setHideCheckBox}
       />
