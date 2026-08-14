@@ -85,8 +85,21 @@ export const getStorage = () => {
   return save_login ? localStorage : sessionStorage;
 };
 
+const removeUserKeys = () => {
+  const userKeys = ["LOGIN_ID", "USER", "IS_ADMIN", "IS_WORKER" ];
+
+  for (const userKey of userKeys) {
+    localStorage.removeItem(userKey);
+  }
+}
+
 export const getStorageToken = () => {
   const storage = getStorage();
+  const token = storage.getItem("TOKEN");
+
+  if (!token) {
+    removeUserKeys();
+  }
 
   return storage.getItem("TOKEN");
 };
