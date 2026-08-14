@@ -45,13 +45,12 @@ const NavBar = () => {
     readEmployeeStatus();
 
     const handleLogin = () => {
-      console.log("handleLogin");
       readEmployeeStatus();
       displayIdentity();
     };
 
     const handleLogout = (event) => {
-      console.log("handleLogout");
+      displayIdentity();
 
       const nowTimeId = Math.floor(Date.now() / 1000);
 
