@@ -85,13 +85,40 @@ export const getStorage = () => {
   return save_login ? localStorage : sessionStorage;
 };
 
-const removeUserKeys = () => {
-  const userKeys = ["LOGIN_ID", "USER", "IS_ADMIN", "IS_WORKER" ];
+export const removeUserKeys = () => {
+  const userKeys = [
+    "ADMIN_TAB",
+    "CURR_CUST_PAGE",
+    "CURR_INGRE_PAGE",
+    "CURR_WORKER_PAGE",
+    "DASHBOARD_TAB",
+    "EMAIL_SUBSTR",
+    "INGRE_NAME",
+    "IS_ADMIN",
+    "IS_WORKER",
+    "LOGIN_ID",
+    "NAME_SUBSTR",
+    "ORDER_ACTION",
+    "ORDER_ID",
+    "ORDER_ID_TOSS",
+    "ORDER_PAGE_고객",
+    "ORDER_PAGE_WORKER",
+    "PRODUCE_PAGE",
+    "QUESTION_PAGE",
+    "QUESTION_PAGE_관리",
+    "REVIEW_PAGE_고객",
+    "REVIEW_PAGE_CUSTOMER",
+    "SAVE_LOGIN",
+    "SELECTED_DEPT",
+    "SELECTED_EMAIL",
+    "USER",
+    "WORKER_TAB",
+  ];
 
   for (const userKey of userKeys) {
     localStorage.removeItem(userKey);
   }
-}
+};
 
 export const getStorageToken = () => {
   const storage = getStorage();
