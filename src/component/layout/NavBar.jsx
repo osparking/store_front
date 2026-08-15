@@ -127,7 +127,8 @@ const NavBar = () => {
     }
   };
 
-  const beforeLogin = !getStorageToken();
+  const userId = localStorage.getItem("LOGIN_ID");
+  const loggedOut = !getStorageToken() && !userId;
 
   return (
     <Navbar expand="lg" sticky="top" className="nav-bg start-0 end-0">
@@ -162,7 +163,7 @@ const NavBar = () => {
             >
               비누 주문
             </Nav.Link>
-            {!beforeLogin && isAdmin && (
+            {!loggedOut && isAdmin && (
               <Nav.Link
                 to={`/dashboard/admin`}
                 as={NavLink}
@@ -171,7 +172,7 @@ const NavBar = () => {
                 관리 업무
               </Nav.Link>
             )}
-            {!beforeLogin && (isAdmin || isWorker) && (
+            {!loggedOut && (isAdmin || isWorker) && (
               <Nav.Link
                 to={"/work_item"}
                 as={NavLink}
@@ -182,10 +183,10 @@ const NavBar = () => {
             )}
           </Nav>
           <Nav className="me-2 userTitle">
-            <span className={beforeLogin ? "" : "bumsoap-color-dark"}>
-              {beforeLogin ? "(로그인 전)" : `${identity}`}
+            <span className={loggedOut ? "" : "bumsoap-color-dark"}>
+              {loggedOut ? "(로그인 전)" : `${identity}`}
             </span>
-            {!beforeLogin && <span className="narrow-left-space">님</span>}
+            {!loggedOut && <span className="narrow-left-space">님</span>}
           </Nav>
           <Nav>
             <NavDropdown
@@ -194,7 +195,7 @@ const NavBar = () => {
               id="basic-nav-dropdown"
               className="me-2"
             >
-              {beforeLogin ? (
+              {loggedOut ? (
                 <>
                   <NavDropdown.Item to={"/login"} as={Link}>
                     로그인
