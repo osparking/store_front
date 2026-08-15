@@ -1,4 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import _ from "lodash";
 import { useEffect, useRef, useState } from "react";
 import { Button, Card, Form, Spinner } from "react-bootstrap";
 import toast from "react-hot-toast";
@@ -19,7 +20,8 @@ function QuestionEditor({
   performDeletion,
 }) {
   const navigate = useNavigate();
-  const originalQuestion = useRef(question);
+  const [originalQuestion] = useState(question);
+  const [contentUnChanged, setContentUnChanged] = useState(true);
 
   const [title, setTitle] = useState(question ? question.title : "");
   const [editorContent, setEditorContent] = useState(
@@ -28,6 +30,21 @@ function QuestionEditor({
   const [saving, setSaving] = useState(false);
   const promptMessage = "여기에 질문을 작성하세요 :-)";
   const [placeholder, setPlaceholder] = useState(promptMessage);
+
+  useEffect(() => {
+    if (question) {
+      const hasEqualContent = _.isEqual(
+        { title: title, question: editorContent },
+        {
+          title: originalQuestion.title,
+          question: originalQuestion.question,
+        },
+      );
+      const isPrompter = getPlainContent(editorContent) === promptMessage;
+
+      setContentUnChanged(hasEqualContent || isPrompter);
+    }
+  }, [editorContent, title, originalQuestion]);
 
   const handleEditorChange = (content) => {
     setEditorContent(content);
@@ -168,10 +185,8 @@ function QuestionEditor({
   };
 
   const resetQuestion = () => {
-    const original = originalQuestion.current;
-
-    setTitle(original?.title || "");
-    setEditorContent(original?.question || "");
+    setTitle(originalQuestion?.title || "");
+    setEditorContent(originalQuestion?.question || "");
 
     setTimeout(() => {
       titleRef.current?.focus();
@@ -298,6 +313,7 @@ function QuestionEditor({
                   type="button"
                   className="p-0"
                   onClick={resetQuestion}
+                  disabled={contentUnChanged}
                 >
                   리셋
                 </Button>
@@ -306,7 +322,7 @@ function QuestionEditor({
                   type="submit"
                   className="p-0"
                   style={{ cursor: "pointer" }}
-                  disabled={saving}
+                  disabled={contentUnChanged || saving}
                 >
                   {saving ? <span>저장 중...</span> : "저장"}
                 </Button>
