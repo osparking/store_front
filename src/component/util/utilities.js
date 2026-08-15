@@ -122,12 +122,7 @@ export const removeUserKeys = () => {
 
 export const getStorageToken = () => {
   const storage = getStorage();
-  const token = storage.getItem("TOKEN");
-
-  if (!token) {
-    removeUserKeys();
-  }
-
+  
   return storage.getItem("TOKEN");
 };
 
