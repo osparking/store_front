@@ -32,18 +32,16 @@ function QuestionEditor({
   const [placeholder, setPlaceholder] = useState(promptMessage);
 
   useEffect(() => {
-    if (question) {
-      const hasEqualContent = _.isEqual(
-        { title: title, question: editorContent },
-        {
-          title: originalQuestion.title,
-          question: originalQuestion.question,
-        },
-      );
-      const isPrompter = getPlainContent(editorContent) === promptMessage;
+    const hasEqualContent = _.isEqual(
+      { title: title, question: editorContent },
+      {
+        title: originalQuestion?.title || "",
+        question: originalQuestion?.question || "",
+      },
+    );
+    const isPrompter = getPlainContent(editorContent) === promptMessage;
 
-      setContentUnChanged(hasEqualContent || isPrompter);
-    }
+    setContentUnChanged(hasEqualContent || isPrompter);
   }, [editorContent, title, originalQuestion]);
 
   const handleEditorChange = (content) => {
