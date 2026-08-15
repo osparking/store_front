@@ -34,11 +34,12 @@ function FollowUpEditor({
   useEffect(() => {
     if (followUp && followUp.content !== undefined) {
       const editorPlain = getPlainContent(editorContent);
+      const savedPlain = getPlainContent(savedContent);
 
       const writingAnswer =
         isAdmin && (editorPlain === "" || editorPlain === promptMessage);
 
-      const hasEqualContent = _.isEqual(editorPlain, savedContent);
+      const hasEqualContent = _.isEqual(editorPlain, savedPlain);
       const isPrompter = _.isEqual(editorPlain, promptMessage);
       
       setContentUnChanged(
