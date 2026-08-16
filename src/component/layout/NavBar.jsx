@@ -5,6 +5,7 @@ import { logoutUser } from "../auth/AuthService";
 import { getStorageToken } from "../util/utilities";
 import "./navBar.css";
 import { RootContext } from "./RootLayout";
+import toast from "react-hot-toast";
 
 const naviAskedIds = new Set();
 
@@ -116,7 +117,7 @@ const NavBar = () => {
       const confirmed = window.confirm("로그아웃하고 계정을 등록할까요?");
       if (confirmed) {
         // 로그아웃 처리 (예: 상태 초기화, localStorage 제거 등)
-        logoutUser({ path: "/register_user", message: "" });
+        const result = logoutUser({ path: "/register_user", message: "" });        
       } else {
         // 아무것도 하지 않음 (현재 페이지 유지)
         return;
@@ -129,6 +130,16 @@ const NavBar = () => {
 
   const userId = localStorage.getItem("LOGIN_ID");
   const loggedOut = !getStorageToken() && !userId;
+
+  const logoutNavBar = async () => {
+    try {
+      const result = await logoutUser()
+
+      toast.success(result.message);
+    } catch(e) {
+      toast.error(e.response.data.message);
+    }
+  }
 
   return (
     <Navbar expand="lg" sticky="top" className="nav-bg start-0 end-0">
@@ -203,7 +214,7 @@ const NavBar = () => {
                 </>
               ) : (
                 <>
-                  <NavDropdown.Item to={"#"} as={Link} onClick={logoutUser}>
+                  <NavDropdown.Item to={"#"} as={Link} onClick={logoutNavBar}>
                     로그아웃
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
