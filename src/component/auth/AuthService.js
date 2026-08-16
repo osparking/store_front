@@ -32,11 +32,14 @@ export const clearLoginUserInfo = () => {
 
 export const logoutUser = async (detail) => {
   try {
-    await api.post('/autho/logout');
+    const result = await api.post('/autho/logout');
+
     if (localStorage.getItem("LOGIN_ID")) {
       window.dispatchEvent(new CustomEvent("logoutEvt", { detail: detail }));
     }
     clearLoginUserInfo();
+    
+    return result.data;
   } catch(error) {
     throw error;
   }
