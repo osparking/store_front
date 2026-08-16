@@ -1,5 +1,5 @@
 import { api } from "../util/api";
-import { removeUserKeys } from "../util/utilities";
+import { getStorage, removeUserKeys } from "../util/utilities";
 
 export const loginUser = async (email, password) => {
   try {
@@ -24,8 +24,10 @@ export async function getEmailViaToken(token) {
 }
 
 export const clearLoginUserInfo = () => {
+  const storage = getStorage();
+
+  storage.removeItem("TOKEN");
   removeUserKeys();
-  sessionStorage.clear();
 };
 
 export const logoutUser = async (detail) => {
