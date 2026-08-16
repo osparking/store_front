@@ -28,11 +28,16 @@ export const clearLoginUserInfo = () => {
   sessionStorage.clear();
 };
 
-export const logoutUser = (detail) => {
-  if (localStorage.getItem("LOGIN_ID")) {
-    window.dispatchEvent(new CustomEvent("logoutEvt", { detail: detail }));
+export const logoutUser = async (detail) => {
+  try {
+    await api.post('/autho/logout');
+    if (localStorage.getItem("LOGIN_ID")) {
+      window.dispatchEvent(new CustomEvent("logoutEvt", { detail: detail }));
+    }
+    clearLoginUserInfo();
+  } catch(error) {
+    throw error;
   }
-  clearLoginUserInfo();
 };
 
 export const verify_token = async (token) => {
