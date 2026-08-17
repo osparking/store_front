@@ -23,9 +23,10 @@ import EnableAccountModal from "../modal/EnableAccountModal";
 import { resetPassword } from "../user/UserService";
 import {
   formatTime,
+  getStorageToken,
   HTTP_STATUS,
   storeJWT,
-  storeLoginInfo,
+  storeLoginInfo
 } from "../util/utilities";
 import { getEmailViaToken, loginUser } from "./AuthService";
 import CodeEntryModal from "./CodeEntryModal";
@@ -35,17 +36,9 @@ const processedIds = new Set();
 
 const Login = () => {
   const localUser = localStorage.getItem("USER");
-  let isLoggedIn = false;
-
-  try {
-    const userData = JSON.parse(localUser);
-    isLoggedIn = userData && typeof userData === "object" && userData.id;
-  } catch {
-    isLoggedIn = false;
-  }
 
   // 이미 로그인되어 있으면 홈으로 보내기
-  if (isLoggedIn) {
+  if (getStorageToken()) {
     return <Navigate to="/" replace />;
   }
 
@@ -56,7 +49,7 @@ const Login = () => {
     setShowEnableModal(false);
   };
 
-  const isDevelopment = import.meta.env.MODE === 'development';
+  const isDevelopment = import.meta.env.MODE === "development";
   const [credentials, setCredentials] = useState({
     email: isDevelopment ? import.meta.env.VITE_DEV_EMAIL : "",
     password: isDevelopment ? import.meta.env.VITE_DEV_PASSWORD : "",
@@ -165,7 +158,13 @@ const Login = () => {
         } else {
           storeLoginInfo(user);
           storeJWT(data, credentials.save_login);
-          window.dispatchEvent(new Event("loginEvt"));
+          window.dispatchEvent(
+            new CustomEvent("loginEvt", {
+              detail: {
+                fullName: user.fullName,
+              },
+            }),
+          );
           navigate(location.state?.from || "/", {
             replace: true,
           });
