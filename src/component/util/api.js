@@ -1,6 +1,6 @@
 import axios, { HttpStatusCode } from "axios";
 import { logoutUser } from "../auth/AuthService";
-import { getStorage, getStorageToken, storeJWT } from "./utilities";
+import { getStorage, getStorageToken, storeJWtoken } from "./utilities";
 
 axios.defaults.withCredentials = true; // 모든 요청에 쿠키 포함
 axios.defaults.headers.common["Content-Type"] = "application/json";
@@ -23,15 +23,21 @@ const refreshAccessToken = async () => {
     const response = await axios.post(`${prefix}/autho/refresh_token`, null, {
       withCredentials: true,
     });
-    if (response.data?.data?.token) {
-      storeJWT(response.data);
-      
-      return response.data.data.token;
+    const aToken = response.data?.data?.token;
+
+    if (aToken) {
+      storeJWtoken(aToken);
+      return aToken;
     }
-    throw new Error("New access token not received");
   } catch (error) {
-    // 갱신 실패 (RT 만료, 무효 등)
-    logoutUser({ path: "/login", message: "로그인 유지 기간 만료" });
+    const msg = error.response?.data.message;
+    
+    // AT 갱신 실패 원인: RT 미제출, RT 취소(revoke), RT 만료
+    if (msg === "RT_MISSING" || msg === "RT_REVOKED_OR_EXPIRED") {
+      logoutUser({ path: "/login", message: "로그인 유지 기간 만료" });
+    } else {
+      return null;
+    }
   }
 };
 
@@ -54,23 +60,25 @@ function buildConfig(method, urlSuffix, data, token) {
 
 const base64UrlToBase64 = (str) => {
   // 1. URL-safe 문자를 표준 Base64 문자로 치환
-  let base64 = str.replace(/-/g, '+').replace(/_/g, '/');
+  let base64 = str.replace(/-/g, "+").replace(/_/g, "/");
   // 2. 패딩 추가 (4의 배수가 되도록)
   const pad = base64.length % 4;
   if (pad) {
-    base64 += '='.repeat(4 - pad);
+    base64 += "=".repeat(4 - pad);
   }
   return base64;
 };
 
 const isExpired = (token) => {
+  if (!token) return true;
+
   try {
-    const base64Payload = token.split('.')[1]; // 페이로드 부분 추출
+    const base64Payload = token.split(".")[1]; // 페이로드 부분 추출
     const standardBase64 = base64UrlToBase64(base64Payload);
     const payload = JSON.parse(atob(standardBase64));
     return payload.exp * 1000 <= Date.now();
   } catch (e) {
-    console.error('토큰 디코딩 실패:', e);
+    console.error("토큰 디코딩 실패:", e);
     return true;
   }
 };
@@ -88,32 +96,31 @@ export async function callWithToken(method, urlSuffix, data = null) {
   const getValidToken = async () => {
     let token = getStorageToken();
 
-    // 만료된 토큰은 즉시 삭제
-    if (token && isExpired(token)) {
+    // 만료된 토큰 제거
+    if (isExpired(token)) {
       const storage = getStorage();
       storage.removeItem("TOKEN");
       token = null;
     }
 
-    // 토큰이 없는 경우 (만료 포함) 리프레시 시도
     if (!token) {
-      // 이미 진행 중인 리프레시가 있다면 그것을 재사용
+      // 토큰이 없는 경우 리프레싱
       if (!refreshPromise) {
-        // 진행 중인 리프레시가 없으면 새로 시작하고, 결과를 Promise에 저장
-        refreshPromise = refreshAccessToken()
-          .then((newToken) => {
-            // 서버에서 새 토큰을 받으면 스토리지에 저장 (다른 곳에서도 사용 가능하도록)
-            const storage = getStorage();
-            storage.setItem("TOKEN", newToken);
-            return newToken; // 다음 .then / await 에게 전달
-          })
-          .finally(() => {
-            // 성공/실패 여부와 상관없이, 요청이 끝나면 캐시된 Promise를 비움
-            // (실패 시 다음 요청이 다시 시도할 수 있도록)
+        refreshPromise = (async () => {
+          try {
+            const newToken = await refreshAccessToken();
+
+            if (newToken) {
+              const storage = getStorage();
+              storage.setItem("TOKEN", newToken);
+              return newToken;
+            }
+            return null; // 도달 불가?
+          } finally {
             refreshPromise = null;
-          });
+          }
+        })();
       }
-      // 캐싱된 Promise(새로 시작했거나 기존 것)가 완료될 때까지 대기
       token = await refreshPromise;
     }
     return token;
@@ -122,7 +129,9 @@ export async function callWithToken(method, urlSuffix, data = null) {
   try {
     // 유효한 토큰 획득 (내부적으로 중복 리프레시 방지됨)
     const token = await getValidToken();
-    return await originalRequest(token);
+    if (token) {
+      return await originalRequest(token);
+    }
   } catch (err) {
     console.error("callWithToken 오류: ", err);
 
@@ -131,8 +140,10 @@ export async function callWithToken(method, urlSuffix, data = null) {
       try {
         // 재시도 시에도 동일하게 중복 리프레시 방지 로직을 태움
         // (혹시 모를 경쟁 상태를 대비해 getValidToken 재사용)
-        const newToken = await getValidToken(); 
-        return await originalRequest(newToken);
+        const newToken = await getValidToken();
+        if (newToken) {
+          return await originalRequest(newToken);
+        }
       } catch (error) {
         if (error.response?.status === HttpStatusCode.Unauthorized) {
           // 리프레시 자체가 401(리프레시 토큰 만료 등)이면 로그아웃
