@@ -23,7 +23,7 @@ const ProtectedRoute = ({ children, allowedRoles = [], useOutlet = false }) => {
     if (hasAlerted.current) return;
     hasAlerted.current = true;
 
-    if (!getStorageToken()) {
+    if (!loggedIn) {
       clearLoginUserInfo();
       sessionStorage.setItem(
         "preLoginUrl",
@@ -43,7 +43,7 @@ const ProtectedRoute = ({ children, allowedRoles = [], useOutlet = false }) => {
   }, [loggedIn, isAuthorized, location, navigate]);
 
   // 인증 및 권한 통과 시 정상 렌더링
-  if (getStorageToken() && isAuthorized) {
+  if (loggedIn && isAuthorized) {
     return useOutlet ? <Outlet /> : children;
   }
 
