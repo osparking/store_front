@@ -266,6 +266,9 @@ export const clearLocalOrderData = () => {
   
   const urlSuffix = "payment-widget-previous-payment-method-id";
   localStorage.removeItem("@tosspayments/" + urlSuffix);
+
+  sessionStorage.removeItem("@tosspayments/session-id");
+  sessionStorage.removeItem("paymentCompleted");
 };
 
 export const formatTime = (isoString) => {
