@@ -262,6 +262,10 @@ export const clearLocalOrderData = () => {
   localStorage.removeItem("ORDER_ID");
   localStorage.removeItem("ORDER_ACTION");
   localStorage.removeItem("ORDER_ID_TOSS");
+  localStorage.removeItem("@tosspayments/merchant-browser-id");
+  
+  const urlSuffix = "payment-widget-previous-payment-method-id";
+  localStorage.removeItem("@tosspayments/" + urlSuffix);
 };
 
 export const formatTime = (isoString) => {
