@@ -20,7 +20,7 @@ const CustomersTable = (displayCustomers) => {
       <InfoModalDraggable
         show={showDetails}
         onHide={() => setShowDetails(false)}
-        title="유저 상세 정보"
+        title="유저 상세 정보 (이동 가능)"
       >
         <CustomerDetails customer={customer} />
       </InfoModalDraggable>
