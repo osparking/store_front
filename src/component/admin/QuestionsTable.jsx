@@ -57,7 +57,7 @@ const QuestionsTable = (questions, answerQuestion) => {
                       className="spanLink"
                       onClick={() => answerQuestion(question)}
                     >
-                      {question.question}
+                      {question.fuContent || question.question }
                     </span>
                   </td>
                   <td>{question.insertTime}</td>
