@@ -21,7 +21,9 @@ import {
   formatTime,
   handlePhoneChange,
   insertHyphens,
+  isValidEmail,
   maskEmail,
+  mbPhoneOk,
   validatePassword,
 } from "../util/utilities";
 import WorkerDeptSelector from "../worker/WorkerDeptSelector";
@@ -160,6 +162,18 @@ const RegisterUser = () => {
 
   const toggleStarizeCnf = () => {
     setTypeCnf(typeCnf === "password" ? "text" : "password");
+  };
+
+  const notReadyToRegister = () => {
+    return (
+      isProcessing ||
+      !validatePassword(user.password, user.confirmPassword) ||
+      !isValidEmail(user.email) ||
+      !mbPhoneOk(user.mbPhone) ||
+      user.dept === "" ||
+      user.fullName === "" ||
+      user.fullName.length === 1
+    );
   };
 
   return (
@@ -339,10 +353,7 @@ const RegisterUser = () => {
                   type="submit"
                   variant="primary"
                   size="sm"
-                  disabled={
-                    isProcessing ||
-                    !validatePassword(user.password, user.confirmPassword)
-                  }
+                  disabled={notReadyToRegister()}
                 >
                   {isProcessing ? <ProcessSpinner /> : "등록"}
                 </Button>
