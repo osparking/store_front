@@ -170,7 +170,7 @@ const RegisterUser = () => {
       !validatePassword(user.password, user.confirmPassword) ||
       !isValidEmail(user.email) ||
       !mbPhoneOk(user.mbPhone) ||
-      user.dept === "" ||
+      (isAdmin && user.dept === "") ||
       user.fullName === "" ||
       user.fullName.length === 1
     );
