@@ -110,7 +110,7 @@ const ProduceTable = (
                   <OverlayTrigger
                     overlay={
                       <Tooltip id={`tooltip-view-${index}`}>
-                        입고 기록 삭제
+                        생산 기록 삭제
                       </Tooltip>
                     }
                   >
