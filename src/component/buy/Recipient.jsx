@@ -10,6 +10,7 @@ import { useOrderDataStore } from "./orderDataStore.js";
 import { getDeliveryFee } from "./orderService";
 import "./recipient.css";
 import RecipientInfo from "./RecipientInfo";
+import { mbPhoneOk } from "../util/utilities.js";
 
 export const PayButtonContext = React.createContext();
 
@@ -208,13 +209,6 @@ const Recipient = () => {
     }
   };
 
-  const mbPhoneOk = () => {
-    return (
-      recipient.formUse.mbPhone.length === 11 ||
-      recipient.formUse.mbPhone.length === 10
-    );
-  };
-
   const handleConfirm = async () => {
     setShowAddressConfirm(false);
     navigateToCheckout();
@@ -336,7 +330,10 @@ const Recipient = () => {
                   className="p-0"
                   disabled={
                     !recipient.formUse?.fullName ||
-                    !(recipient.formUse?.mbPhone && mbPhoneOk()) ||
+                    !(
+                      recipient.formUse?.mbPhone &&
+                      mbPhoneOk(recipient.formUse.mbPhone)
+                    ) ||
                     !recipient.formUse?.addrBasisAddReq.zipcode
                   }
                   ref={payButtonRef}
