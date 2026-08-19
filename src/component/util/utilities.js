@@ -330,3 +330,7 @@ export function isValidEmail(email) {
   const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   return pattern.test(trimmed);
 }
+
+export const mbPhoneOk = (mbPhone) => {
+  return mbPhone.length === 11 || mbPhone.length === 10;
+};
