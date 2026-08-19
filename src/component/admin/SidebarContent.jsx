@@ -37,7 +37,7 @@ const SidebarContent = ({ tabClicked }) => (
       <li className="sidebar-list-item" onClick={() => tabClicked("Customer")}>
         <a href="#">
           <MdOutlineFamilyRestroom className="icon" />
-          고객 목록
+          고객 정보
         </a>
       </li>
       <li className="sidebar-list-item" onClick={() => tabClicked("PriceFee")}>

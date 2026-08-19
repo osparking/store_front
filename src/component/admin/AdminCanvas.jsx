@@ -152,7 +152,7 @@ const AdminCanvas = () => {
                   Questions: "질문 및 답변",
                   Overview: "통계 챠트",
                   Employee: "직원 관리",
-                  Customer: "고객 목록",
+                  Customer: "고객 정보",
                   PriceFee: "비누 가격 및 배송비",
                 }[adminTab]
               }
