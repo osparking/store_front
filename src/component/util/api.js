@@ -154,7 +154,7 @@ export async function callWithToken(method, urlSuffix, data = null) {
     }
 
     // 그 외 오류 (403 등)는 로그아웃 처리
-    logoutUser({ path: "/login", message: "접근 권한 위반 오류" });
+    // logoutUser({ path: "/login", message: "접근 권한 위반 오류" });
     throw err;
   }
 }

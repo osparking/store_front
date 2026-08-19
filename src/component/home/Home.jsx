@@ -31,7 +31,7 @@ const Home = () => {
     navigate("/buy_soap");
   };
 
-  const hide_hours = 1;
+  const hide_hours = 6;
 
   // 실 구매 불가 알림 모달 성분 적재 직 후 표시 여부
   const showAtLoad = () => {
