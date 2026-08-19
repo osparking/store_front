@@ -53,9 +53,12 @@ const QuestionsTable = (questions, answerQuestion) => {
                 <tr key={idx}>
                   <td className="text-center">{question.title}</td>
                   <td className="text-start">
-                    <a href="#" onClick={() => answerQuestion(question)}>
+                    <span
+                      className="spanLink"
+                      onClick={() => answerQuestion(question)}
+                    >
                       {question.question}
-                    </a>
+                    </span>
                   </td>
                   <td>{question.insertTime}</td>
                   <td>{question.followUpCount ?? 0}</td>
