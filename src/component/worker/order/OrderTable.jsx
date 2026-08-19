@@ -137,9 +137,16 @@ const OrderTable = ({ setShowDetail, setDetailId }) => {
                         />
                       </td>
                       <td>
-                        <a href="#" onClick={() => viewOrderDetail(order.id)}>
+                        <span
+                          style={{
+                            cursor: "pointer",
+                            color: "blue",
+                            textDecoration: "underline",
+                          }}
+                          onClick={() => viewOrderDetail(order.id)}
+                        >
                           {order.orderName}
-                        </a>
+                        </span>
                       </td>
                       <td>{order.customer}</td>
                       <td>{order.recipient}</td>
