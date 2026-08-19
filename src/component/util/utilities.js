@@ -122,7 +122,7 @@ export const removeUserKeys = () => {
 
 export const getStorageToken = () => {
   const storage = getStorage();
-  
+
   return storage.getItem("TOKEN");
 };
 
@@ -263,7 +263,7 @@ export const clearLocalOrderData = () => {
   localStorage.removeItem("ORDER_ACTION");
   localStorage.removeItem("ORDER_ID_TOSS");
   localStorage.removeItem("@tosspayments/merchant-browser-id");
-  
+
   const urlSuffix = "payment-widget-previous-payment-method-id";
   localStorage.removeItem("@tosspayments/" + urlSuffix);
 
@@ -312,4 +312,21 @@ export function validatePassword(password, confirm) {
     password.length >= 9 &&
     password === confirm
   );
+}
+/**
+ * Checks whether a given string is a syntactically valid email address.
+ * @param {string} email - The email address to validate.
+ * @returns {boolean} - True if the email appears syntactically correct, false otherwise.
+ */
+export function isValidEmail(email) {
+  // Trim whitespace to avoid false negatives
+  const trimmed = email.trim();
+  if (trimmed === "") return false;
+
+  // Basic email regex:
+  // - Local part: letters, digits, dots, underscores, percent, plus, hyphen
+  // - Domain part: letters, digits, hyphens, dots (must have at least one dot)
+  // - Top-level domain: at least two letters
+  const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  return pattern.test(trimmed);
 }

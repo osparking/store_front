@@ -25,6 +25,7 @@ import {
   formatTime,
   getStorageToken,
   HTTP_STATUS,
+  isValidEmail,
   storeJWT,
   storeLoginInfo
 } from "../util/utilities";
@@ -185,24 +186,6 @@ const Login = () => {
   const handleOauth2Login = (provider) => {
     window.location.href = `http://localhost:9193/oauth2/authorization/${provider}`;
   };
-
-  /**
-   * Checks whether a given string is a syntactically valid email address.
-   * @param {string} email - The email address to validate.
-   * @returns {boolean} - True if the email appears syntactically correct, false otherwise.
-   */
-  function isValidEmail(email) {
-    // Trim whitespace to avoid false negatives
-    const trimmed = email.trim();
-    if (trimmed === "") return false;
-
-    // Basic email regex:
-    // - Local part: letters, digits, dots, underscores, percent, plus, hyphen
-    // - Domain part: letters, digits, hyphens, dots (must have at least one dot)
-    // - Top-level domain: at least two letters
-    const pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return pattern.test(trimmed);
-  }
 
   const reset_password = async () => {
     try {
