@@ -119,7 +119,8 @@ const ProducerModal = ({ show, producer, setProducer, closer }) => {
     }
   }
 
-  const handleNameKey = () => {
+  const handleNameKey = (e) => {
+    e.preventDefault();
     setCurrentPage(1);
     debouncedPageLoad(nameKey);
   };
