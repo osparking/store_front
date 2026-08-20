@@ -9,3 +9,10 @@
 .eduModalDialog .btn-close {
     margin-right: 0;
 }
+
+.eduModalDialog .modal-footer {
+    border-top-right-radius: 0 !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-right-radius: var(--bs-modal-border-radius) !important;
+    border-bottom-left-radius: var(--bs-modal-border-radius) !important;
+}
