@@ -51,13 +51,13 @@ const ManagePriceFee = () => {
         }}
       >
         <div style={{ flex: 3 }}>
-          <OtherFeeCard feeOther={feeOther} />
+          <SoapPriceCard />
         </div>
         <div style={{ flex: 4 }}>
           <DeliveryFeeCard feeRegion={feeRegion} />
         </div>
         <div style={{ flex: 3 }}>
-          <SoapPriceCard />
+          <OtherFeeCard feeOther={feeOther} />
         </div>
       </div>
     </div>
