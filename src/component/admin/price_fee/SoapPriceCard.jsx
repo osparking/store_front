@@ -35,17 +35,14 @@ const SoapPriceCard = () => {
         try {
           resultData = await saveNewSoapPrice(soapPrice);
         } catch (e) {
-          toast.error(resultData.message);
+          toast.error(e.response.data.message);
           allSuccessful = false;
         }
       }
     }
-    // 최대 3 건의 가격 갱신이 모두 성공한 경우 토스트&재적재
-    if (allSuccessful) {
+    if (allSuccessful && resultData) {
+      setOriginPrices(soapPrices); // 현재 데이터를 원본으로 설정
       toast.success(resultData.message);
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
     }
   };
 
