@@ -197,3 +197,9 @@ tr.userTableHeader>th {
   color: blue;
   text-decoration: underline;
 }
+
+.sidebar-button {
+  cursor: pointer;
+  color: var(--color-title);
+  text-decoration: none;
+}
