@@ -11,17 +11,16 @@ import {
 } from "react-bootstrap";
 import { BsPeopleFill } from "react-icons/bs";
 import { FaChartPie, FaQuestion } from "react-icons/fa";
-import { GiOlive } from "react-icons/gi";
+import { FaWonSign } from "react-icons/fa6";
 import { LuPanelLeftOpen } from "react-icons/lu";
 import { MdOutlineFamilyRestroom } from "react-icons/md";
-import { FaWonSign } from "react-icons/fa6";
 import "./AdminCanvas.css";
+import ManageCustomers from "./ManageCustomers";
+import ManagePriceFee from "./ManagePriceFee";
 import ManageQuestions from "./ManageQuestions";
 import ManageWorkers from "./ManageWorkers";
 import Overview from "./Overview";
 import SidebarContent from "./SidebarContent";
-import ManageCustomers from "./ManageCustomers";
-import ManagePriceFee from "./ManagePriceFee";
 
 const AdminCanvas = () => {
   const [showOffcanvas, setShowOffcanvas] = useState(false);
@@ -71,54 +70,10 @@ const AdminCanvas = () => {
               {sidebarCollapsed ? "→" : "←"}
             </Button>
           </div>
-          {!sidebarCollapsed ? (
-            <SidebarContent tabClicked={tabClicked} />
-          ) : (
-            <div className="text-center mt-3">
-              <ul className="sidebar-list">
-                <li
-                  className="sidebar-list-item"
-                  onClick={() => tabClicked("Questions")}
-                >
-                  <a href="#">
-                    <FaQuestion className="icon" />
-                  </a>
-                </li>
-                <li
-                  className="sidebar-list-item"
-                  onClick={() => tabClicked("Overview")}
-                >
-                  <a href="#">
-                    <FaChartPie className="icon" />
-                  </a>
-                </li>
-                <li
-                  className="sidebar-list-item"
-                  onClick={() => tabClicked("Employee")}
-                >
-                  <a href="#">
-                    <BsPeopleFill className="icon" />
-                  </a>
-                </li>
-                <li
-                  className="sidebar-list-item"
-                  onClick={() => tabClicked("Customer")}
-                >
-                  <a href="#">
-                    <MdOutlineFamilyRestroom className="icon" />
-                  </a>
-                </li>
-                <li
-                  className="sidebar-list-item"
-                  onClick={() => tabClicked("PriceFee")}
-                >
-                  <a href="#">
-                    <FaWonSign className="icon" />
-                  </a>
-                </li>
-              </ul>
-            </div>
-          )}
+          <SidebarContent
+            tabClicked={tabClicked}
+            collapsed={sidebarCollapsed}
+          />
         </Col>
 
         {/* Main content area */}
