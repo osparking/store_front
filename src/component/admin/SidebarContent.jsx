@@ -16,35 +16,50 @@ const SidebarContent = ({ tabClicked }) => (
       </div>
     </div>
     <ul className="sidebar-list">
-      <li className="sidebar-list-item" onClick={() => tabClicked("Questions")}>
-        <a href="#">
+      <li className="sidebar-list-item">
+        <button
+          className="sidebar-button"
+          onClick={() => tabClicked("Questions")}
+        >
           <FaQuestion className="icon" />
           질문<span className="smaller-amp">&</span>답변
-        </a>
+        </button>
       </li>
-      <li className="sidebar-list-item" onClick={() => tabClicked("Overview")}>
-        <a href="#">
+      <li className="sidebar-list-item">
+        <button
+          className="sidebar-button"
+          onClick={() => tabClicked("Overview")}
+        >
           <FaChartPie className="icon" />
           통계 차트
-        </a>
+        </button>
       </li>
-      <li className="sidebar-list-item" onClick={() => tabClicked("Employee")}>
-        <a href="#">
+      <li className="sidebar-list-item">
+        <button
+          className="sidebar-button"
+          onClick={() => tabClicked("Employee")}
+        >
           <BsPeopleFill className="icon" />
           직원 관리
-        </a>
+        </button>
       </li>
-      <li className="sidebar-list-item" onClick={() => tabClicked("Customer")}>
-        <a href="#">
+      <li className="sidebar-list-item">
+        <button
+          className="sidebar-button"
+          onClick={() => tabClicked("Customer")}
+        >
           <MdOutlineFamilyRestroom className="icon" />
           고객 정보
-        </a>
+        </button>
       </li>
-      <li className="sidebar-list-item" onClick={() => tabClicked("PriceFee")}>
-        <a href="#">
+      <li className="sidebar-list-item">
+        <button
+          className="sidebar-button"
+          onClick={() => tabClicked("PriceFee")}
+        >
           <FaWonSign className="icon" />
           가격&비용
-        </a>
+        </button>
       </li>
     </ul>
   </div>
