@@ -19,8 +19,9 @@ const SoapPriceCard = () => {
     readPrices();
   }, []);
 
-  const handleSubmit = async () => {
-    console.log(soapPrices, originPrices);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     let allSuccessful = true;
     let resultData;
 
