@@ -7,12 +7,28 @@ import { MdOutlineFamilyRestroom } from "react-icons/md";
 import "./AdminCanvas.css";
 import "./SidebarContent.css";
 
-const SidebarContent = ({ tabClicked }) => (
+const qaLabel = () => {
+  return (
+    <span>
+      질문<span className="smaller-amp">&amp;</span>답변
+    </span>
+  );
+};
+
+const costLabel = () => {
+  return (
+    <span>
+      가격<span className="smaller-amp">&amp;</span>비용
+    </span>
+  );
+};
+
+const SidebarContent = ({ tabClicked, collapsed }) => (
   <div className="sidebar-content">
     <div className="sidebar-title">
       <div className="sidebar-brand">
         <GiOlive className="icon-header" />
-        관리 업무
+        {collapsed ? "" : "관리 업무"}
       </div>
     </div>
     <ul className="sidebar-list">
@@ -22,7 +38,7 @@ const SidebarContent = ({ tabClicked }) => (
           onClick={() => tabClicked("Questions")}
         >
           <FaQuestion className="icon" />
-          질문<span className="smaller-amp">&</span>답변
+          {collapsed ? "" : qaLabel()}
         </button>
       </li>
       <li className="sidebar-list-item">
@@ -31,7 +47,7 @@ const SidebarContent = ({ tabClicked }) => (
           onClick={() => tabClicked("Overview")}
         >
           <FaChartPie className="icon" />
-          통계 차트
+          {collapsed ? "" : "통계 차트"}
         </button>
       </li>
       <li className="sidebar-list-item">
@@ -40,7 +56,7 @@ const SidebarContent = ({ tabClicked }) => (
           onClick={() => tabClicked("Employee")}
         >
           <BsPeopleFill className="icon" />
-          직원 관리
+          {collapsed ? "" : "직원 관리"}
         </button>
       </li>
       <li className="sidebar-list-item">
@@ -49,7 +65,7 @@ const SidebarContent = ({ tabClicked }) => (
           onClick={() => tabClicked("Customer")}
         >
           <MdOutlineFamilyRestroom className="icon" />
-          고객 정보
+          {collapsed ? "" : "고객 정보"}
         </button>
       </li>
       <li className="sidebar-list-item">
@@ -58,7 +74,7 @@ const SidebarContent = ({ tabClicked }) => (
           onClick={() => tabClicked("PriceFee")}
         >
           <FaWonSign className="icon" />
-          가격&비용
+          {collapsed ? "" : costLabel()}
         </button>
       </li>
     </ul>
