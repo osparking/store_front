@@ -281,7 +281,6 @@ const Login = () => {
               id="save-login-container"
               className="d-flex justify-content-center mt-3 mb-0"
             >
-              <p className="me-2">[7일 간]</p>
               <Form.Check
                 type="switch"
                 id="save_login"
