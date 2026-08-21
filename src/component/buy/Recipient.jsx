@@ -45,8 +45,10 @@ const Recipient = () => {
         const recipientDto = response.data;
         console.log("response.data:", JSON.stringify(recipientDto));
 
+        let defaultRecipient = null;
+
         if (recipientDto) {
-          const defaultRecipient = {
+          defaultRecipient = {
             addressDetail: recipientDto.addressDetail,
             doroZbun: recipientDto.doroZbun,
             addrBasisAddReq: {
@@ -57,11 +59,11 @@ const Recipient = () => {
             mbPhone: recipientDto.mbPhone,
             fullName: recipientDto.fullName,
           };
-          setMemberData("recipient", {
-            default: defaultRecipient,
-            formUse: defaultRecipient || recipientEmpty,
-          });
         }
+        setMemberData("recipient", {
+          default: defaultRecipient,
+          formUse: defaultRecipient || recipientEmpty,
+        });
       } catch (error) {
         console.error("Error fetching default recipient:", error);
       }
