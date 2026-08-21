@@ -34,9 +34,9 @@ export default function EducationalModal({
         <Form.Group controlId="curPwd" className="mb-0 mt-2">
           <div className="d-flex justify-content-center">
             <Form.Check
-              id="default-recipient-checkbox"
+              id="hide-notice-checkbox"
               type="checkbox"
-              name="isDefaultRecipient"
+              name="hideNoticeCheckbox"
               label={`${hours} 시간 알림 숨김`}
               onChange={(e) => setHideCheckBox(e.target.checked)}
             />
