@@ -56,11 +56,14 @@ const RecipientInfo = ({ addressDetailInputRef, setFocusDetailedAddr }) => {
   };
 
   const loadDefaultRecipient = () => {
-    setMemberData("recipient", { ...recipient, formUse: recipient.default });
+    setMemberData("recipient", {
+      ...recipient,
+      defaultChecked: false,
+      formUse: recipient.default,
+    });
   };
 
   const defaultLoaded = _.isEqual(recipient.formUse, recipient.default);
-  const disableDefaultCheckbox = !recipient.default || defaultLoaded;
 
   const defaultCheckboxChanged = (e) => {
     setMemberData("recipient", {
@@ -155,7 +158,7 @@ const RecipientInfo = ({ addressDetailInputRef, setFocusDetailedAddr }) => {
                     label="새 기본 주소로 지정"
                     checked={recipient.defaultChecked}
                     onChange={defaultCheckboxChanged}
-                    disabled={disableDefaultCheckbox}
+                    disabled={defaultLoaded}
                   />
                 </OverlayTrigger>
               </div>
