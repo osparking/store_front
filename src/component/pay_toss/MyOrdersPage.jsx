@@ -68,7 +68,7 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
     );
   };
 
-  const orderTableWidth = "780px";
+  const orderTableWidth = "880px";
 
   return (
     <>
