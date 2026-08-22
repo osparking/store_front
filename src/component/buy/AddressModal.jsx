@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Button,
   Form,
@@ -91,6 +91,14 @@ const AddressModal = ({ show, closer, putFocus2detailedAddr }) => {
     return addressKey.length < 5;
   };
 
+  const addressKeyBoxRef = useRef();
+
+  useEffect(() => {
+    if (show) {
+      addressKeyBoxRef.current.focus();
+    }
+  }, [show]);
+
   function MyButton() {
     useEffect(() => {
       const handleKeyPress = (event) => {
@@ -177,6 +185,7 @@ const AddressModal = ({ show, closer, putFocus2detailedAddr }) => {
                 }
               >
                 <Form.Control
+                  ref={addressKeyBoxRef}
                   type="text"
                   name="addressKey"
                   placeholder="(주소 일부)"
