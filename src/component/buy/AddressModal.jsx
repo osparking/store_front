@@ -243,7 +243,16 @@ const AddressModal = ({ show, closer, putFocus2detailedAddr }) => {
             )}
           </div>
         </Modal.Body>
-        <Modal.Footer></Modal.Footer>
+        <Modal.Footer>
+          <div
+            style={{ width: "100%" }}
+            className="char2button d-flex justify-content-center m-0"
+          >
+            <Button variant="primary" size="sm" onClick={closer}>
+              닫기
+            </Button>
+          </div>
+        </Modal.Footer>
       </div>
     </Modal>
   );
