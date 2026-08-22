@@ -15,8 +15,7 @@ function MyQuillEditor({
   saveEdit,
   editable,
   performDeletion,
-  starsRemains,
-  setStars
+  setStars,
 }) {
   const [editorContent, setEditorContent] = useState(order.review);
   const contentsRemains = order.review === editorContent;
@@ -34,7 +33,7 @@ function MyQuillEditor({
   const resetReview = () => {
     setEditorContent(order.review);
     setStars(order.stars);
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,16 +58,18 @@ function MyQuillEditor({
 
   // Custom toolbar configuration
   const modules = {
-    toolbar: editable ? [
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ["bold", "italic", "underline", "strike"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ indent: "-1" }, { indent: "+1" }],
-      [{ color: [] }, { background: [] }],
-      [{ align: [] }],
-      ["link", "image", "video"],
-      ["clean"],
-    ] : false,
+    toolbar: editable
+      ? [
+          [{ header: [1, 2, 3, 4, 5, 6, false] }],
+          ["bold", "italic", "underline", "strike"],
+          [{ list: "ordered" }, { list: "bullet" }],
+          [{ indent: "-1" }, { indent: "+1" }],
+          [{ color: [] }, { background: [] }],
+          [{ align: [] }],
+          ["link", "image", "video"],
+          ["clean"],
+        ]
+      : false,
   };
 
   const formats = [
@@ -87,8 +88,6 @@ function MyQuillEditor({
     "video",
   ];
 
-  const [showModal, setShowModal] = useState(false);
-
   const confirmDeletion = async () => {
     try {
       await performDeletion(order.id);
@@ -101,19 +100,6 @@ function MyQuillEditor({
 
   return (
     <Container className="mt-4">
-      <ConfirmationModal
-        show={showModal}
-        handleClose={() => setShowModal(false)}
-        handleConfirm={confirmDeletion}
-        bodyMessage="후기를 삭제하려면, 삭제 버튼을 누르십시오!"
-        title="후기 삭제 확인"
-        noLabel="취소"
-        yesLabel="삭제"
-        yesVariant="danger"
-        headerBgColor="bg-warning"
-        modelClassName="modal-slide-down"
-        dialogClassName="review-deletion-confirmation-modal"
-      />
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-0">
           <Form.Label>
@@ -136,50 +122,6 @@ function MyQuillEditor({
 
         {/* Character count (optional) */}
         <div className="text-muted mb-2">글자수: {getTextLength()} 자</div>
-
-        <div className="d-flex gap-4 justify-content-center quill-buttons char2button">
-          {order.review && editable && (
-            <Button
-              variant="danger"
-              type="button"
-              className="p-0"
-              disabled={loading}
-              onClick={() => setShowModal(true)}
-            >
-              삭제
-            </Button>
-          )}
-          <Button
-            variant="secondary"
-            type="button"
-            className="p-0"
-            onClick={() => handleClose()}
-          >
-            닫기
-          </Button>
-          {editable && (
-            <>
-              <Button
-                disabled={loading || (contentsRemains && starsRemains())}
-                variant="info"
-                type="button"
-                className="p-0"
-                onClick={resetReview}
-              >
-                리셋
-              </Button>
-              <Button
-                variant="primary"
-                type="submit"
-                className="p-0"
-                style={{ cursor: "pointer" }}
-                disabled={loading || (contentsRemains && starsRemains())}
-              >
-                {loading ? <span>저장 중...</span> : "저장"}
-              </Button>
-            </>
-          )}
-        </div>
       </Form>
     </Container>
   );
