@@ -19,7 +19,6 @@ const OrderForm = ({
   optionLabels,
   defaultLabel,
   changeCarouselShape,
-  setCarouselImages,
 }) => {
   const location = useLocation();
   const { formData, setMemberData } = useOrderDataStore();
