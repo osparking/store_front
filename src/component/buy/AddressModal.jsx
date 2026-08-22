@@ -172,7 +172,7 @@ const AddressModal = ({ show, closer, putFocus2detailedAddr }) => {
               <OverlayTrigger
                 overlay={
                   <Tooltip className="address-tooltip">
-                    도로명 2+ 자: 미사대(O), 경기도(X)
+                    도로명 2+ 자 - 종로(O), 경기도(X)
                   </Tooltip>
                 }
               >
