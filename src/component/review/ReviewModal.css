@@ -13,5 +13,13 @@
 }
 
 #review-modal-body h5 {
-   font-size: 1.1rem;
+    font-size: 1.1rem;
+}
+
+.center-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 12px;
 }
