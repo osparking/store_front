@@ -26,7 +26,8 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
 
   useEffect(() => {
     localStorage.setItem("ORDER_PAGE_고객", currentPage);
-    const loadOrderPage = async () => { // 인자 제거됨
+    const loadOrderPage = async () => {
+      // 인자 제거됨
       const searchResult = await getOrderPage(loginId, currentPage, pageSize);
       setSearchResult(searchResult);
       if (searchResult) {
@@ -116,9 +117,12 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
                     <tr key={idx}>
                       <td>{order.orderId}</td>
                       <td>
-                        <a href="#" onClick={() => viewOrderDetail(order.id)}>
+                        <button
+                          className="orderNameLink"
+                          onClick={() => viewOrderDetail(order.id)}
+                        >
                           {order.orderName}
-                        </a>
+                        </button>
                       </td>
                       <td>{order.orderStatus}</td>
                       <td>{order.recipientName}</td>
