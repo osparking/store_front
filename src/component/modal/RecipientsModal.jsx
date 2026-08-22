@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import { Modal, Table } from "react-bootstrap";
+import { Button, Modal, Table } from "react-bootstrap";
 import { PayButtonContext } from "../buy/Recipient";
 import Paginator from "../common/Paginator";
 import { getMyRecipients } from "../user/UserService";
 import "./RecipientsModal.css";
 import { useOrderDataStore } from "../buy/orderDataStore";
+import "../../App.css";
 
 const RecipientsModal = ({ show, closer, setNoPurchaseHistory }) => {
   const { recipient, setMemberData } = useOrderDataStore();
@@ -124,7 +125,16 @@ const RecipientsModal = ({ show, closer, setNoPurchaseHistory }) => {
             )}
           </div>
         </Modal.Body>
-        <Modal.Footer></Modal.Footer>
+        <Modal.Footer>
+          <div
+            style={{ width: "100%" }}
+            className="char2button d-flex justify-content-center m-0"
+          >
+            <Button variant="primary" size="sm" onClick={closer}>
+              닫기
+            </Button>
+          </div>
+        </Modal.Footer>
       </div>
     </Modal>
   );
