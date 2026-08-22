@@ -103,6 +103,7 @@ export const removeUserKeys = () => {
     "ORDER_ID_TOSS",
     "ORDER_PAGE_고객",
     "ORDER_PAGE_WORKER",
+    "order-storage",
     "PRODUCE_PAGE",
     "QUESTION_PAGE",
     "QUESTION_PAGE_관리",

@@ -48,6 +48,9 @@ export function WidgetSuccessPage() {
       })
       .catch((error) => {
         navigate(`/fail?code=${error.code}&message=${error.message}`);
+      })
+      .finally(() => {
+        localStorage.removeItem("order-storage");
       });
   }, [searchParams]);
 
