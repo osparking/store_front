@@ -1,38 +1,34 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState } from "react";
-import { Button, Container, Form } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Container, Form } from "react-bootstrap";
 import toast from "react-hot-toast";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css"; // Import styles
 import "../../App.css";
-import ConfirmationModal from "../modal/ConfirmationModal";
 import "./MyQuillEditor.css";
 import { getPlainContent } from "./utilities";
 
 function MyQuillEditor({
-  order,
+  reviewContent,
+  setReviewContent,
+  reviewId,
   handleClose,
   saveEdit,
   editable,
-  performDeletion,
-  setStars,
+  setLoading,
 }) {
-  const [editorContent, setEditorContent] = useState(order.review);
-  const contentsRemains = order.review === editorContent;
+  const getTextLength = () => {
+    return reviewContent ? getPlainContent(reviewContent).length : 0;
+  };
 
-  const [loading, setLoading] = useState(false);
+  const [contentLength, setContentLength] = useState(0);
+
+  useEffect(() => {
+    setContentLength(getTextLength());
+  }, [reviewContent]);
 
   const handleEditorChange = (content, delta, source, editor) => {
-    setEditorContent(content);
-  };
-
-  const getTextLength = () => {
-    return editorContent ? getPlainContent(editorContent).length : 0;
-  };
-
-  const resetReview = () => {
-    setEditorContent(order.review);
-    setStars(order.stars);
+    setReviewContent(content);
   };
 
   const handleSubmit = async (e) => {
@@ -42,7 +38,7 @@ function MyQuillEditor({
     }
     try {
       setLoading(true);
-      const reviewData = { id: order.id, review: editorContent };
+      const reviewData = { id: reviewId, review: reviewContent };
 
       await saveEdit(reviewData);
 
@@ -88,16 +84,6 @@ function MyQuillEditor({
     "video",
   ];
 
-  const confirmDeletion = async () => {
-    try {
-      await performDeletion(order.id);
-      handleClose();
-    } catch (err) {
-      console.error("err: ", err);
-      toast.error("후기 삭제 실패!");
-    }
-  };
-
   return (
     <Container className="mt-4">
       <Form onSubmit={handleSubmit}>
@@ -107,7 +93,7 @@ function MyQuillEditor({
           </Form.Label>
           <ReactQuill
             theme="snow"
-            value={editorContent}
+            value={reviewContent}
             readOnly={!editable}
             onChange={handleEditorChange}
             modules={modules}
@@ -121,7 +107,7 @@ function MyQuillEditor({
         </Form.Group>
 
         {/* Character count (optional) */}
-        <div className="text-muted mb-2">글자수: {getTextLength()} 자</div>
+        <div className="text-muted mb-2">글자수: {contentLength} 자</div>
       </Form>
     </Container>
   );
