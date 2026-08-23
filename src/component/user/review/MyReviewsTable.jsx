@@ -1,9 +1,12 @@
+import { useState } from "react";
 import "../../../index.css";
+import { fetchReview } from "../../buy/orderService";
+import ReviewModal from "../../review/ReviewModal";
 import { formatDate } from "../../util/utilities";
 import "../userDashboard.css";
 import "./MyReviewsTable.css";
 
-const MyReviewsTable = (reviews, manageReview) => {
+const MyReviewsTable = (reviews) => {
   const reviewTableWidth = "820px";
 
   const reviewTableColumnGroup = () => {
@@ -19,9 +22,38 @@ const MyReviewsTable = (reviews, manageReview) => {
     );
   };
 
+  const [showReviewModal, setShowReviewModal] = useState(false);
+
+  const closeMyReviewModal = (reloadReviews) => {
+    reloadReviews && loadReviewPage();
+    setShowReviewModal(false);
+  };
+
+  const [review, setReview] = useState({});
+
+  const manageReview = async (review) => {
+    const reviewInfo = await fetchReview(review.id);
+    setReview({ ...review, review: reviewInfo.review });
+    setShowReviewModal(true);
+  };
+
+  const saveReview = async (reviewData) => {
+    setShowReviewModal(false);
+    await patchOrderReview(reviewData);
+    loadReviewPage();
+  };
+
   return (
     <div className="user-table-wrapper">
       <div className="table-header">
+        <ReviewModal
+          show={showReviewModal}
+          handleClose={() => setShowReviewModal(false)}
+          title={"후기 관리"}
+          review={review}
+          saveReview={saveReview}
+          editable={true}
+        />
         <table
           className="table table-bordered table-hover table-striped"
           style={{
@@ -62,9 +94,12 @@ const MyReviewsTable = (reviews, manageReview) => {
                   <td>{formatDate(review.orderTime)}</td>
                   <td>{review.stars}</td>
                   <td className="text-start">
-                    <a href="#" onClick={() => manageReview(review)}>
+                    <button
+                      className="spanLink"
+                      onClick={() => manageReview(review)}
+                    >
                       {review.reviewPreview}
-                    </a>
+                    </button>
                   </td>
                   <td>{formatDate(review.reviewTime)}</td>
                 </tr>
