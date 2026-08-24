@@ -133,7 +133,7 @@ export async function patchOrderReview(data) {
   try {
     console.log("별점: ", data.stars);
     const result = await callWithToken("patch", "/order/update_review", data);
-    return result.data.data;
+    return result.data.message;
   } catch (err) {
     throw err;
   }
