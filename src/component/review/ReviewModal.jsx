@@ -86,7 +86,7 @@ export default function ReviewModal({
     const starsEqual = stars === review.stars;
 
     setReviewUnchanged(contentEqual && starsEqual);
-  }, [reviewContent, stars]);
+  }, [reviewContent, stars, review]);
 
   const resetReview = () => {
     setStars(review.stars);
