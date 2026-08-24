@@ -49,7 +49,7 @@ const ManageIngredient = () => {
 
   const navigate = useNavigate();
 
-  const readIngredientPage = (pageNo) => {
+  const readIngredientPage = (pageNo, selectedName) => {
     getIngredientPage(selectedName, pageNo, ingresPerPage)
       .then((response) => {
         if (response) {
@@ -72,7 +72,8 @@ const ManageIngredient = () => {
     } else {
       localStorage.removeItem("INGRE_NAME");
     }
-    readIngredientPage(currIngrePage);
+    readIngredientPage(currIngrePage, selectedName);
+
     const readIngreNames = async () => {
       try {
         const response = await getAllIngreNames();
