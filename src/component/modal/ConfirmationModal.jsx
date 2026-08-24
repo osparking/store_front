@@ -14,6 +14,8 @@ export default function ConfirmationModal({
   modelClassName = "",
   dialogClassName = "",
 }) {
+  const buttonSize = yesLabel.length === 2 ? "char2button" : "char4button";
+  
   return (
     <Modal
       show={show}
@@ -27,7 +29,7 @@ export default function ConfirmationModal({
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>{bodyMessage}</Modal.Body>
-      <Modal.Footer className="d-flex justify-content-center char4button">
+      <Modal.Footer className={`d-flex justify-content-center ${buttonSize}`}>
         <Button variant="secondary" onClick={handleClose} className="p-0">
           {noLabel}
         </Button>
