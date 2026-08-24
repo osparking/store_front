@@ -98,7 +98,7 @@ const OrderStatus = ({ statusLabels, order, loadOrderPage }) => {
         title="운송장번호 등록"
         dialogClass="waybill-modal-class"
       />
-      <Form.Group>
+      <Form.Group id="orderStatus">
         <Form.Control
           as="select"
           name="orderStatus"

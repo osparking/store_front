@@ -5,3 +5,8 @@
 .waybill-modal-class {
     width: 360px;
 }
+
+#orderStatus select.form-select option:not([disabled]) {
+  color: deeppink;
+  font-weight: bold;
+}
