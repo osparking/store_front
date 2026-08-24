@@ -1,11 +1,12 @@
 import _ from "lodash";
 import { useContext, useEffect, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
 import ConfirmationModal from "../modal/ConfirmationModal";
 import { ReviewsContext } from "../user/UserDashboard";
 import MyQuillEditor from "../util/MyQuillEditor";
 import { callWithToken } from "../util/api";
+import { getPlainContent } from "../util/utilities";
 import Rating from "./Rating";
 import "./ReviewModal.css";
 
@@ -29,11 +30,12 @@ export default function ReviewModal({
   }
   const [stars, setStars] = useState(0);
 
-  const saveEdit = (editorText) => {
+  const saveEdit = async (editorText) => {
     const reviewData = { stars: stars, ...editorText };
-    saveReview(reviewData);
+    const result = await saveReview(reviewData);
     refreshReviews();
     refreshOrders();
+    return result;
   };
 
   const [loading, setLoading] = useState(false);
@@ -98,6 +100,30 @@ export default function ReviewModal({
   const resetReview = () => {
     setStars(review.stars);
     setReviewContent(review.review);
+  };
+
+  const getTextLength = () => {
+    return reviewContent ? getPlainContent(reviewContent).length : 0;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (getTextLength() === 0) {
+      return toast.error("후기 내용을 작성하세요!");
+    }
+    try {
+      setLoading(true);
+      const reviewData = { id: review.id, review: reviewContent };
+      const result = await saveEdit(reviewData);
+
+      toast.success(result);
+      handleClose();
+    } catch (err) {
+      console.error("err: ", err);
+      toast.error("후기 저장 오류!");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -180,15 +206,17 @@ export default function ReviewModal({
                 >
                   리셋
                 </Button>
-                {/* <Button
-            variant="primary"
-            type="submit"
-            className="p-0"
-            style={{ cursor: "pointer" }}
-            disabled={loading || (contentsRemains && starsRemains())}
-          >
-            {loading ? <span>저장 중...</span> : "저장"}
-          </Button> */}
+                <Form onSubmit={handleSubmit}>
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    className="p-0"
+                    style={{ cursor: "pointer" }}
+                    disabled={loading || reviewUnchanged}
+                  >
+                    {loading ? <span>저장 중...</span> : "저장"}
+                  </Button>
+                </Form>
               </>
             )}
           </div>
