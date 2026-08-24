@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
-import { Container, Form } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css"; // Import styles
 import "../../App.css";
@@ -12,7 +12,6 @@ function MyQuillEditor({
   setReviewContent,
   reviewId,
   handleClose,
-  saveEdit,
   editable,
   setLoading,
 }) {
@@ -64,24 +63,22 @@ function MyQuillEditor({
 
   return (
     <Container className="mt-4">
-      <Form.Group className="mb-0">
-        <Form.Label>
-          <h5 style={{ textAlign: "left" }}>경험 서술</h5>
-        </Form.Label>
-        <ReactQuill
-          theme="snow"
-          value={reviewContent}
-          readOnly={!editable}
-          onChange={handleEditorChange}
-          modules={modules}
-          formats={formats}
-          placeholder="여기에 후기를 작성하세요 :-)"
-          style={{
-            marginBottom: "50px",
-            borderRadius: "4px",
-          }}
-        />
-      </Form.Group>
+      <h5 className="mb-2" style={{ textAlign: "left" }}>
+        경험 서술
+      </h5>
+      <ReactQuill
+        theme="snow"
+        value={reviewContent}
+        readOnly={!editable}
+        onChange={handleEditorChange}
+        modules={modules}
+        formats={formats}
+        placeholder="여기에 후기를 작성하세요 :-)"
+        style={{
+          marginBottom: "50px",
+          borderRadius: "4px",
+        }}
+      />
       <div className="text-muted mb-2">글자수: {contentLength} 자</div>
     </Container>
   );
