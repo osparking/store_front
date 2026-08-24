@@ -1,7 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 import { Container, Form } from "react-bootstrap";
-import toast from "react-hot-toast";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css"; // Import styles
 import "../../App.css";
@@ -29,27 +28,6 @@ function MyQuillEditor({
 
   const handleEditorChange = (content, delta, source, editor) => {
     setReviewContent(content);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (getTextLength() === 0) {
-      return toast.error("후기 내용을 작성하세요!");
-    }
-    try {
-      setLoading(true);
-      const reviewData = { id: reviewId, review: reviewContent };
-
-      await saveEdit(reviewData);
-
-      toast.success("후기 저장 성공.");
-      handleClose();
-    } catch (err) {
-      console.error("err: ", err);
-      toast.error("후기 저장 오류!");
-    } finally {
-      setLoading(false);
-    }
   };
 
   // Custom toolbar configuration
@@ -86,29 +64,25 @@ function MyQuillEditor({
 
   return (
     <Container className="mt-4">
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-0">
-          <Form.Label>
-            <h5 style={{ textAlign: "left" }}>경험 서술</h5>
-          </Form.Label>
-          <ReactQuill
-            theme="snow"
-            value={reviewContent}
-            readOnly={!editable}
-            onChange={handleEditorChange}
-            modules={modules}
-            formats={formats}
-            placeholder="여기에 후기를 작성하세요 :-)"
-            style={{
-              marginBottom: "50px",
-              borderRadius: "4px",
-            }}
-          />
-        </Form.Group>
-
-        {/* Character count (optional) */}
-        <div className="text-muted mb-2">글자수: {contentLength} 자</div>
-      </Form>
+      <Form.Group className="mb-0">
+        <Form.Label>
+          <h5 style={{ textAlign: "left" }}>경험 서술</h5>
+        </Form.Label>
+        <ReactQuill
+          theme="snow"
+          value={reviewContent}
+          readOnly={!editable}
+          onChange={handleEditorChange}
+          modules={modules}
+          formats={formats}
+          placeholder="여기에 후기를 작성하세요 :-)"
+          style={{
+            marginBottom: "50px",
+            borderRadius: "4px",
+          }}
+        />
+      </Form.Group>
+      <div className="text-muted mb-2">글자수: {contentLength} 자</div>
     </Container>
   );
 }
