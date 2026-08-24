@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../../../index.css";
-import { fetchReview, patchOrderReview } from "../../buy/orderService";
+import { fetchReview } from "../../buy/orderService";
 import ReviewModal from "../../review/ReviewModal";
 import { formatDate } from "../../util/utilities";
 import "../userDashboard.css";
@@ -37,12 +37,6 @@ const MyReviewsTable = (reviews) => {
     setShowReviewModal(true);
   };
 
-  const saveReview = async (reviewData) => {
-    setShowReviewModal(false);
-    const response = await patchOrderReview(reviewData);
-    return response;
-  };
-
   return (
     <div className="user-table-wrapper">
       <div className="table-header">
@@ -51,7 +45,6 @@ const MyReviewsTable = (reviews) => {
           handleClose={() => setShowReviewModal(false)}
           title={"후기 관리"}
           review={review}
-          saveReview={saveReview}
           editable={true}
         />
         <table
