@@ -29,17 +29,6 @@ export default function ReviewModal({
     refreshOrders = context?.refreshOrders || (() => {});
   }
   const [stars, setStars] = useState(0);
-
-  const saveEdit = async (editorText) => {
-    const reviewData = { stars: stars, ...editorText };
-    const result = await patchOrderReview(reviewData);
-
-    refreshReviews();
-    refreshOrders();
-
-    return result;
-  };
-
   const [loading, setLoading] = useState(false);
 
   const performDeletion = async (orderId) => {
@@ -115,11 +104,14 @@ export default function ReviewModal({
     }
     try {
       setLoading(true);
-      
-      const reviewData = { id: review.id, review: reviewContent };
-      const result = await saveEdit(reviewData);
+
+      const reviewData = { id: review.id, stars: stars, review: reviewContent };
+      const result = await patchOrderReview(reviewData);
 
       toast.success(result);
+      refreshReviews();
+      refreshOrders();
+
       handleClose();
     } catch (err) {
       console.error("err: ", err);
