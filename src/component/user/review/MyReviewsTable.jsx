@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../../../index.css";
-import { fetchReview } from "../../buy/orderService";
+import { fetchReview, patchOrderReview } from "../../buy/orderService";
 import ReviewModal from "../../review/ReviewModal";
 import { formatDate } from "../../util/utilities";
 import "../userDashboard.css";
@@ -39,8 +39,8 @@ const MyReviewsTable = (reviews) => {
 
   const saveReview = async (reviewData) => {
     setShowReviewModal(false);
-    await patchOrderReview(reviewData);
-    loadReviewPage();
+    const response = await patchOrderReview(reviewData);
+    return response;
   };
 
   return (
