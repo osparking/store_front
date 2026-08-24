@@ -2,6 +2,7 @@ import _ from "lodash";
 import { useContext, useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
+import { patchOrderReview } from "../buy/orderService";
 import ConfirmationModal from "../modal/ConfirmationModal";
 import { ReviewsContext } from "../user/UserDashboard";
 import MyQuillEditor from "../util/MyQuillEditor";
@@ -15,7 +16,6 @@ export default function ReviewModal({
   handleClose,
   title,
   review,
-  saveReview,
   editable,
 }) {
   if (!review) return;
@@ -32,9 +32,11 @@ export default function ReviewModal({
 
   const saveEdit = async (editorText) => {
     const reviewData = { stars: stars, ...editorText };
-    const result = await saveReview(reviewData);
+    const result = await patchOrderReview(reviewData);
+
     refreshReviews();
     refreshOrders();
+
     return result;
   };
 
@@ -113,6 +115,7 @@ export default function ReviewModal({
     }
     try {
       setLoading(true);
+      
       const reviewData = { id: review.id, review: reviewContent };
       const result = await saveEdit(reviewData);
 
@@ -168,7 +171,6 @@ export default function ReviewModal({
               setReviewContent={setReviewContent}
               reviewId={review.id}
               handleClose={handleClose}
-              saveEdit={saveEdit}
               editable={editable}
               setLoading={setLoading}
             />
