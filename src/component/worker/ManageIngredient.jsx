@@ -66,6 +66,10 @@ const ManageIngredient = () => {
       });
   };
 
+  const [currIngrePage, setCurrIngrePage] = useState(
+    parseInt(localStorage.getItem("CURR_INGRE_PAGE")) || 1,
+  );
+
   useEffect(() => {
     if (selectedName) {
       localStorage.setItem("INGRE_NAME", selectedName);
@@ -83,11 +87,7 @@ const ManageIngredient = () => {
       }
     };
     readIngreNames();
-  }, [selectedName]);
-
-  const [currIngrePage, setCurrIngrePage] = useState(
-    parseInt(localStorage.getItem("CURR_INGRE_PAGE")) || 1,
-  );
+  }, [selectedName, currIngrePage]);
 
   useEffect(() => {
     if (ingreAdded) {
