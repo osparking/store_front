@@ -18,7 +18,7 @@ const WorkerSideBar = ({ tabClicked }) => {
       <ul className="sidebar-list">
         <li
           className="sidebar-list-item"
-          onClick={() => tabClicked("manageOrder")}
+          onClick={(e) => tabClicked(e, "manageOrder")}
         >
           <a href="#">
             <HiOutlinePencilAlt className="icon" style={{fill: "none"}}/>
@@ -27,7 +27,7 @@ const WorkerSideBar = ({ tabClicked }) => {
         </li>
         <li
           className="sidebar-list-item"
-          onClick={() => tabClicked("manageIngredient")}
+          onClick={(e) => tabClicked(e, "manageIngredient")}
         >
           <a href="#">
             <LuComponent className="icon" />
@@ -36,7 +36,7 @@ const WorkerSideBar = ({ tabClicked }) => {
         </li>
         <li
           className="sidebar-list-item"
-          onClick={() => tabClicked("registerProduce")}
+          onClick={(e) => tabClicked(e, "registerProduce")}
         >
           <a href="#">
             <HiOutlineRectangleGroup className="icon" />
