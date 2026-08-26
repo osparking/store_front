@@ -40,6 +40,7 @@ const ProducerModal = ({ show, producer, setProducer, closer }) => {
   const loadNamesPage = async (value) => {
     if (!show) return; // 모달이 열려있지 않으면 API 호출하지 않음
     try {
+      console.log("입력: ", value);
       setLoading(true);
       const searchResult = await getEmployeeNamesPage(
         value,
@@ -128,7 +129,7 @@ const ProducerModal = ({ show, producer, setProducer, closer }) => {
   const debouncedPageLoad = useDebounce(loadNamesPage, 200);
 
   const handleKeyDown = (event) => {
-    if (event.key === "Enter" || event.key === "Process") {
+    if (event.key === "Enter") {
       event.preventDefault();
       debouncedPageLoad(nameKey);
     }
@@ -158,7 +159,7 @@ const ProducerModal = ({ show, producer, setProducer, closer }) => {
         <Modal.Body>
           <Form>
             <div className="d-flex justify-content-center char2button gap-2">
-              <OverlayTrigger overlay={<Tooltip>한 글자 이상 입력!</Tooltip>}>
+              <OverlayTrigger overlay={<Tooltip>한 글자 이상 + [엔터]</Tooltip>}>
                 <Form.Control
                   type="text"
                   name="nameKey"
