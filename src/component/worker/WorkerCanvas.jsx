@@ -24,7 +24,8 @@ const WorkerCanvas = () => {
     localStorage.getItem("WORKER_TAB") || "manageOrder",
   );
 
-  const tabClicked = (tab) => {
+  const tabClicked = (e, tab) => {
+    e.preventDefault();
     setWorkerTab(tab);
     localStorage.setItem("WORKER_TAB", tab);
   };
