@@ -16,7 +16,7 @@ import QuestionsTable from "./QuestionsTable";
 const ManageQuestions = ({ mine }) => {
   const [totalPages, setTotalPages] = useState(1);
   const [questionPage, setQuestionPage] = useState({});
-  const [questions, setQuestioins] = useState([]);
+  const [questions, setQuestions] = useState([]);
   const [pageSize, setPageSize] = useState(10); // itemsPerPage
 
   const savedPageNo = localStorage.getItem("QUESTION_PAGE_관리");
@@ -35,7 +35,7 @@ const ManageQuestions = ({ mine }) => {
     if (searchResult) {
       setTotalPages(searchResult.totalPages);
       setQuestionPage(searchResult.pageContent);
-      setQuestioins(searchResult.pageContent.content);
+      setQuestions(searchResult.pageContent.content);
       setPageSize(searchResult.pageSize);
       setCurrentPage(searchResult.currentPage);
     }

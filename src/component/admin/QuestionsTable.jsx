@@ -30,7 +30,7 @@ const QuestionsTable = (questions, answerQuestion) => {
             <tr className="userTableHeader">
               <th className="minDateWidth">제목 15 자</th>
               <th className="minDateWidthLong">내용 20 자</th>
-              <th className="minDateWidth">질문 일시</th>
+              <th className="minDateWidth">최종 입력 일시</th>
               <th>댓글</th>
               <th>답변</th>
             </tr>
