@@ -41,7 +41,7 @@ function FollowUpEditor({
 
       const hasEqualContent = _.isEqual(editorPlain, savedPlain);
       const isPrompter = _.isEqual(editorPlain, promptMessage);
-      
+
       setContentUnChanged(
         writingAnswer || hasEqualContent || (!isAdmin && isPrompter),
       );
@@ -196,20 +196,28 @@ function FollowUpEditor({
         dialogClassName="reply-deletion-confirmation-modal"
       />
       <Form className="mt-3 ms-3 mb-3" onSubmit={handleSubmit}>
-        <Form.Group className="mb-3 me-3">
+        <Form.Label>
           <h5
             id="bumAnswer-label"
             ref={h5ref}
             onClick={handleHeadingClick}
             onKeyDown={handleHeadingKeyDown}
             style={{ textAlign: "left", cursor: "pointer" }}
-            className="mb-2"
             tabIndex="0" // 탭이동 순서에 포함, 포커스 지정 가능
             role="button" // 클릭 가능한 버튼으로 취급 지정
             aria-label={`${headText} 라벨 및 편집기`}
           >
             {headText}
           </h5>
+        </Form.Label>
+        {followUp.id && (
+          <Form.Group className="mb-0 ms-3 me-4">
+            <Form.Label className="mt-1" style={{ fontSize: "14px" }}>
+              ※입력: {followUp.insertTime}
+            </Form.Label>
+          </Form.Group>
+        )}
+        <Form.Group className="mb-3 me-3">
           <ReactQuill
             id="bumAnswer"
             ref={quillRef}
