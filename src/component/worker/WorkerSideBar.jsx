@@ -1,10 +1,8 @@
 import { GiOlive } from "react-icons/gi";
 import { HiOutlinePencilAlt } from "react-icons/hi";
-import {
-  HiOutlinePencilSquare,
-  HiOutlineRectangleGroup,
-} from "react-icons/hi2";
+import { HiOutlineRectangleGroup } from "react-icons/hi2";
 import { LuComponent } from "react-icons/lu";
+import "./WorkerSideBar.css";
 
 const WorkerSideBar = ({ tabClicked }) => {
   return (
@@ -18,30 +16,30 @@ const WorkerSideBar = ({ tabClicked }) => {
       <ul className="sidebar-list">
         <li
           className="sidebar-list-item"
-          onClick={(e) => tabClicked(e, "manageOrder")}
+          onClick={() => tabClicked("manageOrder")}
         >
-          <a href="#">
-            <HiOutlinePencilAlt className="icon" style={{fill: "none"}}/>
+          <button className="buttonTab">
+            <HiOutlinePencilAlt className="icon" style={{ fill: "none" }} />
             주문 관리
-          </a>
+          </button>
         </li>
         <li
           className="sidebar-list-item"
-          onClick={(e) => tabClicked(e, "manageIngredient")}
+          onClick={() => tabClicked("manageIngredient")}
         >
-          <a href="#">
+          <button className="buttonTab">
             <LuComponent className="icon" />
             재료 입고
-          </a>
+          </button>
         </li>
         <li
           className="sidebar-list-item"
-          onClick={(e) => tabClicked(e, "registerProduce")}
+          onClick={() => tabClicked("registerProduce")}
         >
-          <a href="#">
+          <button className="buttonTab">
             <HiOutlineRectangleGroup className="icon" />
             생산 등록
-          </a>
+          </button>
         </li>
       </ul>
     </div>
