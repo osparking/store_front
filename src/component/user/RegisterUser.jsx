@@ -122,12 +122,12 @@ const RegisterUser = () => {
 
   const easyData = () => {
     setUser({
+      ...user,
       fullName: "김성훈",
       mbPhone: "01012345678",
       email: "jbpark103@hanmail.net",
       password: "1aB$56789",
       confirmPassword: "1aB$56789",
-      userType: "CUSTOMER",
       dept: "생산부",
     });
   };
