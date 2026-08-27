@@ -1,6 +1,7 @@
 import { Button, Modal } from "react-bootstrap";
 import { logoutUser } from "../auth/AuthService";
 import { disableUserAccount } from "../user/UserService";
+import toast from "react-hot-toast";
 
 const DisableAccountModal = ({
   show,
@@ -14,7 +15,8 @@ const DisableAccountModal = ({
   const handleDisableAccount = async () => {
     try {
       if (userId) {
-        await disableUserAccount(userId);
+        const result = await disableUserAccount(userId);
+        toast(result.message);
       } else {
         await callUpdateUser();
       }
