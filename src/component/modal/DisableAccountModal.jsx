@@ -1,7 +1,9 @@
+import { useContext } from "react";
 import { Button, Modal } from "react-bootstrap";
+import toast from "react-hot-toast";
+import { ManageWorkersContext } from "../admin/ManageWorkers";
 import { logoutUser } from "../auth/AuthService";
 import { disableUserAccount } from "../user/UserService";
-import toast from "react-hot-toast";
 
 const DisableAccountModal = ({
   show,
@@ -12,10 +14,16 @@ const DisableAccountModal = ({
   accountOwner = true,
   modalClass = "",
 }) => {
+  const manageWorkersContext = useContext(ManageWorkersContext);
+  const readWorkerList = manageWorkersContext?.readWorkerList;
+
   const handleDisableAccount = async () => {
     try {
       if (userId) {
         const result = await disableUserAccount(userId);
+        if (readWorkerList) {
+          readWorkerList();
+        }
         toast(result.message);
       } else {
         await callUpdateUser();
