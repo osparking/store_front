@@ -138,7 +138,7 @@ const RegisterUser = () => {
     window.location.href = "/login";
   };
 
-  const isDevelopment = process.env.NODE_ENV === "development";
+  const isDevelopment = import.meta.env.DEV;
 
   const [showPopover, setShowPopover] = useState(false);
   const inputRef = useRef(null);

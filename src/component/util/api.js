@@ -5,7 +5,8 @@ import { getStorage, getStorageToken, storeJWtoken } from "./utilities";
 axios.defaults.withCredentials = true; // 모든 요청에 쿠키 포함
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
-const prefix = "http://localhost:9193/api/s1";
+// 환경변수로 바꿔줍니다
+const prefix = import.meta.env.VITE_API_BASE_URL + "/s1";
 
 export const api = axios.create({
   baseURL: prefix,
