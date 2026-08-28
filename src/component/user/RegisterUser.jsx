@@ -215,21 +215,14 @@ const RegisterUser = () => {
                       md={3}
                       className="d-flex justify-content-center"
                     >
-                      <Form.Label>
+                      <Form.Label className="p-0 text-center">
                         계정 유형
                         <Form.Control
-                          as="text"
-                          name="userType"
-                          required
-                          value={user.userType}
-                          className="disabled-color"
-                        >
-                          {isAdmin ? (
-                            <option value="WORKER">직원</option>
-                          ) : (
-                            <option value="CUSTOMER">고객</option>
-                          )}
-                        </Form.Control>
+                          plaintext
+                          readOnly
+                          value={isAdmin ? "직원" : "고객"}
+                          className="p-0 text-center"
+                        />
                       </Form.Label>
                     </Col>
                     <Col
