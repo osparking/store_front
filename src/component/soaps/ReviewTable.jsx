@@ -81,7 +81,7 @@ const ReviewTable = () => {
               </h2>
               <div className="justify-content-center align-items-center">
                 <p className="text-center text-muted mb-4">
-                  <RatingAvg rating={averageStars} />({averageStars.toFixed(2)}{" "}
+                  <RatingAvg rating={averageStars} />({averageStars?.toFixed(2)}{" "}
                   — 총 {reviewPage.totalElements}건 평균)
                 </p>
               </div>
