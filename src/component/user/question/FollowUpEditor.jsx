@@ -213,7 +213,7 @@ function FollowUpEditor({
         {followUp.id && (
           <Form.Group className="mb-0 ms-3 me-4">
             <Form.Label className="mt-1" style={{ fontSize: "14px" }}>
-              ※입력: {followUp.insertTime}
+              ※입력: {followUp?.insertTime}
             </Form.Label>
           </Form.Group>
         )}

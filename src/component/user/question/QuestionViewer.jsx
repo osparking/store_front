@@ -1,4 +1,3 @@
-import React from "react";
 import { Form } from "react-bootstrap";
 import QuillViewer from "./QuillViewer";
 
@@ -29,7 +28,7 @@ const QuestionViewer = ({ question, mine }) => {
         </Form.Group>
         <Form.Group className="mb-0" controlId="formBasicEmail">
           <Form.Label>내용</Form.Label>
-          <QuillViewer question={question.question} />
+          <QuillViewer question={question?.question} />
         </Form.Group>
       </Form.Group>
     </Form>
