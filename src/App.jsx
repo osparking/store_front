@@ -38,6 +38,7 @@ function App() {
         <Route path="/email_verifin" element={<EmailVerifin />} />
         <Route path="/verify_token" element={<VerifyToken />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/login/" element={<Login />} />
         <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
         <Route path="/soap_intro" element={<SoapIntro />} />
         <Route path="/reviews" element={<ReviewTable />} />
