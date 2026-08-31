@@ -28,6 +28,7 @@ import RegisterUser from "./component/user/RegisterUser";
 import UserUpdate from "./component/user/UpdateUser";
 import UserDashboard from "./component/user/UserDashboard";
 import WorkerCanvas from "./component/worker/WorkerCanvas";
+import OAuth2Redirect from "./component/auth/OAuth2Redirect";
 
 function App() {
   const router = createBrowserRouter(
@@ -42,6 +43,7 @@ function App() {
         <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
         <Route path="/soap_intro" element={<SoapIntro />} />
         <Route path="/reviews" element={<ReviewTable />} />
+        <Route path="/oauth2/redirect" element={<OAuth2Redirect />} />        
 
         {/* 인증이 필요한 루트 */}
         <Route
