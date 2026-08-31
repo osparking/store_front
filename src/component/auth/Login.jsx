@@ -184,7 +184,7 @@ const Login = () => {
   };
 
   const handleOauth2Login = (provider) => {
-    window.location.href = `http://localhost:9193/oauth2/authorization/${provider}`;
+    window.location.href = `${import.meta.env.VITE_BASE_URL}/oauth2/authorization/${provider}`;
   };
 
   const reset_password = async () => {
