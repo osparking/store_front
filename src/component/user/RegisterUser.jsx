@@ -178,6 +178,11 @@ const RegisterUser = () => {
 
   return (
     <>
+      <title>범이비누 - 계정 등록</title>
+      <meta
+        name="description"
+        content="올리브오일 엑스트라버진 수제비누 범이비누(BumSoap) 새 유저 등록 페이지입니다."
+      />
       <ConfirmEmailModal
         show={showConfirmEmailModal}
         closer={() => moveToLoginPage()}

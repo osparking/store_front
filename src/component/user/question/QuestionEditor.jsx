@@ -192,145 +192,152 @@ function QuestionEditor({
   };
 
   return (
-    <div
-      id="questionEditorContainer"
-      className="d-flex justify-content-center align-items-center"
-    >
-      <ConfirmationModal
-        show={showDeleteModal}
-        handleClose={() => setShowDeleteModal(false)}
-        handleConfirm={handleQuestionDeletionConfirmation}
-        bodyMessage="질문을 삭제하려면, 삭제 버튼을 누르십시오!"
-        title="질문 삭제 확인"
-        noLabel="취소"
-        yesLabel="삭제"
-        yesVariant="danger"
-        headerBgColor="bg-warning"
-        modelClassName="modal-slide-down"
-        dialogClassName="reply-deletion-confirmation-modal"
+    <>
+      <title>범이비누 - 고객 질문</title>
+      <meta
+        name="description"
+        content="올리브오일 엑스트라버진 수제비누 범이비누(BumSoap) 고객 질문 페이지입니다."
       />
-      <Card className="p-0 customerQuestionCard">
-        <Card.Body>
-          <div className="d-flex p-3 justify-content-center align-items-center vh-67">
-            <Form
-              onSubmit={handleSubmit}
-              className={
-                mine ? "question-editor-modal" : "question-editor-window"
-              }
-              style={{ padding: 0 }}
-            >
-              <h4>{mine ? "나의 질문" : "고객 질문"}</h4>
-              <Form.Group className="mb-0">
-                <Form.Label className="mt-3" htmlFor="questionTitle">
-                  <div className="d-flex align-items-center">
-                    <h5 className="mb-0">제목</h5>
-                    <Form.Text className="text-muted ms-2">
-                      (내용을 최대 30 자로 작성하세요.)
-                    </Form.Text>
-                  </div>
-                </Form.Label>
-                <Form.Control
-                  ref={titleRef}
-                  type="text"
-                  maxLength={30}
-                  id="questionTitle"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)} // 사용자 입력 반영
-                  placeholder="(제목 입력)"
-                  className="mt-0 ps-3 serif question-title-input"
-                  onKeyDown={(e) => {
-                    if (e.key === "Tab") {
-                      e.preventDefault(); // 기본 탭 이동 방지
-                      if (quillRef.current) {
-                        quillRef.current.focus(); // ReactQuill에 포커스
+      <div
+        id="questionEditorContainer"
+        className="d-flex justify-content-center align-items-center"
+      >
+        <ConfirmationModal
+          show={showDeleteModal}
+          handleClose={() => setShowDeleteModal(false)}
+          handleConfirm={handleQuestionDeletionConfirmation}
+          bodyMessage="질문을 삭제하려면, 삭제 버튼을 누르십시오!"
+          title="질문 삭제 확인"
+          noLabel="취소"
+          yesLabel="삭제"
+          yesVariant="danger"
+          headerBgColor="bg-warning"
+          modelClassName="modal-slide-down"
+          dialogClassName="reply-deletion-confirmation-modal"
+        />
+        <Card className="p-0 customerQuestionCard">
+          <Card.Body>
+            <div className="d-flex p-3 justify-content-center align-items-center vh-67">
+              <Form
+                onSubmit={handleSubmit}
+                className={
+                  mine ? "question-editor-modal" : "question-editor-window"
+                }
+                style={{ padding: 0 }}
+              >
+                <h4>{mine ? "나의 질문" : "고객 질문"}</h4>
+                <Form.Group className="mb-0">
+                  <Form.Label className="mt-3" htmlFor="questionTitle">
+                    <div className="d-flex align-items-center">
+                      <h5 className="mb-0">제목</h5>
+                      <Form.Text className="text-muted ms-2">
+                        (내용을 최대 30 자로 작성하세요.)
+                      </Form.Text>
+                    </div>
+                  </Form.Label>
+                  <Form.Control
+                    ref={titleRef}
+                    type="text"
+                    maxLength={30}
+                    id="questionTitle"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)} // 사용자 입력 반영
+                    placeholder="(제목 입력)"
+                    className="mt-0 ps-3 serif question-title-input"
+                    onKeyDown={(e) => {
+                      if (e.key === "Tab") {
+                        e.preventDefault(); // 기본 탭 이동 방지
+                        if (quillRef.current) {
+                          quillRef.current.focus(); // ReactQuill에 포커스
+                        }
                       }
-                    }
-                  }}
-                />
-              </Form.Group>
-              <Form.Label className="mt-3">
-                <div className="d-flex">
-                  <h5 className="mb-0" style={{ marginLeft: "4px" }}>
-                    내용
-                  </h5>
+                    }}
+                  />
+                </Form.Group>
+                <Form.Label className="mt-3">
+                  <div className="d-flex">
+                    <h5 className="mb-0" style={{ marginLeft: "4px" }}>
+                      내용
+                    </h5>
+                  </div>
+                  <ReactQuill
+                    ref={quillRef}
+                    theme="snow"
+                    value={editorContent || placeholder}
+                    onChange={handleEditorChange}
+                    onFocus={clearPlaceholder}
+                    onBlur={handleEditorBlur}
+                    modules={modules}
+                    formats={formats}
+                    className="content-edit mt-2"
+                  />
+                </Form.Label>
+
+                <div className="text-muted mb-3">
+                  글자수: {getTextLength()} 자<br />
+                  입력일시: {question?.insertTime}
                 </div>
-                <ReactQuill
-                  ref={quillRef}
-                  theme="snow"
-                  value={editorContent || placeholder}
-                  onChange={handleEditorChange}
-                  onFocus={clearPlaceholder}
-                  onBlur={handleEditorBlur}
-                  modules={modules}
-                  formats={formats}
-                  className="content-edit mt-2"
-                />
-              </Form.Label>
 
-              <div className="text-muted mb-3">
-                글자수: {getTextLength()} 자<br />
-                입력일시: {question?.insertTime}
-              </div>
-
-              <div className="char2button d-flex gap-4 justify-content-center">
-                {question && (
+                <div className="char2button d-flex gap-4 justify-content-center">
+                  {question && (
+                    <Button
+                      variant="danger"
+                      type="button"
+                      className="p-0"
+                      onClick={() => setShowDeleteModal(true)}
+                      disabled={deleting}
+                    >
+                      {deleting ? (
+                        <>
+                          <Spinner
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                            className="me-1"
+                            style={{ width: "0.8rem", height: "0.8rem" }}
+                          />
+                          <small>삭제 중...</small>
+                        </>
+                      ) : (
+                        "삭제"
+                      )}
+                    </Button>
+                  )}
                   <Button
-                    variant="danger"
+                    variant="secondary"
                     type="button"
                     className="p-0"
-                    onClick={() => setShowDeleteModal(true)}
-                    disabled={deleting}
+                    onClick={() => closeEditor()}
                   >
-                    {deleting ? (
-                      <>
-                        <Spinner
-                          as="span"
-                          animation="border"
-                          size="sm"
-                          role="status"
-                          aria-hidden="true"
-                          className="me-1"
-                          style={{ width: "0.8rem", height: "0.8rem" }}
-                        />
-                        <small>삭제 중...</small>
-                      </>
-                    ) : (
-                      "삭제"
-                    )}
+                    닫기
                   </Button>
-                )}
-                <Button
-                  variant="secondary"
-                  type="button"
-                  className="p-0"
-                  onClick={() => closeEditor()}
-                >
-                  닫기
-                </Button>
-                <Button
-                  variant="info"
-                  type="button"
-                  className="p-0"
-                  onClick={resetQuestion}
-                  disabled={contentUnChanged}
-                >
-                  리셋
-                </Button>
-                <Button
-                  variant="primary"
-                  type="submit"
-                  className="p-0"
-                  style={{ cursor: "pointer" }}
-                  disabled={contentUnChanged || saving}
-                >
-                  {saving ? <span>저장 중...</span> : "저장"}
-                </Button>
-              </div>
-            </Form>
-          </div>
-        </Card.Body>
-      </Card>
-    </div>
+                  <Button
+                    variant="info"
+                    type="button"
+                    className="p-0"
+                    onClick={resetQuestion}
+                    disabled={contentUnChanged}
+                  >
+                    리셋
+                  </Button>
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    className="p-0"
+                    style={{ cursor: "pointer" }}
+                    disabled={contentUnChanged || saving}
+                  >
+                    {saving ? <span>저장 중...</span> : "저장"}
+                  </Button>
+                </div>
+              </Form>
+            </div>
+          </Card.Body>
+        </Card>
+      </div>
+    </>
   );
 }
 

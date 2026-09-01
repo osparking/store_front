@@ -92,54 +92,61 @@ const BuySoap = () => {
   const [slide, setSlide] = useState(0);
 
   return (
-    <div style={{ width: "100%", marginTop: "62px" }}>
-      <div
-        className="d-flex flex-wrap justify-content-center gap-3"
-        style={{ marginTop: "8px" }}
-      >
-        <div className="col-md-5 order-card-width">
-          <Card className="shadow mb-3 soap-image">
-            <Card.Body>
-              <SoapCarousel
-                soapImages={images2show}
-                bgColor={imageBgColor}
-                indColor={imageIndColor}
-                slide={slide}
-                setSlide={setSlide}
-              />
-            </Card.Body>
-          </Card>
-        </div>
-        <div className="col-md-5 order-card-width">
-          {showCart ? (
-            <Card className="shadow mb-3">
-              <Card.Header as="h5" className="text-center form-header">
-                장바구니
-              </Card.Header>
+    <>
+      <title>범이비누 - 주문</title>
+      <meta
+        name="description"
+        content="올리브오일 엑스트라버진 수제비누 범이비누(BumSoap) 주문 페이지입니다."
+      />
+      <div style={{ width: "100%", marginTop: "62px" }}>
+        <div
+          className="d-flex flex-wrap justify-content-center gap-3"
+          style={{ marginTop: "8px" }}
+        >
+          <div className="col-md-5 order-card-width">
+            <Card className="shadow mb-3 soap-image">
               <Card.Body>
-                <ShoppingCart
-                  optionLabels={optionLabels}
-                  setCarouselImages={setCarouselImages}
+                <SoapCarousel
+                  soapImages={images2show}
+                  bgColor={imageBgColor}
+                  indColor={imageIndColor}
+                  slide={slide}
+                  setSlide={setSlide}
                 />
               </Card.Body>
             </Card>
-          ) : (
-            <Card className="shadow mb-3">
-              <Card.Header as="h5" className="text-center form-header">
-                비누 주문
-              </Card.Header>
-              <Card.Body>
-                <OrderForm
-                  optionLabels={optionLabels}
-                  defaultLabel={defaultLabel}
-                  changeCarouselShape={changeCarouselShape}
-                />
-              </Card.Body>
-            </Card>
-          )}
+          </div>
+          <div className="col-md-5 order-card-width">
+            {showCart ? (
+              <Card className="shadow mb-3">
+                <Card.Header as="h5" className="text-center form-header">
+                  장바구니
+                </Card.Header>
+                <Card.Body>
+                  <ShoppingCart
+                    optionLabels={optionLabels}
+                    setCarouselImages={setCarouselImages}
+                  />
+                </Card.Body>
+              </Card>
+            ) : (
+              <Card className="shadow mb-3">
+                <Card.Header as="h5" className="text-center form-header">
+                  비누 주문
+                </Card.Header>
+                <Card.Body>
+                  <OrderForm
+                    optionLabels={optionLabels}
+                    defaultLabel={defaultLabel}
+                    changeCarouselShape={changeCarouselShape}
+                  />
+                </Card.Body>
+              </Card>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -310,58 +310,67 @@ const UserUpdate = () => {
   };
 
   return (
-    <Container
-      id="userUpdateFormContainer"
-      className="d-flex justify-content-center"
-    >
-      <DisableAccountModal
-        show={showConfirmModal}
-        onHide={() => setShowConfirmModal(false)}
-        callUpdateUser={callUpdateUser}
-        disabled={false}
-        modalClass={"disable-account-confirm"}
+    <>
+      <title>범이비누 - 계정 수정</title>
+      <meta
+        name="description"
+        content="올리브오일 엑스트라버진 수제비누 범이비누(BumSoap) 유저 정보수정 페이지입니다."
       />
-      <Form id="userUpdateForm" onSubmit={handleUpdate}>
-        <Card id="userUpdateCard" className="shadow">
-          <Card.Header className="text-center mb-2 h3">
-            성명/휴대폰 수정
-          </Card.Header>
-          <Card.Body>
-            <div id="dataSectionDiv">{dataSection()}</div>
-          </Card.Body>
-          <Card.Footer>
-            {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
-            {alertSuccess && (
-              <AlertMessage
-                type={"success"}
-                message={successMsg + " - [닫기]로 마감하세요"}
-              />
-            )}
-            <div className="d-flex justify-content-center char2button mt-3 gap-4">
-              <Button variant="secondary" size="sm" onClick={cancelUpdate}>
-                닫기
-              </Button>
-              <Button
-                disabled={accountIntact()}
-                variant="secondary"
-                size="sm"
-                onClick={resetAccount}
-              >
-                리셋
-              </Button>
-              <Button
-                disabled={accountIntact() || isProcessing}
-                type="submit"
-                variant={accountClosing ? "danger" : "primary"}
-                size="sm"
-              >
-                {isProcessing ? <ProcessSpinner message="저장" /> : "저장"}
-              </Button>
-            </div>
-          </Card.Footer>
-        </Card>
-      </Form>
-    </Container>
+      <Container
+        id="userUpdateFormContainer"
+        className="d-flex justify-content-center"
+      >
+        <DisableAccountModal
+          show={showConfirmModal}
+          onHide={() => setShowConfirmModal(false)}
+          callUpdateUser={callUpdateUser}
+          disabled={false}
+          modalClass={"disable-account-confirm"}
+        />
+        <Form id="userUpdateForm" onSubmit={handleUpdate}>
+          <Card id="userUpdateCard" className="shadow">
+            <Card.Header className="text-center mb-2 h3">
+              성명/휴대폰 수정
+            </Card.Header>
+            <Card.Body>
+              <div id="dataSectionDiv">{dataSection()}</div>
+            </Card.Body>
+            <Card.Footer>
+              {alertError && (
+                <AlertMessage type={"danger"} message={errorMsg} />
+              )}
+              {alertSuccess && (
+                <AlertMessage
+                  type={"success"}
+                  message={successMsg + " - [닫기]로 마감하세요"}
+                />
+              )}
+              <div className="d-flex justify-content-center char2button mt-3 gap-4">
+                <Button variant="secondary" size="sm" onClick={cancelUpdate}>
+                  닫기
+                </Button>
+                <Button
+                  disabled={accountIntact()}
+                  variant="secondary"
+                  size="sm"
+                  onClick={resetAccount}
+                >
+                  리셋
+                </Button>
+                <Button
+                  disabled={accountIntact() || isProcessing}
+                  type="submit"
+                  variant={accountClosing ? "danger" : "primary"}
+                  size="sm"
+                >
+                  {isProcessing ? <ProcessSpinner message="저장" /> : "저장"}
+                </Button>
+              </div>
+            </Card.Footer>
+          </Card>
+        </Form>
+      </Container>
+    </>
   );
 };
 

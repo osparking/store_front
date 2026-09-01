@@ -81,9 +81,7 @@ const UserDashboard = () => {
     {
       key: "profile",
       title: "내 프로필",
-      component: user && (
-        <UserProfile user={user} />
-      ),
+      component: user && <UserProfile user={user} />,
     },
     { key: "purchase_stat", title: "구매 통계", component: <OverviewUser /> },
     {
@@ -192,20 +190,27 @@ const UserDashboard = () => {
   };
 
   return (
-    <Container fluid className="home-container user-dashboard">
-      <ReviewsContext.Provider
-        value={{
-          reviewsVersion,
-          refreshReviews,
-          ordersVersion,
-          refreshOrders,
-          statVersion,
-          refreshStat,
-        }}
-      >
-        {dashBoardContent()}
-      </ReviewsContext.Provider>
-    </Container>
+    <>
+      <title>범이비누 - 대시보드</title>
+      <meta
+        name="description"
+        content="올리브오일 엑스트라버진 수제비누 범이비누(BumSoap) 사용자 대시보드입니다."
+      />
+      <Container fluid className="home-container user-dashboard">
+        <ReviewsContext.Provider
+          value={{
+            reviewsVersion,
+            refreshReviews,
+            ordersVersion,
+            refreshOrders,
+            statVersion,
+            refreshStat,
+          }}
+        >
+          {dashBoardContent()}
+        </ReviewsContext.Provider>
+      </Container>
+    </>
   );
 };
 
