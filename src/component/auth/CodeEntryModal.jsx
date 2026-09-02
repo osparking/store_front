@@ -5,12 +5,11 @@ import { SiGoogleauthenticator } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
 import google_authen from "../../assets/images/google_authen.svg";
 import { api } from "../util/api";
-import { storeJWT, storeLoginInfo } from "../util/utilities";
+import { storeJWT, storeJWtoken, storeLoginInfo } from "../util/utilities";
 
 import "../../App.css";
 
 const CodeEntryModal = ({ show, handleHide, jwtToken, user }) => {
-  
   const [code, setCode] = useState("");
   const [verifying, setVerifying] = useState(false);
   const navigate = useNavigate();
@@ -26,15 +25,29 @@ const CodeEntryModal = ({ show, handleHide, jwtToken, user }) => {
       formData.append("jwtToken", jwtToken);
 
       console.log("submit code: " + code + ", token:" + jwtToken);
-      await api.post("/autho/public/verify-2fa-login", formData, {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+      const response = await api.post(
+        "/autho/public/verify-2fa-login",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
         },
-      });
+      );
+
       storeLoginInfo(user);
-      storeJWT(jwtToken);
+      storeJWtoken(jwtToken);
       window.dispatchEvent(new Event("loginEvt"));
-      navigate(`/dashboard/${user.id}/user`);
+
+      // Check for stored pre-login URL
+      let landingUrl = "/";
+      const preLoginUrl = sessionStorage.getItem("preLoginUrl");
+
+      if (preLoginUrl) {
+        landingUrl = preLoginUrl;
+        sessionStorage.removeItem("preLoginUrl");
+      }
+      navigate(landingUrl, { replace: true });
     } catch (error) {
       console.error(error);
       toast.error("구글 코드 검증 오류!");
