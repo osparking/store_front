@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import toast from "react-hot-toast";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
 import { getStorageToken } from "../util/utilities";
 import "./navBar.css";
 import { RootContext } from "./RootLayout";
-import toast from "react-hot-toast";
 
 const naviAskedIds = new Set();
 
