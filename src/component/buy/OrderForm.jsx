@@ -202,8 +202,9 @@ const OrderForm = ({
 
     // 모든 원소의 shape 속성이 빈 문자열이 아닌지 검사
     const emptyShape = formData.items.some((item) => item.shape === "");
+    const emptyCount = formData.items.some((item) => item.count === "");
 
-    return wrongCount || emptyShape;
+    return wrongCount || emptyShape || emptyCount;
   }
 
   return (
