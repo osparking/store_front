@@ -35,13 +35,15 @@ const OrderTable = ({
   }
 
   function handleCountChange(e, item, index) {
+    const numericValue = e.target.value.replace(/[^0-9]/g, "");
+    // 숫자만 상태에 저장
     const inventory =
       optionLabels.find((label) => label.optionLabel === item.shape)
         ?.inventory || 1;
-    if (parseInt(e.target.value) > inventory) {
+    if (parseInt(numericValue) > inventory) {
       alert("재고를 초과할 수 없습니다.");
       e.target.value = inventory;
-    } else if (parseInt(e.target.value) < 1) {
+    } else if (parseInt(numericValue) < 1) {
       alert("최소 1개 이상 입력해주세요.");
       e.target.value = 1;
     }
