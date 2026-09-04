@@ -8,6 +8,7 @@ import { disableUserAccount } from "../user/UserService";
 const DisableAccountModal = ({
   show,
   onHide,
+  keepAccountEnabled,
   userId,
   callUpdateUser,
   disabled,
@@ -55,7 +56,7 @@ const DisableAccountModal = ({
         추후, 이메일 검증을 통하여 계정을 활성화할 수 있습니다.
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={onHide}>
+        <Button variant="secondary" onClick={keepAccountEnabled}>
           그냥 두기
         </Button>
         <Button

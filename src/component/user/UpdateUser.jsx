@@ -323,6 +323,7 @@ const UserUpdate = () => {
         <DisableAccountModal
           show={showConfirmModal}
           onHide={() => setShowConfirmModal(false)}
+          keepAccountEnabled={keepAccountEnabled}
           callUpdateUser={callUpdateUser}
           disabled={false}
           modalClass={"disable-account-confirm"}
