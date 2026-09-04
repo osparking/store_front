@@ -178,7 +178,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error("로그인 실패:", error);
-      setErrorMsg(error.response.data.message);
+      setErrorMsg(error.response?.data?.message);
       setAlertError(true);
     }
   };
