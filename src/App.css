@@ -237,7 +237,9 @@
   background-color: var(--color-disabled);
 }
 
-.enabled-color {
+.enabled-color,
+.enabled-color:focus,
+.enabled-color option {
   background-color: pink;
 }
 

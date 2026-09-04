@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
-import AdderModal from "../modal/AdderModal";
-import { getAllDept } from "./WorkerService";
-import "./WorkerDeptSelector.css";
 import "../../App.css";
+import AdderModal from "../modal/AdderModal";
+import "./WorkerDeptSelector.css";
+import { getAllDept } from "./WorkerService";
 
 const WorkerDeptSelector = ({
   disabled = false,
   workerDept,
   onChange,
   readOnly = false,
+  backColor = "",
 }) => {
   const [workerDepts, setWorkerDepts] = useState([]);
   const [showDeptAdder, setShowDeptAdder] = useState(false);
@@ -51,6 +52,7 @@ const WorkerDeptSelector = ({
           required
           onChange={handleDept}
           disabled={disabled || readOnly}
+          className={backColor}
         >
           <option value="">(소속 부서)</option>
           {workerDepts.map((dept, index) => (

@@ -264,6 +264,9 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
                           workerDept={item.value}
                           onChange={handleTextChange}
                           readOnly={disableDept}
+                          backColor={
+                            isAdmined ? "enabled-color" : "disabled-color"
+                          }
                         />
                       ) : (
                         <Form.Control
@@ -348,7 +351,7 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
         {!readOnly && (
           <Card.Footer className="text-center">
             <div className="d-flex justify-content-center mb-3 mt-3 char2button gap-4">
-              {isAdmined ? (
+              {isAdmined && (
                 <Button
                   type="button"
                   disabled={user.deleted}
@@ -358,27 +361,24 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
                 >
                   {"삭제"}
                 </Button>
-              ) : (
-                <>
-                  <Button
-                    type="button"
-                    disabled={deptRemains()}
-                    variant="secondary"
-                    size="sm"
-                    onClick={restoreDept}
-                  >
-                    {"리셋"}
-                  </Button>
-                  <Button
-                    type="submit"
-                    disabled={deptRemains()}
-                    variant="primary"
-                    size="sm"
-                  >
-                    {"저장"}
-                  </Button>
-                </>
               )}
+              <Button
+                type="button"
+                disabled={deptRemains()}
+                variant="secondary"
+                size="sm"
+                onClick={restoreDept}
+              >
+                {"리셋"}
+              </Button>
+              <Button
+                type="submit"
+                disabled={deptRemains()}
+                variant="primary"
+                size="sm"
+              >
+                {"저장"}
+              </Button>
             </div>
             <DeleteWorkerConfirmModal
               show={showDelModal}
