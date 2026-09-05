@@ -98,9 +98,16 @@
   width: 360px;
 }
 
-#disableAccountButton {
+.disableAccountButton {
   background-color: pink;
   color: navy;
+  font-weight: bold;
+  border: none;
+}
+
+.greyedOutButton {
+  background-color: lightgray !important;
+  color: rgb(43, 42, 42) !important;
   font-weight: bold;
   border: none;
 }
