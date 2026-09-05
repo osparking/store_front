@@ -10,6 +10,7 @@ const DisableAccountModal = ({
   onHide,
   keepAccountEnabled,
   userId,
+  disableUser,
   callUpdateUser,
   disabled,
   accountOwner = true,
@@ -32,6 +33,8 @@ const DisableAccountModal = ({
       onHide();
       if (accountOwner) {
         logoutUser({ path: "/", message: "" });
+      } else {
+        disableUser();
       }
     } catch (error) {
       console.error(error.message);
