@@ -42,6 +42,11 @@ const PasswordCard = ({ user, readOnly = false }) => {
 
   const loginId = localStorage.getItem("LOGIN_ID");
   const accountOwner = loginId == user.id;
+  const enableButtonLabel = user.enabled
+    ? readOnly
+      ? "활성화됨"
+      : "비활성화"
+    : "비활성임";
 
   return (
     <Card
@@ -52,6 +57,7 @@ const PasswordCard = ({ user, readOnly = false }) => {
       <DisableAccountModal
         show={showDelModal}
         onHide={handleModalXButtonClick}
+        keepAccountEnabled={handleModalXButtonClick}
         userId={user.id}
         disabled={false}
         modalClass={"disable-account-confirm"}
@@ -101,20 +107,22 @@ const PasswordCard = ({ user, readOnly = false }) => {
             handleClose={() => setShowChangePassword(false)}
           />
         </div>
-        {!readOnly && (
-          <div className="d-flex justify-content-center mt-2 mb-2">
-            <div className="mx-2 char4button">
-              <Button
-                id="disableAccountButton"
-                size="sm"
-                onClick={handleCloseAccountButtonCLick}
-                disabled={!user.enabled}
-              >
-                {user.enabled ? "비활성화" : "비활성임"}
-              </Button>
-            </div>
+        <div className="d-flex justify-content-center mt-2 mb-2">
+          <div className="mx-2 char4button">
+            <Button
+              className={
+                user.enabled && !readOnly
+                  ? "disableAccountButton"
+                  : "greyedOutButton"
+              }
+              size="sm"
+              onClick={handleCloseAccountButtonCLick}
+              disabled={!user.enabled || readOnly}
+            >
+              {enableButtonLabel}
+            </Button>
           </div>
-        )}
+        </div>
       </Card.Body>
       <DeleteConfirmModal
         show={showPhotoDelModal}
