@@ -57,7 +57,7 @@ const UserProfile = ({
       <div style={{ width: "100%", maxWidth: "701px", margin: "0 auto" }}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, md: 2 }}>
           <Grid size={{ xs: 12, md: 3 }}>
-            <PasswordCard user={user} readOnly={readOnly} />
+            <PasswordCard user={user} readOnly={isAdmined || readOnly} />
           </Grid>
           <Grid size={{ xs: 12, md: 9 }}>
             <UserInfoCard

@@ -42,9 +42,6 @@ const PasswordCard = ({ user, readOnly = false }) => {
 
   const loginId = localStorage.getItem("LOGIN_ID");
   const accountOwner = loginId == user.id;
-  const disableUser = () => {
-    user.enabled = false;
-  }
 
   return (
     <Card
@@ -56,10 +53,7 @@ const PasswordCard = ({ user, readOnly = false }) => {
         show={showDelModal}
         onHide={handleModalXButtonClick}
         userId={user.id}
-        disableUser={disableUser}
-        target={""}
         disabled={false}
-        accountOwner={accountOwner}
         modalClass={"disable-account-confirm"}
       />
       <Card.Body className="p-3">
