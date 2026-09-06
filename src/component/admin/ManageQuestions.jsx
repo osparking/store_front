@@ -92,7 +92,7 @@ const ManageQuestions = ({ mine }) => {
         className="justify-content-center align-items-center my-card-container"
         style={{ display: "flex", width: "100%" }}
       >
-        <Card className="tableCard">
+        <Card className="tableCard" style={{ width: "fit-content" }}>
           <Card.Body style={{ width: "100%" }}>
             <h2 className="mb-1 ps-0">
               <strong>{mine ? "나의 질문" : "질문 처리 현황"}</strong>
