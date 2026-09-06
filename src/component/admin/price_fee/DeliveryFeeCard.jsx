@@ -102,6 +102,8 @@ const DeliveryFeeCard = ({ feeRegion }) => {
 
     try {
       // for...of를 사용하면 await을 자연스럽게 순차적으로 처리할 수 있습니다.
+      let toastMessageShown = false; // toast 메시지 중복 방지 플래그
+      
       for (let idx = 0; idx < shownFeeRegion.length; idx++) {
         const feeRegion = shownFeeRegion[idx];
 
@@ -117,7 +119,10 @@ const DeliveryFeeCard = ({ feeRegion }) => {
           const resultData = await saveFeeRegion(reginalDeliveryFee);
 
           if (resultData?.message) {
-            toast.success(resultData.message);
+            if (!toastMessageShown) {
+              toast.success(resultData.message);
+              toastMessageShown = true;
+            }
           }
         }
       }
