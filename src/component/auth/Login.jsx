@@ -27,7 +27,7 @@ import {
   HTTP_STATUS,
   isValidEmail,
   storeJWT,
-  storeLoginInfo
+  storeLoginInfo,
 } from "../util/utilities";
 import { getEmailViaToken, loginUser } from "./AuthService";
 import CodeEntryModal from "./CodeEntryModal";
@@ -202,120 +202,131 @@ const Login = () => {
 
   const loginEntryCard = () => {
     return (
-      <Card style={{ height: "fit-content", marginTop: 0 }}>
-        {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
-        <Card.Body>
-          <Card.Title id="login-title" className="text-center mb-4">
-            로그인
-          </Card.Title>
-          <Form onSubmit={actLogin}>
-            <Form.Group className="mb-3" controlId="email">
-              <Form.Label>이메일</Form.Label>
-              <InputGroup>
-                <InputGroup.Text>
-                  <BsPersonFill />
-                </InputGroup.Text>
-                <Form.Control
-                  type="email"
-                  name="email"
-                  placeholder="(이메일)"
-                  value={credentials.email}
-                  onChange={handleChange}
-                />
-              </InputGroup>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="password">
-              <Row className="d-flex">
-                <Col md={6}>
-                  <Form.Label>비밀번호</Form.Label>
-                </Col>
-                <Col md={6} className="d-flex justify-content-end">
-                  <OverlayTrigger
-                    placement="bottom"
-                    overlay={<Tooltip>이메일을 완성하세요</Tooltip>}
-                    show={showTooltip} // 🔥 상태로 제어
-                    trigger={[]} // 기본 트리거는 모두 끔
-                  >
-                    <span
-                      style={{ display: "inline-block" }}
-                      onMouseEnter={() => {
-                        // 비활성 상태일 때만 툴팁을 띄움
-                        if (!isValidEmail(credentials.email)) {
-                          setShowTooltip(true);
-                        }
-                      }}
-                      onMouseLeave={() => {
-                        setShowTooltip(false); // 마우스를 떠나면 항상 닫음
-                      }}
+      <>
+        <title>범이비누 - 로그인</title>
+        <meta
+          name="description"
+          content="범이비누(BumSoap) 사이트 로그인 페이지입니다."
+        />
+        <Card style={{ height: "fit-content", marginTop: 0 }}>
+          {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
+          <Card.Body>
+            <Card.Title id="login-title" className="text-center mb-4">
+              로그인
+            </Card.Title>
+            <Form onSubmit={actLogin}>
+              <Form.Group className="mb-3" controlId="email">
+                <Form.Label>이메일</Form.Label>
+                <InputGroup>
+                  <InputGroup.Text>
+                    <BsPersonFill />
+                  </InputGroup.Text>
+                  <Form.Control
+                    type="email"
+                    name="email"
+                    placeholder="(이메일)"
+                    value={credentials.email}
+                    onChange={handleChange}
+                  />
+                </InputGroup>
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="password">
+                <Row className="d-flex">
+                  <Col md={6}>
+                    <Form.Label>비밀번호</Form.Label>
+                  </Col>
+                  <Col md={6} className="d-flex justify-content-end">
+                    <OverlayTrigger
+                      placement="bottom"
+                      overlay={<Tooltip>이메일을 완성하세요</Tooltip>}
+                      show={showTooltip} // 🔥 상태로 제어
+                      trigger={[]} // 기본 트리거는 모두 끔
                     >
-                      <Button
-                        id="pwdReset"
-                        disabled={!isValidEmail(credentials.email)}
-                        onClick={reset_password}
+                      <span
+                        style={{ display: "inline-block" }}
+                        onMouseEnter={() => {
+                          // 비활성 상태일 때만 툴팁을 띄움
+                          if (!isValidEmail(credentials.email)) {
+                            setShowTooltip(true);
+                          }
+                        }}
+                        onMouseLeave={() => {
+                          setShowTooltip(false); // 마우스를 떠나면 항상 닫음
+                        }}
                       >
-                        재설정
-                      </Button>
-                    </span>
-                  </OverlayTrigger>
-                </Col>
-              </Row>
-              <InputGroup>
-                <InputGroup.Text>
-                  <BsLockFill />
-                </InputGroup.Text>
-                <Form.Control
-                  type="password"
-                  name="password"
-                  placeholder="(비밀번호)"
-                  value={credentials.password}
-                  onChange={handleChange}
+                        <Button
+                          id="pwdReset"
+                          disabled={!isValidEmail(credentials.email)}
+                          onClick={reset_password}
+                        >
+                          재설정
+                        </Button>
+                      </span>
+                    </OverlayTrigger>
+                  </Col>
+                </Row>
+                <InputGroup>
+                  <InputGroup.Text>
+                    <BsLockFill />
+                  </InputGroup.Text>
+                  <Form.Control
+                    type="password"
+                    name="password"
+                    placeholder="(비밀번호)"
+                    value={credentials.password}
+                    onChange={handleChange}
+                  />
+                </InputGroup>
+              </Form.Group>
+              <div className="d-flex justify-content-center">
+                <Button
+                  variant="outline-primary"
+                  type="submit"
+                  className="w-75"
+                >
+                  로그인(엔터)
+                </Button>
+              </div>
+              <div
+                id="save-login-container"
+                className="d-flex justify-content-center mt-3 mb-0"
+              >
+                <Form.Check
+                  type="switch"
+                  id="save_login"
+                  name="save_login"
+                  checked={credentials.save_login}
+                  onChange={handleCheckChange}
+                  label="로그인 유지"
                 />
-              </InputGroup>
-            </Form.Group>
-            <div className="d-flex justify-content-center">
-              <Button variant="outline-primary" type="submit" className="w-75">
-                로그인(엔터)
-              </Button>
+              </div>
+            </Form>
+            <div className="text-center mt-0 mb-3">
+              <button
+                className="button button-solid"
+                onClick={() => handleOauth2Login("naver")}
+                style={{ margin: "10px" }}
+              >
+                <img height="18" src={naverIcon} />
+                네이버 로그인
+              </button>
+              <button
+                className="button button-solid"
+                onClick={() => handleOauth2Login("google")}
+                style={{ margin: "10px" }}
+              >
+                <FcGoogle />
+                구글 로그인
+              </button>
             </div>
-            <div
-              id="save-login-container"
-              className="d-flex justify-content-center mt-3 mb-0"
-            >
-              <Form.Check
-                type="switch"
-                id="save_login"
-                name="save_login"
-                checked={credentials.save_login}
-                onChange={handleCheckChange}
-                label="로그인 유지"
-              />
+            <div className="text-center mt-2">
+              <Link to={"/register_user"} style={{ textDecoration: "none" }}>
+                계정 등록
+              </Link>
             </div>
-          </Form>
-          <div className="text-center mt-0 mb-3">
-            <button
-              className="button button-solid"
-              onClick={() => handleOauth2Login("naver")}
-              style={{ margin: "10px" }}
-            >
-              <img height="18" src={naverIcon} />
-              네이버 로그인
-            </button>
-            <button
-              className="button button-solid"
-              onClick={() => handleOauth2Login("google")}
-              style={{ margin: "10px" }}
-            >
-              <FcGoogle />
-              구글 로그인
-            </button>
-          </div>
-          <div className="text-center mt-2">
-            <Link to={"/register_user"} style={{ textDecoration: "none" }}>
-              계정 등록
-            </Link>
-          </div>
-        </Card.Body>
-      </Card>
+          </Card.Body>
+        </Card>
+      </>
     );
   };
 

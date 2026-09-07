@@ -72,7 +72,7 @@ const Home = () => {
 
   return (
     <>
-      <title>범이비누 - 수제비누</title>
+      <title>범이비누 - 홈페이지</title>
       <meta
         name="description"
         content="올리브오일 엑스트라버진 수제비누 범이비누(BumSoap) 홈페이지입니다."
