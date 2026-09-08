@@ -66,7 +66,7 @@ const ProduceSteps = () => {
             ※근거 테이블: <br />
             <img
               className="ms-3 mt-2 mb-3 ingredTabImg"
-              src={`${imageRoot}/soap-6-ingred.png`}
+              src={`${imageRoot}/soap-6-ingredients.png`}
               alt="재료 중량 표"
             />
           </li>
