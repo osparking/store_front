@@ -47,7 +47,9 @@ const OrderTable = ({
       alert("최소 1개 이상 입력해주세요.");
       e.target.value = 1;
     }
-    handleInputChange(index, e);
+    if (numericValue !== "") {
+      handleInputChange(index, e);
+    }
   }
 
   return (
