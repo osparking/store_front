@@ -337,7 +337,9 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                         <th className="iLabel">지불금액</th>
                         <td className="oText">
                           {Number(orderDetails.order.payment).toLocaleString()}
-                          원
+                          원(배송:
+                          {Number(orderDetails.order.delivery).toLocaleString()}
+                          )
                         </td>
                       </tr>
 

@@ -21,6 +21,7 @@ const useOrderDataStore = create(
         orderStatus: "결제대기",
         orderName: "",
         amount: 0,
+        delivery: 0,
       },
       setMemberData: (member, newData) =>
         set((state) => {

@@ -172,6 +172,7 @@ const Recipient = () => {
         orderStatus: "결제대기",
         orderName: items[0].shape + " " + items[0].count + "개 등",
         amount: grandTotal + deliveryFee,
+        delivery: deliveryFee,
       });
 
       navigate("/checkout", {
