@@ -124,21 +124,21 @@ const OrderTable = ({
             </td>
           </tr>
         ))}
-        <tr>
-          <td className="text-center fw-bold">소계</td>
-          <OverlayTrigger
-            placement="bottom"
-            overlay={<Tooltip>소계를 3 혹은 12로 만드세요</Tooltip>}
-          >
+        <OverlayTrigger
+          placement="bottom"
+          overlay={<Tooltip>소계를 3 혹은 12로 만드세요</Tooltip>}
+        >
+          <tr>
+            <td className="text-center fw-bold">소계</td>
             <td className="text-end fw-bold" style={{ paddingRight: "28px" }}>
               {subTotal.count}
             </td>
-          </OverlayTrigger>
-          <td className="fw-bold text-end">
-            {subTotal.price.toLocaleString()}원
-          </td>
-          <td></td>
-        </tr>
+            <td className="fw-bold text-end">
+              {subTotal.price.toLocaleString()}원
+            </td>
+            <td></td>
+          </tr>
+        </OverlayTrigger>
       </tbody>
     </Table>
   );
