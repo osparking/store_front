@@ -275,7 +275,7 @@ function QuestionEditor({
 
                 <div className="text-muted mb-3">
                   글자수: {getTextLength()} 자<br />
-                  입력일시: {question?.insertTime}
+                  작성일시: {question?.updateTime || question?.insertTime}
                 </div>
 
                 <div className="char2button d-flex gap-4 justify-content-center">

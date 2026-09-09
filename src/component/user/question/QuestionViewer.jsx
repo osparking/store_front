@@ -12,7 +12,7 @@ const QuestionViewer = ({ question, mine }) => {
       </Form.Label>
       <Form.Group className="mb-3 ms-3 me-4">
         <Form.Label className="mt-1" style={{ fontSize: "14px" }}>
-          ※입력: {question.insertTime}
+          ※작성일시: {question.updateTime || question.insertTime}
         </Form.Label>
         <Form.Group className="mb-0" controlId="formBasicEmail">
           <Form.Label className="mt-1">제목</Form.Label>
