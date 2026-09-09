@@ -45,7 +45,7 @@ export default function QuestionFollowUpModal({
       style={{ borderRadius: "8px" }}
     >
       <Modal.Header closeButton>
-        <Modal.Title>질문 및 답변</Modal.Title>
+        <Modal.Title>질문 및 답변(질문 제목: {question.title})</Modal.Title>
       </Modal.Header>
       <Modal.Body className="h-limited-body">
         {showFollowUpEditor && (
