@@ -159,6 +159,7 @@ const RecipientInfo = ({ addressDetailInputRef, setFocusDetailedAddr }) => {
                     checked={recipient.defaultChecked}
                     onChange={defaultCheckboxChanged}
                     disabled={defaultLoaded}
+                    className="defaultAddressCBox"
                   />
                 </OverlayTrigger>
               </div>

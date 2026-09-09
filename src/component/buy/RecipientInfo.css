@@ -1,4 +1,5 @@
-#pastRecipients, #defaultRecipient {
+#pastRecipients,
+#defaultRecipient {
     padding-top: 2px;
     padding-bottom: 2px;
     margin-left: 0;
@@ -6,4 +7,8 @@
 
 #default-recipient-checkbox {
     border: 1px solid blue;
+}
+
+.defaultAddressCBox .form-check-label {
+    cursor: pointer;
 }
