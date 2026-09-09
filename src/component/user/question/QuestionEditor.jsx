@@ -231,7 +231,7 @@ function QuestionEditor({
                     <div className="d-flex align-items-center">
                       <h5 className="mb-0">제목</h5>
                       <Form.Text className="text-muted ms-2">
-                        (내용을 최대 30 자로 작성하세요.)
+                        (내용 30 자 이내 요약)
                       </Form.Text>
                     </div>
                   </Form.Label>
