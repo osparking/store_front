@@ -48,7 +48,9 @@ const Rating = ({ stars, setStars, editable, review }) => {
           <span>작성 일시 : {formatDate(wroteTime)}</span>
         </Col>
         <Col className="text-end" xs={3} md={3}>
-          {!editable && <span className="me-2">작성자: {review.customer}</span>}
+          {!editable && (
+            <span className="me-2">작성자: {review.customerName}</span>
+          )}
         </Col>
       </Row>
     </Container>

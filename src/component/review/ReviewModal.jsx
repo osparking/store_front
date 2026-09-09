@@ -132,6 +132,7 @@ export default function ReviewModal({
         noLabel="취소"
         yesLabel="삭제"
         yesVariant="danger"
+        backdrop="static"
         headerBgColor="bg-warning"
         modelClassName="modal-slide-down"
         dialogClassName="review-deletion-confirmation-modal"
