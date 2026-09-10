@@ -1,11 +1,14 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Container } from "react-bootstrap";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css"; // Import styles
 import "../../App.css";
 import "./MyQuillEditor.css";
 import { getPlainContent } from "./utilities";
+import toast from "react-hot-toast";
+
+const MAX_FILE_SIZE = 1024 * 1024; // 1MB (1,048,576 bytes)
 
 function MyQuillEditor({
   reviewContent,
@@ -29,20 +32,55 @@ function MyQuillEditor({
     setReviewContent(content);
   };
 
+  const quillRef = useRef(null);
+
+  const imageHandler = () => {
+    const input = document.createElement("input");
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", "image/*");
+    input.click();
+
+    input.onchange = () => {
+      const file = input.files?.[0];
+      if (!file) return;
+
+      // ✅ 여기서 크기 검사!
+      if (file.size > MAX_FILE_SIZE) {
+        toast.error("1MB 이내의 사진만 업로드해주세요!");
+        return;
+      }
+
+      // 통과한 파일만 base64로 에디터에 삽입
+      const reader = new FileReader();
+      reader.onload = () => {
+        const quill = quillRef.current.getEditor();
+        const range = quill.getSelection(true);
+        quill.insertEmbed(range.index, "image", reader.result, "user");
+        quill.setSelection(range.index + 1);
+      };
+      reader.readAsDataURL(file);
+    };
+  };
+
   // Custom toolbar configuration
   const modules = {
-    toolbar: editable
-      ? [
-          [{ header: [1, 2, 3, 4, 5, 6, false] }],
-          ["bold", "italic", "underline", "strike"],
-          [{ list: "ordered" }, { list: "bullet" }],
-          [{ indent: "-1" }, { indent: "+1" }],
-          [{ color: [] }, { background: [] }],
-          [{ align: [] }],
-          ["link", "image", "video"],
-          ["clean"],
-        ]
-      : false,
+    toolbar: {
+      container: [
+        ...(editable
+          ? [
+              [{ header: [1, 2, 3, 4, 5, 6, false] }],
+              ["bold", "italic", "underline", "strike"],
+              [{ list: "ordered" }, { list: "bullet" }],
+              [{ indent: "-1" }, { indent: "+1" }],
+              [{ color: [] }, { background: [] }],
+              [{ align: [] }],
+              ["link", "image", "video"],
+              ["clean"],
+            ]
+          : false),
+      ],
+      handlers: { image: imageHandler },
+    },
   };
 
   const formats = [
@@ -67,6 +105,7 @@ function MyQuillEditor({
         경험 서술
       </h5>
       <ReactQuill
+        ref={quillRef}
         theme="snow"
         value={reviewContent}
         readOnly={!editable}
