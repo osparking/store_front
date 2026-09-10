@@ -8,7 +8,7 @@ import "./MyQuillEditor.css";
 import { getPlainContent } from "./utilities";
 import toast from "react-hot-toast";
 
-const MAX_FILE_SIZE = 1024 * 1024; // 1MB (1,048,576 bytes)
+const MAX_FILE_SIZE = 1024 * 1024 * 5; // 5MB (5,242,880 bytes)
 
 function MyQuillEditor({
   reviewContent,
@@ -45,8 +45,8 @@ function MyQuillEditor({
       if (!file) return;
 
       // ✅ 여기서 크기 검사!
-      if (file.size > MAX_FILE_SIZE) {
-        toast.error("1MB 이내의 사진만 업로드해주세요!");
+      if (file.size  + reviewContent.length > MAX_FILE_SIZE) {
+        toast.error("영상 포함, 후기 크기는 최대 5MB 입니다!");
         return;
       }
 

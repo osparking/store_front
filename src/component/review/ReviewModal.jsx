@@ -115,7 +115,7 @@ export default function ReviewModal({
       handleClose();
     } catch (err) {
       console.error("err: ", err);
-      toast.error("후기 저장 오류!");
+      toast.error("오류 - " + err.response.data.message);
     } finally {
       setLoading(false);
     }
