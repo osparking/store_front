@@ -77,7 +77,7 @@ function MyQuillEditor({
               ["link", "image", "video"],
               ["clean"],
             ]
-          : false),
+          : []),
       ],
       handlers: { image: imageHandler },
     },
