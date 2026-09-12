@@ -160,12 +160,10 @@ export default function ReviewModal({
           />
           {isEditorMounted && (
             <MyQuillEditor
-              reviewContent={reviewContent}
-              setReviewContent={setReviewContent}
-              reviewId={review.id}
-              handleClose={handleClose}
+              value={reviewContent}
+              onChange={setReviewContent}
               editable={editable}
-              setLoading={setLoading}
+              getContent={() => reviewContent} // 현재 상태를 반환하는 함수 전달
             />
           )}
         </Modal.Body>
