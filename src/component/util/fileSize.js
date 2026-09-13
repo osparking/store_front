@@ -1,7 +1,7 @@
 export const MAX_VIDEO_SIZE = 50 * 1024 * 1024; // 50MB
 export const MAX_VIDEO_COUNT = 1;
 
-export const MAX_SINGLE_IMAGE_SIZE = 3 * 1024 * 1024; // 3MB
+export const MAX_IMAGE_SIZE = 3 * 1024 * 1024; // 3MB
 export const MAX_IMAGE_COUNT = 3;
 
 export const formatSize = (bytes) => {
