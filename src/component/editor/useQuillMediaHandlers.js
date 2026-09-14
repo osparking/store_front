@@ -6,6 +6,7 @@ import {
   getVideoCount,
   MAX_IMAGE_COUNT,
   MAX_IMAGE_SIZE,
+  MAX_VIDEO_COUNT,
   MAX_VIDEO_SIZE,
 } from "../util/fileSize";
 import { requestPresignedUrl } from "../util/mediaApi";
