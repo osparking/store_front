@@ -2,7 +2,9 @@ import axios from "axios";
 import { useCallback, useRef } from "react";
 import toast from "react-hot-toast";
 import {
+  getImageCount,
   getVideoCount,
+  MAX_IMAGE_COUNT,
   MAX_IMAGE_SIZE,
   MAX_VIDEO_SIZE,
 } from "../util/fileSize";
