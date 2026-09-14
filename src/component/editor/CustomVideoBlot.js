@@ -31,8 +31,8 @@ CustomVideoBlot.tagName = "video";
 CustomVideoBlot.className = "ql-custom-video";
 
 // ✅ 중복 등록 방지 (여러 에디터에서 import해도 안전)
-if (!Quill.imports["blots/customVideo"]) {
-  Quill.register(CustomVideoBlot, true);
+if (!Quill.imports["formats/customVideo"]) {
+  Quill.register("formats/customVideo", CustomVideoBlot, true);
 }
 
 export default CustomVideoBlot;

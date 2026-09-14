@@ -69,6 +69,7 @@ function MyQuillEditor({
     "link",
     "image",
     "video",
+    "customVideo",
   ];
 
   return (
