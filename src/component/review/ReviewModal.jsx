@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { patchOrderReview } from "../buy/orderService";
@@ -17,6 +17,8 @@ export default function ReviewModal({
   title,
   review,
   editable,
+  minWidth = 400,
+  minHeight = 300,
 }) {
   if (!review) return;
 
@@ -74,11 +76,18 @@ export default function ReviewModal({
   // 모달 애니메이션이 완전히 끝나면 에디터 마운트
   const handleEntered = () => {
     setIsEditorMounted(true);
+
+    // ✅ 모달이 완전히 열린 후 .modal-content DOM 확보
+    const el = document.querySelector(".quill-editor-modal .modal-content");
+    if (el) {
+      contentRef.current = el;
+    }
   };
 
   // 모달이 닫힐 때 에디터 언마운트 (다음 열 때 다시 깨끗하게 시작)
   const handleExited = () => {
     setIsEditorMounted(false);
+    contentRef.current = null;  // 정리
   };
 
   useEffect(() => {
@@ -120,6 +129,58 @@ export default function ReviewModal({
       setLoading(false);
     }
   };
+
+  const contentRef = useRef(null);
+  const dragState = useRef(null);
+
+  const handleMouseDown = useCallback(
+    (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const el = contentRef.current;
+      if (!el) return;
+
+      const rect = el.getBoundingClientRect();
+
+      // 중앙 정렬로 인한 위치 흔들림 방지: 현재 위치를 고정
+      el.style.margin = "0";
+      el.style.position = "relative";
+      el.style.left = "0";
+      el.style.top = "0";
+      el.style.width = rect.width + "px";
+      el.style.height = rect.height + "px";
+      el.style.maxWidth = "none";
+
+      dragState.current = {
+        startX: e.clientX,
+        startY: e.clientY,
+        startW: rect.width,
+        startH: rect.height,
+      };
+
+      const onMouseMove = (ev) => {
+        const s = dragState.current;
+        if (!s || !contentRef.current) return;
+        const w = Math.max(minWidth, s.startW + (ev.clientX - s.startX));
+        const h = Math.max(minHeight, s.startH + (ev.clientY - s.startY));
+        contentRef.current.style.width = w + "px";
+        contentRef.current.style.height = h + "px";
+      };
+
+      const onMouseUp = () => {
+        dragState.current = null;
+        window.removeEventListener("mousemove", onMouseMove);
+        window.removeEventListener("mouseup", onMouseUp);
+        document.body.style.userSelect = "";
+      };
+
+      document.body.style.userSelect = "none"; // 드래그 중 텍스트 선택 방지
+      window.addEventListener("mousemove", onMouseMove);
+      window.addEventListener("mouseup", onMouseUp);
+    },
+    [minWidth, minHeight],
+  );
 
   return (
     <>
@@ -214,6 +275,23 @@ export default function ReviewModal({
             )}
           </div>
         </Modal.Footer>
+        {/* 우하귀 리사이즈 핸들 */}
+        <div
+          onMouseDown={handleMouseDown}
+          role="separator"
+          aria-label="Resize"
+          style={{
+            position: "absolute",
+            right: 0,
+            bottom: 0,
+            width: 18,
+            height: 18,
+            cursor: "nwse-resize",
+            zIndex: 1055,
+            background:
+              "linear-gradient(135deg, transparent 0 55%, #adb5bd 55% 60%, transparent 60% 70%, #adb5bd 70% 75%, transparent 75%)",
+          }}
+        />
       </Modal>
     </>
   );
