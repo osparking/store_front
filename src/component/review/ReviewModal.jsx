@@ -10,6 +10,7 @@ import { callWithToken } from "../util/api";
 import { getPlainContent } from "../util/utilities";
 import Rating from "./Rating";
 import "./ReviewModal.css";
+import DraggableDialog from "../common/DraggableDialog";
 
 export default function ReviewModal({
   show,
@@ -207,6 +208,7 @@ export default function ReviewModal({
         keyboard={false}
         size="xl"
         dialogClassName="quill-editor-modal"
+        dialogAs={DraggableDialog} 
       >
         <Modal.Header closeButton>
           <Modal.Title>{title}</Modal.Title>
