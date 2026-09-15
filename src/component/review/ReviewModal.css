@@ -1,11 +1,25 @@
 #review-modal-body .ql-container {
     background-color: ivory;
     font-size: 16px;
-    height: 200px;
+    height: unset;
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none;
+}
+
+#review-modal-body>div:has(.ql-container) {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 #review-modal-body .quill {
     margin-bottom: 0 !important;
+}
+
+#review-modal-body .ql-editor {
+    min-height: 100%;
 }
 
 #review-modal-body .quill-buttons {
@@ -26,4 +40,8 @@
 
 #review-modal-body {
     max-height: unset;
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
 }
