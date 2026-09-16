@@ -41,3 +41,45 @@
 .ql-editor:focus.ql-blank::before {
   display: none !important;
 }
+
+/* 최대화 상태 */
+.quill-editor-modal.maximized {
+  width: calc(100vw - 40px) !important;
+  height: calc(100vh - 40px) !important;
+  max-width: calc(100vw - 40px) !important;
+  max-height: calc(100vh - 40px) !important;
+  top: 20px !important;
+  left: 20px !important;
+  margin: 0 !important;
+  transform: none !important;
+}
+
+.quill-editor-modal.maximized .resize-handle {
+  display: none;
+}
+
+/* 최대화 중엔 리사이즈 핸들 숨김 */
+.quill-editor-modal.maximized [role="separator"][aria-label="Resize"] {
+  display: none;
+}
+
+/* 최대화 버튼 */
+.maximize-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 0 8px;
+  margin-left: auto;
+  margin-right: 8px;
+  color: #6c757d;
+  cursor: pointer;
+}
+
+.maximize-btn:hover {
+  color: #000;
+}
+
+.maximize-btn+.btn-close {
+  margin-left: unset;
+}
