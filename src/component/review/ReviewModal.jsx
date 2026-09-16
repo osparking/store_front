@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { patchOrderReview } from "../buy/orderService";
@@ -11,6 +11,7 @@ import { getPlainContent } from "../util/utilities";
 import Rating from "./Rating";
 import "./ReviewModal.css";
 import DraggableDialog from "../common/DraggableDialog";
+import { MaximizeContext } from "../common/MaximizeContext";
 
 export default function ReviewModal({
   show,
@@ -63,6 +64,24 @@ export default function ReviewModal({
 
   const [reviewContent, setReviewContent] = useState(null);
   const [reviewUnchanged, setReviewUnchanged] = useState(true);
+  const [isMaximized, setIsMaximized] = useState(false);
+
+  useEffect(() => {
+    if (!show) setIsMaximized(false);
+  }, [show]);
+
+  const toggleMaximize = () => {
+    if (!isMaximized) {
+      // 최대화: 먼저 저장, 그 다음 상태 변경
+      saveStateRef.current?.();
+      setIsMaximized(true);
+    } else {
+      // 복원: 먼저 상태 변경, 그 다음 복원
+      setIsMaximized(false);
+      // CSS 클래스가 빠진 뒤 복원되도록 다음 틱에
+      requestAnimationFrame(() => restoreStateRef.current?.());
+    }
+  };
 
   useEffect(() => {
     if (review) {
@@ -88,7 +107,7 @@ export default function ReviewModal({
   // 모달이 닫힐 때 에디터 언마운트 (다음 열 때 다시 깨끗하게 시작)
   const handleExited = () => {
     setIsEditorMounted(false);
-    contentRef.current = null;  // 정리
+    contentRef.current = null; // 정리
   };
 
   useEffect(() => {
@@ -133,6 +152,21 @@ export default function ReviewModal({
 
   const contentRef = useRef(null);
   const dragState = useRef(null);
+  const saveStateRef = useRef(null);
+  const restoreStateRef = useRef(null);
+
+  const contextValue = useMemo(
+    () => ({
+      isMaximized,
+      registerSave: (fn) => {
+        saveStateRef.current = fn;
+      },
+      registerRestore: (fn) => {
+        restoreStateRef.current = fn;
+      },
+    }),
+    [isMaximized],
+  );
 
   const handleMouseDown = useCallback(
     (e) => {
@@ -199,102 +233,115 @@ export default function ReviewModal({
         modelClassName="modal-slide-down"
         dialogClassName="review-deletion-confirmation-modal"
       />
-      <Modal
-        show={show}
-        onHide={handleClose}
-        onEntered={handleEntered} // ✅ fade-in 완료 후 실행
-        onExited={handleExited} // ✅ fade-out 완료 후 실행
-        backdrop="static"
-        keyboard={false}
-        size="xl"
-        dialogClassName="quill-editor-modal"
-        dialogAs={DraggableDialog} 
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>{title}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body id="review-modal-body">
-          <h5>주문명: {review && review.orderName}</h5>
-          <Rating
-            stars={stars}
-            setStars={setStars}
-            editable={editable}
-            review={review}
-          />
-          {isEditorMounted && (
-            <MyQuillEditor
-              value={reviewContent}
-              onChange={setReviewContent}
-              editable={editable}
-              getContent={() => reviewContent} // 현재 상태를 반환하는 함수 전달
-            />
-          )}
-        </Modal.Body>
-        <Modal.Footer>
-          <div className="center-buttons quill-buttons char2button">
-            {review.review && editable && (
-              <Button
-                variant="danger"
-                type="button"
-                className="p-0"
-                disabled={loading}
-                onClick={() => setShowModal(true)}
-              >
-                삭제
-              </Button>
-            )}
-            <Button
-              variant="secondary"
+
+      <MaximizeContext.Provider value={ contextValue }>
+        <Modal
+          show={show}
+          onHide={handleClose}
+          onEntered={handleEntered} // ✅ fade-in 완료 후 실행
+          onExited={handleExited} // ✅ fade-out 완료 후 실행
+          backdrop="static"
+          keyboard={false}
+          size="xl"
+          dialogClassName="quill-editor-modal"
+          dialogAs={DraggableDialog}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>{title}</Modal.Title>
+            <button
               type="button"
-              className="p-0"
-              onClick={handleClose}
+              className="maximize-btn"
+              onClick={toggleMaximize}
+              aria-label={isMaximized ? "복원" : "최대화"}
+              title={isMaximized ? "복원" : "최대화"}
             >
-              닫기
-            </Button>
-            {editable && (
-              <>
+              {isMaximized ? "❐" : "⤢"}
+            </button>
+          </Modal.Header>
+          <Modal.Body id="review-modal-body">
+            <h5>주문명: {review && review.orderName}</h5>
+            <Rating
+              stars={stars}
+              setStars={setStars}
+              editable={editable}
+              review={review}
+            />
+            {isEditorMounted && (
+              <MyQuillEditor
+                value={reviewContent}
+                onChange={setReviewContent}
+                editable={editable}
+                getContent={() => reviewContent} // 현재 상태를 반환하는 함수 전달
+              />
+            )}
+          </Modal.Body>
+          <Modal.Footer>
+            <div className="center-buttons quill-buttons char2button">
+              {review.review && editable && (
                 <Button
-                  disabled={loading || reviewUnchanged}
-                  variant="info"
+                  variant="danger"
                   type="button"
                   className="p-0"
-                  onClick={resetReview}
+                  disabled={loading}
+                  onClick={() => setShowModal(true)}
                 >
-                  리셋
+                  삭제
                 </Button>
-                <Form onSubmit={handleSubmit}>
+              )}
+              <Button
+                variant="secondary"
+                type="button"
+                className="p-0"
+                onClick={handleClose}
+              >
+                닫기
+              </Button>
+              {editable && (
+                <>
                   <Button
-                    variant="primary"
-                    type="submit"
-                    className="p-0"
-                    style={{ cursor: "pointer" }}
                     disabled={loading || reviewUnchanged}
+                    variant="info"
+                    type="button"
+                    className="p-0"
+                    onClick={resetReview}
                   >
-                    {loading ? <span>저장 중...</span> : "저장"}
+                    리셋
                   </Button>
-                </Form>
-              </>
-            )}
-          </div>
-        </Modal.Footer>
-        {/* 우하귀 리사이즈 핸들 */}
-        <div
-          onMouseDown={handleMouseDown}
-          role="separator"
-          aria-label="Resize"
-          style={{
-            position: "absolute",
-            right: 0,
-            bottom: 0,
-            width: 18,
-            height: 18,
-            cursor: "nwse-resize",
-            zIndex: 1055,
-            background:
-              "linear-gradient(135deg, transparent 0 55%, #adb5bd 55% 60%, transparent 60% 70%, #adb5bd 70% 75%, transparent 75%)",
-          }}
-        />
-      </Modal>
+                  <Form onSubmit={handleSubmit}>
+                    <Button
+                      variant="primary"
+                      type="submit"
+                      className="p-0"
+                      style={{ cursor: "pointer" }}
+                      disabled={loading || reviewUnchanged}
+                    >
+                      {loading ? <span>저장 중...</span> : "저장"}
+                    </Button>
+                  </Form>
+                </>
+              )}
+            </div>
+          </Modal.Footer>
+          {/* 우하귀 리사이즈 핸들 */}
+          <div
+            className="resize-handle"
+            onMouseDown={handleMouseDown}
+            role="separator"
+            aria-label="Resize"
+            style={{
+              position: "absolute",
+              right: 0,
+              bottom: 0,
+              width: 18,
+              height: 18,
+              cursor: "nwse-resize",
+              zIndex: 1055,
+              background:
+                "linear-gradient(135deg, transparent 0 55%, #adb5bd 55% 60%, transparent 60% 70%, #adb5bd 70% 75%, transparent 75%)",
+            }}
+          />
+        </Modal>
+      </MaximizeContext.Provider>
     </>
   );
 }
