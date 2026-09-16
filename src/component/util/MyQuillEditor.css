@@ -83,3 +83,7 @@
 .maximize-btn+.btn-close {
   margin-left: unset;
 }
+
+.maximize-btn {
+  text-decoration: none;
+}
