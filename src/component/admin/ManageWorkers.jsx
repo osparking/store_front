@@ -5,7 +5,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { Card, Col, Row } from "react-bootstrap";
+import { Card, Col, Row, Spinner } from "react-bootstrap";
 import { BsPlusSquareFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
@@ -15,7 +15,11 @@ import BsAlertHook from "../hook/BsAlertHook";
 import UserProfile from "../user/UserProfile";
 import { callWithToken } from "../util/api";
 import { getRecordRange } from "../util/utilities";
-import { deleteWorkerSoftly } from "../worker/WorkerService";
+import {
+  deleteWorkerSoftly,
+  getAllDept,
+  getWorkerPage,
+} from "../worker/WorkerService";
 import "./AdminCanvas.css";
 import WorkersTable from "./WorkersTable";
 import "./WorkersTable.css";
@@ -23,18 +27,18 @@ import "./WorkersTable.css";
 export const ManageWorkersContext = createContext();
 
 const ManageWorkers = () => {
-  const [workerList, setWorkerList] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const [workerPage, setWorkerPage] = useState({});
+  const [workers, setWorkers] = useState([]);
+  const [fetchResult, setFetchResult] = useState();
+  const [pageSize, setPageSize] = useState(10); // itemsPerPage
 
   const [currWorkerPage, setCurrWorkerPage] = useState(
     Number(localStorage.getItem("CURR_WORKER_PAGE")) || 1,
   );
 
-  const [filteredWorkers, setFilteredWorkers] = useState([]);
-
-  const [pageSize] = useState(10);
   const idxLastPlus1 = currWorkerPage * pageSize;
   const indexOfFirst = idxLastPlus1 - pageSize;
-  const displayWorkers = filteredWorkers.slice(indexOfFirst, idxLastPlus1);
 
   const {
     successMsg,
@@ -48,80 +52,67 @@ const ManageWorkers = () => {
   } = BsAlertHook();
   const navigate = useNavigate();
 
-  const readWorkerList = useCallback(async () => {
-    try {
-      const response = await callWithToken("get", "/admin/worker/get_all");
-      if (response) {
-        setWorkerList(response.data.data);
-      } else {
-        navigate("/login");
-      }
-    } catch (err) {
-      setErrorMsg(err.message);
-      setAlertError(true);
-    }
-  }, [navigate, setErrorMsg, setAlertError]);
-
-  const workersContext = useMemo(
-    () => ({
-      readWorkerList,
-    }),
-    [readWorkerList],
-  );
-
-  useEffect(() => {
-    readWorkerList();
-  }, []);
-
   const [selectedDept, setSelectedDept] = useState(
     localStorage.getItem("SELECTED_DEPT") || "",
   );
-  const [totalPages, setTotalPages] = useState(0);
 
-  useEffect(() => {
-    const savedDept = localStorage.getItem("SELECTED_DEPT");
-    let searchKey = undefined;
+  const [loading, setLoading] = useState(false);
 
-    /**
-     * selectedDept 는 재방문 때 0 이되고,
-     * 초기화 혹은 목록 중 '-소속 선택-' 클릭 때 ""(빈문자열)이 된다.
-     * 재방문 후에는 저장된 부서 검색 기준인 savedDept 가 우선이다.
-     */
-    // 일꾼 필터링 기준 부서명칭 식별하여 searchKey 에 저장.
-    if (selectedDept === 0 && savedDept) {
-      setSelectedDept(savedDept);
-      searchKey = savedDept;
-    } else if (selectedDept !== 0 && selectedDept !== "") {
-      searchKey = selectedDept;
+  const fetchWorkerPage = async (pageNo = 1) => {
+    try {
+      setLoading(true);
+      const response = await getWorkerPage(selectedDept, pageNo, pageSize);
+      setLoading(false);
+      setFetchResult(response);
+
+      if (response && response.pageContent) {
+        setTotalPages(response.totalPages);
+        setWorkerPage(response.pageContent);
+        setWorkers(response.pageContent.content);
+        setPageSize(response.pageSize);
+        setCurrWorkerPage(response.currentPage);
+      }
+    } catch (error) {
+      console.error(error);
+      setErrorMsg(error.message);
+      setAlertError(true);
     }
-    // 검색키에 의미있는 값이 들어있으면, 이로써 일꾼을 걸러낸다.
-    if (searchKey) {
-      setFilteredWorkers(
-        workerList.filter((worker) => worker.dept === searchKey),
-      );
-    } else {
-      setFilteredWorkers(workerList);
+  };
+
+  const readDepts = async () => {
+    try {
+      const response = await getAllDept();
+      setDepartments(response.data);
+    } catch (error) {
+      console.error(error.response?.data.message);
     }
-    console.log(
-      "Math.ceil(workerList.length / pageSize): ",
-      Math.ceil(workerList.length / pageSize),
-    );
+  };
 
-    setTotalPages(Math.ceil(filteredWorkers.length / pageSize));
-
-    // 유저가 의도적으로 택한 검색키를 저장소에 보관한다.
-    if (selectedDept && selectedDept !== 0) {
-      localStorage.setItem("SELECTED_DEPT", selectedDept);
-    }
-  }, [workerList, selectedDept]);
-
-  useEffect(() => {
-    setTotalPages(Math.ceil(filteredWorkers.length / pageSize));
-  }, [filteredWorkers, pageSize]);
-
-  const departments = Array.from(
-    new Set(workerList.map((worker) => worker.dept)),
+  const workersContext = useMemo(
+    () => ({
+      fetchWorkerPage, readDepts,
+    }),
+    [fetchWorkerPage],
   );
+
+  useEffect(() => {
+    fetchWorkerPage(currWorkerPage);
+  }, [currWorkerPage]);
+
+  useEffect(() => {
+    if (selectedDept) {
+      localStorage.setItem("SELECTED_DEPT", selectedDept);
+    } else {
+      localStorage.removeItem("SELECTED_DEPT");
+    }
+    fetchWorkerPage(currWorkerPage);
+  }, [selectedDept]);
+
+  const [departments, setDepartments] = useState([]);
+
+  useEffect(() => {
+    readDepts();
+  }, []);
 
   const handleClearFilter = () => {
     localStorage.removeItem("SELECTED_DEPT");
@@ -153,7 +144,7 @@ const ManageWorkers = () => {
       const result = await deleteWorkerSoftly(workerId);
       setSuccessMsg(result.message);
       setAlertSuccess(true);
-      readWorkerList();
+      fetchWorkerPage(currWorkerPage);
       setAccount({ ...account, worker: { ...account.worker, deleted: true } });
     } catch (err) {
       console.error("err:", err);
@@ -206,12 +197,7 @@ const ManageWorkers = () => {
               </Col>
             </Row>
             <p className="text-center mb-1">
-              {getRecordRange(
-                { totalElements: filteredWorkers.length },
-                indexOfFirst,
-                idxLastPlus1,
-                "직원",
-              )}
+              {getRecordRange(workerPage, indexOfFirst, idxLastPlus1, "직원")}
             </p>
             <Card
               id="user-table-card"
@@ -226,23 +212,40 @@ const ManageWorkers = () => {
                   }}
                   className="justify-content-center align-items-center"
                 >
-                  <WorkersTable
-                    displayWorkers={displayWorkers}
-                    showAccountDetails={showAccountDetails}
-                    handleDeletion={handleDeletion}
-                    currWorkerPage={currWorkerPage}
-                  />
+                  {loading ? (
+                    <div className="d-flex justify-content-center align-items-center">
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                        className="me-1"
+                        style={{ width: "0.8rem", height: "0.8rem" }}
+                      />
+                      로딩 중...
+                    </div>
+                  ) : (
+                    <WorkersTable
+                      displayWorkers={workers}
+                      showAccountDetails={showAccountDetails}
+                      handleDeletion={handleDeletion}
+                      currWorkerPage={currWorkerPage}
+                    />
+                  )}
                 </div>
               </Card.Body>
             </Card>
-            <Paginator
-              pageSize={pageSize}
-              totalItems={filteredWorkers.length}
-              totalPages={totalPages}
-              currPage={currWorkerPage}
-              setCurrPage={setAndSavePageNo}
-              darkBackground={true}
-            />
+            {fetchResult && workerPage && (
+              <Paginator
+                pageSize={workerPage.pageSize}
+                totalItems={workerPage.totalElements}
+                totalPages={totalPages}
+                currPage={currWorkerPage}
+                setCurrPage={(page) => setAndSavePageNo(page)}
+                darkBackground={true}
+              />
+            )}
           </>
         )}
       </ManageWorkersContext.Provider>
