@@ -161,7 +161,8 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
   const [delBtnDisabled, setDelBtnDisabled] = useState(false);
 
   const manageWorkersContext = useContext(ManageWorkersContext);
-  const readWorkerList = manageWorkersContext?.readWorkerList;
+  const fetchWorkerPage = manageWorkersContext?.fetchWorkerPage;
+  const readDepts = manageWorkersContext?.readDepts;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -177,7 +178,8 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
         localStorage.setItem("USER", JSON.stringify(localUser));
 
         setUserDept(newUser.dept);
-        readWorkerList();
+        fetchWorkerPage();
+        readDepts();
       } else {
         response = await updateUser(newUser.id, newUser);
         localUser.fullName = response.data.fullName;
