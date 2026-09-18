@@ -9,18 +9,14 @@ import {
   Row,
   Tooltip,
 } from "react-bootstrap";
-import { BsPeopleFill } from "react-icons/bs";
-import { FaChartPie, FaQuestion } from "react-icons/fa";
-import { FaWonSign } from "react-icons/fa6";
 import { LuPanelLeftOpen } from "react-icons/lu";
-import { MdOutlineFamilyRestroom } from "react-icons/md";
 import "./AdminCanvas.css";
 import ManageCustomers from "./ManageCustomers";
 import ManagePriceFee from "./ManagePriceFee";
 import ManageQuestions from "./ManageQuestions";
-import ManageWorkers from "./ManageWorkers";
 import Overview from "./Overview";
 import SidebarContent from "./SidebarContent";
+import WorkerMgmtProvider from "./WorkerMgmtProvider";
 
 const AdminCanvas = () => {
   const [showOffcanvas, setShowOffcanvas] = useState(false);
@@ -122,7 +118,7 @@ const AdminCanvas = () => {
                 {
                   Questions: <ManageQuestions />,
                   Overview: <Overview />,
-                  Employee: <ManageWorkers />,
+                  Employee: <WorkerMgmtProvider />,
                   Customer: <ManageCustomers />,
                   PriceFee: <ManagePriceFee />,
                 }[adminTab]

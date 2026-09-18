@@ -3,7 +3,6 @@ import { useContext, useState } from "react";
 import { Button, Card, Form, Table } from "react-bootstrap";
 import toast from "react-hot-toast";
 import "../../../App.css";
-import { ManageWorkersContext } from "../../admin/ManageWorkers";
 import QRcodeBox from "../../auth/QRcodeBox";
 import BsAlertHook from "../../hook/BsAlertHook";
 import { RootContext } from "../../layout/RootLayout";
@@ -15,6 +14,7 @@ import WorkerDeptSelector from "../../worker/WorkerDeptSelector";
 import "../UserProfile.css";
 import { updateUser, updateWorkerDept } from "../UserService";
 import "./UserDetails.css";
+import WorkerMgmtProvider from "../../admin/WorkerMgmtProvider";
 
 const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
   console.log("user: ", user);
@@ -160,9 +160,9 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
   const [showDelModal, setShowDelModal] = useState(false);
   const [delBtnDisabled, setDelBtnDisabled] = useState(false);
 
-  const manageWorkersContext = useContext(ManageWorkersContext);
-  const fetchWorkerPage = manageWorkersContext?.fetchWorkerPage;
-  const readDepts = manageWorkersContext?.readDepts;
+  const workerMgmtProvider = useContext(WorkerMgmtProvider);
+  const fetchWorkerPage = workerMgmtProvider?.fetchWorkerPage;
+  const readDepts = workerMgmtProvider?.readDepts;
 
   const handleSubmit = async (e) => {
     e.preventDefault();

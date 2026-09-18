@@ -1,9 +1,8 @@
 import {
   createContext,
-  useCallback,
   useEffect,
   useMemo,
-  useState,
+  useState
 } from "react";
 import { Card, Col, Row, Spinner } from "react-bootstrap";
 import { BsPlusSquareFill } from "react-icons/bs";
@@ -13,7 +12,6 @@ import ItemFilter from "../common/ItemFilter";
 import Paginator from "../common/Paginator";
 import BsAlertHook from "../hook/BsAlertHook";
 import UserProfile from "../user/UserProfile";
-import { callWithToken } from "../util/api";
 import { getRecordRange } from "../util/utilities";
 import {
   deleteWorkerSoftly,
@@ -24,9 +22,9 @@ import "./AdminCanvas.css";
 import WorkersTable from "./WorkersTable";
 import "./WorkersTable.css";
 
-export const ManageWorkersContext = createContext();
+export const WorkerMgmtContext = createContext();
 
-const ManageWorkers = () => {
+const WorkerMgmtProvider = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [workerPage, setWorkerPage] = useState({});
   const [workers, setWorkers] = useState([]);
@@ -88,13 +86,6 @@ const ManageWorkers = () => {
     }
   };
 
-  const workersContext = useMemo(
-    () => ({
-      fetchWorkerPage, readDepts,
-    }),
-    [fetchWorkerPage],
-  );
-
   useEffect(() => {
     fetchWorkerPage(currWorkerPage);
   }, [currWorkerPage]);
@@ -153,103 +144,109 @@ const ManageWorkers = () => {
     }
   };
 
+  const manageFunctions = useMemo(
+    () => ({
+      fetchWorkerPage,
+      readDepts,
+    }),
+    [fetchWorkerPage, readDepts],
+  );
+
   return (
-    <>
-      <ManageWorkersContext.Provider value={workersContext}>
-        {showDetails ? (
-          <UserProfile
-            user={account.worker}
-            setShowDetails={setShowDetails}
-            readOnly={!account.editable}
-            handleDeletion={handleDeletion}
-          />
-        ) : (
-          <>
-            <Row className="justify-content-center">
-              <Col>
-                {alertSuccess && (
-                  <AlertMessage type={"success"} message={successMsg} />
-                )}
-                {alertError && (
-                  <AlertMessage type={"danger"} message={errorMsg} />
-                )}
-              </Col>
-            </Row>
-            <Row className="justify-content-between mb-2">
-              <Col md={1}>
-                <div></div>
-              </Col>
-              <Col md={6} xs={10} style={{ maxWidth: "350px" }}>
-                <ItemFilter
-                  itemType={"소속"}
-                  options={departments}
-                  onClearFilter={handleClearFilter}
-                  onOptionSelection={handleDeptSelection}
-                  selectedOption={selectedDept}
-                />
-              </Col>
-              <Col md={1} xs={1}>
-                <div className="d-flex justify-content-end worker-add-link">
-                  <Link to={"/register_user"}>
-                    <BsPlusSquareFill />
-                  </Link>
-                </div>
-              </Col>
-            </Row>
-            <p className="text-center mb-1">
-              {getRecordRange(workerPage, indexOfFirst, idxLastPlus1, "직원")}
-            </p>
-            <Card
-              id="user-table-card"
-              className="p-0"
-              style={{ overflowY: "auto" }}
-            >
-              <Card.Body className="p-0">
-                <div
-                  style={{
-                    whiteSpace: "initial",
-                    margin: "20px",
-                  }}
-                  className="justify-content-center align-items-center"
-                >
-                  {loading ? (
-                    <div className="d-flex justify-content-center align-items-center">
-                      <Spinner
-                        as="span"
-                        animation="border"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                        className="me-1"
-                        style={{ width: "0.8rem", height: "0.8rem" }}
-                      />
-                      로딩 중...
-                    </div>
-                  ) : (
-                    <WorkersTable
-                      displayWorkers={workers}
-                      showAccountDetails={showAccountDetails}
-                      handleDeletion={handleDeletion}
-                      currWorkerPage={currWorkerPage}
-                    />
-                  )}
-                </div>
-              </Card.Body>
-            </Card>
-            {fetchResult && workerPage && (
-              <Paginator
-                pageSize={workerPage.pageSize}
-                totalItems={workerPage.totalElements}
-                totalPages={totalPages}
-                currPage={currWorkerPage}
-                setCurrPage={(page) => setAndSavePageNo(page)}
-                darkBackground={true}
+    <WorkerMgmtContext.Provider value={manageFunctions}>
+      {showDetails ? (
+        <UserProfile
+          user={account.worker}
+          setShowDetails={setShowDetails}
+          readOnly={!account.editable}
+          handleDeletion={handleDeletion}
+        />
+      ) : (
+        <>
+          <Row className="justify-content-center">
+            <Col>
+              {alertSuccess && (
+                <AlertMessage type={"success"} message={successMsg} />
+              )}
+              {alertError && (
+                <AlertMessage type={"danger"} message={errorMsg} />
+              )}
+            </Col>
+          </Row>
+          <Row className="justify-content-between mb-2">
+            <Col md={1}>
+              <div></div>
+            </Col>
+            <Col md={6} xs={10} style={{ maxWidth: "350px" }}>
+              <ItemFilter
+                itemType={"소속"}
+                options={departments}
+                onClearFilter={handleClearFilter}
+                onOptionSelection={handleDeptSelection}
+                selectedOption={selectedDept}
               />
-            )}
-          </>
-        )}
-      </ManageWorkersContext.Provider>
-    </>
+            </Col>
+            <Col md={1} xs={1}>
+              <div className="d-flex justify-content-end worker-add-link">
+                <Link to={"/register_user"}>
+                  <BsPlusSquareFill />
+                </Link>
+              </div>
+            </Col>
+          </Row>
+          <p className="text-center mb-1">
+            {getRecordRange(workerPage, indexOfFirst, idxLastPlus1, "직원")}
+          </p>
+          <Card
+            id="user-table-card"
+            className="p-0"
+            style={{ overflowY: "auto" }}
+          >
+            <Card.Body className="p-0">
+              <div
+                style={{
+                  whiteSpace: "initial",
+                  margin: "20px",
+                }}
+                className="justify-content-center align-items-center"
+              >
+                {loading ? (
+                  <div className="d-flex justify-content-center align-items-center">
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      className="me-1"
+                      style={{ width: "0.8rem", height: "0.8rem" }}
+                    />
+                    로딩 중...
+                  </div>
+                ) : (
+                  <WorkersTable
+                    displayWorkers={workers}
+                    showAccountDetails={showAccountDetails}
+                    handleDeletion={handleDeletion}
+                    currWorkerPage={currWorkerPage}
+                  />
+                )}
+              </div>
+            </Card.Body>
+          </Card>
+          {fetchResult && workerPage && (
+            <Paginator
+              pageSize={workerPage.pageSize}
+              totalItems={workerPage.totalElements}
+              totalPages={totalPages}
+              currPage={currWorkerPage}
+              setCurrPage={(page) => setAndSavePageNo(page)}
+              darkBackground={true}
+            />
+          )}
+        </>
+      )}
+    </WorkerMgmtContext.Provider>
   );
 };
-export default ManageWorkers;
+export default WorkerMgmtProvider;
