@@ -16,7 +16,7 @@ import ManagePriceFee from "./ManagePriceFee";
 import ManageQuestions from "./ManageQuestions";
 import Overview from "./Overview";
 import SidebarContent from "./SidebarContent";
-import WorkerMgmtProvider from "./WorkerMgmtProvider";
+import { WorkerMgmtProvider } from "./WorkerMgmtContext";
 
 const AdminCanvas = () => {
   const [showOffcanvas, setShowOffcanvas] = useState(false);

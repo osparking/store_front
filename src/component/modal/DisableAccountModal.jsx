@@ -1,7 +1,6 @@
-import { useContext } from "react";
 import { Button, Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
-import WorkerMgmtProvider from "../admin/WorkerMgmtProvider";
+import { useWorkerMgmt } from "../admin/WorkerMgmtContext";
 import { logoutUser } from "../auth/AuthService";
 import { disableUserAccount } from "../user/UserService";
 
@@ -14,15 +13,13 @@ const DisableAccountModal = ({
   disabled,
   modalClass = "",
 }) => {
-  const workerMgmtProvider = useContext(WorkerMgmtProvider);
-  const readWorkerList = workerMgmtProvider?.readWorkerList;
-
+  const { fetchWorkerPage, readDepts } = useWorkerMgmt();  
   const handleDisableAccount = async () => {
     try {
       if (userId) {
         const result = await disableUserAccount(userId);
-        if (readWorkerList) {
-          readWorkerList();
+        if (fetchWorkerPage) {
+          fetchWorkerPage(1);
         }
         toast(result.message);
       } else {

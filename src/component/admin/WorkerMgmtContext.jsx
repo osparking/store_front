@@ -1,9 +1,4 @@
-import {
-  createContext,
-  useEffect,
-  useMemo,
-  useState
-} from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { Card, Col, Row, Spinner } from "react-bootstrap";
 import { BsPlusSquareFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
@@ -22,9 +17,9 @@ import "./AdminCanvas.css";
 import WorkersTable from "./WorkersTable";
 import "./WorkersTable.css";
 
-export const WorkerMgmtContext = createContext();
+const WorkerMgmtContext = createContext();
 
-const WorkerMgmtProvider = () => {
+export const WorkerMgmtProvider = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [workerPage, setWorkerPage] = useState({});
   const [workers, setWorkers] = useState([]);
@@ -56,10 +51,15 @@ const WorkerMgmtProvider = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const fetchWorkerPage = async (pageNo = 1) => {
+  const fetchWorkerPage = async (pageNo) => {
     try {
+      const page =
+        pageNo !== undefined
+          ? pageNo
+          : localStorage.getItem("CURR_WORKER_PAGE") || 1;
+
       setLoading(true);
-      const response = await getWorkerPage(selectedDept, pageNo, pageSize);
+      const response = await getWorkerPage(selectedDept, page, pageSize);
       setLoading(false);
       setFetchResult(response);
 
@@ -144,13 +144,10 @@ const WorkerMgmtProvider = () => {
     }
   };
 
-  const manageFunctions = useMemo(
-    () => ({
-      fetchWorkerPage,
-      readDepts,
-    }),
-    [fetchWorkerPage, readDepts],
-  );
+  const manageFunctions = {
+    fetchWorkerPage,
+    readDepts,
+  };
 
   return (
     <WorkerMgmtContext.Provider value={manageFunctions}>
@@ -249,4 +246,11 @@ const WorkerMgmtProvider = () => {
     </WorkerMgmtContext.Provider>
   );
 };
-export default WorkerMgmtProvider;
+
+export function useWorkerMgmt() {
+  const context = useContext(WorkerMgmtContext);
+  if (!context) {
+    throw new Error("useWorkerMgmt은 WorkerMgmtProvider 안에서 사용할 것.");
+  }
+  return context;
+}
