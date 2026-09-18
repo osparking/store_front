@@ -147,3 +147,15 @@ export async function sendProduceInfo(produceInfo) {
     throw err;
   }
 }
+
+export async function getWorkerPage(dept, page, size) {
+  const urlPrefix = "/admin/get_worker_page?dept=";
+
+  try {
+    const url = `${urlPrefix}${dept}&page=${page}&size=${size}`;
+    const result = await callWithToken("get", url);
+    return result.data.data;
+  } catch (err) {
+    throw err;
+  }
+}
