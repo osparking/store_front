@@ -1,49 +1,30 @@
 import Switch from "@mui/material/Switch";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Button, Card, Form, Table } from "react-bootstrap";
 import toast from "react-hot-toast";
 import "../../../App.css";
-import { useWorkerMgmt, WorkerMgmtProvider } from "../../admin/WorkerMgmtContext";
+import { useWorkerMgmt } from "../../admin/WorkerMgmtContext";
 import QRcodeBox from "../../auth/QRcodeBox";
 import BsAlertHook from "../../hook/BsAlertHook";
-import { RootContext } from "../../layout/RootLayout";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import DeleteWorkerConfirmModal from "../../modal/DeleteWorkerConfirmModal";
 import { callWithToken } from "../../util/api";
 import { handlePhoneChange, insertHyphens } from "../../util/utilities";
 import WorkerDeptSelector from "../../worker/WorkerDeptSelector";
 import "../UserProfile.css";
-import { updateUser, updateWorkerDept } from "../UserService";
+import { updateWorkerDept } from "../UserService";
 import "./UserDetails.css";
 
-const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
-  console.log("user: ", user);
+const InfoCardWorker = ({ user, readOnly, handleDeletion }) => {
   const [newUser, setNewUser] = useState(user);
-
   const [userDept, setUserDept] = useState(user.dept);
-  const [userFullName, setUserFullName] = useState(user.fullName);
-  const [userMbPhone, setUserMbPhone] = useState(user.mbPhone);
 
   const restoreDept = () => {
-    if (isAdmined) {
-      setNewUser({ ...newUser, dept: userDept });
-    } else {
-      setNewUser({
-        ...newUser,
-        fullName: userFullName,
-        mbPhone: userMbPhone,
-      });
-    }
+    setNewUser({ ...newUser, dept: userDept });
   };
 
   const deptRemains = () => {
-    if (isAdmined) {
-      return userDept === newUser.dept;
-    } else {
-      return (
-        userFullName === newUser.fullName && userMbPhone === newUser.mbPhone
-      );
-    }
+    return userDept === newUser.dept;
   };
 
   const profileData = [
@@ -52,14 +33,14 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
       type: "text",
       name: "fullName",
       value: newUser.fullName,
-      disabled: isAdmined,
+      disabled: true,
     },
     {
       label: "휴대폰",
       type: "tel",
       name: "mbPhone",
       value: newUser.mbPhone,
-      disabled: isAdmined,
+      disabled: true,
     },
     { label: "이메일", value: newUser.email, disabled: true },
     { label: "등록 형태", value: newUser.signUpMethod, disabled: true },
@@ -72,7 +53,7 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
     setNewUser((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const disableDept = readOnly || !isAdmined;
+  const disableDept = readOnly;
 
   if (newUser.userType === "노동자") {
     profileData.push({
@@ -82,13 +63,11 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
     });
   }
 
-  if (isAdmined) {
-    profileData.push({
-      label: "로그인",
-      value: newUser.enabled ? "가능" : "불가능",
-      disabled: true,
-    });
-  }
+  profileData.push({
+    label: "로그인",
+    value: newUser.enabled ? "가능" : "불가능",
+    disabled: true,
+  });
 
   const isUpdatable = (label) => {
     if (label === "성명" || label === "휴대폰" || label === "소속 부서") {
@@ -144,7 +123,6 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
     setNewUser({ ...newUser, mbPhone: mbPhone });
   };
 
-  const { refreshUser } = useContext(RootContext);
   const [isProcessing, setIsProcessing] = useState(false);
   const {
     successMsg,
@@ -169,24 +147,14 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
       let response = null;
       const localUser = JSON.parse(localStorage.getItem("USER"));
 
-      if (isAdmined) {
-        response = await updateWorkerDept(newUser.id, newUser.dept);
-        localUser.dept = response.data;
-        localStorage.setItem("USER", JSON.stringify(localUser));
+      response = await updateWorkerDept(newUser.id, newUser.dept);
+      localUser.dept = response.data;
+      localStorage.setItem("USER", JSON.stringify(localUser));
 
-        setUserDept(newUser.dept);
-        fetchWorkerPage();
-        readDepts();
-      } else {
-        response = await updateUser(newUser.id, newUser);
-        localUser.fullName = response.data.fullName;
-        localUser.mbPhone = response.data.mbPhone;
-        localStorage.setItem("USER", JSON.stringify(localUser));
-
-        setUserFullName(newUser.fullName);
-        setUserMbPhone(newUser.mbPhone);
-        refreshUser();
-      }
+      setUserDept(newUser.dept);
+      localStorage.removeItem("SELECTED_DEPT");
+      fetchWorkerPage();
+      readDepts();
 
       toast.success(response.message);
       setSuccessMsg(response.message);
@@ -263,9 +231,7 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
                           workerDept={item.value}
                           onChange={handleTextChange}
                           readOnly={disableDept}
-                          backColor={
-                            isAdmined ? "enabled-color" : "disabled-color"
-                          }
+                          backColor={"enabled-color"}
                         />
                       ) : (
                         <Form.Control
@@ -297,17 +263,10 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
                     구글 이중 인증(2FA):
                   </td>
                   <td md={7} colSpan={2}>
-                    <div
-                      id="switch-2FA"
-                      className={
-                        readOnly || isAdmined
-                          ? "disabled-color"
-                          : "enabled-color"
-                      }
-                    >
+                    <div id="switch-2FA" className={"disabled-color"}>
                       <Switch
                         id="twoFAswitch"
-                        disabled={switchDisabled || readOnly || isAdmined}
+                        disabled={true}
                         checked={twoFaEnabled}
                         onChange={
                           twoFaEnabled
@@ -350,17 +309,15 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
         {!readOnly && (
           <Card.Footer className="text-center">
             <div className="d-flex justify-content-center mb-3 mt-3 char2button gap-4">
-              {isAdmined && (
-                <Button
-                  type="button"
-                  disabled={user.deleted}
-                  variant="danger"
-                  size="sm"
-                  onClick={() => setShowDelModal(true)}
-                >
-                  {"삭제"}
-                </Button>
-              )}
+              <Button
+                type="button"
+                disabled={user.deleted}
+                variant="danger"
+                size="sm"
+                onClick={() => setShowDelModal(true)}
+              >
+                {"삭제"}
+              </Button>
               <Button
                 type="button"
                 disabled={deptRemains()}
@@ -394,4 +351,4 @@ const UserInfoCard = ({ user, readOnly, isAdmined, handleDeletion }) => {
   );
 };
 
-export default UserInfoCard;
+export default InfoCardWorker;
