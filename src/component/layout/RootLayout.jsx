@@ -3,29 +3,13 @@ import { Outlet } from "react-router-dom";
 import BackgroundImageSlider from "../common/BackgroundImageSlider";
 import Footer from "./Footer";
 import NavBar from "./NavBar";
+import { RootProvider } from "./RootContext";
 import "./RootLayout.css";
-import { createContext, useCallback, useMemo, useState } from "react";
-
-export const RootContext = createContext({
-  userVersion: 0,
-  refreshUser: () => {},
-});
 
 const RootLayout = () => {
-  const [userVersion, setUserVersion] = useState(157);
-
-  const refreshUser = useCallback(() => {
-    setUserVersion((prev) => prev + 1);
-  }, []);
-
-  const userContext = useMemo(() => ({
-    userVersion,
-    refreshUser
-  }), [userVersion, refreshUser]);
-
   return (
     <div className="main-content">
-      <RootContext.Provider value={userContext}>
+      <RootProvider>
         <NavBar />
         <Toaster
           position="top-center"
@@ -43,7 +27,7 @@ const RootLayout = () => {
         <BackgroundImageSlider />
         <Outlet />
         <Footer />
-      </RootContext.Provider>
+      </RootProvider>
     </div>
   );
 };

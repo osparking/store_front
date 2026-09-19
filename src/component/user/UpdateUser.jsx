@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -13,7 +13,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import ProcessSpinner from "../common/ProcessSpinner";
 import BsAlertHook from "../hook/BsAlertHook";
-import { RootContext } from "../layout/RootLayout";
+import { useRoot } from "../layout/RootContext";
 import DisableAccountModal from "../modal/DisableAccountModal";
 import { insertHyphens } from "../util/utilities";
 import WorkerDeptSelector from "../worker/WorkerDeptSelector";
@@ -21,7 +21,7 @@ import "./UpdateUser.css";
 import { getUserDtoById, updateUser } from "./UserService";
 
 const UserUpdate = () => {
-  const rootContext = useContext(RootContext);
+  const { refreshUser } = useRoot();
 
   const location = useLocation();
   const [user, setUser] = useState({
@@ -102,8 +102,6 @@ const UserUpdate = () => {
     setAccountClosing(!e.target.checked);
     setUser({ ...user, [e.target.name]: e.target.checked });
   };
-
-  const refreshUser = rootContext?.refreshUser;
 
   const handleUpdate = async (event) => {
     event.preventDefault();

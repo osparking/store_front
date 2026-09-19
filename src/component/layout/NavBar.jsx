@@ -1,16 +1,16 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
 import { getStorageToken } from "../util/utilities";
 import "./navBar.css";
-import { RootContext } from "./RootLayout";
+import { useRoot } from "./RootContext";
 
 const naviAskedIds = new Set();
 
 const NavBar = () => {
-  const { userVersion } = useContext(RootContext);
+  const { userVersion} = useRoot();
   const [isAdmin, setIsAdmin] = useState(false);
   const [isWorker, setIsWorker] = useState(false);
 
