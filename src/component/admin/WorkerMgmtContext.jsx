@@ -53,13 +53,14 @@ export const WorkerMgmtProvider = () => {
 
   const fetchWorkerPage = async (pageNo) => {
     try {
+      const dept = localStorage.getItem("SELECTED_DEPT") || "";
       const page =
         pageNo !== undefined
           ? pageNo
           : localStorage.getItem("CURR_WORKER_PAGE") || 1;
 
       setLoading(true);
-      const response = await getWorkerPage(selectedDept, page, pageSize);
+      const response = await getWorkerPage(dept, page, pageSize);
       setLoading(false);
       setFetchResult(response);
 
@@ -68,7 +69,7 @@ export const WorkerMgmtProvider = () => {
         setWorkerPage(response.pageContent);
         setWorkers(response.pageContent.content);
         setPageSize(response.pageSize);
-        setCurrWorkerPage(response.currentPage);
+        setAndSavePageNo(response.currentPage);
       }
     } catch (error) {
       console.error(error);
