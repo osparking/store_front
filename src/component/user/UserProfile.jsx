@@ -3,9 +3,10 @@ import { useState } from "react";
 import { Button, Row } from "react-bootstrap";
 import BsAlertHook from "../hook/BsAlertHook";
 import { deleteUserPhoto } from "../modal/ImageService";
+import InfoCardUser from "./details/InfoCardUser";
 import PasswordCard from "./details/PasswordCard";
-import UserInfoCard from "./details/UserInfoCard";
 import "./UserProfile.css";
+import InfoCardWorker from "./details/InfoCardWorker";
 
 const UserProfile = ({
   user,
@@ -60,12 +61,19 @@ const UserProfile = ({
             <PasswordCard user={user} readOnly={isAdmined || readOnly} />
           </Grid>
           <Grid size={{ xs: 12, md: 9 }}>
-            <UserInfoCard
-              user={user}
-              readOnly={readOnly}
-              isAdmined={isAdmined}
-              handleDeletion={handleDeletion}
-            />
+            {isAdmined ? (
+              <InfoCardWorker
+                user={user}
+                readOnly={readOnly}
+                handleDeletion={handleDeletion}
+              />
+            ) : (
+              <InfoCardUser
+                user={user}
+                readOnly={readOnly}
+                handleDeletion={handleDeletion}
+              />
+            )}
           </Grid>
         </Grid>
       </div>
