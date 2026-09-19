@@ -125,7 +125,7 @@ const RegisterUser = () => {
       ...user,
       fullName: "김성훈",
       mbPhone: "01012345678",
-      email: "jbpark103@hanmail.net",
+      email: "jbpark103@email.net",
       password: "1aB$56789",
       confirmPassword: "1aB$56789",
       dept: "생산부",
@@ -133,13 +133,7 @@ const RegisterUser = () => {
   };
 
   const [showConfirmEmailModal, setShowConfirmEmailModal] = useState(false);
-  const moveToLoginPage = () => {
-    setShowConfirmEmailModal(false);
-    window.location.href = "/login";
-  };
-
   const isDevelopment = import.meta.env.DEV;
-
   const [showPopover, setShowPopover] = useState(false);
   const inputRef = useRef(null);
 
@@ -176,6 +170,21 @@ const RegisterUser = () => {
     );
   };
 
+  const registerAfterProcessing = () => {
+    setShowConfirmEmailModal(false);
+
+    if (isAdmin) {
+      const searchDept = localStorage.getItem("SELECTED_DEPT");
+
+      if (searchDept !== user.dept) {
+        localStorage.removeItem("SELECTED_DEPT");
+      }
+      history.back();
+    } else {
+      window.location.href = "/login";
+    }
+  };
+
   return (
     <>
       <title>범이비누 - 계정 등록</title>
@@ -185,7 +194,7 @@ const RegisterUser = () => {
       />
       <ConfirmEmailModal
         show={showConfirmEmailModal}
-        closer={() => moveToLoginPage()}
+        closer={registerAfterProcessing}
         confirmData={confirmData}
         dialogClass="confirm-email-modal"
       />
