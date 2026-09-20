@@ -1,0 +1,453 @@
+import { useEffect, useState } from "react";
+import {
+  Button,
+  Col,
+  OverlayTrigger,
+  Row,
+  Table,
+  Tooltip,
+} from "react-bootstrap";
+import "../../../App.css";
+import {
+  changeOrderStatus,
+  getOrderDetail
+} from "../../buy/orderService";
+import ConfirmationModal from "../../modal/ConfirmationModal";
+import ReviewModalEdit from "../../review/ReviewModalEdit";
+import { useDashboard } from "../../user/dashboard/DashboardContext";
+import { formatDate, insert2Hyphens } from "../../util/utilities";
+import "./OrderDetail.css";
+
+const OrderDetailEdit = ({ detailId, setShowDetail }) => {
+  const { refreshStat, refreshReviews, ordersVersion } = useDashboard();
+  const [orderDetails, setOrderDetails] = useState(undefined);
+  const [orderStatus, setOrderStatus] = useState(undefined);
+  const [showModal, setShowModal] = useState(false);
+  const [review, setReview] = useState();
+  const [showReviewModal, setShowReviewModal] = useState(false);
+
+  const readOrderDetail = async () => {
+    const response = await getOrderDetail(detailId);
+    setOrderDetails(response);
+    setReview(
+      response && {
+        orderName: response.order.orderName,
+        review: response.order.review,
+        stars: response.order.stars,
+        userId: response.order.userId,
+        id: response.order.id,
+        reviewTime: response.order.reviewTime,
+        customer: response.order.customer,
+      },
+    );
+    setOrderStatus(response.order.orderStatus);
+  };
+
+  useEffect(() => {
+    readOrderDetail();
+  }, [ordersVersion]);
+
+  const getStatusLabel = () => {
+    if (orderDetails.order.orderStatus !== "GS25 접수") {
+      return "주문 상태";
+    } else {
+      return "배송 상태";
+    }
+  };
+
+  const notAtGS25yet = () => {
+    return (
+      orderDetails.order.orderStatus === "결제대기" ||
+      orderDetails.order.orderStatus === "결제완료" ||
+      orderDetails.order.orderStatus === "발주확인"
+    );
+  };
+
+  const cjlogistics = "https://trace.cjlogistics.com/next/tracking.html?wblNo";
+
+  const handleBottomButton = () => {
+    switch (orderStatus) {
+      case "구매 확정":
+      case "후기 남김":
+        setShowReviewModal(true);
+        break;
+      default:
+        setShowModal(true);
+        break;
+    }
+  };
+
+  const handleConfirm = async () => {
+    setShowModal(false);
+    let nextStatus = undefined;
+    switch (orderStatus) {
+      case "GS25 접수":
+        nextStatus = "수취 확인";
+        break;
+      case "수취 확인":
+        nextStatus = "구매 확정";
+        break;
+      default:
+        break;
+    }
+
+    if (nextStatus) {
+      const data = { id: orderDetails.order.id, status: nextStatus };
+      await changeOrderStatus(data);
+      setOrderStatus(nextStatus);
+      if (nextStatus === "구매 확정") {
+        refreshStat();
+      }
+    }
+  };
+
+  const getBodyMessage = (status) => {
+    if (!orderDetails) return;
+
+    const orderName = orderDetails.order.orderName;
+    let msg = undefined;
+
+    switch (status) {
+      case "GS25 접수":
+        msg = "'" + orderName + "' 상품을 받으셨습니까?";
+        break;
+      case "수취 확인":
+        msg = "'" + orderName + "' 구매를 확정하겠습니까?";
+        break;
+      case "구매 확정":
+        msg = "'" + orderName + "' 구매 후기를 작성하겠습니까?";
+        break;
+      case "후기 남김":
+        msg = "'" + orderName + "' 구매 후기를 수정하겠습니까?";
+        break;
+      default:
+        msg = "'" + orderName + "' 관련 확인!";
+        break;
+    }
+    return msg;
+  };
+
+  const getBottomButtonLabel = (status) => {
+    let label = undefined;
+
+    switch (status) {
+      case "수취 확인":
+        label = "구매 확정";
+        break;
+      case "구매 확정":
+        label = "후기 작성";
+        break;
+      case "후기 남김":
+        label = "후기 관리";
+        break;
+      case "GS25 접수":
+        label = "수취 확인";
+        break;
+      default:
+        label = "수취 확인";
+        break;
+    }
+    return label;
+  };
+
+  const getModalTitle = (status) => {
+    let title = undefined;
+    switch (status) {
+      case "수취 확인":
+        title = "상품 구매 확정";
+        break;
+      case "구매 확정":
+        title = "주문 및 사용 경험";
+        break;
+      case "후기 남김":
+        title = "후기 관리";
+        break;
+      default:
+        title = "상품 수취 확인";
+        break;
+    }
+    return title;
+  };
+
+  const getNoLabel = (status) => {
+    let noLabel = undefined;
+    switch (status) {
+      case "수취 확인":
+        noLabel = "확정 보류";
+        break;
+      case "후기 남김":
+        noLabel = "그냥둘께요";
+        break;
+      default:
+        noLabel = "아니오";
+        break;
+    }
+    return noLabel;
+  };
+
+  const getYesLabel = (status) => {
+    let yesLabel = undefined;
+    switch (status) {
+      case "수취 확인":
+        yesLabel = "구매 확정";
+        break;
+      case "구매 확정":
+        yesLabel = "작성 시작";
+        break;
+      case "후기 남김":
+        yesLabel = "수정 적용";
+        break;
+      default:
+        yesLabel = "받았어요";
+        break;
+    }
+    return yesLabel;
+  };
+
+  const showDeliveryStatus = () => {
+    const url = `${cjlogistics}=${orderDetails.order.waybillNo}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const handleTopButton = () => {
+    showDeliveryStatus();
+  };
+
+  const closeReviewModal = (reloadOrder) => {
+    reloadOrder && readOrderDetail();
+    setShowReviewModal(false);
+  };
+
+  const [showTooltipTop, setShowTooltipTop] = useState(false);
+  const [showTooltipBottom, setShowTooltipBottom] = useState(false);
+
+  return (
+    <>
+      <ConfirmationModal
+        show={showModal}
+        handleClose={() => setShowModal(false)}
+        handleConfirm={handleConfirm}
+        bodyMessage={getBodyMessage(orderStatus)}
+        title={getModalTitle(orderStatus)}
+        noLabel={getNoLabel(orderStatus)}
+        yesLabel={getYesLabel(orderStatus)}
+        dialogClassName="customer-confirm-modal"
+      />
+      <ReviewModalEdit
+        show={showReviewModal}
+        handleClose={closeReviewModal}
+        title={getModalTitle(orderStatus)}
+        review={review}
+      />
+      {orderDetails && (
+        <div id="orderDetails" className="main-container">
+          <div className="orders_table_div darkBack">
+            <div id="order_detail_container">
+              <Row className="d-flex justify-content-center align-items-center gap-10">
+                <p className="shapeCount darkFont">주문 개요</p>
+                <Col lg={4} md={4} xs={8} className="orderSummaryCol">
+                  <Table className="tabWidth mt-0">
+                    <tbody>
+                      <tr>
+                        <th className="iLabel">주문ID</th>
+                        <td className="oText">{orderDetails.order.orderId}</td>
+                      </tr>
+                      <tr>
+                        <th className="iLabel">주문명칭</th>
+                        <td className="oText">
+                          {orderDetails.order.orderName}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th className="iLabel">주문시간</th>
+                        <td className="oText">
+                          {formatDate(orderDetails.order.orderTime)}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th className="iLabel">{getStatusLabel()}</th>
+                        <td className="oText">{orderStatus}</td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </Col>
+                <Col lg={4} md={4} xs={8} className="orderSummaryCol">
+                  <Table className="tabWidth mt-0">
+                    <tbody>
+                      <tr>
+                        <th className="iLabel">주문자명</th>
+                        <td className="oText">{orderDetails.order.customer}</td>
+                      </tr>
+                      <tr>
+                        <th className="iLabel">지불금액</th>
+                        <td className="oText">
+                          {Number(orderDetails.order.payment).toLocaleString()}
+                          원(배송:
+                          {Number(orderDetails.order.delivery).toLocaleString()}
+                          )
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="oText hidden centered" colSpan={2}>
+                          <OverlayTrigger
+                            placement="right"
+                            overlay={<Tooltip>GS25 접수 전입니다</Tooltip>}
+                            show={showTooltipTop} // 상태로 제어
+                            trigger={[]} // 기본 트리거는 모두 끔
+                          >
+                            <span
+                              style={{ display: "inline-block" }}
+                              onMouseEnter={() => {
+                                // 비활성 상태일 때만 툴팁을 띄움
+                                if (notAtGS25yet()) {
+                                  setShowTooltipTop(true);
+                                }
+                              }}
+                              onMouseLeave={() => {
+                                setShowTooltipTop(false); // 마우스를 떠나면 항상 닫음
+                              }}
+                            >
+                              <Button
+                                className="pt-0 pb-0"
+                                disabled={notAtGS25yet()}
+                                onClick={() => handleTopButton()}
+                              >
+                                배송 조회
+                              </Button>
+                            </span>
+                          </OverlayTrigger>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td className="oText hidden centered" colSpan={2}>
+                          <div id="orderWorkerButton">
+                            <OverlayTrigger
+                              placement="right"
+                              overlay={<Tooltip>GS25 접수 전입니다</Tooltip>}
+                              show={showTooltipBottom} // 상태로 제어
+                              trigger={[]} // 기본 트리거는 모두 끔
+                            >
+                              <span
+                                style={{ display: "inline-block" }}
+                                onMouseEnter={() => {
+                                  // 비활성 상태일 때만 툴팁을 띄움
+                                  if (notAtGS25yet()) {
+                                    setShowTooltipBottom(true);
+                                  }
+                                }}
+                                onMouseLeave={() => {
+                                  setShowTooltipBottom(false); // 마우스를 떠나면 항상 닫음
+                                }}
+                              >
+                                <Button
+                                  className="pt-0 pb-0"
+                                  disabled={notAtGS25yet()}
+                                  onClick={() => handleBottomButton()}
+                                >
+                                  {getBottomButtonLabel(orderStatus)}
+                                </Button>
+                              </span>
+                            </OverlayTrigger>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </Col>
+              </Row>
+              <Row className="d-flex justify-content-center align-items-center p-2">
+                <Col lg={4} md={4} xs={12}>
+                  <p className="shapeCount darkFont">외형별 개수</p>
+                  <Table id="shapeCountTable" style={{ marginTop: 0 }}>
+                    <tbody>
+                      {orderDetails.items.map((item, index) => (
+                        <tr key={index}>
+                          <th className="aLabel">{item.shape}</th>
+                          <td> {item.count} 개</td>
+                        </tr>
+                      ))}
+                      <tr style={{ fontWeight: "bold" }}>
+                        <th className="aLabel bold center">합 계</th>
+                        <td> {orderDetails.totalSoapCount} 개</td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </Col>
+                <Col lg={7} md={8} xs={12}>
+                  <p className="shapeCount darkFont">배송지</p>
+                  <div
+                    className="mb-1"
+                    style={{
+                      width: "100%",
+                      marginTop: 0,
+                    }}
+                  >
+                    <Table className="tabWidth mb-1" style={{ marginTop: 0 }}>
+                      <tbody>
+                        <tr>
+                          <th className="aLabel">우편번호</th>
+                          <td className="oText">
+                            {orderDetails.order.zipcode}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th className="aLabel addressCell">도로주소</th>
+                          <td className="oText addressCell text-wrap">
+                            {orderDetails.order.roadAddress}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th className="aLabel">상세주소</th>
+                          <td className="oText">
+                            {orderDetails.order.addressDetail}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th className="aLabel">받는 분</th>
+                          <td className="oText">
+                            {orderDetails.order.recipient}
+                          </td>
+                        </tr>
+                        <tr>
+                          <th className="aLabel">휴대폰</th>
+                          <td className="oText">
+                            {insert2Hyphens(orderDetails.order.mbPhone)}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                  </div>
+                </Col>
+              </Row>
+            </div>
+            {setShowDetail && (
+              <>
+                <hr style={{ color: "green" }} />
+                <Row>
+                  <Col
+                    lg={12}
+                    md={12}
+                    xs={12}
+                    className="char4button d-flex justify-content-center align-items-center"
+                  >
+                    <Button
+                      variant="success"
+                      className="showAlways p-0"
+                      onClick={() => setShowDetail(false)}
+                      style={{ margin: "0 auto 1rem" }}
+                    >
+                      주문 목록
+                    </Button>
+                  </Col>
+                </Row>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default OrderDetailEdit;

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   Col,
@@ -10,27 +10,16 @@ import {
 import "../../../App.css";
 import {
   changeOrderStatus,
-  getOrderDetail,
-  patchOrderReview,
+  getOrderDetail
 } from "../../buy/orderService";
 import ConfirmationModal from "../../modal/ConfirmationModal";
-import ReviewModal from "../../review/ReviewModal";
-import { ReviewsContext } from "../../user/UserDashboard";
+import ReviewModalRead from "../../review/ReviewModalRead";
+import { useDashboard } from "../../user/dashboard/DashboardContext";
 import { formatDate, insert2Hyphens } from "../../util/utilities";
 import "./OrderDetail.css";
 
-const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
-  let refreshStat = () => {};
-  let refreshReviews = () => {};
-  let ordersVersion = undefined;
-
-  if (!isHouse) {
-    const context = useContext(ReviewsContext);
-    refreshStat = context?.refreshStat || (() => {});
-    refreshReviews = context?.refreshReviews || (() => {});
-    ordersVersion = context?.ordersVersion || undefined;
-  }
-
+const OrderDetailRead = ({ detailId, setShowDetail }) => {
+  const { ordersVersion, refreshStat } = useDashboard();
   const [orderDetails, setOrderDetails] = useState(undefined);
   const [orderStatus, setOrderStatus] = useState(undefined);
   const [showModal, setShowModal] = useState(false);
@@ -74,28 +63,14 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     );
   };
 
-  const [showTooltip1, setShowTooltip1] = useState(false);
-  const [showTooltip2, setShowTooltip2] = useState(false);
   const cjlogistics = "https://trace.cjlogistics.com/next/tracking.html?wblNo";
 
   const handleBottomButton = () => {
-    if (isHouse) {
       if (orderStatus === "후기 남김") {
         setShowReviewModal(true);
       } else {
         showDeliveryStatus();
       }
-    } else {
-      switch (orderStatus) {
-        case "구매 확정":
-        case "후기 남김":
-          setShowReviewModal(true);
-          break;
-        default:
-          setShowModal(true);
-          break;
-      }
-    }
   };
 
   const handleConfirm = async () => {
@@ -122,16 +97,16 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
     }
   };
 
-  const saveReview = async (reviewData) => {
-    setShowReviewModal(false);
-    let nextStatus = "후기 남김";
-    await patchOrderReview(reviewData);
-    setOrderStatus(nextStatus);
-    readOrderDetail();
-    if (!isHouse) {
-      refreshReviews();
-    }
-  };
+  // const saveReview = async (reviewData) => {
+  //   setShowReviewModal(false);
+  //   let nextStatus = "후기 남김";
+  //   await patchOrderReview(reviewData);
+  //   setOrderStatus(nextStatus);
+  //   readOrderDetail();
+  //   if (!isHouse) {
+  //     refreshReviews();
+  //   }
+  // };
 
   const getBodyMessage = (status) => {
     if (!orderDetails) return;
@@ -161,31 +136,13 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
 
   const getBottomButtonLabel = (status) => {
     let label = undefined;
-    if (isHouse) {
-      if (status === "후기 남김") {
+
+    if (status === "후기 남김") {
         label = "후기 읽기";
       } else {
         label = "배송 조회";
       }
-    } else {
-      switch (status) {
-        case "수취 확인":
-          label = "구매 확정";
-          break;
-        case "구매 확정":
-          label = "후기 작성";
-          break;
-        case "후기 남김":
-          label = "후기 관리";
-          break;
-        case "GS25 접수":
-          label = "수취 확인";
-          break;
-        default:
-          label = "수취 확인";
-          break;
-      }
-    }
+
     return label;
   };
 
@@ -199,7 +156,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         title = "주문 및 사용 경험";
         break;
       case "후기 남김":
-        title = isHouse ? "후기 열람" : "후기 관리";
+        title = "후기 열람";
         break;
       default:
         title = "상품 수취 확인";
@@ -249,11 +206,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   };
 
   const handleTopButton = () => {
-    if (isHouse) {
       setShowReviewModal(true);
-    } else {
-      showDeliveryStatus();
-    }
   };
 
   const closeReviewModal = (reloadOrder) => {
@@ -262,7 +215,7 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   };
 
   const deliveryStatusCheckingNeeded = () => {
-    return isHouse && !notAtGS25yet() && orderStatus === "후기 남김";
+    return !notAtGS25yet() && orderStatus === "후기 남김";
   };
 
   const [showTooltipTop, setShowTooltipTop] = useState(false);
@@ -280,14 +233,13 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
         yesLabel={getYesLabel(orderStatus)}
         dialogClassName="customer-confirm-modal"
       />
-      <ReviewModal
-        show={showReviewModal}
-        handleClose={closeReviewModal}
-        title={getModalTitle(orderStatus)}
-        review={review}
-        saveReview={saveReview}
-        editable={!isHouse}
-      />
+        <ReviewModalRead
+          show={showReviewModal}
+          handleClose={closeReviewModal}
+          title={getModalTitle(orderStatus)}
+          review={review}
+        />
+
       {orderDetails && (
         <div id="orderDetails" className="main-container">
           <div className="orders_table_div darkBack">
@@ -327,12 +279,11 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                         <th className="iLabel">주문자명</th>
                         <td className="oText">{orderDetails.order.customer}</td>
                       </tr>
-                      {isHouse && (
+
                         <tr>
                           <th className="iLabel">주문자ID</th>
                           <td className="oText">{orderDetails.order.userId}</td>
                         </tr>
-                      )}
                       <tr>
                         <th className="iLabel">지불금액</th>
                         <td className="oText">
@@ -342,41 +293,6 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
                           )
                         </td>
                       </tr>
-
-                      {!isHouse && (
-                        <tr>
-                          <td className="oText hidden centered" colSpan={2}>
-                            <OverlayTrigger
-                              placement="right"
-                              overlay={<Tooltip>GS25 접수 전입니다</Tooltip>}
-                              show={showTooltipTop} // 상태로 제어
-                              trigger={[]} // 기본 트리거는 모두 끔
-                            >
-                              <span
-                                style={{ display: "inline-block" }}
-                                onMouseEnter={() => {
-                                  // 비활성 상태일 때만 툴팁을 띄움
-                                  if (notAtGS25yet()) {
-                                    setShowTooltipTop(true);
-                                  }
-                                }}
-                                onMouseLeave={() => {
-                                  setShowTooltipTop(false); // 마우스를 떠나면 항상 닫음
-                                }}
-                              >
-                                <Button
-                                  className="pt-0 pb-0"
-                                  disabled={notAtGS25yet()}
-                                  onClick={() => handleTopButton()}
-                                >
-                                  배송 조회
-                                </Button>
-                              </span>
-                            </OverlayTrigger>
-                          </td>
-                        </tr>
-                      )}
-
                       <tr>
                         <td className="oText hidden centered" colSpan={2}>
                           <div id="orderWorkerButton">
@@ -516,4 +432,4 @@ const OrderDetail = ({ detailId, setShowDetail, isHouse }) => {
   );
 };
 
-export default OrderDetail;
+export default OrderDetailRead;
