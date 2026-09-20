@@ -1,37 +1,35 @@
 import _ from "lodash";
-import { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { patchOrderReview } from "../buy/orderService";
+import DraggableDialog from "../common/DraggableDialog";
+import { MaximizeContext } from "../common/MaximizeContext";
 import ConfirmationModal from "../modal/ConfirmationModal";
-import { ReviewsContext } from "../user/UserDashboard";
+import { useDashboard } from "../user/dashboard/DashboardContext";
 import MyQuillEditor from "../util/MyQuillEditor";
 import { callWithToken } from "../util/api";
 import { getPlainContent } from "../util/utilities";
 import Rating from "./Rating";
 import "./ReviewModal.css";
-import DraggableDialog from "../common/DraggableDialog";
-import { MaximizeContext } from "../common/MaximizeContext";
 
-export default function ReviewModal({
+export default function ReviewModalEdit({
   show,
   handleClose,
   title,
   review,
-  editable,
   minWidth = 400,
   minHeight = 300,
 }) {
   if (!review) return;
 
-  let refreshReviews = () => {};
-  let refreshOrders = () => {};
-
-  if (editable) {
-    const context = useContext(ReviewsContext);
-    refreshReviews = context?.refreshReviews || (() => {});
-    refreshOrders = context?.refreshOrders || (() => {});
-  }
+  const { refreshReviews, refreshOrders } = useDashboard();
   const [stars, setStars] = useState(0);
   const [loading, setLoading] = useState(false);
 
@@ -234,7 +232,7 @@ export default function ReviewModal({
         dialogClassName="review-deletion-confirmation-modal"
       />
 
-      <MaximizeContext.Provider value={ contextValue }>
+      <MaximizeContext.Provider value={contextValue}>
         <Modal
           show={show}
           onHide={handleClose}
@@ -263,21 +261,21 @@ export default function ReviewModal({
             <Rating
               stars={stars}
               setStars={setStars}
-              editable={editable}
+              editable={true}
               review={review}
             />
             {isEditorMounted && (
               <MyQuillEditor
                 value={reviewContent}
                 onChange={setReviewContent}
-                editable={editable}
+                editable={true}
                 getContent={() => reviewContent} // 현재 상태를 반환하는 함수 전달
               />
             )}
           </Modal.Body>
           <Modal.Footer>
             <div className="center-buttons quill-buttons char2button">
-              {review.review && editable && (
+              {review.review && (
                 <Button
                   variant="danger"
                   type="button"
@@ -296,30 +294,26 @@ export default function ReviewModal({
               >
                 닫기
               </Button>
-              {editable && (
-                <>
-                  <Button
-                    disabled={loading || reviewUnchanged}
-                    variant="info"
-                    type="button"
-                    className="p-0"
-                    onClick={resetReview}
-                  >
-                    리셋
-                  </Button>
-                  <Form onSubmit={handleSubmit}>
-                    <Button
-                      variant="primary"
-                      type="submit"
-                      className="p-0"
-                      style={{ cursor: "pointer" }}
-                      disabled={loading || reviewUnchanged}
-                    >
-                      {loading ? <span>저장 중...</span> : "저장"}
-                    </Button>
-                  </Form>
-                </>
-              )}
+              <Button
+                disabled={loading || reviewUnchanged}
+                variant="info"
+                type="button"
+                className="p-0"
+                onClick={resetReview}
+              >
+                리셋
+              </Button>
+              <Form onSubmit={handleSubmit}>
+                <Button
+                  variant="primary"
+                  type="submit"
+                  className="p-0"
+                  style={{ cursor: "pointer" }}
+                  disabled={loading || reviewUnchanged}
+                >
+                  {loading ? <span>저장 중...</span> : "저장"}
+                </Button>
+              </Form>
             </div>
           </Modal.Footer>
           {/* 우하귀 리사이즈 핸들 */}
