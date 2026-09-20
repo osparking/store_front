@@ -173,95 +173,78 @@ export default function ReviewModalRead({
   );
 
   return (
-    <>
-      {/* <ConfirmationModal
-        show={showModal}
-        handleClose={() => setShowModal(false)}
-        handleConfirm={confirmDeletion}
-        bodyMessage="후기를 삭제하려면, 삭제 버튼을 누르십시오!"
-        title="후기 삭제 확인"
-        noLabel="취소"
-        yesLabel="삭제"
-        yesVariant="danger"
+    <MaximizeContext.Provider value={contextValue}>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        onEntered={handleEntered} // ✅ fade-in 완료 후 실행
+        onExited={handleExited} // ✅ fade-out 완료 후 실행
         backdrop="static"
-        headerBgColor="bg-warning"
-        modelClassName="modal-slide-down"
-        dialogClassName="review-deletion-confirmation-modal"
-      /> */}
-
-      <MaximizeContext.Provider value={contextValue}>
-        <Modal
-          show={show}
-          onHide={handleClose}
-          onEntered={handleEntered} // ✅ fade-in 완료 후 실행
-          onExited={handleExited} // ✅ fade-out 완료 후 실행
-          backdrop="static"
-          keyboard={false}
-          size="xl"
-          dialogClassName="quill-editor-modal"
-          dialogAs={DraggableDialog}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>{title}</Modal.Title>
-            <button
-              type="button"
-              className="maximize-btn"
-              onClick={toggleMaximize}
-              aria-label={isMaximized ? "복원" : "최대화"}
-              title={isMaximized ? "복원" : "최대화"}
-            >
-              {isMaximized ? "❐" : "⤢"}
-            </button>
-          </Modal.Header>
-          <Modal.Body id="review-modal-body">
-            <h5>주문명: {review && review.orderName}</h5>
-            <Rating
-              stars={stars}
-              setStars={setStars}
-              editable={false}
-              review={review}
-            />
-            {isEditorMounted && (
-              <MyQuillEditor
-                value={reviewContent}
-                onChange={setReviewContent}
-                editable={false}
-                getContent={() => reviewContent} // 현재 상태를 반환하는 함수 전달
-              />
-            )}
-          </Modal.Body>
-          <Modal.Footer>
-            <div className="center-buttons quill-buttons char2button">
-              <Button
-                variant="secondary"
-                type="button"
-                className="p-0"
-                onClick={handleClose}
-              >
-                닫기
-              </Button>
-            </div>
-          </Modal.Footer>
-          {/* 우하귀 리사이즈 핸들 */}
-          <div
-            className="resize-handle"
-            onMouseDown={handleMouseDown}
-            role="separator"
-            aria-label="Resize"
-            style={{
-              position: "absolute",
-              right: 0,
-              bottom: 0,
-              width: 18,
-              height: 18,
-              cursor: "nwse-resize",
-              zIndex: 1055,
-              background:
-                "linear-gradient(135deg, transparent 0 55%, #adb5bd 55% 60%, transparent 60% 70%, #adb5bd 70% 75%, transparent 75%)",
-            }}
+        keyboard={false}
+        size="xl"
+        dialogClassName="quill-editor-modal"
+        dialogAs={DraggableDialog}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>{title}</Modal.Title>
+          <button
+            type="button"
+            className="maximize-btn"
+            onClick={toggleMaximize}
+            aria-label={isMaximized ? "복원" : "최대화"}
+            title={isMaximized ? "복원" : "최대화"}
+          >
+            {isMaximized ? "❐" : "⤢"}
+          </button>
+        </Modal.Header>
+        <Modal.Body id="review-modal-body">
+          <h5>주문명: {review && review.orderName}</h5>
+          <Rating
+            stars={stars}
+            setStars={setStars}
+            editable={false}
+            review={review}
           />
-        </Modal>
-      </MaximizeContext.Provider>
-    </>
+          {isEditorMounted && (
+            <MyQuillEditor
+              value={reviewContent}
+              onChange={setReviewContent}
+              editable={false}
+              getContent={() => reviewContent} // 현재 상태를 반환하는 함수 전달
+            />
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <div className="center-buttons quill-buttons char2button">
+            <Button
+              variant="secondary"
+              type="button"
+              className="p-0"
+              onClick={handleClose}
+            >
+              닫기
+            </Button>
+          </div>
+        </Modal.Footer>
+        {/* 우하귀 리사이즈 핸들 */}
+        <div
+          className="resize-handle"
+          onMouseDown={handleMouseDown}
+          role="separator"
+          aria-label="Resize"
+          style={{
+            position: "absolute",
+            right: 0,
+            bottom: 0,
+            width: 18,
+            height: 18,
+            cursor: "nwse-resize",
+            zIndex: 1055,
+            background:
+              "linear-gradient(135deg, transparent 0 55%, #adb5bd 55% 60%, transparent 60% 70%, #adb5bd 70% 75%, transparent 75%)",
+          }}
+        />
+      </Modal>
+    </MaximizeContext.Provider>
   );
 }
