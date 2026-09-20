@@ -1,5 +1,5 @@
 import { format, subMonths } from "date-fns";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import { FaShapes } from "react-icons/fa6";
 import { LuPackageOpen } from "react-icons/lu";
@@ -10,10 +10,10 @@ import { getSoapsMonthUser } from "./UserService";
 import Grid from "@mui/material/Grid";
 import SoapsByMonth from "./charts/SoapsByMonth";
 import SoapsByShape from "./charts/SoapsByShape";
-import { ReviewsContext } from "./UserDashboard";
+import { useDashboard } from "./dashboard/DashboardContext";
 
 const OverviewUser = () => {
-  const { statVersion } = useContext(ReviewsContext);
+  const { statVersion } = useDashboard();
   const [soapsMonth, setSoapsMonth] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   const [totalSoaps, setTotalSoaps] = useState(0);

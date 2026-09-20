@@ -5,7 +5,7 @@ import Paginator from "../common/Paginator";
 import "../user/userDashboard.css";
 import { formatDate, getRecordRange } from "../util/utilities";
 import "./MyOrdersPage.css";
-import { ReviewsContext } from "../user/UserDashboard";
+import { useDashboard } from "../user/dashboard/DashboardContext";
 
 const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
   const [totalPages, setTotalPages] = useState(1);
@@ -20,8 +20,7 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
   const idxLastPlus1 = currentPage * pageSize;
   const indexOfFirst = idxLastPlus1 - pageSize;
 
-  const reviewContext = useContext(ReviewsContext);
-  let ordersVersion = reviewContext?.ordersVersion || undefined;
+  const { ordersVersion } = useDashboard();
   const loginId = localStorage.getItem("LOGIN_ID");
 
   useEffect(() => {

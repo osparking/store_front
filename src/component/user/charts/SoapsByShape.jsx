@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Legend, Pie, PieChart, Sector, Tooltip } from "recharts";
 import NoDataExists from "../../common/NoDataExists";
 import useColorMapping from "../../hook/ColorMapping";
 import { getShapeCount } from "../../user/UserService";
-import { ReviewsContext } from "../UserDashboard";
+import { useDashboard } from "../dashboard/DashboardContext";
 
 const SoapsByShape = ({ totalSoaps }) => {
-  const { statVersion } = useContext(ReviewsContext);  
+  const { statVersion } = useDashboard();
   const [shapeCount, setShapeCount] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);

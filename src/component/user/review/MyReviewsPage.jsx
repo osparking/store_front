@@ -1,19 +1,18 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 import "../../../App.css";
 import { getReviewPage } from "../../buy/orderService";
 import Paginator from "../../common/Paginator";
 import "../../home/home.css";
 import "../../pay_toss/MyOrdersPage.css";
 import { getRecordRange } from "../../util/utilities";
-import OrderDetail from "../../worker/order/OrderDetail";
-import { ReviewsContext } from "../UserDashboard";
+import OrderDetailEdit from "../../worker/order/OrderDetailEdit";
+import { useDashboard } from "../dashboard/DashboardContext";
 import "./MyReviewsPage.css";
 import MyReviewsTable from "./MyReviewsTable";
 
 const MyReviewsPage = () => {
-  const { reviewsVersion } = useContext(ReviewsContext);
+  const { reviewsVersion } = useDashboard();
   const [totalPages, setTotalPages] = useState(1);
   const [reviewPage, setReviewPage] = useState({});
   const [reviews, setReviews] = useState([]);
@@ -53,10 +52,9 @@ const MyReviewsPage = () => {
   return (
     <>
       {showDetail ? (
-        <OrderDetail
+        <OrderDetailEdit
           detailId={detailId}
           setShowDetail={setShowDetail}
-          isHouse={false}
         />
       ) : (
         <div
