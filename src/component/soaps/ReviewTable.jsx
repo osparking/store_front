@@ -6,6 +6,7 @@ import {
   fetchReview,
   fetchReviewPage,
 } from "../buy/orderService";
+import { MaximizeProvider } from "../common/MaximizeContext";
 import Paginator from "../common/Paginator";
 import RatingAvg from "../review/RatingAvg";
 import ReviewModalRead from "../review/ReviewModalRead";
@@ -65,12 +66,14 @@ const ReviewTable = () => {
 
   return (
     <Container fluid className="home-container mt-5">
-      <ReviewModalRead
-        show={showReviewModal}
-        handleClose={() => setShowReviewModal(false)}
-        title={"후기 읽기"}
-        review={review}
-      />
+      <MaximizeProvider>
+        <ReviewModalRead
+          show={showReviewModal}
+          handleClose={() => setShowReviewModal(false)}
+          title={"후기 읽기"}
+          review={review}
+        />
+      </MaximizeProvider>
       <Row className="justify-content-center mt-3">
         <Col id="reviewTable">
           <Card>

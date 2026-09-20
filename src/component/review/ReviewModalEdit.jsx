@@ -1,16 +1,10 @@
 import _ from "lodash";
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState
-} from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { patchOrderReview } from "../buy/orderService";
 import DraggableDialog from "../common/DraggableDialog";
-import { MaximizeContext } from "../common/MaximizeContext";
+import { MaximizeProvider } from "../common/MaximizeContext";
 import ConfirmationModal from "../modal/ConfirmationModal";
 import { useDashboard } from "../user/dashboard/DashboardContext";
 import MyQuillEditor from "../util/MyQuillEditor";
@@ -153,19 +147,6 @@ export default function ReviewModalEdit({
   const saveStateRef = useRef(null);
   const restoreStateRef = useRef(null);
 
-  const contextValue = useMemo(
-    () => ({
-      isMaximized,
-      registerSave: (fn) => {
-        saveStateRef.current = fn;
-      },
-      registerRestore: (fn) => {
-        restoreStateRef.current = fn;
-      },
-    }),
-    [isMaximized],
-  );
-
   const handleMouseDown = useCallback(
     (e) => {
       e.preventDefault();
@@ -232,7 +213,7 @@ export default function ReviewModalEdit({
         dialogClassName="review-deletion-confirmation-modal"
       />
 
-      <MaximizeContext.Provider value={contextValue}>
+      <MaximizeProvider>
         <Modal
           show={show}
           onHide={handleClose}
@@ -335,7 +316,7 @@ export default function ReviewModalEdit({
             }}
           />
         </Modal>
-      </MaximizeContext.Provider>
+      </MaximizeProvider>
     </>
   );
 }

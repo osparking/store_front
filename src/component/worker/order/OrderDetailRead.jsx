@@ -8,10 +8,8 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import "../../../App.css";
-import {
-  changeOrderStatus,
-  getOrderDetail
-} from "../../buy/orderService";
+import { changeOrderStatus, getOrderDetail } from "../../buy/orderService";
+import { MaximizeProvider } from "../../common/MaximizeContext";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import ReviewModalRead from "../../review/ReviewModalRead";
 import { useDashboard } from "../../user/dashboard/DashboardContext";
@@ -66,11 +64,11 @@ const OrderDetailRead = ({ detailId, setShowDetail }) => {
   const cjlogistics = "https://trace.cjlogistics.com/next/tracking.html?wblNo";
 
   const handleBottomButton = () => {
-      if (orderStatus === "후기 남김") {
-        setShowReviewModal(true);
-      } else {
-        showDeliveryStatus();
-      }
+    if (orderStatus === "후기 남김") {
+      setShowReviewModal(true);
+    } else {
+      showDeliveryStatus();
+    }
   };
 
   const handleConfirm = async () => {
@@ -138,10 +136,10 @@ const OrderDetailRead = ({ detailId, setShowDetail }) => {
     let label = undefined;
 
     if (status === "후기 남김") {
-        label = "후기 읽기";
-      } else {
-        label = "배송 조회";
-      }
+      label = "후기 읽기";
+    } else {
+      label = "배송 조회";
+    }
 
     return label;
   };
@@ -206,7 +204,7 @@ const OrderDetailRead = ({ detailId, setShowDetail }) => {
   };
 
   const handleTopButton = () => {
-      setShowReviewModal(true);
+    setShowReviewModal(true);
   };
 
   const closeReviewModal = (reloadOrder) => {
@@ -233,13 +231,14 @@ const OrderDetailRead = ({ detailId, setShowDetail }) => {
         yesLabel={getYesLabel(orderStatus)}
         dialogClassName="customer-confirm-modal"
       />
+      <MaximizeProvider>
         <ReviewModalRead
           show={showReviewModal}
           handleClose={closeReviewModal}
           title={getModalTitle(orderStatus)}
           review={review}
         />
-
+      </MaximizeProvider>
       {orderDetails && (
         <div id="orderDetails" className="main-container">
           <div className="orders_table_div darkBack">
@@ -280,10 +279,10 @@ const OrderDetailRead = ({ detailId, setShowDetail }) => {
                         <td className="oText">{orderDetails.order.customer}</td>
                       </tr>
 
-                        <tr>
-                          <th className="iLabel">주문자ID</th>
-                          <td className="oText">{orderDetails.order.userId}</td>
-                        </tr>
+                      <tr>
+                        <th className="iLabel">주문자ID</th>
+                        <td className="oText">{orderDetails.order.userId}</td>
+                      </tr>
                       <tr>
                         <th className="iLabel">지불금액</th>
                         <td className="oText">
