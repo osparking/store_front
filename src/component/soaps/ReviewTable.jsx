@@ -8,7 +8,7 @@ import {
 } from "../buy/orderService";
 import Paginator from "../common/Paginator";
 import RatingAvg from "../review/RatingAvg";
-import ReviewModal from "../review/ReviewModal";
+import ReviewModalRead from "../review/ReviewModalRead";
 import "./ReviewTable.css";
 
 const ReviewTable = () => {
@@ -65,12 +65,11 @@ const ReviewTable = () => {
 
   return (
     <Container fluid className="home-container mt-5">
-      <ReviewModal
+      <ReviewModalRead
         show={showReviewModal}
         handleClose={() => setShowReviewModal(false)}
         title={"후기 읽기"}
         review={review}
-        editable={false}
       />
       <Row className="justify-content-center mt-3">
         <Col id="reviewTable">

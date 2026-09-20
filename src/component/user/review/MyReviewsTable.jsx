@@ -1,10 +1,11 @@
 import { useState } from "react";
 import "../../../index.css";
 import { fetchReview } from "../../buy/orderService";
-import ReviewModal from "../../review/ReviewModal";
+import ReviewModalRead from "../../review/ReviewModalRead";
 import { formatDate } from "../../util/utilities";
 import "../userDashboard.css";
 import "./MyReviewsTable.css";
+import ReviewModalEdit from "../../review/ReviewModalEdit";
 
 const MyReviewsTable = (reviews) => {
   const reviewTableWidth = "820px";
@@ -40,12 +41,11 @@ const MyReviewsTable = (reviews) => {
   return (
     <div className="user-table-wrapper">
       <div className="table-header">
-        <ReviewModal
+        <ReviewModalEdit
           show={showReviewModal}
           handleClose={() => setShowReviewModal(false)}
           title={"후기 관리"}
           review={review}
-          editable={true}
         />
         <table
           className="table table-bordered table-hover table-striped"

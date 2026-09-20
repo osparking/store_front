@@ -1,7 +1,6 @@
-import React from "react";
-import "./CustomerDetails.css";
 import { Form, Table } from "react-bootstrap";
 import { insert2Hyphens } from "../util/utilities";
+import "./CustomerDetails.css";
 
 function CustomerDetails({ customer }) {
   const detailsItem = [

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import "../../App.css";
 import MyOrdersPage from "../pay_toss/MyOrdersPage";
-import OrderDetail from "../worker/order/OrderDetail";
+import OrderDetailEdit from "../worker/order/OrderDetailEdit";
 import "./ManageMyOrder.css";
 
 const ManageMyOrder = () => {
@@ -21,7 +21,7 @@ const ManageMyOrder = () => {
           </h2>
           {showDetail ? (
             <>
-              <OrderDetail detailId={detailId} isHouse={false} />
+              <OrderDetailEdit detailId={detailId} />
               <div className="d-flex justify-content-center align-items-center char4button">
                 <Button
                   variant="success"
