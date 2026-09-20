@@ -1,11 +1,10 @@
 // DraggableDialog.jsx
-import { forwardRef, useContext, useEffect, useRef, useState } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 import Draggable from "react-draggable";
-import { MaximizeContext } from "./MaximizeContext";
+import { useMaximize } from "./MaximizeContext";
 
 const DraggableDialog = forwardRef((props, ref) => {
-  const { isMaximized, registerSave, registerRestore } =
-    useContext(MaximizeContext);
+  const { isMaximized, registerSave, registerRestore } = useMaximize();
 
   // position을 ref로도 관리 (저장 시 최신값 접근)
   const positionRef = useRef({ x: 0, y: 0 });
@@ -30,6 +29,9 @@ const DraggableDialog = forwardRef((props, ref) => {
     positionRef.current = position;
   }, [position]);
 
+  // 최대화 직전 상태 저장
+  const savedRef = useRef(null);
+  
   useEffect(() => {
     registerSave(() => {
       const contentEl = contentRef.current;
@@ -67,9 +69,6 @@ const DraggableDialog = forwardRef((props, ref) => {
       onContentRef(contentRef.current);
     }
   }, [onContentRef]);
-
-  // 최대화 직전 상태 저장
-  const savedRef = useRef(null);
 
   // DOM에 붙은 뒤 실제 너비로 x 재계산
   useEffect(() => {
