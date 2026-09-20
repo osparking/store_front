@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "../../App.css";
+import { DashboardProvider } from "../user/dashboard/DashboardContext";
+import OrderDetailRead from "./order/OrderDetailRead";
 import OrderTable from "./order/OrderTable";
-import OrderDetail from "./order/OrderDetail";
 
 const ManageOrder = () => {
   const [showDetail, setShowDetail] = useState(false);
@@ -10,11 +11,9 @@ const ManageOrder = () => {
   return (
     <>
       {showDetail ? (
-        <OrderDetail
-          detailId={detailId}
-          setShowDetail={setShowDetail}
-          isHouse={true}
-        />
+        <DashboardProvider>
+          <OrderDetailRead detailId={detailId} setShowDetail={setShowDetail} />
+        </DashboardProvider>
       ) : (
         <OrderTable setShowDetail={setShowDetail} setDetailId={setDetailId} />
       )}

@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Dropdown, Tab, Tabs } from "react-bootstrap";
 import { useMediaQuery } from "react-responsive";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -6,14 +6,13 @@ import "../../index.css";
 import ManageQuestions from "../admin/ManageQuestions";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
+import { DashboardProvider } from "./dashboard/DashboardContext";
 import ManageMyOrder from "./ManageMyOrder";
 import OverviewUser from "./OverviewUser";
 import MyReviewsPage from "./review/MyReviewsPage";
 import "./userDashboard.css";
 import UserProfile from "./UserProfile";
 import { getUserDtoById } from "./UserService";
-
-export const ReviewsContext = createContext();
 
 const UserDashboard = () => {
   const location = useLocation();
@@ -70,12 +69,6 @@ const UserDashboard = () => {
   const isVeryNarrow = useMediaQuery({ maxWidth: 599 });
   const isVeryShort = useMediaQuery({ maxHeight: 599 });
   const isMedium = useMediaQuery({ minWidth: 600, maxWidth: 1199 });
-  const [reviewsVersion, setReviewsVersion] = useState(1);
-  const refreshReviews = () => setReviewsVersion((prev) => prev + 1);
-  const [ordersVersion, setOrdersVersion] = useState(1);
-  const refreshOrders = () => setOrdersVersion((prev) => prev + 1);
-  const [statVersion, setStatVersion] = useState(1);
-  const refreshStat = () => setStatVersion((prev) => prev + 1);
 
   const tabItems = [
     {
@@ -197,18 +190,7 @@ const UserDashboard = () => {
         content="올리브오일 엑스트라버진 수제비누 범이비누(BumSoap) 사용자 대시보드입니다."
       />
       <Container fluid className="home-container user-dashboard">
-        <ReviewsContext.Provider
-          value={{
-            reviewsVersion,
-            refreshReviews,
-            ordersVersion,
-            refreshOrders,
-            statVersion,
-            refreshStat,
-          }}
-        >
-          {dashBoardContent()}
-        </ReviewsContext.Provider>
+        <DashboardProvider>{dashBoardContent()}</DashboardProvider>
       </Container>
     </>
   );
