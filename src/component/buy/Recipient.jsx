@@ -27,8 +27,7 @@ const Recipient = () => {
     setAlertError,
   } = BsAlertHook();
 
-  const { focusPayButton, setFocusPayButton, putFocus2PayButton } =
-    usePayment();
+  const { focusPayButton, setFocusPayButton } = usePayment();
   const location = useLocation();
   const { source } = location.state || [];
   let productList = undefined;
@@ -295,12 +294,10 @@ const Recipient = () => {
               <Row className="justify-content-center pb-4 rowStyle">
                 <Col xs={11} md={9}>
                   <div className="table-container">
-                    <PayButtonContext.Provider value={{ putFocus2PayButton }}>
                       <RecipientInfo
                         addressDetailInputRef={addressDetailInputRef}
                         setFocusDetailedAddr={setFocusDetailedAddr}
                       />
-                    </PayButtonContext.Provider>
                   </div>
                 </Col>
               </Row>
