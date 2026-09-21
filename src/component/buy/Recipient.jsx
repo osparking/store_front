@@ -5,12 +5,13 @@ import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import ConfirmationModal from "../modal/ConfirmationModal.jsx";
 import { getDefaultRecipient } from "../user/UserService.js";
+import { mbPhoneOk } from "../util/utilities.js";
 import CheckoutCart from "./CheckoutCart";
 import { useOrderDataStore } from "./orderDataStore.js";
 import { getDeliveryFee } from "./orderService";
+import { usePayment } from "./PaymentContext.jsx";
 import "./recipient.css";
 import RecipientInfo from "./RecipientInfo";
-import { mbPhoneOk } from "../util/utilities.js";
 
 export const PayButtonContext = React.createContext();
 
@@ -26,6 +27,8 @@ const Recipient = () => {
     setAlertError,
   } = BsAlertHook();
 
+  const { focusPayButton, setFocusPayButton, putFocus2PayButton } =
+    usePayment();
   const location = useLocation();
   const { source } = location.state || [];
   let productList = undefined;
@@ -218,7 +221,6 @@ const Recipient = () => {
   };
 
   const payButtonRef = useRef(null);
-  const [focusPayButton, setFocusPayButton] = useState(false);
 
   useEffect(() => {
     if (focusPayButton && payButtonRef.current) {
@@ -229,10 +231,6 @@ const Recipient = () => {
       setFocusPayButton(false);
     }
   }, [focusPayButton]);
-
-  const putFocus2PayButton = () => {
-    setFocusPayButton(true);
-  };
 
   const addressDetailInputRef = useRef(null);
   const [focusDetailedAddr, setFocusDetailedAddr] = useState(false);

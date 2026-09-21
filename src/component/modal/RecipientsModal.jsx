@@ -1,11 +1,11 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Modal, Table } from "react-bootstrap";
-import { PayButtonContext } from "../buy/Recipient";
+import "../../App.css";
+import { useOrderDataStore } from "../buy/orderDataStore";
+import { usePayment } from "../buy/PaymentContext";
 import Paginator from "../common/Paginator";
 import { getMyRecipients } from "../user/UserService";
 import "./RecipientsModal.css";
-import { useOrderDataStore } from "../buy/orderDataStore";
-import "../../App.css";
 
 const RecipientsModal = ({ show, closer, setNoPurchaseHistory }) => {
   const { recipient, setMemberData } = useOrderDataStore();
@@ -56,7 +56,7 @@ const RecipientsModal = ({ show, closer, setNoPurchaseHistory }) => {
     loadRecipientPage();
   }, [currentPage]);
 
-  const { putFocus2PayButton } = useContext(PayButtonContext) || {};
+  const { putFocus2PayButton } = usePayment();
   const selectRecipient = (recipient) => {
     setMemberData("recipient", {
       ...recipient,
