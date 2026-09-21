@@ -8,10 +8,8 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import "../../../App.css";
-import {
-  changeOrderStatus,
-  getOrderDetail
-} from "../../buy/orderService";
+import { changeOrderStatus, getOrderDetail } from "../../buy/orderService";
+import { MaximizeProvider } from "../../common/MaximizeContext";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import ReviewModalEdit from "../../review/ReviewModalEdit";
 import { useDashboard } from "../../user/dashboard/DashboardContext";
@@ -233,12 +231,14 @@ const OrderDetailEdit = ({ detailId, setShowDetail }) => {
         yesLabel={getYesLabel(orderStatus)}
         dialogClassName="customer-confirm-modal"
       />
-      <ReviewModalEdit
-        show={showReviewModal}
-        handleClose={closeReviewModal}
-        title={getModalTitle(orderStatus)}
-        review={review}
-      />
+      <MaximizeProvider>
+        <ReviewModalEdit
+          show={showReviewModal}
+          handleClose={closeReviewModal}
+          title={getModalTitle(orderStatus)}
+          review={review}
+        />
+      </MaximizeProvider>
       {orderDetails && (
         <div id="orderDetails" className="main-container">
           <div className="orders_table_div darkBack">
