@@ -2,7 +2,7 @@ import _ from "lodash";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import DraggableDialog from "../common/DraggableDialog";
-import { MaximizeProvider, useMaximize } from "../common/MaximizeContext";
+import { useMaximize } from "../common/MaximizeContext";
 import MyQuillEditor from "../util/MyQuillEditor";
 import Rating from "./Rating";
 import "./ReviewModal.css";
