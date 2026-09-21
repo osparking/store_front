@@ -9,11 +9,13 @@ import "./App.css";
 import AdminCanvas from "./component/admin/AdminCanvas";
 import EmailVerifin from "./component/auth/EmailVerifin";
 import Login from "./component/auth/Login";
+import OAuth2Redirect from "./component/auth/OAuth2Redirect";
 import OAuth2RedirectHandler from "./component/auth/OAuth2RedirectHandler";
 import ProtectedRoute from "./component/auth/ProtectedRoute";
 import Unauthorized from "./component/auth/Unauthorized";
 import VerifyToken from "./component/auth/VerifyToken";
 import BuySoap from "./component/buy/BuySoap";
+import { PaymentProvider } from "./component/buy/PaymentContext";
 import Recipient from "./component/buy/Recipient";
 import Home from "./component/home/Home";
 import RootLayout from "./component/layout/RootLayout";
@@ -28,7 +30,6 @@ import RegisterUser from "./component/user/RegisterUser";
 import UserUpdate from "./component/user/UpdateUser";
 import UserDashboard from "./component/user/UserDashboard";
 import WorkerCanvas from "./component/worker/WorkerCanvas";
-import OAuth2Redirect from "./component/auth/OAuth2Redirect";
 
 function App() {
   const router = createBrowserRouter(
@@ -43,7 +44,7 @@ function App() {
         <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
         <Route path="/soap_intro" element={<SoapIntro />} />
         <Route path="/reviews" element={<ReviewTable />} />
-        <Route path="/oauth2/redirect" element={<OAuth2Redirect />} />        
+        <Route path="/oauth2/redirect" element={<OAuth2Redirect />} />
 
         {/* 인증이 필요한 루트 */}
         <Route
@@ -59,7 +60,14 @@ function App() {
           <Route path="/dashboard/:id/user" element={<UserDashboard />} />
           <Route path="/buy_soap" element={<BuySoap />} />
           <Route path="/shopping_cart" element={<BuySoap showCart={true} />} />
-          <Route path="/recipient" element={<Recipient />} />
+          <Route
+            path="/recipient"
+            element={
+              <PaymentProvider>
+                <Recipient />
+              </PaymentProvider>
+            }
+          />
           <Route path="/checkout" element={<WidgetCheckoutPage />} />
           <Route path="/success" element={<WidgetSuccessPage />} />
           <Route path="/fail" element={<FailPage />} />
