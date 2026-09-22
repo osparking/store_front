@@ -146,7 +146,6 @@ export const WorkerMgmtProvider = () => {
   };
 
   const manageFunctions = {
-    fetchWorkerPage,
     readDepts,
   };
 
@@ -158,6 +157,7 @@ export const WorkerMgmtProvider = () => {
           setShowDetails={setShowDetails}
           readOnly={!account.editable}
           handleDeletion={handleDeletion}
+          fetchWorkerPage={fetchWorkerPage}
         />
       ) : (
         <>
@@ -250,7 +250,7 @@ export const WorkerMgmtProvider = () => {
 
 export function useWorkerMgmt() {
   const context = useContext(WorkerMgmtContext);
-  
+
   if (!context) {
     throw new Error("useWorkerMgmt은 WorkerMgmtProvider 안에서 사용할 것.");
   }

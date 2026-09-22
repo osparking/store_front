@@ -15,7 +15,12 @@ import "../UserProfile.css";
 import { updateWorkerDept } from "../UserService";
 import "./UserDetails.css";
 
-const InfoCardWorker = ({ user, readOnly, handleDeletion }) => {
+const InfoCardWorker = ({
+  user,
+  readOnly,
+  handleDeletion,
+  fetchWorkerPage,
+}) => {
   const [newUser, setNewUser] = useState(user);
   const [userDept, setUserDept] = useState(user.dept);
 
@@ -137,7 +142,7 @@ const InfoCardWorker = ({ user, readOnly, handleDeletion }) => {
 
   const [showDelModal, setShowDelModal] = useState(false);
   const [delBtnDisabled, setDelBtnDisabled] = useState(false);
-  const { fetchWorkerPage, readDepts } = useWorkerMgmt();
+  const { readDepts } = useWorkerMgmt();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

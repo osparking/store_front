@@ -13,6 +13,7 @@ const UserProfile = ({
   setShowDetails,
   readOnly = false,
   handleDeletion,
+  fetchWorkerPage,
 }) => {
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [qrCodeUrl, setQrCodeUrl] = useState("");
@@ -66,6 +67,7 @@ const UserProfile = ({
                 user={user}
                 readOnly={readOnly}
                 handleDeletion={handleDeletion}
+                fetchWorkerPage={fetchWorkerPage}
               />
             ) : (
               <InfoCardUser
