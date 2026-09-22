@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import "../../App.css";
 import AdderModal from "../modal/AdderModal";
 import "./WorkerDeptSelector.css";
-import { getAllDept } from "./WorkerService";
+import { readDepts } from "../util/utilities";
 
 const WorkerDeptSelector = ({
   disabled = false,
@@ -16,15 +16,7 @@ const WorkerDeptSelector = ({
   const [showDeptAdder, setShowDeptAdder] = useState(false);
 
   useEffect(() => {
-    const readDepts = async () => {
-      try {
-        const response = await getAllDept();
-        setWorkerDepts(response.data);
-      } catch (error) {
-        console.error(error.response.data.message);
-      }
-    };
-    readDepts();
+    readDepts(setWorkerDepts);
   }, []);
 
   const handleDept = (event) => {
