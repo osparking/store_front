@@ -16,7 +16,7 @@ import ManagePriceFee from "./ManagePriceFee";
 import ManageQuestions from "./ManageQuestions";
 import Overview from "./Overview";
 import SidebarContent from "./SidebarContent";
-import { WorkerMgmtProvider } from "./WorkerMgmtContext";
+import { WorkerManagement } from "./WorkerManagement";
 
 const AdminCanvas = () => {
   const [showOffcanvas, setShowOffcanvas] = useState(false);
@@ -118,7 +118,7 @@ const AdminCanvas = () => {
                 {
                   Questions: <ManageQuestions />,
                   Overview: <Overview />,
-                  Employee: <WorkerMgmtProvider />,
+                  Employee: <WorkerManagement />,
                   Customer: <ManageCustomers />,
                   PriceFee: <ManagePriceFee />,
                 }[adminTab]
