@@ -20,19 +20,25 @@ export function MaximizeProvider({ children }) {
     }
   };
 
-  const maximizeValue = useMemo(() => {
+  const maximizeActions = useMemo(() => {
     return {
-      isMaximized,
-      setIsMaximized,
       registerSave: (fn) => {
         saveStateRef.current = fn;
       },
       registerRestore: (fn) => {
         restoreStateRef.current = fn;
       },
+    };
+  }, []);
+
+  const maximizeValue = useMemo(() => {
+    return {
+      ...maximizeActions,
+      isMaximized,
+      setIsMaximized,
       toggleMaximize,
     };
-  }, [isMaximized]);
+  }, [maximizeActions, isMaximized, toggleMaximize]);
 
   return (
     <MaximizeContext.Provider value={maximizeValue}>
@@ -43,7 +49,7 @@ export function MaximizeProvider({ children }) {
 
 export function useMaximize() {
   const context = useContext(MaximizeContext);
-  
+
   if (!context) {
     throw new Error("useMaximize는 MaximizeProvider 외부 사용 불가!");
   }
