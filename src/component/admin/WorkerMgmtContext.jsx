@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, Col, Row, Spinner } from "react-bootstrap";
 import { BsPlusSquareFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,19 +7,16 @@ import ItemFilter from "../common/ItemFilter";
 import Paginator from "../common/Paginator";
 import BsAlertHook from "../hook/BsAlertHook";
 import UserProfile from "../user/UserProfile";
-import { getRecordRange } from "../util/utilities";
+import { getRecordRange, readDepts } from "../util/utilities";
 import {
   deleteWorkerSoftly,
-  getAllDept,
-  getWorkerPage,
+  getWorkerPage
 } from "../worker/WorkerService";
 import "./AdminCanvas.css";
 import WorkersTable from "./WorkersTable";
 import "./WorkersTable.css";
 
-const WorkerMgmtContext = createContext();
-
-export const WorkerMgmtProvider = () => {
+export const WorkerManagement = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [workerPage, setWorkerPage] = useState({});
   const [workers, setWorkers] = useState([]);
@@ -43,7 +40,6 @@ export const WorkerMgmtProvider = () => {
     alertError,
     setAlertError,
   } = BsAlertHook();
-  const navigate = useNavigate();
 
   const [selectedDept, setSelectedDept] = useState(
     localStorage.getItem("SELECTED_DEPT") || "",
@@ -71,19 +67,11 @@ export const WorkerMgmtProvider = () => {
         setPageSize(response.pageSize);
         setAndSavePageNo(response.currentPage);
       }
+      readDepts(setDepartments);
     } catch (error) {
       console.error(error);
       setErrorMsg(error.message);
       setAlertError(true);
-    }
-  };
-
-  const readDepts = async () => {
-    try {
-      const response = await getAllDept();
-      setDepartments(response.data);
-    } catch (error) {
-      console.error(error.response?.data.message);
     }
   };
 
@@ -103,7 +91,7 @@ export const WorkerMgmtProvider = () => {
   const [departments, setDepartments] = useState([]);
 
   useEffect(() => {
-    readDepts();
+    readDepts(setDepartments);
   }, []);
 
   const handleClearFilter = () => {
@@ -145,12 +133,8 @@ export const WorkerMgmtProvider = () => {
     }
   };
 
-  const manageFunctions = {
-    readDepts,
-  };
-
   return (
-    <WorkerMgmtContext.Provider value={manageFunctions}>
+    <>
       {showDetails ? (
         <UserProfile
           user={account.worker}
@@ -244,15 +228,6 @@ export const WorkerMgmtProvider = () => {
           )}
         </>
       )}
-    </WorkerMgmtContext.Provider>
+    </>
   );
 };
-
-export function useWorkerMgmt() {
-  const context = useContext(WorkerMgmtContext);
-
-  if (!context) {
-    throw new Error("useWorkerMgmt은 WorkerMgmtProvider 안에서 사용할 것.");
-  }
-  return context;
-}
