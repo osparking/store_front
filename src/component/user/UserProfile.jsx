@@ -1,12 +1,10 @@
 import Grid from "@mui/material/Grid";
-import { useState } from "react";
 import { Button, Row } from "react-bootstrap";
 import BsAlertHook from "../hook/BsAlertHook";
-import { deleteUserPhoto } from "../modal/ImageService";
 import InfoCardUser from "./details/InfoCardUser";
+import InfoCardWorker from "./details/InfoCardWorker";
 import PasswordCard from "./details/PasswordCard";
 import "./UserProfile.css";
-import InfoCardWorker from "./details/InfoCardWorker";
 
 const UserProfile = ({
   user,
@@ -15,13 +13,8 @@ const UserProfile = ({
   handleDeletion,
   fetchWorkerPage,
 }) => {
-  const [showChangePassword, setShowChangePassword] = useState(false);
-  const [qrCodeUrl, setQrCodeUrl] = useState("");
-
   const loginId = localStorage.getItem("LOGIN_ID");
   const isAdmined = Number(loginId) !== user.id;
-  const isAdmin = JSON.parse(localStorage.getItem("IS_ADMIN"));
-  const [show2FA_modal, setShow2FA_modal] = useState(false);
 
   const {
     successMsg,
@@ -33,26 +26,6 @@ const UserProfile = ({
     alertError,
     setAlertError,
   } = BsAlertHook();
-
-  const [showPhotoDelModal, setShowPhotoDelModal] = useState(false);
-  const [delPhotoBtnDisabled, setDelPhotoBtnDisabled] = useState(false);
-
-  const removePhoto = async () => {
-    try {
-      setDelPhotoBtnDisabled(true);
-      const result = await deleteUserPhoto(user.id);
-      window.location.reload();
-    } catch (error) {
-      setErrorMsg(error.response.data.message);
-      setAlertError(true);
-    } finally {
-      setDelPhotoBtnDisabled(false);
-    }
-  };
-
-  const confirmPhotoRemoval = () => {
-    setShowPhotoDelModal(true);
-  };
 
   return (
     <>
