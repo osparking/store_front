@@ -56,7 +56,7 @@ const RecipientsModal = ({ show, closer, setNoPurchaseHistory }) => {
     loadRecipientPage();
   }, [currentPage]);
 
-  const { putFocus2PayButton } = usePayment();
+  const { setFocusPayButton } = usePayment();
   const selectRecipient = (recipient) => {
     setMemberData("recipient", {
       ...recipient,
@@ -73,7 +73,7 @@ const RecipientsModal = ({ show, closer, setNoPurchaseHistory }) => {
       },
     });
     closer();
-    putFocus2PayButton();
+    setFocusPayButton(true);
   };
 
   return (

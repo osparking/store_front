@@ -6,16 +6,7 @@ const PaymentContext = createContext(null);
 // 2. Provider 컴포넌트 정의
 export function PaymentProvider({ children }) {
   const [focusPayButton, setFocusPayButton] = useState(false);
-
-  const putFocus2PayButton = () => {
-    setFocusPayButton(true);
-  };
-
-  const paymentValue = {
-    focusPayButton,
-    setFocusPayButton,
-    putFocus2PayButton,
-  };
+  const paymentValue = { focusPayButton, setFocusPayButton };
 
   return (
     <PaymentContext.Provider value={paymentValue}>
