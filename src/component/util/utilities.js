@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { getAllDept } from "../worker/WorkerService";
 
 /**
  * 문자열에서 정한 길이의 접미사를 취하고, 그 중 첫 공백 우측 부분을 반환한다.
@@ -334,4 +335,13 @@ export function isValidEmail(email) {
 
 export const mbPhoneOk = (mbPhone) => {
   return mbPhone.length === 11 || mbPhone.length === 10;
+};
+
+export const readDepts = async (setter) => {
+  try {
+    const response = await getAllDept();
+    setter(response.data);
+  } catch (error) {
+    console.error(error.response.data.message);
+  }
 };

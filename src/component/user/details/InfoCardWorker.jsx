@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Button, Card, Form, Table } from "react-bootstrap";
 import toast from "react-hot-toast";
 import "../../../App.css";
-import { useWorkerMgmt } from "../../admin/WorkerMgmtContext";
 import QRcodeBox from "../../auth/QRcodeBox";
 import BsAlertHook from "../../hook/BsAlertHook";
 import ConfirmationModal from "../../modal/ConfirmationModal";
@@ -142,7 +141,6 @@ const InfoCardWorker = ({
 
   const [showDelModal, setShowDelModal] = useState(false);
   const [delBtnDisabled, setDelBtnDisabled] = useState(false);
-  const { readDepts } = useWorkerMgmt();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -159,7 +157,6 @@ const InfoCardWorker = ({
       setUserDept(newUser.dept);
       localStorage.removeItem("SELECTED_DEPT");
       fetchWorkerPage();
-      readDepts();
 
       toast.success(response.message);
       setSuccessMsg(response.message);
