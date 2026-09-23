@@ -15,7 +15,6 @@ import ProtectedRoute from "./component/auth/ProtectedRoute";
 import Unauthorized from "./component/auth/Unauthorized";
 import VerifyToken from "./component/auth/VerifyToken";
 import BuySoap from "./component/buy/BuySoap";
-import { PaymentProvider } from "./component/buy/PaymentContext";
 import Recipient from "./component/buy/Recipient";
 import Home from "./component/home/Home";
 import RootLayout from "./component/layout/RootLayout";
