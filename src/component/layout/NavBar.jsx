@@ -129,7 +129,7 @@ const NavBar = () => {
   };
 
   const userId = localStorage.getItem("LOGIN_ID");
-  const loggedOut = !getStorageToken() && !userId;
+  const loggedOut = !getStorageToken() || !userId;
 
   const logoutNavBar = async () => {
     try {
