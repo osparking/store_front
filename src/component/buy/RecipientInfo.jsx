@@ -7,7 +7,11 @@ import AddressModal from "./AddressModal";
 import { useOrderDataStore } from "./orderDataStore.js";
 import "./RecipientInfo.css";
 
-const RecipientInfo = ({ addressDetailInputRef, setFocusDetailedAddr }) => {
+const RecipientInfo = ({
+  addressDetailInputRef,
+  setFocusDetailedAddr,
+  setFocusPayButton,
+}) => {
   const { recipient, setMemberData } = useOrderDataStore();
 
   const [phoneNumber, setPhoneNumber] = useState(recipient?.formUse?.mbPhone);
@@ -243,6 +247,7 @@ const RecipientInfo = ({ addressDetailInputRef, setFocusDetailedAddr }) => {
           setShowRecipientsModal(false);
         }}
         setNoPurchaseHistory={setNoPurchaseHistory}
+        setFocusPayButton={setFocusPayButton}
       />
     </div>
   );

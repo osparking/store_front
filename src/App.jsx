@@ -60,14 +60,7 @@ function App() {
           <Route path="/dashboard/:id/user" element={<UserDashboard />} />
           <Route path="/buy_soap" element={<BuySoap />} />
           <Route path="/shopping_cart" element={<BuySoap showCart={true} />} />
-          <Route
-            path="/recipient"
-            element={
-              <PaymentProvider>
-                <Recipient />
-              </PaymentProvider>
-            }
-          />
+          <Route path="/recipient" element={<Recipient />} />
           <Route path="/checkout" element={<WidgetCheckoutPage />} />
           <Route path="/success" element={<WidgetSuccessPage />} />
           <Route path="/fail" element={<FailPage />} />

@@ -9,7 +9,6 @@ import { mbPhoneOk } from "../util/utilities.js";
 import CheckoutCart from "./CheckoutCart";
 import { useOrderDataStore } from "./orderDataStore.js";
 import { getDeliveryFee } from "./orderService";
-import { usePayment } from "./PaymentContext.jsx";
 import "./recipient.css";
 import RecipientInfo from "./RecipientInfo";
 
@@ -27,7 +26,7 @@ const Recipient = () => {
     setAlertError,
   } = BsAlertHook();
 
-  const { focusPayButton, setFocusPayButton } = usePayment();
+  const [focusPayButton, setFocusPayButton] = useState(false);  
   const location = useLocation();
   const { source } = location.state || [];
   let productList = undefined;
@@ -297,6 +296,7 @@ const Recipient = () => {
                       <RecipientInfo
                         addressDetailInputRef={addressDetailInputRef}
                         setFocusDetailedAddr={setFocusDetailedAddr}
+                        setFocusPayButton={setFocusPayButton}
                       />
                   </div>
                 </Col>

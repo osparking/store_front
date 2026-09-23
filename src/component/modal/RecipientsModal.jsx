@@ -2,12 +2,16 @@ import { useEffect, useState } from "react";
 import { Button, Modal, Table } from "react-bootstrap";
 import "../../App.css";
 import { useOrderDataStore } from "../buy/orderDataStore";
-import { usePayment } from "../buy/PaymentContext";
 import Paginator from "../common/Paginator";
 import { getMyRecipients } from "../user/UserService";
 import "./RecipientsModal.css";
 
-const RecipientsModal = ({ show, closer, setNoPurchaseHistory }) => {
+const RecipientsModal = ({
+  show,
+  closer,
+  setNoPurchaseHistory,
+  setFocusPayButton,
+}) => {
   const { recipient, setMemberData } = useOrderDataStore();
   const [recipients, setRecipients] = useState([]);
   const [recipientPage, setRecipientPage] = useState({});
@@ -56,7 +60,6 @@ const RecipientsModal = ({ show, closer, setNoPurchaseHistory }) => {
     loadRecipientPage();
   }, [currentPage]);
 
-  const { setFocusPayButton } = usePayment();
   const selectRecipient = (recipient) => {
     setMemberData("recipient", {
       ...recipient,
