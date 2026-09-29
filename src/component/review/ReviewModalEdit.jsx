@@ -12,6 +12,7 @@ import { callWithToken } from "../util/api";
 import { getPlainContent } from "../util/utilities";
 import Rating from "./Rating";
 import "./ReviewModal.css";
+import axios from "axios";
 
 export default function ReviewModalEdit({
   show,
@@ -62,9 +63,12 @@ export default function ReviewModalEdit({
     if (!show) setIsMaximized(false);
   }, [show]);
 
+  const [originalContent, setOriginalContent] = useState(null);
+
   useEffect(() => {
     if (review) {
       setReviewContent(review.review);
+      !originalContent && setOriginalContent(review.review);
       setStars(review.stars);
     }
   }, [review]);
@@ -105,6 +109,30 @@ export default function ReviewModalEdit({
     return reviewContent ? getPlainContent(reviewContent).length : 0;
   };
 
+  const handleDeletedMedia = () => {
+    // 원래 리뷰의 URL 모으기
+    const srcRegex = /src=["']([^"']+)["']/g;
+    const urlsBefore = new Set();
+    const urlsAfter = new Set();
+    let match;
+
+    while ((match = srcRegex.exec(originalContent)) !== null) {
+      urlsBefore.add(match[1]);
+    }
+
+    while ((match = srcRegex.exec(reviewContent)) !== null) {
+      urlsAfter.add(match[1]);
+    }
+    const diff = new Set([...urlsBefore].filter((x) => !urlsAfter.has(x)));
+
+    for (const url of diff) {
+      console.log(url);
+      callWithToken("POST", "/media/delete_url", { fileUrl: url }).catch(
+        (err) => console.warn("미디어 삭제 실패:", url, err),
+      );
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (getTextLength() === 0) {
@@ -115,7 +143,8 @@ export default function ReviewModalEdit({
 
       const reviewData = { id: review.id, stars: stars, review: reviewContent };
       const result = await patchOrderReview(reviewData);
-
+      handleDeletedMedia();
+      setOriginalContent(reviewContent);
       toast.success(result);
       refreshReviews();
       refreshOrders();
