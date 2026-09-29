@@ -11,6 +11,7 @@ import ConfirmationModal from "../../modal/ConfirmationModal";
 import { getPlainContent } from "../../util/utilities";
 import "./QuestionEditor.css";
 import { saveQuestion } from "./QuestionService";
+import { useQuillMediaHandlers } from "../../editor/useQuillMediaHandlers";
 
 function QuestionEditor({
   question,
@@ -118,20 +119,6 @@ function QuestionEditor({
     }
   };
 
-  // Custom toolbar configuration
-  const modules = {
-    toolbar: [
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ["bold", "italic", "underline", "strike"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ indent: "-1" }, { indent: "+1" }],
-      [{ color: [] }, { background: [] }],
-      [{ align: [] }],
-      ["link", "image", "video"],
-      ["clean"],
-    ],
-  };
-
   const formats = [
     "header",
     "bold",
@@ -146,10 +133,35 @@ function QuestionEditor({
     "link",
     "image",
     "video",
+    "customVideo",
   ];
 
   // 제목 상자에 탭 핸들러 추가: 내용 편집기로 촛점 이동
-  const quillRef = useRef(null);
+  // const quillRef = useRef(null);
+  const { quillRef, imageHandler, videoHandler } = useQuillMediaHandlers(
+    () => editorContent,
+  );
+
+  // Custom toolbar configuration
+  const modules = {
+    toolbar: {
+      container: [
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        ["bold", "italic", "underline", "strike"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        [{ indent: "-1" }, { indent: "+1" }],
+        [{ color: [] }, { background: [] }],
+        [{ align: [] }],
+        ["link", "image", "video"],
+        ["clean"],
+      ],
+      handlers: {
+        image: imageHandler,
+        video: videoHandler,
+      },
+    },
+  };
+
   const titleRef = useRef(null);
 
   useEffect(() => {
