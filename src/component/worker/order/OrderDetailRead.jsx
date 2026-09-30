@@ -95,17 +95,6 @@ const OrderDetailRead = ({ detailId, setShowDetail }) => {
     }
   };
 
-  // const saveReview = async (reviewData) => {
-  //   setShowReviewModal(false);
-  //   let nextStatus = "후기 남김";
-  //   await patchOrderReview(reviewData);
-  //   setOrderStatus(nextStatus);
-  //   readOrderDetail();
-  //   if (!isHouse) {
-  //     refreshReviews();
-  //   }
-  // };
-
   const getBodyMessage = (status) => {
     if (!orderDetails) return;
 

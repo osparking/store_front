@@ -143,13 +143,15 @@ export default function ReviewModalEdit({
 
       const reviewData = { id: review.id, stars: stars, review: reviewContent };
       const result = await patchOrderReview(reviewData);
+
       handleDeletedMedia();
-      setOriginalContent(reviewContent);
-      toast.success(result);
+      setOriginalContent(result.data.htmlPromoted);
+      setReviewContent(result.data.htmlPromoted);
+      review.review = result.data.htmlPromoted;
+      toast.success(result.message);
+      setReviewUnchanged(true);
       refreshReviews();
       refreshOrders();
-
-      handleClose();
     } catch (err) {
       console.error("err: ", err);
       toast.error("오류 - " + err.response.data.message);
