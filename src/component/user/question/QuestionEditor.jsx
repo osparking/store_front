@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import _ from "lodash";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Button, Card, Form, Spinner } from "react-bootstrap";
 import toast from "react-hot-toast";
 import ReactQuill from "react-quill-new";
@@ -119,22 +119,25 @@ function QuestionEditor({
     }
   };
 
-  const formats = [
-    "header",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "list",
-    "indent",
-    "color",
-    "background",
-    "align",
-    "link",
-    "image",
-    "video",
-    "customVideo",
-  ];
+  const formats = useMemo(
+    () => [
+      "header",
+      "bold",
+      "italic",
+      "underline",
+      "strike",
+      "list",
+      "indent",
+      "color",
+      "background",
+      "align",
+      "link",
+      "image",
+      "video",
+      "customVideo",
+    ],
+    [],
+  );
 
   // 제목 상자에 탭 핸들러 추가: 내용 편집기로 촛점 이동
   // const quillRef = useRef(null);
@@ -143,24 +146,27 @@ function QuestionEditor({
   );
 
   // Custom toolbar configuration
-  const modules = {
-    toolbar: {
-      container: [
-        [{ header: [1, 2, 3, 4, 5, 6, false] }],
-        ["bold", "italic", "underline", "strike"],
-        [{ list: "ordered" }, { list: "bullet" }],
-        [{ indent: "-1" }, { indent: "+1" }],
-        [{ color: [] }, { background: [] }],
-        [{ align: [] }],
-        ["link", "image", "video"],
-        ["clean"],
-      ],
-      handlers: {
-        image: imageHandler,
-        video: videoHandler,
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: [
+          [{ header: [1, 2, 3, 4, 5, 6, false] }],
+          ["bold", "italic", "underline", "strike"],
+          [{ list: "ordered" }, { list: "bullet" }],
+          [{ indent: "-1" }, { indent: "+1" }],
+          [{ color: [] }, { background: [] }],
+          [{ align: [] }],
+          ["link", "image", "video"],
+          ["clean"],
+        ],
+        handlers: {
+          image: imageHandler,
+          video: videoHandler,
+        },
       },
-    },
-  };
+    }),
+    [],
+  );
 
   const titleRef = useRef(null);
 
