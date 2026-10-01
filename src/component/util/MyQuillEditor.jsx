@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Container } from "react-bootstrap";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css"; // Import styles
@@ -34,43 +34,49 @@ function MyQuillEditor({
   };
 
   // Custom toolbar configuration
-  const modules = {
-    toolbar: editable
-      ? {
-          container: [
-            [{ header: [1, 2, 3, 4, 5, 6, false] }],
-            ["bold", "italic", "underline", "strike"],
-            [{ list: "ordered" }, { list: "bullet" }],
-            [{ indent: "-1" }, { indent: "+1" }],
-            [{ color: [] }, { background: [] }],
-            [{ align: [] }],
-            ["link", "image", "video"],
-            ["clean"],
-          ],
-          handlers: {
-            image: imageHandler,
-            video: videoHandler,
-          },
-        }
-      : false,
-  };
+  const modules = useMemo(
+    () => ({
+      toolbar: editable
+        ? {
+            container: [
+              [{ header: [1, 2, 3, 4, 5, 6, false] }],
+              ["bold", "italic", "underline", "strike"],
+              [{ list: "ordered" }, { list: "bullet" }],
+              [{ indent: "-1" }, { indent: "+1" }],
+              [{ color: [] }, { background: [] }],
+              [{ align: [] }],
+              ["link", "image", "video"],
+              ["clean"],
+            ],
+            handlers: {
+              image: imageHandler,
+              video: videoHandler,
+            },
+          }
+        : false,
+    }),
+    [],
+  );
 
-  const formats = [
-    "header",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "list",
-    "indent",
-    "color",
-    "background",
-    "align",
-    "link",
-    "image",
-    "video",
-    "customVideo",
-  ];
+  const formats = useMemo(
+    () => [
+      "header",
+      "bold",
+      "italic",
+      "underline",
+      "strike",
+      "list",
+      "indent",
+      "color",
+      "background",
+      "align",
+      "link",
+      "image",
+      "video",
+      "customVideo",
+    ],
+    [],
+  );
 
   return (
     <Container className="mt-4">

@@ -90,34 +90,41 @@ function FollowUpEditor({
   };
 
   // Custom toolbar configuration
-  const modules = {
-    toolbar: [
-      [{ header: [1, 2, 3, 4, 5, 6, false] }],
-      ["bold", "italic", "underline", "strike"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ indent: "-1" }, { indent: "+1" }],
-      [{ color: [] }, { background: [] }],
-      [{ align: [] }],
-      ["link", "image", "video"],
-      ["clean"],
-    ],
-  };
+  const modules = useMemo(
+    () => ({
+      toolbar: [
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        ["bold", "italic", "underline", "strike"],
+        [{ list: "ordered" }, { list: "bullet" }],
+        [{ indent: "-1" }, { indent: "+1" }],
+        [{ color: [] }, { background: [] }],
+        [{ align: [] }],
+        ["link", "image", "video"],
+        ["clean"],
+      ],
+    }),
+    [],
+  );
 
-  const formats = [
-    "header",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "list",
-    "indent",
-    "color",
-    "background",
-    "align",
-    "link",
-    "image",
-    "video",
-  ];
+  const formats = useMemo(
+    () => [
+      "header",
+      "bold",
+      "italic",
+      "underline",
+      "strike",
+      "list",
+      "indent",
+      "color",
+      "background",
+      "align",
+      "link",
+      "image",
+      "video",
+      "customVideo",
+    ],
+    [],
+  );
 
   const [showModal, setShowModal] = useState(false);
 
