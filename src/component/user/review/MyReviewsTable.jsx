@@ -96,7 +96,7 @@ const MyReviewsTable = (reviews) => {
                       {review.reviewPreview}
                     </button>
                   </td>
-                  <td>{review.reviewTime}</td>
+                  <td>{formatDate(review.reviewTime)}</td>
                 </tr>
               ))}
           </tbody>
