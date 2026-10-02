@@ -12,7 +12,6 @@ import { callWithToken } from "../util/api";
 import { getPlainContent } from "../util/utilities";
 import Rating from "./Rating";
 import "./ReviewModal.css";
-import axios from "axios";
 
 export default function ReviewModalEdit({
   show,
@@ -143,7 +142,8 @@ export default function ReviewModalEdit({
 
       const reviewData = { id: review.id, stars: stars, review: reviewContent };
       const result = await patchOrderReview(reviewData);
-
+      
+      review.reviewTime = result.data.reviewTime;
       handleDeletedMedia();
       setOriginalContent(result.data.htmlPromoted);
       setReviewContent(result.data.htmlPromoted);

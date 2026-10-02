@@ -31,11 +31,14 @@ const MyReviewsTable = (reviews) => {
   };
 
   const [review, setReview] = useState({});
-
   const manageReview = async (review) => {
-    const reviewInfo = await fetchReview(review.id);
-    setReview({ ...review, review: reviewInfo.review });
-    setShowReviewModal(true);
+    try {
+      const reviewInfo = await fetchReview(review.id);
+      setReview({ ...review, review: reviewInfo.review });
+      setShowReviewModal(true);
+    } catch (error) {
+      console.error("Error fetching review:", error);
+    }
   };
 
   return (
