@@ -28,6 +28,10 @@ form.question-editor-window {
   margin-top: 0 !important;
 }
 
+.customerQuestionCard .card-body {
+  min-width: 461px;
+}
+
 #questionEditorContainer {
   max-height: calc(100vh - 62px);
   align-items: center;
@@ -37,7 +41,7 @@ form.question-editor-window {
   height: fit-content;
 }
 
-.main-content > #questionEditorContainer {
+.main-content>#questionEditorContainer {
   position: relative;
   top: 62px;
   height: calc(100vh - 62px);
