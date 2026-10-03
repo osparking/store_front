@@ -12,6 +12,7 @@ import { getRecordRange } from "../util/utilities";
 import "./ManageQuestions.css";
 import QuestionFollowUpModal from "./QuestionFollowUpModal";
 import QuestionsTable from "./QuestionsTable";
+import { MaximizeProvider } from "../common/MaximizeContext";
 
 const ManageQuestions = ({ mine }) => {
   const [totalPages, setTotalPages] = useState(1);
@@ -80,14 +81,16 @@ const ManageQuestions = ({ mine }) => {
 
   return (
     <>
-      <QuestionFollowUpModal
-        show={showQuestionFollowUpModal}
-        handleClose={() => setShowQuestionFollowUpModal(false)}
-        question={question}
-        saveAnswer={saveAnswer}
-        mine={mine}
-        setReloadPage={setReloadPage}
-      />
+      <MaximizeProvider>
+        <QuestionFollowUpModal
+          show={showQuestionFollowUpModal}
+          handleClose={() => setShowQuestionFollowUpModal(false)}
+          question={question}
+          saveAnswer={saveAnswer}
+          mine={mine}
+          setReloadPage={setReloadPage}
+        />
+      </MaximizeProvider>
       <div
         className="justify-content-center align-items-center my-card-container"
         style={{ display: "flex", width: "100%" }}

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import toast from "react-hot-toast";
 import FollowUpEditor from "../user/question/FollowUpEditor";
@@ -7,6 +6,7 @@ import QuestionEditor from "../user/question/QuestionEditor";
 import { deleteQuestion } from "../user/question/QuestionService";
 import QuestionViewer from "../user/question/QuestionViewer";
 import "./QuestionFollowUpModal.css";
+import DraggableDialog from "../common/DraggableDialog";
 
 export default function QuestionFollowUpModal({
   show,
@@ -43,6 +43,7 @@ export default function QuestionFollowUpModal({
       keyboard={false}
       dialogClassName="quill-editor-modal"
       style={{ borderRadius: "8px" }}
+      dialogAs={DraggableDialog}
     >
       <Modal.Header closeButton>
         <Modal.Title>질문 및 답변(질문 제목: {question.title})</Modal.Title>
