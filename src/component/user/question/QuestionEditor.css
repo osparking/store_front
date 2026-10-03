@@ -12,17 +12,17 @@ form.question-editor-window {
 
 .ql-editor {
   background-color: ivory;
+  max-height: 500px;
 }
 
 .ql-container {
   background-color: white;
   font-size: 16px;
-  height: 180px;
 }
 
 .customerQuestionCard {
   width: 100%;
-  max-width: 775px;
+  max-width: 1075px;
   background-color: white;
   border-radius: 6px;
   margin-top: 0 !important;

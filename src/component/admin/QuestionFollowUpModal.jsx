@@ -8,6 +8,7 @@ import QuestionViewer from "../user/question/QuestionViewer";
 import "./QuestionFollowUpModal.css";
 import DraggableDialog from "../common/DraggableDialog";
 import { useCallback, useRef, useState } from "react";
+import { useMaximize } from "../common/MaximizeContext";
 
 export default function QuestionFollowUpModal({
   show,
@@ -108,6 +109,8 @@ export default function QuestionFollowUpModal({
     contentRef.current = null; // 정리
   };
 
+  const { isMaximized, setIsMaximized, toggleMaximize } = useMaximize();
+
   return (
     <Modal
       id="question-followup-modal"
@@ -123,6 +126,15 @@ export default function QuestionFollowUpModal({
     >
       <Modal.Header closeButton>
         <Modal.Title>질문 및 답변(질문 제목: {question.title})</Modal.Title>
+        <button
+          type="button"
+          className="maximize-btn"
+          onClick={toggleMaximize}
+          aria-label={isMaximized ? "복원" : "최대화"}
+          title={isMaximized ? "복원" : "최대화"}
+        >
+          {isMaximized ? "❐" : "⤢"}
+        </button>
       </Modal.Header>
       <Modal.Body className="h-limited-body">
         {showFollowUpEditor && (
