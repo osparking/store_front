@@ -17,4 +17,16 @@ export default defineConfig({
     // 브라우저에서 process.env를 참조할 수 있도록 빈 객체로 정의
     "process.env": {},
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("recharts")) {
+            return "recharts-vendor";
+          }
+          // 기타 벤더 분리...
+        },
+      },
+    },
+  },
 });

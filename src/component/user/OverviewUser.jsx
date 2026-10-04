@@ -1,5 +1,5 @@
 import { format, subMonths } from "date-fns";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState, lazy } from "react";
 import { Card } from "react-bootstrap";
 import { FaShapes } from "react-icons/fa6";
 import { LuPackageOpen } from "react-icons/lu";
@@ -8,9 +8,10 @@ import "./OverviewUser.css";
 import { getSoapsMonthUser } from "./UserService";
 
 import Grid from "@mui/material/Grid";
-import SoapsByMonth from "./charts/SoapsByMonth";
-import SoapsByShape from "./charts/SoapsByShape";
 import { useDashboard } from "./dashboard/DashboardContext";
+
+const SoapsByMonth = lazy(() => import("./charts/SoapsByMonth"));
+const SoapsByShape = lazy(() => import("./charts/SoapsByShape"));
 
 const OverviewUser = () => {
   const { statVersion } = useDashboard();
@@ -95,7 +96,12 @@ const OverviewUser = () => {
           <div className="chart-container">
             {soapsMonth && soapsMonth.length > 0 && (
               <div className="chartDiv byMonth">
-                <SoapsByMonth totalSoaps={totalSoaps} soapsMonth={soapsMonth} />
+                <Suspense fallback={<div>차트 로딩 중...</div>}>
+                  <SoapsByMonth
+                    totalSoaps={totalSoaps}
+                    soapsMonth={soapsMonth}
+                  />
+                </Suspense>
               </div>
             )}
           </div>
@@ -110,7 +116,9 @@ const OverviewUser = () => {
           />
           <div className="chart-container">
             <div className="chartDiv">
-              <SoapsByShape totalSoaps={totalSoaps} />
+              <Suspense fallback={<div>차트 로딩 중...</div>}>
+                <SoapsByShape totalSoaps={totalSoaps} />
+              </Suspense>
             </div>
           </div>
         </Card>

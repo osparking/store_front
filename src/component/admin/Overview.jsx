@@ -1,17 +1,18 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { Card } from "react-bootstrap";
 import { BsPeopleFill } from "react-icons/bs";
 import { FaPeopleGroup } from "react-icons/fa6";
-import { HiOutlineRectangleGroup } from "react-icons/hi2";
 import { FcMoneyTransfer } from "react-icons/fc";
+import { HiOutlineRectangleGroup } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import CardCompo from "../card/CardCompo";
-import ProduceChart from "../chart/ProduceChart";
-import SalesChart from "../chart/SalesChart";
-import UserChart from "../chart/UserChart";
-import WorkerChart from "../chart/WorkerChart";
 import { callWithToken } from "../util/api";
 import "./Overview.css";
+
+const ProduceChart = lazy(() => import("../chart/ProduceChart"));
+const SalesChart = lazy(() => import("../chart/SalesChart"));
+const UserChart = lazy(() => import("../chart/UserChart"));
+const WorkerChart = lazy(() => import("../chart/WorkerChart"));
 
 const Overview = () => {
   const [userCount, setUserCount] = useState(0);
@@ -97,22 +98,30 @@ const Overview = () => {
         <Card.Body className="p-0">
           <div className="charts">
             <div className="chart-container">
-              <UserChart chartRefs={chartRefs} />
+              <Suspense fallback={<div>차트 로딩 중...</div>}>
+                <UserChart chartRefs={chartRefs} />
+              </Suspense>
             </div>
             <div className="chart-container">
-              <ProduceChart
-                chartRefs={chartRefs}
-                setProducedCount={setProducedCount}
-              />
+              <Suspense fallback={<div>차트 로딩 중...</div>}>
+                <ProduceChart
+                  chartRefs={chartRefs}
+                  setProducedCount={setProducedCount}
+                />
+              </Suspense>
             </div>
             <div className="chart-container">
-              <SalesChart chartRefs={chartRefs} setSoldCount={setSoldCount} />
+              <Suspense fallback={<div>차트 로딩 중...</div>}>
+                <SalesChart chartRefs={chartRefs} setSoldCount={setSoldCount} />
+              </Suspense>
             </div>
             <div className="chart-container">
-              <WorkerChart
-                setEmployeeCount={setEmployeeCount}
-                chartRefs={chartRefs}
-              />
+              <Suspense fallback={<div>차트 로딩 중...</div>}>
+                <WorkerChart
+                  setEmployeeCount={setEmployeeCount}
+                  chartRefs={chartRefs}
+                />
+              </Suspense>
             </div>
           </div>
         </Card.Body>
