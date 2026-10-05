@@ -3,16 +3,18 @@ import { Container, Dropdown, Tab, Tabs } from "react-bootstrap";
 import { useMediaQuery } from "react-responsive";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "../../index.css";
-import ManageQuestions from "../admin/ManageQuestions";
 import AlertMessage from "../common/AlertMessage";
 import BsAlertHook from "../hook/BsAlertHook";
 import { DashboardProvider } from "./dashboard/DashboardContext";
-import ManageMyOrder from "./ManageMyOrder";
-import OverviewUser from "./OverviewUser";
-import MyReviewsPage from "./review/MyReviewsPage";
 import "./userDashboard.css";
-import UserProfile from "./UserProfile";
 import { getUserDtoById } from "./UserService";
+
+import { lazy, Suspense } from "react";
+const OverviewUser = lazy(() => import("./OverviewUser"));
+const ManageQuestions = lazy(() => import("../admin/ManageQuestions"));
+const ManageMyOrder = lazy(() => import("./ManageMyOrder"));
+const MyReviewsPage = lazy(() => import("./review/MyReviewsPage"));
+const UserProfile = lazy(() => import("./UserProfile"));
 
 const UserDashboard = () => {
   const location = useLocation();
@@ -76,7 +78,15 @@ const UserDashboard = () => {
       title: "내 프로필",
       component: user && <UserProfile user={user} />,
     },
-    { key: "purchase_stat", title: "구매 통계", component: <OverviewUser /> },
+    {
+      key: "purchase_stat",
+      title: "구매 통계",
+      component: (
+        <Suspense fallback={<div>차트 로딩 중...</div>}>
+          <OverviewUser />
+        </Suspense>
+      ),
+    },
     {
       key: "purchase_list",
       title: "나의 주문",

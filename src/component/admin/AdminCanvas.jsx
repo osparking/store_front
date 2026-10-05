@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect, useState } from "react";
+import { lazy, useEffect, useState, Suspense } from "react";
+
 import {
   Button,
   Col,
@@ -11,12 +12,15 @@ import {
 } from "react-bootstrap";
 import { LuPanelLeftOpen } from "react-icons/lu";
 import "./AdminCanvas.css";
-import ManageCustomers from "./ManageCustomers";
-import ManagePriceFee from "./ManagePriceFee";
-import ManageQuestions from "./ManageQuestions";
-import Overview from "./Overview";
-import SidebarContent from "./SidebarContent";
-import { WorkerManagement } from "./WorkerManagement";
+
+const Overview = lazy(() => import("./Overview"));
+const ManageCustomers = lazy(() => import("./ManageCustomers"));
+const ManagePriceFee = lazy(() => import("./ManagePriceFee"));
+const ManageQuestions = lazy(() => import("./ManageQuestions"));
+const SidebarContent = lazy(() => import("./SidebarContent"));
+const WorkerManagement = lazy(() =>
+  import("./WorkerManagement").then((m) => ({ default: m.WorkerManagement }))
+);
 
 const AdminCanvas = () => {
   const [showOffcanvas, setShowOffcanvas] = useState(false);
@@ -117,7 +121,11 @@ const AdminCanvas = () => {
               {
                 {
                   Questions: <ManageQuestions />,
-                  Overview: <Overview />,
+                  Overview: (
+                    <Suspense fallback={<div>통계 차트 로딩 중...</div>}>
+                      <Overview />
+                    </Suspense>
+                  ),
                   Employee: <WorkerManagement />,
                   Customer: <ManageCustomers />,
                   PriceFee: <ManagePriceFee />,
