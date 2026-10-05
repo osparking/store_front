@@ -10,6 +10,10 @@
   font-weight: bold;
 }
 
+.nav-bg {
+  z-index: 1030;
+}
+
 .navbar {
   --bs-navbar-active-color: var(--color-nav-home);
   --color-nav-link-hover: crimson;
