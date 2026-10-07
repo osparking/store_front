@@ -7,11 +7,13 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "nodenext",
-    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "target": "es2020",
     "types": [],
     // For nodejs:
     // "lib": ["esnext"],
+    "lib": ["DOM", "DOM.Iterable", "esnext"],
     // "types": ["node"],
     // and npm install -D @types/node
 
@@ -22,6 +24,7 @@
 
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
+    "strictNullChecks": true, 
     "exactOptionalPropertyTypes": true,
 
     // Style Options
@@ -33,12 +36,20 @@
     // "noPropertyAccessFromIndexSignature": true,
 
     // Recommended Options
-    "strict": true,
+    "strict": false,  // 처음엔 false
+    "allowJs": true,  // ★ JS 파일 허용
+    "checkJs": false, // ★ JS는 검사 안 함
     "jsx": "react-jsx",
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
+    "useDefineForClassFields": true,
+    "esModuleInterop": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
+
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true    
   }
 }
