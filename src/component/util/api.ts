@@ -32,7 +32,7 @@ const refreshAccessToken = async () => {
     }
   } catch (error) {
     const msg = error.response?.data.message;
-    
+
     // AT 갱신 실패 원인: RT 미제출, RT 취소(revoke), RT 만료
     if (msg === "RT_MISSING" || msg === "RT_REVOKED_OR_EXPIRED") {
       logoutUser({ path: "/login", message: "로그인 유지 기간 만료" });
@@ -87,7 +87,11 @@ const isExpired = (token) => {
 // 모듈 최상단에 공유 변수 선언 (파일 외부로 export 불필요)
 let refreshPromise = null;
 
-export async function callWithToken(method, urlSuffix, data = null) {
+export async function callWithToken<T extends Record<string, unknown>>(
+  method: string,
+  urlSuffix: string,
+  data?: T,
+) {
   const originalRequest = async (token) => {
     const config = buildConfig(method, urlSuffix, data, token);
     return await axios(config);
