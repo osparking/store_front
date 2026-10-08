@@ -46,8 +46,8 @@ const refreshAccessToken = async () => {
 function buildConfig<T extends Record<string, unknown>>(
   method: string,
   urlSuffix: string,
-  data: T,
   token: string,
+  data?: T,
 ) {
   const config: {
     method: string;
@@ -105,7 +105,7 @@ export async function callWithToken<T extends Record<string, unknown>>(
   data?: T,
 ) {
   const originalRequest = async (token) => {
-    const config = buildConfig(method, urlSuffix, data, token);
+    const config = buildConfig(method, urlSuffix, token, data);
     return await axios(config);
   };
 
