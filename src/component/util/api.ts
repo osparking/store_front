@@ -43,12 +43,24 @@ const refreshAccessToken = async () => {
 };
 
 // 빌드 헬퍼
-function buildConfig(method, urlSuffix, data, token) {
-  const config = {
+function buildConfig<T extends Record<string, unknown>>(
+  method: string,
+  urlSuffix: string,
+  data: T,
+  token: string,
+) {
+  const config: {
+    method: string;
+    url: string;
+    headers: Record<string, string>;
+    data?: T;
+    withCredentials?: boolean;
+  } = {
     method,
     url: `${prefix}${urlSuffix}`,
     headers: { Authorization: `Bearer ${token}` },
   };
+
   if (data) {
     config.data = data;
     config.withCredentials = true;
