@@ -30,6 +30,7 @@ const refreshAccessToken = async () => {
       storeJWtoken(aToken);
       return aToken;
     }
+    return null;
   } catch (error) {
     const msg = error.response?.data.message;
 
@@ -97,7 +98,7 @@ const isExpired = (token) => {
 };
 
 // 모듈 최상단에 공유 변수 선언 (파일 외부로 export 불필요)
-let refreshPromise = null;
+let refreshPromise: Promise<string> | null = null;
 
 export async function callWithToken<T extends Record<string, unknown>>(
   method: string,
@@ -123,21 +124,15 @@ export async function callWithToken<T extends Record<string, unknown>>(
     if (!token) {
       // 토큰이 없는 경우 리프레싱
       if (!refreshPromise) {
-        refreshPromise = (async () => {
+        refreshPromise = (async (): Promise<string> => {
           try {
             const newToken = await refreshAccessToken();
-
-            if (newToken) {
-              const storage = getStorage();
-              storage.setItem("TOKEN", newToken);
-              return newToken;
-            }
-            return null; // 도달 불가?
+            return newToken;
           } finally {
             refreshPromise = null;
           }
         })();
-      }
+}
       token = await refreshPromise;
     }
     return token;
