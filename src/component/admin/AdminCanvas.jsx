@@ -50,7 +50,7 @@ const AdminCanvas = () => {
       {/* Header with toggle button for mobile */}
       {/* 헤더 (측면바 개방 버튼 포함) */}
       {/* Main layout */}
-      <Row className="admin-main g-0">
+      <Row className="admin-main g-0 h-100">
         {/* Sidebar for wide screens */}
         <Col
           lg={2}

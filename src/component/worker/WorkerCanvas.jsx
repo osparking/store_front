@@ -35,7 +35,7 @@ const WorkerCanvas = () => {
 
   return (
     <Container fluid className="worker-body">
-      <Row className="admin-main g-0">
+      <Row className="admin-main g-0 h-100">
         {/* Sidebar for wide screens */}
         <Col
           md={2}
