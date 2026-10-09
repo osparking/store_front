@@ -12,6 +12,7 @@ import { getPlainContent } from "../../util/utilities";
 import "./QuestionEditor.css";
 import { saveQuestion } from "./QuestionService";
 import { useQuillMediaHandlers } from "../../editor/useQuillMediaHandlers";
+import "../../editor/CustomVideoBlot";
 
 function QuestionEditor({
   question,
