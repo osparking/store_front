@@ -21,13 +21,12 @@ import BsAlertHook from "../hook/BsAlertHook";
 import ConfirmResultModal from "../modal/ConfirmResultModal";
 import EnableAccountModal from "../modal/EnableAccountModal";
 import { resetPassword } from "../user/UserService";
+import { getAccessToken, setAccessToken } from "../util/tokenStore";
 import {
   formatTime,
-  getStorageToken,
   HTTP_STATUS,
   isValidEmail,
-  storeJWT,
-  storeLoginInfo,
+  storeLoginInfo
 } from "../util/utilities";
 import { getEmailViaToken, loginUser } from "./AuthService";
 import CodeEntryModal from "./CodeEntryModal";
@@ -39,7 +38,7 @@ const Login = () => {
   const localUser = localStorage.getItem("USER");
 
   // 이미 로그인되어 있으면 홈으로 보내기
-  if (getStorageToken()) {
+  if (getAccessToken()) {
     return <Navigate to="/" replace />;
   }
 
@@ -152,13 +151,13 @@ const Login = () => {
 
       if (response.status === HTTP_STATUS.OK) {
         let user = jwtToUser(data.data.token);
+
+        setAccessToken(data.data.token);
         if (user.twoFaEnabled) {
           setUser(user);
-          setJwtToken(data.data.token);
           setShowCodeModal(true);
         } else {
           storeLoginInfo(user);
-          storeJWT(data, credentials.save_login);
           window.dispatchEvent(
             new CustomEvent("loginEvt", {
               detail: {
@@ -353,7 +352,7 @@ const Login = () => {
         <CodeEntryModal
           show={showCodeModal}
           handleHide={hideCodeModal}
-          jwtToken={jwtToken}
+          jwtToken={getAccessToken()}
           user={user}
         />
       )}
