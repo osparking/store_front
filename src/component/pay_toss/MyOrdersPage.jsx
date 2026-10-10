@@ -56,12 +56,12 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
   const orderTableColumnGroup = () => {
     return (
       <colgroup>
-        <col style={{ width: "17%" }} />
-        <col style={{ width: "14%" }} />
+        <col style={{ width: "16%" }} />
+        <col style={{ width: "15%" }} />
         <col style={{ width: "10%" }} />
         <col style={{ width: "08%" }} />
         <col style={{ width: "10%" }} />
-        <col style={{ width: "19%" }} />
+        <col style={{ width: "18%" }} />
         <col style={{ width: "07%" }} />
       </colgroup>
     );

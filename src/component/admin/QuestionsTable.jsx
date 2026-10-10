@@ -1,7 +1,7 @@
 import "../../index.css";
 
 const QuestionsTable = (questions, answerQuestion) => {
-  const questionsTableWidth = "780px";
+  const questionsTableWidth = "850px";
   const questionsTableColumnGroup = () => {
     return (
       <colgroup>

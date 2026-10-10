@@ -8,7 +8,7 @@ import "../userDashboard.css";
 import "./MyReviewsTable.css";
 
 const MyReviewsTable = (reviews) => {
-  const reviewTableWidth = "820px";
+  const reviewTableWidth = "850px";
 
   const reviewTableColumnGroup = () => {
     return (
