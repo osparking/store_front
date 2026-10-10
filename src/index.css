@@ -196,6 +196,7 @@ tr.userTableHeader>th {
   cursor: pointer;
   color: blue;
   text-decoration: underline;
+  border: none;
 }
 
 .sidebar-button {

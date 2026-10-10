@@ -259,8 +259,16 @@ div.home-container.user-dashboard {
   margin-bottom: 0;
 }
 
+.tabBackgroundThick {
+  background-color: rgb(103, 172, 183);
+}
+
 #user-dashboard {
   border-radius: .4rem;
+}
+
+.card-body>h2 {
+  text-align: center;
 }
 
 #user-dashboard>.dropdown {

@@ -14,7 +14,6 @@ const SoapCarousel = ({ soapImages, bgColor, indColor, slide, setSlide }) => {
     display: "inline-flex",
     fontSize: `${arrowSz}rem`,
     height: "fit-content",
-    justifyContent: "center",
     margin: 0,
     marginTop: `${-arrowSz / 2}rem`,
     padding: 0,

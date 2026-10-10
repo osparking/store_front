@@ -17,6 +17,7 @@ th, .text-center{
 
 .orderNameLink {
   color: blue;
+  border: none;
 }
 
 @media screen and (max-width: 599px) {
