@@ -113,8 +113,10 @@ function QuestionEditor({
         }
       }
     } catch (err) {
-      console.error("err: ", err);
-      toast.error("질문 저장 오류!");
+      if (err.reason !== "RT_EXPIRED") {
+        console.error("오류 원인: ", err.reason);
+        toast.error("질문 저장 오류!");
+      }
     } finally {
       setSaving(false);
     }
