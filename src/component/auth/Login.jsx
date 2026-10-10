@@ -147,7 +147,7 @@ const Login = () => {
       return;
     }
     try {
-      const response = await loginUser(credentials.email, credentials.password);
+      const response = await loginUser(credentials);
       const data = response.data;
 
       if (response.status === HTTP_STATUS.OK) {
