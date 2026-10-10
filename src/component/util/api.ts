@@ -83,7 +83,6 @@ function buildConfig<T extends Record<string, unknown>>(
     url: string;
     headers: Record<string, string>;
     data?: T;
-    withCredentials?: boolean;
   } = {
     method,
     url: `${prefix}${urlSuffix}`,
@@ -92,7 +91,6 @@ function buildConfig<T extends Record<string, unknown>>(
 
   if (data) {
     config.data = data;
-    config.withCredentials = true;
     if (!(data instanceof FormData)) {
       config.headers["Content-Type"] = "application/json";
     }
