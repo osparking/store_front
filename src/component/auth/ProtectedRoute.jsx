@@ -1,9 +1,9 @@
 import { Outlet, useLocation } from "react-router-dom";
-import { getStorageToken } from "../util/utilities";
 import { clearLoginUserInfo } from "./AuthService";
 
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { getAccessToken } from "../util/tokenStore";
 
 const ProtectedRoute = ({ children, allowedRoles = [], useOutlet = false }) => {
   const location = useLocation();
@@ -11,7 +11,7 @@ const ProtectedRoute = ({ children, allowedRoles = [], useOutlet = false }) => {
   const hasAlerted = useRef(false); // Strict Mode 중복 실행 방지
 
   // 렌더링 중에 순수하게 상태 확인
-  const loggedIn = !!getStorageToken();
+  const loggedIn = !!getAccessToken();
   const user = JSON.parse(localStorage.getItem("USER")) || {};
   const userRoles = user.roles || [];
   const isAuthorized = userRoles

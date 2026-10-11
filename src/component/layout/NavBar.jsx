@@ -3,7 +3,7 @@ import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
-import { getStorageToken } from "../util/utilities";
+import { getAccessToken } from "../util/tokenStore";
 import "./navBar.css";
 import { useRoot } from "./RootContext";
 
@@ -129,7 +129,7 @@ const NavBar = () => {
   };
 
   const userId = localStorage.getItem("LOGIN_ID");
-  const loggedOut = !getStorageToken() || !userId;
+  const loggedOut = !getAccessToken() || !userId;
 
   const logoutNavBar = async () => {
     try {

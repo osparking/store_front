@@ -1,7 +1,8 @@
 import axios, { HttpStatusCode } from "axios";
 import { logoutUser } from "../auth/AuthService";
 import { TokenRefreshingError } from "./errors";
-import { getStorage, getStorageToken, storeJWtoken } from "./utilities";
+import { getAccessToken } from "./tokenStore";
+import { getStorage, storeJWtoken } from "./utilities";
 
 axios.defaults.withCredentials = true; // 모든 요청에 쿠키 포함
 axios.defaults.headers.common["Content-Type"] = "application/json";
@@ -38,7 +39,7 @@ const refreshAccessToken = async (): Promise<string> => {
 
 // 1. 유효한 토큰을 가져오는 내부 함수 (캐싱된 리프레시 프로미스를 활용)
 const getValidToken = async () => {
-  let token = getStorageToken();
+  let token = getAccessToken();
 
   // 토큰 부재 혹은 만료 > 제거
   if (!token || isExpired(token)) {
