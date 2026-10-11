@@ -19,7 +19,7 @@ const Rating = ({ stars, setStars, editable, review }) => {
       <Row className="align-items-center">
         <Col xs={3} md={3}>
           <h5 style={{ textAlign: "left" }}>별점 부여</h5>
-          <div>
+          <div className="star-rating-scroll">
             {[...Array(5)].map((_, index) => {
               const starCount = index + 1;
               return (

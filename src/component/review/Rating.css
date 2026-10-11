@@ -6,6 +6,17 @@
   margin-right: -8px;;
 }
 
+.star-rating-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+.star-rating-scroll .starRating {
+  display: inline-block; /* nowrap과 함께 한 줄 유지 */
+  white-space: nowrap;
+}
+
 @media screen and (max-width: 899px) {
   .starRating {
     margin-right: -15px;
