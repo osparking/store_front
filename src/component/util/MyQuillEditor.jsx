@@ -92,6 +92,7 @@ function MyQuillEditor({
         modules={modules}
         formats={formats}
         placeholder="여기에 후기를 작성하세요 :-)"
+        className="quill-fixed-height"
         style={{
           marginBottom: "50px",
           borderRadius: "4px",
