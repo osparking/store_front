@@ -1,9 +1,9 @@
 import { Outlet, useLocation } from "react-router-dom";
-import { clearLoginUserInfo } from "./AuthService";
 
 import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAccessToken } from "../util/tokenStore";
+import { clearLoginUserInfo } from "./AuthService";
 
 const ProtectedRoute = ({ children, allowedRoles = [], useOutlet = false }) => {
   const location = useLocation();

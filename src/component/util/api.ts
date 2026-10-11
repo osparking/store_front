@@ -1,8 +1,7 @@
 import axios, { HttpStatusCode } from "axios";
 import { logoutUser } from "../auth/AuthService";
 import { TokenRefreshingError } from "./errors";
-import { getAccessToken, setAccessToken } from "./tokenStore";
-import { getStorage } from "./utilities";
+import { clearAccessToken, getAccessToken, setAccessToken } from "./tokenStore";
 
 axios.defaults.withCredentials = true; // 모든 요청에 쿠키 포함
 axios.defaults.headers.common["Content-Type"] = "application/json";
@@ -41,18 +40,9 @@ const refreshAccessToken = async (): Promise<string> => {
 const getValidToken = async () => {
   let token = getAccessToken();
 
-  // 토큰 부재 혹은 만료 > 제거
-  if (!token || isExpired(token)) {
-    if (token) {
-      // 내가 읽은 토큰이 여전히 저장된 그 토큰일 때만 제거
-      // (다른 요청이 이미 갱신했을 수 있음)
-      const storage = getStorage();
-
-      if (storage.getItem("TOKEN") === token) {
-        storage.removeItem("TOKEN");
-      }
-    }
+  if (token && isExpired(token)) {
     token = null;
+    clearAccessToken();
   }
 
   if (!token) {
