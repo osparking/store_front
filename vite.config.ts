@@ -3,7 +3,17 @@ import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-  plugins: [react()],  // purgecss 제거
+  plugins: [react()], // purgecss 제거
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:9193",
+        changeOrigin: true,
+        // 필요시 rewrite (백엔드에 /api prefix 가 없는 경우)
+        // rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
   define: {
     "process.env": {},
   },
@@ -19,7 +29,7 @@ export default defineConfig({
             !dep.includes("recharts-vendor") &&
             !dep.includes("d3-vendor") &&
             !dep.includes("ui-vendor") &&
-            !dep.includes("motion-vendor")
+            !dep.includes("motion-vendor"),
         );
       },
     },
@@ -43,11 +53,14 @@ export default defineConfig({
           }
 
           if (!id.includes("node_modules")) return;
-          const match = id.match(/node_modules[\\/](@[^\\/]+[\\/][^\\/]+|[^\\/]+)/);
+          const match = id.match(
+            /node_modules[\\/](@[^\\/]+[\\/][^\\/]+|[^\\/]+)/,
+          );
           if (!match) return;
           const pkg = match[1];
 
-          if (pkg === "recharts" || pkg === "victory-vendor") return "recharts-vendor";
+          if (pkg === "recharts" || pkg === "victory-vendor")
+            return "recharts-vendor";
           if (pkg.startsWith("d3-")) return "d3-vendor";
           if (pkg === "lodash" || pkg === "lodash-es") return "lodash";
           if (
@@ -58,7 +71,8 @@ export default defineConfig({
             return "router-vendor";
           }
           if (pkg === "axios") return "axios";
-          if (["dayjs", "moment", "date-fns"].includes(pkg)) return "date-vendor";
+          if (["dayjs", "moment", "date-fns"].includes(pkg))
+            return "date-vendor";
 
           return "vendor";
         },
