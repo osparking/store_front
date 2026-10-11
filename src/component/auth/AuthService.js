@@ -1,5 +1,6 @@
 import { api } from "../util/api";
-import { getStorage, removeUserKeys } from "../util/utilities";
+import { clearAccessToken } from "../util/tokenStore";
+import { removeUserKeys } from "../util/utilities";
 
 export const loginUser = async (credentials) => {
   try {
@@ -24,20 +25,18 @@ export async function getEmailViaToken(token) {
 }
 
 export const clearLoginUserInfo = () => {
-  const storage = getStorage();
-
-  storage.removeItem("TOKEN");
+  clearAccessToken();
   removeUserKeys();
 };
 
 export const logoutUser = async (detail) => {
   try {
     clearLoginUserInfo();
-    const result = await api.post('/autho/logout');
+    const result = await api.post("/autho/logout");
 
     window.dispatchEvent(new CustomEvent("logoutEvt", { detail: detail }));
     return result.data;
-  } catch(error) {
+  } catch (error) {
     throw error;
   }
 };
