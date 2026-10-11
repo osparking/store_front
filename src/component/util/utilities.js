@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getAllDept } from "../worker/WorkerService";
+import { getAccessToken } from "./tokenStore";
 
 /**
  * 문자열에서 정한 길이의 접미사를 취하고, 그 중 첫 공백 우측 부분을 반환한다.
@@ -60,22 +61,6 @@ export const storeLoginInfo = (user) => {
   localStorage.setItem("IS_WORKER", user.isWorker);
 };
 
-export const storeJWT = (data) => {
-  // localStorage: 브라우저 종료 후에도 유지
-  // sessionStorage: 브라우저/탭 종료 시 삭제
-  const storage = getStorage();
-
-  storage.setItem("TOKEN", data.data.token);
-};
-
-export const storeJWtoken = (token) => {
-  // localStorage: 브라우저 종료 후에도 유지
-  // sessionStorage: 브라우저/탭 종료 시 삭제
-  const storage = getStorage();
-
-  storage.setItem("TOKEN", token);
-};
-
 export const clearTokens = () => {
   localStorage.removeItem("TOKEN");
   sessionStorage.removeItem("TOKEN");
@@ -120,12 +105,6 @@ export const removeUserKeys = () => {
   for (const userKey of userKeys) {
     localStorage.removeItem(userKey);
   }
-};
-
-export const getStorageToken = () => {
-  const storage = getStorage();
-
-  return storage.getItem("TOKEN");
 };
 
 export const setDifference = (arrA, arrB) => {

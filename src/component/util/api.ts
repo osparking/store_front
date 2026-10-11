@@ -1,8 +1,8 @@
 import axios, { HttpStatusCode } from "axios";
 import { logoutUser } from "../auth/AuthService";
 import { TokenRefreshingError } from "./errors";
-import { getAccessToken } from "./tokenStore";
-import { getStorage, storeJWtoken } from "./utilities";
+import { getAccessToken, setAccessToken } from "./tokenStore";
+import { getStorage } from "./utilities";
 
 axios.defaults.withCredentials = true; // 모든 요청에 쿠키 포함
 axios.defaults.headers.common["Content-Type"] = "application/json";
@@ -23,7 +23,7 @@ const refreshAccessToken = async (): Promise<string> => {
     });
     const aToken: string = response.data.data.token;
 
-    storeJWtoken(aToken);
+    setAccessToken(aToken);
     return aToken;
   } catch (error) {
     if (axios.isAxiosError(error)) {

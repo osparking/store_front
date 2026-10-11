@@ -5,9 +5,10 @@ import { SiGoogleauthenticator } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
 import google_authen from "../../assets/images/google_authen.svg";
 import { api } from "../util/api";
-import { storeJWT, storeJWtoken, storeLoginInfo } from "../util/utilities";
+import { storeLoginInfo } from "../util/utilities";
 
 import "../../App.css";
+import { setAccessToken } from "../util/tokenStore";
 
 const CodeEntryModal = ({ show, handleHide, jwtToken, user }) => {
   const [code, setCode] = useState("");
@@ -36,7 +37,7 @@ const CodeEntryModal = ({ show, handleHide, jwtToken, user }) => {
       );
 
       storeLoginInfo(user);
-      storeJWtoken(jwtToken);
+      setAccessToken(jwtToken);
       window.dispatchEvent(new Event("loginEvt"));
 
       // Check for stored pre-login URL
