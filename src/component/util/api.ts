@@ -14,7 +14,7 @@ export const api = axios.create({
 });
 
 // refresh 토큰으로 새 AT 발급 요청
-const refreshAccessToken = async (): Promise<string> => {
+export const refreshAccessToken = async (): Promise<string> => {
   try {
     // RT 제출 방식 - Authorization 헤더 대신 쿠키에 자동 포함
     const response = await axios.post(`${prefix}/autho/refresh_token`, null, {

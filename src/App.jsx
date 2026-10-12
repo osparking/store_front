@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -17,7 +17,9 @@ import RootLayout from "./component/layout/RootLayout";
 // ------------------------------------------------------------------
 
 // Home은 첫 방문 페이지일 가능성이 높으므로 정적 import 유지 (선택사항)
+import { Spinner } from "react-bootstrap";
 import Home from "./component/home/Home";
+import { refreshAccessToken } from "./component/util/api";
 
 // 인증 관련
 const EmailVerifin = lazy(() => import("./component/auth/EmailVerifin"));
@@ -63,22 +65,32 @@ const UserDashboard = lazy(() => import("./component/user/UserDashboard"));
 // ------------------------------------------------------------------
 // 로딩 폴백 컴포넌트
 // ------------------------------------------------------------------
-function PageLoader() {
+const LoadingScreen = () => {
   return (
     <div
       style={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        minHeight: "60vh",
-        fontSize: "1rem",
-        color: "#666",
+        height: "100%",
+        backgroundColor: "#4f8b76",
       }}
     >
-      로딩 중...
+      <Spinner
+        as="span"
+        animation="border"
+        role="status"
+        aria-hidden="true"
+        style={{
+          width: "5rem",
+          height: "5rem",
+          color: "#ed96c4",
+          borderWidth: "10px"
+        }}
+      />
     </div>
   );
-}
+};
 
 // ------------------------------------------------------------------
 // 라우터 설정
@@ -139,9 +151,31 @@ function App() {
     ),
   );
 
+  const [isAuthReady, setIsAuthReady] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const bootstrapAuth = async () => {
+      try {
+        // 쿠키에 RT 가 있으면 새 AT 발급
+        const aToken = await refreshAccessToken();
+        setIsLoggedIn(true);
+      } catch (err) {
+        // RT 없음/만료 → 로그인 안 된 상태
+        setIsLoggedIn(false);
+      } finally {
+        setIsAuthReady(true);
+      }
+    };
+
+    bootstrapAuth();
+  }, []);
+
+  if (!isAuthReady) return <LoadingScreen />;
+
   return (
     <main className="app">
-      <Suspense fallback={<PageLoader />}>
+      <Suspense fallback={<LoadingScreen />}>
         <RouterProvider router={router} />
       </Suspense>
     </main>
