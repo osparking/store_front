@@ -1,12 +1,19 @@
+.quill-container {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column
+}
+
 .quill-fixed-height {
-  height: calc(100% - 61px);              /* 원하는 높이로 조정 */
   display: flex;
   flex-direction: column;
 }
 
 .quill-fixed-height .ql-container {
   flex: 1;
-  min-height: 0;              /* flex 자식의 overflow 동작을 위해 필수 */
+  /* flex 자식의 overflow 동작을 위해 필수 */
+  min-height: 0;
   overflow: hidden;
 }
 

@@ -79,7 +79,7 @@ function MyQuillEditor({
   );
 
   return (
-    <Container className="mt-4">
+    <Container className="mt-4 quill-container">
       <h5 className="mb-2" style={{ textAlign: "left" }}>
         경험 서술
       </h5>
