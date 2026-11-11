@@ -1,14 +1,6 @@
 import { useEffect, useState } from "react";
-import {
-  Button,
-  Col,
-  OverlayTrigger,
-  Row,
-  Table,
-  Tooltip,
-} from "react-bootstrap";
-import { BsPencilFill, BsPlusSquareFill, BsTrashFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Button, Col, Row } from "react-bootstrap";
+import { BsPlusSquareFill } from "react-icons/bs";
 import AlertMessage from "../../common/AlertMessage";
 import Paginator from "../../common/Paginator";
 import BsAlertHook from "../../hook/BsAlertHook";
@@ -17,8 +9,8 @@ import { getRecordRange } from "../../util/utilities";
 import { deleteProduceRow } from "../WorkerService";
 import ProduceInfoModal from "./ProduceInfoModal";
 import { fetchProducePage } from "./ProduceService";
-import "./RegisterProduce.css";
 import ProduceTable from "./ProduceTable";
+import "./RegisterProduce.css";
 
 const RegisterProduce = () => {
   const {

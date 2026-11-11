@@ -49,7 +49,7 @@ const ManageIngredient = () => {
 
   const navigate = useNavigate();
 
-  const readIngredientPage = (pageNo, selectedName="") => {
+  const readIngredientPage = (pageNo, selectedName = "") => {
     getIngredientPage(selectedName, pageNo, ingresPerPage)
       .then((response) => {
         if (response) {
@@ -135,7 +135,7 @@ const ManageIngredient = () => {
   };
 
   const [ingredient, setIngredient] = useState(dummy);
-  const [savedIngredient, setSavedIngredient] = useState(null);  
+  const [savedIngredient, setSavedIngredient] = useState(null);
 
   const openWithRow = (row) => {
     setSavedIngredient(row);
