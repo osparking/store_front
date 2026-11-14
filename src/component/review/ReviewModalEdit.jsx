@@ -132,6 +132,32 @@ export default function ReviewModalEdit({
     }
   };
 
+  const fromImgTag2theKey = (imgTag) => {
+    const beginsAt = imgTag.indexOf("reviews/images/tmp/");
+
+    // 해당 경로가 없는 일반 img 태그는 원래 태그 그대로 유지
+    if (beginsAt === -1) return imgTag;
+
+    const suffix = imgTag.substring(beginsAt);
+    const qMarkIdx = suffix.indexOf("?");
+
+    // '?'가 없는 경우도 대비하여 key 추출
+    const key =
+      qMarkIdx !== -1
+        ? suffix.substring(0, qMarkIdx)
+        : suffix.split(/['"\s>]/)[0];
+
+    const shorTag = `<img data-key="${key}">`;
+    return shorTag;
+  };
+
+  const replaceAllImgTags = (htmlContent) => {
+    // <img 로 시작해서 > 로 끝나는 모든 태그를 대소문자 구분 없이(/gi) 탐색
+    return htmlContent.replace(/<img\b[^>]*>/gi, (matchedImgTag) => {
+      return fromImgTag2theKey(matchedImgTag);
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (getTextLength() === 0) {
@@ -139,10 +165,10 @@ export default function ReviewModalEdit({
     }
     try {
       setLoading(true);
-
-      const reviewData = { id: review.id, stars: stars, review: reviewContent };
+      const imgFixed = replaceAllImgTags(reviewContent);
+      const reviewData = { id: review.id, stars: stars, review: imgFixed };
       const result = await patchOrderReview(reviewData);
-      
+
       review.reviewTime = result.data.reviewTime;
       handleDeletedMedia();
       setOriginalContent(result.data.htmlPromoted);
