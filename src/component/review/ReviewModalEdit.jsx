@@ -63,14 +63,17 @@ export default function ReviewModalEdit({
   }, [show]);
 
   const [originalContent, setOriginalContent] = useState(null);
+  const prevShowRef = useRef(false);
 
   useEffect(() => {
-    if (review) {
+    // 모달이 새로 열릴 때만 review 내용을 에디터에 반영
+    if (show && !prevShowRef.current && review) {
       setReviewContent(review.review);
-      !originalContent && setOriginalContent(review.review);
+      setOriginalContent(review.review);
       setStars(review.stars);
     }
-  }, [review]);
+    prevShowRef.current = show;
+  }, [show, review]);
 
   // 에디터를 실제로 그릴지 말지 결정하는 상태
   const [isEditorMounted, setIsEditorMounted] = useState(false);
@@ -134,21 +137,19 @@ export default function ReviewModalEdit({
 
   const fromImgTag2theKey = (imgTag) => {
     const beginsAt = imgTag.indexOf("reviews/images/tmp/");
-
-    // 해당 경로가 없는 일반 img 태그는 원래 태그 그대로 유지
     if (beginsAt === -1) return imgTag;
 
     const suffix = imgTag.substring(beginsAt);
     const qMarkIdx = suffix.indexOf("?");
-
-    // '?'가 없는 경우도 대비하여 key 추출
     const key =
       qMarkIdx !== -1
         ? suffix.substring(0, qMarkIdx)
         : suffix.split(/['"\s>]/)[0];
 
-    const shorTag = `<img data-key="${key}">`;
-    return shorTag;
+    // src(publicUrl 기반 전체 URL)와 data-key를 모두 포함
+    const publicUrl =
+      "https://bum-soap-media-905418381044-ap-northeast-2-an.s3.ap-northeast-2.amazonaws.com";
+    return `<img src="${publicUrl}/${key}" data-key="${key}">`;
   };
 
   const replaceAllImgTags = (htmlContent) => {
@@ -157,6 +158,8 @@ export default function ReviewModalEdit({
       return fromImgTag2theKey(matchedImgTag);
     });
   };
+
+  const [savedHtml, setSavedHtml] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -171,13 +174,21 @@ export default function ReviewModalEdit({
 
       review.reviewTime = result.data.reviewTime;
       handleDeletedMedia();
-      setOriginalContent(result.data.htmlPromoted);
-      setReviewContent(result.data.htmlPromoted);
-      review.review = result.data.htmlPromoted;
+
+      const htmlPromoted = result.data.htmlPromoted;
+      setOriginalContent(htmlPromoted);
+
+      justSavedRef.current = true;
+      setReviewContent(result.data.htmlDisplay);
+      // review.review = htmlPromoted;
+      const [savedHtml, setSavedHtml] = useState(null);
       toast.success(result.message);
       setReviewUnchanged(true);
       refreshReviews();
       refreshOrders();
+      setTimeout(() => {
+        justSavedRef.current = false;
+      }, 0);
     } catch (err) {
       console.error("err: ", err);
       toast.error("오류 - " + err.response.data.message);
