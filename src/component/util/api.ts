@@ -63,22 +63,26 @@ const getValidToken = async () => {
 };
 
 // 빌드 헬퍼
-function buildConfig<T extends Record<string, unknown>>(
+function buildConfig(
   method: string,
   urlSuffix: string,
   token: string,
-  data?: T,
+  data?: unknown,
+  params?: Record<string, unknown>,
 ) {
   const config: {
     method: string;
     url: string;
     headers: Record<string, string>;
-    data?: T;
+    params?: Record<string, unknown>;
+    data?: unknown;
   } = {
     method,
     url: `${prefix}${urlSuffix}`,
     headers: { Authorization: `Bearer ${token}` },
   };
+
+  if (params) config.params = params;
 
   if (data) {
     config.data = data;
@@ -86,6 +90,7 @@ function buildConfig<T extends Record<string, unknown>>(
       config.headers["Content-Type"] = "application/json";
     }
   }
+
   return config;
 }
 
@@ -115,20 +120,20 @@ const isExpired = (token) => {
 // 모듈 최상단에 공유 변수 선언 (파일 외부로 export 불필요)
 let refreshPromise: Promise<string> | null = null;
 
+// callWithToken: params를 네 번째 인자로 추가
 export async function callWithToken<T extends Record<string, unknown>>(
   method: string,
   urlSuffix: string,
   data?: T,
+  params?: Record<string, unknown>,
 ) {
   const originalRequest = async (token: string) => {
-    const config = buildConfig(method, urlSuffix, token, data);
+    const config = buildConfig(method, urlSuffix, token, data, params);
     return await axios(config);
   };
 
   try {
-    // 유효한 토큰 획득 (내부적으로 중복 리프레시 방지됨)
     const token = await getValidToken();
-
     return await originalRequest(token);
   } catch (error) {
     if (error instanceof TokenRefreshingError) {

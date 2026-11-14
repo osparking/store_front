@@ -1,13 +1,13 @@
 import { callWithToken } from "./api";
 
 interface PresignedUrl {
-  uploadUrl: string,
-  fileUrl: string,
-  key: string
+  uploadUrl: string;
+  fileUrl: string;
+  key: string;
 }
 
 interface PresignedGetUrl {
-  url: string
+  url: string;
 }
 
 export const requestPresignedUrl = async (
@@ -26,8 +26,11 @@ export const requestPresignedUrl = async (
 export const getPresignedGetUrl = async (
   key: string,
 ): Promise<PresignedGetUrl> => {
-  const res = await callWithToken("GET", "/media/presigned_get_url", {
-    key,
-  });
-  return res.data;
+  const res = await callWithToken(
+    "GET",
+    "/media/presigned_get_url",
+    undefined,
+    { key },
+  );
+  return res.data.url;
 };

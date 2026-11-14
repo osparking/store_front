@@ -61,8 +61,7 @@ export const useQuillMediaHandlers = (getContent) => {
         if (!quill) throw new Error("Quill not ready");
 
         const range = quill.getSelection(true);
-        const { data } = await getPresignedGetUrl(key);
-        const viewImageUrl = data.data.url;
+        const viewImageUrl = await getPresignedGetUrl(key);
 
         quill.insertEmbed(range.index, "image", viewImageUrl, "user"); // ✅ URL 삽입
         quill.setSelection(range.index + 1);
