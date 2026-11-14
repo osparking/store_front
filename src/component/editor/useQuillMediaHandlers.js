@@ -9,7 +9,7 @@ import {
   MAX_VIDEO_COUNT,
   MAX_VIDEO_SIZE,
 } from "../util/fileSize";
-import { requestPresignedUrl } from "../util/mediaApi";
+import { getPresignedGetUrl, requestPresignedUrl } from "../util/mediaApi";
 
 export const useQuillMediaHandlers = (getContent) => {
   const quillRef = useRef(null);
@@ -42,7 +42,7 @@ export const useQuillMediaHandlers = (getContent) => {
       const toastId = toast.loading("사진 업로드 중... 0%");
 
       try {
-        const { uploadUrl, fileUrl } = await requestPresignedUrl(
+        const { uploadUrl, fileUrl, key } = await requestPresignedUrl(
           file.name,
           file.type,
           "review/image", // ← 도메인 구분
@@ -61,7 +61,10 @@ export const useQuillMediaHandlers = (getContent) => {
         if (!quill) throw new Error("Quill not ready");
 
         const range = quill.getSelection(true);
-        quill.insertEmbed(range.index, "image", fileUrl, "user"); // ✅ URL 삽입
+        const { data } = await getPresignedGetUrl(key);
+        const viewImageUrl = data.data.url;
+
+        quill.insertEmbed(range.index, "image", viewImageUrl, "user"); // ✅ URL 삽입
         quill.setSelection(range.index + 1);
 
         toast.success("사진이 업로드되었습니다.", { id: toastId });
@@ -111,7 +114,7 @@ export const useQuillMediaHandlers = (getContent) => {
 
       try {
         // ③ Presigned URL 요청
-        const { uploadUrl, fileUrl } = await requestPresignedUrl(
+        const { uploadUrl, fileUrl, key } = await requestPresignedUrl(
           file.name,
           file.type,
           "review/video", // ← 도메인 구분
@@ -132,10 +135,16 @@ export const useQuillMediaHandlers = (getContent) => {
         if (!quill) throw new Error("Quill not ready");
 
         const range = quill.getSelection(true);
+        const { data } = await getPresignedGetUrl(key);
+        // axios.get('/api/s1/soap/public/presigned-get', {
+        //   params: { key } //key: "reviews/images/tmp/xxx.png"
+        // });
+        const mediaGetUrl = data.data.url;
+
         quill.insertEmbed(
           range.index,
           "customVideo",
-          { url: fileUrl, size: file.size },
+          { url: mediaGetUrl, size: file.size },
           "user",
         );
         quill.setSelection(range.index + 1);
