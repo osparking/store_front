@@ -147,20 +147,9 @@ export default function ReviewModalEdit({
 
     const publicUrl =
       "https://bum-soap-media-905418381044-ap-northeast-2-an.s3.ap-northeast-2.amazonaws.com";
+    if (!url.startsWith(publicUrl + "/")) return imgTag;
 
-    // publicUrl 이후의 key 추출 (tmp 경로든 최종 경로든)
-    let key = null;
-    if (url.startsWith(publicUrl + "/")) {
-      key = url.substring(publicUrl.length + 1);
-    } else {
-      // 혹시 다른 형태의 URL이면 기존처럼 tmp 경로 기준
-      const tmpIdx = url.indexOf("reviews/images/");
-      if (tmpIdx !== -1) key = url.substring(tmpIdx);
-    }
-
-    if (!key) return imgTag;
-
-    // 항상 data-key를 붙여서 반환
+    const key = url.substring(publicUrl.length + 1); // tmp 포함 원본 그대로
     return `<img src="${publicUrl}/${key}" data-key="${key}">`;
   };
 
