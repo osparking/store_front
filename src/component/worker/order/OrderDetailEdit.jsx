@@ -32,7 +32,9 @@ const OrderDetailEdit = ({ detailId, setShowDetail }) => {
     setReview(
       response && {
         orderName: response.order.orderName,
-        review: response.order.htmlDisplay,
+        review: response.order.review,
+        // review: response.order.htmlDisplay,
+        htmlDisplay: response.order.htmlDisplay,
         stars: response.order.stars,
         userId: response.order.userId,
         id: response.order.id,

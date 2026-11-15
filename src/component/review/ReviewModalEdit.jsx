@@ -68,7 +68,8 @@ export default function ReviewModalEdit({
   useEffect(() => {
     // 모달이 새로 열릴 때만 review 내용을 에디터에 반영
     if (show && !prevShowRef.current && review) {
-      setReviewContent(review.review);
+      // setReviewContent(review.review);
+      setReviewContent(review.htmlDisplay ?? review.review); // 표시용
       setOriginalContent(review.review);
       setStars(review.stars);
     }
@@ -104,7 +105,8 @@ export default function ReviewModalEdit({
 
   const resetReview = () => {
     setStars(review.stars);
-    setReviewContent(review.htmlDisplay);
+    setReviewContent(review.review);
+    // setReviewContent(review.htmlDisplay);
   };
 
   const getTextLength = () => {
@@ -136,19 +138,29 @@ export default function ReviewModalEdit({
   };
 
   const fromImgTag2theKey = (imgTag) => {
-    const beginsAt = imgTag.indexOf("reviews/images/tmp/");
-    if (beginsAt === -1) return imgTag;
+    const srcMatch = imgTag.match(/src=["']([^"']+)["']/);
+    if (!srcMatch) return imgTag;
 
-    const suffix = imgTag.substring(beginsAt);
-    const qMarkIdx = suffix.indexOf("?");
-    const key =
-      qMarkIdx !== -1
-        ? suffix.substring(0, qMarkIdx)
-        : suffix.split(/['"\s>]/)[0];
+    let url = srcMatch[1];
+    const qIdx = url.indexOf("?");
+    if (qIdx !== -1) url = url.substring(0, qIdx);
 
-    // src(publicUrl 기반 전체 URL)와 data-key를 모두 포함
     const publicUrl =
       "https://bum-soap-media-905418381044-ap-northeast-2-an.s3.ap-northeast-2.amazonaws.com";
+
+    // publicUrl 이후의 key 추출 (tmp 경로든 최종 경로든)
+    let key = null;
+    if (url.startsWith(publicUrl + "/")) {
+      key = url.substring(publicUrl.length + 1);
+    } else {
+      // 혹시 다른 형태의 URL이면 기존처럼 tmp 경로 기준
+      const tmpIdx = url.indexOf("reviews/images/");
+      if (tmpIdx !== -1) key = url.substring(tmpIdx);
+    }
+
+    if (!key) return imgTag;
+
+    // 항상 data-key를 붙여서 반환
     return `<img src="${publicUrl}/${key}" data-key="${key}">`;
   };
 
@@ -180,9 +192,13 @@ export default function ReviewModalEdit({
       setOriginalContent(htmlPromoted);
 
       justSavedRef.current = true;
-      setReviewContent(result.data.htmlDisplay);
+      // setReviewContent(result.data.htmlPromoted);
+
+      setOriginalContent(result.data.htmlPromoted); // 원본
+      setReviewContent(result.data.htmlDisplay); // 표시용
+      // setReviewContent(result.data.htmlDisplay);
       // review.review = htmlPromoted;
-      const [savedHtml, setSavedHtml] = useState(null);
+
       toast.success(result.message);
       setReviewUnchanged(true);
       refreshReviews();
