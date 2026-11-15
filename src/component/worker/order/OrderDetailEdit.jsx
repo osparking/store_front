@@ -27,10 +27,12 @@ const OrderDetailEdit = ({ detailId, setShowDetail }) => {
   const readOrderDetail = async () => {
     const response = await getOrderDetail(detailId);
     setOrderDetails(response);
+    console.log(response.order.htmlDisplay);
+    console.log(".....................................");
     setReview(
       response && {
         orderName: response.order.orderName,
-        review: response.order.review,
+        review: response.order.htmlDisplay,
         stars: response.order.stars,
         userId: response.order.userId,
         id: response.order.id,

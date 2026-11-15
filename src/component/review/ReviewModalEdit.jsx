@@ -104,7 +104,7 @@ export default function ReviewModalEdit({
 
   const resetReview = () => {
     setStars(review.stars);
-    setReviewContent(review.review);
+    setReviewContent(review.htmlDisplay);
   };
 
   const getTextLength = () => {
@@ -160,6 +160,7 @@ export default function ReviewModalEdit({
   };
 
   const [savedHtml, setSavedHtml] = useState(null);
+  const justSavedRef = useRef(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
