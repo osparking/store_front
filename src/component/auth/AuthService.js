@@ -5,6 +5,9 @@ import { removeUserKeys } from "../util/utilities";
 export const loginUser = async (credentials) => {
   try {
     const response = await api.post("/autho/login", credentials);
+
+    window.dispatchEvent(new CustomEvent("loginEvt"));
+
     return response;
   } catch (error) {
     if (error.code === "ERR_NETWORK") {

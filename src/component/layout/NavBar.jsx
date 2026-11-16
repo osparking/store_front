@@ -3,34 +3,22 @@ import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
-import { getAccessToken } from "../util/tokenStore";
+import { useAuthContext } from "../common/AuthContext";
 import "./navBar.css";
 import { useRoot } from "./RootContext";
 
 const naviAskedIds = new Set();
 
 const NavBar = () => {
-  const { userVersion} = useRoot();
+  const { userVersion } = useRoot();
   const [isAdmin, setIsAdmin] = useState(false);
   const [isWorker, setIsWorker] = useState(false);
 
-  const [identity, setIdentity] = useState();
-
+  const { authState, identity } = useAuthContext();
+  const loggedIn = authState === "authenticated";
   const setIsEmployee = (isAdmin, isWorker) => {
     setIsAdmin(isAdmin);
     setIsWorker(isWorker);
-  };
-
-  const displayIdentity = () => {
-    const user = JSON.parse(localStorage.getItem("USER"));
-
-    if (user) {
-      if (user.loginMethod === "이메일") {
-        setIdentity(user.fullName);
-      } else {
-        setIdentity("<" + user.loginMethod + ">");
-      }
-    }
   };
 
   const navigate = useNavigate();
@@ -41,18 +29,15 @@ const NavBar = () => {
       const isAdminJson = localStorage.getItem("IS_ADMIN");
       const isWorkerJson = localStorage.getItem("IS_WORKER");
       setIsEmployee(JSON.parse(isAdminJson), JSON.parse(isWorkerJson));
-    }
+    };
 
     readEmployeeStatus();
 
     const handleLogin = () => {
       readEmployeeStatus();
-      displayIdentity();
     };
 
     const handleLogout = (event) => {
-      displayIdentity();
-
       const nowTimeId = Math.floor(Date.now() / 1000);
 
       if (!naviAskedIds.has(nowTimeId)) {
@@ -84,10 +69,6 @@ const NavBar = () => {
     };
   }, []); // 마운트 시 1회만 등록
 
-  useEffect(() => {
-    displayIdentity();
-  }, [userVersion]);
-
   const [activeLinkText, setActiveLinkText] = useState("");
   const location = useLocation();
 
@@ -117,7 +98,7 @@ const NavBar = () => {
       const confirmed = window.confirm("로그아웃하고 계정을 등록할까요?");
       if (confirmed) {
         // 로그아웃 처리 (예: 상태 초기화, localStorage 제거 등)
-        const result = logoutUser({ path: "/register_user", message: "" });        
+        const result = logoutUser({ path: "/register_user", message: "" });
       } else {
         // 아무것도 하지 않음 (현재 페이지 유지)
         return;
@@ -129,17 +110,16 @@ const NavBar = () => {
   };
 
   const userId = localStorage.getItem("LOGIN_ID");
-  const loggedOut = !getAccessToken() || !userId;
 
   const logoutNavBar = async () => {
     try {
-      const result = await logoutUser()
+      const result = await logoutUser();
 
       toast.success(result.message);
-    } catch(e) {
+    } catch (e) {
       toast.error(e.response.data.message);
     }
-  }
+  };
 
   return (
     <Navbar expand="lg" sticky="top" className="nav-bg start-0 end-0">
@@ -174,7 +154,7 @@ const NavBar = () => {
             >
               비누 주문
             </Nav.Link>
-            {!loggedOut && isAdmin && (
+            {loggedIn && isAdmin && (
               <Nav.Link
                 to={`/dashboard/admin`}
                 as={NavLink}
@@ -183,7 +163,7 @@ const NavBar = () => {
                 관리 업무
               </Nav.Link>
             )}
-            {!loggedOut && (isAdmin || isWorker) && (
+            {loggedIn && (isAdmin || isWorker) && (
               <Nav.Link
                 to={"/work_item"}
                 as={NavLink}
@@ -194,10 +174,10 @@ const NavBar = () => {
             )}
           </Nav>
           <Nav className="me-2 userTitle">
-            <span className={loggedOut ? "" : "bumsoap-color-dark"}>
-              {loggedOut ? "(로그인 전)" : `${identity}`}
+            <span className={loggedIn ? "bumsoap-color-dark" : ""}>
+              {loggedIn ? `${identity}` : "(로그인 전)"}
             </span>
-            {!loggedOut && <span className="narrow-left-space">님</span>}
+            {loggedIn && <span className="narrow-left-space">님</span>}
           </Nav>
           <Nav>
             <NavDropdown
@@ -206,13 +186,7 @@ const NavBar = () => {
               id="basic-nav-dropdown"
               className="me-2"
             >
-              {loggedOut ? (
-                <>
-                  <NavDropdown.Item to={"/login"} as={Link}>
-                    로그인
-                  </NavDropdown.Item>
-                </>
-              ) : (
+              {loggedIn ? (
                 <>
                   <NavDropdown.Item to={"#"} as={Link} onClick={logoutNavBar}>
                     로그아웃
@@ -232,6 +206,12 @@ const NavBar = () => {
                   <NavDropdown.Divider />
                   <NavDropdown.Item to={`/user/${loginId}/update`} as={Link}>
                     내 정보 수정
+                  </NavDropdown.Item>
+                </>
+              ) : (
+                <>
+                  <NavDropdown.Item to={"/login"} as={Link}>
+                    로그인
                   </NavDropdown.Item>
                 </>
               )}

@@ -37,29 +37,24 @@ export const refreshAccessToken = async (): Promise<string> => {
 };
 
 // 1. 유효한 토큰을 가져오는 내부 함수 (캐싱된 리프레시 프로미스를 활용)
-const getValidToken = async () => {
+export const getValidToken = async () => {
   let token = getAccessToken();
 
   if (token && isExpired(token)) {
-    token = null;
     clearAccessToken();
+    token = null;
   }
 
   if (!token) {
     if (!refreshPromise) {
-      refreshPromise = (async () => {
-        try {
-          const newToken = await refreshAccessToken();
-          return newToken;
-        } finally {
-          refreshPromise = null;
-        }
-      })();
+      refreshPromise = refreshAccessToken().finally(() => {
+        refreshPromise = null;
+      });
     }
-    token = await refreshPromise; // 실패 시 Error 호출부로 전파
+    token = await refreshPromise; // 실패 시 예외 전파
   }
 
-  return token; // 항상 string
+  return token;
 };
 
 // 빌드 헬퍼
@@ -110,7 +105,7 @@ const isExpired = (token) => {
     const base64Payload = token.split(".")[1]; // 페이로드 부분 추출
     const standardBase64 = base64UrlToBase64(base64Payload);
     const payload = JSON.parse(atob(standardBase64));
-    return payload.exp * 1000 <= Date.now();
+    return payload.exp * 1000 <= Date.now() + 30_000;
   } catch (e) {
     console.error("토큰 디코딩 실패:", e);
     return true;
@@ -118,6 +113,7 @@ const isExpired = (token) => {
 };
 
 // 모듈 최상단에 공유 변수 선언 (파일 외부로 export 불필요)
+// let refreshPromise: Promise<string> | null = null;
 let refreshPromise: Promise<string> | null = null;
 
 // callWithToken: params를 네 번째 인자로 추가
