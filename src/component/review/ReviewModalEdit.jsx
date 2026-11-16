@@ -125,7 +125,8 @@ export default function ReviewModalEdit({
     }
 
     while ((match = srcRegex.exec(reviewContent)) !== null) {
-      urlsAfter.add(match[1]);
+      const dbLink = getDbLink(match[1]);
+      urlsAfter.add(dbLink);
     }
     const diff = new Set([...urlsBefore].filter((x) => !urlsAfter.has(x)));
 
@@ -147,10 +148,17 @@ export default function ReviewModalEdit({
 
     const publicUrl =
       "https://bum-soap-media-905418381044-ap-northeast-2-an.s3.ap-northeast-2.amazonaws.com";
+
     if (!url.startsWith(publicUrl + "/")) return imgTag;
 
     const key = url.substring(publicUrl.length + 1); // tmp 포함 원본 그대로
+
     return `<img src="${publicUrl}/${key}" data-key="${key}">`;
+  };
+
+  const getDbLink = (viewLink) => {
+    const idx = viewLink.indexOf("?");
+    return viewLink.substring(0, idx);
   };
 
   const replaceAllImgTags = (htmlContent) => {

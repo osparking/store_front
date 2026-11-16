@@ -64,7 +64,6 @@ export const useQuillMediaHandlers = (getContent) => {
         const viewImageUrl = await getPresignedGetUrl(key);
         const data_key_appended = viewImageUrl + '" data-key="' + key + '"';
 
-        // quill.insertEmbed(range.index, "image", data_key_appended, "user"); // ✅ URL 삽입
         quill.insertEmbed(range.index, "image", viewImageUrl, "user"); // ✅ URL 삽입
         quill.setSelection(range.index + 1);
 

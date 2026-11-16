@@ -23,6 +23,8 @@ const OrderDetailEdit = ({ detailId, setShowDetail }) => {
   const [showModal, setShowModal] = useState(false);
   const [review, setReview] = useState();
   const [showReviewModal, setShowReviewModal] = useState(false);
+  const [showTooltipTop, setShowTooltipTop] = useState(false);
+  const [showTooltipBottom, setShowTooltipBottom] = useState(false);
 
   const readOrderDetail = async () => {
     const response = await getOrderDetail(detailId);
@@ -33,7 +35,6 @@ const OrderDetailEdit = ({ detailId, setShowDetail }) => {
       response && {
         orderName: response.order.orderName,
         review: response.order.review,
-        // review: response.order.htmlDisplay,
         htmlDisplay: response.order.htmlDisplay,
         stars: response.order.stars,
         userId: response.order.userId,
@@ -220,8 +221,9 @@ const OrderDetailEdit = ({ detailId, setShowDetail }) => {
     setShowReviewModal(false);
   };
 
-  const [showTooltipTop, setShowTooltipTop] = useState(false);
-  const [showTooltipBottom, setShowTooltipBottom] = useState(false);
+  if (!orderDetails) {
+    return null; // 또는 로딩 플레이스홀더
+  }
 
   return (
     <>
