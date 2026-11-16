@@ -5,7 +5,9 @@ th.iLabel {
 
 th.aLabel {
   background-color: lightpink;
-  width: 20%;
+  width: 90px;              /* 또는 30% 등 고정값 */
+  min-width: 80px;          /* 하한선 보장 */
+  white-space: nowrap;      /* 라벨이 글자 단위로 쪼개지는 것 방지 */
   text-align: right;
 }
 
