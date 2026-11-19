@@ -25,7 +25,6 @@ const CodeEntryModal = ({ show, handleHide, jwtToken, user }) => {
       formData.append("code", code);
       formData.append("jwtToken", jwtToken);
 
-      console.log("submit code: " + code + ", token:" + jwtToken);
       const response = await api.post(
         "/autho/public/verify-2fa-login",
         formData,

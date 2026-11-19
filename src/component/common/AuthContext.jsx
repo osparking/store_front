@@ -22,7 +22,6 @@ export function AuthProvider({ children }) {
     try {
       await getValidToken();
       // 사용자 정보는 백엔드 /me에서 가져오는 것이 이상적
-      // const user = JSON.parse(localStorage.getItem("USER") || "null");
       const user = await fetchMeInfo(); // response.data
 
       setIdentity(

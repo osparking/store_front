@@ -133,7 +133,7 @@ const UserUpdate = () => {
 
       localUser.fullName = response.data.fullName;
       localUser.mbPhone = response.data.mbPhone;
-      localStorage.setItem("USER", JSON.stringify(localUser));
+      // localStorage.setItem("USER", JSON.stringify(localUser));
 
       refreshUser();
     } catch (error) {

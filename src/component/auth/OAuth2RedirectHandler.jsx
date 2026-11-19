@@ -12,24 +12,24 @@ const OAuth2RedirectHandler = () => {
   const [user, setUser] = useState();
   const [jwtToken, setJwtToken] = useState("");
 
-  const loginAfterProcessing = (user) => {
-    localStorage.setItem("USER", JSON.stringify(user));
+  // const loginAfterProcessing = (user) => {
+  //   localStorage.setItem("USER", JSON.stringify(user));
 
-    localStorage.setItem("LOGIN_ID", user.id);
-    localStorage.setItem("IS_ADMIN", user.isAdmin);
-    localStorage.setItem("IS_WORKER", user.isWorker);
-    window.dispatchEvent(new Event("loginEvt"));
+  //   localStorage.setItem("LOGIN_ID", user.id);
+  //   localStorage.setItem("IS_ADMIN", user.isAdmin);
+  //   localStorage.setItem("IS_WORKER", user.isWorker);
+  //   window.dispatchEvent(new Event("loginEvt"));
 
-    // Check for stored pre-login URL
-    let landingUrl = "/";
-    const preLoginUrl = sessionStorage.getItem("preLoginUrl");
+  //   // Check for stored pre-login URL
+  //   let landingUrl = "/";
+  //   const preLoginUrl = sessionStorage.getItem("preLoginUrl");
 
-    if (preLoginUrl) {
-      landingUrl = preLoginUrl;
-      sessionStorage.removeItem("preLoginUrl");
-    }
-    navigate(landingUrl, { replace: true });
-  };
+  //   if (preLoginUrl) {
+  //     landingUrl = preLoginUrl;
+  //     sessionStorage.removeItem("preLoginUrl");
+  //   }
+  //   navigate(landingUrl, { replace: true });
+  // };
 
   const hideCodeModal = () => {
     setShowCodeModal(false);
@@ -49,8 +49,19 @@ const OAuth2RedirectHandler = () => {
           setJwtToken(token);
           setUser(user);
         } else {
-          loginAfterProcessing(user);
           setAccessToken(token);
+          // loginAfterProcessing(user);
+          window.dispatchEvent(new Event("loginEvt"));
+
+          // Check for stored pre-login URL
+          let landingUrl = "/";
+          const preLoginUrl = sessionStorage.getItem("preLoginUrl");
+
+          if (preLoginUrl) {
+            landingUrl = preLoginUrl;
+            sessionStorage.removeItem("preLoginUrl");
+          }
+          navigate(landingUrl, { replace: true });
         }
       } catch (error) {
         console.error("토큰 해독 오류:", error);

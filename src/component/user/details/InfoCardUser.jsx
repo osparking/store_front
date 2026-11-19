@@ -152,7 +152,7 @@ const InfoCardUser = ({ user, readOnly, handleDeletion }) => {
       response = await updateUser(newUser.id, newUser);
       localUser.fullName = response.data.fullName;
       localUser.mbPhone = response.data.mbPhone;
-      localStorage.setItem("USER", JSON.stringify(localUser));
+      // localStorage.setItem("USER", JSON.stringify(localUser));
 
       setUserFullName(newUser.fullName);
       setUserMbPhone(newUser.mbPhone);
