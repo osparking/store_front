@@ -1,5 +1,10 @@
 import { jwtDecode } from "jwt-decode";
 
+export const getFullName = (jwt) => {
+  const decodedToken = jwtDecode(jwt);
+  return decodedToken.fullName;
+};
+
 export const jwtToUser = (jwt) => {
   const decodedToken = jwtDecode(jwt);
 

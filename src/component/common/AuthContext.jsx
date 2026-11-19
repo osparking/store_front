@@ -8,6 +8,7 @@ import {
 import { getValidToken } from "../util/api";
 import { TokenRefreshingError } from "../util/errors";
 import { clearAccessToken } from "../util/tokenStore";
+import { fetchMeInfo } from "../customer/CustomerService";
 
 const AuthContext = createContext(null);
 
@@ -21,14 +22,13 @@ export function AuthProvider({ children }) {
     try {
       await getValidToken();
       // 사용자 정보는 백엔드 /me에서 가져오는 것이 이상적
-      const user = JSON.parse(localStorage.getItem("USER") || "null");
+      // const user = JSON.parse(localStorage.getItem("USER") || "null");
+      const user = await fetchMeInfo(); // response.data
 
       setIdentity(
-        user?.loginMethod === "이메일"
-          ? user.fullName
-          : user
-            ? `<${user.loginMethod}>`
-            : null,
+        user.loginMethod === "EMAIL"
+          ? localStorage.getItem("userFullName")
+          : `<${user.loginMethod}>`,
       );
       setAuthState("authenticated");
     } catch (e) {

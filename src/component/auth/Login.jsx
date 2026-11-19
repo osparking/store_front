@@ -16,7 +16,7 @@ import { FcGoogle } from "react-icons/fc";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import naverIcon from "../../assets/images/btnD_icon_square.png";
 import AlertMessage from "../common/AlertMessage";
-import { jwtToUser } from "../common/JwtUtils";
+import { getFullName, jwtToUser } from "../common/JwtUtils";
 import BsAlertHook from "../hook/BsAlertHook";
 import ConfirmResultModal from "../modal/ConfirmResultModal";
 import EnableAccountModal from "../modal/EnableAccountModal";
@@ -152,11 +152,14 @@ const Login = () => {
       if (response.status === HTTP_STATUS.OK) {
         let user = jwtToUser(data.data.token);
 
+        const fullName = getFullName(data.data.token);
+
         setAccessToken(data.data.token);
         if (user.twoFaEnabled) {
           setUser(user);
           setShowCodeModal(true);
         } else {
+          localStorage.setItem("userFullName", user.fullName);
           storeLoginInfo(user);
           window.dispatchEvent(
             new CustomEvent("loginEvt", {

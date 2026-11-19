@@ -21,3 +21,14 @@ export async function getCustomerList() {
     throw err;
   }
 }
+
+export async function fetchMeInfo() {
+  try {
+    const url = "/user/me";
+    const result = await callWithToken("get", url);
+    return result.data.data;
+  } catch (err) {
+    throw err;
+  }
+}
+
