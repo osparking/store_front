@@ -29,7 +29,8 @@ export const refreshAccessToken = async (): Promise<string> => {
       const msg = error.response?.data?.message;
 
       if (msg === "RT_MISSING" || msg === "RT_REVOKED_OR_EXPIRED") {
-        throw new TokenRefreshingError("RT_EXPIRED", msg);
+        // 일단, 오류 콘솔 표시 불필요하다고 판단함 - 2026-11-19
+        // throw new TokenRefreshingError("RT_EXPIRED", msg);
       }
     }
     throw error;

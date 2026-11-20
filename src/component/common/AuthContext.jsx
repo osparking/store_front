@@ -1,9 +1,9 @@
 import {
-    createContext,
-    useCallback,
-    useContext,
-    useEffect,
-    useState,
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
 } from "react";
 import { getValidToken } from "../util/api";
 import { TokenRefreshingError } from "../util/errors";
@@ -20,16 +20,18 @@ export function AuthProvider({ children }) {
   const refreshAuth = useCallback(async () => {
     setAuthState("loading");
     try {
-      await getValidToken();
-      // 사용자 정보는 백엔드 /me에서 가져오는 것이 이상적
-      const user = await fetchMeInfo(); // response.data
+      const token = await getValidToken();
+      if (token) {
+        // 사용자 정보는 백엔드 /me에서 가져오는 것이 이상적
+        const user = await fetchMeInfo(); // response.data
 
-      setIdentity(
-        user.loginMethod === "EMAIL"
-          ? localStorage.getItem("userFullName")
-          : `<${user.loginMethod}>`,
-      );
-      setAuthState("authenticated");
+        setIdentity(
+          user.loginMethod === "EMAIL"
+            ? localStorage.getItem("userFullName")
+            : `<${user.loginMethod}>`,
+        );
+        setAuthState("authenticated");
+      }
     } catch (e) {
       if (e instanceof TokenRefreshingError) setAuthState("anonymous");
       else setAuthState("anonymous");

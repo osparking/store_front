@@ -6,6 +6,7 @@ import { logoutUser } from "../auth/AuthService";
 import { useAuthContext } from "../common/AuthContext";
 import "./navBar.css";
 import { useRoot } from "./RootContext";
+import { fetchMeInfo } from "../customer/CustomerService";
 
 const naviAskedIds = new Set();
 
@@ -22,37 +23,39 @@ const NavBar = () => {
   };
 
   const navigate = useNavigate();
-  const loginId = localStorage.getItem("LOGIN_ID");
+  const [loginId, setLoginId] = useState("");
 
   useEffect(() => {
-    const readEmployeeStatus = () => {
-      const isAdminJson = localStorage.getItem("IS_ADMIN");
-      const isWorkerJson = localStorage.getItem("IS_WORKER");
-      setIsEmployee(JSON.parse(isAdminJson), JSON.parse(isWorkerJson));
+    const readEmployeeStatus = async () => {
+      try {
+        const user = await fetchMeInfo();
+        setIsEmployee(user.isAdmin, user.isWorker);
+        setLoginId(user.id);
+      } catch (e) {
+        // 로그아웃 상태/토큰 만료 등 → 초기화
+        setIsEmployee(false, false);
+        setLoginId("");
+      }
     };
 
-    readEmployeeStatus();
-
-    const handleLogin = () => {
+    // 인증된 상태에서만 호출
+    if (loggedIn) {
       readEmployeeStatus();
-    };
+    } else {
+      setIsEmployee(false, false);
+      setLoginId("");
+    }
+
+    const handleLogin = () => readEmployeeStatus();
 
     const handleLogout = (event) => {
       const nowTimeId = Math.floor(Date.now() / 1000);
-
       if (!naviAskedIds.has(nowTimeId)) {
         const { path, message } = event?.detail || { path: "", message: "" };
-
         setIsEmployee(false, false);
-
+        setLoginId("");
         if (message) {
-          navigate(path, {
-            state: {
-              success: false,
-              message: message,
-              id: nowTimeId,
-            },
-          });
+          navigate(path, { state: { success: false, message, id: nowTimeId } });
         } else {
           navigate(path);
         }
@@ -67,7 +70,7 @@ const NavBar = () => {
       window.removeEventListener("logoutEvt", handleLogout);
       window.removeEventListener("loginEvt", handleLogin);
     };
-  }, []); // 마운트 시 1회만 등록
+  }, [loggedIn]); // ← 의존성 배열에 loggedIn 추가
 
   const [activeLinkText, setActiveLinkText] = useState("");
   const location = useLocation();
