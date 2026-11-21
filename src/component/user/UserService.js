@@ -52,9 +52,9 @@ export async function getSoapsMonthUser() {
   }
 }
 
-export async function getShapeCount(userId) {
+export async function getShapeCount() {
   try {
-    const urlSuffix = `/order/${userId}/get_shape_count`;
+    const urlSuffix = `/order/get_shape_count`;
     const result = await callWithToken("get", urlSuffix);
     return result.data;
   } catch (err) {

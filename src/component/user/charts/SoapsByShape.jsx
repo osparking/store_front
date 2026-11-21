@@ -15,8 +15,8 @@ const SoapsByShape = ({ totalSoaps }) => {
     const getSoapShapeStat = async () => {
       setIsLoading(true); // 요청 시작
       try {
-        const userId = localStorage.getItem("LOGIN_ID");
-        const result = await getShapeCount(userId);
+        const result = await getShapeCount();
+        
         setShapeCount(result.data);
       } catch (error) {
         setErrorMessage(error.message);
