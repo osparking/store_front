@@ -35,8 +35,6 @@ import "./Login.css";
 const processedIds = new Set();
 
 const Login = () => {
-  const localUser = localStorage.getItem("USER");
-
   // 이미 로그인되어 있으면 홈으로 보내기
   if (getAccessToken()) {
     return <Navigate to="/" replace />;

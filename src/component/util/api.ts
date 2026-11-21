@@ -14,26 +14,30 @@ export const api = axios.create({
 });
 
 // refresh 토큰으로 새 AT 발급 요청
-export const refreshAccessToken = async (): Promise<string> => {
+export const refreshAccessToken = async (): Promise<string | null> => {
   try {
-    // RT 제출 방식 - Authorization 헤더 대신 쿠키에 자동 포함
-    const response = await axios.post(`${prefix}/autho/refresh_token`, null, {
-      withCredentials: true,
-    });
-    const aToken: string = response.data.data.token;
+    const response = await axios.post(
+      `${prefix}/autho/refresh_token`,
+      null,
+      {
+        withCredentials: true,
+        validateStatus: (status) => status === 200 || status === 401,
+      },
+    );
+    if (response.status === 401) {
+      return null;
+    }
 
+    if (response.status !== 200) {
+      throw new Error(`refresh failed: ${response.status}`);
+    }    
+
+    const aToken: string = response.data.data.token;
     setAccessToken(aToken);
     return aToken;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const msg = error.response?.data?.message;
-
-      if (msg === "RT_MISSING" || msg === "RT_REVOKED_OR_EXPIRED") {
-        // 일단, 오류 콘솔 표시 불필요하다고 판단함 - 2026-11-19
-        // throw new TokenRefreshingError("RT_EXPIRED", msg);
-      }
-    }
-    throw error;
+  } catch (err) {
+    // 네트워크 장애, 5xx 등 진짜 예외만 여기로
+    throw new Error(`refresh failed: ${err}`);
   }
 };
 
@@ -114,8 +118,7 @@ const isExpired = (token) => {
 };
 
 // 모듈 최상단에 공유 변수 선언 (파일 외부로 export 불필요)
-// let refreshPromise: Promise<string> | null = null;
-let refreshPromise: Promise<string> | null = null;
+let refreshPromise: Promise<string | null> | null = null;
 
 // callWithToken: params를 네 번째 인자로 추가
 export async function callWithToken<T extends Record<string, unknown>>(
@@ -131,11 +134,16 @@ export async function callWithToken<T extends Record<string, unknown>>(
 
   try {
     const token = await getValidToken();
+
+    if (!token) {
+      logoutUser({ path: "/login", message: "로그인 필요" });
+      throw new TokenRefreshingError("NO_TOKEN_IN_RESPONSE");
+    }    
     return await originalRequest(token);
   } catch (error) {
     if (error instanceof TokenRefreshingError) {
       logoutUser({ path: "/login", message: "로그인 유지 기간 만료" });
-    } else if (error.response?.status === HttpStatusCode.Unauthorized) {
+    } else if (error.response?.status === 401) {
       logoutUser({ path: "/login", message: "로그인 필요 자원 요청" });
     }
     throw error;

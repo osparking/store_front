@@ -42,10 +42,9 @@ export async function disableUserAccount(userId) {
   }
 }
 
-export async function getSoapsMonthUser(userId) {
+export async function getSoapsMonthUser() {
   try {
-    const urlSuffix = `/user/${userId}/soaps_month`;
-    console.log("suffix:", urlSuffix);
+    const urlSuffix = `/user/soaps_month`;
     const result = await callWithToken("get", urlSuffix);
     return result.data;
   } catch (err) {

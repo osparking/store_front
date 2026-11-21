@@ -159,7 +159,7 @@ function App() {
       try {
         // 쿠키에 RT 가 있으면 새 AT 발급
         const aToken = await refreshAccessToken();
-        setIsLoggedIn(true);
+        setIsLoggedIn(Boolean(aToken));
       } catch (err) {
         // RT 없음/만료 → 로그인 안 된 상태
         setIsLoggedIn(false);

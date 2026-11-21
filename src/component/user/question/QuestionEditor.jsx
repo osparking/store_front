@@ -7,12 +7,13 @@ import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css"; // Import styles
 import { useNavigate } from "react-router-dom";
 import "../../../App.css";
+import { fetchMeInfo } from "../../customer/CustomerService";
+import "../../editor/CustomVideoBlot";
+import { useQuillMediaHandlers } from "../../editor/useQuillMediaHandlers";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import { getPlainContent } from "../../util/utilities";
 import "./QuestionEditor.css";
 import { saveQuestion } from "./QuestionService";
-import { useQuillMediaHandlers } from "../../editor/useQuillMediaHandlers";
-import "../../editor/CustomVideoBlot";
 
 function QuestionEditor({
   question,
@@ -23,6 +24,7 @@ function QuestionEditor({
 }) {
   const navigate = useNavigate();
   const [originalQuestion] = useState(question);
+  const [userId, setUserId] = useState(null);
   const [contentUnChanged, setContentUnChanged] = useState(true);
 
   const [title, setTitle] = useState(question ? question.title : "");
@@ -85,8 +87,6 @@ function QuestionEditor({
       return toast.error("질문 제목과 내용을 둘 다 작성하세요!");
     }
     try {
-      const userId = localStorage.getItem("LOGIN_ID");
-
       setSaving(true);
       const questionData = {
         id: question?.id ?? 0,
@@ -174,23 +174,29 @@ function QuestionEditor({
   const titleRef = useRef(null);
 
   useEffect(() => {
-    const handleTitleKeyDown = (e) => {
-      if (e.key === "Tab" && !e.shiftKey) {
-        e.preventDefault();
-        if (quillRef.current && quillRef.current.getEditor()) {
-          const editor = quillRef.current.getEditor();
-          editor.focus();
+    const prepareQuestionEntry = async () => {
+      const user = await fetchMeInfo();
+      setUserId(user.id);
+      
+      const handleTitleKeyDown = (e) => {
+        if (e.key === "Tab" && !e.shiftKey) {
+          e.preventDefault();
+          if (quillRef.current && quillRef.current.getEditor()) {
+            const editor = quillRef.current.getEditor();
+            editor.focus();
+          }
         }
+      };
+
+      const titleInput = document.querySelector('input[name="title"]');
+      if (titleInput) {
+        titleInput.addEventListener("keydown", handleTitleKeyDown);
+        return () => {
+          titleInput.removeEventListener("keydown", handleTitleKeyDown);
+        };
       }
     };
-
-    const titleInput = document.querySelector('input[name="title"]');
-    if (titleInput) {
-      titleInput.addEventListener("keydown", handleTitleKeyDown);
-      return () => {
-        titleInput.removeEventListener("keydown", handleTitleKeyDown);
-      };
-    }
+    prepareQuestionEntry();
   }, []);
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);

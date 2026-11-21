@@ -55,8 +55,7 @@ const OverviewUser = () => {
   useEffect(() => {
     const getSoapsMonth = async () => {
       try {
-        const userId = localStorage.getItem("LOGIN_ID");
-        const response = await getSoapsMonthUser(userId);
+        const response = await getSoapsMonthUser();
         const responseData = response.data;
         console.log("비누 수량/월:", JSON.stringify(responseData));
         const chartData = responseData.map((soapCount) => ({
