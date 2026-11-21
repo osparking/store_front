@@ -21,13 +21,12 @@ const MyOrdersPage = ({ setShowDetail, setDetailId }) => {
   const indexOfFirst = idxLastPlus1 - pageSize;
 
   const { ordersVersion } = useDashboard();
-  const loginId = localStorage.getItem("LOGIN_ID");
 
   useEffect(() => {
     localStorage.setItem("ORDER_PAGE_고객", currentPage);
     const loadOrderPage = async () => {
       // 인자 제거됨
-      const searchResult = await getOrderPage(loginId, currentPage, pageSize);
+      const searchResult = await getOrderPage(currentPage, pageSize);
       setSearchResult(searchResult);
       if (searchResult) {
         setTotalPages(searchResult.totalPages);

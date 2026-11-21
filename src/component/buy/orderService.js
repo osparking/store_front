@@ -106,13 +106,13 @@ export async function getReviewPage(page, size) {
   }
 }
 
-export async function getOrderPage(userId, page, size) {
-  const urlPrefix = "/order/myrows?userId=";
+export async function getOrderPage(page, size) {
+  const urlPrefix = "/order/myrows?page=";
 
   try {
     const result = await callWithToken(
       "get",
-      `${urlPrefix}${userId}&page=${page}&size=${size}`,
+      `${urlPrefix}${page}&size=${size}`,
     );
     return result?.data.data;
   } catch (err) {
