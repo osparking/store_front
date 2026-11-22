@@ -32,3 +32,12 @@ export async function fetchMeInfo() {
   }
 }
 
+export async function fetchUserInfo(userId) {
+  try {
+    const url = `/user/${userId}/info`;
+    const result = await callWithToken("get", url);
+    return result.data.data;
+  } catch (err) {
+    throw err;
+  }
+}

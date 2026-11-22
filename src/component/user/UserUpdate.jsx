@@ -12,13 +12,14 @@ import {
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
 import ProcessSpinner from "../common/ProcessSpinner";
+import { fetchMeInfo, fetchUserInfo } from "../customer/CustomerService";
 import BsAlertHook from "../hook/BsAlertHook";
 import { useRoot } from "../layout/RootContext";
 import DisableAccountModal from "../modal/DisableAccountModal";
 import { insertHyphens } from "../util/utilities";
 import WorkerDeptSelector from "../worker/WorkerDeptSelector";
-import "./UpdateUser.css";
 import { getUserDtoById, updateUser } from "./UserService";
+import "./UserUpdate.css";
 
 const UserUpdate = () => {
   const { refreshUser } = useRoot();
@@ -55,15 +56,27 @@ const UserUpdate = () => {
     setAlertError,
   } = BsAlertHook();
 
-  const { id } = useParams();
-  const loginId = localStorage.getItem("LOGIN_ID");
+  const { id: userId } = useParams();
   const [isProcessing, setIsProcessing] = useState(false);
+
+  const [loginId, setLoginId] = useState();
+
+  useEffect(() => {
+    const readMeInfo = async () => {
+      const me = await fetchMeInfo();
+      setLoginId(me.id);
+
+      const user = await fetchUserInfo(userId);
+      setUser(user);
+    };
+    readMeInfo();
+  }, []);
 
   useEffect(() => {
     const getUser = async () => {
       try {
-        if (id === loginId) {
-          const result = await getUserDtoById(id);
+        if (userId === loginId) {
+          const result = await getUserDtoById(userId);
           if (result) {
             setUser(result.data);
             changeUserInDB(result.data.fullName, result.data.mbPhone);
@@ -82,7 +95,7 @@ const UserUpdate = () => {
       }
     };
     getUser();
-  }, [id]);
+  }, [userId]);
 
   const handlePhoneChange = (event) => {
     const { name, value } = event.target;
@@ -123,7 +136,7 @@ const UserUpdate = () => {
 
     try {
       setIsProcessing(true);
-      const response = await updateUser(id, updatedUser);
+      const response = await updateUser(userId, updatedUser);
 
       changeUserInDB(user.fullName, user.mbPhone);
       setSuccessMsg(response.message);
@@ -133,8 +146,6 @@ const UserUpdate = () => {
 
       localUser.fullName = response.data.fullName;
       localUser.mbPhone = response.data.mbPhone;
-      // localStorage.setItem("USER", JSON.stringify(localUser));
-
       refreshUser();
     } catch (error) {
       setErrorMsg(error.response.data.message);
@@ -146,7 +157,7 @@ const UserUpdate = () => {
 
   const navigate = useNavigate();
   const cancelUpdate = () => {
-    if (id === loginId) {
+    if (userId === loginId) {
       navigate(`/dashboard/${loginId}/user`);
     } else {
       navigate(`/dashboard/admin`);

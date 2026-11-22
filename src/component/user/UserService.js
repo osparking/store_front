@@ -16,6 +16,7 @@ export async function updateUser(userId, user) {
   try {
     const url = `/user/${userId}/update`;
     const result = await callWithToken("put", url, user);
+
     return result.data;
   } catch (err) {
     throw err;

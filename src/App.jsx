@@ -59,7 +59,7 @@ const QuestionEditor = lazy(
   () => import("./component/user/question/QuestionEditor"),
 );
 const RegisterUser = lazy(() => import("./component/user/RegisterUser"));
-const UserUpdate = lazy(() => import("./component/user/UpdateUser"));
+const UserUpdate = lazy(() => import("./component/user/UserUpdate"));
 const UserDashboard = lazy(() => import("./component/user/UserDashboard"));
 
 // ------------------------------------------------------------------
@@ -85,7 +85,7 @@ const LoadingScreen = () => {
           width: "5rem",
           height: "5rem",
           color: "#ed96c4",
-          borderWidth: "10px"
+          borderWidth: "10px",
         }}
       />
     </div>
