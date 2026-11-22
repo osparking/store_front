@@ -1,4 +1,4 @@
-import axios, { HttpStatusCode } from "axios";
+import axios from "axios";
 import { logoutUser } from "../auth/AuthService";
 import { TokenRefreshingError } from "./errors";
 import { clearAccessToken, getAccessToken, setAccessToken } from "./tokenStore";
@@ -16,21 +16,17 @@ export const api = axios.create({
 // refresh 토큰으로 새 AT 발급 요청
 export const refreshAccessToken = async (): Promise<string | null> => {
   try {
-    const response = await axios.post(
-      `${prefix}/autho/refresh_token`,
-      null,
-      {
-        withCredentials: true,
-        validateStatus: (status) => status === 200 || status === 401,
-      },
-    );
+    const response = await axios.post(`${prefix}/autho/refresh_token`, null, {
+      withCredentials: true,
+      validateStatus: (status) => status === 200 || status === 401,
+    });
     if (response.status === 401) {
       return null;
     }
 
     if (response.status !== 200) {
       throw new Error(`refresh failed: ${response.status}`);
-    }    
+    }
 
     const aToken: string = response.data.data.token;
     setAccessToken(aToken);
@@ -135,11 +131,11 @@ export async function callWithToken<T extends Record<string, unknown>>(
   try {
     const token = await getValidToken();
 
-    if (!token) {
+    if (token) {
+      return await originalRequest(token);
+    } else {
       logoutUser({ path: "/login", message: "로그인 필요" });
-      throw new TokenRefreshingError("NO_TOKEN_IN_RESPONSE");
-    }    
-    return await originalRequest(token);
+    }
   } catch (error) {
     if (error instanceof TokenRefreshingError) {
       logoutUser({ path: "/login", message: "로그인 유지 기간 만료" });
