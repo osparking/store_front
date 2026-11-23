@@ -76,7 +76,6 @@ export const removeUserKeys = () => {
     "INGRE_NAME",
     "IS_ADMIN",
     "IS_WORKER",
-    "LOGIN_ID",
     "NAME_SUBSTR",
     "ORDER_ACTION",
     "ORDER_ID",
@@ -92,11 +91,12 @@ export const removeUserKeys = () => {
     "SAVE_LOGIN",
     "SELECTED_DEPT",
     "SELECTED_EMAIL",
-    "USER",
+    "userFullName",
     "WORKER_TAB",
   ];
 
   for (const userKey of userKeys) {
+    if (userKey !== "HIDE_TILL")
     localStorage.removeItem(userKey);
   }
 };

@@ -15,7 +15,7 @@ const NavBar = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isWorker, setIsWorker] = useState(false);
 
-  const { authState, identity } = useAuthContext();
+  const { authState, identity, meInfo } = useAuthContext();
   const loggedIn = authState === "authenticated";
   const setIsEmployee = (isAdmin, isWorker) => {
     setIsAdmin(isAdmin);
@@ -32,11 +32,10 @@ const NavBar = () => {
   };
 
   useEffect(() => {
-    const readEmployeeStatus = async () => {
+    const readEmployeeStatus = () => {
       try {
-        const user = await fetchMeInfo();
-        setIsEmployee(user.isAdmin, user.isWorker);
-        setLoginId(user.id);
+        setIsEmployee(meInfo.admin, meInfo.worker);
+        setLoginId(meInfo.id);
       } catch (e) {
         // 로그아웃 상태/토큰 만료 등 → 초기화
         setIsEmployee(false, false);
@@ -118,8 +117,6 @@ const NavBar = () => {
       navigate("/register_user");
     }
   };
-
-  const userId = localStorage.getItem("LOGIN_ID");
 
   const logoutNavBar = async () => {
     try {

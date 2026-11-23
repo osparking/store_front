@@ -7,7 +7,6 @@ import {
 } from "react";
 import { fetchMeInfo } from "../customer/CustomerService";
 import { getValidToken } from "../util/api";
-import { TokenRefreshingError } from "../util/errors";
 import { clearAccessToken } from "../util/tokenStore";
 
 const AuthContext = createContext(null);
@@ -16,33 +15,37 @@ export function AuthProvider({ children }) {
   // 'loading' | 'authenticated' | 'anonymous'
   const [authState, setAuthState] = useState("loading");
   const [identity, setIdentity] = useState(null);
+  const [meInfo, setMeInfo] = useState({});
 
   const refreshAuth = useCallback(async () => {
     setAuthState("loading");
+    let nextState = "anonymous";
+    let nextIdentity = null;
+
     try {
       const userFullName = localStorage.getItem("userFullName");
-
+      // await new Promise((resolve) => setTimeout(resolve, 1000));
       if (userFullName) {
         const token = await getValidToken();
 
         if (token) {
-          // 사용자 정보는 백엔드 /me에서 가져오는 것이 이상적
-          const user = await fetchMeInfo(); // response.data
+          const meInfo = await fetchMeInfo();
 
-          setIdentity(
-            user.loginMethod === "EMAIL"
+          setMeInfo(meInfo);
+          nextIdentity =
+            meInfo.loginMethod === "EMAIL"
               ? localStorage.getItem("userFullName")
-              : `<${user.loginMethod}>`,
-          );
-          setAuthState("authenticated");
+              : `<${meInfo.loginMethod}>`;
+          nextState = "authenticated";
         }
-      } else {
-        setAuthState("anonymous");
       }
     } catch (e) {
-      if (e instanceof TokenRefreshingError) setAuthState("anonymous");
-      else setAuthState("anonymous");
-      setIdentity(null);
+      nextState = "anonymous";
+      nextIdentity = null;
+    } finally {
+      // ✅ 어떤 경로로 끝나든 loading에서 벗어남
+      setIdentity(nextIdentity);
+      setAuthState(nextState);
     }
   }, []);
 
@@ -67,7 +70,7 @@ export function AuthProvider({ children }) {
   }, [refreshAuth]);
 
   return (
-    <AuthContext.Provider value={{ authState, identity, refreshAuth }}>
+    <AuthContext.Provider value={{ authState, identity, meInfo, refreshAuth }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -18,8 +18,8 @@ import RootLayout from "./component/layout/RootLayout";
 
 // Home은 첫 방문 페이지일 가능성이 높으므로 정적 import 유지 (선택사항)
 import { Spinner } from "react-bootstrap";
+import { useAuthContext } from "./component/common/AuthContext";
 import Home from "./component/home/Home";
-import { refreshAccessToken } from "./component/util/api";
 
 // 인증 관련
 const EmailVerifin = lazy(() => import("./component/auth/EmailVerifin"));
@@ -72,7 +72,8 @@ const LoadingScreen = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100%",
+        width: "100vw",
+        height: "100vh",
         backgroundColor: "#4f8b76",
       }}
     >
@@ -151,32 +152,9 @@ function App() {
     ),
   );
 
-  const [isAuthReady, setIsAuthReady] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { authState } = useAuthContext();  
 
-  useEffect(() => {
-    const bootstrapAuth = async () => {
-      try {
-        // 쿠키에 RT 가 있으면 새 AT 발급
-        const userFullName = localStorage.getItem("userFullName");
-        if (userFullName) {
-          const aToken = await refreshAccessToken();
-          setIsLoggedIn(Boolean(aToken));
-        } else {
-          setIsLoggedIn(false);
-        }
-      } catch (err) {
-        // RT 없음/만료 → 로그인 안 된 상태
-        setIsLoggedIn(false);
-      } finally {
-        setIsAuthReady(true);
-      }
-    };
-
-    bootstrapAuth();
-  }, []);
-
-  if (!isAuthReady) return <LoadingScreen />;
+  if (authState === "loading") return <LoadingScreen />;
 
   return (
     <main className="app">
