@@ -9,17 +9,14 @@ import {
 } from "react-bootstrap";
 import { BsPlusSquareFill } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAuthContext } from "../common/AuthContext.jsx";
 import { callWithToken } from "../util/api.js";
 import { getSubTotal, labelsOver, setDifference } from "../util/utilities.js";
 import CartPutModal from "./CartPutModal.jsx";
 import OrderTable from "./form/OrderTable.jsx";
 import { useOrderDataStore } from "./orderDataStore.js";
 
-const OrderForm = ({
-  optionLabels,
-  defaultLabel,
-  changeCarouselShape,
-}) => {
+const OrderForm = ({ optionLabels, defaultLabel, changeCarouselShape }) => {
   const location = useLocation();
   const { formData, setMemberData } = useOrderDataStore();
 
@@ -155,6 +152,8 @@ const OrderForm = ({
     setShowResultModal(true);
   };
 
+  const { meInfo } = useAuthContext();
+
   async function putToCart() {
     if (formData.items.length === 0) {
       alert("비누 외형을 선택해주세요.");
@@ -174,9 +173,9 @@ const OrderForm = ({
       shape: item.shape.substring(0, item.shape.indexOf("(")),
       count: item.count,
     }));
-    const userId = localStorage.getItem("LOGIN_ID") || "0";
 
-    await saveCart(cartItems, userId);
+    await saveCart(cartItems, meInfo.id);
+
     // 장바구니에 담았으니, 주문 폼에는 기본 외형 행만 남김
     setMemberData("formData", { items: defaultItems });
     showCartModal(getResultString());
