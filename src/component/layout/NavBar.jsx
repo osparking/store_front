@@ -4,9 +4,9 @@ import toast from "react-hot-toast";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
 import { useAuthContext } from "../common/AuthContext";
+import { fetchMeInfo } from "../customer/CustomerService";
 import "./navBar.css";
 import { useRoot } from "./RootContext";
-import { fetchMeInfo } from "../customer/CustomerService";
 
 const naviAskedIds = new Set();
 
@@ -24,6 +24,12 @@ const NavBar = () => {
 
   const navigate = useNavigate();
   const [loginId, setLoginId] = useState("");
+
+  const clearLocalStorage = () => {
+    localStorage.removeItem("userFullName");
+    localStorage.removeItem("SOAP_INTRO_TAB");
+    localStorage.removeItem("SOAP_SHAPE_TAB");
+  };
 
   useEffect(() => {
     const readEmployeeStatus = async () => {
@@ -51,6 +57,7 @@ const NavBar = () => {
     const handleLogout = (event) => {
       const nowTimeId = Math.floor(Date.now() / 1000);
       if (!naviAskedIds.has(nowTimeId)) {
+        clearLocalStorage();
         const { path, message } = event?.detail || { path: "", message: "" };
         setIsEmployee(false, false);
         setLoginId("");
