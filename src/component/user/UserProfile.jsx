@@ -5,6 +5,7 @@ import InfoCardUser from "./details/InfoCardUser";
 import InfoCardWorker from "./details/InfoCardWorker";
 import PasswordCard from "./details/PasswordCard";
 import "./UserProfile.css";
+import { useAuthContext } from "../common/AuthContext";
 
 const UserProfile = ({
   user,
@@ -13,8 +14,8 @@ const UserProfile = ({
   handleDeletion,
   fetchWorkerPage,
 }) => {
-  const loginId = localStorage.getItem("LOGIN_ID");
-  const isAdmined = Number(loginId) !== user.id;
+  const { meInfo } = useAuthContext();
+  const isAdmined = meInfo.id !== user.id;
 
   const {
     successMsg,
