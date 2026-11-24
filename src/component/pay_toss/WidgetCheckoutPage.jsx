@@ -9,6 +9,7 @@ import { saveOrderRecipient } from "../buy/orderService";
 import { callWithToken } from "../util/api";
 import { clearLocalOrderData, getSuffixAfterSpace } from "../util/utilities";
 import "./WidgetCheckoutPage.css";
+import { useAuthContext } from "../common/AuthContext";
 
 // 전자결제 신청 및 가입 완료 후, clientKey 를 다음으로 수정할 것.
 // 개발자센터의 결제위젯 연동 키 > 클라이언트 키
@@ -112,6 +113,7 @@ function WidgetCheckoutPage() {
     }
   }
 
+  const { meInfo } = useAuthContext();
   useEffect(() => {
     let isRedirecting = false;
     let isMounted = true;
@@ -126,9 +128,8 @@ function WidgetCheckoutPage() {
         // 이미 결제 완료된 상태에서 체크아웃 접근 차단
         isRedirecting = true;
         console.error("이미 완료된 결제입니다.");
-        const userId = localStorage.getItem("LOGIN_ID");
         // navigate 대신 replace 사용으로 bfcache 우회
-        window.location.replace(`/dashboard/${userId}/user`);
+        window.location.replace(`/dashboard/${meInfo.id}/user`);
         return;
       } else {
         // 정상 checkout 로직
