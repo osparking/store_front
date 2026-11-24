@@ -29,9 +29,11 @@ import {
 import WorkerDeptSelector from "../worker/WorkerDeptSelector";
 import "./RegisterUser.css";
 import { registerUser } from "./UserService";
+import { useAuthContext } from "../common/AuthContext";
 
 const RegisterUser = () => {
-  const isAdmin = localStorage.getItem("IS_ADMIN") === "true";
+  const { meInfo } = useAuthContext();
+  const isAdmin = meInfo.admin;
   const [user, setUser] = useState({
     fullName: "",
     mbPhone: "",
