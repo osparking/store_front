@@ -5,6 +5,7 @@ import { persist } from "zustand/middleware";
 const useOrderDataStore = create(
   persist(
     immer((set) => ({
+      orderId: null,
       savedOrderActionStr: null,
       formData: {
         items: [],

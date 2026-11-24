@@ -165,10 +165,6 @@ export async function storeWaybillNo(data) {
 export async function saveOrderRecipient(data) {
   try {
     const result = await callWithToken("post", "/order/add", data);
-
-    // 주문 수신처쪽과 결제쪽 간을 반복방문 때 과거 주문정보 삭제용.
-    localStorage.setItem("ORDER_ID", JSON.stringify(result.data.data.id));
-
     return result.data;
   } catch (err) {
     throw err;

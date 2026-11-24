@@ -31,7 +31,7 @@ function WidgetCheckoutPage() {
   const isSubmittingRef = useRef(false);
 
   // 스토어에서 필요한 멤버 가져오기
-  const { savedOrderActionStr, recipient, orderData, setMemberData } =
+  const { orderId, savedOrderActionStr, recipient, orderData, setMemberData } =
     useOrderDataStore();
 
   async function saveOrderRecord() {
@@ -61,15 +61,12 @@ function WidgetCheckoutPage() {
       if (localOrder) {
         // 로컬에 주문 정보가 있었으므로,
         try {
-          // 후단에 저장되었을 갱신 전 주문 정보의 삭제를 요청한다.
-          // 로컬에서 주문 ID를 확보한다
-          const order_id = localStorage.getItem("ORDER_ID");
-
-          if (order_id) {
-            await callWithToken("delete", `/order/${order_id}/delete`);
+          // 만일 갱신되기 전 주문 정보가 후단에 저장되었으면 삭제한다.
+          if (orderId) {
+            await callWithToken("delete", `/order/${orderId}/delete`);
           }
         } catch (error) {
-          console.error("취소된 주문 정보 삭제 실패: ", error);
+          console.error("갱신전 가 저장된 주문 정보 삭제 실패: ", error);
         }
       }
       // 새 주문 정보 후단 저장 네 단계:
@@ -82,6 +79,9 @@ function WidgetCheckoutPage() {
       // 3. 주문 정보 후단 저장.
       try {
         const response = await saveOrderRecipient(orderAction);
+
+        // 주문 수신처과 주문 결제 간 진퇴 방문 때 기 저장된 주문 정보 삭제용.
+        setMemberData("orderId", response.data.id);
         setOrderIdToss(response.data?.orderId);
         localStorage.setItem("ORDER_ID_TOSS", response.data?.orderId);
         console.log("주문 저장 성공: ", response);
@@ -250,7 +250,7 @@ function WidgetCheckoutPage() {
       sessionStorage.removeItem("isProcessingPayment");
       if (error instanceof Error) {
         const message = error.message.replace(/^[^:]*:\s*/, "");
-        toast.error(message);        
+        toast.error(message);
       }
       if (paymentRef.current) {
         paymentRef.current.scrollTop = paymentRef.current.scrollHeight;
