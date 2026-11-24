@@ -1,13 +1,14 @@
 import { Button, Container } from "react-bootstrap";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useAuthContext } from "../common/AuthContext";
 
 export function FailPage() {
   const [searchParams] = useSearchParams();
-  const userId = localStorage.getItem("LOGIN_ID");
+  const { meInfo } = useAuthContext();
   const navigate = useNavigate();
 
   const toDashBoard = () => {
-    navigate(`/dashboard/${userId}/user`, { replace: true });
+    navigate(`/dashboard/${meInfo.id}/user`, { replace: true });
   };
 
   return (
