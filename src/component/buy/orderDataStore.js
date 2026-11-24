@@ -1,12 +1,12 @@
 import { create } from "zustand";
-import { immer } from "zustand/middleware/immer";
 import { persist } from "zustand/middleware";
+import { immer } from "zustand/middleware/immer";
 
 const useOrderDataStore = create(
   persist(
     immer((set) => ({
       orderId: null,
-      savedOrderActionStr: null,
+      storedOrderAction: null,
       formData: {
         items: [],
         subTotal: { count: 0, price: 0 },
@@ -37,3 +37,4 @@ const useOrderDataStore = create(
 );
 
 export { useOrderDataStore };
+

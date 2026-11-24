@@ -1,4 +1,5 @@
 import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
+import _ from "lodash";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "react-bootstrap";
 import toast from "react-hot-toast";
@@ -6,10 +7,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useOrderDataStore } from "../buy/orderDataStore";
 import OrderDigest from "../buy/OrderDigest";
 import { saveOrderRecipient } from "../buy/orderService";
+import { useAuthContext } from "../common/AuthContext";
 import { callWithToken } from "../util/api";
 import { clearLocalOrderData, getSuffixAfterSpace } from "../util/utilities";
 import "./WidgetCheckoutPage.css";
-import { useAuthContext } from "../common/AuthContext";
 
 // 전자결제 신청 및 가입 완료 후, clientKey 를 다음으로 수정할 것.
 // 개발자센터의 결제위젯 연동 키 > 클라이언트 키
@@ -31,7 +32,7 @@ function WidgetCheckoutPage() {
   const isSubmittingRef = useRef(false);
 
   // 스토어에서 필요한 멤버 가져오기
-  const { orderId, savedOrderActionStr, recipient, orderData, setMemberData } =
+  const { orderId, storedOrderAction, recipient, orderData, setMemberData } =
     useOrderDataStore();
 
   async function saveOrderRecord() {
@@ -50,23 +51,23 @@ function WidgetCheckoutPage() {
     }
 
     // 보관된 주문 정보 문자열을 새 주문 정보와 비교
-    if (savedOrderActionStr === JSON.stringify(orderAction)) {
+    if (_.isEqual(storedOrderAction, orderAction)) {
       // 존재하고, 새 주문과 일치하면, 일치 표시 후 함수 종료한다.
       console.log("주문 정보 일치하여, 주문 저장 생략.");
       return;
     } else {
       // 새 주문 정보 문자열을 주문 자료 보관소에 저장한다.
-      setMemberData("savedOrderActionStr", JSON.stringify(orderAction));
+      setMemberData("storedOrderAction", orderAction);
 
       if (localOrder) {
         // 로컬에 주문 정보가 있었으므로,
         try {
-          // 만일 갱신되기 전 주문 정보가 후단에 저장되었으면 삭제한다.
+          // 만일 갱신 전 주문 정보가 후단에 (임시)저장되어 있으면 삭제한다.
           if (orderId) {
             await callWithToken("delete", `/order/${orderId}/delete`);
           }
         } catch (error) {
-          console.error("갱신전 가 저장된 주문 정보 삭제 실패: ", error);
+          console.error("갱신전 임시 저장된 주문 정보 삭제 실패: ", error);
         }
       }
       // 새 주문 정보 후단 저장 네 단계:
