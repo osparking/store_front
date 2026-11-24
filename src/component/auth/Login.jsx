@@ -102,9 +102,6 @@ const Login = () => {
   };
 
   const handleCheckChange = (e) => {
-    if (e.target.name === "save_login") {
-      localStorage.setItem("SAVE_LOGIN", e.target.checked);
-    }
     setCredentials({ ...credentials, [e.target.name]: e.target.checked });
   };
 

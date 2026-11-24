@@ -75,7 +75,6 @@ export const removeUserKeys = () => {
     "QUESTION_PAGE_관리",
     "REVIEW_PAGE_고객",
     "REVIEW_PAGE_CUSTOMER",
-    "SAVE_LOGIN",
     "SELECTED_DEPT",
     "SELECTED_EMAIL",
     "userFullName",
