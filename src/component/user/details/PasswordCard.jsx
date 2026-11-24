@@ -8,6 +8,7 @@ import DisableAccountModal from "../../modal/DisableAccountModal";
 import { deleteUserPhoto } from "../../modal/ImageService";
 import ImageUp from "../../modal/ImageUp";
 import "./../UserProfile.css";
+import { useAuthContext } from "../../common/AuthContext";
 
 const PasswordCard = ({ user, readOnly = false }) => {
   const [showPhotoDelModal, setShowPhotoDelModal] = useState(false);
@@ -40,8 +41,8 @@ const PasswordCard = ({ user, readOnly = false }) => {
     }
   };
 
-  const loginId = localStorage.getItem("LOGIN_ID");
-  const accountOwner = loginId == user.id;
+  const { meInfo } = useAuthContext();
+  const accountOwner = meInfo.id == user.id;
   const enableButtonLabel = user.enabled
     ? readOnly
       ? "활성화됨"
