@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import PaymentDoneModal from "../modal/PaymentDone";
 import { callWithToken } from "../util/api";
 import { clearLocalOrderData } from "../util/utilities";
+import { useAuthContext } from "../common/AuthContext";
 
 export function WidgetSuccessPage() {
   const navigate = useNavigate();
@@ -64,12 +65,13 @@ export function WidgetSuccessPage() {
     { property: "결제 키:", value: bsOrder.paymentKey },
   ];
 
+  const { meInfo } = useAuthContext();
+
   function closeModal() {
     clearLocalOrderData();
     localStorage.setItem("DASHBOARD_TAB", "purchase_list");
-    const userId = localStorage.getItem("LOGIN_ID");
     setIsModalOpen(false);
-    navigate(`/dashboard/${userId}/user`, { replace: true });
+    navigate(`/dashboard/${meInfo.id}/user`, { replace: true });
   }
 
   return (
