@@ -11,6 +11,7 @@ import { useOrderDataStore } from "./orderDataStore.js";
 import { getDeliveryFee } from "./orderService";
 import "./recipient.css";
 import RecipientInfo from "./RecipientInfo";
+import { useAuthContext } from "../common/AuthContext";
 
 export const PayButtonContext = React.createContext();
 
@@ -34,6 +35,8 @@ const Recipient = () => {
   const { formData, recipient, setMemberData } = useOrderDataStore();
 
   const user = JSON.parse(localStorage.getItem("USER"));
+
+  const { meInfo } = useAuthContext();
 
   useEffect(() => {
     const readDefaultRecipient = async () => {
@@ -160,14 +163,13 @@ const Recipient = () => {
   const navigateToCheckout = () => {
     // 현재까지 수집된 주문 정보를 일단 저장
     try {
-      const userId = localStorage.getItem("LOGIN_ID");
       const items = productList.map((item) => ({
         shape: item.shapeLabel,
         count: item.count,
       }));
 
       setMemberData("orderData", {
-        userId: userId,
+        userId: meInfo.id,
         items: items,
         recipRegiReq: recipient.formUse,
         orderStatus: "결제대기",
