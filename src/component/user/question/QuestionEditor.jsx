@@ -14,6 +14,7 @@ import ConfirmationModal from "../../modal/ConfirmationModal";
 import { getPlainContent } from "../../util/utilities";
 import "./QuestionEditor.css";
 import { saveQuestion } from "./QuestionService";
+import { useAuthContext } from "../../common/AuthContext";
 
 function QuestionEditor({
   question,
@@ -79,6 +80,8 @@ function QuestionEditor({
       : navigate(-1); // [질문하기] 성분 닫고, 그전 방문지로 귀환
   };
 
+  const { meInfo } = useAuthContext();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const title = e.target.elements.questionTitle.value;
@@ -108,8 +111,7 @@ function QuestionEditor({
           handleClose();
         } else {
           // 고객 질문 입력 후 저장 처리
-          const id = localStorage.getItem("LOGIN_ID");
-          navigate(`/dashboard/${id}/user`);
+          navigate(`/dashboard/${meInfo.id}/user`);
         }
       }
     } catch (err) {
@@ -177,7 +179,7 @@ function QuestionEditor({
     const prepareQuestionEntry = async () => {
       const user = await fetchMeInfo();
       setUserId(user.id);
-      
+
       const handleTitleKeyDown = (e) => {
         if (e.key === "Tab" && !e.shiftKey) {
           e.preventDefault();
