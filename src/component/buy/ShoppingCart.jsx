@@ -7,6 +7,7 @@ import { getSubTotal, handlePropChange } from "../util/utilities";
 import CartItemRow from "./CartItemRow";
 import { readUserCart, updateUserCart } from "./orderService";
 import { useOrderDataStore } from "./orderDataStore.js";
+import { useAuthContext } from "../common/AuthContext";
 
 const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
   const location = useLocation();
@@ -57,6 +58,8 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
 
   const { formData: orderFormData, setMemberData: setOrderFormData } =
     useOrderDataStore();
+
+  const { meInfo } = useAuthContext();  
 
   /**
    * 쇼핑카트 비누 외형-수량 항목을 주문 폼에 적합한 자료 형태로 변환
@@ -140,7 +143,8 @@ const ShoppingCart = ({ optionLabels, setCarouselImages }) => {
 
   async function readCart(userCart) {
     if (userCart === undefined) {
-      const userId = localStorage.getItem("LOGIN_ID");
+      const userId = meInfo.id;
+
       if (userId) {
         userCart = await readUserCart(userId);
       }
