@@ -16,18 +16,13 @@ import { FcGoogle } from "react-icons/fc";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import naverIcon from "../../assets/images/btnD_icon_square.png";
 import AlertMessage from "../common/AlertMessage";
-import { getFullName, jwtToUser } from "../common/JwtUtils";
+import { userProps } from "../common/JwtUtils";
 import BsAlertHook from "../hook/BsAlertHook";
 import ConfirmResultModal from "../modal/ConfirmResultModal";
 import EnableAccountModal from "../modal/EnableAccountModal";
 import { resetPassword } from "../user/UserService";
 import { getAccessToken, setAccessToken } from "../util/tokenStore";
-import {
-  formatTime,
-  HTTP_STATUS,
-  isValidEmail,
-  storeLoginInfo
-} from "../util/utilities";
+import { formatTime, HTTP_STATUS, isValidEmail } from "../util/utilities";
 import { getEmailViaToken, loginUser } from "./AuthService";
 import CodeEntryModal from "./CodeEntryModal";
 import "./Login.css";
@@ -60,7 +55,7 @@ const Login = () => {
   const [codeNeeded, setCodeNeeded] = useState(false);
   const [verifying, setVerifying] = useState(false);
   const [jwtToken, setJwtToken] = useState("");
-  const [user, setUser] = useState();
+  // const [user, setUser] = useState();
   const {
     successMsg,
     setSuccessMsg,
@@ -148,17 +143,14 @@ const Login = () => {
       const data = response.data;
 
       if (response.status === HTTP_STATUS.OK) {
-        let user = jwtToUser(data.data.token);
-
-        const fullName = getFullName(data.data.token);
+        let user = userProps(data.data.token);
 
         setAccessToken(data.data.token);
         if (user.twoFaEnabled) {
-          setUser(user);
+          // setUser(user);
           setShowCodeModal(true);
         } else {
           localStorage.setItem("userFullName", user.fullName);
-          // storeLoginInfo(user);
           window.dispatchEvent(
             new CustomEvent("loginEvt", {
               detail: {
@@ -184,8 +176,7 @@ const Login = () => {
   };
 
   const handleOauth2Login = (provider) => {
-    window.location.href = 
-      `${import.meta.env.VITE_BASE_URL}/oauth2/authorization/${provider}`;
+    window.location.href = `${import.meta.env.VITE_BASE_URL}/oauth2/authorization/${provider}`;
   };
 
   const reset_password = async () => {
@@ -355,7 +346,6 @@ const Login = () => {
           show={showCodeModal}
           handleHide={hideCodeModal}
           jwtToken={getAccessToken()}
-          user={user}
         />
       )}
       <Row id="login-row" className="justify-content-center">

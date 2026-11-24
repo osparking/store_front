@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
-import { jwtToUser } from "../common/JwtUtils";
+import { userProps } from "../common/JwtUtils";
 import { setAccessToken } from "../util/tokenStore";
 import CodeEntryModal from "./CodeEntryModal";
 
@@ -9,7 +9,6 @@ const OAuth2RedirectHandler = () => {
   const [showCodeModal, setShowCodeModal] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const [user, setUser] = useState();
   const [jwtToken, setJwtToken] = useState("");
 
   const hideCodeModal = () => {
@@ -17,7 +16,7 @@ const OAuth2RedirectHandler = () => {
     navigate("/login");
   };
 
-  const loginAfterProcessing = (user) => {
+  const loginAfterProcessing = () => {
     window.dispatchEvent(new Event("loginEvt"));
 
     // Check for stored pre-login URL
@@ -30,22 +29,21 @@ const OAuth2RedirectHandler = () => {
     }
     navigate(landingUrl, { replace: true });
   };
-  
+
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const token = params.get("token");
 
     if (token) {
       try {
-        const user = jwtToUser(token);
+        const user = userProps(token);
 
         if (user.twoFaEnabled) {
           setShowCodeModal(true);
           setJwtToken(token);
-          setUser(user);
         } else {
           setAccessToken(token);
-          loginAfterProcessing(user);
+          loginAfterProcessing();
         }
       } catch (error) {
         console.error("토큰 해독 오류:", error);
@@ -64,7 +62,6 @@ const OAuth2RedirectHandler = () => {
           show={showCodeModal}
           handleHide={hideCodeModal}
           jwtToken={jwtToken}
-          user={user}
         />
       )}
       <div>소셜 로그인 재방향...</div>

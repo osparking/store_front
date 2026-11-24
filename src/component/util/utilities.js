@@ -52,14 +52,6 @@ export const useAlertTimeout = (initialVisibility = false, duration = 9000) => {
   return [showAlert, setShowAlert];
 };
 
-export const storeLoginInfo = (user) => {
-  console.log("storeLoginInfo - user: ", user);
-  // localStorage.setItem("USER", JSON.stringify(user));
-  localStorage.setItem("LOGIN_ID", user.id);
-  localStorage.setItem("IS_ADMIN", user.isAdmin);
-  localStorage.setItem("IS_WORKER", user.isWorker);
-};
-
 export const clearTokens = () => {
   localStorage.removeItem("TOKEN");
   sessionStorage.removeItem("TOKEN");
@@ -96,8 +88,7 @@ export const removeUserKeys = () => {
   ];
 
   for (const userKey of userKeys) {
-    if (userKey !== "HIDE_TILL")
-    localStorage.removeItem(userKey);
+    if (userKey !== "HIDE_TILL") localStorage.removeItem(userKey);
   }
 };
 
