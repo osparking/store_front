@@ -5,8 +5,6 @@ import { immer } from "zustand/middleware/immer";
 const useOrderDataStore = create(
   persist(
     immer((set) => ({
-      orderId: null,
-      storedOrderAction: null,
       formData: {
         items: [],
         subTotal: { count: 0, price: 0 },
@@ -24,6 +22,11 @@ const useOrderDataStore = create(
         orderName: "",
         amount: 0,
         delivery: 0,
+      },
+      orderEtc: {
+        id: null,
+        idToss: null,
+        storedAction: null
       },
       setMemberData: (member, newData) =>
         set((state) => {

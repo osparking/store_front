@@ -67,7 +67,6 @@ export const removeUserKeys = () => {
     "EMAIL_SUBSTR",
     "INGRE_NAME",
     "NAME_SUBSTR",
-    "ORDER_ID_TOSS",
     "ORDER_PAGE_고객",
     "ORDER_PAGE_WORKER",
     "order-storage",
@@ -221,7 +220,6 @@ export const getSubTotal = (orderItems) => {
 };
 
 export const clearLocalOrderData = () => {
-  localStorage.removeItem("ORDER_ID_TOSS");
   localStorage.removeItem("@tosspayments/merchant-browser-id");
 
   const urlSuffix = "payment-widget-previous-payment-method-id";

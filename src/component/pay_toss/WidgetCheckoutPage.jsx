@@ -26,14 +26,11 @@ function WidgetCheckoutPage() {
   const { source } = location.state;
   const [widgets, setWidgets] = useState(null);
   const [ready, setReady] = useState(false);
-  const [orderIdToss, setOrderIdToss] = useState(
-    localStorage.getItem("ORDER_ID_TOSS") || null,
-  );
   const isSubmittingRef = useRef(false);
-
   // 스토어에서 필요한 멤버 가져오기
-  const { orderId, storedOrderAction, recipient, orderData, setMemberData } =
-    useOrderDataStore();
+  const { recipient, orderData, orderEtc, setMemberData } = useOrderDataStore();
+
+  let orderIdToss = orderEtc.idToss || null;
 
   async function saveOrderRecord() {
     const orderAction = {
@@ -51,20 +48,19 @@ function WidgetCheckoutPage() {
     }
 
     // 보관된 주문 정보 문자열을 새 주문 정보와 비교
-    if (_.isEqual(storedOrderAction, orderAction)) {
-      // 존재하고, 새 주문과 일치하면, 일치 표시 후 함수 종료한다.
-      console.log("주문 정보 일치하여, 주문 저장 생략.");
+    if (_.isEqual(orderEtc.storedAction, orderAction)) {
+      // 임시 저장된 주문에서 바뀐 부분 없음.
       return;
     } else {
       // 새 주문 정보 문자열을 주문 자료 보관소에 저장한다.
-      setMemberData("storedOrderAction", orderAction);
+      setMemberData("orderEtc", { ...orderEtc, storedAction: orderAction });
 
       if (localOrder) {
         // 로컬에 주문 정보가 있었으므로,
         try {
           // 만일 갱신 전 주문 정보가 후단에 (임시)저장되어 있으면 삭제한다.
-          if (orderId) {
-            await callWithToken("delete", `/order/${orderId}/delete`);
+          if (orderEtc.id) {
+            await callWithToken("delete", `/order/${orderEtc.id}/delete`);
           }
         } catch (error) {
           console.error("갱신전 임시 저장된 주문 정보 삭제 실패: ", error);
@@ -80,12 +76,16 @@ function WidgetCheckoutPage() {
       // 3. 주문 정보 후단 저장.
       try {
         const response = await saveOrderRecipient(orderAction);
+        const tossId = response.data.orderId;
 
         // 주문 수신처과 주문 결제 간 진퇴 방문 때 기 저장된 주문 정보 삭제용.
-        setMemberData("orderId", response.data.id);
-        setOrderIdToss(response.data?.orderId);
-        localStorage.setItem("ORDER_ID_TOSS", response.data?.orderId);
-        console.log("주문 저장 성공: ", response);
+        setMemberData("orderEtc", {
+          ...orderEtc,
+          id: response.data.id,
+          idToss: tossId,
+        });
+        orderIdToss = tossId;
+        console.log("주문 저장 성공");
       } catch (error) {
         toast.error("주문 저장 오류 - 개발자 콘솔 확인 필요.");
         console.error("주문 저장 실패:", error);
