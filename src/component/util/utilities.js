@@ -66,10 +66,7 @@ export const removeUserKeys = () => {
     "DASHBOARD_TAB",
     "EMAIL_SUBSTR",
     "INGRE_NAME",
-    "IS_ADMIN",
-    "IS_WORKER",
     "NAME_SUBSTR",
-    "ORDER_ACTION",
     "ORDER_ID",
     "ORDER_ID_TOSS",
     "ORDER_PAGE_고객",
@@ -226,7 +223,6 @@ export const getSubTotal = (orderItems) => {
 
 export const clearLocalOrderData = () => {
   localStorage.removeItem("ORDER_ID");
-  localStorage.removeItem("ORDER_ACTION");
   localStorage.removeItem("ORDER_ID_TOSS");
   localStorage.removeItem("@tosspayments/merchant-browser-id");
 

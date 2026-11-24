@@ -31,7 +31,8 @@ function WidgetCheckoutPage() {
   const isSubmittingRef = useRef(false);
 
   // 스토어에서 필요한 멤버 가져오기
-  const { setMemberData, recipient, orderData } = useOrderDataStore();
+  const { savedOrderActionStr, recipient, orderData, setMemberData } =
+    useOrderDataStore();
 
   async function saveOrderRecord() {
     const orderAction = {
@@ -48,17 +49,14 @@ function WidgetCheckoutPage() {
       });
     }
 
-    // 로컬에 저장된 주문 정보를 찾는다.
-    const localOrder = localStorage.getItem("ORDER_ACTION");
-
-    if (localOrder && localOrder === JSON.stringify(orderAction)) {
+    // 보관된 주문 정보 문자열을 새 주문 정보와 비교
+    if (savedOrderActionStr === JSON.stringify(orderAction)) {
       // 존재하고, 새 주문과 일치하면, 일치 표시 후 함수 종료한다.
-      console.log("주문 정보가 일치합니다. 주문 저장을 건너뜁니다.");
+      console.log("주문 정보 일치하여, 주문 저장 생략.");
       return;
     } else {
-      // 새 주문을 로컬에 저장한다.
-      console.log("새 주문 정보 로컬 저장한다.");
-      localStorage.setItem("ORDER_ACTION", JSON.stringify(orderAction));
+      // 새 주문 정보 문자열을 주문 자료 보관소에 저장한다.
+      setMemberData("savedOrderActionStr", JSON.stringify(orderAction));
 
       if (localOrder) {
         // 로컬에 주문 정보가 있었으므로,
