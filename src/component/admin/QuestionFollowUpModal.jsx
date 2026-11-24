@@ -9,6 +9,7 @@ import "./QuestionFollowUpModal.css";
 import DraggableDialog from "../common/DraggableDialog";
 import { useCallback, useRef, useState } from "react";
 import { useMaximize } from "../common/MaximizeContext";
+import { useAuthContext } from "../common/AuthContext";
 
 export default function QuestionFollowUpModal({
   show,
@@ -20,8 +21,9 @@ export default function QuestionFollowUpModal({
   minWidth = 400,
   minHeight = 300,
 }) {
+  const { meInfo } = useAuthContext();
   const followUps = question.followUpRows;
-  const is_admin = localStorage.getItem("IS_ADMIN") === "true";
+  const is_admin = meInfo.admin;
   const justReadQuestion = (followUps && followUps.length > 0) || is_admin;
   const showFollowUpEditor =
     (question.answered && !is_admin) || (is_admin && !question.answered);
