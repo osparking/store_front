@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { MaximizeProvider } from "../common/MaximizeContext";
 import Paginator from "../common/Paginator";
 import {
   getMyQuestionsPage,
@@ -12,7 +13,6 @@ import { getRecordRange } from "../util/utilities";
 import "./ManageQuestions.css";
 import QuestionFollowUpModal from "./QuestionFollowUpModal";
 import QuestionsTable from "./QuestionsTable";
-import { MaximizeProvider } from "../common/MaximizeContext";
 
 const ManageQuestions = ({ mine }) => {
   const [totalPages, setTotalPages] = useState(1);
@@ -20,7 +20,7 @@ const ManageQuestions = ({ mine }) => {
   const [questions, setQuestions] = useState([]);
   const [pageSize, setPageSize] = useState(10); // itemsPerPage
 
-  const savedPageNo = localStorage.getItem("QUESTION_PAGE_관리");
+  const savedPageNo = localStorage.getItem(QUESTION_PAGE);
   const [currentPage, setCurrentPage] = useState(savedPageNo || 1);
 
   const [searchResult, setSearchResult] = useState();
@@ -43,7 +43,7 @@ const ManageQuestions = ({ mine }) => {
   };
 
   useEffect(() => {
-    localStorage.setItem("QUESTION_PAGE_관리", currentPage);
+    localStorage.setItem("QUESTION_PAGE", currentPage);
     loadQuestionage();
   }, [currentPage]);
 

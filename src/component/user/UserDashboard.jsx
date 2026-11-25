@@ -10,6 +10,7 @@ import "./userDashboard.css";
 import { getUserDtoById } from "./UserService";
 
 import { lazy, Suspense } from "react";
+import { useAuthContext } from "../common/AuthContext";
 const OverviewUser = lazy(() => import("./OverviewUser"));
 const ManageQuestions = lazy(() => import("../admin/ManageQuestions"));
 const ManageMyOrder = lazy(() => import("./ManageMyOrder"));
@@ -17,6 +18,8 @@ const MyReviewsPage = lazy(() => import("./review/MyReviewsPage"));
 const UserProfile = lazy(() => import("./UserProfile"));
 
 const UserDashboard = () => {
+  const { meInfo } = useAuthContext();
+  console.log("나는 관리자: ", meInfo.admin);
   const location = useLocation();
   const [user, setUser] = useState(null);
   const { id } = useParams();
@@ -108,6 +111,10 @@ const UserDashboard = () => {
     (item) => item.key === activeKey,
   )?.component;
 
+  const hideItem = (item) => {
+    return item.key === "my_question" && meInfo.admin;
+  };
+
   const dashBoardContent = () => {
     if (isVeryNarrow || isVeryShort) {
       return (
@@ -121,15 +128,18 @@ const UserDashboard = () => {
                 {tabItems.find((item) => item.key === activeKey)?.title}
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                {tabItems.map((item) => (
-                  <Dropdown.Item
-                    key={item.key}
-                    active={activeKey === item.key}
-                    onClick={() => changeActiveKey(item.key)}
-                  >
-                    {item.title}
-                  </Dropdown.Item>
-                ))}
+                {tabItems.map(
+                  (item) =>
+                    !hideItem(item) && (
+                      <Dropdown.Item
+                        key={item.key}
+                        active={activeKey === item.key}
+                        onClick={() => changeActiveKey(item.key)}
+                      >
+                        {item.title}
+                      </Dropdown.Item>
+                    ),
+                )}
               </Dropdown.Menu>
             </Dropdown>
           </div>
@@ -151,20 +161,25 @@ const UserDashboard = () => {
           className="tabBackgroundThick contentHolyCentered scrollable-tabs"
           id="scrollable-tabs"
         >
-          {tabItems.map((item) => (
-            <Tab
-              className="mediumWindowDashboardTab"
-              key={item.key}
-              eventKey={item.key}
-              title={<h5>{item.title}</h5>}
-            >
-              {alertError && <AlertMessage type="danger" message={errorMsg} />}
-              {alertSuccess && (
-                <AlertMessage type="success" message={successMsg} />
-              )}
-              {item.component}
-            </Tab>
-          ))}
+          {tabItems.map(
+            (item) =>
+              !hideItem(item) && (
+                <Tab
+                  className="mediumWindowDashboardTab"
+                  key={item.key}
+                  eventKey={item.key}
+                  title={<h5>{item.title}</h5>}
+                >
+                  {alertError && (
+                    <AlertMessage type="danger" message={errorMsg} />
+                  )}
+                  {alertSuccess && (
+                    <AlertMessage type="success" message={successMsg} />
+                  )}
+                  {item.component}
+                </Tab>
+              ),
+          )}
         </Tabs>
       );
     } else {
@@ -174,19 +189,24 @@ const UserDashboard = () => {
           onSelect={changeActiveKey}
           className="tabBackgroundThick contentHolyCentered"
         >
-          {tabItems.map((item) => (
-            <Tab
-              key={item.key}
-              eventKey={item.key}
-              title={<h5>{item.title}</h5>}
-            >
-              {alertError && <AlertMessage type="danger" message={errorMsg} />}
-              {alertSuccess && (
-                <AlertMessage type="success" message={successMsg} />
-              )}
-              {item.component}
-            </Tab>
-          ))}
+          {tabItems.map(
+            (item) =>
+              !hideItem(item) && (
+                <Tab
+                  key={item.key}
+                  eventKey={item.key}
+                  title={<h5>{item.title}</h5>}
+                >
+                  {alertError && (
+                    <AlertMessage type="danger" message={errorMsg} />
+                  )}
+                  {alertSuccess && (
+                    <AlertMessage type="success" message={successMsg} />
+                  )}
+                  {item.component}
+                </Tab>
+              ),
+          )}
         </Tabs>
       );
     }
