@@ -1,3 +1,4 @@
+import { resetOrderData } from "../buy/orderDataStore";
 import { api } from "../util/api";
 import { clearAccessToken } from "../util/tokenStore";
 import { removeUserKeys } from "../util/utilities";
@@ -36,6 +37,7 @@ export const logoutUser = async (detail) => {
   try {
     clearLoginUserInfo();
     const result = await api.post("/autho/logout");
+    resetOrderData();
 
     window.dispatchEvent(new CustomEvent("logoutEvt", { detail: detail }));
     return result.data;
