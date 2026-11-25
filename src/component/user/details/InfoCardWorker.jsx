@@ -152,7 +152,6 @@ const InfoCardWorker = ({
 
       response = await updateWorkerDept(newUser.id, newUser.dept);
       localUser.dept = response.data;
-      // localStorage.setItem("USER", JSON.stringify(localUser));
 
       setUserDept(newUser.dept);
       localStorage.removeItem("SELECTED_DEPT");
