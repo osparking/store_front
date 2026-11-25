@@ -147,7 +147,7 @@ const Login = () => {
           // setUser(user);
           setShowCodeModal(true);
         } else {
-          localStorage.setItem("userFullName", user.fullName);
+          localStorage.setItem("USER_FULLNAME", user.fullName);
           window.dispatchEvent(
             new CustomEvent("loginEvt", {
               detail: {

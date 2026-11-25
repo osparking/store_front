@@ -59,12 +59,13 @@ export const clearTokens = () => {
 
 export const removeUserKeys = () => {
   const userKeys = [
-    "ADMIN_TAB",
-    "CURR_CUST_PAGE",
-    "CURR_INGRE_PAGE",
-    "CURR_WORKER_PAGE",
-    "DASHBOARD_TAB",
     "EMAIL_SUBSTR",
+    "USER_FULLNAME",
+    // "ADMIN_TAB",
+    // "CURR_CUST_PAGE",
+    // "CURR_INGRE_PAGE",
+    // "CURR_WORKER_PAGE",
+    // "DASHBOARD_TAB",
     "INGRE_NAME",
     "NAME_SUBSTR",
     "ORDER_PAGE_고객",
@@ -77,7 +78,6 @@ export const removeUserKeys = () => {
     "REVIEW_PAGE_CUSTOMER",
     "SELECTED_DEPT",
     "SELECTED_EMAIL",
-    "userFullName",
     "WORKER_TAB",
   ];
 

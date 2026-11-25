@@ -23,7 +23,7 @@ export function AuthProvider({ children }) {
     let nextIdentity = null;
 
     try {
-      const userFullName = localStorage.getItem("userFullName");
+      const userFullName = localStorage.getItem("USER_FULLNAME");
       // await new Promise((resolve) => setTimeout(resolve, 1000));
       if (userFullName) {
         const token = await getValidToken();
@@ -34,7 +34,7 @@ export function AuthProvider({ children }) {
           setMeInfo(meInfo);
           nextIdentity =
             meInfo.loginMethod === "EMAIL"
-              ? localStorage.getItem("userFullName")
+              ? localStorage.getItem("USER_FULLNAME")
               : `<${meInfo.loginMethod}>`;
           nextState = "authenticated";
         }

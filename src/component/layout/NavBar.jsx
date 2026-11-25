@@ -26,7 +26,7 @@ const NavBar = () => {
   const [loginId, setLoginId] = useState("");
 
   const clearLocalStorage = () => {
-    localStorage.removeItem("userFullName");
+    localStorage.removeItem("USER_FULLNAME");
     localStorage.removeItem("SOAP_INTRO_TAB");
     localStorage.removeItem("SOAP_SHAPE_TAB");
   };
