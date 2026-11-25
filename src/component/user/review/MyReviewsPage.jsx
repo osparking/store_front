@@ -18,7 +18,7 @@ const MyReviewsPage = () => {
   const [reviews, setReviews] = useState([]);
   const [pageSize, setPageSize] = useState(10); // itemsPerPage
 
-  const savedPageNo = localStorage.getItem("REVIEW_PAGE_고객");
+  const savedPageNo = localStorage.getItem("MY_REVIEW_PAGE");
   const [currentPage, setCurrentPage] = useState(savedPageNo || 1);
 
   const [searchResult, setSearchResult] = useState();
@@ -42,7 +42,7 @@ const MyReviewsPage = () => {
   }, [reviewsVersion]);
 
   useEffect(() => {
-    localStorage.setItem("REVIEW_PAGE_고객", currentPage);
+    localStorage.setItem("MY_REVIEW_PAGE", currentPage);
     loadReviewPage();
   }, [currentPage]);
 
