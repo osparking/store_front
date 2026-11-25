@@ -2,7 +2,6 @@ import axios from "axios";
 import { logoutUser } from "../auth/AuthService";
 import { TokenRefreshingError } from "./errors";
 import { clearAccessToken, getAccessToken, setAccessToken } from "./tokenStore";
-import { removeUserKeys } from "./utilities";
 
 axios.defaults.withCredentials = true; // 모든 요청에 쿠키 포함
 axios.defaults.headers.common["Content-Type"] = "application/json";
@@ -19,10 +18,10 @@ export const refreshAccessToken = async (): Promise<string | null> => {
   try {
     const response = await axios.post(`${prefix}/autho/refresh_token`, null, {
       withCredentials: true,
-      validateStatus: (status) => status === 200 || status === 401,
+      validateStatus: (status) =>
+        status === 200 || status === 401 || status === 404,
     });
-    if (response.status === 401) {
-      removeUserKeys();
+    if (response.status === 401 || response.status === 404) {
       return null;
     }
 
