@@ -18,7 +18,7 @@ const ReviewTable = () => {
   const [reviews, setReviews] = useState([]);
   const [pageSize, setPageSize] = useState(5); // itemsPerPage
 
-  const savedPageNo = localStorage.getItem("REVIEW_PAGE_CUSTOMER");
+  const savedPageNo = localStorage.getItem("PUBLIC_REVIEW_PAGE");
   const [currentPage, setCurrentPage] = useState(savedPageNo || 1);
 
   const [fetchResult, setFetchResult] = useState();
@@ -33,7 +33,7 @@ const ReviewTable = () => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("REVIEW_PAGE_CUSTOMER", currentPage);
+    localStorage.setItem("PUBLIC_REVIEW_PAGE", currentPage);
     const loadReviewPage = async () => {
       const response = await fetchReviewPage(currentPage, pageSize);
       setFetchResult(response);
