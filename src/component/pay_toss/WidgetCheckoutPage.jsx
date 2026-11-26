@@ -230,9 +230,9 @@ function WidgetCheckoutPage() {
     }
 
     try {
-      const user = JSON.parse(localStorage.getItem("USER"));
+      const { meInfo } = useAuthContext();
 
-      if (!user) return;
+      if (!meInfo) return;
 
       // Reset React state before navigation
       setReady(false);
@@ -242,8 +242,8 @@ function WidgetCheckoutPage() {
         orderName: orderData?.orderName,
         successUrl: window.location.origin + "/success",
         failUrl: window.location.origin + "/fail",
-        customerEmail: user.email,
-        customerName: user.fullName,
+        customerEmail: meInfo.email,
+        customerName: meInfo.fullName,
       });
     } catch (error) {
       // Restore ready state if payment fails
