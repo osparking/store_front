@@ -8,6 +8,7 @@ import {
 import { fetchMeInfo } from "../customer/CustomerService";
 import { getValidToken } from "../util/api";
 import { clearAccessToken } from "../util/tokenStore";
+import { removeUserKeys } from "../util/utilities";
 
 const AuthContext = createContext(null);
 
@@ -23,9 +24,9 @@ export function AuthProvider({ children }) {
     let nextIdentity = null;
 
     try {
-      const userFullName = localStorage.getItem("USER_FULLNAME");
+      const authenticated = localStorage.getItem("AUTHENTICATED");
       // await new Promise((resolve) => setTimeout(resolve, 1000));
-      if (userFullName) {
+      if (authenticated) {
         const token = await getValidToken();
 
         if (token) {
@@ -34,7 +35,7 @@ export function AuthProvider({ children }) {
           setMeInfo(meInfo);
           nextIdentity =
             meInfo.loginMethod === "EMAIL"
-              ? localStorage.getItem("USER_FULLNAME")
+              ? meInfo.fullName
               : `<${meInfo.loginMethod}>`;
           nextState = "authenticated";
         }
@@ -57,9 +58,10 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const onLogin = () => refreshAuth();
     const onLogout = () => {
-      clearAccessToken();
+      clearAccessToken(); // 2
       setAuthState("anonymous");
       setIdentity(null);
+      removeUserKeys();
     };
     window.addEventListener("loginEvt", onLogin);
     window.addEventListener("logoutEvt", onLogout);

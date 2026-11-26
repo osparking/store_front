@@ -59,10 +59,10 @@ export const clearTokens = () => {
 
 export const removeUserKeys = () => {
   const userKeys = [
+    "AUTHENTICATED",
     "EMAIL_SUBSTR",
     "NAME_SUBSTR",
     "SELECTED_EMAIL",
-    "USER_FULLNAME",
   ];
 
   for (const userKey of userKeys) {

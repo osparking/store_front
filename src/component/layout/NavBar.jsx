@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { logoutUser } from "../auth/AuthService";
 import { useAuthContext } from "../common/AuthContext";
-import { fetchMeInfo } from "../customer/CustomerService";
 import "./navBar.css";
 import { useRoot } from "./RootContext";
 
@@ -22,14 +21,13 @@ const NavBar = () => {
     setIsWorker(isWorker);
   };
 
+  const clearLoginInfo = () => {
+    setIsEmployee(false, false);
+    setLoginId("");
+  };
+
   const navigate = useNavigate();
   const [loginId, setLoginId] = useState("");
-
-  const clearLocalStorage = () => {
-    localStorage.removeItem("USER_FULLNAME");
-    localStorage.removeItem("SOAP_INTRO_TAB");
-    localStorage.removeItem("SOAP_SHAPE_TAB");
-  };
 
   useEffect(() => {
     const readEmployeeStatus = () => {
@@ -37,9 +35,7 @@ const NavBar = () => {
         setIsEmployee(meInfo.admin, meInfo.worker);
         setLoginId(meInfo.id);
       } catch (e) {
-        // 로그아웃 상태/토큰 만료 등 → 초기화
-        setIsEmployee(false, false);
-        setLoginId("");
+        clearLoginInfo();
       }
     };
 
@@ -47,8 +43,7 @@ const NavBar = () => {
     if (loggedIn) {
       readEmployeeStatus();
     } else {
-      setIsEmployee(false, false);
-      setLoginId("");
+      clearLoginInfo();
     }
 
     const handleLogin = () => readEmployeeStatus();
@@ -56,10 +51,9 @@ const NavBar = () => {
     const handleLogout = (event) => {
       const nowTimeId = Math.floor(Date.now() / 1000);
       if (!naviAskedIds.has(nowTimeId)) {
-        clearLocalStorage();
         const { path, message } = event?.detail || { path: "", message: "" };
-        setIsEmployee(false, false);
-        setLoginId("");
+
+        clearLoginInfo();
         if (message) {
           navigate(path, { state: { success: false, message, id: nowTimeId } });
         } else {
@@ -120,7 +114,7 @@ const NavBar = () => {
 
   const logoutNavBar = async () => {
     try {
-      const result = await logoutUser();
+      const result = await logoutUser(); // 1
 
       toast.success(result.message);
     } catch (e) {

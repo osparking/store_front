@@ -55,7 +55,6 @@ const Login = () => {
   const [codeNeeded, setCodeNeeded] = useState(false);
   const [verifying, setVerifying] = useState(false);
   const [jwtToken, setJwtToken] = useState("");
-  // const [user, setUser] = useState();
   const {
     successMsg,
     setSuccessMsg,
@@ -140,14 +139,13 @@ const Login = () => {
       const data = response.data;
 
       if (response.status === HTTP_STATUS.OK) {
-        let user = userProps(data.data.token);
+        const user = userProps(data.data.token);
 
         setAccessToken(data.data.token);
         if (user.twoFaEnabled) {
-          // setUser(user);
           setShowCodeModal(true);
         } else {
-          localStorage.setItem("USER_FULLNAME", user.fullName);
+          localStorage.setItem("AUTHENTICATED", true);
           window.dispatchEvent(
             new CustomEvent("loginEvt", {
               detail: {
