@@ -141,11 +141,7 @@ const UserUpdate = () => {
       changeUserInDB(user.fullName, user.mbPhone);
       setSuccessMsg(response.message);
       setAlertSuccess(true);
-
-      const localUser = JSON.parse(localStorage.getItem("USER"));
-
-      localUser.fullName = response.data.fullName;
-      localUser.mbPhone = response.data.mbPhone;
+      
       refreshUser();
     } catch (error) {
       setErrorMsg(error.response.data.message);
