@@ -33,19 +33,16 @@ const Recipient = () => {
   let productList = undefined;
 
   const { formData, recipient, setMemberData } = useOrderDataStore();
-
-  const user = JSON.parse(localStorage.getItem("USER"));
-
   const { meInfo } = useAuthContext();
 
   useEffect(() => {
     const readDefaultRecipient = async () => {
-      if (!user || recipient.formUse) {
+      if (!meInfo || recipient.formUse) {
         return;
       }
 
       try {
-        const response = await getDefaultRecipient(user.id);
+        const response = await getDefaultRecipient(meInfo.id);
         const recipientDto = response.data;
         console.log("response.data:", JSON.stringify(recipientDto));
 
@@ -73,7 +70,7 @@ const Recipient = () => {
       }
     };
     readDefaultRecipient();
-  }, [user, recipient]);
+  }, [meInfo, recipient]);
 
   // source 에 따라 productList 를 다르게 만들어 배정
   if (source === "shoppingCart") {
@@ -116,8 +113,8 @@ const Recipient = () => {
       roadAddress: "",
       zbunAddress: "",
     },
-    mbPhone: user?.mbPhone,
-    fullName: user?.fullName,
+    mbPhone: meInfo?.mbPhone,
+    fullName: meInfo?.fullName,
   };
 
   useEffect(() => {
