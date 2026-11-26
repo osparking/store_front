@@ -146,13 +146,7 @@ const InfoCardUser = ({ user, readOnly, handleDeletion }) => {
     try {
       setIsProcessing(true);
 
-      let response = null;
-      const localUser = JSON.parse(localStorage.getItem("USER"));
-
-      response = await updateUser(newUser.id, newUser);
-      localUser.fullName = response.data.fullName;
-      localUser.mbPhone = response.data.mbPhone;
-      // localStorage.setItem("USER", JSON.stringify(localUser));
+      const response = await updateUser(newUser.id, newUser);
 
       setUserFullName(newUser.fullName);
       setUserMbPhone(newUser.mbPhone);
