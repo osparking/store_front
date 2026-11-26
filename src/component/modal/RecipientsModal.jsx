@@ -5,6 +5,7 @@ import { useOrderDataStore } from "../buy/orderDataStore";
 import Paginator from "../common/Paginator";
 import { getMyRecipients } from "../user/UserService";
 import "./RecipientsModal.css";
+import { useAuthContext } from "../common/AuthContext";
 
 const RecipientsModal = ({
   show,
@@ -32,14 +33,12 @@ const RecipientsModal = ({
 
   const idxLastPlus1 = currentPage * pageSize;
   const indexOfFirst = idxLastPlus1 - pageSize;
+  const { meInfo } = useAuthContext();
 
   const loadRecipientPage = async (value) => {
-    const userJson = localStorage.getItem("USER");
-    const user = JSON.parse(userJson);
-
     try {
       const myRecipients = await getMyRecipients(
-        user?.id,
+        meInfo?.id,
         currentPage,
         pageSize,
       );
