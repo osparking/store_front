@@ -11,6 +11,7 @@ import ProduceInfoModal from "./ProduceInfoModal";
 import { fetchProducePage } from "./ProduceService";
 import ProduceTable from "./ProduceTable";
 import "./RegisterProduce.css";
+import { useAuthContext } from "../../common/AuthContext";
 
 const RegisterProduce = () => {
   const {
@@ -101,15 +102,15 @@ const RegisterProduce = () => {
   const [dummyProduce, setDummyProduce] = useState({});
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("USER"));
+    const { meInfo } = useAuthContext();
 
     setDummyProduce({
       shapeLabel: "",
       quantity: 0,
       produceDate: today.toString(),
       producer: {
-        id: user?.id,
-        name: user?.fullName,
+        id: meInfo?.id,
+        name: meInfo?.fullName,
       },
     });
   }, []);
