@@ -116,7 +116,7 @@ const NavBar = () => {
     try {
       const result = await logoutUser(); // 1
 
-      toast.success(result.message);
+      toast.success(result?.message);
     } catch (e) {
       toast.error(e.response.data.message);
     }

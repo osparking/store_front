@@ -127,7 +127,8 @@ export async function callWithToken<T extends Record<string, unknown>>(
 ) {
   const originalRequest = async (token: string) => {
     const config = buildConfig(method, urlSuffix, token, data, params);
-    return await axios(config);
+    const result = await axios(config);
+    return result;
   };
 
   try {
