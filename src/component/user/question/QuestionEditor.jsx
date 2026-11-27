@@ -172,8 +172,18 @@ function QuestionEditor({
   );
 
   const titleRef = useRef(null);
+  const hasWarned = useRef(false); // Strict Mode 중복 실행 방지
 
   useEffect(() => {
+    if (meInfo.admin) {
+      if (hasWarned.current) return;
+
+      hasWarned.current = true;      
+      toast.error("관리자는 질문할 수 없습니다.");
+      localStorage.setItem("ADMIN_TAB", "Questions");
+      navigate("/dashboard/admin");
+    }
+
     const prepareQuestionEntry = async () => {
       const handleTitleKeyDown = (e) => {
         if (e.key === "Tab" && !e.shiftKey) {
