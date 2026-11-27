@@ -1,5 +1,5 @@
 import axios from "axios";
-import { logoutUser } from "../auth/AuthService";
+import { clearLoginUserInfo, logoutUser } from "../auth/AuthService";
 import { TokenRefreshingError } from "./errors";
 import { clearAccessToken, getAccessToken, setAccessToken } from "./tokenStore";
 
@@ -21,17 +21,18 @@ export const refreshAccessToken = async (): Promise<string | null> => {
       validateStatus: (status) =>
         status === 200 || status === 401 || status === 404,
     });
+
     if (response.status === 401 || response.status === 404) {
       return null;
     }
 
-    if (response.status !== 200) {
+    if (response.status === 200) {
+      const aToken: string = response.data.data.token;
+      setAccessToken(aToken);
+      return aToken;
+    } else {
       throw new Error(`refresh failed: ${response.status}`);
     }
-
-    const aToken: string = response.data.data.token;
-    setAccessToken(aToken);
-    return aToken;
   } catch (err) {
     // 네트워크 장애, 5xx 등 진짜 예외만 여기로
     throw new Error(`refresh failed: ${err}`);
@@ -47,7 +48,9 @@ export const getValidToken = async () => {
     token = null;
   }
 
-  if (!token) {
+  if (token) {
+    return token;
+  } else {
     if (!refreshPromise) {
       refreshPromise = refreshAccessToken().finally(() => {
         refreshPromise = null;
@@ -55,8 +58,6 @@ export const getValidToken = async () => {
     }
     token = await refreshPromise; // 실패 시 예외 전파
   }
-
-  return token;
 };
 
 // 빌드 헬퍼

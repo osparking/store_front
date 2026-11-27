@@ -5,10 +5,9 @@ import {
   useEffect,
   useState,
 } from "react";
+import { clearLoginUserInfo } from "../auth/AuthService";
 import { fetchMeInfo } from "../customer/CustomerService";
 import { getValidToken } from "../util/api";
-import { clearAccessToken } from "../util/tokenStore";
-import { removeUserKeys } from "../util/utilities";
 
 const AuthContext = createContext(null);
 
@@ -58,11 +57,12 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const onLogin = () => refreshAuth();
     const onLogout = () => {
-      clearAccessToken(); // 2
+      clearLoginUserInfo();
       setAuthState("anonymous");
       setIdentity(null);
-      removeUserKeys();
+      setMeInfo({});
     };
+
     window.addEventListener("loginEvt", onLogin);
     window.addEventListener("logoutEvt", onLogout);
     return () => {

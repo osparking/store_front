@@ -11,8 +11,9 @@ import {
 } from "react-bootstrap";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import AlertMessage from "../common/AlertMessage";
+import { useAuthContext } from "../common/AuthContext";
 import ProcessSpinner from "../common/ProcessSpinner";
-import { fetchMeInfo, fetchUserInfo } from "../customer/CustomerService";
+import { fetchUserInfo } from "../customer/CustomerService";
 import BsAlertHook from "../hook/BsAlertHook";
 import { useRoot } from "../layout/RootContext";
 import DisableAccountModal from "../modal/DisableAccountModal";
@@ -59,13 +60,11 @@ const UserUpdate = () => {
   const { id: userId } = useParams();
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const [loginId, setLoginId] = useState();
+  const { meInfo } = useAuthContext();
+  const loginId = meInfo.id;
 
   useEffect(() => {
     const readMeInfo = async () => {
-      const me = await fetchMeInfo();
-      setLoginId(me.id);
-
       const user = await fetchUserInfo(userId);
       setUser(user);
     };

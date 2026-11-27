@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { fetchMeInfo } from "../customer/CustomerService";
-import { getAccessToken } from "../util/tokenStore";
+import { useAuthContext } from "../common/AuthContext";
+import { removeUserKeys } from "../util/utilities";
 import { clearLoginUserInfo } from "./AuthService";
 
 const ProtectedRoute = ({ children, allowedRoles = [], useOutlet = false }) => {
@@ -10,12 +11,13 @@ const ProtectedRoute = ({ children, allowedRoles = [], useOutlet = false }) => {
   const hasAlerted = useRef(false); // Strict Mode 중복 실행 방지
 
   // 렌더링 중에 순수하게 상태 확인
-  const loggedIn = !!getAccessToken();
+  const { authState, meInfo } = useAuthContext();
+  const loggedIn = authState === "authenticated";
   const [isAuthorized, setIsAuthorized] = useState(false);
-
+  
   async function notAuthorized() {
-    const user = await fetchMeInfo();
-    const isAuthorized = user?.roles
+    console.log("user: ", meInfo);
+    const isAuthorized = meInfo?.roles
       .map((role) => role.toLowerCase())
       .some((uRole) =>
         allowedRoles.map((r) => r.toLowerCase()).includes(uRole),
@@ -30,26 +32,27 @@ const ProtectedRoute = ({ children, allowedRoles = [], useOutlet = false }) => {
       hasAlerted.current = true;
 
       if (!loggedIn) {
-        clearLoginUserInfo();
+        removeUserKeys();
         sessionStorage.setItem(
           "preLoginUrl",
           location.pathname + location.search,
         );
-        alert("등록 및 로그인이 필요 합니다.");
-        navigate("/login", { state: { from: location }, replace: true });
-      }
-
-      const unAuthorized = await notAuthorized();
-      if (unAuthorized) {
-        clearLoginUserInfo();
-        sessionStorage.setItem(
-          "preLoginUrl",
-          location.pathname + location.search,
-        );
-        alert("권한이 없습니다. 다시 로그인 해주세요.");
+        toast.error("로그인 후 가능합니다.");
         navigate("/login", { state: { from: location }, replace: true });
       } else {
-        setIsAuthorized(true);
+        const unAuthorized = await notAuthorized();
+
+        if (unAuthorized) {
+          clearLoginUserInfo();
+          sessionStorage.setItem(
+            "preLoginUrl",
+            location.pathname + location.search,
+          );
+          toast.error("다른 사용자로 로그인하세요.");
+          navigate("/login", { state: { from: location }, replace: true });
+        } else {
+          setIsAuthorized(true);
+        }
       }
     };
     checkAuth();

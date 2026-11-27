@@ -7,14 +7,13 @@ import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css"; // Import styles
 import { useNavigate } from "react-router-dom";
 import "../../../App.css";
-import { fetchMeInfo } from "../../customer/CustomerService";
+import { useAuthContext } from "../../common/AuthContext";
 import "../../editor/CustomVideoBlot";
 import { useQuillMediaHandlers } from "../../editor/useQuillMediaHandlers";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 import { getPlainContent } from "../../util/utilities";
 import "./QuestionEditor.css";
 import { saveQuestion } from "./QuestionService";
-import { useAuthContext } from "../../common/AuthContext";
 
 function QuestionEditor({
   question,
@@ -25,7 +24,8 @@ function QuestionEditor({
 }) {
   const navigate = useNavigate();
   const [originalQuestion] = useState(question);
-  const [userId, setUserId] = useState(null);
+  const { meInfo } = useAuthContext();
+  const userId = meInfo?.id;
   const [contentUnChanged, setContentUnChanged] = useState(true);
 
   const [title, setTitle] = useState(question ? question.title : "");
@@ -79,8 +79,6 @@ function QuestionEditor({
       ? handleClose() // 질문 댓글 모달 닫고, 질문 목록으로 복귀
       : navigate(-1); // [질문하기] 성분 닫고, 그전 방문지로 귀환
   };
-
-  const { meInfo } = useAuthContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -177,9 +175,6 @@ function QuestionEditor({
 
   useEffect(() => {
     const prepareQuestionEntry = async () => {
-      const user = await fetchMeInfo();
-      setUserId(user.id);
-
       const handleTitleKeyDown = (e) => {
         if (e.key === "Tab" && !e.shiftKey) {
           e.preventDefault();
