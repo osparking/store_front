@@ -33,7 +33,7 @@ export async function getQuestionPage(page, size) {
       "get",
       `${urlPrefix}${page}&size=${size}`,
     );
-    return result.data.data;
+    return result?.data.data;
   } catch (err) {
     throw err;
   }

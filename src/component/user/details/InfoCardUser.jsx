@@ -16,7 +16,6 @@ import { updateUser } from "../UserService";
 import "./UserDetails.css";
 
 const InfoCardUser = ({ user, readOnly, handleDeletion }) => {
-  console.log("user: ", user);
   const [newUser, setNewUser] = useState(user);
 
   const [userDept, setUserDept] = useState(user.dept);

@@ -164,8 +164,28 @@ const Login = () => {
         setAlertError(true);
       }
     } catch (error) {
-      console.error("로그인 실패:", error);
-      setErrorMsg(error.response?.data?.message);
+      let message = "알 수 없는 오류가 발생했습니다.";
+
+      if (!error.response) {
+        // 네트워크 단절 / 서버 다운 / CORS / 타임아웃
+        if (error.code === "ECONNABORTED") {
+          message = "요청 시간이 초과되었습니다. 잠시 후 다시 시도해 주세요.";
+        } else {
+          message = "서버에 연결할 수 없습니다. 잠시 후 다시 시도해 주세요.";
+        }
+      } else if (error.response.status >= 500) {
+        // 백엔드 500 (중단 직전/프록시 에러 포함)
+        message = "서버에 문제가 발생했습니다.";
+      } else if (error.response.status === 401) {
+        message = "이메일 또는 비밀번호가 올바르지 않습니다.";
+      } else if (error.response.status === 403) {
+        message = "접근이 거부되었습니다. 계정 상태를 확인해 주세요.";
+      } else {
+        message =
+          error.response.data?.message ||
+          "로그인에 실패했습니다. 다시 시도해 주세요.";
+      }
+      setErrorMsg(message);
       setAlertError(true);
     }
   };
@@ -196,7 +216,6 @@ const Login = () => {
           content="범이비누(BumSoap) 사이트 로그인 페이지입니다."
         />
         <Card style={{ height: "fit-content", marginTop: 0 }}>
-          {alertError && <AlertMessage type={"danger"} message={errorMsg} />}
           <Card.Body>
             <Card.Title id="login-title" className="text-center mb-4">
               로그인
@@ -265,6 +284,11 @@ const Login = () => {
                   />
                 </InputGroup>
               </Form.Group>
+              {alertError && (
+                <div className="mb-3">
+                  <AlertMessage type={"danger"} message={errorMsg} />
+                </div>
+              )}
               <div className="d-flex justify-content-center">
                 <Button
                   variant="outline-primary"

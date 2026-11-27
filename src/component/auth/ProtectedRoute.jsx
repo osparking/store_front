@@ -16,7 +16,6 @@ const ProtectedRoute = ({ children, allowedRoles = [], useOutlet = false }) => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   
   async function notAuthorized() {
-    console.log("user: ", meInfo);
     const isAuthorized = meInfo?.roles
       .map((role) => role.toLowerCase())
       .some((uRole) =>
