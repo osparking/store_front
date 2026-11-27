@@ -222,9 +222,11 @@ const NavBar = () => {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          <Nav.Link to={"/question"} as={Link}>
-            <span style={{ fontWeight: "bold" }}>질문 등록</span>
-          </Nav.Link>
+          {!meInfo?.admin && (
+            <Nav.Link to={"/question"} as={Link}>
+              <span style={{ fontWeight: "bold" }}>질문 등록</span>
+            </Nav.Link>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>
